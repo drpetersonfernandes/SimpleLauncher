@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -14,34 +15,110 @@ namespace SimpleLauncher
         public MainWindow()
         {
             InitializeComponent();
-            
-            // MaxHeight = height of one cell * maximum number of rows
-            zipFileGrid.MaxHeight = 500 * 4;
 
             // Set the title dynamically
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string folderName = new DirectoryInfo(currentDirectory).Name.TrimEnd('\\');
             this.Title = $"{folderName} Launcher";
 
+            LoadParameters();
             LoadZipFiles();
         }
+                private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); // Closes the application
+        }
 
-        private void LoadZipFiles()
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n08/2023");
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProgramInfo selectedProgram = (ProgramInfo)MyComboBox.SelectedItem;
+            // Do something with selectedProgram
+        }
+
+        public class ProgramInfo
+        {
+            public int Id { get; set; }
+            public string ProgramName { get; set; }
+            public string ProgramLocation { get; set; }
+            public string Parameters { get; set; }
+
+            public override string ToString()
+            {
+                return ProgramName; // Display the program name in the ComboBox
+            }
+        }
+
+        private void LoadParameters()
+        {
+            string filePath = "parameters.txt";
+            List<ProgramInfo> programInfos = new List<ProgramInfo>();
+            ProgramInfo currentProgramInfo = null;
+
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(new[] { ": " }, StringSplitOptions.None);
+                    if (parts.Length == 2)
+                    {
+                        string key = parts[0].Trim();
+                        string value = parts[1].Trim();
+
+                        if (key == "Id")
+                        {
+                            currentProgramInfo = new ProgramInfo();
+                            currentProgramInfo.Id = int.Parse(value);
+                        }
+                        else if (key == "ProgramName")
+                        {
+                            currentProgramInfo.ProgramName = value;
+                        }
+                        else if (key == "ProgramLocation")
+                        {
+                            currentProgramInfo.ProgramLocation = value;
+                        }
+                        else if (key == "Parameters")
+                        {
+                            currentProgramInfo.Parameters = value;
+                            programInfos.Add(currentProgramInfo); // Add to the list once we reach the last attribute
+                        }
+                    }
+                }
+
+                // Now populate the ComboBox
+                MyComboBox.ItemsSource = programInfos;
+            }
+            else
+            {
+                MessageBox.Show("Parameters file not found.");
+            }
+        }
+
+
+        private async void LoadZipFiles()
         {
             try
             {
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string imagesDirectory = Path.Combine(currentDirectory, "images");
+                // Do the heavy lifting in a background task
+                List<string> allFiles = await Task.Run(() =>
+                {
+                    string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string imagesDirectory = Path.Combine(currentDirectory, "images");
+                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                    return fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
+                });
 
-                // Search for zip, 7z, and iso files
-                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso" };
-
-                // LINQ query to get all files with the desired extensions
-                List<string> allFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
-
+                // Once the background task is done, continue on the UI thread.
                 if (!allFiles.Any())
                 {
-                    zipFileGrid.Children.Add(new TextBlock { Text = "Could'n find any ROM or ISO", FontWeight = System.Windows.FontWeights.Bold });
+                    zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM or ISO", FontWeight = FontWeights.Bold });
                     return;
                 }
 
@@ -50,15 +127,15 @@ namespace SimpleLauncher
                 foreach (var filePath in allFiles)
                 {
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-
-                    // Capitalize the first letter of each word
                     fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-                    string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".jpg");
+                    string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string imagesDirectory = Path.Combine(currentDirectory, "images");
+                    string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
 
                     if (!File.Exists(imagePath))
                     {
-                        imagePath = Path.Combine(imagesDirectory, "default.jpg");
+                        imagePath = Path.Combine(imagesDirectory, "default.png");
                     }
 
                     var image = new Image
@@ -75,13 +152,17 @@ namespace SimpleLauncher
                         FontWeight = FontWeights.Bold,
                         TextTrimming = TextTrimming.CharacterEllipsis // Add this line
                     };
+                    textBlock.ToolTip = fileNameWithoutExtension; // Display the full filename on hover
 
                     var stackPanel = new StackPanel
                     {
                         Orientation = Orientation.Vertical,
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Height = 250,
+                        MaxHeight = 250 // This limits the maximum height
                     };
+
 
                     stackPanel.Children.Add(image);
                     stackPanel.Children.Add(textBlock);
@@ -89,28 +170,35 @@ namespace SimpleLauncher
                     var button = new Button
                     {
                         Content = stackPanel,
-                        Height = 400,
+                        Height = 250, // You have this line already, this sets the default height
+                        MaxHeight = 250, // This limits the maximum height
                         HorizontalContentAlignment = HorizontalAlignment.Center,
                         VerticalContentAlignment = VerticalAlignment.Top
                     };
 
-                    // Assign the Click event handler
+                     // Assign the Click event handler
                     button.Click += (sender, e) =>
                     {
-                        // Specify the batch file and the argument
-                        string batchFilePath = @"C:\Path\To\Your\BatchFile.bat";
-                        string Filename = Path.GetFileName(filePath);  // Get the full filename including extension
-
-                        if (File.Exists(batchFilePath))
+                        try
                         {
-                            ProcessStartInfo psi = new ProcessStartInfo(batchFilePath, Filename);
+                            string scriptFilePath = @".\scriptfile.ps1";  // Assuming the file is named scriptfile.ps1
+                            string Filename = Path.GetFileName(filePath);  // Get the full filename including extension
 
-                            // Execute the batch file
-                            Process.Start(psi);
+                            if (File.Exists(scriptFilePath))
+                            {
+                                ProcessStartInfo psi = new ProcessStartInfo("PowerShell", $"-ExecutionPolicy Bypass -File {scriptFilePath} -var \"{Filename}\"");
+                                // Attempt to execute the PowerShell script
+                                Process.Start(psi);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Script file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Batch file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            // An exception occurred while trying to start the process
+                            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     };
 

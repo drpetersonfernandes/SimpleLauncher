@@ -1,15 +1,38 @@
-﻿<Window x:Class="SimpleLauncher.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="List Zip Files" WindowState="Maximized">
+﻿<Window
+    x:Class="SimpleLauncher.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Simple Launcher"
+    WindowState="Maximized"
+    mc:Ignorable="d">
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" VerticalAlignment="Top">
+            <MenuItem Click="About_Click" Header="About" />
+            <MenuItem Click="Exit_Click" Header="Exit" />
+        </Menu>
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Content="Select Emulator:" />
+            <ComboBox
+                Name="MyComboBox"
+                Width="500"
+                VerticalAlignment="Center"
+                SelectionChanged="ComboBox_SelectionChanged">
+            </ComboBox>
+        </StackPanel>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <UniformGrid Name="zipFileGrid" Columns="5">
-                <!-- Cells will be added here dynamically -->
+                <!--  Cells will be added here dynamically  -->
             </UniformGrid>
         </ScrollViewer>
     </Grid>
