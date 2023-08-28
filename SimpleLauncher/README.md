@@ -1,4 +1,4 @@
-﻿Simple Launcher
+Simple Launcher
 ===============
 
 A simple emulator launcher for Windows.
