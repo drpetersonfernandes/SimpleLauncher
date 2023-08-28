@@ -97,7 +97,7 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("Parameters file not found.");
+                MessageBox.Show("parameters.txt not found");
             }
         }
 
@@ -176,23 +176,54 @@ namespace SimpleLauncher
                         VerticalContentAlignment = VerticalAlignment.Top
                     };
 
-                     // Assign the Click event handler
-                    button.Click += (sender, e) =>
+                    button.Click += async (sender, e) =>
                     {
                         try
                         {
-                            string scriptFilePath = @".\scriptfile.ps1";  // Assuming the file is named scriptfile.ps1
-                            string Filename = Path.GetFileName(filePath);  // Get the full filename including extension
-
-                            if (File.Exists(scriptFilePath))
+                            if (MyComboBox.SelectedItem is ProgramInfo selectedProgram)
                             {
-                                ProcessStartInfo psi = new ProcessStartInfo("PowerShell", $"-ExecutionPolicy Bypass -File {scriptFilePath} -var \"{Filename}\"");
-                                // Attempt to execute the PowerShell script
-                                Process.Start(psi);
+                                string programLocation = selectedProgram.ProgramLocation;
+                                string parameters = selectedProgram.Parameters;
+                                string filename = Path.GetFileName(filePath);  // Get the full filename including extension
+
+                                // Combine the parameters and filename
+                                string arguments = $"{parameters} \"{filename}\"";
+
+
+                                // Output the entire argument to console
+                                Console.WriteLine("Arguments passed to the external program:");
+                                Console.WriteLine(arguments);
+
+                                // Create ProcessStartInfo
+                                ProcessStartInfo psi = new ProcessStartInfo
+                                {
+                                    FileName = programLocation,
+                                    Arguments = arguments,
+                                    UseShellExecute = false,
+                                    RedirectStandardOutput = true,
+                                    RedirectStandardError = true
+                                };
+
+                                // Launch the external program
+                                Process process = new Process { StartInfo = psi };
+                                process.Start();
+
+                                // Read the output streams
+                                string output = await process.StandardOutput.ReadToEndAsync();
+                                string error = await process.StandardError.ReadToEndAsync();
+
+                                // Wait for the process to exit
+                                process.WaitForExit();
+
+                                // Output to console
+                                Console.WriteLine("Standard Output:");
+                                Console.WriteLine(output);
+                                Console.WriteLine("Standard Error:");
+                                Console.WriteLine(error);
                             }
                             else
                             {
-                                MessageBox.Show("Script file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Please select an emulator", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         catch (Exception ex)
@@ -201,6 +232,36 @@ namespace SimpleLauncher
                             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     };
+
+
+
+
+
+                    /* Assign the Click event handler
+                   button.Click += (sender, e) =>
+                   {
+                       try
+                       {
+                           string scriptFilePath = @".\scriptfile.ps1";  // Assuming the file is named scriptfile.ps1
+                           string Filename = Path.GetFileName(filePath);  // Get the full filename including extension
+
+                           if (File.Exists(scriptFilePath))
+                           {
+                               ProcessStartInfo psi = new ProcessStartInfo("PowerShell", $"-ExecutionPolicy Bypass -File {scriptFilePath} -var \"{Filename}\"");
+                               // Attempt to execute the PowerShell script
+                               Process.Start(psi);
+                           }
+                           else
+                           {
+                               MessageBox.Show("Script file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                           }
+                       }
+                       catch (Exception ex)
+                       {
+                           // An exception occurred while trying to start the process
+                           MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                       }
+                   };*/
 
 
                     zipFileGrid.Children.Add(button);
