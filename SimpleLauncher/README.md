@@ -12,7 +12,7 @@ All the emulator settings and parameters are store in the file parameters.txt, l
 
 The format of the parameters.txt file is the following:
 
-============================================================
+
 
 Id: 1
 ProgramName: ProgramName
@@ -24,7 +24,8 @@ ProgramName: Retroarch
 ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
 Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
 
-============================================================
+
+
 You can add as many emulator as you want. The ProgramName is the name that will be display in the combo box. The ProgramLocation is the path to the emulator executable. The Parameters is the parameters that will be pass to the emulator executable. Please follow the format provided in this exemple.
 
 When the user click on the selected grid, the program with launch the selected emulator + parameters + file to be launch.
