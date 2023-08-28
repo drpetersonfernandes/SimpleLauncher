@@ -1,11 +1,35 @@
-# SimpleLauncher
+Simple Launcher
+===============
 
-A Simple Emulator Frontend.
-The program list all the zip, 7z and iso files in the current folder.
-Then load image file, with the same filename, from image folder.
-Then display both in a grid layout.
-User has the option to click the combo Image + Filename.
-The click launch a batchfile with parameters that launch the emulator with the selected file.
-The launcher must be in the same folder of the roms or isos.
-The batchfile must be named batchfile.bat and be in the same folder of the launcher.
-Write in c# wpf .NETFramework v4.8
+A simple emulator launcher for Windows.
+
+This program search for any ZIP, 7Z or ISO file in the current directory.
+Then it display the list of files in a grid with cover image (on top) and the filename (at botton).
+The cover images need to have the same filename as the file to be launch. All the images need to be placed inside the images folder. The images need to be in png format. It is recommended that the image has the width less than 200 pixels and the height of 200 pixels. If you use a higger resolution image it will consume more memory. If the main program don't find an image with the same filename inside the images folder it will load default.png.
+
+On the top of the program there is a combo box that allow the user to select the emulator to use.
+All the emulator settings and parameters are store in the file parameters.txt, located in the current directory.
+
+The format of the parameters.txt file is the following:
+
+Id: 1
+ProgramName: ProgramName
+ProgramLocation: ProgramLocation
+Parameters: Parameters
+
+Id: 2
+ProgramName: Retroarch
+ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
+Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
+
+You can add as many emulator as you want. The ProgramName is the name that will be display in the combo box. The ProgramLocation is the path to the emulator executable. The Parameters is the parameters that will be pass to the emulator executable. Please follow the format provided in this exemple.
+
+When the user click on the selected grid, the program with launch the selected emulator + parameters + file to be launch.
+
+This is a windows only program. It was tested on Windows 11.
+
+There are some fix that need to be done and more error checking to be implemented. The program is not perfect. But it work.
+
+Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0
+Windows Presentation Foundation (WPF) Framework
+Microsoft .NET Framework Version 4.8.09032
