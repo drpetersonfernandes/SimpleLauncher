@@ -13,6 +13,7 @@ All the emulator settings and parameters are store in the file parameters.txt, l
 The format of the parameters.txt file is the following:
 
 ============================================================
+
 Id: 1
 ProgramName: ProgramName
 ProgramLocation: ProgramLocation
