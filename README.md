@@ -40,6 +40,6 @@ This is a windows only program. It was tested on Windows 11.
 
 There are some fix that need to be done and more error checking to be implemented. The program is not perfect. But it work.
 
-Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0<br>
+*Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0<br>
 Windows Presentation Foundation (WPF) Framework<br>
-Microsoft .NET Framework Version 4.8.09032
+Microsoft .NET Framework Version 4.8.09032*
