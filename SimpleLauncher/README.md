@@ -1,4 +1,4 @@
-Simple Launcher
+**Simple Launcher**
 ===============
 
 A simple emulator launcher for Windows.
@@ -10,10 +10,12 @@ The cover images need to have the same filename as the file to be launch. All th
 On the top of the program there is a combo box that allow the user to select the emulator to use.
 All the emulator settings and parameters are store in the file parameters.txt, located in the current directory.
 
+
+
 The format of the parameters.txt file is the following:
 
-
-
+<pre>
+```plaintext
 Id: 1
 ProgramName: ProgramName
 ProgramLocation: ProgramLocation
@@ -23,6 +25,8 @@ Id: 2
 ProgramName: Retroarch
 ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
 Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
+```
+</pre>
 
 
 
@@ -32,7 +36,7 @@ When the user click on the selected grid, the program with launch the selected e
 
 This is a windows only program. It was tested on Windows 11.
 
-There are some fix that need to be done and more error checking to be implemented. The program is not perfect. But it work.
+There are some fix that need to be done. The program is not perfect. But it work.
 
 Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0
 Windows Presentation Foundation (WPF) Framework
