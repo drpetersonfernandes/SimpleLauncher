@@ -37,3 +37,9 @@ There are some fix that need to be done and more error checking to be implemente
 Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0
 Windows Presentation Foundation (WPF) Framework
 Microsoft .NET Framework Version 4.8.09032
+
+Screenshots
+
+![Screenshot (1)](screenshot%20(1).jpg)
+
+![Screenshot (2)](screenshot%20(2).jpg)
