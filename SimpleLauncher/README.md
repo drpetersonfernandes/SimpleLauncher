@@ -15,7 +15,6 @@ All the emulator settings and parameters are store in the file parameters.txt, l
 The format of the parameters.txt file is the following:
 
 <pre>
-```plaintext
 Id: 1
 ProgramName: ProgramName
 ProgramLocation: ProgramLocation
@@ -25,7 +24,6 @@ Id: 2
 ProgramName: Retroarch
 ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
 Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
-```
 </pre>
 
 
