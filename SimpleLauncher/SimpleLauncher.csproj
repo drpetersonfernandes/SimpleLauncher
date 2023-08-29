@@ -127,7 +127,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="README.md" />
     <None Include="SimpleLauncher_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="screenshot %281%29.jpg" />
-    <Resource Include="screenshot %282%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

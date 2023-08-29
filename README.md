@@ -1,7 +1,11 @@
-Simple Launcher
+**Simple Launcher**
 ===============
 
 A simple emulator launcher for Windows.
+
+![Screenshot (1)](screenshot%20(1).jpg)
+
+![Screenshot (2)](screenshot%20(2).jpg)
 
 This program search for any ZIP, 7Z or ISO file in the current directory.
 Then it display the list of files in a grid with cover image (on top) and the filename (at botton).
@@ -13,6 +17,7 @@ All the emulator settings and parameters are store in the file parameters.txt, l
 The format of the parameters.txt file is the following:
 
 
+<pre>
 
 Id: 1
 ProgramName: ProgramName
@@ -23,6 +28,7 @@ Id: 2
 ProgramName: Retroarch
 ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
 Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
+</pre>
 
 
 
