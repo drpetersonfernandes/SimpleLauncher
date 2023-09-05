@@ -178,6 +178,8 @@ namespace SimpleLauncher
 
                     button.Click += async (sender, e) =>
                     {
+                        ProcessStartInfo psi = null; // Declare the variable here
+
                         try
                         {
                             if (MyComboBox.SelectedItem is ProgramInfo selectedProgram)
@@ -195,7 +197,7 @@ namespace SimpleLauncher
                                 Console.WriteLine(arguments);
 
                                 // Create ProcessStartInfo
-                                ProcessStartInfo psi = new ProcessStartInfo
+                                psi = new ProcessStartInfo
                                 {
                                     FileName = programLocation,
                                     Arguments = arguments,
@@ -220,6 +222,15 @@ namespace SimpleLauncher
                                 Console.WriteLine(output);
                                 Console.WriteLine("Standard Error:");
                                 Console.WriteLine(error);
+
+                                if (process.ExitCode != 0) // Check if the process exited with an error code
+                                {
+                                    // External program did not start successfully, write to error log
+                                    string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
+                                    string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
+                                    errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                                    File.WriteAllText(errorLogPath, errorMessage);
+                                }
                             }
                             else
                             {
@@ -230,38 +241,17 @@ namespace SimpleLauncher
                         {
                             // An exception occurred while trying to start the process
                             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            // Write the exception details to the error log
+                            string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
+                            string errorDetails = $"Exception Details:\n{ex.ToString()}\n";
+                            if (psi != null)
+                            {
+                                errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                            }
+                            File.WriteAllText(errorLogPath, errorDetails);
                         }
                     };
 
-
-
-
-
-                    /* Assign the Click event handler
-                   button.Click += (sender, e) =>
-                   {
-                       try
-                       {
-                           string scriptFilePath = @".\scriptfile.ps1";  // Assuming the file is named scriptfile.ps1
-                           string Filename = Path.GetFileName(filePath);  // Get the full filename including extension
-
-                           if (File.Exists(scriptFilePath))
-                           {
-                               ProcessStartInfo psi = new ProcessStartInfo("PowerShell", $"-ExecutionPolicy Bypass -File {scriptFilePath} -var \"{Filename}\"");
-                               // Attempt to execute the PowerShell script
-                               Process.Start(psi);
-                           }
-                           else
-                           {
-                               MessageBox.Show("Script file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                           }
-                       }
-                       catch (Exception ex)
-                       {
-                           // An exception occurred while trying to start the process
-                           MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                       }
-                   };*/
 
 
                     zipFileGrid.Children.Add(button);
