@@ -26,6 +26,9 @@ namespace SimpleLauncher
 
             Button selectedButton = null; // A reference to the currently selected button
 
+            Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
+
+
             foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
             {
                 Button button = new Button { Content = c.ToString(), Width = 30, Height = 30 };
@@ -46,6 +49,9 @@ namespace SimpleLauncher
 
                     LoadZipFiles(c.ToString());
                 };
+
+                // Add button to the dictionary
+                letterButtons.Add(c.ToString(), button);
 
                 letterPanel.Children.Add(button);
             }
@@ -68,6 +74,7 @@ namespace SimpleLauncher
 
                 LoadZipFiles("#");
             };
+
             letterPanel.Children.Add(numButton);
 
 
@@ -76,7 +83,14 @@ namespace SimpleLauncher
             ((Grid)this.Content).Children.Add(letterPanel);
 
             LoadParameters();
-            LoadZipFiles("A");  // Initial load set to 'A'
+            //LoadZipFiles("A");  // Initial load set to 'A'
+
+            // Simulate a click on the "A" button
+            if (letterButtons.ContainsKey("A"))
+            {
+                Button aButton = letterButtons["A"];
+                aButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
         }
 
 
@@ -228,8 +242,8 @@ namespace SimpleLauncher
                     var stackPanel = new StackPanel
                     {
                         Orientation = Orientation.Vertical,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
                         Height = 250,
                         MaxHeight = 250 // This limits the maximum height
                     };
@@ -244,7 +258,7 @@ namespace SimpleLauncher
                         Height = 250, // You have this line already, this sets the default height
                         MaxHeight = 250, // This limits the maximum height
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Top,
+                        VerticalContentAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0),
                         Padding = new Thickness(0)
                     };
