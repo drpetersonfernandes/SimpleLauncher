@@ -70,6 +70,7 @@ namespace SimpleLauncher
             };
             letterPanel.Children.Add(numButton);
 
+
             // Add the StackPanel to the Grid
             Grid.SetRow(letterPanel, 1);
             ((Grid)this.Content).Children.Add(letterPanel);
@@ -243,7 +244,9 @@ namespace SimpleLauncher
                         Height = 250, // You have this line already, this sets the default height
                         MaxHeight = 250, // This limits the maximum height
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Top
+                        VerticalContentAlignment = VerticalAlignment.Top,
+                        Margin = new Thickness(0),
+                        Padding = new Thickness(0)
                     };
 
                     button.Click += async (sender, e) =>
