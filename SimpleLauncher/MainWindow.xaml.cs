@@ -125,6 +125,8 @@ namespace SimpleLauncher
         {
             try
             {
+                // Clear existing grids
+                zipFileGrid.Children.Clear();
                 // Do the heavy lifting in a background task
                 List<string> allFiles = await Task.Run(() =>
                 {
