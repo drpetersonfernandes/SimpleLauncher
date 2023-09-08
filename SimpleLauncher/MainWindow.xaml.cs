@@ -21,8 +21,27 @@ namespace SimpleLauncher
             string folderName = new DirectoryInfo(currentDirectory).Name.TrimEnd('\\');
             this.Title = $"{folderName} Launcher";
 
+            // Create buttons for each letter and add a Click event
+            StackPanel letterPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
+            {
+                Button button = new Button { Content = c.ToString(), Width = 30, Height = 30 };
+                button.Click += (sender, e) => LoadZipFiles(c.ToString());
+                letterPanel.Children.Add(button);
+            }
+
+            // Add button for numbers
+            Button numButton = new Button { Content = "#", Width = 30, Height = 30 };
+            numButton.Click += (sender, e) => LoadZipFiles("#");
+            letterPanel.Children.Add(numButton);
+
+            // Add the StackPanel to the Grid
+            Grid.SetRow(letterPanel, 1);
+            ((Grid)this.Content).Children.Add(letterPanel);
+
+
             LoadParameters();
-            LoadZipFiles();
+            LoadZipFiles("A");
         }
                 private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -31,12 +50,12 @@ namespace SimpleLauncher
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n08/2023");
+            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n09/2023");
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ProgramInfo selectedProgram = (ProgramInfo)MyComboBox.SelectedItem;
+            //ProgramInfo selectedProgram = (ProgramInfo)MyComboBox.SelectedItem;
             // Do something with selectedProgram
         }
 
@@ -73,8 +92,8 @@ namespace SimpleLauncher
 
                         if (key == "Id")
                         {
-                            currentProgramInfo = new ProgramInfo();
-                            currentProgramInfo.Id = int.Parse(value);
+                            currentProgramInfo = new ProgramInfo { Id = int.Parse(value) };
+
                         }
                         else if (key == "ProgramName")
                         {
@@ -102,7 +121,7 @@ namespace SimpleLauncher
         }
 
 
-        private async void LoadZipFiles()
+        private async void LoadZipFiles(string startLetter = null)
         {
             try
             {
@@ -118,8 +137,21 @@ namespace SimpleLauncher
                 // Once the background task is done, continue on the UI thread.
                 if (!allFiles.Any())
                 {
-                    zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM or ISO", FontWeight = FontWeights.Bold });
+                    zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM", FontWeight = FontWeights.Bold });
                     return;
+                }
+
+                // Filter files based on the starting letter or number if provided
+                if (!string.IsNullOrEmpty(startLetter))
+                {
+                    if (startLetter == "#")
+                    {
+                        allFiles = allFiles.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
+                    }
+                    else
+                    {
+                        allFiles = allFiles.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+                    }
                 }
 
                 allFiles.Sort();
@@ -243,7 +275,7 @@ namespace SimpleLauncher
                             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             // Write the exception details to the error log
                             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-                            string errorDetails = $"Exception Details:\n{ex.ToString()}\n";
+                            string errorDetails = $"Exception Details:\n{ex}\n";
                             if (psi != null)
                             {
                                 errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
