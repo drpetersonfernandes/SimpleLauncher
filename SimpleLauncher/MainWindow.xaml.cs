@@ -23,27 +23,63 @@ namespace SimpleLauncher
 
             // Create buttons for each letter and add a Click event
             StackPanel letterPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            Button selectedButton = null; // A reference to the currently selected button
+
             foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
             {
                 Button button = new Button { Content = c.ToString(), Width = 30, Height = 30 };
-                button.Click += (sender, e) => LoadZipFiles(c.ToString());
+
+                button.Click += (sender, e) =>
+                {
+                    // Reset the style of the previously selected button
+                    if (selectedButton != null)
+                    {
+                        selectedButton.ClearValue(Button.BackgroundProperty);
+                    }
+
+                    // Update the style of the currently selected button
+                    button.Background = System.Windows.Media.Brushes.Green;
+
+                    // Update the selectedButton reference
+                    selectedButton = button;
+
+                    LoadZipFiles(c.ToString());
+                };
+
                 letterPanel.Children.Add(button);
             }
 
             // Add button for numbers
             Button numButton = new Button { Content = "#", Width = 30, Height = 30 };
-            numButton.Click += (sender, e) => LoadZipFiles("#");
+            numButton.Click += (sender, e) =>
+            {
+                // Reset the style of the previously selected button
+                if (selectedButton != null)
+                {
+                    selectedButton.ClearValue(Button.BackgroundProperty);
+                }
+
+                // Update the style of the currently selected button
+                numButton.Background = System.Windows.Media.Brushes.Green;
+
+                // Update the selectedButton reference
+                selectedButton = numButton;
+
+                LoadZipFiles("#");
+            };
             letterPanel.Children.Add(numButton);
 
             // Add the StackPanel to the Grid
             Grid.SetRow(letterPanel, 1);
             ((Grid)this.Content).Children.Add(letterPanel);
 
-
             LoadParameters();
-            LoadZipFiles("A");
+            LoadZipFiles("A");  // Initial load set to 'A'
         }
-                private void Exit_Click(object sender, RoutedEventArgs e)
+
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close(); // Closes the application
         }
