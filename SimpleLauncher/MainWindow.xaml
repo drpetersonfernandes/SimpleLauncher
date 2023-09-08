@@ -13,9 +13,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
+            <MenuItem Header="Utilities">
+                <MenuItem Header="Check Missing Images" Click="CheckMissingImages_Click"/>
+            </MenuItem>
             <MenuItem Click="About_Click" Header="About" />
             <MenuItem Click="Exit_Click" Header="Exit" />
         </Menu>
@@ -35,9 +38,12 @@
             </ComboBox>
         </StackPanel>
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible">
-            <UniformGrid Name="zipFileGrid" Columns="5">
-                <!--  Cells will be added here dynamically  -->
-            </UniformGrid>
+            <!--<UniformGrid Name="zipFileGrid" Columns="5">
+                --><!--  Cells will be added here dynamically  --><!--
+            </UniformGrid>-->
+            <WrapPanel x:Name="zipFileGrid" Orientation="Horizontal">
+                <!-- Items will be added here programmatically -->
+            </WrapPanel>
         </ScrollViewer>
     </Grid>
 </Window>

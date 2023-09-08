@@ -93,16 +93,66 @@ namespace SimpleLauncher
             }
         }
 
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void CheckMissingImages_Click(object sender, RoutedEventArgs e)
         {
-            this.Close(); // Closes the application
+            CheckMissingImages();
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n09/2023");
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); // Closes the application
+        }
+
+        private void CheckMissingImages()
+        {
+            try
+            {
+                // Path to the program directory and the images sub-directory
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string imagesDirectory = Path.Combine(currentDirectory, "images");
+
+                // Get all zip, 7z, and iso files in the program directory
+                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                List<string> allFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .ToList();
+
+                // Create an empty list to hold missing image files
+                List<string> missingImages = new List<string>();
+
+                // Check if each corresponding image exists in the images directory
+                foreach (var fileName in allFiles)
+                {
+                    string imagePath = Path.Combine(imagesDirectory, fileName + ".png");
+                    if (!File.Exists(imagePath))
+                    {
+                        missingImages.Add(fileName);
+                    }
+                }
+
+                // Write the missing image files to a text file
+                if (missingImages.Any())
+                {
+                    string missingImagesPath = Path.Combine(currentDirectory, "missingimages.txt");
+                    File.WriteAllLines(missingImagesPath, missingImages);
+                    MessageBox.Show("Missing images found. Check missingimages.txt for details.");
+                }
+                else
+                {
+                    MessageBox.Show("No missing images found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -242,8 +292,9 @@ namespace SimpleLauncher
                     var stackPanel = new StackPanel
                     {
                         Orientation = Orientation.Vertical,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Width = 300,
                         Height = 250,
                         MaxHeight = 250 // This limits the maximum height
                     };
@@ -255,6 +306,7 @@ namespace SimpleLauncher
                     var button = new Button
                     {
                         Content = stackPanel,
+                        Width = 300,
                         Height = 250, // You have this line already, this sets the default height
                         MaxHeight = 250, // This limits the maximum height
                         HorizontalContentAlignment = HorizontalAlignment.Center,
