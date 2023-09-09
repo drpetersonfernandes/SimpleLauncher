@@ -83,7 +83,39 @@ namespace SimpleLauncher
             ((Grid)this.Content).Children.Add(letterPanel);
 
             LoadParameters();
-            //LoadZipFiles("A");  // Initial load set to 'A'
+
+            // Add this block to read the parameters.txt file and set the default selected item
+            string parametersPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "parameters.txt");
+            if (File.Exists(parametersPath))
+            {
+                string[] lines = System.IO.File.ReadAllLines(parametersPath);
+                string defaultProgramName = null;
+
+                foreach (string line in lines)
+                {
+                    if (line.StartsWith("ProgramName: "))
+                    {
+                        defaultProgramName = line.Substring("ProgramName: ".Length);
+                        break;
+                    }
+                }
+
+                if (defaultProgramName != null)
+                {
+                    // Assuming EmulatorComboBox is your ComboBox and it has a property `Items` that you've populated
+                    foreach (var item in MyComboBox.Items)
+                    {
+                        if (item.ToString() == defaultProgramName)  // Replace `item.ToString()` with how you'd get the ProgramName from your item
+                        {
+                            MyComboBox.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Initial load set to 'A'
+            //LoadZipFiles("A");
 
             // Simulate a click on the "A" button
             if (letterButtons.ContainsKey("A"))
@@ -146,6 +178,53 @@ namespace SimpleLauncher
                 {
                     MessageBox.Show("No missing images found.");
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+
+        private void MoveWrongImages_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string imagesDirectory = Path.Combine(currentDirectory, "images");
+                string wrongImagesDirectory = Path.Combine(currentDirectory, "wrongimages");
+
+                // Step 1
+                var validExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                var validFileNames = validExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
+                                                    .Select(Path.GetFileNameWithoutExtension)
+                                                    .ToList();
+
+                // Step 4
+                validFileNames.Add("default");
+
+                // Create the wrongimages directory if it doesn't exist
+                if (!Directory.Exists(wrongImagesDirectory))
+                {
+                    Directory.CreateDirectory(wrongImagesDirectory);
+                }
+
+                // Step 2 & 3
+                var imageFiles = Directory.GetFiles(imagesDirectory, "*.png");
+
+                foreach (var imageFile in imageFiles)
+                {
+                    string imageName = Path.GetFileNameWithoutExtension(imageFile);
+
+                    if (!validFileNames.Contains(imageName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        // Step 5
+                        string destinationPath = Path.Combine(wrongImagesDirectory, Path.GetFileName(imageFile));
+                        File.Move(imageFile, destinationPath);
+                    }
+                }
+
+                // Step 6
+                MessageBox.Show("Wrong images were moved to the wrongimages folder.");
             }
             catch (Exception ex)
             {

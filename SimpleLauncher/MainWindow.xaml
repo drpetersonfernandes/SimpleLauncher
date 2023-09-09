@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Simple Launcher" MinWidth="830" Width="830" WindowState="Maximized"
-    
+    Title="Simple Launcher"
+    Width="830"
+    MinWidth="830"
+    WindowState="Maximized"
     mc:Ignorable="d">
 
     <Grid Name="Grid">
@@ -17,13 +19,28 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Utilities">
-                <MenuItem Header="Check Missing Images" Click="CheckMissingImages_Click"/>
+                <MenuItem Click="CheckMissingImages_Click" Header="Check Missing Images">
+                    <MenuItem.Icon>
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="images/check.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="MoveWrongImages_Click" Header="Move Wrong Images">
+                    <MenuItem.Icon>
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="images/move.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Click="About_Click" Header="About" />
             <MenuItem Click="Exit_Click" Header="Exit" />
         </Menu>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <!-- Dynamically add letter buttons here or define them manually in XAML -->
+            <!--  Dynamically add letter buttons here or define them manually in XAML  -->
         </StackPanel>
         <StackPanel
             Grid.Row="2"
@@ -34,15 +51,16 @@
                 Name="MyComboBox"
                 Width="716"
                 VerticalAlignment="Center"
-                SelectionChanged="ComboBox_SelectionChanged">
-            </ComboBox>
+                SelectionChanged="ComboBox_SelectionChanged" />
         </StackPanel>
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible">
             <!--<UniformGrid Name="zipFileGrid" Columns="5">
-                --><!--  Cells will be added here dynamically  --><!--
+            -->
+            <!--  Cells will be added here dynamically  -->
+            <!--
             </UniformGrid>-->
             <WrapPanel x:Name="zipFileGrid" Orientation="Horizontal">
-                <!-- Items will be added here programmatically -->
+                <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>
     </Grid>
