@@ -406,9 +406,11 @@ namespace SimpleLauncher
                                 string parameters = selectedProgram.Parameters;
                                 string filename = Path.GetFileName(filePath);  // Get the full filename including extension
 
-                                // Combine the parameters and filename
-                                string arguments = $"{parameters} \"{filename}\"";
+                                //// Combine the parameters and filename
+                                //string arguments = $"{parameters} \"{filename}\"";
 
+                                // Combine the parameters and filename with full path
+                                string arguments = $"{parameters} \"{filePath}\"";
 
                                 // Output the entire argument to console
                                 Console.WriteLine("Arguments passed to the external program:");
