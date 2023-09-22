@@ -36,6 +36,27 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+
+            <MenuItem Header="Show">
+                <MenuItem Click="HideGames_Click" Header="Hide Games With No Cover">
+                    <MenuItem.Icon>
+                        <Image
+                Width="16"
+                Height="16"
+                Source="images/check.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="ShowGames_Click" Header="Show All Games">
+                    <MenuItem.Icon>
+                        <Image
+                Width="16"
+                Height="16"
+                Source="images/move.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+
             <MenuItem Click="About_Click" Header="About" />
             <MenuItem Click="Exit_Click" Header="Exit" />
         </Menu>
