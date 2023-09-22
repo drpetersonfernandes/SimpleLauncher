@@ -300,6 +300,34 @@ namespace SimpleLauncher
             }
         }
 
+        private void HideGames_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in zipFileGrid.Children)
+            {
+                if (child is Button btn && btn.Content is StackPanel sp)
+                {
+                    var image = sp.Children.OfType<Image>().FirstOrDefault();
+                    if (image != null && image.Source is BitmapImage bmp && bmp.UriSource.LocalPath.EndsWith("default.png"))
+                    {
+                        btn.Visibility = Visibility.Collapsed; // hide the button
+                    }
+                }
+            }
+        }
+
+
+        private void ShowGames_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in zipFileGrid.Children)
+            {
+                if (child is Button btn)
+                {
+                    btn.Visibility = Visibility.Visible; // Show the button
+                }
+            }
+        }
+
+
 
         private async void LoadZipFiles(string startLetter = null)
         {

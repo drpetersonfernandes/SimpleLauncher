@@ -155,5 +155,9 @@
     <Resource Include="images\check.png" />
     <Resource Include="images\move.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\hidegames.png" />
+    <Resource Include="images\showallgames.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
