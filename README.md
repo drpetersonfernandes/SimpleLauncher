@@ -12,7 +12,7 @@ This program search for any ZIP, 7Z or ISO file in the current directory.
 Then it display the list of files in a grid with cover image (on top) and the filename (at botton).
 
 
-The cover images need to have the same filename as the file to be launch. All the images need to be placed inside the images folder. The images need to be in png format. It is recommended that the image has the width less than 200 pixels and the height of 200 pixels. If you use a higger resolution image it will consume more memory. If the main program don't find an image with the same filename inside the images folder it will load default.png.
+The cover images need to have the same filename as the file to be launch. All the images need to be placed inside the images folder. The images need to be in png format. It is recommended that the image has the height of 200 pixels. If you use a higger resolution image it will consume more memory. If the main program don't find an image with the same filename inside the images folder it will load default.png.
 
 
 On the top of the program there is a combo box that allow the user to select the emulator to use.
