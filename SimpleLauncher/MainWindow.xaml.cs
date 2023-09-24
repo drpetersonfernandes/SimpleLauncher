@@ -132,7 +132,7 @@ namespace SimpleLauncher
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n09/2023");
+            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n09/2023", "About");
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
