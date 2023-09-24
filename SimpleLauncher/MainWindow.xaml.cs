@@ -148,8 +148,8 @@ namespace SimpleLauncher
                 string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string imagesDirectory = Path.Combine(currentDirectory, "images");
 
-                // Get all zip, 7z, and iso files in the program directory
-                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                // Get all game files in the program directory
+                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
                 List<string> allFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
                     .Select(Path.GetFileNameWithoutExtension)
                     .ToList();
@@ -194,7 +194,7 @@ namespace SimpleLauncher
                 string wrongImagesDirectory = Path.Combine(currentDirectory, "wrongimages");
 
                 // Step 1
-                var validExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                var validExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
                 var validFileNames = validExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
                                                     .Select(Path.GetFileNameWithoutExtension)
                                                     .ToList();
@@ -340,7 +340,7 @@ namespace SimpleLauncher
                 {
                     string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                     string imagesDirectory = Path.Combine(currentDirectory, "images");
-                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso" };
+                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
                     return fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
                 });
 
