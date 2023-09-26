@@ -41,17 +41,17 @@
                 <MenuItem Click="HideGames_Click" Header="Hide Games With No Cover">
                     <MenuItem.Icon>
                         <Image
-                Width="16"
-                Height="16"
-                Source="images/hidegames.png" />
+                            Width="16"
+                            Height="16"
+                            Source="images/hidegames.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ShowGames_Click" Header="Show All Games">
                     <MenuItem.Icon>
                         <Image
-                Width="16"
-                Height="16"
-                Source="images/showallgames.png" />
+                            Width="16"
+                            Height="16"
+                            Source="images/showallgames.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

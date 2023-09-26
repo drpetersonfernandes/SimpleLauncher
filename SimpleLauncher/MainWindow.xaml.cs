@@ -114,9 +114,6 @@ namespace SimpleLauncher
                 }
             }
 
-            // Initial load set to 'A'
-            //LoadZipFiles("A");
-
             // Simulate a click on the "A" button
             if (letterButtons.ContainsKey("A"))
             {
@@ -149,7 +146,7 @@ namespace SimpleLauncher
                 string imagesDirectory = Path.Combine(currentDirectory, "images");
 
                 // Get all game files in the program directory
-                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
+                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
                 List<string> allFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
                     .Select(Path.GetFileNameWithoutExtension)
                     .ToList();
@@ -194,7 +191,7 @@ namespace SimpleLauncher
                 string wrongImagesDirectory = Path.Combine(currentDirectory, "wrongimages");
 
                 // Step 1
-                var validExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
+                var validExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
                 var validFileNames = validExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
                                                     .Select(Path.GetFileNameWithoutExtension)
                                                     .ToList();
@@ -327,7 +324,17 @@ namespace SimpleLauncher
             }
         }
 
-
+        private string DetermineImagePath(string fileNameWithoutExtension)
+        {
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string imagesDirectory = Path.Combine(currentDirectory, "images");
+            string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
+            if (!File.Exists(imagePath))
+            {
+                imagePath = Path.Combine(imagesDirectory, "default.png");
+            }
+            return imagePath;
+        }
 
         private async void LoadZipFiles(string startLetter = null)
         {
@@ -340,7 +347,7 @@ namespace SimpleLauncher
                 {
                     string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                     string imagesDirectory = Path.Combine(currentDirectory, "images");
-                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd" };
+                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
                     return fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
                 });
 
@@ -371,14 +378,8 @@ namespace SimpleLauncher
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
                     fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-                    string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string imagesDirectory = Path.Combine(currentDirectory, "images");
-                    string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
-
-                    if (!File.Exists(imagePath))
-                    {
-                        imagePath = Path.Combine(imagesDirectory, "default.png");
-                    }
+                    //Call the function to determine the image path
+                    string imagePath = DetermineImagePath(fileNameWithoutExtension);
 
                     var image = new Image
                     {
