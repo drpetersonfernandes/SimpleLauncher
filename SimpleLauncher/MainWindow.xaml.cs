@@ -16,6 +16,11 @@ namespace SimpleLauncher
         {
             InitializeComponent();
 
+            // initialize the controller classes.
+
+            var inputControl = new GamePadController();
+            inputControl.Start();
+
             // Set the title dynamically
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string folderName = new DirectoryInfo(currentDirectory).Name.TrimEnd('\\');
