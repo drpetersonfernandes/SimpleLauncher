@@ -34,9 +34,12 @@ When the user clicks on the selected grid, the program will launch the selected 
 
 This program is Windows-only and has been tested on Windows 11.
 
-There are some fixes that need to be made. The program isn't perfect, but it works.
-
+### Code Language
 *Written in C# using<br>
 Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0<br>
 Windows Presentation Foundation (WPF) Framework<br>
 Microsoft .NET Framework Version 4.8.09032*
+
+### Contributors
+- Peterson Fernandes - [Github Profile](https://github.com/drpetersonfernandes)
+- RFSVIEIRA - [Github Profile](https://github.com/RFSVIEIRA)
