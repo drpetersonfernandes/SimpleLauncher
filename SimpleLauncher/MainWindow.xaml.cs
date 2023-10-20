@@ -12,11 +12,70 @@ namespace SimpleLauncher
 {
     public partial class MainWindow : Window
     {
+        // This class is used to create the buttons in the menu
         private readonly MenuActions _menuActions;
+
+        // This class is used to read the system.ini file
+        private List<SystemConfig> LoadSystemConfigs(string filePath)
+        {
+            List<SystemConfig> configs = new List<SystemConfig>();
+
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                SystemConfig currentConfig = null;
+
+                foreach (string line in lines)
+                {
+                    if (line.StartsWith("SystemName:"))
+                    {
+                        if (currentConfig != null)
+                        {
+                            configs.Add(currentConfig);
+                        }
+                        currentConfig = new SystemConfig();
+                        currentConfig.SystemName = line.Split(':')[1].Trim();
+                    }
+                    else if (line.StartsWith("SystemFolder:"))
+                    {
+                        currentConfig.SystemFolder = line.Split(':')[1].Trim().Trim('"');
+                    }
+                    else if (line.StartsWith("FileFormatToSearch:"))
+                    {
+                        currentConfig.FileFormatsToSearch = line.Split(':')[1].Trim().Split(',').ToList();
+                    }
+                    else if (line.StartsWith("ExtractFileBeforeLaunch:"))
+                    {
+                        currentConfig.ExtractFileBeforeLaunch = line.Split(':')[1].Trim().Equals("yes", StringComparison.OrdinalIgnoreCase);
+                    }
+                    else if (line.StartsWith("FileFormatToLaunch:"))
+                    {
+                        currentConfig.FileFormatsToLaunch = line.Split(':')[1].Trim().Split(',').ToList();
+                    }
+                }
+
+                if (currentConfig != null)
+                {
+                    configs.Add(currentConfig);
+                }
+            }
+
+            return configs;
+        }
+        private List<SystemConfig> systems;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Load system.ini
+            string iniPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.ini");
+            systems = LoadSystemConfigs(iniPath);
+            // Populate the SystemComboBox
+            foreach (var system in systems)
+            {
+                SystemComboBox.Items.Add(system.SystemName);
+            }
 
             // Initialize the MenuActions with this window context
             _menuActions = new MenuActions(this, zipFileGrid);
@@ -155,10 +214,19 @@ namespace SimpleLauncher
             _menuActions.Exit_Click(sender, e);
         }
 
+        private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Handle the logic when a system is selected
+            // This could involve filtering or updating the "Select Emulator" ComboBox
+            // For now, you can leave it empty if there's no specific logic to implement yet.
+
+        }
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Handle the logic when an Emulator is selected
             //ProgramInfo selectedProgram = (ProgramInfo)MyComboBox.SelectedItem;
-            // Do something with selectedProgram
+            // For now, you can leave it empty if there's no specific logic to implement yet.
         }
 
         public class ProgramInfo

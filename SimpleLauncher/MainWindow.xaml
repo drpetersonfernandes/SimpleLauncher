@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
@@ -72,18 +73,39 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <!--  Dynamically add letter buttons here or define them manually in XAML  -->
         </StackPanel>
+
         <StackPanel
             Grid.Row="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
-            <Label VerticalAlignment="Center" Content="Select Emulator:" />
+            <Label
+                Width="95"
+                VerticalAlignment="Center"
+                Content="Select System:" />
+            <ComboBox
+                Name="SystemComboBox"
+                Width="716"
+                VerticalAlignment="Center"
+                SelectionChanged="SystemComboBox_SelectionChanged" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="95"
+                VerticalAlignment="Center"
+                Content="Select Emulator:" />
             <ComboBox
                 Name="MyComboBox"
                 Width="716"
                 VerticalAlignment="Center"
                 SelectionChanged="ComboBox_SelectionChanged" />
         </StackPanel>
-        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible">
+
+
+        <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
             <WrapPanel x:Name="zipFileGrid" Orientation="Horizontal">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
