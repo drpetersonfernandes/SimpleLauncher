@@ -19,7 +19,10 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Utilities">
-                <MenuItem Click="CheckMissingImages_Click" Header="Check Missing Images">
+                <MenuItem
+                    x:Name="CheckMissingImagesButton"
+                    Click="CheckMissingImages_Click"
+                    Header="Check Missing Images">
                     <MenuItem.Icon>
                         <Image
                             Width="16"
@@ -57,8 +60,14 @@
             </MenuItem>
 
 
-            <MenuItem Click="About_Click" Header="About" />
-            <MenuItem Click="Exit_Click" Header="Exit" />
+            <MenuItem
+                x:Name="AboutButton"
+                Click="About_Click"
+                Header="About" />
+            <MenuItem
+                x:Name="ExitButton"
+                Click="Exit_Click"
+                Header="Exit" />
         </Menu>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <!--  Dynamically add letter buttons here or define them manually in XAML  -->
@@ -75,11 +84,6 @@
                 SelectionChanged="ComboBox_SelectionChanged" />
         </StackPanel>
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible">
-            <!--<UniformGrid Name="zipFileGrid" Columns="5">
-            -->
-            <!--  Cells will be added here dynamically  -->
-            <!--
-            </UniformGrid>-->
             <WrapPanel x:Name="zipFileGrid" Orientation="Horizontal">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>

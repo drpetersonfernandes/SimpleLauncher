@@ -12,12 +12,16 @@ namespace SimpleLauncher
 {
     public partial class MainWindow : Window
     {
+        private readonly MenuActions _menuActions;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            // initialize the controller classes.
+            // Initialize the MenuActions with this window context
+            _menuActions = new MenuActions(this, zipFileGrid);
 
+            // initialize the controller classes.
             var inputControl = new GamePadController();
             inputControl.Start();
 
@@ -28,11 +32,8 @@ namespace SimpleLauncher
 
             // Create buttons for each letter and add a Click event
             StackPanel letterPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
             Button selectedButton = null; // A reference to the currently selected button
-
             Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
-
 
             foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
             {
@@ -57,7 +58,6 @@ namespace SimpleLauncher
 
                 // Add button to the dictionary
                 letterButtons.Add(c.ToString(), button);
-
                 letterPanel.Children.Add(button);
             }
 
@@ -76,12 +76,10 @@ namespace SimpleLauncher
 
                 // Update the selectedButton reference
                 selectedButton = numButton;
-
                 LoadZipFiles("#");
             };
 
             letterPanel.Children.Add(numButton);
-
 
             // Add the StackPanel to the Grid
             Grid.SetRow(letterPanel, 1);
@@ -89,7 +87,7 @@ namespace SimpleLauncher
 
             LoadParameters();
 
-            // Add this block to read the parameters.txt file and set the default selected item
+            // Read the parameters.txt file and set the default selected item
             string parametersPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "parameters.txt");
             if (File.Exists(parametersPath))
             {
@@ -107,7 +105,7 @@ namespace SimpleLauncher
 
                 if (defaultProgramName != null)
                 {
-                    // Assuming EmulatorComboBox is your ComboBox and it has a property `Items` that you've populated
+                    // EmulatorComboBox has a property `Items` that you've populated
                     foreach (var item in MyComboBox.Items)
                     {
                         if (item.ToString() == defaultProgramName)  // Replace `item.ToString()` with how you'd get the ProgramName from your item
@@ -129,111 +127,33 @@ namespace SimpleLauncher
 
         private void CheckMissingImages_Click(object sender, RoutedEventArgs e)
         {
-            CheckMissingImages();
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.MessageBox.Show("Simple Launcher\nPeterson's Software\n09/2023", "About");
-        }
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close(); // Closes the application
-        }
-
-        private void CheckMissingImages()
-        {
-            try
-            {
-                // Path to the program directory and the images sub-directory
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string imagesDirectory = Path.Combine(currentDirectory, "images");
-
-                // Get all game files in the program directory
-                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
-                List<string> allFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .ToList();
-
-                // Create an empty list to hold missing image files
-                List<string> missingImages = new List<string>();
-
-                // Check if each corresponding image exists in the images directory
-                foreach (var fileName in allFiles)
-                {
-                    string imagePath = Path.Combine(imagesDirectory, fileName + ".png");
-                    if (!File.Exists(imagePath))
-                    {
-                        missingImages.Add(fileName);
-                    }
-                }
-
-                // Write the missing image files to a text file
-                if (missingImages.Any())
-                {
-                    string missingImagesPath = Path.Combine(currentDirectory, "missingimages.txt");
-                    File.WriteAllLines(missingImagesPath, missingImages);
-                    MessageBox.Show("Missing images found. Check missingimages.txt for details.");
-                }
-                else
-                {
-                    MessageBox.Show("No missing images found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
+            _menuActions.CheckMissingImages_Click(sender, e);
         }
 
         private void MoveWrongImages_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string imagesDirectory = Path.Combine(currentDirectory, "images");
-                string wrongImagesDirectory = Path.Combine(currentDirectory, "wrongimages");
-
-                // Step 1
-                var validExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
-                var validFileNames = validExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext))
-                                                    .Select(Path.GetFileNameWithoutExtension)
-                                                    .ToList();
-
-                // Step 4
-                validFileNames.Add("default");
-
-                // Create the wrongimages directory if it doesn't exist
-                if (!Directory.Exists(wrongImagesDirectory))
-                {
-                    Directory.CreateDirectory(wrongImagesDirectory);
-                }
-
-                // Step 2 & 3
-                var imageFiles = Directory.GetFiles(imagesDirectory, "*.png");
-
-                foreach (var imageFile in imageFiles)
-                {
-                    string imageName = Path.GetFileNameWithoutExtension(imageFile);
-
-                    if (!validFileNames.Contains(imageName, StringComparer.OrdinalIgnoreCase))
-                    {
-                        // Step 5
-                        string destinationPath = Path.Combine(wrongImagesDirectory, Path.GetFileName(imageFile));
-                        File.Move(imageFile, destinationPath);
-                    }
-                }
-
-                // Step 6
-                MessageBox.Show("Wrong images were moved to the wrongimages folder.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
+            _menuActions.MoveWrongImages_Click(sender, e);
         }
 
+        private void HideGames_Click(object sender, RoutedEventArgs e)
+        {
+            _menuActions.HideGames_Click(sender, e);
+        }
+
+        private void ShowGames_Click(object sender, RoutedEventArgs e)
+        {
+            _menuActions.ShowGames_Click(sender, e);
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            _menuActions.About_Click(sender, e);
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            _menuActions.Exit_Click(sender, e);
+        }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -299,33 +219,6 @@ namespace SimpleLauncher
             else
             {
                 MessageBox.Show("parameters.txt not found");
-            }
-        }
-
-        private void HideGames_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var child in zipFileGrid.Children)
-            {
-                if (child is Button btn && btn.Content is StackPanel sp)
-                {
-                    var image = sp.Children.OfType<Image>().FirstOrDefault();
-                    if (image != null && image.Source is BitmapImage bmp && bmp.UriSource.LocalPath.EndsWith("default.png"))
-                    {
-                        btn.Visibility = Visibility.Collapsed; // hide the button
-                    }
-                }
-            }
-        }
-
-
-        private void ShowGames_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var child in zipFileGrid.Children)
-            {
-                if (child is Button btn)
-                {
-                    btn.Visibility = Visibility.Visible; // Show the button
-                }
             }
         }
 
@@ -398,7 +291,7 @@ namespace SimpleLauncher
                         Text = fileNameWithoutExtension,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         FontWeight = FontWeights.Bold,
-                        TextTrimming = TextTrimming.CharacterEllipsis // Add this line
+                        TextTrimming = TextTrimming.CharacterEllipsis
                     };
                     textBlock.ToolTip = fileNameWithoutExtension; // Display the full filename on hover
 
@@ -409,7 +302,7 @@ namespace SimpleLauncher
                         VerticalAlignment = VerticalAlignment.Center,
                         Width = 300,
                         Height = 250,
-                        MaxHeight = 250 // This limits the maximum height
+                        MaxHeight = 250 // Limits the maximum height
                     };
 
 
@@ -420,8 +313,8 @@ namespace SimpleLauncher
                     {
                         Content = stackPanel,
                         Width = 300,
-                        Height = 250, // You have this line already, this sets the default height
-                        MaxHeight = 250, // This limits the maximum height
+                        Height = 250, // Default height
+                        MaxHeight = 250, // Limits the maximum height
                         HorizontalContentAlignment = HorizontalAlignment.Center,
                         VerticalContentAlignment = VerticalAlignment.Center,
                         Margin = new Thickness(0),
@@ -440,7 +333,7 @@ namespace SimpleLauncher
                                 string parameters = selectedProgram.Parameters;
                                 string filename = Path.GetFileName(filePath);  // Get the full filename including extension
 
-                                //// Combine the parameters and filename
+                                //// Combine the parameters and filename without full path
                                 //string arguments = $"{parameters} \"{filename}\"";
 
                                 // Combine the parameters and filename with full path
@@ -479,6 +372,7 @@ namespace SimpleLauncher
 
                                 if (process.ExitCode != 0) // Check if the process exited with an error code
                                 {
+                                    MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                     // External program did not start successfully, write to error log
                                     string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
                                     string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
@@ -505,8 +399,6 @@ namespace SimpleLauncher
                             File.WriteAllText(errorLogPath, errorDetails);
                         }
                     };
-
-
 
                     zipFileGrid.Children.Add(button);
                 }

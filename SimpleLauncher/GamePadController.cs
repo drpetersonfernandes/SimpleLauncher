@@ -16,10 +16,10 @@ namespace SimpleLauncher
         private const int ScrollDivider = 10_000;
         private const int RefreshRate = 60;
 
-        private Timer _timer;
-        private Controller _controller;
-        private IMouseSimulator _mouseSimulator;
-        private IKeyboardSimulator _keyboardSimulator;
+        private readonly Timer _timer;
+        private readonly Controller _controller;
+        private readonly IMouseSimulator _mouseSimulator;
+        private readonly IKeyboardSimulator _keyboardSimulator;
 
 
         private bool _wasADown;
