@@ -13,9 +13,9 @@ Cover images should have the same filename as the file to be launched. All image
 
 At the top of the program, there's a combo box that allows the user to select an emulator to use.
 
-All the emulator settings and parameters are stored in the "parameters.txt" file, located in the same directory as the launcher.
+All the emulator settings and parameters are stored in the "emulator.ini" file, located in the same directory as the launcher.
 
-The format of the "parameters.txt" file is as follows:
+The format of the "emulator.ini" file is as follows:
 
 <pre>
 Id: 1

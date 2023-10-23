@@ -35,7 +35,7 @@ namespace SimpleLauncher
         {
             _window.Close();
         }
-        private void CheckMissingImages()
+        public void CheckMissingImages()
         {
             try
             {

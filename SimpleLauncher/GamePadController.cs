@@ -1,60 +1,73 @@
 ﻿using SharpDX.XInput;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WindowsInput;
-using System.Windows.Input;
 using System.Threading;
+using System;
+using WindowsInput;
 
 namespace SimpleLauncher
 {
-    internal class GamePadController
+    public class GamePadController : IDisposable
     {
-        private const int MovementDivider = 2_000;
-        private const int ScrollDivider = 10_000;
+        private readonly Action<Exception, string> _errorLogger;
+        private const int MovementDivider = 2000;
+        private const int ScrollDivider = 10000;
         private const int RefreshRate = 60;
+        private const float MaxThumbValue = 32767.0f;  // Maximum thumbstick value for normalization.
 
         private readonly Timer _timer;
         private readonly Controller _controller;
         private readonly IMouseSimulator _mouseSimulator;
         private readonly IKeyboardSimulator _keyboardSimulator;
 
-
         private bool _wasADown;
         private bool _wasBDown;
+        private bool _isDisposed = false;
 
         float deadzoneX = 0.05f;
         float deadzoneY = 0.02f;
-        float leftStickX;
-        float leftStickY;
-        float rightStickX;
-        float rightStickY;
-        public GamePadController()
+
+        public GamePadController(Action<Exception, string> errorLogger = null)
         {
             _controller = new Controller(UserIndex.One);
             _mouseSimulator = new InputSimulator().Mouse;
             _keyboardSimulator = new InputSimulator().Keyboard;
             _timer = new Timer(obj => Update());
+            _errorLogger = errorLogger;
         }
 
-        public void Start()
+        public void Start() => _timer.Change(0, 1000 / RefreshRate);
+
+        public void Stop()
         {
-            _timer.Change(0, 1000 / RefreshRate);
+            if (_timer != null && !_isDisposed)
+                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        public void Dispose()
+        {
+            if (_isDisposed) return;
+
+            Stop();
+            _timer?.Dispose();
+            _isDisposed = true;
         }
 
         private void Update()
         {
-
-            _controller.GetState(out var state);
-            Movement(state);
-            Scroll(state);
-            LeftButton(state);
-            RightButton(state);
+            try
+            {
+                _controller.GetState(out var state);
+                HandleMovement(state);
+                HandleScroll(state);
+                HandleLeftButton(state);
+                HandleRightButton(state);
+            }
+            catch (Exception ex)
+            {
+                _errorLogger?.Invoke(ex, "Error in GamePadController Update.");
+            }
         }
 
-        private void RightButton(State state)
+        private void HandleRightButton(State state)
         {
             var isBDown = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);
             if (isBDown && !_wasBDown) _mouseSimulator.RightButtonDown();
@@ -62,7 +75,7 @@ namespace SimpleLauncher
             _wasBDown = isBDown;
         }
 
-        private void LeftButton(State state)
+        private void HandleLeftButton(State state)
         {
             var isADown = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
             if (isADown && !_wasADown) _mouseSimulator.LeftButtonDown();
@@ -70,52 +83,31 @@ namespace SimpleLauncher
             _wasADown = isADown;
         }
 
-        private void Scroll(State state)
+        private void HandleScroll(State state)
         {
-
-            float normRX = Math.Max(-1, (float)state.Gamepad.RightThumbX / 32767);
-            float normRY = Math.Max(-1, (float)state.Gamepad.RightThumbY / 32767);
-
-            rightStickX = (Math.Abs(normRX) < deadzoneX ? 0 : (Math.Abs(normRX) - deadzoneX) * (normRX / Math.Abs(normRX)));
-            rightStickY = (Math.Abs(normRY) < deadzoneY ? 0 : (Math.Abs(normRY) - deadzoneY) * (normRY / Math.Abs(normRY)));
-
-            if (deadzoneX > 0)
-            {
-                rightStickX *= 10 / (1 - deadzoneX);
-            }
-            if (deadzoneY > 0)
-            {
-                rightStickY *= 10 / (1 - deadzoneY);
-            }
-
-
-            _mouseSimulator.HorizontalScroll((int)rightStickX);
-            _mouseSimulator.VerticalScroll((int)rightStickY);
-
+            var (x, y) = ProcessThumbStick(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, deadzoneX, deadzoneY);
+            _mouseSimulator.HorizontalScroll((int)x);
+            _mouseSimulator.VerticalScroll((int)y);
         }
 
-        private void Movement(State state)
+        private void HandleMovement(State state)
         {
-
-
-            float normLX = Math.Max(-1, (float)state.Gamepad.LeftThumbX / 32767);
-            float normLY = Math.Max(-1, (float)state.Gamepad.LeftThumbY / 32767);
-
-            leftStickX = (Math.Abs(normLX) < deadzoneX ? 0 : (Math.Abs(normLX) - deadzoneX) * (normLX / Math.Abs(normLX)));
-            leftStickY = (Math.Abs(normLY) < deadzoneY ? 0 : (Math.Abs(normLY) - deadzoneY) * (normLY / Math.Abs(normLY)));
-
-            if (deadzoneX > 0)
-            {
-                leftStickX *= 10 / (1 - deadzoneX);
-            }
-            if (deadzoneY > 0)
-            {
-                leftStickY *= 10 / (1 - deadzoneY);
-            }
-
-
-            _mouseSimulator.MoveMouseBy((int)leftStickX, -(int)leftStickY);
+            var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, deadzoneX, deadzoneY);
+            _mouseSimulator.MoveMouseBy((int)x, -(int)y);
         }
 
+        private (float, float) ProcessThumbStick(short thumbX, short thumbY, float dzX, float dzY)
+        {
+            float normalizedX = Math.Max(-1, (float)thumbX / MaxThumbValue);
+            float normalizedY = Math.Max(-1, (float)thumbY / MaxThumbValue);
+
+            float resultX = (Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX)));
+            float resultY = (Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY)));
+
+            if (dzX > 0) resultX *= 10 / (1 - dzX);
+            if (dzY > 0) resultY *= 10 / (1 - dzY);
+
+            return (resultX, resultY);
+        }
     }
 }

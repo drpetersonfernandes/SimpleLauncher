@@ -12,175 +12,59 @@ namespace SimpleLauncher
 {
     public partial class MainWindow : Window
     {
-        // This class is used to create the buttons in the menu
+        // Instance variables
+        private GamePadController _inputControl;
         private readonly MenuActions _menuActions;
+        private List<SystemConfig> _systemConfigs;
+        private readonly GameHandler _gameHandler = new GameHandler();
+        private static readonly object _lockObject = new object();
 
-        // This class is used to read the system.ini file
-        private List<SystemConfig> LoadSystemConfigs(string filePath)
-        {
-            List<SystemConfig> configs = new List<SystemConfig>();
-
-            if (File.Exists(filePath))
-            {
-                string[] lines = File.ReadAllLines(filePath);
-                SystemConfig currentConfig = null;
-
-                foreach (string line in lines)
-                {
-                    if (line.StartsWith("SystemName:"))
-                    {
-                        if (currentConfig != null)
-                        {
-                            configs.Add(currentConfig);
-                        }
-                        currentConfig = new SystemConfig();
-                        currentConfig.SystemName = line.Split(':')[1].Trim();
-                    }
-                    else if (line.StartsWith("SystemFolder:"))
-                    {
-                        currentConfig.SystemFolder = line.Split(':')[1].Trim().Trim('"');
-                    }
-                    else if (line.StartsWith("FileFormatToSearch:"))
-                    {
-                        currentConfig.FileFormatsToSearch = line.Split(':')[1].Trim().Split(',').ToList();
-                    }
-                    else if (line.StartsWith("ExtractFileBeforeLaunch:"))
-                    {
-                        currentConfig.ExtractFileBeforeLaunch = line.Split(':')[1].Trim().Equals("yes", StringComparison.OrdinalIgnoreCase);
-                    }
-                    else if (line.StartsWith("FileFormatToLaunch:"))
-                    {
-                        currentConfig.FileFormatsToLaunch = line.Split(':')[1].Trim().Split(',').ToList();
-                    }
-                }
-
-                if (currentConfig != null)
-                {
-                    configs.Add(currentConfig);
-                }
-            }
-
-            return configs;
-        }
-        private List<SystemConfig> systems;
+        // Constants
+        private const string DefaultImagePath = "default.png";
+        private const int ImageHeight = 200;
+        private const int StackPanelWidth = 300;
+        private const int StackPanelHeight = 250;
+        private const int ButtonWidth = 300;
+        private const int ButtonHeight = 250;
 
         public MainWindow()
         {
             InitializeComponent();
+            
+            // Attach the Closing event handler to ensure resources are disposed of
+            this.Closing += MainWindow_Closing;
 
-            // Load system.ini
-            string iniPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.ini");
-            systems = LoadSystemConfigs(iniPath);
-            // Populate the SystemComboBox
-            foreach (var system in systems)
-            {
-                SystemComboBox.Items.Add(system.SystemName);
-            }
+            // Initialize the GamePadController.cs
+            _inputControl = new GamePadController((ex, msg) => LogErrorAsync(ex, msg).Wait());
+            _inputControl.Start();
+
+            // Load system.ini and Populate the SystemComboBox
+            _systemConfigs = SystemConfig.LoadSystemConfigs("system.ini");
+            SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
 
             // Initialize the MenuActions with this window context
             _menuActions = new MenuActions(this, zipFileGrid);
 
-            // initialize the controller classes.
-            var inputControl = new GamePadController();
-            inputControl.Start();
-
-            // Set the title dynamically
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string folderName = new DirectoryInfo(currentDirectory).Name.TrimEnd('\\');
-            this.Title = $"{folderName} Launcher";
-
-            // Create buttons for each letter and add a Click event
-            StackPanel letterPanel = new StackPanel { Orientation = Orientation.Horizontal };
-            Button selectedButton = null; // A reference to the currently selected button
-            Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
-
-            foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
+            // Create and integrate LetterNumberItems
+            LetterNumberItems letterNumberItems = new LetterNumberItems();
+            letterNumberItems.OnLetterSelected += (selectedLetter) =>
             {
-                Button button = new Button { Content = c.ToString(), Width = 30, Height = 30 };
-
-                button.Click += (sender, e) =>
-                {
-                    // Reset the style of the previously selected button
-                    if (selectedButton != null)
-                    {
-                        selectedButton.ClearValue(Button.BackgroundProperty);
-                    }
-
-                    // Update the style of the currently selected button
-                    button.Background = System.Windows.Media.Brushes.Green;
-
-                    // Update the selectedButton reference
-                    selectedButton = button;
-
-                    LoadZipFiles(c.ToString());
-                };
-
-                // Add button to the dictionary
-                letterButtons.Add(c.ToString(), button);
-                letterPanel.Children.Add(button);
-            }
-
-            // Add button for numbers
-            Button numButton = new Button { Content = "#", Width = 30, Height = 30 };
-            numButton.Click += (sender, e) =>
-            {
-                // Reset the style of the previously selected button
-                if (selectedButton != null)
-                {
-                    selectedButton.ClearValue(Button.BackgroundProperty);
-                }
-
-                // Update the style of the currently selected button
-                numButton.Background = System.Windows.Media.Brushes.Green;
-
-                // Update the selectedButton reference
-                selectedButton = numButton;
-                LoadZipFiles("#");
+                LoadZipFiles(selectedLetter);
             };
 
-            letterPanel.Children.Add(numButton);
-
-            // Add the StackPanel to the Grid
-            Grid.SetRow(letterPanel, 1);
-            ((Grid)this.Content).Children.Add(letterPanel);
-
-            LoadParameters();
-
-            // Read the parameters.txt file and set the default selected item
-            string parametersPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "parameters.txt");
-            if (File.Exists(parametersPath))
-            {
-                string[] lines = System.IO.File.ReadAllLines(parametersPath);
-                string defaultProgramName = null;
-
-                foreach (string line in lines)
-                {
-                    if (line.StartsWith("ProgramName: "))
-                    {
-                        defaultProgramName = line.Substring("ProgramName: ".Length);
-                        break;
-                    }
-                }
-
-                if (defaultProgramName != null)
-                {
-                    // EmulatorComboBox has a property `Items` that you've populated
-                    foreach (var item in MyComboBox.Items)
-                    {
-                        if (item.ToString() == defaultProgramName)  // Replace `item.ToString()` with how you'd get the ProgramName from your item
-                        {
-                            MyComboBox.SelectedItem = item;
-                            break;
-                        }
-                    }
-                }
-            }
+            // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
+            Grid.SetRow(letterNumberItems.LetterPanel, 1);
+            ((Grid)this.Content).Children.Add(letterNumberItems.LetterPanel);
 
             // Simulate a click on the "A" button
-            if (letterButtons.ContainsKey("A"))
+            letterNumberItems.SimulateClick("A");
+        }
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_inputControl != null)
             {
-                Button aButton = letterButtons["A"];
-                aButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                _inputControl.Stop();
+                _inputControl.Dispose();
             }
         }
 
@@ -216,78 +100,35 @@ namespace SimpleLauncher
 
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the logic when a system is selected
-            // This could involve filtering or updating the "Select Emulator" ComboBox
-            // For now, you can leave it empty if there's no specific logic to implement yet.
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Handle the logic when an Emulator is selected
-            //ProgramInfo selectedProgram = (ProgramInfo)MyComboBox.SelectedItem;
-            // For now, you can leave it empty if there's no specific logic to implement yet.
-        }
-
-        public class ProgramInfo
-        {
-            public int Id { get; set; }
-            public string ProgramName { get; set; }
-            public string ProgramLocation { get; set; }
-            public string Parameters { get; set; }
-
-            public override string ToString()
+            EmulatorComboBox.ItemsSource = null;
+            EmulatorComboBox.SelectedIndex = -1;
+            if (SystemComboBox.SelectedItem != null)
             {
-                return ProgramName; // Display the program name in the ComboBox
-            }
-        }
+                string selectedSystem = SystemComboBox.SelectedItem.ToString();
 
-        private void LoadParameters()
-        {
-            string filePath = "parameters.txt";
-            List<ProgramInfo> programInfos = new List<ProgramInfo>();
-            ProgramInfo currentProgramInfo = null;
+                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
 
-            if (File.Exists(filePath))
-            {
-                string[] lines = File.ReadAllLines(filePath);
-
-                foreach (var line in lines)
+                if (systemConfig != null)
                 {
-                    var parts = line.Split(new[] { ": " }, StringSplitOptions.None);
-                    if (parts.Length == 2)
+                    // Set the emulators for the selected system
+                    EmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+
+                    // Auto select the first emulator (EmulatorName1)
+                    if (EmulatorComboBox.Items.Count > 0)
                     {
-                        string key = parts[0].Trim();
-                        string value = parts[1].Trim();
-
-                        if (key == "Id")
-                        {
-                            currentProgramInfo = new ProgramInfo { Id = int.Parse(value) };
-
-                        }
-                        else if (key == "ProgramName")
-                        {
-                            currentProgramInfo.ProgramName = value;
-                        }
-                        else if (key == "ProgramLocation")
-                        {
-                            currentProgramInfo.ProgramLocation = value;
-                        }
-                        else if (key == "Parameters")
-                        {
-                            currentProgramInfo.Parameters = value;
-                            programInfos.Add(currentProgramInfo); // Add to the list once we reach the last attribute
-                        }
+                        EmulatorComboBox.SelectedIndex = 0; // This will select the first item (EmulatorName1)
                     }
                 }
+            }
+        }
 
-                // Now populate the ComboBox
-                MyComboBox.ItemsSource = programInfos;
-            }
-            else
-            {
-                MessageBox.Show("parameters.txt not found");
-            }
+
+
+        private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Handle the logic when an Emulator is selected
+            //EmulatorConfig selectedProgram = (EmulatorConfig)EmulatorComboBox.SelectedItem;
+            // For now, you can leave it empty if there's no specific logic to implement yet.
         }
 
         private string DetermineImagePath(string fileNameWithoutExtension)
@@ -295,186 +136,200 @@ namespace SimpleLauncher
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string imagesDirectory = Path.Combine(currentDirectory, "images");
             string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
-            if (!File.Exists(imagePath))
-            {
-                imagePath = Path.Combine(imagesDirectory, "default.png");
-            }
-            return imagePath;
+            return File.Exists(imagePath) ? imagePath : Path.Combine(imagesDirectory, DefaultImagePath);
         }
 
         private async void LoadZipFiles(string startLetter = null)
         {
             try
             {
-                // Clear existing grids
                 zipFileGrid.Children.Clear();
-                // Do the heavy lifting in a background task
-                List<string> allFiles = await Task.Run(() =>
-                {
-                    string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string imagesDirectory = Path.Combine(currentDirectory, "images");
-                    var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
-                    return fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
-                });
 
-                // Once the background task is done, continue on the UI thread.
+                List<string> allFiles = await _gameHandler.GetFilesAsync();
+
                 if (!allFiles.Any())
                 {
-                    zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM", FontWeight = FontWeights.Bold });
+                    AddNoRomsMessage();
                     return;
                 }
 
-                // Filter files based on the starting letter or number if provided
-                if (!string.IsNullOrEmpty(startLetter))
-                {
-                    if (startLetter == "#")
-                    {
-                        allFiles = allFiles.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
-                    }
-                    else
-                    {
-                        allFiles = allFiles.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
-                    }
-                }
-
+                allFiles = _gameHandler.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
 
                 foreach (var filePath in allFiles)
                 {
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-                    fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
-
-                    //Call the function to determine the image path
-                    string imagePath = DetermineImagePath(fileNameWithoutExtension);
-
-                    var image = new Image
-                    {
-                        Source = new BitmapImage(new Uri(imagePath)),
-                        Height = 200,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
-
-                    var textBlock = new TextBlock
-                    {
-                        Text = fileNameWithoutExtension,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        FontWeight = FontWeights.Bold,
-                        TextTrimming = TextTrimming.CharacterEllipsis
-                    };
-                    textBlock.ToolTip = fileNameWithoutExtension; // Display the full filename on hover
-
-                    var stackPanel = new StackPanel
-                    {
-                        Orientation = Orientation.Vertical,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Width = 300,
-                        Height = 250,
-                        MaxHeight = 250 // Limits the maximum height
-                    };
-
-
-                    stackPanel.Children.Add(image);
-                    stackPanel.Children.Add(textBlock);
-
-                    var button = new Button
-                    {
-                        Content = stackPanel,
-                        Width = 300,
-                        Height = 250, // Default height
-                        MaxHeight = 250, // Limits the maximum height
-                        HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Margin = new Thickness(0),
-                        Padding = new Thickness(0)
-                    };
-
-                    button.Click += async (sender, e) =>
-                    {
-                        ProcessStartInfo psi = null; // Declare the variable here
-
-                        try
-                        {
-                            if (MyComboBox.SelectedItem is ProgramInfo selectedProgram)
-                            {
-                                string programLocation = selectedProgram.ProgramLocation;
-                                string parameters = selectedProgram.Parameters;
-                                string filename = Path.GetFileName(filePath);  // Get the full filename including extension
-
-                                //// Combine the parameters and filename without full path
-                                //string arguments = $"{parameters} \"{filename}\"";
-
-                                // Combine the parameters and filename with full path
-                                string arguments = $"{parameters} \"{filePath}\"";
-
-                                // Output the entire argument to console
-                                Console.WriteLine("Arguments passed to the external program:");
-                                Console.WriteLine(arguments);
-
-                                // Create ProcessStartInfo
-                                psi = new ProcessStartInfo
-                                {
-                                    FileName = programLocation,
-                                    Arguments = arguments,
-                                    UseShellExecute = false,
-                                    RedirectStandardOutput = true,
-                                    RedirectStandardError = true
-                                };
-
-                                // Launch the external program
-                                Process process = new Process { StartInfo = psi };
-                                process.Start();
-
-                                // Read the output streams
-                                string output = await process.StandardOutput.ReadToEndAsync();
-                                string error = await process.StandardError.ReadToEndAsync();
-
-                                // Wait for the process to exit
-                                process.WaitForExit();
-
-                                // Output to console
-                                Console.WriteLine("Standard Output:");
-                                Console.WriteLine(output);
-                                Console.WriteLine("Standard Error:");
-                                Console.WriteLine(error);
-
-                                if (process.ExitCode != 0) // Check if the process exited with an error code
-                                {
-                                    MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    // External program did not start successfully, write to error log
-                                    string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-                                    string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
-                                    errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
-                                    File.WriteAllText(errorLogPath, errorMessage);
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Please select an emulator", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // An exception occurred while trying to start the process
-                            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            // Write the exception details to the error log
-                            string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-                            string errorDetails = $"Exception Details:\n{ex}\n";
-                            if (psi != null)
-                            {
-                                errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
-                            }
-                            File.WriteAllText(errorLogPath, errorDetails);
-                        }
-                    };
-
-                    zipFileGrid.Children.Add(button);
+                    Button gameButton = CreateGameButton(filePath);
+                    zipFileGrid.Children.Add(gameButton);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                HandleError(ex, "Error while loading ROM files");
             }
+        }
+
+        private void AddNoRomsMessage()
+        {
+            zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM", FontWeight = FontWeights.Bold });
+        }
+
+        private Button CreateGameButton(string filePath)
+        {
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
+
+            // Determine the image path based on the filename
+            string imagePath = DetermineImagePath(fileNameWithoutExtension);
+
+            var image = new Image
+            {
+                Source = new BitmapImage(new Uri(imagePath)),
+                Height = ImageHeight,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            var textBlock = new TextBlock
+            {
+                Text = fileNameWithoutExtension,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                TextTrimming = TextTrimming.CharacterEllipsis
+            };
+            textBlock.ToolTip = fileNameWithoutExtension; // Display the full filename on hover
+
+            var stackPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Width = StackPanelWidth,
+                Height = StackPanelHeight,
+                MaxHeight = StackPanelHeight // Limits the maximum height
+            };
+
+            stackPanel.Children.Add(image);
+            stackPanel.Children.Add(textBlock);
+
+            var button = new Button
+            {
+                Content = stackPanel,
+                Width = ButtonWidth,
+                Height = ButtonHeight,
+                MaxHeight = ButtonHeight,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0),
+                Padding = new Thickness(0)
+            };
+
+            button.Click += async (sender, args) =>
+            {
+                ProcessStartInfo psi = null; // Declare the variable here
+
+                try
+                {
+                    if (EmulatorComboBox.SelectedItem != null)
+                    {
+                        string selectedEmulatorName = EmulatorComboBox.SelectedItem.ToString();
+                        string selectedSystem = SystemComboBox.SelectedItem.ToString();
+
+                        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+
+                        if (systemConfig == null)
+                        {
+                            MessageBox.Show("Please select a valid system", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+
+                        if (emulatorConfig == null)
+                        {
+                            MessageBox.Show("Selected emulator configuration not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        string programLocation = emulatorConfig.EmulatorLocation;
+                        string parameters = emulatorConfig.EmulatorParameters;
+                        string filename = Path.GetFileName(filePath);  // Get the full filename including extension
+
+                        // Combine the parameters and filename with full path
+                        string arguments = $"{parameters} \"{filePath}\"";
+
+                        // Create ProcessStartInfo
+                        psi = new ProcessStartInfo
+                        {
+                            FileName = programLocation,
+                            Arguments = arguments,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true
+                        };
+
+                        // Launch the external program
+                        Process process = new Process { StartInfo = psi };
+                        process.Start();
+
+                        // Read the output streams
+                        string output = await process.StandardOutput.ReadToEndAsync();
+                        string error = await process.StandardError.ReadToEndAsync();
+
+                        // Wait for the process to exit
+                        process.WaitForExit();
+
+                        // Check if the process exited with an error code
+                        if (process.ExitCode != 0)
+                        {
+                            MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            // External program did not start successfully, write to error log
+                            string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
+                            string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
+                            errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                            File.AppendAllText(errorLogPath, errorMessage);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select an emulator", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // An exception occurred while trying to start the process
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Write the exception details to the error log
+                    string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
+                    string errorDetails = $"Exception Details:\n{ex}\n";
+                    if (psi != null)
+                    {
+                        errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                    }
+                    File.AppendAllText(errorLogPath, errorDetails);
+                }
+            };
+
+
+            return button;
+        }
+
+        private async Task LogErrorAsync(Exception ex, string contextMessage = null)
+        {
+            await Task.Run(() =>
+            {
+                string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
+                string errorMessage = $"Date: {DateTime.Now}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
+
+                lock (_lockObject)
+                {
+                    File.AppendAllText(errorLogPath, errorMessage);
+                }
+            });
+        }
+
+        private async void HandleError(Exception ex, string message)
+        {
+            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            await LogErrorAsync(ex, message);
         }
 
     }

@@ -7,6 +7,7 @@
     Title="Simple Launcher"
     Width="830"
     MinWidth="830"
+    Closing="MainWindow_Closing"
     WindowState="Maximized"
     mc:Ignorable="d">
 
@@ -98,10 +99,10 @@
                 VerticalAlignment="Center"
                 Content="Select Emulator:" />
             <ComboBox
-                Name="MyComboBox"
+                Name="EmulatorComboBox"
                 Width="716"
                 VerticalAlignment="Center"
-                SelectionChanged="ComboBox_SelectionChanged" />
+                SelectionChanged="EmulatorComboBox_SelectionChanged" />
         </StackPanel>
 
 
