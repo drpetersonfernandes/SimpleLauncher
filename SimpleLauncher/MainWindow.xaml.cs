@@ -13,9 +13,9 @@ namespace SimpleLauncher
     public partial class MainWindow : Window
     {
         // Instance variables
-        private GamePadController _inputControl;
+        readonly private GamePadController _inputControl;
         private readonly MenuActions _menuActions;
-        private List<SystemConfig> _systemConfigs;
+        readonly private List<SystemConfig> _systemConfigs;
         private readonly GameHandler _gameHandler = new GameHandler();
         private static readonly object _lockObject = new object();
 
@@ -121,9 +121,13 @@ namespace SimpleLauncher
                 {
                     // Populate EmulatorComboBox with the emulators for the selected system
                     EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+
+                    // Load game files for the selected system
+                    LoadgameFiles();
                 }
             }
         }
+
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -146,7 +150,23 @@ namespace SimpleLauncher
             {
                 zipFileGrid.Children.Clear();
 
-                List<string> allFiles = await _gameHandler.GetFilesAsync();
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    AddNoRomsMessage();
+                    return;
+                }
+
+                string selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+                if (selectedConfig == null)
+                {
+                    HandleError(new Exception("Selected system configuration not found"), "Error while loading selected system configuration");
+                    return;
+                }
+
+                string systemFolderPath = selectedConfig.SystemFolder; // Get the SystemFolder from the selected configuration
+                List<string> allFiles = await _gameHandler.GetFilesAsync(systemFolderPath); // Modify the GetFilesAsync method to accept a path parameter
 
                 if (!allFiles.Any())
                 {
@@ -168,6 +188,7 @@ namespace SimpleLauncher
                 HandleError(ex, "Error while loading ROM files");
             }
         }
+
 
         private void AddNoRomsMessage()
         {
@@ -194,9 +215,9 @@ namespace SimpleLauncher
                 Text = fileNameWithoutExtension,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontWeight = FontWeights.Bold,
-                TextTrimming = TextTrimming.CharacterEllipsis
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                ToolTip = fileNameWithoutExtension // Display the full filename on hover
             };
-            textBlock.ToolTip = fileNameWithoutExtension; // Display the full filename on hover
 
             var stackPanel = new StackPanel
             {

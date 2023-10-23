@@ -1,8 +1,8 @@
 <SystemConfig>
     <SystemName>Sony PSP</SystemName>
-    <SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+    <SystemFolder>C:\Sony PSP Roms</SystemFolder>
     <FileFormatsToSearch>
-        <FormatToSearch>cso</FormatToSearch>
+		<FormatToSearch>cso</FormatToSearch>
         <FormatToSearch>iso</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>

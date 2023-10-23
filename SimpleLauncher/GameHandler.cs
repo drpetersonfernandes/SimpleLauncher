@@ -9,15 +9,26 @@ namespace SimpleLauncher
 {
     public class GameHandler
     {
-        public async Task<List<string>> GetFilesAsync()
+        public async Task<List<string>> GetFilesAsync(string directoryPath)
         {
             return await Task.Run(() =>
             {
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                Console.WriteLine($"Directory Path: {directoryPath}"); // Debug line
+
+                if (!Directory.Exists(directoryPath))
+                {
+                    Console.WriteLine("Directory doesn't exist!"); // Debug line
+                    return new List<string>();
+                }
+
                 var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
-                return fileExtensions.SelectMany(ext => Directory.GetFiles(currentDirectory, ext)).ToList();
+                var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
+
+                Console.WriteLine($"Found {foundFiles.Count} files."); // Debug line
+                return foundFiles;
             });
         }
+
 
         public List<string> FilterFiles(List<string> files, string startLetter)
         {

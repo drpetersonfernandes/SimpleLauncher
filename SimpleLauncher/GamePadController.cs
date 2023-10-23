@@ -8,28 +8,24 @@ namespace SimpleLauncher
     public class GamePadController : IDisposable
     {
         private readonly Action<Exception, string> _errorLogger;
-        private const int MovementDivider = 2000;
-        private const int ScrollDivider = 10000;
         private const int RefreshRate = 60;
         private const float MaxThumbValue = 32767.0f;  // Maximum thumbstick value for normalization.
 
         private readonly Timer _timer;
         private readonly Controller _controller;
         private readonly IMouseSimulator _mouseSimulator;
-        private readonly IKeyboardSimulator _keyboardSimulator;
 
         private bool _wasADown;
         private bool _wasBDown;
         private bool _isDisposed = false;
 
-        float deadzoneX = 0.05f;
-        float deadzoneY = 0.02f;
+        readonly float deadZoneX = 0.05f;
+        readonly float deadZoneY = 0.02f;
 
         public GamePadController(Action<Exception, string> errorLogger = null)
         {
             _controller = new Controller(UserIndex.One);
             _mouseSimulator = new InputSimulator().Mouse;
-            _keyboardSimulator = new InputSimulator().Keyboard;
             _timer = new Timer(obj => Update());
             _errorLogger = errorLogger;
         }
@@ -85,14 +81,14 @@ namespace SimpleLauncher
 
         private void HandleScroll(State state)
         {
-            var (x, y) = ProcessThumbStick(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, deadzoneX, deadzoneY);
+            var (x, y) = ProcessThumbStick(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, deadZoneX, deadZoneY);
             _mouseSimulator.HorizontalScroll((int)x);
             _mouseSimulator.VerticalScroll((int)y);
         }
 
         private void HandleMovement(State state)
         {
-            var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, deadzoneX, deadzoneY);
+            var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, deadZoneX, deadZoneY);
             _mouseSimulator.MoveMouseBy((int)x, -(int)y);
         }
 

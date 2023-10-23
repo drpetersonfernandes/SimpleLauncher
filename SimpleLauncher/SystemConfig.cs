@@ -32,13 +32,15 @@ namespace SimpleLauncher
 
             foreach (var configElement in systemConfigElements)
             {
-                var config = new SystemConfig();
-
-                config.SystemName = configElement.Element("SystemName")?.Value;
-                config.SystemFolder = configElement.Element("SystemFolder")?.Value;
-                config.FileFormatsToSearch = configElement.Descendants("FileFormatsToSearch").Descendants("FormatToSearch").Select(x => x.Value).ToArray();
-                config.ExtractFileBeforeLaunch = bool.Parse(configElement.Element("ExtractFileBeforeLaunch")?.Value ?? "false");
-                config.FileFormatsToLaunch = configElement.Descendants("FileFormatsToLaunch").Descendants("FormatToLaunch").Select(x => x.Value).ToArray();
+                var config = new SystemConfig
+                {
+                    SystemName = configElement.Element("SystemName")?.Value,
+                    SystemFolder = configElement.Element("SystemFolder")?.Value,
+                    FileFormatsToSearch = configElement.Descendants("FileFormatsToSearch").Descendants("FormatToSearch").Select(x => x.Value).ToArray(),
+                    ExtractFileBeforeLaunch = bool.Parse(configElement.Element("ExtractFileBeforeLaunch")?.Value ?? "false"),
+                    FileFormatsToLaunch = configElement.Descendants("FileFormatsToLaunch").Descendants("FormatToLaunch").Select(x => x.Value).ToArray(),
+                    Emulators = new List<Emulator>()
+                };
 
                 // Extracting all emulator configurations
                 var emulatorElements = configElement.Descendants().Where(e => e.Name.LocalName.StartsWith("Emulator") && char.IsDigit(e.Name.LocalName.Last()));
