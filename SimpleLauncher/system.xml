@@ -1,0 +1,28 @@
+<SystemConfig>
+    <SystemName>Sony PSP</SystemName>
+    <SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+    <FileFormatsToSearch>
+        <FormatToSearch>cso</FormatToSearch>
+        <FormatToSearch>iso</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch>cso</FormatToLaunch>
+		<FormatToLaunch>iso</FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulator1>
+        <EmulatorName>Retroarch1</EmulatorName>
+		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+    </Emulator1>
+	<Emulator2>
+		<EmulatorName>Retroarch2</EmulatorName>
+		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+	</Emulator2>
+	<Emulator3>
+		<EmulatorName>Retroarch3</EmulatorName>
+		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+	</Emulator3>
+</SystemConfig>

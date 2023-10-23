@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SimpleLauncher
 {
@@ -11,9 +9,9 @@ namespace SimpleLauncher
     {
         public string SystemName { get; set; }
         public string SystemFolder { get; set; }
-        public List<string> FileFormatToSearch { get; set; }
+        public string[] FileFormatsToSearch { get; set; }
         public bool ExtractFileBeforeLaunch { get; set; }
-        public List<string> FileFormatToLaunch { get; set; }
+        public string[] FileFormatsToLaunch { get; set; }
 
         public class Emulator
         {
@@ -21,74 +19,46 @@ namespace SimpleLauncher
             public string EmulatorLocation { get; set; }
             public string EmulatorParameters { get; set; }
         }
+
         public List<Emulator> Emulators { get; set; } = new List<Emulator>();
 
         public static List<SystemConfig> LoadSystemConfigs(string filePath)
         {
-            List<SystemConfig> configs = new List<SystemConfig>();
+            var doc = XDocument.Load(filePath);
 
-            if (File.Exists(filePath))
+            // Fetch all 'SystemConfig' nodes from the XML
+            var systemConfigElements = doc.Descendants("SystemConfig");
+            var systemConfigs = new List<SystemConfig>();
+
+            foreach (var configElement in systemConfigElements)
             {
-                string[] lines = File.ReadAllLines(filePath);
-                SystemConfig currentConfig = null;
+                var config = new SystemConfig();
 
-                foreach (string line in lines)
+                config.SystemName = configElement.Element("SystemName")?.Value;
+                config.SystemFolder = configElement.Element("SystemFolder")?.Value;
+                config.FileFormatsToSearch = configElement.Descendants("FileFormatsToSearch").Descendants("FormatToSearch").Select(x => x.Value).ToArray();
+                config.ExtractFileBeforeLaunch = bool.Parse(configElement.Element("ExtractFileBeforeLaunch")?.Value ?? "false");
+                config.FileFormatsToLaunch = configElement.Descendants("FileFormatsToLaunch").Descendants("FormatToLaunch").Select(x => x.Value).ToArray();
+
+                // Extracting all emulator configurations
+                var emulatorElements = configElement.Descendants().Where(e => e.Name.LocalName.StartsWith("Emulator") && char.IsDigit(e.Name.LocalName.Last()));
+                foreach (var emulatorElement in emulatorElements)
                 {
-                    string key = line.Split('=')[0].Trim();
-                    string value = line.Contains('=') ? line.Split('=')[1].Trim() : "";
-
-                    // Use switch for better clarity and maintainability
-                    switch (key)
+                    var emulator = new Emulator
                     {
-                        case "SystemName":
-                            if (currentConfig != null)
-                            {
-                                configs.Add(currentConfig);
-                            }
-                            currentConfig = new SystemConfig { SystemName = value };
-                            break;
-                        case "SystemFolder":
-                            currentConfig.SystemFolder = value.Trim('"');
-                            break;
-                        case "FileFormatToSearch":
-                            currentConfig.FileFormatToSearch = value.Split(',').Select(s => s.Trim()).ToList();
-                            break;
-                        case "ExtractFileBeforeLaunch":
-                            currentConfig.ExtractFileBeforeLaunch = value.Equals("yes", StringComparison.OrdinalIgnoreCase);
-                            break;
-                        case "FileFormatToLaunch":
-                            currentConfig.FileFormatToLaunch = value.Split(',').Select(s => s.Trim()).ToList();
-                            break;
-                        case "EmulatorName":
-                            Emulator emulator = new Emulator { EmulatorName = value };
-                            currentConfig.Emulators.Add(emulator);
-                            break;
-                        case "EmulatorLocation":
-                            var lastEmulator = currentConfig.Emulators.LastOrDefault();
-                            if (lastEmulator != null)
-                            {
-                                lastEmulator.EmulatorLocation = value.Trim('"');
-                            }
-                            break;
-                        case "EmulatorParameters":
-                            var lastEmulatorParams = currentConfig.Emulators.LastOrDefault();
-                            if (lastEmulatorParams != null)
-                            {
-                                lastEmulatorParams.EmulatorParameters = value;
-                            }
-                            break;
-                    }
+                        EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
+                        EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
+                        EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value
+                    };
+                    config.Emulators.Add(emulator);
                 }
 
-                // Adding the last configuration to the list
-                if (currentConfig != null)
-                {
-                    configs.Add(currentConfig);
-                }
+                systemConfigs.Add(config);
             }
 
-            return configs;
+            return systemConfigs;
         }
+
 
     }
 }

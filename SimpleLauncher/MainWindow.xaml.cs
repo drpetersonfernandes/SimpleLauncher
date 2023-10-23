@@ -38,9 +38,17 @@ namespace SimpleLauncher
             _inputControl = new GamePadController((ex, msg) => LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
 
-            // Load system.ini and Populate the SystemComboBox
-            _systemConfigs = SystemConfig.LoadSystemConfigs("system.ini");
-            SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            // Load system.xml and Populate the SystemComboBox
+            try
+            {
+                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+                _systemConfigs = SystemConfig.LoadSystemConfigs(path);
+                SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex, "Error while loading system configurations");
+            }
 
             // Initialize the MenuActions with this window context
             _menuActions = new MenuActions(this, zipFileGrid);
@@ -49,7 +57,7 @@ namespace SimpleLauncher
             LetterNumberItems letterNumberItems = new LetterNumberItems();
             letterNumberItems.OnLetterSelected += (selectedLetter) =>
             {
-                LoadZipFiles(selectedLetter);
+                LoadgameFiles(selectedLetter);
             };
 
             // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
@@ -106,23 +114,16 @@ namespace SimpleLauncher
             {
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
 
-                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+                // Get the corresponding SystemConfig for the selected system
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
-                if (systemConfig != null)
+                if (selectedConfig != null)
                 {
-                    // Set the emulators for the selected system
-                    EmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
-
-                    // Auto select the first emulator (EmulatorName1)
-                    if (EmulatorComboBox.Items.Count > 0)
-                    {
-                        EmulatorComboBox.SelectedIndex = 0; // This will select the first item (EmulatorName1)
-                    }
+                    // Populate EmulatorComboBox with the emulators for the selected system
+                    EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
                 }
             }
         }
-
-
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -139,7 +140,7 @@ namespace SimpleLauncher
             return File.Exists(imagePath) ? imagePath : Path.Combine(imagesDirectory, DefaultImagePath);
         }
 
-        private async void LoadZipFiles(string startLetter = null)
+        private async void LoadgameFiles(string startLetter = null)
         {
             try
             {
