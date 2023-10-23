@@ -112,7 +112,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EmulatorConfig.cs" />
     <Compile Include="GameHandler.cs" />
     <Compile Include="LetterNumberItems.cs" />
     <Compile Include="SystemConfig.cs" />
