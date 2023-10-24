@@ -1,4 +1,24 @@
 <SystemConfigs>
+
+	<SystemConfig>
+		<SystemName>Test System</SystemName>
+		<SystemFolder>C:\Users\Peterson\Documents\Sincronizar\source\repos\CSharp_SimpleLauncher\SimpleLauncher\bin\Debug</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
 	
 	<SystemConfig>
 		<SystemName>Sony PSP</SystemName>
@@ -9,7 +29,6 @@
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
@@ -26,6 +45,46 @@
 		</Emulators>
 	</SystemConfig>
 
+	<SystemConfig>
+		<SystemName>Sega Master System</SystemName>
+		<SystemFolder>G:\OK\Sega Master System</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Game Gear</SystemName>
+		<SystemFolder>G:\OK\Sega Game Gear</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+	
 	<SystemConfig>
 		<SystemName>Sega Genesis</SystemName>
 		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
@@ -48,6 +107,51 @@
 	</SystemConfig>
 
 	<SystemConfig>
+		<SystemName>Nintendo NES</SystemName>
+		<SystemFolder>G:\OK\Nintendo NES</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo SNES</SystemName>
+		<SystemFolder>G:\OK\Nintendo SNES</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
 		<SystemName>Nintendo SNES MSU1</SystemName>
 		<SystemFolder>J:\Nintendo SNES MSU1</SystemFolder>
 		<FileFormatsToSearch>
@@ -62,6 +166,131 @@
 				<EmulatorName>Snes9x</EmulatorName>
 				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo N64</SystemName>
+		<SystemFolder>G:\OK\Nintendo N64</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo GameCube</SystemName>
+		<SystemFolder>G:\OK\Nintendo GameCube</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Wii</SystemName>
+		<SystemFolder>J:\Nintendo Wii</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo WiiWare</SystemName>
+		<SystemFolder>J:\Nintendo WiiWare</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Wii U</SystemName>
+		<SystemFolder>J:\Nintendo Wii U</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Cemu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Cemu\cemu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Switch</SystemName>
+		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Ryujinx</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Yuzu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

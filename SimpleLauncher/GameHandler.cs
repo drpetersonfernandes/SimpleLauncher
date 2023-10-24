@@ -9,25 +9,34 @@ namespace SimpleLauncher
 {
     public class GameHandler
     {
-        public async Task<List<string>> GetFilesAsync(string directoryPath)
+        public async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {
             return await Task.Run(() =>
             {
-                Console.WriteLine($"Directory Path: {directoryPath}"); // Debug line
-
-                if (!Directory.Exists(directoryPath))
+                try
                 {
-                    Console.WriteLine("Directory doesn't exist!"); // Debug line
+                    Console.WriteLine($"Directory Path: {directoryPath}"); // Debug line
+
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Console.WriteLine("Directory doesn't exist!"); // Debug line
+                        return new List<string>();
+                    }
+
+                    var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
+
+                    Console.WriteLine($"Found {foundFiles.Count} files."); // Debug line
+                    return foundFiles;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
                     return new List<string>();
                 }
-
-                var fileExtensions = new[] { "*.zip", "*.7z", "*.iso", "*.chd", "*.cso" };
-                var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
-
-                Console.WriteLine($"Found {foundFiles.Count} files."); // Debug line
-                return foundFiles;
             });
         }
+
+
 
         public List<string> FilterFiles(List<string> files, string startLetter)
         {
@@ -44,11 +53,23 @@ namespace SimpleLauncher
             }
         }
 
-        public async Task<List<string>> LoadGamesAsync(string systemDirectory)
+        public async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
         {
-            var gameFiles = await GetFilesAsync(systemDirectory);
-            var filteredGames = FilterFiles(gameFiles, "A"); // Filters games to only those starting with the letter "A"
+            // Load all system configs
+            var allConfigs = SystemConfig.LoadSystemConfigs("system.xml"); // Assuming your XML path
+            var targetSystemConfig = allConfigs.FirstOrDefault(sc => sc.SystemName == systemName);
+
+            if (targetSystemConfig == null)
+            {
+                Console.WriteLine($"System '{systemName}' not found in config.");
+                return new List<string>();
+            }
+
+            var fileExtensions = targetSystemConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+            var gameFiles = await GetFilesAsync(targetSystemConfig.SystemFolder, fileExtensions);
+            var filteredGames = FilterFiles(gameFiles, filterLetter);
             return filteredGames;
         }
+
     }
 }
