@@ -71,6 +71,42 @@ namespace SimpleLauncher
                 ToolTip = fileNameWithoutExtension // Display the full filename on hover
             };
 
+            // youtubeIcon
+            var youtubeIcon = new Image
+            {
+                Name = "youtubeIcon",
+                Source = new BitmapImage(new Uri("images/searchyoutube.png", UriKind.RelativeOrAbsolute)),
+                Width = 30,
+                Height = 30,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(5)
+            };
+
+            youtubeIcon.Cursor = System.Windows.Input.Cursors.Hand;
+
+            // Set Z-Index to ensure it's on top
+            youtubeIcon.SetValue(Grid.ZIndexProperty, 1);
+
+
+            youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            {
+                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
+                string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+                e.Handled = true; // Stops the click event from propagating to the button's main click event
+            };
+
+            var grid = new Grid
+            {
+                Width = ButtonWidth,
+                Height = ButtonHeight
+            };
+
             var stackPanel = new StackPanel
             {
                 Orientation = Orientation.Vertical,
@@ -81,12 +117,13 @@ namespace SimpleLauncher
                 MaxHeight = StackPanelHeight // Limits the maximum height
             };
 
-            stackPanel.Children.Add(image);
-            stackPanel.Children.Add(textBlock);
+            // Add the main content (StackPanel) and the YouTube icon to the Grid
+            grid.Children.Add(stackPanel);
+            grid.Children.Add(youtubeIcon);
 
             var button = new Button
             {
-                Content = stackPanel,
+                Content = grid,
                 Width = ButtonWidth,
                 Height = ButtonHeight,
                 MaxHeight = ButtonHeight,
@@ -95,6 +132,18 @@ namespace SimpleLauncher
                 Margin = new Thickness(0),
                 Padding = new Thickness(0)
             };
+
+            button.PreviewMouseLeftButtonDown += (sender, args) =>
+            {
+                if (args.OriginalSource is Image img && img.Name == "youtubeIcon")
+                {
+                    // If the event source is our youtubeIcon, set the event as handled
+                    args.Handled = true;
+                }
+            };
+
+            stackPanel.Children.Add(image);
+            stackPanel.Children.Add(textBlock);
 
             button.Click += async (sender, args) =>
             {

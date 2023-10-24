@@ -12,8 +12,8 @@ namespace SimpleLauncher
 {
     public class MenuActions
     {
-        private Window _window;
-        private WrapPanel _zipFileGrid;
+        readonly private Window _window;
+        readonly private WrapPanel _zipFileGrid;
 
         public MenuActions(Window window, WrapPanel zipFileGrid)
         {
