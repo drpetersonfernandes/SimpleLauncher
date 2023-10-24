@@ -20,28 +20,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
-            <MenuItem Header="Utilities">
-                <MenuItem
-                    x:Name="CheckMissingImagesButton"
-                    Click="CheckMissingImages_Click"
-                    Header="Check Missing Images">
-                    <MenuItem.Icon>
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Source="images/check.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="MoveWrongImages_Click" Header="Move Wrong Images">
-                    <MenuItem.Icon>
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Source="images/move.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-
             <MenuItem Header="Show">
                 <MenuItem Click="HideGames_Click" Header="Hide Games With No Cover">
                     <MenuItem.Icon>
@@ -60,7 +38,6 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-
 
             <MenuItem
                 x:Name="AboutButton"

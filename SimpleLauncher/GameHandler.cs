@@ -29,7 +29,6 @@ namespace SimpleLauncher
             });
         }
 
-
         public List<string> FilterFiles(List<string> files, string startLetter)
         {
             if (string.IsNullOrEmpty(startLetter))
@@ -44,6 +43,12 @@ namespace SimpleLauncher
                 return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
             }
         }
+
+        public async Task<List<string>> LoadGamesAsync(string systemDirectory)
+        {
+            var gameFiles = await GetFilesAsync(systemDirectory);
+            var filteredGames = FilterFiles(gameFiles, "A"); // Filters games to only those starting with the letter "A"
+            return filteredGames;
+        }
     }
 }
-

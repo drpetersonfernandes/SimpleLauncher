@@ -1,28 +1,69 @@
-<SystemConfig>
-    <SystemName>Sony PSP</SystemName>
-    <SystemFolder>C:\Sony PSP Roms</SystemFolder>
-    <FileFormatsToSearch>
-		<FormatToSearch>cso</FormatToSearch>
-        <FormatToSearch>iso</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-	<FileFormatsToLaunch>
-		<FormatToLaunch>cso</FormatToLaunch>
-		<FormatToLaunch>iso</FormatToLaunch>
-	</FileFormatsToLaunch>
-	<Emulator1>
-        <EmulatorName>Retroarch1</EmulatorName>
-		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-    </Emulator1>
-	<Emulator2>
-		<EmulatorName>Retroarch2</EmulatorName>
-		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-	</Emulator2>
-	<Emulator3>
-		<EmulatorName>Retroarch3</EmulatorName>
-		<EmulatorLocation>C:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-		<EmulatorParameters>-L "C:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "C:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-	</Emulator3>
-</SystemConfig>
+<SystemConfigs>
+	
+	<SystemConfig>
+		<SystemName>Sony PSP</SystemName>
+		<SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>cso</FormatToSearch>
+			<FormatToSearch>iso</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>PPSSPP</EmulatorName>
+				<EmulatorLocation>G:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
+				<EmulatorParameters>--fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Genesis</SystemName>
+		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo SNES MSU1</SystemName>
+		<SystemFolder>J:\Nintendo SNES MSU1</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch>sfc</FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+	
+</SystemConfigs>

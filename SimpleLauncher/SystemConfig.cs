@@ -9,9 +9,10 @@ namespace SimpleLauncher
     {
         public string SystemName { get; set; }
         public string SystemFolder { get; set; }
-        public string[] FileFormatsToSearch { get; set; }
+        public List<string> FileFormatsToSearch { get; set; }
         public bool ExtractFileBeforeLaunch { get; set; }
-        public string[] FileFormatsToLaunch { get; set; }
+        public List<string> FileFormatsToLaunch { get; set; }
+        public List<Emulator> Emulators { get; set; }
 
         public class Emulator
         {
@@ -20,47 +21,32 @@ namespace SimpleLauncher
             public string EmulatorParameters { get; set; }
         }
 
-        public List<Emulator> Emulators { get; set; } = new List<Emulator>();
-
-        public static List<SystemConfig> LoadSystemConfigs(string filePath)
+        public static List<SystemConfig> LoadSystemConfigs(string xmlPath)
         {
-            var doc = XDocument.Load(filePath);
-
-            // Fetch all 'SystemConfig' nodes from the XML
-            var systemConfigElements = doc.Descendants("SystemConfig");
+            var doc = XDocument.Load(xmlPath);
             var systemConfigs = new List<SystemConfig>();
 
-            foreach (var configElement in systemConfigElements)
+            foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
             {
-                var config = new SystemConfig
+                var systemConfig = new SystemConfig
                 {
-                    SystemName = configElement.Element("SystemName")?.Value,
-                    SystemFolder = configElement.Element("SystemFolder")?.Value,
-                    FileFormatsToSearch = configElement.Descendants("FileFormatsToSearch").Descendants("FormatToSearch").Select(x => x.Value).ToArray(),
-                    ExtractFileBeforeLaunch = bool.Parse(configElement.Element("ExtractFileBeforeLaunch")?.Value ?? "false"),
-                    FileFormatsToLaunch = configElement.Descendants("FileFormatsToLaunch").Descendants("FormatToLaunch").Select(x => x.Value).ToArray(),
-                    Emulators = new List<Emulator>()
+                    SystemName = sysConfigElement.Element("SystemName").Value,
+                    SystemFolder = sysConfigElement.Element("SystemFolder").Value,
+                    ExtractFileBeforeLaunch = bool.Parse(sysConfigElement.Element("ExtractFileBeforeLaunch").Value),
+                    FileFormatsToSearch = sysConfigElement.Element("FileFormatsToSearch").Elements("FormatToSearch").Select(e => e.Value).ToList(),
+                    FileFormatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch").Elements("FormatToLaunch").Select(e => e.Value).ToList(),
+                    Emulators = sysConfigElement.Element("Emulators").Elements("Emulator").Select(emulatorElement => new Emulator
+                    {
+                        EmulatorName = emulatorElement.Element("EmulatorName").Value,
+                        EmulatorLocation = emulatorElement.Element("EmulatorLocation").Value,
+                        EmulatorParameters = emulatorElement.Element("EmulatorParameters").Value
+                    }).ToList()
                 };
 
-                // Extracting all emulator configurations
-                var emulatorElements = configElement.Descendants().Where(e => e.Name.LocalName.StartsWith("Emulator") && char.IsDigit(e.Name.LocalName.Last()));
-                foreach (var emulatorElement in emulatorElements)
-                {
-                    var emulator = new Emulator
-                    {
-                        EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
-                        EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                        EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value
-                    };
-                    config.Emulators.Add(emulator);
-                }
-
-                systemConfigs.Add(config);
+                systemConfigs.Add(systemConfig);
             }
 
             return systemConfigs;
         }
-
-
     }
 }

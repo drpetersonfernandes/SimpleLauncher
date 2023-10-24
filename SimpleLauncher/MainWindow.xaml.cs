@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenZip;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -34,9 +35,15 @@ namespace SimpleLauncher
             // Attach the Closing event handler to ensure resources are disposed of
             this.Closing += MainWindow_Closing;
 
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+
             // Initialize the GamePadController.cs
             _inputControl = new GamePadController((ex, msg) => LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
+
+            // Set the path to the 7z.dll
+            string dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.dll");
+            SevenZipBase.SetLibraryPath(dllPath);
 
             // Load system.xml and Populate the SystemComboBox
             try
@@ -63,9 +70,14 @@ namespace SimpleLauncher
             // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
             Grid.SetRow(letterNumberItems.LetterPanel, 1);
             ((Grid)this.Content).Children.Add(letterNumberItems.LetterPanel);
-
             // Simulate a click on the "A" button
             letterNumberItems.SimulateClick("A");
+
+        }
+
+        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            ExtractFile.Instance.Cleanup();
         }
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -75,17 +87,6 @@ namespace SimpleLauncher
                 _inputControl.Dispose();
             }
         }
-
-        private void CheckMissingImages_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.CheckMissingImages_Click(sender, e);
-        }
-
-        private void MoveWrongImages_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.MoveWrongImages_Click(sender, e);
-        }
-
         private void HideGames_Click(object sender, RoutedEventArgs e)
         {
             _menuActions.HideGames_Click(sender, e);
@@ -122,12 +123,17 @@ namespace SimpleLauncher
                     // Populate EmulatorComboBox with the emulators for the selected system
                     EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
 
+                    // Select the first emulator
+                    if (EmulatorComboBox.Items.Count > 0)
+                    {
+                        EmulatorComboBox.SelectedIndex = 0;
+                    }
+
                     // Load game files for the selected system
-                    LoadgameFiles();
+                    LoadgameFiles("A");
                 }
             }
         }
-
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -138,10 +144,20 @@ namespace SimpleLauncher
 
         private string DetermineImagePath(string fileNameWithoutExtension)
         {
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string imagesDirectory = Path.Combine(currentDirectory, "images");
-            string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
-            return File.Exists(imagePath) ? imagePath : Path.Combine(imagesDirectory, DefaultImagePath);
+            if (SystemComboBox.SelectedItem != null)
+            {
+                string selectedSystem = SystemComboBox.SelectedItem.ToString();
+
+                // Create the path based on the selected system and the file name
+                string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                string imagesDirectory = Path.Combine(basePath, "images", selectedSystem);
+                string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
+
+                return File.Exists(imagePath) ? imagePath : Path.Combine(basePath, "images", DefaultImagePath);
+            }
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", DefaultImagePath);
+            // Return default image path if no system is selected
         }
 
         private async void LoadgameFiles(string startLetter = null)
@@ -152,7 +168,7 @@ namespace SimpleLauncher
 
                 if (SystemComboBox.SelectedItem == null)
                 {
-                    AddNoRomsMessage();
+                    AddNoSystemMessage();
                     return;
                 }
 
@@ -189,10 +205,24 @@ namespace SimpleLauncher
             }
         }
 
-
         private void AddNoRomsMessage()
         {
-            zipFileGrid.Children.Add(new TextBlock { Text = "Could not find any ROM", FontWeight = FontWeights.Bold });
+            zipFileGrid.Children.Add(new TextBlock
+            {
+                Text = "Could not find any ROM",
+                FontWeight = FontWeights.Bold,
+                Padding = new Thickness(10) // This will add 10 pixels of padding on all sides
+            });
+        }
+
+        private void AddNoSystemMessage()
+        {
+            zipFileGrid.Children.Add(new TextBlock
+            {
+                Text = "Please select a System",
+                FontWeight = FontWeights.Bold,
+                Padding = new Thickness(10) // This will add 10 pixels of padding on all sides
+            });
         }
 
         private Button CreateGameButton(string filePath)
@@ -246,7 +276,7 @@ namespace SimpleLauncher
 
             button.Click += async (sender, args) =>
             {
-                ProcessStartInfo psi = null; // Declare the variable here
+                ProcessStartInfo psi = null;
 
                 try
                 {
@@ -271,12 +301,40 @@ namespace SimpleLauncher
                             return;
                         }
 
+                        string gamePathToLaunch = filePath;  // Default to the original path
+
+                        // Determine if extraction is needed based on system configuration
+                        if (systemConfig.ExtractFileBeforeLaunch)
+                        {
+                            string fileExtension = Path.GetExtension(filePath).ToLower();
+
+                            if (fileExtension == ".zip" || fileExtension == ".7z")
+                            {
+                                // Here, we'll use the first format in the FileFormatsToLaunch list for extraction.
+                                // Modify if needed.
+                                string formatToLaunch = systemConfig.FileFormatsToLaunch.FirstOrDefault();
+
+                                if (string.IsNullOrEmpty(formatToLaunch))
+                                {
+                                    MessageBox.Show("No format specified for launch in the system configuration.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+
+                                gamePathToLaunch = ExtractFile.Instance.ExtractArchiveToTemp(filePath, formatToLaunch);
+
+                                if (string.IsNullOrEmpty(gamePathToLaunch))
+                                {
+                                    MessageBox.Show("Couldn't find a file with the specified extension after extraction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+                            }
+                        }
+
+
                         string programLocation = emulatorConfig.EmulatorLocation;
                         string parameters = emulatorConfig.EmulatorParameters;
-                        string filename = Path.GetFileName(filePath);  // Get the full filename including extension
-
-                        // Combine the parameters and filename with full path
-                        string arguments = $"{parameters} \"{filePath}\"";
+                        string filename = Path.GetFileName(gamePathToLaunch);
+                        string arguments = $"{parameters} \"{gamePathToLaunch}\"";
 
                         // Create ProcessStartInfo
                         psi = new ProcessStartInfo
@@ -299,11 +357,9 @@ namespace SimpleLauncher
                         // Wait for the process to exit
                         process.WaitForExit();
 
-                        // Check if the process exited with an error code
                         if (process.ExitCode != 0)
                         {
                             MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            // External program did not start successfully, write to error log
                             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
                             string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
                             errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
@@ -317,9 +373,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    // An exception occurred while trying to start the process
                     MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    // Write the exception details to the error log
                     string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
                     string errorDetails = $"Exception Details:\n{ex}\n";
                     if (psi != null)
@@ -329,7 +383,6 @@ namespace SimpleLauncher
                     File.AppendAllText(errorLogPath, errorDetails);
                 }
             };
-
 
             return button;
         }
