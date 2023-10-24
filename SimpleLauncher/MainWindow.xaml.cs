@@ -19,6 +19,7 @@ namespace SimpleLauncher
         readonly private List<SystemConfig> _systemConfigs;
         private readonly GameHandler _gameHandler = new GameHandler();
         private static readonly object _lockObject = new object();
+        private LogErrors _logger = new LogErrors();
 
         // Constants
         private const string DefaultImagePath = "default.png";
@@ -27,7 +28,6 @@ namespace SimpleLauncher
         private const int StackPanelHeight = 250;
         private const int ButtonWidth = 300;
         private const int ButtonHeight = 250;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace SimpleLauncher
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
             // Initialize the GamePadController.cs
-            _inputControl = new GamePadController((ex, msg) => LogErrorAsync(ex, msg).Wait());
+            _inputControl = new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
 
             // Set the path to the 7z.dll
@@ -330,7 +330,6 @@ namespace SimpleLauncher
                             }
                         }
 
-
                         string programLocation = emulatorConfig.EmulatorLocation;
                         string parameters = emulatorConfig.EmulatorParameters;
                         string filename = Path.GetFileName(gamePathToLaunch);
@@ -387,24 +386,12 @@ namespace SimpleLauncher
             return button;
         }
 
-        private async Task LogErrorAsync(Exception ex, string contextMessage = null)
-        {
-            await Task.Run(() =>
-            {
-                string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-                string errorMessage = $"Date: {DateTime.Now}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
-
-                lock (_lockObject)
-                {
-                    File.AppendAllText(errorLogPath, errorMessage);
-                }
-            });
-        }
-
         private async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            await LogErrorAsync(ex, message);
+
+            var logger = new LogErrors();
+            await logger.LogErrorAsync(ex, message);
         }
 
     }
