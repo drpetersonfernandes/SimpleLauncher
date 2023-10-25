@@ -76,23 +76,48 @@ namespace SimpleLauncher
             {
                 Name = "youtubeIcon",
                 Source = new BitmapImage(new Uri("images/searchyoutube.png", UriKind.RelativeOrAbsolute)),
-                Width = 30,
-                Height = 30,
+                Width = 22,
+                Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(5)
+                Margin = new Thickness(5,5,30,5),
+                Cursor = System.Windows.Input.Cursors.Hand
             };
-
-            youtubeIcon.Cursor = System.Windows.Input.Cursors.Hand;
 
             // Set Z-Index to ensure it's on top
             youtubeIcon.SetValue(Grid.ZIndexProperty, 1);
-
 
             youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
             {
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
                 string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+                e.Handled = true; // Stops the click event from propagating to the button's main click event
+            };
+
+            // infoIcon
+            var infoIcon = new Image
+            {
+                Name = "infoIcon",
+                Source = new BitmapImage(new Uri("images/info.png", UriKind.RelativeOrAbsolute)),
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(5,5,5,5),
+                Cursor = System.Windows.Input.Cursors.Hand
+            };
+
+            // Set Z-Index to ensure it's on top
+            infoIcon.SetValue(Grid.ZIndexProperty, 1);
+
+            infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            {
+                string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = searchUrl,
@@ -120,6 +145,7 @@ namespace SimpleLauncher
             // Add the main content (StackPanel) and the YouTube icon to the Grid
             grid.Children.Add(stackPanel);
             grid.Children.Add(youtubeIcon);
+            grid.Children.Add(infoIcon);
 
             var button = new Button
             {
@@ -135,12 +161,14 @@ namespace SimpleLauncher
 
             button.PreviewMouseLeftButtonDown += (sender, args) =>
             {
-                if (args.OriginalSource is Image img && img.Name == "youtubeIcon")
+                if (args.OriginalSource is Image img &&
+                   (img.Name == "youtubeIcon" || img.Name == "infoIcon"))
                 {
-                    // If the event source is our youtubeIcon, set the event as handled
+                    // If the event source is our youtubeIcon or infoIcon, set the event as handled
                     args.Handled = true;
                 }
             };
+
 
             stackPanel.Children.Add(image);
             stackPanel.Children.Add(textBlock);

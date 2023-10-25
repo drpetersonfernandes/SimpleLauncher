@@ -10,7 +10,7 @@ namespace SimpleLauncher
     public class LetterNumberItems
     {
         public StackPanel LetterPanel { get; private set; } = new StackPanel { Orientation = Orientation.Horizontal };
-        private Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
+        readonly private Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
         private Button selectedButton = null;
 
         public event Action<string> OnLetterSelected;
@@ -52,10 +52,7 @@ namespace SimpleLauncher
 
         private void UpdateSelectedButton(Button button)
         {
-            if (selectedButton != null)
-            {
-                selectedButton.ClearValue(Button.BackgroundProperty);
-            }
+            selectedButton?.ClearValue(Button.BackgroundProperty);
 
             button.Background = Brushes.Green;
             selectedButton = button;

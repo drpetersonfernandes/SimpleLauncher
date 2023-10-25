@@ -1,13 +1,10 @@
 ﻿using SevenZip;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
@@ -19,14 +16,12 @@ namespace SimpleLauncher
         readonly private List<SystemConfig> _systemConfigs;
         private readonly GameHandler _gameHandler = new GameHandler();
         readonly private LogErrors _logger = new LogErrors();
-
-        //// Constants
-        //private const string DefaultImagePath = "default.png";
+        readonly private LetterNumberItems _letterNumberItems = new LetterNumberItems();
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
             // Attach the Closing event handler to ensure resources are disposed of
             this.Closing += MainWindow_Closing;
 
@@ -56,17 +51,16 @@ namespace SimpleLauncher
             _menuActions = new MenuActions(this, zipFileGrid);
 
             // Create and integrate LetterNumberItems
-            LetterNumberItems letterNumberItems = new LetterNumberItems();
-            letterNumberItems.OnLetterSelected += (selectedLetter) =>
+            _letterNumberItems.OnLetterSelected += (selectedLetter) =>
             {
                 LoadgameFiles(selectedLetter);
             };
 
             // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
-            Grid.SetRow(letterNumberItems.LetterPanel, 1);
-            ((Grid)this.Content).Children.Add(letterNumberItems.LetterPanel);
+            Grid.SetRow(_letterNumberItems.LetterPanel, 1);
+            ((Grid)this.Content).Children.Add(_letterNumberItems.LetterPanel);
             // Simulate a click on the "A" button
-            letterNumberItems.SimulateClick("A");
+            _letterNumberItems.SimulateClick("A");
 
         }
 
@@ -106,6 +100,7 @@ namespace SimpleLauncher
         {
             EmulatorComboBox.ItemsSource = null;
             EmulatorComboBox.SelectedIndex = -1;
+
             if (SystemComboBox.SelectedItem != null)
             {
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
@@ -128,7 +123,10 @@ namespace SimpleLauncher
                     LoadgameFiles("A");
                 }
             }
+            // Reset the letter to "A" each time the system is changed
+            _letterNumberItems.SimulateClick("A");
         }
+
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -136,24 +134,6 @@ namespace SimpleLauncher
             //EmulatorConfig selectedProgram = (EmulatorConfig)EmulatorComboBox.SelectedItem;
             // For now, you can leave it empty if there's no specific logic to implement yet.
         }
-
-        //private string DetermineImagePath(string fileNameWithoutExtension)
-        //{
-        //    if (SystemComboBox.SelectedItem != null)
-        //    {
-        //        string selectedSystem = SystemComboBox.SelectedItem.ToString();
-
-        //        // Create the path based on the selected system and the file name
-        //        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-        //        string imagesDirectory = Path.Combine(basePath, "images", selectedSystem);
-        //        string imagePath = Path.Combine(imagesDirectory, fileNameWithoutExtension + ".png");
-
-        //        return File.Exists(imagePath) ? imagePath : Path.Combine(basePath, "images", DefaultImagePath);
-        //    }
-
-        //    return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", DefaultImagePath);
-        //    // Return default image path if no system is selected
-        //}
 
         private async void LoadgameFiles(string startLetter = null)
         {

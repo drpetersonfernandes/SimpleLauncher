@@ -35,12 +35,16 @@ namespace SimpleLauncher
         {
             foreach (var child in _zipFileGrid.Children)
             {
-                if (child is Button btn && btn.Content is StackPanel sp)
+                if (child is Button btn && btn.Content is Grid grid)
                 {
-                    var image = sp.Children.OfType<Image>().FirstOrDefault();
-                    if (image != null && image.Source is BitmapImage bmp && bmp.UriSource.LocalPath.EndsWith("default.png"))
+                    var sp = grid.Children.OfType<StackPanel>().FirstOrDefault();
+                    if (sp != null)
                     {
-                        btn.Visibility = Visibility.Collapsed; // hide the button
+                        var image = sp.Children.OfType<Image>().FirstOrDefault();
+                        if (image != null && image.Source is BitmapImage bmp && bmp.UriSource.LocalPath.EndsWith("default.png"))
+                        {
+                            btn.Visibility = Visibility.Collapsed; // hide the button
+                        }
                     }
                 }
             }
