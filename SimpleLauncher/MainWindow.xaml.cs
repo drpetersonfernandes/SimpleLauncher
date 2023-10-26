@@ -191,23 +191,40 @@ namespace SimpleLauncher
 
         private void AddNoRomsMessage()
         {
+            ClearPreviousMessages("Could not find any ROM");
             zipFileGrid.Children.Add(new TextBlock
             {
                 Text = "Could not find any ROM",
                 FontWeight = FontWeights.Bold,
-                Padding = new Thickness(10) // This will add 10 pixels of padding on all sides
+                Padding = new Thickness(10)
             });
         }
 
+
         private void AddNoSystemMessage()
         {
+            ClearPreviousMessages("Please select a System");
             zipFileGrid.Children.Add(new TextBlock
             {
                 Text = "Please select a System",
                 FontWeight = FontWeights.Bold,
-                Padding = new Thickness(10) // This will add 10 pixels of padding on all sides
+                Padding = new Thickness(10)
             });
         }
+
+        private void ClearPreviousMessages(string message)
+        {
+            var existingMessage = zipFileGrid.Children
+                                .OfType<TextBlock>()
+                                .FirstOrDefault(tb => tb.Text == message);
+
+            if (existingMessage != null)
+            {
+                zipFileGrid.Children.Remove(existingMessage);
+            }
+        }
+
+
 
         private async void HandleError(Exception ex, string message)
         {

@@ -315,11 +315,10 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Sony Playstation</SystemName>
-		<SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+		<SystemName>Sony Playstation 1</SystemName>
+		<SystemFolder>I:\Sony Playstation 1</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>cso</FormatToSearch>
-			<FormatToSearch>iso</FormatToSearch>
+			<FormatToSearch>chd</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -327,14 +326,14 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorName>DuckStation</EmulatorName>
+				<EmulatorLocation>G:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>PPSSPP</EmulatorName>
-				<EmulatorLocation>G:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
-				<EmulatorParameters>--fullscreen</EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\mednafen_psx_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -391,10 +390,9 @@
 
 	<SystemConfig>
 		<SystemName>Sony PSP</SystemName>
-		<SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+		<SystemFolder>G:\OK\Sony PSP</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>cso</FormatToSearch>
-			<FormatToSearch>iso</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
