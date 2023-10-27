@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using SevenZip;
 using System.IO.Compression;
 
@@ -17,7 +16,7 @@ namespace SimpleLauncher
 
         private ExtractFile() { } // Private constructor to enforce singleton pattern
 
-        public string ExtractArchiveToTemp(string archivePath, string formatToLaunch)
+        public string ExtractArchiveToTemp(string archivePath)
         {
             string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             Directory.CreateDirectory(tempDirectory);
@@ -32,7 +31,7 @@ namespace SimpleLauncher
             }
             else if (extension == ".7z")
             {
-                using (var extractor = new SevenZip.SevenZipExtractor(archivePath))
+                using (var extractor = new SevenZipExtractor(archivePath))
                 {
                     extractor.ExtractArchive(tempDirectory);
                 }
@@ -42,9 +41,7 @@ namespace SimpleLauncher
                 throw new NotSupportedException($"The file format '{extension}' is not supported.");
             }
 
-            // Look for the first file with the desired extension
-            string targetFile = Directory.GetFiles(tempDirectory, $"*.{formatToLaunch}").FirstOrDefault();
-            return targetFile;
+            return tempDirectory;
         }
 
         public void Cleanup()

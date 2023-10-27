@@ -209,25 +209,37 @@ namespace SimpleLauncher
 
                             if (fileExtension == ".zip" || fileExtension == ".7z")
                             {
-                                // Here, we'll use the first format in the FileFormatsToLaunch list for extraction.
-                                // Modify if needed.
-                                string formatToLaunch = systemConfig.FileFormatsToLaunch.FirstOrDefault();
+                                // Extract the archive to a temporary location
+                                string tempExtractLocation = ExtractFile.Instance.ExtractArchiveToTemp(filePath);
 
-                                if (string.IsNullOrEmpty(formatToLaunch))
+                                if (string.IsNullOrEmpty(tempExtractLocation))
                                 {
-                                    MessageBox.Show("No format specified for launch in the system configuration.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show("Failed to extract the archive.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                     return;
                                 }
 
-                                gamePathToLaunch = ExtractFile.Instance.ExtractArchiveToTemp(filePath, formatToLaunch);
-
-                                if (string.IsNullOrEmpty(gamePathToLaunch))
+                                // Iterate through the formats to launch and find the first file with the specified extension
+                                bool fileFound = false;
+                                foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
                                 {
-                                    MessageBox.Show("Couldn't find a file with the specified extension after extraction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    string[] files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}");
+
+                                    if (files.Length > 0)
+                                    {
+                                        gamePathToLaunch = files[0];
+                                        fileFound = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!fileFound)
+                                {
+                                    MessageBox.Show("Couldn't find a file with the specified extensions after extraction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                     return;
                                 }
                             }
                         }
+
 
                         string programLocation = emulatorConfig.EmulatorLocation;
                         string parameters = emulatorConfig.EmulatorParameters;

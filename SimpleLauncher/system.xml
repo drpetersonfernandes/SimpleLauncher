@@ -20,7 +20,7 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Atari 8-Bits</SystemName>
+		<SystemName>Atari 8-Bit</SystemName>
 		<SystemFolder>G:\OK\Atari 8-Bit</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
