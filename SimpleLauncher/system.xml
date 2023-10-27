@@ -1,5 +1,364 @@
 <SystemConfigs>
-	
+
+	<SystemConfig>
+		<SystemName>Amstrad CPC GX4000</SystemName>
+		<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\cap32_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari 8-Bits</SystemName>
+		<SystemFolder>G:\OK\Atari 8-Bit</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Altirra</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari 2600</SystemName>
+		<SystemFolder>G:\OK\Atari 2600</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari 5200</SystemName>
+		<SystemFolder>G:\OK\Atari 5200</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Altirra</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari 7800</SystemName>
+		<SystemFolder>G:\OK\Atari 7800</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\prosystem_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari Jaguar</SystemName>
+		<SystemFolder>G:\OK\Atari Jaguar</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>BigPEmu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari Jaguar CD</SystemName>
+		<SystemFolder>G:\OK\Atari Jaguar CD</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>BigPEmu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari Lynx</SystemName>
+		<SystemFolder>G:\OK\Atari Lynx</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_lynx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Atari ST</SystemName>
+		<SystemFolder>G:\OK\Atari ST</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\hatari_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Bandai WonderSwan</SystemName>
+		<SystemFolder>G:\OK\Bandai WonderSwan</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Bandai WonderSwan Color</SystemName>
+		<SystemFolder>G:\OK\Bandai WonderSwan Color</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Casio PV-1000</SystemName>
+		<SystemFolder>G:\OK\Casio PV-1000</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName></EmulatorName>
+				<EmulatorLocation></EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>ColecoVision</SystemName>
+		<SystemFolder>G:\OK\ColecoVision</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fbneo_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Commodore 64</SystemName>
+		<SystemFolder>G:\OK\Commodore 64</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\vice_x64sc_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Commodore Amiga CD32</SystemName>
+		<SystemFolder>G:\OK\Commodore Amiga CD32</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>WinUAE</EmulatorName>
+				<EmulatorLocation>G:\Emulators\WinUAE\winuae64.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>FS-UAE</EmulatorName>
+				<EmulatorLocation>G:\Emulators\FS-UAE\FS-UAE\Windows\x86-64\fs-uae.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Magnavox Odyssey 2</SystemName>
+		<SystemFolder>G:\OK\Magnavox Odyssey 2</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\o2em_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Mattel Aquarius</SystemName>
+		<SystemFolder>G:\OK\Mattel Aquarius</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch>rom</FormatToLaunch>
+			<FormatToLaunch>bin</FormatToLaunch>
+			<FormatToLaunch>caq</FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>AqEmu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\AqEmu\AqEmu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>VirtualAquarius</EmulatorName>
+				<EmulatorLocation>G:\Emulators\AqEmu\VirtualAquarius\aquarius.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Mattel Intellivision</SystemName>
+		<SystemFolder>G:\OK\Mattel Intellivision</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\freeintv_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
 	<SystemConfig>
 		<SystemName>Nintendo NES</SystemName>
 		<SystemFolder>G:\OK\Nintendo NES</SystemFolder>
@@ -47,7 +406,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo SNES MSU1</SystemName>
-		<SystemFolder>J:\Nintendo SNES MSU1</SystemFolder>
+		<SystemFolder>J:\zip</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
@@ -56,6 +415,11 @@
 			<FormatToLaunch>sfc</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
 				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
@@ -667,143 +1031,9 @@
 		</Emulators>
 	</SystemConfig>
 
-	<SystemConfig>
-		<SystemName>Atari 2600</SystemName>
-		<SystemFolder>G:\OK\Atari 2600</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
 
-	<SystemConfig>
-		<SystemName>Atari 5200</SystemName>
-		<SystemFolder>G:\OK\Atari 5200</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Altirra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
 
-	<SystemConfig>
-		<SystemName>Atari 7800</SystemName>
-		<SystemFolder>G:\OK\Atari 7800</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\prosystem_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
 
-	<SystemConfig>
-		<SystemName>Atari 8-Bits</SystemName>
-		<SystemFolder>G:\OK\Atari 8-Bit</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Altirra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Atari Jaguar</SystemName>
-		<SystemFolder>G:\OK\Atari Jaguar</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>BigPEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Atari Jaguar CD</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>BigPEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-	
-		<SystemConfig>
-		<SystemName>Atari Lynx</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
 
 	<SystemConfig>
 		<SystemName>SNK Neo-Geo</SystemName>
@@ -915,44 +1145,6 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Bandai WonderSwan</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Amstrad CPC GX4000</SystemName>
-		<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\cap32_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

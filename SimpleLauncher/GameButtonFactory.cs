@@ -255,7 +255,7 @@ namespace SimpleLauncher
                         // Wait for the process to exit
                         process.WaitForExit();
 
-                        if (process.ExitCode != 0)
+                        if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                         {
                             MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
