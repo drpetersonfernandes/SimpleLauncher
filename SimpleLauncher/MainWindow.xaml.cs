@@ -120,7 +120,7 @@ namespace SimpleLauncher
                     }
 
                     // Load game files for the selected system
-                    LoadgameFiles("A");
+                    //LoadgameFiles("A");
                 }
             }
             // Reset the letter to "A" each time the system is changed

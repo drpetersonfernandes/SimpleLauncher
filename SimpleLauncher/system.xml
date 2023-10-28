@@ -121,13 +121,14 @@
 
 	<SystemConfig>
 		<SystemName>Atari Jaguar CD</SystemName>
-		<SystemFolder>G:\OK\Atari Jaguar CD</SystemFolder>
+		<SystemFolder>J:\OK\Atari Jaguar CD</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>cdi</FormatToSearch>
 		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch>cue</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
@@ -470,10 +471,9 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Wii</SystemName>
-		<SystemFolder>J:\Nintendo Wii</SystemFolder>
+		<SystemFolder>I:\Nintendo Wii</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>rvz</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -485,15 +485,19 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>Dolphin</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
 		<SystemName>Nintendo WiiWare</SystemName>
-		<SystemFolder>J:\Nintendo WiiWare</SystemFolder>
+		<SystemFolder>I:\Nintendo WiiWare</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>wad</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -504,6 +508,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Dolphin</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -655,10 +664,9 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo 3DS</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemFolder>J:\OK\Nintendo 3DS</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>3ds</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -666,13 +674,13 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\citra_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
+				<EmulatorName>Citra</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Citra\Citra\nightly\citra-qt.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
