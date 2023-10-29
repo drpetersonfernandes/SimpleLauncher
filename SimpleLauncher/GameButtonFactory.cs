@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -47,7 +48,7 @@ namespace SimpleLauncher
             SystemConfigs = systemConfigs;
         }
 
-        public Button CreateGameButton(string filePath, string systemName)
+        public async Task<Button> CreateGameButtonAsync(string filePath, string systemName)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
@@ -57,10 +58,12 @@ namespace SimpleLauncher
 
             var image = new Image
             {
-                Source = new BitmapImage(new Uri(imagePath)),
                 Height = ImageHeight,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
+
+            // Load the image asynchronously
+            await LoadImageAsync(image, imagePath);
 
             var textBlock = new TextBlock
             {
@@ -181,5 +184,53 @@ namespace SimpleLauncher
 
             return button;
         }
+
+        //private static async Task LoadImageAsync(Image image, string imagePath)
+        //{
+        //    var bitmapImage = new BitmapImage();
+        //    bitmapImage.BeginInit();
+        //    bitmapImage.UriSource = new Uri(imagePath);
+        //    bitmapImage.EndInit();
+
+        //    // Wait for the image to load
+        //    await Task.Run(() => bitmapImage.Freeze());
+
+        //    image.Source = bitmapImage;
+        //}
+
+        private async Task LoadImageAsync(Image imageControl, string imagePath)
+        {
+            if (imageControl == null)
+                throw new ArgumentNullException(nameof(imageControl));
+
+            if (string.IsNullOrWhiteSpace(imagePath))
+                throw new ArgumentException("Invalid image path.", nameof(imagePath));
+
+            BitmapImage bitmapImage = null;
+
+            await Task.Run(() =>
+            {
+                using (var stream = File.OpenRead(imagePath))
+                {
+                    bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Important for multi-threaded access
+                }
+            });
+
+            // Update the UI thread with the loaded image
+            if (bitmapImage != null)
+            {
+                imageControl.Dispatcher.Invoke(() =>
+                {
+                    imageControl.Source = bitmapImage;
+                });
+            }
+        }
+
+
     }
 }

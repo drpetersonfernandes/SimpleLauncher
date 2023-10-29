@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading.Tasks;
 
 namespace SimpleLauncher
 {
@@ -51,10 +52,11 @@ namespace SimpleLauncher
             _menuActions = new MenuActions(this, zipFileGrid);
 
             // Create and integrate LetterNumberItems
-            _letterNumberItems.OnLetterSelected += (selectedLetter) =>
+            _letterNumberItems.OnLetterSelected += async (selectedLetter) =>
             {
-                LoadgameFiles(selectedLetter);
+                await LoadgameFiles(selectedLetter);
             };
+
 
             // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
             Grid.SetRow(_letterNumberItems.LetterPanel, 1);
@@ -135,7 +137,7 @@ namespace SimpleLauncher
             // For now, you can leave it empty if there's no specific logic to implement yet.
         }
 
-        private async void LoadgameFiles(string startLetter = null)
+        private async Task LoadgameFiles(string startLetter = null)
         {
             try
             {
@@ -178,7 +180,7 @@ namespace SimpleLauncher
                 foreach (var filePath in allFiles)
                 {
                     // Adjust the CreateGameButton call.
-                    Button gameButton = factory.CreateGameButton(filePath, SystemComboBox.SelectedItem.ToString());
+                    Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString());
                     zipFileGrid.Children.Add(gameButton);
                 }
             }
