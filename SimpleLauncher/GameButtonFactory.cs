@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace SimpleLauncher
 {
@@ -92,6 +93,7 @@ namespace SimpleLauncher
 
             youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
             {
+                PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
                 string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
                 Process.Start(new ProcessStartInfo
@@ -120,6 +122,7 @@ namespace SimpleLauncher
 
             infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
             {
+                PlayClickSound();
                 string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
                 Process.Start(new ProcessStartInfo
                 {
@@ -179,11 +182,29 @@ namespace SimpleLauncher
             GameLaunchHandler gameLaunchHandler = new GameLaunchHandler();
             button.Click += async (sender, args) =>
             {
+                PlayClickSound();
                 await gameLaunchHandler.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
             };
 
             return button;
         }
+
+        private void PlayClickSound()
+        {
+            try
+            {
+                string soundPath = Path.Combine(_baseDirectory, "audio", "click.mp3");
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
+                mediaPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions or log errors
+                Debug.WriteLine($"Error playing sound: {ex.Message}");
+            }
+        }
+
 
         //private static async Task LoadImageAsync(Image image, string imagePath)
         //{

@@ -394,11 +394,10 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo NES</SystemName>
-		<SystemFolder>G:\OK\Nintendo NES</SystemFolder>
+		<SystemName>Microsoft MSX</SystemName>
+		<SystemFolder>G:\OK\Microsoft MSX</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -408,17 +407,16 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo SNES</SystemName>
-		<SystemFolder>G:\OK\Nintendo SNES</SystemFolder>
+		<SystemName>Microsoft MSX2</SystemName>
+		<SystemFolder>G:\OK\Microsoft MSX2</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -428,36 +426,145 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
-				<EmulatorParameters>-fullscreen</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo SNES MSU1</SystemName>
-		<SystemFolder>G:\OK\Nintendo SNES MSU1</SystemFolder>
+		<SystemName>Microsoft Xbox</SystemName>
+		<SystemFolder>J:\Microsoft Xbox Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>iso</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Xemu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Xemu\xemu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Microsoft Xbox 360</SystemName>
+		<SystemFolder>J:\Microsoft Xbox360 Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>iso</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Xenia</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Xenia\xenia.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>NEC PC Engine</SystemName>
+		<SystemFolder>G:\OK\NEC PC Engine</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
-			<FormatToLaunch>sfc</FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>NEC PC Engine CD</SystemName>
+		<SystemFolder>G:\OK\NEC PC Engine CD</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>NEC PC-FX</SystemName>
+		<SystemFolder>G:\OK\NEC PC-FX</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pcfx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>NEC SuperGrafx</SystemName>
+		<SystemFolder>G:\OK\NEC SuperGrafx</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_supergrafx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo 3DS</SystemName>
+		<SystemFolder>J:\OK\Nintendo 3DS</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>3ds</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\citra_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
-				<EmulatorParameters>-fullscreen</EmulatorParameters>
+				<EmulatorName>Citra</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Citra\Citra\nightly\citra-qt.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -501,124 +608,8 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo GameCube</SystemName>
-		<SystemFolder>G:\OK\Nintendo GameCube</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>rvz</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-			<EmulatorName>Dolphin</EmulatorName>
-			<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-			<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Nintendo Wii</SystemName>
-		<SystemFolder>I:\OK\Nintendo Wii</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>rvz</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Dolphin</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Nintendo WiiWare</SystemName>
-		<SystemFolder>I:\OK\Nintendo WiiWare</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>wad</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Dolphin</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Nintendo Wii U</SystemName>
-		<SystemFolder>J:\Nintendo WiiU Roms</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>wua</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Cemu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Cemu\cemu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Nintendo Switch</SystemName>
-		<SystemFolder>J:\Nintendo Switch Roms</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>nsp</FormatToSearch>
-			<FormatToSearch>xci</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>C:\Users\HomePC\AppData\Local\yuzu\yuzu-windows-msvc\yuzu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Nintendo Game Boy</SystemName>
-		<SystemFolder>G:\OK\Nintendo Game Boy</SystemFolder>
+		<SystemName>Nintendo DS DSi</SystemName>
+		<SystemFolder>G:\OK\Nintendo DS DSi</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
@@ -630,14 +621,43 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\melonds_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo Game Boy Color</SystemName>
-		<SystemFolder>G:\OK\Nintendo Game Boy Color</SystemFolder>
+		<SystemName>Nintendo Family Computer Disk System</SystemName>
+		<SystemFolder>G:\OK\Nintendo Family Computer Disk System</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch FCEUX</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch Mesen</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch Nestopia UE</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Game Boy</SystemName>
+		<SystemFolder>G:\OK\Nintendo Game Boy</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
@@ -674,11 +694,171 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo DS DSi</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemName>Nintendo Game Boy Color</SystemName>
+		<SystemFolder>G:\OK\Nintendo Game Boy Color</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo GameCube</SystemName>
+		<SystemFolder>G:\OK\Nintendo GameCube</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>rvz</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Dolphin</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo NES</SystemName>
+		<SystemFolder>G:\OK\Nintendo NES</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch FCEUX</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch Mesen</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch Nestopia UE</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Satellaview</SystemName>
+		<SystemFolder>G:\OK\Nintendo Satellaview</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch bsnes</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo SNES</SystemName>
+		<SystemFolder>G:\OK\Nintendo SNES</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch bsnes</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo SNES MSU1</SystemName>
+		<SystemFolder>G:\OK\Nintendo SNES MSU1</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch>sfc</FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch bsnes</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Snes9x</EmulatorName>
+				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo Switch</SystemName>
+		<SystemFolder>J:\Nintendo Switch Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>nsp</FormatToSearch>
+			<FormatToSearch>xci</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -692,17 +872,17 @@
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
+				<EmulatorLocation>C:\Users\HomePC\AppData\Local\yuzu\yuzu-windows-msvc\yuzu.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo 3DS</SystemName>
-		<SystemFolder>J:\OK\Nintendo 3DS</SystemFolder>
+		<SystemName>Nintendo Wii</SystemName>
+		<SystemFolder>I:\OK\Nintendo Wii</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>3ds</FormatToSearch>
+			<FormatToSearch>rvz</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -712,12 +892,428 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\citra_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>Citra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Citra\Citra\nightly\citra-qt.exe</EmulatorLocation>
+				<EmulatorName>Dolphin</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo WiiU</SystemName>
+		<SystemFolder>J:\Nintendo WiiU Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>wua</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Cemu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Cemu\cemu.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo WiiWare</SystemName>
+		<SystemFolder>I:\OK\Nintendo WiiWare</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>wad</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Dolphin</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Panasonic 3DO</SystemName>
+		<SystemFolder>G:\OK\Panasonic 3DO</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\opera_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Philips CD-i</SystemName>
+		<SystemFolder>G:\OK\Philips CD-i</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\same_cdi_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Dreamcast</SystemName>
+		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch Flycast</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Redream</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Redream\redream.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Game Gear</SystemName>
+		<SystemFolder>G:\OK\Sega Game Gear</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Genesis</SystemName>
+		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch PicoDrive</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch Genesis Plus GX</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch BlastEm</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\blastem_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Genesis 32X</SystemName>
+		<SystemFolder>G:\OK\Sega Genesis 32X</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Genesis CD</SystemName>
+		<SystemFolder>G:\OK\Sega Genesis CD</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch Genesis Plus GX</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch PicoDrive</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Master System</SystemName>
+		<SystemFolder>G:\OK\Sega Master System</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega Saturn</SystemName>
+		<SystemFolder>G:\OK\Sega Saturn</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_saturn_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sega SC-3000</SystemName>
+		<SystemFolder>G:\OK\Sega SC-3000</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MasterGear</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MasterGear\MG.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>BizHawk</EmulatorName>
+				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+	
+	<SystemConfig>
+		<SystemName>Sega SG-1000</SystemName>
+		<SystemFolder>G:\OK\Sega SG-1000</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MasterGear</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MasterGear\MG.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>BizHawk</EmulatorName>
+				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sinclair ZX Spectrum</SystemName>
+		<SystemFolder>G:\OK\Sinclair ZX Spectrum</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fuse_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>SNK Neo Geo</SystemName>
+		<SystemFolder>G:\OK\SNK Neo Geo</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>SNK Neo Geo CD</SystemName>
+		<SystemFolder>G:\OK\SNK Neo Geo CD</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>chd</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch FinalBurn Neo</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fbneo_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>SNK Neo Geo Pocket</SystemName>
+		<SystemFolder>G:\OK\SNK Neo Geo Pocket</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>SNK Neo Geo Pocket Color</SystemName>
+		<SystemFolder>G:\OK\SNK Neo Geo Pocket Color</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -734,14 +1330,14 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>DuckStation</EmulatorName>
-				<EmulatorLocation>G:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
-				<EmulatorParameters>-fullscreen</EmulatorParameters>
-			</Emulator>
-			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\mednafen_psx_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>DuckStation</EmulatorName>
+				<EmulatorLocation>G:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -767,9 +1363,8 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 3</SystemName>
-		<SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>cso</FormatToSearch>
 			<FormatToSearch>iso</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
@@ -778,14 +1373,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>PPSSPP</EmulatorName>
-				<EmulatorLocation>G:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
-				<EmulatorParameters>--fullscreen</EmulatorParameters>
+				<EmulatorName>RPCS3</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RPCS3\rpcs3.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -813,378 +1403,5 @@
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega SG-1000</SystemName>
-		<SystemFolder>G:\OK\Sega SG-1000</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Master System</SystemName>
-		<SystemFolder>G:\OK\Sega Master System</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Genesis</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Genesis CD</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Genesis 32X</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Saturn</SystemName>
-		<SystemFolder>G:\OK\Sega Saturn</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_saturn_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Dreamcast</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Sega Game Gear</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>NEC PC Engine</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>NEC SuperGrafx</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>NEC PC-FX</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Microsoft Xbox</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Microsoft Xbox 360</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-
-
-
-
-	<SystemConfig>
-		<SystemName>SNK Neo-Geo</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>SNK Neo Geo-CD</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>SNK Neo-Geo Pocket</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Panasonic 3DO</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Philips CD-i</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
-		<SystemName>Mattel Intellivision</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>iso</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
+	
 </SystemConfigs>
