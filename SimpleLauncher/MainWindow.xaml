@@ -85,7 +85,7 @@
         </StackPanel>
         
         <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
-            <WrapPanel x:Name="zipFileGrid" Orientation="Horizontal" Background="{DynamicResource PrimaryBackground}">
+            <WrapPanel x:Name="gameFileGrid" Orientation="Horizontal" Background="{DynamicResource PrimaryBackground}">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>

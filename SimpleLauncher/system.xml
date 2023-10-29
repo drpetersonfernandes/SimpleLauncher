@@ -440,7 +440,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo SNES MSU1</SystemName>
-		<SystemFolder>J:\zip</SystemFolder>
+		<SystemFolder>G:\OK\Nintendo SNES MSU1</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
@@ -463,11 +463,29 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Nintendo N64</SystemName>
-		<SystemFolder>G:\OK\Nintendo N64</SystemFolder>
+		<SystemName>Nintendo 64</SystemName>
+		<SystemFolder>G:\OK\Nintendo 64</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Nintendo 64DD</SystemName>
+		<SystemFolder>G:\OK\Nintendo 64DD</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -486,8 +504,7 @@
 		<SystemName>Nintendo GameCube</SystemName>
 		<SystemFolder>G:\OK\Nintendo GameCube</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>rvz</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -498,6 +515,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+			<EmulatorName>Dolphin</EmulatorName>
+			<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+			<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -552,10 +574,9 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Wii U</SystemName>
-		<SystemFolder>J:\Nintendo Wii U</SystemFolder>
+		<SystemFolder>J:\Nintendo WiiU Roms</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>wua</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -572,10 +593,10 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Switch</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemFolder>J:\Nintendo Switch Roms</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
+			<FormatToSearch>nsp</FormatToSearch>
+			<FormatToSearch>xci</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -589,7 +610,7 @@
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
+				<EmulatorLocation>C:\Users\HomePC\AppData\Local\yuzu\yuzu-windows-msvc\yuzu.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -597,10 +618,9 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemFolder>G:\OK\Nintendo Game Boy</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -608,24 +628,18 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy Color</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemFolder>G:\OK\Nintendo Game Boy Color</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -633,24 +647,18 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy Advance</SystemName>
-		<SystemFolder>J:\Nintendo Switch</SystemFolder>
+		<SystemFolder>G:\OK\Nintendo Game Boy Advance</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
-			<FormatToSearch>7z</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -658,14 +666,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Yuzu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Yuzu\yuzu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\mgba_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

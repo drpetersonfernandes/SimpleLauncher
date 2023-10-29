@@ -49,7 +49,7 @@ namespace SimpleLauncher
             }
 
             // Initialize the MenuActions with this window context
-            _menuActions = new MenuActions(this, zipFileGrid);
+            _menuActions = new MenuActions(this, gameFileGrid);
 
             // Create and integrate LetterNumberItems
             _letterNumberItems.OnLetterSelected += async (selectedLetter) =>
@@ -141,7 +141,7 @@ namespace SimpleLauncher
         {
             try
             {
-                zipFileGrid.Children.Clear();
+                gameFileGrid.Children.Clear();
 
                 if (SystemComboBox.SelectedItem == null)
                 {
@@ -181,7 +181,7 @@ namespace SimpleLauncher
                 {
                     // Adjust the CreateGameButton call.
                     Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString());
-                    zipFileGrid.Children.Add(gameButton);
+                    gameFileGrid.Children.Add(gameButton);
                 }
             }
             catch (Exception ex)
@@ -194,7 +194,7 @@ namespace SimpleLauncher
         private void AddNoRomsMessage()
         {
             ClearPreviousMessages("Could not find any ROM");
-            zipFileGrid.Children.Add(new TextBlock
+            gameFileGrid.Children.Add(new TextBlock
             {
                 Text = "Could not find any ROM",
                 FontWeight = FontWeights.Bold,
@@ -206,7 +206,7 @@ namespace SimpleLauncher
         private void AddNoSystemMessage()
         {
             ClearPreviousMessages("Please select a System");
-            zipFileGrid.Children.Add(new TextBlock
+            gameFileGrid.Children.Add(new TextBlock
             {
                 Text = "Please select a System",
                 FontWeight = FontWeights.Bold,
@@ -216,13 +216,13 @@ namespace SimpleLauncher
 
         private void ClearPreviousMessages(string message)
         {
-            var existingMessage = zipFileGrid.Children
+            var existingMessage = gameFileGrid.Children
                                 .OfType<TextBlock>()
                                 .FirstOrDefault(tb => tb.Text == message);
 
             if (existingMessage != null)
             {
-                zipFileGrid.Children.Remove(existingMessage);
+                gameFileGrid.Children.Remove(existingMessage);
             }
         }
 

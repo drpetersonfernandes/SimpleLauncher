@@ -13,12 +13,12 @@ namespace SimpleLauncher
     public class MenuActions
     {
         readonly private Window _window;
-        readonly private WrapPanel _zipFileGrid;
+        readonly private WrapPanel _gameFileGrid;
 
-        public MenuActions(Window window, WrapPanel zipFileGrid)
+        public MenuActions(Window window, WrapPanel gameFileGrid)
         {
             _window = window;
-            _zipFileGrid = zipFileGrid;
+            _gameFileGrid = gameFileGrid;
         }
 
         public void About_Click(object sender, RoutedEventArgs e)
@@ -33,7 +33,7 @@ namespace SimpleLauncher
 
         public void HideGames_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var child in _zipFileGrid.Children)
+            foreach (var child in _gameFileGrid.Children)
             {
                 if (child is Button btn && btn.Content is Grid grid)
                 {
@@ -52,7 +52,7 @@ namespace SimpleLauncher
 
         public void ShowGames_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var child in _zipFileGrid.Children)
+            foreach (var child in _gameFileGrid.Children)
             {
                 if (child is Button btn)
                 {
