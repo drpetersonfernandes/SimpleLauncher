@@ -57,6 +57,9 @@ namespace SimpleLauncher
             // Determine the image path based on the filename
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemName);
 
+            // Check if default image is used and add a tag to the button
+            bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
+
             var image = new Image
             {
                 Height = ImageHeight,
@@ -178,6 +181,11 @@ namespace SimpleLauncher
             stackPanel.Children.Add(image);
             stackPanel.Children.Add(textBlock);
 
+            if (isDefaultImage)
+            {
+                button.Tag = "DefaultImage";
+            }
+
             //Button click event
             GameLaunchHandler gameLaunchHandler = new GameLaunchHandler();
             button.Click += async (sender, args) =>
@@ -187,6 +195,7 @@ namespace SimpleLauncher
             };
 
             return button;
+
         }
 
         private void PlayClickSound()

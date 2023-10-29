@@ -23,7 +23,7 @@ namespace SimpleLauncher
 
         public void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 1.3", "About");
+            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.0", "About");
         }
 
         public void Exit_Click(object sender, RoutedEventArgs e)
@@ -35,17 +35,9 @@ namespace SimpleLauncher
         {
             foreach (var child in _gameFileGrid.Children)
             {
-                if (child is Button btn && btn.Content is Grid grid)
+                if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
                 {
-                    var sp = grid.Children.OfType<StackPanel>().FirstOrDefault();
-                    if (sp != null)
-                    {
-                        var image = sp.Children.OfType<Image>().FirstOrDefault();
-                        if (image != null && image.Source is BitmapImage bmp && bmp.UriSource.LocalPath.EndsWith("default.png"))
-                        {
-                            btn.Visibility = Visibility.Collapsed; // hide the button
-                        }
-                    }
+                    btn.Visibility = Visibility.Collapsed; // Hide the button
                 }
             }
         }
