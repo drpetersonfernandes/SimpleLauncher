@@ -224,6 +224,21 @@ namespace SimpleLauncher
             }
         }
 
+        //private void ChangeTheme(bool isDarkTheme)
+        //{
+        //    ResourceDictionary newTheme = new ResourceDictionary();
+        //    if (isDarkTheme)
+        //    {
+        //        newTheme.Source = new Uri("pack://application:,,,/DarkTheme.xaml");
+        //    }
+        //    else
+        //    {
+        //        newTheme.Source = new Uri("pack://application:,,,/LightTheme.xaml");
+        //    }
+
+        //    Application.Current.Resources.MergedDictionaries.Clear();
+        //    Application.Current.Resources.MergedDictionaries.Add(newTheme);
+        //}
 
 
         private async void HandleError(Exception ex, string message)

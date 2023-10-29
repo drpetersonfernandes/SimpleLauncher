@@ -316,6 +316,30 @@
 	</SystemConfig>
 
 	<SystemConfig>
+		<SystemName>MAME</SystemName>
+		<SystemFolder>G:\MAME\MAME Roms</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
 		<SystemName>Mattel Aquarius</SystemName>
 		<SystemFolder>G:\OK\Mattel Aquarius</SystemFolder>
 		<FileFormatsToSearch>
@@ -329,13 +353,13 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>AqEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\AqEmu\AqEmu.exe</EmulatorLocation>
+				<EmulatorName>Virtual Aquarius</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Virtual Aquarius\aquarius.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>VirtualAquarius</EmulatorName>
-				<EmulatorLocation>G:\Emulators\AqEmu\VirtualAquarius\aquarius.exe</EmulatorLocation>
+				<EmulatorName>AqEmu</EmulatorName>
+				<EmulatorLocation>G:\Emulators\AqEmu\AqEmu.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -471,7 +495,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Wii</SystemName>
-		<SystemFolder>I:\Nintendo Wii</SystemFolder>
+		<SystemFolder>I:\OK\Nintendo Wii</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>rvz</FormatToSearch>
 		</FileFormatsToSearch>
@@ -495,7 +519,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo WiiWare</SystemName>
-		<SystemFolder>I:\Nintendo WiiWare</SystemFolder>
+		<SystemFolder>I:\OK\Nintendo WiiWare</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>wad</FormatToSearch>
 		</FileFormatsToSearch>
@@ -688,7 +712,7 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 1</SystemName>
-		<SystemFolder>I:\Sony Playstation 1</SystemFolder>
+		<SystemFolder>I:\OK\Sony Playstation 1</SystemFolder>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
 		</FileFormatsToSearch>
@@ -700,7 +724,7 @@
 			<Emulator>
 				<EmulatorName>DuckStation</EmulatorName>
 				<EmulatorLocation>G:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -712,10 +736,9 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 2</SystemName>
-		<SystemFolder>G:\OK\Sony PSP Roms</SystemFolder>
+		<SystemFolder>I:\OK\Sony PlayStation 2</SystemFolder>
 		<FileFormatsToSearch>
-			<FormatToSearch>cso</FormatToSearch>
-			<FormatToSearch>iso</FormatToSearch>
+			<FormatToSearch>chd</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -723,13 +746,8 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>PPSSPP</EmulatorName>
-				<EmulatorLocation>G:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
+				<EmulatorName>PCSX2</EmulatorName>
+				<EmulatorLocation>G:\Emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
 				<EmulatorParameters>--fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
