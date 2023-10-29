@@ -166,13 +166,22 @@
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
+			<FormatToLaunch>st</FormatToLaunch>
+			<FormatToLaunch>msa</FormatToLaunch>
+			<FormatToLaunch>stx</FormatToLaunch>
+			<FormatToLaunch>dim</FormatToLaunch>
+			<FormatToLaunch>ipf</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\hatari_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\hatari_libretro.dll" -c "G:\Emulators\Retroarch\hatari.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Hatari</EmulatorName>
+				<EmulatorLocation>G:\Emulators\Hatari\hatari.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

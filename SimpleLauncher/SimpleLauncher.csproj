@@ -120,6 +120,7 @@
     <Compile Include="ExtractFile.cs" />
     <Compile Include="GameButtonFactory.cs" />
     <Compile Include="GameHandler.cs" />
+    <Compile Include="GameLaunchHandler.cs" />
     <Compile Include="GamePagingHandler.cs" />
     <Compile Include="LetterNumberItems.cs" />
     <Compile Include="LogErrors.cs" />
