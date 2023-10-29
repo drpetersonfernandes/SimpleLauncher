@@ -18,25 +18,8 @@ namespace SimpleLauncher
         private const int StackPanelHeight = 250;
         private const int ButtonWidth = 300;
         private const int ButtonHeight = 250;
+
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-        // Pagination properties
-        private const int ItemsPerPage = 10;
-        private int _currentPage = 1;
-        private int _totalGames;
-        private List<string> _gameFilePaths;
-
-        // Property to store game file paths
-        public List<string> GameFilePaths
-        {
-            get => _gameFilePaths;
-            set
-            {
-                _gameFilePaths = value;
-                _totalGames = _gameFilePaths.Count;
-                _currentPage = 1; // Reset to first page whenever the list is set
-            }
-        }
 
         private string DetermineImagePath(string fileNameWithoutExtension, string systemName)
         {
@@ -51,33 +34,11 @@ namespace SimpleLauncher
             return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
         }
 
-        public class LazyImage
-        {
-            private BitmapImage _bitmap;
-            readonly private string _imagePath;
-
-            public LazyImage(string imagePath)
-            {
-                _imagePath = imagePath;
-            }
-
-            public BitmapImage Image
-            {
-                get
-                {
-                    if (_bitmap == null)
-                    {
-                        _bitmap = new BitmapImage(new Uri(_imagePath));
-                    }
-                    return _bitmap;
-                }
-            }
-        }
 
         // Assuming your ComboBoxes and Configs are in MainWindow, you can pass them as properties.
         public ComboBox EmulatorComboBox { get; set; }
         public ComboBox SystemComboBox { get; set; }
-        public List<SystemConfig> SystemConfigs { get; set; }
+        public List<SystemConfig> SystemConfigs { get; set; } // Assuming SystemConfig is the correct type
 
         public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
         {
@@ -94,12 +55,9 @@ namespace SimpleLauncher
             // Determine the image path based on the filename
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemName);
 
-            // Lazy loading of image
-            LazyImage lazyImage = new LazyImage(imagePath);
-
             var image = new Image
             {
-                Source = lazyImage.Image,
+                Source = new BitmapImage(new Uri(imagePath)),
                 Height = ImageHeight,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
@@ -211,11 +169,10 @@ namespace SimpleLauncher
                 }
             };
 
-
             stackPanel.Children.Add(image);
             stackPanel.Children.Add(textBlock);
 
-            //// Add the button click event handler
+            //Button click event
             GameLaunchHandler gameLaunchHandler = new GameLaunchHandler();
             button.Click += async (sender, args) =>
             {
@@ -223,46 +180,6 @@ namespace SimpleLauncher
             };
 
             return button;
-        }
-
-        // Method to load buttons for the current page
-        public List<Button> LoadCurrentPageButtons()
-        {
-            var buttons = new List<Button>();
-            int start = (_currentPage - 1) * ItemsPerPage;
-            int end = Math.Min(start + ItemsPerPage, _totalGames);
-
-            for (int i = start; i < end; i++)
-            {
-                string filePath = GameFilePaths[i];
-                string systemName = SystemComboBox.SelectedItem?.ToString();
-                Button gameButton = CreateGameButton(filePath, systemName);
-                buttons.Add(gameButton);
-            }
-
-            return buttons;
-        }
-
-        // Method to go to the next page
-        public List<Button> NextPage()
-        {
-            if ((_currentPage * ItemsPerPage) < _totalGames)
-            {
-                _currentPage++;
-                return LoadCurrentPageButtons();
-            }
-            return null;
-        }
-
-        // Method to go to the previous page
-        public List<Button> PreviousPage()
-        {
-            if (_currentPage > 1)
-            {
-                _currentPage--;
-                return LoadCurrentPageButtons();
-            }
-            return null;
         }
     }
 }

@@ -220,9 +220,7 @@
   <ItemGroup>
     <Resource Include="images\info.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="middleman\VirtualAquarius\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipSharp.Interop.19.0.2\build\SevenZipSharp.Interop.targets" Condition="Exists('..\packages\SevenZipSharp.Interop.19.0.2\build\SevenZipSharp.Interop.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
