@@ -1,42 +1,60 @@
-**Simple Launcher**
-===============
+# Simple Launcher
 
-A simple emulator launcher for Windows.<br><br>
+A simple emulator launcher for Windows.
 
-![Screenshot](screenshot.jpg)
+![Screenshot](screenshot.png)
 
-<br>
-This program searches for any ZIP, 7Z, ISO, CHD, or CSO file in the current directory.
-It then displays the list of files in a grid with a cover image (on top) and the filename (at the bottom).
+This program reads a file called "system.xml" located inside the program folder. All the system and emulator settings are stored in this file.
 
-Cover images should have the same filename as the file to be launched. All images should be placed inside the "images" folder. They must be in PNG format and it's recommended for the images to have a height of 200 pixels. Using a higher resolution image will consume more memory. If the main program doesn't find an image with the matching filename inside the images folder, it will load "default.png".
+Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. After that, it creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the selected game. Each cell of the grid has a game cover, its name, a YouTube link, and an info link.
 
-At the top of the program, there's a combo box that allows the user to select an emulator to use.
+The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and need to have the same filename as the game. The optimal image size should be 200 pixels in height. If you use a higher resolution, the app will still load the image but will consume more memory. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
 
-All the emulator settings and parameters are stored in the "emulator.ini" file, located in the same directory as the launcher.
+The format of the "system.xml" file is as follows:
 
-The format of the "emulator.ini" file is as follows:
+```xml
+<SystemConfigs>
+    <SystemConfig>
+        <SystemName>Amstrad CPC GX4000</SystemName>
+        <SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch</EmulatorName>
+                <EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "G:\Emulators\Retroarch\cores\cap32_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+            </Emulator>
+        </Emulators>
+    </SystemConfig>
+</SystemConfigs>
+```
 
-<pre>
-Id: 1
-ProgramName: Retroarch snes9x_libretro
-ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
-Parameters: -L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
+You can add as many systems and emulators as you want.
 
-Id: 2
-ProgramName: Retroarch picodrive_libretro
-ProgramLocation: G:\Emulators\Retroarch\retroarch.exe
-Parameters: -L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f
-</pre>
-You can add as many emulators as you want. The "ProgramName" is the name that will be displayed in the combo box. The "ProgramLocation" is the path to the emulator executable, and "Parameters" are the parameters that will be passed to the emulator executable. Please follow the format provided in this example.
+The XML file contains the following fields:
 
-When the user clicks on the selected grid, the program will launch the selected emulator with the specified parameters and the chosen file.
+- **SystemName**: Name of the system.
+- **SystemFolder**: Folder where the ROMs or games are located.
+- **FileFormatsToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
+- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
+- **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be loaded from the extracted folder.
+- **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
+- **EmulatorLocation**: Location of the emulator.
+- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
 
 This program is Windows-only and has been tested on Windows 11.
 
 ### Code Language
 *Written in C# using<br>
-Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 1.0<br>
+Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 5.0<br>
 Windows Presentation Foundation (WPF) Framework<br>
 Microsoft .NET Framework Version 4.8.09032*
 
