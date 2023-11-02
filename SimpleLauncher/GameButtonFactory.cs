@@ -78,62 +78,8 @@ namespace SimpleLauncher
                 ToolTip = fileNameWithoutExtension // Display the full filename on hover
             };
 
-            // youtubeIcon
-            var youtubeIcon = new Image
-            {
-                Name = "youtubeIcon",
-                Source = new BitmapImage(new Uri("images/searchyoutube.png", UriKind.RelativeOrAbsolute)),
-                Width = 22,
-                Height = 22,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(5, 5, 30, 5),
-                Cursor = System.Windows.Input.Cursors.Hand
-            };
-
-            // Set Z-Index to ensure it's on top
-            youtubeIcon.SetValue(Grid.ZIndexProperty, 1);
-
-            youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
-            {
-                PlayClickSound();
-                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-                string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = searchUrl,
-                    UseShellExecute = true
-                });
-                e.Handled = true; // Stops the click event from propagating to the button's main click event
-            };
-
-            // infoIcon
-            var infoIcon = new Image
-            {
-                Name = "infoIcon",
-                Source = new BitmapImage(new Uri("images/info.png", UriKind.RelativeOrAbsolute)),
-                Width = 22,
-                Height = 22,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(5, 5, 5, 5),
-                Cursor = System.Windows.Input.Cursors.Hand
-            };
-
-            // Set Z-Index to ensure it's on top
-            infoIcon.SetValue(Grid.ZIndexProperty, 1);
-
-            infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
-            {
-                PlayClickSound();
-                string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = searchUrl,
-                    UseShellExecute = true
-                });
-                e.Handled = true; // Stops the click event from propagating to the button's main click event
-            };
+            var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName);
+            var infoIcon = CreateInfoIcon(fileNameWithoutExtension);
 
             var grid = new Grid
             {
@@ -261,6 +207,70 @@ namespace SimpleLauncher
             }
         }
 
+        private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName)
+        {
+            var youtubeIcon = new Image
+            {
+                Name = "youtubeIcon",
+                Source = new BitmapImage(new Uri("images/searchyoutube.png", UriKind.RelativeOrAbsolute)),
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(5, 5, 30, 5),
+                Cursor = System.Windows.Input.Cursors.Hand
+            };
+
+            // Set Z-Index to ensure it's on top
+            youtubeIcon.SetValue(Grid.ZIndexProperty, 1);
+
+            youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            {
+                PlayClickSound();
+                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
+                string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+                e.Handled = true; // Stops the click event from propagating to the button's main click event
+            };
+
+            return youtubeIcon;
+        }
+
+        private Image CreateInfoIcon(string fileNameWithoutExtension)
+        {
+            var infoIcon = new Image
+            {
+                Name = "infoIcon",
+                Source = new BitmapImage(new Uri("images/info.png", UriKind.RelativeOrAbsolute)),
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(5, 5, 5, 5),
+                Cursor = System.Windows.Input.Cursors.Hand
+            };
+
+            // Set Z-Index to ensure it's on top
+            infoIcon.SetValue(Grid.ZIndexProperty, 1);
+
+            infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            {
+                PlayClickSound();
+                string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+                e.Handled = true; // Stops the click event from propagating to the button's main click event
+            };
+
+            return infoIcon;
+        }
 
     }
 }
