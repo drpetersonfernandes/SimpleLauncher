@@ -236,9 +236,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName></EmulatorName>
-				<EmulatorLocation></EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>pv1000 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -257,7 +257,7 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fbneo_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\gearcoleco_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -276,7 +276,7 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\vice_x64sc_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\vice_x64_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -293,14 +293,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>WinUAE</EmulatorName>
-				<EmulatorLocation>G:\Emulators\WinUAE\winuae64.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>FS-UAE</EmulatorName>
-				<EmulatorLocation>G:\Emulators\FS-UAE\FS-UAE\Windows\x86-64\fs-uae.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\puae_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -340,11 +335,6 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -361,16 +351,6 @@
 			<FormatToLaunch>caq</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
-			<Emulator>
-				<EmulatorName>Virtual Aquarius</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Virtual Aquarius\aquarius.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>AqEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\AqEmu\AqEmu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -445,7 +425,7 @@
 			<Emulator>
 				<EmulatorName>Xemu</EmulatorName>
 				<EmulatorLocation>G:\Emulators\Xemu\xemu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -812,11 +792,6 @@
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
-				<EmulatorName>Retroarch bsnes</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
 				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
@@ -839,11 +814,6 @@
 				<EmulatorName>Retroarch Snes9x</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Retroarch bsnes</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
@@ -1166,11 +1136,6 @@
 				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
 		</Emulators>
 	</SystemConfig>
 	
@@ -1198,11 +1163,6 @@
 			<Emulator>
 				<EmulatorName>BizHawk</EmulatorName>
 				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1243,11 +1203,6 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
-			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -1271,11 +1226,6 @@
 				<EmulatorName>Retroarch FinalBurn Neo</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fbneo_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1356,7 +1306,7 @@
 			<Emulator>
 				<EmulatorName>PCSX2</EmulatorName>
 				<EmulatorLocation>G:\Emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
-				<EmulatorParameters>--fullscreen</EmulatorParameters>
+				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

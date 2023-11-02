@@ -45,7 +45,6 @@ namespace SimpleLauncher
 
                 systemConfigs.Add(systemConfig);
             }
-
             return systemConfigs;
         }
     }

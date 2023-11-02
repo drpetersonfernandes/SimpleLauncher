@@ -57,7 +57,6 @@ namespace SimpleLauncher
                 await LoadgameFiles(selectedLetter);
             };
 
-
             // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
             Grid.SetRow(_letterNumberItems.LetterPanel, 1);
             ((Grid)this.Content).Children.Add(_letterNumberItems.LetterPanel);
@@ -129,7 +128,6 @@ namespace SimpleLauncher
             _letterNumberItems.SimulateClick("A");
         }
 
-
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Handle the logic when an Emulator is selected
@@ -190,7 +188,6 @@ namespace SimpleLauncher
             }
         }
 
-
         private void AddNoRomsMessage()
         {
             ClearPreviousMessages("Could not find any ROM");
@@ -201,7 +198,6 @@ namespace SimpleLauncher
                 Padding = new Thickness(10)
             });
         }
-
 
         private void AddNoSystemMessage()
         {
@@ -241,7 +237,6 @@ namespace SimpleLauncher
         //    Application.Current.Resources.MergedDictionaries.Clear();
         //    Application.Current.Resources.MergedDictionaries.Add(newTheme);
         //}
-
 
         private async void HandleError(Exception ex, string message)
         {

@@ -36,7 +36,6 @@ namespace SimpleLauncher
             return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
         }
 
-
         // Assuming your ComboBoxes and Configs are in MainWindow, you can pass them as properties.
         public ComboBox EmulatorComboBox { get; set; }
         public ComboBox SystemComboBox { get; set; }
@@ -141,7 +140,6 @@ namespace SimpleLauncher
             };
 
             return button;
-
         }
 
         private void PlayClickSound()
@@ -159,7 +157,6 @@ namespace SimpleLauncher
                 Debug.WriteLine($"Error playing sound: {ex.Message}");
             }
         }
-
 
         //private static async Task LoadImageAsync(Image image, string imagePath)
         //{

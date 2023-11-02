@@ -37,8 +37,6 @@ namespace SimpleLauncher
             });
         }
 
-
-
         public List<string> FilterFiles(List<string> files, string startLetter)
         {
             if (string.IsNullOrEmpty(startLetter))

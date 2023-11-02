@@ -1,5 +1,4 @@
-﻿// GameLaunchHandler.cs
-// Note: Make sure to pass necessary parameters like filePath, EmulatorComboBox, SystemComboBox, and SystemConfigs to this method
+﻿// Note: Make sure to pass necessary parameters like filePath, EmulatorComboBox, SystemComboBox, and SystemConfigs to this method
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -79,7 +78,6 @@ namespace SimpleLauncher
                                 }
                             }
                         }
-
 
                         string programLocation = emulatorConfig.EmulatorLocation;
                         string parameters = emulatorConfig.EmulatorParameters;
