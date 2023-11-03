@@ -339,6 +339,158 @@
 	</SystemConfig>
 
 	<SystemConfig>
+		<SystemName>MAME Capcom CPS1</SystemName>
+		<SystemFolder>G:\Capcom CPS1</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Capcom CPS2</SystemName>
+		<SystemFolder>G:\Capcom CPS2</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Namco System 11</SystemName>
+		<SystemFolder>G:\Namco System 11</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Sega Model 1</SystemName>
+		<SystemFolder>G:\Sega Model 1</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Sega Model 2</SystemName>
+		<SystemFolder>G:\Sega Model 2</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Sega Model 3</SystemName>
+		<SystemFolder>G:\Sega Model 3</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME SNK Neo Geo</SystemName>
+		<SystemFolder>G:\SNK Neo Geo</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>MAME Sony ZiNc</SystemName>
+		<SystemFolder>G:\Sony ZiNc</SystemFolder>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
 		<SystemName>Mattel Aquarius</SystemName>
 		<SystemFolder>G:\OK\Mattel Aquarius</SystemFolder>
 		<FileFormatsToSearch>
@@ -1188,25 +1340,6 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>SNK Neo Geo</SystemName>
-		<SystemFolder>G:\OK\SNK Neo Geo</SystemFolder>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
-
-	<SystemConfig>
 		<SystemName>SNK Neo Geo CD</SystemName>
 		<SystemFolder>G:\OK\SNK Neo Geo CD</SystemFolder>
 		<FileFormatsToSearch>
@@ -1218,14 +1351,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Retroarch MAME</EmulatorName>
+				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Retroarch FinalBurn Neo</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fbneo_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\neocd_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
