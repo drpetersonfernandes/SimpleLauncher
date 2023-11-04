@@ -335,6 +335,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -353,6 +358,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -373,6 +383,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -391,6 +406,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -411,6 +431,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -429,6 +454,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -449,6 +479,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -467,6 +502,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -487,6 +527,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -498,11 +543,16 @@
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
+			<FormatToLaunch>caq</FormatToLaunch>
 			<FormatToLaunch>rom</FormatToLaunch>
 			<FormatToLaunch>bin</FormatToLaunch>
-			<FormatToLaunch>caq</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>AquaLite</EmulatorName>
+				<EmulatorLocation>G:\Emulators\AquaLite\AquaLite.exe</EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -1038,7 +1088,7 @@
 			<Emulator>
 				<EmulatorName>Cemu</EmulatorName>
 				<EmulatorLocation>G:\Emulators\Cemu\cemu.exe</EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorParameters>-f -g</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
