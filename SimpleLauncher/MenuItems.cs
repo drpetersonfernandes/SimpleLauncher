@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    public class MenuActions
+    public class MenuActions(Window window, WrapPanel gameFileGrid)
     {
-        readonly private Window _window;
-        readonly private WrapPanel _gameFileGrid;
-
-        public MenuActions(Window window, WrapPanel gameFileGrid)
-        {
-            _window = window;
-            _gameFileGrid = gameFileGrid;
-        }
+        readonly private Window _window = window;
+        readonly private WrapPanel _gameFileGrid = gameFileGrid;
 
         public void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.0", "About");
+            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.2", "About");
         }
 
         public void Exit_Click(object sender, RoutedEventArgs e)

@@ -1,6 +1,6 @@
 ﻿using SharpDX.XInput;
-using System.Threading;
 using System;
+using System.Threading;
 using WindowsInput;
 
 namespace SimpleLauncher

@@ -1,18 +1,16 @@
-﻿using System;
+﻿using SharpCompress.Archives;
+using SharpCompress.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using SevenZip;
-using System.IO.Compression;
 
 namespace SimpleLauncher
 {
     internal class ExtractFile
     {
-        private static readonly Lazy<ExtractFile> _instance = new Lazy<ExtractFile>(() => new ExtractFile());
-
+        private static readonly Lazy<ExtractFile> _instance = new(() => new ExtractFile());
         public static ExtractFile Instance => _instance.Value;
-
-        private readonly List<string> _tempDirectories = new List<string>();
+        private readonly List<string> _tempDirectories = [];
 
         private ExtractFile() { } // Private constructor to enforce singleton pattern
 
@@ -24,21 +22,19 @@ namespace SimpleLauncher
             // Keep track of the temp directory
             _tempDirectories.Add(tempDirectory);
 
-            string extension = Path.GetExtension(archivePath).ToLower();
-            if (extension == ".zip")
+            using (var archive = ArchiveFactory.Open(archivePath))
             {
-                ZipFile.ExtractToDirectory(archivePath, tempDirectory);
-            }
-            else if (extension == ".7z")
-            {
-                using (var extractor = new SevenZipExtractor(archivePath))
+                foreach (var entry in archive.Entries)
                 {
-                    extractor.ExtractArchive(tempDirectory);
+                    if (!entry.IsDirectory)
+                    {
+                        entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
+                    }
                 }
-            }
-            else
-            {
-                throw new NotSupportedException($"The file format '{extension}' is not supported.");
             }
 
             return tempDirectory;
@@ -56,8 +52,8 @@ namespace SimpleLauncher
                     }
                     catch
                     {
-                        // Handle exceptions if needed (for example, if files are still in use)
-                        // You might want to log the errors or simply ignore.
+                        // Handle exceptions if needed
+                        // Log errors or ignore
                     }
                 }
             }

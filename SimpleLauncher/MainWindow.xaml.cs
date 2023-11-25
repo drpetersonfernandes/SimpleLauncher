@@ -1,11 +1,9 @@
-﻿using SevenZip;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Threading.Tasks;
 
 namespace SimpleLauncher
 {
@@ -15,9 +13,9 @@ namespace SimpleLauncher
         readonly private GamePadController _inputControl;
         private readonly MenuActions _menuActions;
         readonly private List<SystemConfig> _systemConfigs;
-        private readonly GameHandler _gameHandler = new GameHandler();
-        readonly private LogErrors _logger = new LogErrors();
-        readonly private LetterNumberItems _letterNumberItems = new LetterNumberItems();
+        private readonly GameHandler _gameHandler = new();
+        readonly private LogErrors _logger = new();
+        readonly private LetterNumberItems _letterNumberItems = new();
 
         public MainWindow()
         {
@@ -31,10 +29,6 @@ namespace SimpleLauncher
             // Initialize the GamePadController.cs
             _inputControl = new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
-
-            // Set the path to the 7z.dll
-            string dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.dll");
-            SevenZipBase.SetLibraryPath(dllPath);
 
             // Load system.xml and Populate the SystemComboBox
             try
@@ -69,6 +63,7 @@ namespace SimpleLauncher
         {
             ExtractFile.Instance.Cleanup();
         }
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_inputControl != null)
@@ -77,6 +72,7 @@ namespace SimpleLauncher
                 _inputControl.Dispose();
             }
         }
+
         private void HideGames_Click(object sender, RoutedEventArgs e)
         {
             _menuActions.HideGames_Click(sender, e);
@@ -119,9 +115,6 @@ namespace SimpleLauncher
                     {
                         EmulatorComboBox.SelectedIndex = 0;
                     }
-
-                    // Load game files for the selected system
-                    //LoadgameFiles("A");
                 }
             }
             // Reset the letter to "A" each time the system is changed
@@ -163,7 +156,7 @@ namespace SimpleLauncher
 
                 List<string> allFiles = await _gameHandler.GetFilesAsync(systemFolderPath, fileExtensions);
 
-                if (!allFiles.Any())
+                if (allFiles.Count == 0)
                 {
                     AddNoRomsMessage();
                     return;
@@ -222,23 +215,7 @@ namespace SimpleLauncher
             }
         }
 
-        //private void ChangeTheme(bool isDarkTheme)
-        //{
-        //    ResourceDictionary newTheme = new ResourceDictionary();
-        //    if (isDarkTheme)
-        //    {
-        //        newTheme.Source = new Uri("pack://application:,,,/DarkTheme.xaml");
-        //    }
-        //    else
-        //    {
-        //        newTheme.Source = new Uri("pack://application:,,,/LightTheme.xaml");
-        //    }
-
-        //    Application.Current.Resources.MergedDictionaries.Clear();
-        //    Application.Current.Resources.MergedDictionaries.Add(newTheme);
-        //}
-
-        private async void HandleError(Exception ex, string message)
+        private static async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 

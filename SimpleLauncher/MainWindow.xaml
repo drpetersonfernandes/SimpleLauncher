@@ -7,7 +7,6 @@
     Title="Simple Launcher"
     Width="830"
     MinWidth="830"
-    Background="{DynamicResource PrimaryBackground}"
     Closing="MainWindow_Closing"
     WindowState="Maximized"
     mc:Ignorable="d">
@@ -20,14 +19,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" VerticalAlignment="Top" Background="{DynamicResource PrimaryBackground}" Foreground="{DynamicResource PrimaryForeground}">
+        <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Show">
                 <MenuItem Click="HideGames_Click" Header="Hide Games With No Cover">
                     <MenuItem.Icon>
                         <Image
                             Width="16"
                             Height="16"
-                            Source="images/hidegames.png" />
+                            Source="pack://application:,,,/images/hidegames.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ShowGames_Click" Header="Show All Games">
@@ -35,7 +34,7 @@
                         <Image
                             Width="16"
                             Height="16"
-                            Source="images/showallgames.png" />
+                            Source="pack://application:,,,/images/showallgames.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -83,9 +82,9 @@
                 SelectionChanged="EmulatorComboBox_SelectionChanged" />
 
         </StackPanel>
-        
+
         <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
-            <WrapPanel x:Name="gameFileGrid" Orientation="Horizontal" Background="{DynamicResource PrimaryBackground}">
+            <WrapPanel x:Name="gameFileGrid" Orientation="Horizontal">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>
