@@ -99,11 +99,6 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\searchyoutube.png" />
   </ItemGroup>
   <ItemGroup>
