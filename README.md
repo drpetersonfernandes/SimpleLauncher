@@ -54,9 +54,9 @@ This program is Windows-only and has been tested on Windows 11.
 
 ### Code Language
 *Written in C# using<br>
-Microsoft Visual Studio Community 2022 Version 17.8.0 Preview 5.0<br>
+Microsoft Visual Studio Community 2022 (64-bit) Version 17.9.0 Preview 1.0<br>
 Windows Presentation Foundation (WPF) Framework<br>
-Microsoft .NET Framework Version 4.8.09032*
+Microsoft .NET 8.0*
 
 ### Contributors
 - Peterson Fernandes - [Github Profile](https://github.com/drpetersonfernandes)
