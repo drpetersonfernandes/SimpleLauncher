@@ -8,7 +8,7 @@ This program reads a file called "system.xml" located inside the program folder.
 
 Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. After that, it creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the selected game. Each cell of the grid has a game cover, its name, a YouTube link, and an info link.
 
-The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and need to have the same filename as the game. The optimal image size should be 200 pixels in height. If you use a higher resolution, the app will still load the image but will consume more memory. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
+The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and need to have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
 
 The format of the "system.xml" file is as follows:
 
