@@ -14,11 +14,11 @@ namespace SimpleLauncher
     {
         // Constants
         private const string DefaultImagePath = "default.png";
-        private const int ImageHeight = 200;
-        private const int StackPanelWidth = 300;
-        private const int StackPanelHeight = 250;
-        private const int ButtonWidth = 300;
-        private const int ButtonHeight = 250;
+        private const int ImageHeight = 350;
+        private const int StackPanelWidth = 400;
+        private const int StackPanelHeight = 400;
+        private const int ButtonWidth = 400;
+        private const int ButtonHeight = 400;
 
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -156,19 +156,6 @@ namespace SimpleLauncher
                 Debug.WriteLine($"Error playing sound: {ex.Message}");
             }
         }
-
-        //private static async Task LoadImageAsync(Image image, string imagePath)
-        //{
-        //    var bitmapImage = new BitmapImage();
-        //    bitmapImage.BeginInit();
-        //    bitmapImage.UriSource = new Uri(imagePath);
-        //    bitmapImage.EndInit();
-
-        //    // Wait for the image to load
-        //    await Task.Run(() => bitmapImage.Freeze());
-
-        //    image.Source = bitmapImage;
-        //}
 
         private async Task LoadImageAsync(Image imageControl, string imagePath)
         {
