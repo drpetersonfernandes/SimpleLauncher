@@ -10,7 +10,7 @@ namespace SimpleLauncher
     public partial class MainWindow : Window
     {
         // Instance variables
-        readonly private GamePadController _inputControl;
+        private GamePadController _inputControl;
         readonly private List<SystemConfig> _systemConfigs;
         private readonly GameHandler _gameHandler = new();
         readonly private LogErrors _logger = new();
@@ -198,7 +198,6 @@ namespace SimpleLauncher
         private static async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             var logger = new LogErrors();
             await logger.LogErrorAsync(ex, message);
         }
@@ -215,27 +214,61 @@ namespace SimpleLauncher
             this.Close();
         }
 
-        public void HideGames_Click(object sender, RoutedEventArgs e)
+        private void HideGamesNoCover_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var child in _gameFileGrid.Children)
+            if (sender is MenuItem menuItem)
             {
-                if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
+                // Toggle the IsChecked property
+                menuItem.IsChecked = !menuItem.IsChecked;
+
+                // Your logic to hide games with no cover
+                if (menuItem.IsChecked)
                 {
-                    btn.Visibility = Visibility.Collapsed; // Hide the button
+                    // Code to hide games
+                    foreach (var child in _gameFileGrid.Children)
+                    {
+                        if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
+                        {
+                            btn.Visibility = Visibility.Collapsed; // Hide the button
+                        }
+                    }
+                }
+                else
+                {
+                    // Code to show games
+                    foreach (var child in _gameFileGrid.Children)
+                    {
+                        if (child is Button btn)
+                        {
+                            btn.Visibility = Visibility.Visible; // Show the button
+                        }
+                    }
                 }
             }
         }
 
-        public void ShowGames_Click(object sender, RoutedEventArgs e)
+        private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var child in _gameFileGrid.Children)
+            if (sender is MenuItem menuItem)
             {
-                if (child is Button btn)
+                menuItem.IsChecked = !menuItem.IsChecked;
+
+                if (menuItem.IsChecked)
                 {
-                    btn.Visibility = Visibility.Visible; // Show the button
+                    // If the gamepad navigation is being enabled, start the controller.
+                    _inputControl ??= new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
+                    _inputControl.Start();
+                }
+                else
+                {
+                    // If the gamepad navigation is being disabled, stop and dispose of the controller.
+                    _inputControl?.Dispose();
+                    _inputControl = null;
                 }
             }
         }
+
+
 
         #endregion
 

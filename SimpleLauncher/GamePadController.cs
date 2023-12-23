@@ -22,6 +22,8 @@ namespace SimpleLauncher
         readonly float deadZoneX = 0.05f;
         readonly float deadZoneY = 0.02f;
 
+        public bool IsRunning { get; private set; }
+
         public GamePadController(Action<Exception, string> errorLogger = null)
         {
             _controller = new Controller(UserIndex.One);
@@ -30,10 +32,15 @@ namespace SimpleLauncher
             _errorLogger = errorLogger;
         }
 
-        public void Start() => _timer.Change(0, 1000 / RefreshRate);
+        public void Start()
+        {
+            _timer.Change(0, 1000 / RefreshRate);
+            IsRunning = true;
+        }
 
         public void Stop()
         {
+            IsRunning = false;
             if (_timer != null && !_isDisposed)
                 _timer.Change(Timeout.Infinite, Timeout.Infinite);
         }
@@ -45,6 +52,9 @@ namespace SimpleLauncher
             Stop();
             _timer?.Dispose();
             _isDisposed = true;
+
+            // Suppress finalization.
+            GC.SuppressFinalize(this);
         }
 
         private void Update()
@@ -92,7 +102,7 @@ namespace SimpleLauncher
             _mouseSimulator.MoveMouseBy((int)x, -(int)y);
         }
 
-        private (float, float) ProcessThumbStick(short thumbX, short thumbY, float dzX, float dzY)
+        private static (float, float) ProcessThumbStick(short thumbX, short thumbY, float dzX, float dzY)
         {
             float normalizedX = Math.Max(-1, (float)thumbX / MaxThumbValue);
             float normalizedY = Math.Max(-1, (float)thumbY / MaxThumbValue);

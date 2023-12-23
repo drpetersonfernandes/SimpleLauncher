@@ -20,25 +20,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" VerticalAlignment="Top">
-            <MenuItem Header="Show">
-                <MenuItem Click="HideGames_Click" Header="Hide Games With No Cover">
-                    <MenuItem.Icon>
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Source="pack://application:,,,/images/hidegames.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="ShowGames_Click" Header="Show All Games">
-                    <MenuItem.Icon>
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Source="pack://application:,,,/images/showallgames.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
 
+            <MenuItem Header="Options">
+                <MenuItem
+                    x:Name="HideGamesNoCover"
+                    Click="HideGamesNoCover_Click"
+                    Header="Hide Games With No Cover" />
+                <MenuItem
+                    x:Name="EnableGamePadNavigation"
+                    Click="EnableGamePadNavigation_Click"
+                    Header="Enable GamePad Navigation"
+                    IsChecked="True" />
+            </MenuItem>
             <MenuItem
                 x:Name="AboutButton"
                 Click="About_Click"
