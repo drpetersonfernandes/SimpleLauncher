@@ -7,15 +7,15 @@ using System.Windows.Media;
 
 namespace SimpleLauncher
 {
-    public class LetterNumberItems
+    public class LetterNumberMenu
     {
         public StackPanel LetterPanel { get; private set; } = new StackPanel { Orientation = Orientation.Horizontal };
-        readonly private Dictionary<string, Button> letterButtons = new Dictionary<string, Button>();
+        readonly private Dictionary<string, Button> letterButtons = [];
         private Button selectedButton = null;
 
         public event Action<string> OnLetterSelected;
 
-        public LetterNumberItems()
+        public LetterNumberMenu()
         {
             InitializeLetterButtons();
             InitializeNumberButton();
@@ -25,7 +25,7 @@ namespace SimpleLauncher
         {
             foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
             {
-                Button button = new Button { Content = c.ToString(), Width = 30, Height = 30 };
+                Button button = new() { Content = c.ToString(), Width = 30, Height = 30 };
 
                 button.Click += (sender, e) =>
                 {
@@ -40,7 +40,7 @@ namespace SimpleLauncher
 
         private void InitializeNumberButton()
         {
-            Button numButton = new Button { Content = "#", Width = 30, Height = 30 };
+            Button numButton = new() { Content = "#", Width = 30, Height = 30 };
             numButton.Click += (sender, e) =>
             {
                 UpdateSelectedButton(numButton);
@@ -60,9 +60,9 @@ namespace SimpleLauncher
 
         public void SimulateClick(string letter)
         {
-            if (letterButtons.ContainsKey(letter))
+            if (letterButtons.TryGetValue(letter, out Button value))
             {
-                letterButtons[letter].RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                value.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
     }

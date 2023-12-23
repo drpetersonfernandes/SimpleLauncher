@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameButtonFactory
+    internal class GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
         // Constants
         private const string DefaultImagePath = "default.png";
@@ -36,16 +36,9 @@ namespace SimpleLauncher
         }
 
         // Assuming your ComboBoxes and Configs are in MainWindow, you can pass them as properties.
-        public ComboBox EmulatorComboBox { get; set; }
-        public ComboBox SystemComboBox { get; set; }
-        public List<SystemConfig> SystemConfigs { get; set; } // Assuming SystemConfig is the correct type
-
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
-        {
-            EmulatorComboBox = emulatorComboBox;
-            SystemComboBox = systemComboBox;
-            SystemConfigs = systemConfigs;
-        }
+        public ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
+        public ComboBox SystemComboBox { get; set; } = systemComboBox;
+        public List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName)
         {
@@ -131,7 +124,7 @@ namespace SimpleLauncher
             }
 
             //Button click event
-            GameLaunchHandler gameLaunchHandler = new GameLaunchHandler();
+            GameLaunchHandler gameLaunchHandler = new();
             button.Click += async (sender, args) =>
             {
                 PlayClickSound();
@@ -146,7 +139,7 @@ namespace SimpleLauncher
             try
             {
                 string soundPath = Path.Combine(_baseDirectory, "audio", "click.mp3");
-                MediaPlayer mediaPlayer = new MediaPlayer();
+                MediaPlayer mediaPlayer = new();
                 mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
                 mediaPlayer.Play();
             }
@@ -157,10 +150,9 @@ namespace SimpleLauncher
             }
         }
 
-        private async Task LoadImageAsync(Image imageControl, string imagePath)
+        private static async Task LoadImageAsync(Image imageControl, string imagePath)
         {
-            if (imageControl == null)
-                throw new ArgumentNullException(nameof(imageControl));
+            ArgumentNullException.ThrowIfNull(imageControl);
 
             if (string.IsNullOrWhiteSpace(imagePath))
                 throw new ArgumentException("Invalid image path.", nameof(imagePath));
@@ -169,15 +161,13 @@ namespace SimpleLauncher
 
             await Task.Run(() =>
             {
-                using (var stream = File.OpenRead(imagePath))
-                {
-                    bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = stream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze(); // Important for multi-threaded access
-                }
+                using var stream = File.OpenRead(imagePath);
+                bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = stream;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze(); // Important for multi-threaded access
             });
 
             // Update the UI thread with the loaded image

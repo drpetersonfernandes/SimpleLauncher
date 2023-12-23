@@ -11,11 +11,11 @@ namespace SimpleLauncher
     {
         // Instance variables
         readonly private GamePadController _inputControl;
-        private readonly MenuActions _menuActions;
         readonly private List<SystemConfig> _systemConfigs;
         private readonly GameHandler _gameHandler = new();
         readonly private LogErrors _logger = new();
-        readonly private LetterNumberItems _letterNumberItems = new();
+        readonly private LetterNumberMenu _LetterNumberMenu = new();
+        readonly private WrapPanel _gameFileGrid;
 
         public MainWindow()
         {
@@ -30,6 +30,9 @@ namespace SimpleLauncher
             _inputControl = new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
 
+            // Initialize _gameFileGrid
+            _gameFileGrid = this.FindName("gameFileGrid") as WrapPanel;
+
             // Load system.xml and Populate the SystemComboBox
             try
             {
@@ -42,20 +45,17 @@ namespace SimpleLauncher
                 HandleError(ex, "Error while loading system configurations");
             }
 
-            // Initialize the MenuActions with this window context
-            _menuActions = new MenuActions(this, gameFileGrid);
-
-            // Create and integrate LetterNumberItems
-            _letterNumberItems.OnLetterSelected += async (selectedLetter) =>
+            // Create and integrate LetterNumberMenu
+            _LetterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
                 await LoadgameFiles(selectedLetter);
             };
 
-            // Add the StackPanel from LetterNumberItems to the MainWindow's Grid
-            Grid.SetRow(_letterNumberItems.LetterPanel, 1);
-            ((Grid)this.Content).Children.Add(_letterNumberItems.LetterPanel);
+            // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
+            Grid.SetRow(_LetterNumberMenu.LetterPanel, 1);
+            ((Grid)this.Content).Children.Add(_LetterNumberMenu.LetterPanel);
             // Simulate a click on the "A" button
-            _letterNumberItems.SimulateClick("A");
+            _LetterNumberMenu.SimulateClick("A");
 
         }
 
@@ -71,26 +71,6 @@ namespace SimpleLauncher
                 _inputControl.Stop();
                 _inputControl.Dispose();
             }
-        }
-
-        private void HideGames_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.HideGames_Click(sender, e);
-        }
-
-        private void ShowGames_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.ShowGames_Click(sender, e);
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.About_Click(sender, e);
-        }
-
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            _menuActions.Exit_Click(sender, e);
         }
 
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,7 +98,7 @@ namespace SimpleLauncher
                 }
             }
             // Reset the letter to "A" each time the system is changed
-            _letterNumberItems.SimulateClick("A");
+            _LetterNumberMenu.SimulateClick("A");
         }
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -222,6 +202,42 @@ namespace SimpleLauncher
             var logger = new LogErrors();
             await logger.LogErrorAsync(ex, message);
         }
+
+        #region Menu Items
+
+        public void About_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.3", "About");
+        }
+
+        public void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        public void HideGames_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in _gameFileGrid.Children)
+            {
+                if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
+                {
+                    btn.Visibility = Visibility.Collapsed; // Hide the button
+                }
+            }
+        }
+
+        public void ShowGames_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in _gameFileGrid.Children)
+            {
+                if (child is Button btn)
+                {
+                    btn.Visibility = Visibility.Visible; // Show the button
+                }
+            }
+        }
+
+        #endregion
 
     }
 }
