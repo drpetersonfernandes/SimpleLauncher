@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\HomePC\Desktop\SimpleLauncher\</PublishUrl>
@@ -28,7 +28,7 @@
     <CodeAnalysisRuleSet>GlobalizationRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>icon\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>82CE10DBED3E92BB73AC080EDFCC328F783BBEA3</ManifestCertificateThumbprint>
@@ -53,9 +53,10 @@
     <PackageIcon>icon2.png</PackageIcon>
     <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.2</AssemblyVersion>
-    <FileVersion>2.2</FileVersion>
+    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <FileVersion>2.3.0.0</FileVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -68,9 +69,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\check.png" />
@@ -86,6 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="icon2.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="icon\icon2.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -123,5 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GameName.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon\icon.ico" />
   </ItemGroup>
 </Project>
