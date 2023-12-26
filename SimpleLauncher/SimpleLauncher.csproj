@@ -57,6 +57,7 @@
     <FileVersion>2.3.0.0</FileVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
