@@ -4,11 +4,11 @@ A simple emulator launcher for Windows.
 
 ![Screenshot](screenshot.png)
 
-This program reads a file called "system.xml" located inside the program folder. All the system and emulator settings are stored in this file.
+This program reads a file called "system.xml" located inside the program folder. All system and emulator settings are stored in this file.
 
-Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. After that, it creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the selected game. Each cell of the grid has a game cover, its name, a YouTube link, and an info link.
+Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game. Each cell of the grid displays a game cover, its name, a YouTube link, and an info link.
 
-The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and need to have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
+The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
 
 The format of the "system.xml" file is as follows:
 
@@ -39,7 +39,7 @@ The format of the "system.xml" file is as follows:
 
 You can add as many systems and emulators as you want.
 
-The XML file contains the following fields:
+The "system.xml" contains the following fields:
 
 - **SystemName**: Name of the system.
 - **SystemFolder**: Folder where the ROMs or games are located.
@@ -50,14 +50,30 @@ The XML file contains the following fields:
 - **EmulatorLocation**: Location of the emulator.
 - **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
 
+The program also reads the file "settings.xml", which contains the user's preferences. The format of this file is as follows:
+
+```xml
+<Settings>
+	<ThumbnailSize>350</ThumbnailSize>
+	<HideGamesWithNoCover>false</HideGamesWithNoCover>
+	<EnableGamePadNavigation>true</EnableGamePadNavigation>
+</Settings>
+```
+
+The "settings.xml" contains the following fields:
+
+- **ThumbnailSize**: Height of the thumbnail.
+- **HideGamesWithNoCover**: Whether to hide games without a cover.
+- **EnableGamePadNavigation**: Whether to enable GamePad navigation.
+
 This program is Windows-only and has been tested on Windows 11.
 
-### Code Language
+## Code Language
 *Written in C# using<br>
-Microsoft Visual Studio Community 2022 (64-bit) Version 17.9.0 Preview 1.0<br>
+Microsoft Visual Studio Community 2022 (64-bit) Version 17.9.0 Preview 2.0<br>
 Windows Presentation Foundation (WPF) Framework<br>
 Microsoft .NET 8.0*
 
-### Contributors
+## Contributors
 - Peterson Fernandes - [Github Profile](https://github.com/drpetersonfernandes)
 - RFSVIEIRA - [Github Profile](https://github.com/RFSVIEIRA)
