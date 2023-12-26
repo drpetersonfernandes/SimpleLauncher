@@ -10,32 +10,17 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    internal class GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, AppSettings settings)
     {
-
         private const string DefaultImagePath = "default.png";
-        private const int ImageHeight = 350;
-        private const int StackPanelWidth = 400;
-        private const int StackPanelHeight = 400;
-        private const int ButtonWidth = 400;
-        private const int ButtonHeight = 400;
-
+        public int ImageHeight { get; set; } = settings.ThumbnailSize;
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-        private string DetermineImagePath(string fileNameWithoutExtension, string systemName)
-        {
-            if (string.IsNullOrEmpty(systemName))
-                return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no system is selected.
+        private int StackPanelWidth => ImageHeight + 50;
+        private int StackPanelHeight => ImageHeight + 50;
+        private int ButtonWidth => ImageHeight + 50;
+        private int ButtonHeight => ImageHeight + 50;
 
-            string imagePath = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.png");
-
-            if (File.Exists(imagePath))
-                return imagePath;
-
-            return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
-        }
-
-        // Assuming your ComboBoxes and Configs are in MainWindow, you can pass them as properties.
         public ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
         public ComboBox SystemComboBox { get; set; } = systemComboBox;
         public List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
@@ -45,19 +30,16 @@ namespace SimpleLauncher
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-            // Determine the image path based on the filename
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemName);
 
-            // Check if default image is used and add a tag to the button
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
             var image = new Image
             {
-                Height = ImageHeight,
+                Height = this.ImageHeight,  // Use the property here
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
-            // Load the image asynchronously
             await LoadImageAsync(image, imagePath);
 
             var textBlock = new TextBlock
@@ -66,7 +48,7 @@ namespace SimpleLauncher
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
-                ToolTip = fileNameWithoutExtension // Display the full filename on hover
+                ToolTip = fileNameWithoutExtension
             };
 
             var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName);
@@ -85,10 +67,9 @@ namespace SimpleLauncher
                 VerticalAlignment = VerticalAlignment.Center,
                 Width = StackPanelWidth,
                 Height = StackPanelHeight,
-                MaxHeight = StackPanelHeight // Limits the maximum height
+                MaxHeight = StackPanelHeight
             };
 
-            // Add the main content (StackPanel) and the YouTube icon to the Grid
             grid.Children.Add(stackPanel);
             grid.Children.Add(youtubeIcon);
             grid.Children.Add(infoIcon);
@@ -107,10 +88,8 @@ namespace SimpleLauncher
 
             button.PreviewMouseLeftButtonDown += (sender, args) =>
             {
-                if (args.OriginalSource is Image img &&
-                   (img.Name == "youtubeIcon" || img.Name == "infoIcon"))
+                if (args.OriginalSource is Image img && (img.Name == "youtubeIcon" || img.Name == "infoIcon"))
                 {
-                    // If the event source is our youtubeIcon or infoIcon, set the event as handled
                     args.Handled = true;
                 }
             };
@@ -123,7 +102,6 @@ namespace SimpleLauncher
                 button.Tag = "DefaultImage";
             }
 
-            //Button click event
             GameLauncher gameLauncher = new();
             button.Click += async (sender, args) =>
             {
@@ -132,6 +110,19 @@ namespace SimpleLauncher
             };
 
             return button;
+        }
+
+        private string DetermineImagePath(string fileNameWithoutExtension, string systemName)
+        {
+            if (string.IsNullOrEmpty(systemName))
+                return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no system is selected.
+
+            string imagePath = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.png");
+
+            if (File.Exists(imagePath))
+                return imagePath;
+
+            return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
         }
 
         private void PlayClickSound()

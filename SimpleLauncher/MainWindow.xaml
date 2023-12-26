@@ -22,6 +22,52 @@
         <Menu Grid.Row="0" VerticalAlignment="Top">
 
             <MenuItem Header="Options">
+                <MenuItem Header="Set Thumbnail Size">
+                    <MenuItem
+                        x:Name="Size100"
+                        Click="ThumbnailSize_Click"
+                        Header="100 pixels" />
+                    <MenuItem
+                        x:Name="Size150"
+                        Click="ThumbnailSize_Click"
+                        Header="150 pixels" />
+                    <MenuItem
+                        x:Name="Size200"
+                        Click="ThumbnailSize_Click"
+                        Header="200 pixels" />
+                    <MenuItem
+                        x:Name="Size250"
+                        Click="ThumbnailSize_Click"
+                        Header="250 pixels" />
+                    <MenuItem
+                        x:Name="Size300"
+                        Click="ThumbnailSize_Click"
+                        Header="300 pixels" />
+                    <MenuItem
+                        x:Name="Size350"
+                        Click="ThumbnailSize_Click"
+                        Header="350 pixels" />
+                    <MenuItem
+                        x:Name="Size400"
+                        Click="ThumbnailSize_Click"
+                        Header="400 pixels" />
+                    <MenuItem
+                        x:Name="Size450"
+                        Click="ThumbnailSize_Click"
+                        Header="450 pixels" />
+                    <MenuItem
+                        x:Name="Size500"
+                        Click="ThumbnailSize_Click"
+                        Header="500 pixels" />
+                    <MenuItem
+                        x:Name="Size550"
+                        Click="ThumbnailSize_Click"
+                        Header="550 pixels" />
+                    <MenuItem
+                        x:Name="Size600"
+                        Click="ThumbnailSize_Click"
+                        Header="600 pixels" />
+                </MenuItem>
                 <MenuItem
                     x:Name="HideGamesNoCover"
                     Click="HideGamesNoCover_Click"
@@ -29,8 +75,7 @@
                 <MenuItem
                     x:Name="EnableGamePadNavigation"
                     Click="EnableGamePadNavigation_Click"
-                    Header="Enable GamePad Navigation"
-                    IsChecked="True" />
+                    Header="Enable GamePad Navigation" />
             </MenuItem>
             <MenuItem
                 x:Name="AboutButton"

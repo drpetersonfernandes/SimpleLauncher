@@ -15,10 +15,26 @@ namespace SimpleLauncher
         private readonly LoadFiles _loadFiles = new();
         readonly private LetterNumberMenu _LetterNumberMenu = new();
         readonly private WrapPanel _gameFileGrid;
+        private GameButtonFactory _gameButtonFactory;
+        private List<string> _currentGameFilePaths = [];
+        private readonly AppSettings _settings;
+
+        // Menu Item Constants
+        private const bool DefaultHideGamesWithNoCover = false;
+        private const bool DefaultEnableGamePadNavigation = true;
+        private const int DefaultThumbnailSize = 350;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Load settings
+            _settings = new AppSettings("settings.xml");
+
+            // Apply settings to your application
+            HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
+            EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
+            UpdateMenuCheckMarks(_settings.ThumbnailSize);
 
             // Attach the Closing event handler to ensure resources are disposed of
             this.Closing += MainWindow_Closing;
@@ -55,6 +71,9 @@ namespace SimpleLauncher
             ((Grid)this.Content).Children.Add(_LetterNumberMenu.LetterPanel);
             // Simulate a click on the "A" button
             _LetterNumberMenu.SimulateClick("A");
+
+            // Initialize _gameButtonFactory with settings
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
 
         }
 
@@ -142,8 +161,11 @@ namespace SimpleLauncher
                 allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
 
+                // Update the list of current game file paths
+                _currentGameFilePaths = allFiles;
+
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
-                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs);
+                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
 
                 foreach (var filePath in allFiles)
                 {
@@ -215,8 +237,9 @@ namespace SimpleLauncher
         {
             if (sender is MenuItem menuItem)
             {
-                // Toggle the IsChecked property
                 menuItem.IsChecked = !menuItem.IsChecked;
+                _settings.HideGamesWithNoCover = menuItem.IsChecked;
+                _settings.Save();  // Save the settings
 
                 // Your logic to hide games with no cover
                 if (menuItem.IsChecked)
@@ -249,6 +272,8 @@ namespace SimpleLauncher
             if (sender is MenuItem menuItem)
             {
                 menuItem.IsChecked = !menuItem.IsChecked;
+                _settings.EnableGamePadNavigation = menuItem.IsChecked;
+                _settings.Save();  // Save the settings
 
                 if (menuItem.IsChecked)
                 {
@@ -265,9 +290,56 @@ namespace SimpleLauncher
             }
         }
 
+        private void ThumbnailSize_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem clickedItem)
+            {
+                // Extract the numeric value from the header
+                var sizeText = clickedItem.Header.ToString();
+                if (int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
+                {
+                    _gameButtonFactory.ImageHeight = newSize; // Update the image height
+                    _settings.ThumbnailSize = newSize; // Update the settings
+                    _settings.Save(); // Save the settings
+                    RefreshGameButtons(); // Refresh the UI
 
+                    UpdateMenuCheckMarks(newSize);
+                }
+            }
+        }
 
         #endregion
+
+        private async void RefreshGameButtons()
+        {
+            // Clear existing buttons
+            _gameFileGrid.Children.Clear();
+
+            // Initialize _gameButtonFactory with default values
+            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
+
+            // Recreate the buttons with the new image height
+            foreach (var filePath in _currentGameFilePaths)
+            {
+                var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString());
+                _gameFileGrid.Children.Add(gameButton);
+            }
+        }
+
+        private void UpdateMenuCheckMarks(int selectedSize)
+        {
+            Size100.IsChecked = (selectedSize == 100);
+            Size150.IsChecked = (selectedSize == 150);
+            Size200.IsChecked = (selectedSize == 200);
+            Size250.IsChecked = (selectedSize == 250);
+            Size300.IsChecked = (selectedSize == 300);
+            Size350.IsChecked = (selectedSize == 350);
+            Size400.IsChecked = (selectedSize == 400);
+            Size450.IsChecked = (selectedSize == 450);
+            Size500.IsChecked = (selectedSize == 500);
+            Size550.IsChecked = (selectedSize == 550);
+            Size600.IsChecked = (selectedSize == 600);
+        }
 
     }
 }

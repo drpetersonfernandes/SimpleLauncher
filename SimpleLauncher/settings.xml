@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+	<ThumbnailSize>350</ThumbnailSize>
+	<HideGamesWithNoCover>false</HideGamesWithNoCover>
+	<EnableGamePadNavigation>true</EnableGamePadNavigation>
+</Settings>
