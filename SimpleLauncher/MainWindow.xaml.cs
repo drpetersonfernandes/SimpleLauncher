@@ -12,8 +12,7 @@ namespace SimpleLauncher
         // Instance variables
         private GamePadController _inputControl;
         readonly private List<SystemConfig> _systemConfigs;
-        private readonly GameHandler _gameHandler = new();
-        readonly private LogErrors _logger = new();
+        private readonly LoadFiles _loadFiles = new();
         readonly private LetterNumberMenu _LetterNumberMenu = new();
         readonly private WrapPanel _gameFileGrid;
 
@@ -27,7 +26,7 @@ namespace SimpleLauncher
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
             // Initialize the GamePadController.cs
-            _inputControl = new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
+            _inputControl = new GamePadController((ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait());
             _inputControl.Start();
 
             // Initialize _gameFileGrid
@@ -48,7 +47,7 @@ namespace SimpleLauncher
             // Create and integrate LetterNumberMenu
             _LetterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
-                await LoadgameFiles(selectedLetter);
+                await LoadGameFiles(selectedLetter);
             };
 
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
@@ -61,7 +60,7 @@ namespace SimpleLauncher
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            ExtractFile.Instance.Cleanup();
+            ExtractCompressedFile.Instance.Cleanup();
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -104,11 +103,9 @@ namespace SimpleLauncher
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Handle the logic when an Emulator is selected
-            //EmulatorConfig selectedProgram = (EmulatorConfig)EmulatorComboBox.SelectedItem;
-            // For now, you can leave it empty if there's no specific logic to implement yet.
         }
 
-        private async Task LoadgameFiles(string startLetter = null)
+        private async Task LoadGameFiles(string startLetter = null)
         {
             try
             {
@@ -134,7 +131,7 @@ namespace SimpleLauncher
                 // Extract the file extensions from the selected system configuration
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
 
-                List<string> allFiles = await _gameHandler.GetFilesAsync(systemFolderPath, fileExtensions);
+                List<string> allFiles = await _loadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
 
                 if (allFiles.Count == 0)
                 {
@@ -142,10 +139,10 @@ namespace SimpleLauncher
                     return;
                 }
 
-                allFiles = _gameHandler.FilterFiles(allFiles, startLetter);
+                allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
 
-                // Create a new instance of GameButtonFactory within the LoadgameFiles method.
+                // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs);
 
                 foreach (var filePath in allFiles)
@@ -198,8 +195,8 @@ namespace SimpleLauncher
         private static async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            var logger = new LogErrors();
-            await logger.LogErrorAsync(ex, message);
+            _ = new LogErrors();
+            await LogErrors.LogErrorAsync(ex, message);
         }
 
         #region Menu Items
@@ -256,7 +253,7 @@ namespace SimpleLauncher
                 if (menuItem.IsChecked)
                 {
                     // If the gamepad navigation is being enabled, start the controller.
-                    _inputControl ??= new GamePadController((ex, msg) => _logger.LogErrorAsync(ex, msg).Wait());
+                    _inputControl ??= new GamePadController((ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait());
                     _inputControl.Start();
                 }
                 else

@@ -1,5 +1,4 @@
-﻿// Note: Make sure to pass necessary parameters like filePath, EmulatorComboBox, SystemComboBox, and SystemConfigs to this method
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,7 +9,7 @@ using System.Windows.Controls;
 
 namespace SimpleLauncher
 {
-    public class GameLaunchHandler
+    public class GameLauncher
     {
         public static async Task HandleButtonClick(string filePath, ComboBox EmulatorComboBox, ComboBox SystemComboBox, List<SystemConfig> SystemConfigs)
         {
@@ -44,12 +43,14 @@ namespace SimpleLauncher
                     // Determine if extraction is needed based on system configuration
                     if (systemConfig.ExtractFileBeforeLaunch)
                     {
-                        string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+                        int index = filePath.LastIndexOf('.');
+                        string fileExtension = (index > 0) ? filePath[index..] : null;
+                        fileExtension = fileExtension.ToUpperInvariant();
 
-                        if (fileExtension == ".zip" || fileExtension == ".7z")
+                        if (fileExtension == ".ZIP" || fileExtension == ".zip" || fileExtension == ".7Z" || fileExtension == ".7z")
                         {
                             // Extract the archive to a temporary location
-                            string tempExtractLocation = ExtractFile.Instance.ExtractArchiveToTemp(filePath);
+                            string tempExtractLocation = ExtractCompressedFile.Instance.ExtractArchiveToTemp(filePath);
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {

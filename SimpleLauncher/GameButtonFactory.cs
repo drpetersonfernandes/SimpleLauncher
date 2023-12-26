@@ -12,7 +12,7 @@ namespace SimpleLauncher
 {
     internal class GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
-        // Constants
+
         private const string DefaultImagePath = "default.png";
         private const int ImageHeight = 350;
         private const int StackPanelWidth = 400;
@@ -124,11 +124,11 @@ namespace SimpleLauncher
             }
 
             //Button click event
-            GameLaunchHandler gameLaunchHandler = new();
+            GameLauncher gameLauncher = new();
             button.Click += async (sender, args) =>
             {
                 PlayClickSound();
-                await GameLaunchHandler.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
             };
 
             return button;

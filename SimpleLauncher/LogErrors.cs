@@ -6,9 +6,9 @@ namespace SimpleLauncher
 {
     public class LogErrors
     {
-        private static readonly object _lockObject = new object();
+        private static readonly object _lockObject = new();
 
-        public async Task LogErrorAsync(Exception ex, string contextMessage = null)
+        public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
         {
             await Task.Run(() =>
             {

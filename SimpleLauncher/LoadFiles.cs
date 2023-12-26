@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleLauncher
 {
-    public class GameHandler
+    public class LoadFiles
     {
         public async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {
@@ -19,7 +19,7 @@ namespace SimpleLauncher
                     if (!Directory.Exists(directoryPath))
                     {
                         Console.WriteLine("Directory doesn't exist!"); // Debug line
-                        return new List<string>();
+                        return [];
                     }
 
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
@@ -30,12 +30,12 @@ namespace SimpleLauncher
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
-                    return new List<string>();
+                    return [];
                 }
             });
         }
 
-        public List<string> FilterFiles(List<string> files, string startLetter)
+        public static List<string> FilterFiles(List<string> files, string startLetter)
         {
             if (string.IsNullOrEmpty(startLetter))
                 return files; // If no startLetter is provided, no filtering is required
@@ -59,7 +59,7 @@ namespace SimpleLauncher
             if (targetSystemConfig == null)
             {
                 Console.WriteLine($"System '{systemName}' not found in config.");
-                return new List<string>();
+                return [];
             }
 
             var fileExtensions = targetSystemConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();

@@ -6,13 +6,13 @@ using System.IO;
 
 namespace SimpleLauncher
 {
-    internal class ExtractFile
+    internal class ExtractCompressedFile
     {
-        private static readonly Lazy<ExtractFile> _instance = new(() => new ExtractFile());
-        public static ExtractFile Instance => _instance.Value;
+        private static readonly Lazy<ExtractCompressedFile> _instance = new(() => new ExtractCompressedFile());
+        public static ExtractCompressedFile Instance => _instance.Value;
         private readonly List<string> _tempDirectories = [];
 
-        private ExtractFile() { } // Private constructor to enforce singleton pattern
+        private ExtractCompressedFile() { } // Private constructor to enforce singleton pattern
 
         public string ExtractArchiveToTemp(string archivePath)
         {
