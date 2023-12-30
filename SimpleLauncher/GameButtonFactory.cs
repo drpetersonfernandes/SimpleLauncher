@@ -2,41 +2,47 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, AppSettings settings)
+    internal class GameButtonFactory
     {
         private const string DefaultImagePath = "default.png";
-        public int ImageHeight { get; set; } = settings.ThumbnailSize;
+        public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly List<Machine> _machines; // List to hold machine data
 
-        private int StackPanelWidth => ImageHeight + 50;
-        private int StackPanelHeight => ImageHeight + 50;
-        private int ButtonWidth => ImageHeight + 50;
-        private int ButtonHeight => ImageHeight + 50;
+        public ComboBox EmulatorComboBox { get; set; }
+        public ComboBox SystemComboBox { get; set; }
+        public List<SystemConfig> SystemConfigs { get; set; }
 
-        public ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
-        public ComboBox SystemComboBox { get; set; } = systemComboBox;
-        public List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<Machine> machines, AppSettings settings)
+        {
+            EmulatorComboBox = emulatorComboBox;
+            SystemComboBox = systemComboBox;
+            SystemConfigs = systemConfigs;
+            _machines = machines; // Initialize _machines
+            ImageHeight = settings.ThumbnailSize; // Initialize ImageHeight
+        }
 
-        public async Task<Button> CreateGameButtonAsync(string filePath, string systemName)
+        public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-            string imagePath = DetermineImagePath(fileNameWithoutExtension, systemName);
-
+            string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
             var image = new Image
             {
-                Height = this.ImageHeight,  // Use the property here
+                Height = this.ImageHeight,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
@@ -51,13 +57,31 @@ namespace SimpleLauncher
                 ToolTip = fileNameWithoutExtension
             };
 
+            if (systemConfig.SystemIsMAME)
+            {
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                if (machine != null)
+                {
+                    var descriptionTextBlock = new TextBlock
+                    {
+                        Text = machine.Description,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontWeight = FontWeights.Normal,
+                        TextTrimming = TextTrimming.CharacterEllipsis,
+                        ToolTip = machine.Description
+                    };
+                    textBlock.Inlines.Add(new LineBreak());
+                    textBlock.Inlines.Add(descriptionTextBlock);
+                }
+            }
+
             var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName);
             var infoIcon = CreateInfoIcon(fileNameWithoutExtension);
 
             var grid = new Grid
             {
-                Width = ButtonWidth,
-                Height = ButtonHeight
+                Width = ImageHeight + 50,
+                Height = ImageHeight + 50
             };
 
             var stackPanel = new StackPanel
@@ -65,9 +89,9 @@ namespace SimpleLauncher
                 Orientation = Orientation.Vertical,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Width = StackPanelWidth,
-                Height = StackPanelHeight,
-                MaxHeight = StackPanelHeight
+                Width = ImageHeight + 50,
+                Height = ImageHeight + 50,
+                MaxHeight = ImageHeight + 50
             };
 
             grid.Children.Add(stackPanel);
@@ -77,9 +101,9 @@ namespace SimpleLauncher
             var button = new Button
             {
                 Content = grid,
-                Width = ButtonWidth,
-                Height = ButtonHeight,
-                MaxHeight = ButtonHeight,
+                Width = ImageHeight + 50,
+                Height = ImageHeight + 50,
+                MaxHeight = ImageHeight + 50,
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0),

@@ -60,6 +60,7 @@
     <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="mame.xml" />
     <None Remove="settings.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,9 @@
     <Resource Include="images\showallgames.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Content Include="mame.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Update="icon2.png">

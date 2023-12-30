@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
+using System.IO;
+
 
 namespace SimpleLauncher
 {
@@ -18,6 +22,7 @@ namespace SimpleLauncher
         private GameButtonFactory _gameButtonFactory;
         private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
+        public List<Machine> _machines;
 
         // Menu Item Constants
         private const bool DefaultHideGamesWithNoCover = false;
@@ -27,6 +32,9 @@ namespace SimpleLauncher
         public MainWindow()
         {
             InitializeComponent();
+
+            // Load MameXml
+            LoadMameXml();
 
             // Load settings
             _settings = new AppSettings("settings.xml");
@@ -73,7 +81,7 @@ namespace SimpleLauncher
             _LetterNumberMenu.SimulateClick("A");
 
             // Initialize _gameButtonFactory with settings
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
 
         }
 
@@ -165,12 +173,12 @@ namespace SimpleLauncher
                 _currentGameFilePaths = allFiles;
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
-                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
+                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
 
                 foreach (var filePath in allFiles)
                 {
                     // Adjust the CreateGameButton call.
-                    Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString());
+                    Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
                     gameFileGrid.Children.Add(gameButton);
                 }
             }
@@ -316,13 +324,17 @@ namespace SimpleLauncher
             _gameFileGrid.Children.Clear();
 
             // Initialize _gameButtonFactory with default values
-            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _settings);
+            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
 
             // Recreate the buttons with the new image height
             foreach (var filePath in _currentGameFilePaths)
             {
-                var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString());
-                _gameFileGrid.Children.Add(gameButton);
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == SystemComboBox.SelectedItem.ToString());
+                if (selectedConfig != null)
+                {
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                    _gameFileGrid.Children.Add(gameButton);
+                }
             }
         }
 
@@ -339,6 +351,32 @@ namespace SimpleLauncher
             Size500.IsChecked = (selectedSize == 500);
             Size550.IsChecked = (selectedSize == 550);
             Size600.IsChecked = (selectedSize == 600);
+        }
+
+        private void LoadMameXml()
+        {
+            try
+            {
+                string xmlPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
+                if (File.Exists(xmlPath))
+                {
+                    XDocument xmlDoc = XDocument.Load(xmlPath);
+                    _machines = xmlDoc.Descendants("Machine")
+                                      .Select(m => new Machine
+                                      {
+                                          MachineName = m.Element("MachineName")?.Value,
+                                          Description = m.Element("Description")?.Value
+                                      }).ToList();
+                }
+                else
+                {
+                    MessageBox.Show("mame.xml not found.", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex, "Error while loading mame.xml");
+            }
         }
 
     }

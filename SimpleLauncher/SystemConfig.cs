@@ -8,6 +8,7 @@ namespace SimpleLauncher
     {
         public string SystemName { get; set; }
         public string SystemFolder { get; set; }
+        public bool SystemIsMAME { get; set; }
         public List<string> FileFormatsToSearch { get; set; }
         public bool ExtractFileBeforeLaunch { get; set; }
         public List<string> FileFormatsToLaunch { get; set; }
@@ -31,6 +32,7 @@ namespace SimpleLauncher
                 {
                     SystemName = sysConfigElement.Element("SystemName").Value,
                     SystemFolder = sysConfigElement.Element("SystemFolder").Value,
+                    SystemIsMAME = bool.Parse(sysConfigElement.Element("SystemIsMAME").Value),
                     ExtractFileBeforeLaunch = bool.Parse(sysConfigElement.Element("ExtractFileBeforeLaunch").Value),
                     FileFormatsToSearch = sysConfigElement.Element("FileFormatsToSearch").Elements("FormatToSearch").Select(e => e.Value).ToList(),
                     FileFormatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch").Elements("FormatToLaunch").Select(e => e.Value).ToList(),
