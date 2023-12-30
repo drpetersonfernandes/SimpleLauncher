@@ -52,6 +52,7 @@ namespace SimpleLauncher
             {
                 Text = fileNameWithoutExtension,
                 HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
                 ToolTip = fileNameWithoutExtension
@@ -66,7 +67,8 @@ namespace SimpleLauncher
                     {
                         Text = machine.Description,
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        FontWeight = FontWeights.Normal,
+                        TextAlignment = TextAlignment.Center,
+                        FontWeight = FontWeights.Bold,
                         TextTrimming = TextTrimming.CharacterEllipsis,
                         ToolTip = machine.Description
                     };
@@ -204,7 +206,7 @@ namespace SimpleLauncher
                 Width = 22,
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
+                VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, 5, 30, 5),
                 Cursor = System.Windows.Input.Cursors.Hand
             };
@@ -237,7 +239,7 @@ namespace SimpleLauncher
                 Width = 22,
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Bottom,
+                VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, 5, 5, 5),
                 Cursor = System.Windows.Input.Cursors.Hand
             };
