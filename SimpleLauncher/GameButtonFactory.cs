@@ -17,13 +17,13 @@ namespace SimpleLauncher
         private const string DefaultImagePath = "default.png";
         public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private readonly List<Machine> _machines; // List to hold machine data
+        private readonly List<MachineConfig> _machines; // List to hold machine data
 
         public ComboBox EmulatorComboBox { get; set; }
         public ComboBox SystemComboBox { get; set; }
         public List<SystemConfig> SystemConfigs { get; set; }
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<Machine> machines, AppSettings settings)
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MachineConfig> machines, AppSettings settings)
         {
             EmulatorComboBox = emulatorComboBox;
             SystemComboBox = systemComboBox;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleLauncher
 {
-    public class Machine
+    public class MachineConfig
     {
         public string MachineName { get; set; }
         public string Description { get; set; }

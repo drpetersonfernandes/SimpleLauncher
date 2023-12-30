@@ -22,7 +22,7 @@ namespace SimpleLauncher
         private GameButtonFactory _gameButtonFactory;
         private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
-        public List<Machine> _machines;
+        public List<MachineConfig> _machines;
 
         // Menu Item Constants
         private const bool DefaultHideGamesWithNoCover = false;
@@ -362,7 +362,7 @@ namespace SimpleLauncher
                 {
                     XDocument xmlDoc = XDocument.Load(xmlPath);
                     _machines = xmlDoc.Descendants("Machine")
-                                      .Select(m => new Machine
+                                      .Select(m => new MachineConfig
                                       {
                                           MachineName = m.Element("MachineName")?.Value,
                                           Description = m.Element("Description")?.Value
