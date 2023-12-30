@@ -22,7 +22,7 @@ namespace SimpleLauncher
         private GameButtonFactory _gameButtonFactory;
         private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
-        public List<MachineConfig> _machines;
+        public List<MameConfig> _machines;
 
         // Menu Item Constants
         private const bool DefaultHideGamesWithNoCover = false;
@@ -33,8 +33,9 @@ namespace SimpleLauncher
         {
             InitializeComponent();
 
-            // Load MameXml
-            LoadMameXml();
+            // Load mame.xml
+            string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
+            _machines = MameConfig.LoadFromXml(xmlPath);
 
             // Load settings
             _settings = new AppSettings("settings.xml");
@@ -77,11 +78,18 @@ namespace SimpleLauncher
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
             Grid.SetRow(_LetterNumberMenu.LetterPanel, 1);
             ((Grid)this.Content).Children.Add(_LetterNumberMenu.LetterPanel);
-            // Simulate a click on the "A" button
-            _LetterNumberMenu.SimulateClick("A");
+
+            //// Simulate a click on the "A" button
+            //_LetterNumberMenu.SimulateClick("A");
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+
+            // Check if a system is already selected, otherwise show the message
+            if (SystemComboBox.SelectedItem == null)
+            {
+                AddNoSystemMessage();
+            }
 
         }
 
@@ -107,8 +115,6 @@ namespace SimpleLauncher
             if (SystemComboBox.SelectedItem != null)
             {
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
-
-                // Get the corresponding SystemConfig for the selected system
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
                 if (selectedConfig != null)
@@ -121,10 +127,25 @@ namespace SimpleLauncher
                     {
                         EmulatorComboBox.SelectedIndex = 0;
                     }
+
+                    // Display the system info
+                    string systemFolderPath = selectedConfig.SystemFolder;
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                    int gameCount = LoadFiles.CountFiles(systemFolderPath);
+                    DisplaySystemInfo(systemFolderPath, gameCount);
+
+                    // Call DeselectLetter to clear any selected letter
+                    _LetterNumberMenu.DeselectLetter();
+                }
+                else
+                {
+                    AddNoSystemMessage();
                 }
             }
-            // Reset the letter to "A" each time the system is changed
-            _LetterNumberMenu.SimulateClick("A");
+            else
+            {
+                AddNoSystemMessage();
+            }
         }
 
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,12 +181,6 @@ namespace SimpleLauncher
 
                 List<string> allFiles = await _loadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
 
-                if (allFiles.Count == 0)
-                {
-                    AddNoRomsMessage();
-                    return;
-                }
-
                 allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
 
@@ -188,38 +203,30 @@ namespace SimpleLauncher
             }
         }
 
-        private void AddNoRomsMessage()
-        {
-            ClearPreviousMessages("Could not find any ROM");
-            gameFileGrid.Children.Add(new TextBlock
-            {
-                Text = "Could not find any ROM",
-                FontWeight = FontWeights.Bold,
-                Padding = new Thickness(10)
-            });
-        }
-
         private void AddNoSystemMessage()
         {
-            ClearPreviousMessages("Please select a System");
+            gameFileGrid.Children.Clear();
             gameFileGrid.Children.Add(new TextBlock
             {
-                Text = "Please select a System",
+                Text = "\nPlease select a System",
                 FontWeight = FontWeights.Bold,
                 Padding = new Thickness(10)
             });
+
+            // Deselect any selected letter when no system is selected
+            _LetterNumberMenu.DeselectLetter();
+
         }
 
-        private void ClearPreviousMessages(string message)
+        private void DisplaySystemInfo(string systemFolderPath, int gameCount)
         {
-            var existingMessage = gameFileGrid.Children
-                                .OfType<TextBlock>()
-                                .FirstOrDefault(tb => tb.Text == message);
-
-            if (existingMessage != null)
+            gameFileGrid.Children.Clear();
+            gameFileGrid.Children.Add(new TextBlock
             {
-                gameFileGrid.Children.Remove(existingMessage);
-            }
+                Text = $"\nDirectory: {systemFolderPath}\nTotal Games: {gameCount}",
+                FontWeight = FontWeights.Bold,
+                Padding = new Thickness(10)
+            });
         }
 
         private static async void HandleError(Exception ex, string message)
@@ -351,32 +358,6 @@ namespace SimpleLauncher
             Size500.IsChecked = (selectedSize == 500);
             Size550.IsChecked = (selectedSize == 550);
             Size600.IsChecked = (selectedSize == 600);
-        }
-
-        private void LoadMameXml()
-        {
-            try
-            {
-                string xmlPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
-                if (File.Exists(xmlPath))
-                {
-                    XDocument xmlDoc = XDocument.Load(xmlPath);
-                    _machines = xmlDoc.Descendants("Machine")
-                                      .Select(m => new MachineConfig
-                                      {
-                                          MachineName = m.Element("MachineName")?.Value,
-                                          Description = m.Element("Description")?.Value
-                                      }).ToList();
-                }
-                else
-                {
-                    MessageBox.Show("mame.xml not found.", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                HandleError(ex, "Error while loading mame.xml");
-            }
         }
 
     }

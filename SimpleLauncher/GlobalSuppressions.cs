@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:SimpleLauncher.GameButtonFactory.#ctor(System.Windows.Controls.ComboBox,System.Windows.Controls.ComboBox,System.Collections.Generic.List{SimpleLauncher.SystemConfig},System.Collections.Generic.List{SimpleLauncher.MachineConfig},SimpleLauncher.AppSettings)")]
+[assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:SimpleLauncher.GameButtonFactory.#ctor(System.Windows.Controls.ComboBox,System.Windows.Controls.ComboBox,System.Collections.Generic.List{SimpleLauncher.SystemConfig},System.Collections.Generic.List{SimpleLauncher.MameConfig},SimpleLauncher.AppSettings)")]

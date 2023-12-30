@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SimpleLauncher
 {
@@ -67,6 +68,29 @@ namespace SimpleLauncher
             var filteredGames = FilterFiles(gameFiles, filterLetter);
             return filteredGames;
         }
+
+        public static int CountFiles(string folderPath)
+        {
+            // Check if the directory exists before attempting to get files
+            if (!Directory.Exists(folderPath))
+            {
+                MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return 0; // Or handle this scenario as appropriate for your application
+            }
+
+            try
+            {
+                // Count all files in the directory and its subdirectories
+                return Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).Length;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0; // Or handle this scenario as appropriate for your application
+            }
+        }
+
+
 
     }
 }

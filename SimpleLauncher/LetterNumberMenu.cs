@@ -52,7 +52,10 @@ namespace SimpleLauncher
 
         private void UpdateSelectedButton(Button button)
         {
-            selectedButton?.ClearValue(Button.BackgroundProperty);
+            if (selectedButton != null && selectedButton != button)
+            {
+                selectedButton.ClearValue(Button.BackgroundProperty);
+            }
 
             button.Background = Brushes.Green;
             selectedButton = button;
@@ -63,6 +66,15 @@ namespace SimpleLauncher
             if (letterButtons.TryGetValue(letter, out Button value))
             {
                 value.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }
+
+        public void DeselectLetter()
+        {
+            if (selectedButton != null)
+            {
+                selectedButton.ClearValue(Button.BackgroundProperty);
+                selectedButton = null;
             }
         }
     }
