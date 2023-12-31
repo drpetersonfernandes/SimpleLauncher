@@ -348,6 +348,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -372,6 +377,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Atari"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -398,6 +408,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Bally Midway"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -422,6 +437,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Banpresto"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -448,6 +468,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Capcom"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -472,6 +497,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Data East"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -498,6 +528,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Irem"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -522,6 +557,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Jaleco"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -548,6 +588,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Konami"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -572,6 +617,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Midway"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -598,6 +648,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Mitchell"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -622,6 +677,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Namco"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -648,6 +708,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Nintendo"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -672,6 +737,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Sammy"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -698,6 +768,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Sega"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -722,6 +797,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME SNK"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -748,6 +828,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Sony ZiNc"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -772,6 +857,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Taito"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -798,6 +888,11 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Tecmo"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -822,6 +917,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>-rompath "G:\MAME Visco"</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
