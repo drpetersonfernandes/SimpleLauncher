@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>cps3boot</MachineName>
+    <Description>CPS3 Multi-game bootleg for HD6417095 type SH2 (V4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3boota</MachineName>
+    <Description>CPS3 Multi-game bootleg for dead security cart (V5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3bootao</MachineName>
+    <Description>CPS3 Multi-game bootleg for dead security cart (older)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3bootao2</MachineName>
+    <Description>CPS3 Multi-game bootleg for dead security cart (oldest) (New Generation, 2nd Impact and 3rd Strike only)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3booto</MachineName>
+    <Description>CPS3 Multi-game bootleg for HD6417095 type SH2 (older)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3booto2</MachineName>
+    <Description>CPS3 Multi-game bootleg for HD6417095 type SH2 (oldest) (New Generation, 3rd Strike, JoJo's Venture, JoJo's Bizarre Adventure and Red Earth only)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3bs32</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (USA 970930, bootleg for HD6417095 type SH2, V3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cps3bs32a</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (USA 970930, bootleg for HD6417095 type SH2, older)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojo</MachineName>
+    <Description>JoJo's Venture (Euro 990128)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoa</MachineName>
+    <Description>JoJo's Venture (Asia 990128)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoar1</MachineName>
+    <Description>JoJo's Venture (Asia 990108)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoar2</MachineName>
+    <Description>JoJo's Venture (Asia 981202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoba</MachineName>
+    <Description>JoJo's Bizarre Adventure (Euro 990927)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobaj</MachineName>
+    <Description>JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990927)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobajr1</MachineName>
+    <Description>JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990913)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoban</MachineName>
+    <Description>JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990927, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobane</MachineName>
+    <Description>JoJo's Bizarre Adventure (Euro 990927, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobaner1</MachineName>
+    <Description>JoJo's Bizarre Adventure (Euro 990913, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobanr1</MachineName>
+    <Description>JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990913, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojobar1</MachineName>
+    <Description>JoJo's Bizarre Adventure (Euro 990913)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoj</MachineName>
+    <Description>JoJo no Kimyou na Bouken (Japan 990128)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojojr1</MachineName>
+    <Description>JoJo no Kimyou na Bouken (Japan 990108)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojojr2</MachineName>
+    <Description>JoJo no Kimyou na Bouken (Japan 981202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojon</MachineName>
+    <Description>JoJo's Venture (Asia 990128, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojonr1</MachineName>
+    <Description>JoJo's Venture (Asia 990108, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojonr2</MachineName>
+    <Description>JoJo's Venture (Asia 981202, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojor1</MachineName>
+    <Description>JoJo's Venture (Euro 990108)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojor2</MachineName>
+    <Description>JoJo's Venture (Euro 981202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojou</MachineName>
+    <Description>JoJo's Venture (USA 990128)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojour1</MachineName>
+    <Description>JoJo's Venture (USA 990108)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojour2</MachineName>
+    <Description>JoJo's Venture (USA 981202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redearth</MachineName>
+    <Description>Red Earth (Euro 961121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redearthn</MachineName>
+    <Description>Red Earth (Asia 961121, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redearthnr1</MachineName>
+    <Description>Red Earth (Asia 961023, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redearthr1</MachineName>
+    <Description>Red Earth (Euro 961023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii</MachineName>
+    <Description>Street Fighter III: New Generation (Euro 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii2</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (USA 970930)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii2h</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (Hispanic 970930)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii2j</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (Japan 970930)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii2n</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Euro 990608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3j</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Japan 990608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3jr1</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Japan 990512)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3n</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3nr1</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Japan 990512, NO CD)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3r1</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Euro 990512)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3u</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (USA 990608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3ur1</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (USA 990512)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiia</MachineName>
+    <Description>Street Fighter III: New Generation (Asia 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiih</MachineName>
+    <Description>Street Fighter III: New Generation (Hispanic 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiij</MachineName>
+    <Description>Street Fighter III: New Generation (Japan 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiin</MachineName>
+    <Description>Street Fighter III: New Generation (Asia 970204, NO CD, BIOS set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiina</MachineName>
+    <Description>Street Fighter III: New Generation (Asia 970204, NO CD, BIOS set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiiiu</MachineName>
+    <Description>Street Fighter III: New Generation (USA 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warzard</MachineName>
+    <Description>Warzard (Japan 961121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warzardr1</MachineName>
+    <Description>Warzard (Japan 961023)</Description>
+  </Machine>
+</Machines>
