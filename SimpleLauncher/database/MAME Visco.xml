@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>androdun</MachineName>
+    <Description>Andro Dunos (NGM-049 ~ NGH-049)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>b2b</MachineName>
+    <Description>Bang Bang Busters (2010 NCI release)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bangbead</MachineName>
+    <Description>Bang Bead</Description>
+  </Machine>
+  <Machine>
+    <MachineName>blockcar</MachineName>
+    <Description>Block Carnival / Thunder &amp; Lightning 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>breakers</MachineName>
+    <Description>Breakers</Description>
+  </Machine>
+  <Machine>
+    <MachineName>breakrev</MachineName>
+    <Description>Breakers Revenge</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ctomaday</MachineName>
+    <Description>Captain Tomaday</Description>
+  </Machine>
+  <Machine>
+    <MachineName>drifto94</MachineName>
+    <Description>Drift Out '94 - The Hard Order (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>driftout</MachineName>
+    <Description>Drift Out (Europe)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>earthjkr</MachineName>
+    <Description>U.N. Defense Force: Earth Joker (US / Japan, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>eto</MachineName>
+    <Description>Kokontouzai Eto Monogatari (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>flipshot</MachineName>
+    <Description>Battle Flip Shot</Description>
+  </Machine>
+  <Machine>
+    <MachineName>galmedes</MachineName>
+    <Description>Galmedes (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ganryu</MachineName>
+    <Description>Ganryu / Musashi Ganryuki</Description>
+  </Machine>
+  <Machine>
+    <MachineName>goalx3</MachineName>
+    <Description>Goal! Goal! Goal!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gostop</MachineName>
+    <Description>Kankoku Hanafuda Go-Stop</Description>
+  </Machine>
+  <Machine>
+    <MachineName>janjans1</MachineName>
+    <Description>Lovely Pop Mahjong JangJang Shimasho (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>janjans2</MachineName>
+    <Description>Lovely Pop Mahjong JangJang Shimasho 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jsk</MachineName>
+    <Description>Joryuu Syougi Kyoushitsu (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>keithlcy</MachineName>
+    <Description>Dramatic Adventure Quiz Keith &amp; Lucy (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>koikois</MachineName>
+    <Description>Koi Koi Shimasho - Super Real Hanafuda</Description>
+  </Machine>
+  <Machine>
+    <MachineName>koikois2</MachineName>
+    <Description>Koi Koi Shimasho 2 - Super Real Hanafuda (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mjyuugi</MachineName>
+    <Description>Mahjong Yuugi (Japan set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>neodrift</MachineName>
+    <Description>Neo Drift Out - New Technology</Description>
+  </Machine>
+  <Machine>
+    <MachineName>neomrdo</MachineName>
+    <Description>Neo Mr. Do!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ponchin</MachineName>
+    <Description>Mahjong Pon Chin Kan (Japan set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>puzzldpr</MachineName>
+    <Description>Puzzle De Pon! R!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>puzzledp</MachineName>
+    <Description>Puzzle De Pon!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>renju</MachineName>
+    <Description>Renju Kizoku - Kira Kira Gomoku Narabe</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rmhaisei</MachineName>
+    <Description>Real Mahjong Haihai Seichouhen (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ryorioh</MachineName>
+    <Description>Gourmet Battle Quiz Ryohrioh CooKing (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>setaroul</MachineName>
+    <Description>The Roulette (Visco)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stmblade</MachineName>
+    <Description>Storm Blade (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>themj</MachineName>
+    <Description>The Mah-jong (Japan, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vasara</MachineName>
+    <Description>Vasara</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vasara2</MachineName>
+    <Description>Vasara 2 (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vivdolls</MachineName>
+    <Description>Vivid Dolls</Description>
+  </Machine>
+</Machines>

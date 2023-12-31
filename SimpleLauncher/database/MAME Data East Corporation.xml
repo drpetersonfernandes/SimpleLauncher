@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>acchi</MachineName>
+    <Description>Janken Game Acchi Muite Hoi! (Japan 1.3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>actfancr</MachineName>
+    <Description>Act-Fancer Cybernetick Hyper Weapon (World revision 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alphaho</MachineName>
+    <Description>Alpha Fighter / Head On</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avengrgs</MachineName>
+    <Description>Avengers In Galactic Storm (US/Europe 1.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>backfire</MachineName>
+    <Description>Backfire! (Japan, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>battlera</MachineName>
+    <Description>Battle Rangers (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>birdtry</MachineName>
+    <Description>Birdie Try (Japan, revision 2, revision 1 MCU)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>boogwing</MachineName>
+    <Description>Boogie Wings (Euro v1.5, 92.12.07)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>boomrang</MachineName>
+    <Description>Boomer Rang'r / Genesis (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>btime</MachineName>
+    <Description>Burger Time (Data East set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bwings</MachineName>
+    <Description>B-Wings (Japan new Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cadanglr</MachineName>
+    <Description>Angler Dangler (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captaven</MachineName>
+    <Description>Captain America and The Avengers (Asia Rev 1.4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>castfant</MachineName>
+    <Description>Astro Fantasia (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbdash</MachineName>
+    <Description>Boulder Dash (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbtime</MachineName>
+    <Description>Burger Time (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cburnrub</MachineName>
+    <Description>Burnin' Rubber (DECO Cassette) (US) (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbuster</MachineName>
+    <Description>Crude Buster (World FX version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cdiscon1</MachineName>
+    <Description>Disco No.1 (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cdsteljn</MachineName>
+    <Description>DS Telejan (DECO Cassette) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cexplore</MachineName>
+    <Description>Explorer (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cfboy0a1</MachineName>
+    <Description>Flash Boy (vertical) (DECO Cassette MD) (No.12/Ver.0/Set.1,Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cfghtice</MachineName>
+    <Description>Fighting Ice Hockey (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cflyball</MachineName>
+    <Description>Flying Ball (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cgraplop</MachineName>
+    <Description>Cluster Buster (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chainrec</MachineName>
+    <Description>Chain Reaction (World, Version 2.2, 1995.09.25)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chelnov</MachineName>
+    <Description>Chelnov - Atomic Runner (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chinatwn</MachineName>
+    <Description>China Town (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chwy</MachineName>
+    <Description>Highway Chase (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>clapapa</MachineName>
+    <Description>Rootin' Tootin' / La-Pa-Pa (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>clocknch</MachineName>
+    <Description>Lock'n'Chase (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cluckypo</MachineName>
+    <Description>Lucky Poker (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cmanhat</MachineName>
+    <Description>Manhattan (DECO Cassette) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cmissnx</MachineName>
+    <Description>Mission-X (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cnebula</MachineName>
+    <Description>Nebula (DECO Cassette) (UK)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cnightst</MachineName>
+    <Description>Night Star (DECO Cassette) (US) (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cninja</MachineName>
+    <Description>Caveman Ninja (World ver 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cobracom</MachineName>
+    <Description>Cobra-Command (World/US revision 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cocean1a</MachineName>
+    <Description>Ocean to Ocean (Medal) (DECO Cassette MD) (No.10/Ver.1,Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coozumou</MachineName>
+    <Description>Oozumou - The Grand Sumo (DECO Cassette) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cppicf</MachineName>
+    <Description>Peter Pepper's Ice Cream Factory (DECO Cassette) (US) (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cprobowl</MachineName>
+    <Description>Pro Bowling (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cprogolf</MachineName>
+    <Description>Tournament Pro Golf (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cpsoccer</MachineName>
+    <Description>Pro Soccer (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cptennis</MachineName>
+    <Description>Pro Tennis (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cscrtry</MachineName>
+    <Description>Scrum Try (DECO Cassette) (US) (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csdtenis</MachineName>
+    <Description>Super Doubles Tennis (DECO Cassette) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csilver</MachineName>
+    <Description>Captain Silver (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cskater</MachineName>
+    <Description>Skater (DECO Cassette) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csuperas</MachineName>
+    <Description>Super Astro Fighter (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cterrani</MachineName>
+    <Description>Terranean (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ctisland</MachineName>
+    <Description>Treasure Island (DECO Cassette) (US) (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ctornado</MachineName>
+    <Description>Tornado (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ctower</MachineName>
+    <Description>The Tower (DECO Cassette) (Europe)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ctsttape</MachineName>
+    <Description>Test Tape (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>czeroize</MachineName>
+    <Description>Zeroize (DECO Cassette) (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>darkseal</MachineName>
+    <Description>Dark Seal (World revision 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>darwin</MachineName>
+    <Description>Darwin 4078 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>decocass</MachineName>
+    <Description>DECO Cassette System</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dietgo</MachineName>
+    <Description>Diet Go Go (Euro v1.1 1992.09.26 v3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dragngun</MachineName>
+    <Description>Dragon Gun (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>edrandy</MachineName>
+    <Description>The Cliffhanger - Edward Randy (World ver 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>exprraid</MachineName>
+    <Description>Express Raider (World, Rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fghthist</MachineName>
+    <Description>Fighter's History (World ver 43-09, DE-0395-1 PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>garyoret</MachineName>
+    <Description>Garyo Retsuden (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gondo</MachineName>
+    <Description>Gondomania (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hbarrel</MachineName>
+    <Description>Heavy Barrel (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hoops96</MachineName>
+    <Description>Hoops '96 (Europe/Asia 2.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hvysmsh</MachineName>
+    <Description>Heavy Smash (Europe version -2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>joemacr</MachineName>
+    <Description>Joe &amp; Mac Returns (World, Version 1.1, 1994.05.27)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kamikcab</MachineName>
+    <Description>Kamikaze Cabbie</Description>
+  </Machine>
+  <Machine>
+    <MachineName>karnovr</MachineName>
+    <Description>Karnov's Revenge / Fighter's History Dynamite</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastmisn</MachineName>
+    <Description>Last Mission (World revision 8)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>liberate</MachineName>
+    <Description>Liberation</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lnc</MachineName>
+    <Description>Lock'n'Chase</Description>
+  </Machine>
+  <Machine>
+    <MachineName>madalien</MachineName>
+    <Description>Mad Alien (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>magdrop2</MachineName>
+    <Description>Magical Drop II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>magdrop3</MachineName>
+    <Description>Magical Drop III</Description>
+  </Machine>
+  <Machine>
+    <MachineName>midres</MachineName>
+    <Description>Midnight Resistance (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mutantf</MachineName>
+    <Description>Mutant Fighter (World ver EM-5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nitrobal</MachineName>
+    <Description>Nitro Ball (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nslasher</MachineName>
+    <Description>Night Slashers (Korea Rev 1.3, DE-0397-0 PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>oscar</MachineName>
+    <Description>Psycho-Nics Oscar (World revision 0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pcktgal</MachineName>
+    <Description>Pocket Gal (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pktgaldx</MachineName>
+    <Description>Pocket Gal Deluxe (Euro v3.00)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progolf</MachineName>
+    <Description>18 Holes Pro Golf (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>prosoccr</MachineName>
+    <Description>Pro Soccer</Description>
+  </Machine>
+  <Machine>
+    <MachineName>prosport</MachineName>
+    <Description>Pro Sports - Bowling, Tennis, and Golf</Description>
+  </Machine>
+  <Machine>
+    <MachineName>protenn</MachineName>
+    <Description>Pro Tennis (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>robocop</MachineName>
+    <Description>Robocop (World, revision 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>robocop2</MachineName>
+    <Description>Robocop 2 (Euro/Asia v0.10)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rohga</MachineName>
+    <Description>Rohga Armor Force (Asia/Europe v5.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sdtennis</MachineName>
+    <Description>Super Doubles Tennis</Description>
+  </Machine>
+  <Machine>
+    <MachineName>secretag</MachineName>
+    <Description>Secret Agent (World, revision 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sidepckt</MachineName>
+    <Description>Side Pocket (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spinmast</MachineName>
+    <Description>Spin Master / Miracle Adventure</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srdarwin</MachineName>
+    <Description>Super Real Darwin (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stadhero</MachineName>
+    <Description>Stadium Hero (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stadhr96</MachineName>
+    <Description>Stadium Hero '96 (Europe, EAJ, Tuning license)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strhoop</MachineName>
+    <Description>Street Hoop / Street Slam / Dunk Dream (DEM-004 ~ DEH-004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>supbtime</MachineName>
+    <Description>Super Burger Time (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>thndzone</MachineName>
+    <Description>Thunder Zone (World, Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>triothep</MachineName>
+    <Description>Trio The Punch - Never Forget Me... (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tryout</MachineName>
+    <Description>Pro Baseball Skill Tryout (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tumblep</MachineName>
+    <Description>Tumble Pop (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vaportra</MachineName>
+    <Description>Vapor Trail - Hyper Offence Formation (World revision 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wcvol95</MachineName>
+    <Description>World Cup Volley '95 (Asia v1.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wizdfire</MachineName>
+    <Description>Wizard Fire (Over Sea v2.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wjammers</MachineName>
+    <Description>Windjammers / Flying Power Disc</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wndrplnt</MachineName>
+    <Description>Wonder Planet (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zaviga</MachineName>
+    <Description>Zaviga</Description>
+  </Machine>
+</Machines>

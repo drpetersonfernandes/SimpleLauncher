@@ -1,0 +1,1275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>1944</MachineName>
+    <Description>1944: The Loop Master (Euro 000620)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1944d</MachineName>
+    <Description>1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1944j</MachineName>
+    <Description>1944: The Loop Master (Japan 000620)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1944u</MachineName>
+    <Description>1944: The Loop Master (USA 000620)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xx</MachineName>
+    <Description>19XX: The War Against Destiny (Euro 960104)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxa</MachineName>
+    <Description>19XX: The War Against Destiny (Asia 960104)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxar1</MachineName>
+    <Description>19XX: The War Against Destiny (Asia 951207)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxb</MachineName>
+    <Description>19XX: The War Against Destiny (Brazil 951218)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxd</MachineName>
+    <Description>19XX: The War Against Destiny (USA 951207 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxh</MachineName>
+    <Description>19XX: The War Against Destiny (Hispanic 951218)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxj</MachineName>
+    <Description>19XX: The War Against Destiny (Japan 960104, yellow case)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxjr1</MachineName>
+    <Description>19XX: The War Against Destiny (Japan 951225)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxjr2</MachineName>
+    <Description>19XX: The War Against Destiny (Japan 951207)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xxu</MachineName>
+    <Description>19XX: The War Against Destiny (USA 951207)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwar</MachineName>
+    <Description>Armored Warriors (Euro 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwar1d</MachineName>
+    <Description>Armored Warriors (Euro 941011 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwara</MachineName>
+    <Description>Armored Warriors (Asia 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwarar1</MachineName>
+    <Description>Armored Warriors (Asia 940920)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwarb</MachineName>
+    <Description>Armored Warriors (Brazil 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwarr1</MachineName>
+    <Description>Armored Warriors (Euro 941011)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwaru</MachineName>
+    <Description>Armored Warriors (USA 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwaru1</MachineName>
+    <Description>Armored Warriors (USA 940920)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avsp</MachineName>
+    <Description>Alien vs. Predator (Euro 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avspa</MachineName>
+    <Description>Alien vs. Predator (Asia 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avspd</MachineName>
+    <Description>Alien vs. Predator (Euro 940520 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avsph</MachineName>
+    <Description>Alien vs. Predator (Hispanic 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avspj</MachineName>
+    <Description>Alien vs. Predator (Japan 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avspu</MachineName>
+    <Description>Alien vs. Predator (USA 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batcir</MachineName>
+    <Description>Battle Circuit (Euro 970319)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batcira</MachineName>
+    <Description>Battle Circuit (Asia 970319)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batcird</MachineName>
+    <Description>Battle Circuit (Euro 970319 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batcirj</MachineName>
+    <Description>Battle Circuit (Japan 970319)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>choko</MachineName>
+    <Description>Janpai Puzzle Choukou (Japan 010820)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclub</MachineName>
+    <Description>Capcom Sports Club (Euro 971017)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclub1</MachineName>
+    <Description>Capcom Sports Club (Euro 970722)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclub1d</MachineName>
+    <Description>Capcom Sports Club (Euro 970722 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cscluba</MachineName>
+    <Description>Capcom Sports Club (Asia 970722)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclubh</MachineName>
+    <Description>Capcom Sports Club (Hispanic 970722)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclubj</MachineName>
+    <Description>Capcom Sports Club (Japan 970722)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclubjy</MachineName>
+    <Description>Capcom Sports Club (Japan 970722, yellow case)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybots</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (Euro 950424)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybotsj</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (Japan 950420)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybotsjd</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (Japan 950424) (decrypted bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybotsu</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (USA 950424)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybotsud</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (USA 950424 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsom</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Euro 960619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsoma</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Asia 960619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomar1</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Asia 960208)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomb</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Brazil 960223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomh</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Hispanic 960223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomj</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Japan 960619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomjr1</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Japan 960206)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomjr2</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Japan 960223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomr1</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Euro 960223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomr2</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Euro 960209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomr3</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Euro 960208)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomu</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (USA 960619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomud</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (USA 960619 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsomur1</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (USA 960209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtod</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Euro 940412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtoda</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Asia 940412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodar1</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Asia 940113)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodd</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Euro 940412 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodh</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Hispanic 940412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodhr1</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Hispanic 940125)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodhr2</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Hispanic 940113)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodj</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Japan 940412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodjr1</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Japan 940125)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodjr2</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Japan 940113)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodr1</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Euro 940113)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodu</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (USA 940125)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtodur1</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (USA 940113)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dimahoo</MachineName>
+    <Description>Dimahoo (Euro 000121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dimahoou</MachineName>
+    <Description>Dimahoo (USA 000121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dimahoud</MachineName>
+    <Description>Dimahoo (USA 000121 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlk</MachineName>
+    <Description>Darkstalkers: The Night Warriors (Euro 940705)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlka</MachineName>
+    <Description>Darkstalkers: The Night Warriors (Asia 940705)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlkh</MachineName>
+    <Description>Darkstalkers: The Night Warriors (Hispanic 940818)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlku</MachineName>
+    <Description>Darkstalkers: The Night Warriors (USA 940818)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlku1d</MachineName>
+    <Description>Darkstalkers: The Night Warriors (USA 940705 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlkur1</MachineName>
+    <Description>Darkstalkers: The Night Warriors (USA 940705)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtr</MachineName>
+    <Description>Eco Fighters (World 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtra</MachineName>
+    <Description>Eco Fighters (Asia 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtrd</MachineName>
+    <Description>Eco Fighters (World 931203 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtrh</MachineName>
+    <Description>Eco Fighters (Hispanic 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtru</MachineName>
+    <Description>Eco Fighters (USA 940215)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtru1</MachineName>
+    <Description>Eco Fighters (USA 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigaman2</MachineName>
+    <Description>Giga Man 2: The Power Fighters (bootleg of Mega Man 2: The Power Fighters)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawing</MachineName>
+    <Description>Giga Wing (USA 990222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawinga</MachineName>
+    <Description>Giga Wing (Asia 990222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawingb</MachineName>
+    <Description>Giga Wing (Brazil 990222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawingd</MachineName>
+    <Description>Giga Wing (USA 990222 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawingh</MachineName>
+    <Description>Giga Wing (Hispanic 990222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawingj</MachineName>
+    <Description>Giga Wing (Japan 990223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigawingjd</MachineName>
+    <Description>Giga Wing (Japan 990223 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gmahou</MachineName>
+    <Description>Great Mahou Daisakusen (Japan 000121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (USA 040202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2a</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (Asia 040202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2d</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (Asia 040202 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2j</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (Japan 040202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2j1</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (Japan 031222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jyangoku</MachineName>
+    <Description>Jyangokushi: Haoh no Saihai (Japan 990527)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman2</MachineName>
+    <Description>Mega Man 2: The Power Fighters (USA 960708)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman2a</MachineName>
+    <Description>Mega Man 2: The Power Fighters (Asia 960708)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman2h</MachineName>
+    <Description>Mega Man 2: The Power Fighters (Hispanic 960712)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megamn2d</MachineName>
+    <Description>Mega Man 2: The Power Fighters (USA 960708 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmancp2u</MachineName>
+    <Description>Mega Man: The Power Battle (CPS2, USA 951006, SAMPLE Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmancp2ur1</MachineName>
+    <Description>Mega Man: The Power Battle (CPS2, USA 950926, SAMPLE Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmancp2ur2</MachineName>
+    <Description>Mega Man: The Power Battle (CPS2, USA 950925, SAMPLE Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmatrix</MachineName>
+    <Description>Mars Matrix: Hyper Solid Shooting (USA 000412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmatrixa</MachineName>
+    <Description>Mars Matrix: Hyper Solid Shooting (Asia 000412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmatrixd</MachineName>
+    <Description>Mars Matrix: Hyper Solid Shooting (USA 000412 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmatrixj</MachineName>
+    <Description>Mars Matrix: Hyper Solid Shooting (Japan 000412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpang</MachineName>
+    <Description>Mighty! Pang (Euro 001010)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpanga</MachineName>
+    <Description>Mighty! Pang (Asia 001010)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpangj</MachineName>
+    <Description>Mighty! Pang (Japan 001011)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpangr1</MachineName>
+    <Description>Mighty! Pang (Euro 000925)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpangu</MachineName>
+    <Description>Mighty! Pang (USA 001010)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msh</MachineName>
+    <Description>Marvel Super Heroes (Euro 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msha</MachineName>
+    <Description>Marvel Super Heroes (Asia 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshb</MachineName>
+    <Description>Marvel Super Heroes (Brazil 951117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshbr1</MachineName>
+    <Description>Marvel Super Heroes (Brazil 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshh</MachineName>
+    <Description>Marvel Super Heroes (Hispanic 951117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshj</MachineName>
+    <Description>Marvel Super Heroes (Japan 951117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshjr1</MachineName>
+    <Description>Marvel Super Heroes (Japan 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshu</MachineName>
+    <Description>Marvel Super Heroes (USA 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshud</MachineName>
+    <Description>Marvel Super Heroes (US 951024 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsf</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Euro 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfa</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Asia 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfa1</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Asia 970620)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfb</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Brazil 970827)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfb1</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Brazil 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfh</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Hispanic 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfj</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Japan 970707)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfj1</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Japan 970702)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfj2</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Japan 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfu</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (USA 970827)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfu1</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (USA 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsfu1d</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (USA 970625 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvsc</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Euro 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvsca</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Asia 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscar1</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Asia 980112)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscb</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Brazil 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvsch</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Hispanic 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscj</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Japan 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscjr1</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Japan 980112)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscjsing</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Japan 980123) (Single PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscr1</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Euro 980112)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscu</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (USA 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscud</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (USA 980123 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvscur1</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (USA 971222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarr</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (Euro 950316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarra</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (Asia 950302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarrb</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (Brazil 950403)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarrh</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (Hispanic 950403)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarru</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (USA 950406)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarrud</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (USA 950406 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pfghtj</MachineName>
+    <Description>Pocket Fighter (Japan 970904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pgear</MachineName>
+    <Description>Powered Gear: Strategic Variant Armor Equipment (Japan 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pgearr1</MachineName>
+    <Description>Powered Gear: Strategic Variant Armor Equipment (Japan 940916)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progear</MachineName>
+    <Description>Progear (USA 010117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progeara</MachineName>
+    <Description>Progear (Asia 010117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progearj</MachineName>
+    <Description>Progear no Arashi (Japan 010117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progearjbl</MachineName>
+    <Description>Progear no Arashi (Japan 010117) (decrypted bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progearjd</MachineName>
+    <Description>Progear no Arashi (Japan 010117 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>progearud</MachineName>
+    <Description>Progear (USA 010117 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pzloop2</MachineName>
+    <Description>Puzz Loop 2 (Euro 010302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pzloop2j</MachineName>
+    <Description>Puzz Loop 2 (Japan 010226)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pzloop2jd</MachineName>
+    <Description>Puzz Loop 2 (Japan 010226 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pzloop2jr1</MachineName>
+    <Description>Puzz Loop 2 (Japan 010205)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qndream</MachineName>
+    <Description>Quiz Nanairo Dreams: Nijiirochou no Kiseki (Japan 96086)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdest</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Euro 940902)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdesta</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Asia 940831)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdestb</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Brazil 940902)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdesth</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Hispanic 940902)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdstd</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Euro 940902 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rmancp2j</MachineName>
+    <Description>Rockman: The Power Battle (CPS2, Japan 950922)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rockman2j</MachineName>
+    <Description>Rockman 2: The Power Fighters (Japan 960708)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa2</MachineName>
+    <Description>Street Fighter Alpha 2 (Euro 960229)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa2u</MachineName>
+    <Description>Street Fighter Alpha 2 (USA 960430)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa2ur1</MachineName>
+    <Description>Street Fighter Alpha 2 (USA 960306)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3</MachineName>
+    <Description>Street Fighter Alpha 3 (Euro 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3b</MachineName>
+    <Description>Street Fighter Alpha 3 (Brazil 980629)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3h</MachineName>
+    <Description>Street Fighter Alpha 3 (Hispanic 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3hr1</MachineName>
+    <Description>Street Fighter Alpha 3 (Hispanic 980629)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3u</MachineName>
+    <Description>Street Fighter Alpha 3 (USA 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3ud</MachineName>
+    <Description>Street Fighter Alpha 3 (USA 980904 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3ur1</MachineName>
+    <Description>Street Fighter Alpha 3 (USA 980629)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3us</MachineName>
+    <Description>Street Fighter Alpha 3 (USA 980616, SAMPLE Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfad</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950727 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfar1</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950718)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfar2</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfar3</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950605)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfau</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (USA 950627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2a</MachineName>
+    <Description>Street Fighter Zero 2 (Asia 960227)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2ad</MachineName>
+    <Description>Street Fighter Zero 2 (Asia 960227 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2al</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Asia 960826)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2alb</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Brazil 960813)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2ald</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Asia 960826 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2alh</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Hispanic 960813)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2alj</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Japan 960805)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2alr1</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Asia 960805)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2b</MachineName>
+    <Description>Street Fighter Zero 2 (Brazil 960531)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2br1</MachineName>
+    <Description>Street Fighter Zero 2 (Brazil 960304)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2h</MachineName>
+    <Description>Street Fighter Zero 2 (Hispanic 960304)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2j</MachineName>
+    <Description>Street Fighter Zero 2 (Japan 960430)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2jd</MachineName>
+    <Description>Street Fighter Zero 2 (Japan 960227 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2jr1</MachineName>
+    <Description>Street Fighter Zero 2 (Japan 960227)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2n</MachineName>
+    <Description>Street Fighter Zero 2 (Oceania 960229)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3a</MachineName>
+    <Description>Street Fighter Zero 3 (Asia 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3ar1</MachineName>
+    <Description>Street Fighter Zero 3 (Asia 980701)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3j</MachineName>
+    <Description>Street Fighter Zero 3 (Japan 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3jr1</MachineName>
+    <Description>Street Fighter Zero 3 (Japan 980727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3jr2</MachineName>
+    <Description>Street Fighter Zero 3 (Japan 980629)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz3jr2d</MachineName>
+    <Description>Street Fighter Zero 3 (Japan 980629 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfza</MachineName>
+    <Description>Street Fighter Zero (Asia 950627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzar1</MachineName>
+    <Description>Street Fighter Zero (Asia 950605)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzb</MachineName>
+    <Description>Street Fighter Zero (Brazil 951109)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzbr1</MachineName>
+    <Description>Street Fighter Zero (Brazil 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzh</MachineName>
+    <Description>Street Fighter Zero (Hispanic 950718)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzhr1</MachineName>
+    <Description>Street Fighter Zero (Hispanic 950627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzj</MachineName>
+    <Description>Street Fighter Zero (Japan 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzjr1</MachineName>
+    <Description>Street Fighter Zero (Japan 950627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzjr2</MachineName>
+    <Description>Street Fighter Zero (Japan 950605)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgemf</MachineName>
+    <Description>Super Gem Fighter Mini Mix (USA 970904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgemfa</MachineName>
+    <Description>Super Gem Fighter: Mini Mix (Asia 970904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgemfd</MachineName>
+    <Description>Super Gem Fighter Mini Mix (USA 970904 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgemfh</MachineName>
+    <Description>Super Gem Fighter: Mini Mix (Hispanic 970904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>smbomb</MachineName>
+    <Description>Super Muscle Bomber: The International Blowout (Japan 940831)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>smbombr1</MachineName>
+    <Description>Super Muscle Bomber: The International Blowout (Japan 940808)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2t</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (Euro 960529)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2ta</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (Asia 960529)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2td</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (USA 960620 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2th</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (Hispanic 960531)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2tu</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (USA 960620)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2xj</MachineName>
+    <Description>Super Puzzle Fighter II X (Japan 960531)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2xjd</MachineName>
+    <Description>Super Puzzle Fighter II X (Japan 960531 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (World 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2a</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Asia 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2ar1</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Asia 930914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2h</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Hispanic 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2j</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Japan 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2jr1</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Japan 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2jr2</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (Japan 930910)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2r1</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (World 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2t</MachineName>
+    <Description>Super Street Fighter II Turbo (World 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2ta</MachineName>
+    <Description>Super Street Fighter II Turbo (Asia 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tad</MachineName>
+    <Description>Super Street Fighter II Turbo (Asia 940223 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tb</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (World 931119)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tba</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (Asia 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbd</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (World 931119 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbh</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (Hispanic 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbj</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (Japan 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbj1</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (Japan 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbr1</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (World 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tbu</MachineName>
+    <Description>Super Street Fighter II: The Tournament Battle (USA 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2th</MachineName>
+    <Description>Super Street Fighter II Turbo (Hispanic 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tu</MachineName>
+    <Description>Super Street Fighter II Turbo (USA 940323)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2tur1</MachineName>
+    <Description>Super Street Fighter II Turbo (USA 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2u</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (USA 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2ud</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (USA 930911 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2us2</MachineName>
+    <Description>Super Street Fighter II: The New Challengers Super 2 (USA 930911)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2xj</MachineName>
+    <Description>Super Street Fighter II X: Grand Master Challenge (Japan 940311)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2xjr1</MachineName>
+    <Description>Super Street Fighter II X: Grand Master Challenge (Japan 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2xjr1d</MachineName>
+    <Description>Super Street Fighter II X: Grand Master Challenge (Japan 940223 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2xjr1r</MachineName>
+    <Description>Super Street Fighter II X: Grand Master Challenge (Japan 940223 rent version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>uecology</MachineName>
+    <Description>Ultimate Ecology (Japan 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vampj</MachineName>
+    <Description>Vampire: The Night Warriors (Japan 940705)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vampja</MachineName>
+    <Description>Vampire: The Night Warriors (Japan 940705 alt)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vampjr1</MachineName>
+    <Description>Vampire: The Night Warriors (Japan 940630)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhunt2</MachineName>
+    <Description>Vampire Hunter 2: Darkstalkers Revenge (Japan 970929)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhunt2d</MachineName>
+    <Description>Vampire Hunter 2: Darkstalkers Revenge (Japan 970913 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhunt2r1</MachineName>
+    <Description>Vampire Hunter 2: Darkstalkers Revenge (Japan 970913)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhuntj</MachineName>
+    <Description>Vampire Hunter: Darkstalkers' Revenge (Japan 950316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhuntjr1</MachineName>
+    <Description>Vampire Hunter: Darkstalkers' Revenge (Japan 950307)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhuntjr1s</MachineName>
+    <Description>Vampire Hunter: Darkstalkers' Revenge (Japan 950307 stop version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhuntjr2</MachineName>
+    <Description>Vampire Hunter: Darkstalkers' Revenge (Japan 950302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsav</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Euro 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsav2</MachineName>
+    <Description>Vampire Savior 2: The Lord of Vampire (Japan 970913)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsav2d</MachineName>
+    <Description>Vampire Savior 2: The Lord of Vampire (Japan 970913 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsava</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Asia 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsavb</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Brazil 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsavd</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Euro 970519 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsavh</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Hispanic 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsavj</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Japan 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsavu</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (USA 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcota</MachineName>
+    <Description>X-Men: Children of the Atom (Euro 950331)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaa</MachineName>
+    <Description>X-Men: Children of the Atom (Asia 950105)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaar1</MachineName>
+    <Description>X-Men: Children of the Atom (Asia 941219)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaar2</MachineName>
+    <Description>X-Men: Children of the Atom (Asia 941217)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotab</MachineName>
+    <Description>X-Men: Children of the Atom (Brazil 950331)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotah</MachineName>
+    <Description>X-Men: Children of the Atom (Hispanic 950331)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotahr1</MachineName>
+    <Description>X-Men: Children of the Atom (Hispanic 950105)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaj</MachineName>
+    <Description>X-Men: Children of the Atom (Japan 950105)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaj1</MachineName>
+    <Description>X-Men: Children of the Atom (Japan 941222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaj2</MachineName>
+    <Description>X-Men: Children of the Atom (Japan 941219)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotaj3</MachineName>
+    <Description>X-Men: Children of the Atom (Japan 941217)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotajr</MachineName>
+    <Description>X-Men: Children of the Atom (Japan 941208 rent version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotar1</MachineName>
+    <Description>X-Men: Children of the Atom (Euro 950105)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotar1d</MachineName>
+    <Description>X-Men: Children of the Atom (Euro 950105 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcotau</MachineName>
+    <Description>X-Men: Children of the Atom (USA 950105)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsf</MachineName>
+    <Description>X-Men Vs. Street Fighter (Euro 961004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfa</MachineName>
+    <Description>X-Men Vs. Street Fighter (Asia 961023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfar1</MachineName>
+    <Description>X-Men Vs. Street Fighter (Asia 961004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfar2</MachineName>
+    <Description>X-Men Vs. Street Fighter (Asia 960919)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfar3</MachineName>
+    <Description>X-Men Vs. Street Fighter (Asia 960910)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfb</MachineName>
+    <Description>X-Men Vs. Street Fighter (Brazil 961023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfh</MachineName>
+    <Description>X-Men Vs. Street Fighter (Hispanic 961004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfj</MachineName>
+    <Description>X-Men Vs. Street Fighter (Japan 961023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfjr1</MachineName>
+    <Description>X-Men Vs. Street Fighter (Japan 961004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfjr2</MachineName>
+    <Description>X-Men Vs. Street Fighter (Japan 960910)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfjr3</MachineName>
+    <Description>X-Men Vs. Street Fighter (Japan 960909)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfr1</MachineName>
+    <Description>X-Men Vs. Street Fighter (Euro 960910)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfu</MachineName>
+    <Description>X-Men Vs. Street Fighter (USA 961023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfu1d</MachineName>
+    <Description>X-Men Vs. Street Fighter (USA 961004 Phoenix Edition) (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfur1</MachineName>
+    <Description>X-Men Vs. Street Fighter (USA 961004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsfur2</MachineName>
+    <Description>X-Men Vs. Street Fighter (USA 960910)</Description>
+  </Machine>
+</Machines>

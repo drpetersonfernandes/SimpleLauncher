@@ -127,7 +127,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari Jaguar CD</SystemName>
-		<SystemFolder>J:\OK\Atari Jaguar CD</SystemFolder>
+		<SystemFolder>G:\OK\Atari Jaguar CD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -337,7 +337,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME</SystemName>
-		<SystemFolder>G:\MAME\MAME Roms</SystemFolder>
+		<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -350,7 +350,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -367,7 +367,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Atari</SystemName>
-		<SystemFolder>G:\MAME Atari</SystemFolder>
+		<SystemFolder>G:\OK\MAME Atari</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -380,7 +380,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Atari"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Atari"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -397,7 +397,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Bally Midway</SystemName>
-		<SystemFolder>G:\MAME Bally Midway</SystemFolder>
+		<SystemFolder>G:\OK\MAME Bally Midway</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -410,7 +410,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Bally Midway"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Bally Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -427,7 +427,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Banpresto</SystemName>
-		<SystemFolder>G:\MAME Banpresto</SystemFolder>
+		<SystemFolder>G:\OK\MAME Banpresto</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -440,7 +440,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Banpresto"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Banpresto"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -457,7 +457,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Capcom</SystemName>
-		<SystemFolder>G:\MAME Capcom</SystemFolder>
+		<SystemFolder>G:\OK\MAME Capcom</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -470,7 +470,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Capcom"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Capcom"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -487,7 +487,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Data East</SystemName>
-		<SystemFolder>G:\MAME Data East</SystemFolder>
+		<SystemFolder>G:\OK\MAME Data East</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -500,7 +500,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Data East"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Data East"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -517,7 +517,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Irem</SystemName>
-		<SystemFolder>G:\MAME Irem</SystemFolder>
+		<SystemFolder>G:\OK\MAME Irem</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -530,7 +530,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Irem"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Irem"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -547,7 +547,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Jaleco</SystemName>
-		<SystemFolder>G:\MAME Jaleco</SystemFolder>
+		<SystemFolder>G:\OK\MAME Jaleco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -560,7 +560,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Jaleco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Jaleco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -577,7 +577,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Konami</SystemName>
-		<SystemFolder>G:\MAME Konami</SystemFolder>
+		<SystemFolder>G:\OK\MAME Konami</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -590,7 +590,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Konami"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Konami"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -607,7 +607,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Midway</SystemName>
-		<SystemFolder>G:\MAME Midway</SystemFolder>
+		<SystemFolder>G:\OK\MAME Midway</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -620,7 +620,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Midway"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -637,7 +637,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Mitchell</SystemName>
-		<SystemFolder>G:\MAME Mitchell</SystemFolder>
+		<SystemFolder>G:\OK\MAME Mitchell</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -650,7 +650,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Mitchell"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Mitchell"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -667,7 +667,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Namco</SystemName>
-		<SystemFolder>G:\MAME Namco</SystemFolder>
+		<SystemFolder>G:\OK\MAME Namco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -680,7 +680,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Namco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Namco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -697,7 +697,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Nintendo</SystemName>
-		<SystemFolder>G:\MAME Nintendo</SystemFolder>
+		<SystemFolder>G:\OK\MAME Nintendo</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -710,7 +710,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Nintendo"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Nintendo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -727,7 +727,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sammy</SystemName>
-		<SystemFolder>G:\MAME Sammy</SystemFolder>
+		<SystemFolder>G:\OK\MAME Sammy</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -740,7 +740,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Sammy"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Sammy"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -757,7 +757,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sega</SystemName>
-		<SystemFolder>G:\MAME Sega</SystemFolder>
+		<SystemFolder>G:\OK\MAME Sega</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -770,7 +770,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Sega"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Sega"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -787,7 +787,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME SNK</SystemName>
-		<SystemFolder>G:\MAME SNK</SystemFolder>
+		<SystemFolder>G:\OK\MAME SNK</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -800,7 +800,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME SNK"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME SNK"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -817,7 +817,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sony ZiNc</SystemName>
-		<SystemFolder>G:\MAME Sony ZiNc</SystemFolder>
+		<SystemFolder>G:\OK\MAME Sony ZiNc</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -830,7 +830,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Sony ZiNc"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Sony ZiNc"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -847,7 +847,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Taito</SystemName>
-		<SystemFolder>G:\MAME Taito</SystemFolder>
+		<SystemFolder>G:\OK\MAME Taito</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -860,7 +860,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Taito"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Taito"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -877,7 +877,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Tecmo</SystemName>
-		<SystemFolder>G:\MAME Tecmo</SystemFolder>
+		<SystemFolder>G:\OK\MAME Tecmo</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -890,7 +890,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Tecmo"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Tecmo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -907,7 +907,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Visco</SystemName>
-		<SystemFolder>G:\MAME Visco</SystemFolder>
+		<SystemFolder>G:\OK\MAME Visco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -920,7 +920,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\MAME Visco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME Visco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>

@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>1on1gov</MachineName>
+    <Description>1 on 1 Government (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aerofgts</MachineName>
+    <Description>Aero Fighters Special (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aerofgtst</MachineName>
+    <Description>Aero Fighters Special (Taiwan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bam2</MachineName>
+    <Description>Bust a Move 2 - Dance Tengoku Mix (Japanese ROM ver. 1999/07/17 10:00:00)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>beastrzr</MachineName>
+    <Description>Beastorizer (USA, Sep 22 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>beastrzra</MachineName>
+    <Description>Beastorizer (USA, Jun 21 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>beastrzrb</MachineName>
+    <Description>Beastorizer (USA bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bldyroar</MachineName>
+    <Description>Bloody Roar (Japan, Jun 21 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bldyror2</MachineName>
+    <Description>Bloody Roar 2 (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bldyror2a</MachineName>
+    <Description>Bloody Roar 2 (Asia)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bldyror2j</MachineName>
+    <Description>Bloody Roar 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bldyror2u</MachineName>
+    <Description>Bloody Roar 2 (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brvblade</MachineName>
+    <Description>Brave Blade (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brvbladea</MachineName>
+    <Description>Brave Blade (Asia)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brvbladej</MachineName>
+    <Description>Brave Blade (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brvbladeu</MachineName>
+    <Description>Brave Blade (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbaj</MachineName>
+    <Description>Cool Boarders Arcade Jam (Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000a</MachineName>
+    <Description>Acclaim PSX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000c</MachineName>
+    <Description>ZN1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000t</MachineName>
+    <Description>Taito FX1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000w</MachineName>
+    <Description>Atari PSX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1001l</MachineName>
+    <Description>Atlus PSX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1002e</MachineName>
+    <Description>PS Arcade 95</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1002m</MachineName>
+    <Description>TPS</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1002v</MachineName>
+    <Description>Video System PSX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh3002c</MachineName>
+    <Description>ZN2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doapp</MachineName>
+    <Description>Dead Or Alive ++ (Japan/USA/Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doappk</MachineName>
+    <Description>Dead Or Alive ++ (Korea)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>flamegun</MachineName>
+    <Description>Flame Gunner (Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>flamegunj</MachineName>
+    <Description>Flame Gunner (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ftimpact</MachineName>
+    <Description>Fighters' Impact (Ver 2.02O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ftimpactj</MachineName>
+    <Description>Fighters' Impact (Ver 2.02J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ftimpactu</MachineName>
+    <Description>Fighters' Impact (Ver 2.02A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ftimpcta</MachineName>
+    <Description>Fighters' Impact A (Ver 2.00J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gdarius</MachineName>
+    <Description>G-Darius (Ver 2.02O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gdarius2</MachineName>
+    <Description>G-Darius Ver.2 (Ver 2.03J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gdariusj</MachineName>
+    <Description>G-Darius (Ver 2.01J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gdariusu</MachineName>
+    <Description>G-Darius (Ver 2.02A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr</MachineName>
+    <Description>Gallop Racer (English Ver 10.17.K)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr2</MachineName>
+    <Description>Gallop Racer 2 (Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr2j</MachineName>
+    <Description>Gallop Racer 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr2l</MachineName>
+    <Description>Gallop Racer 2 Link HW (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr3</MachineName>
+    <Description>Gallop Racer 3 (Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracr3j</MachineName>
+    <Description>Gallop Racer 3 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>glpracrj</MachineName>
+    <Description>Gallop Racer (Japanese Ver 9.01.12)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hvnsgate</MachineName>
+    <Description>Heaven's Gate</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jdredd</MachineName>
+    <Description>Judge Dredd (Rev C Dec. 17 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jdreddb</MachineName>
+    <Description>Judge Dredd (Rev B Nov. 26 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jgakuen</MachineName>
+    <Description>Shiritsu Justice Gakuen: Legion of Heroes (Japan 971216)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jgakuen1</MachineName>
+    <Description>Shiritsu Justice Gakuen: Legion of Heroes (Japan 971117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kikaioh</MachineName>
+    <Description>Choukou Senki Kikaioh (Japan 980914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lpadv</MachineName>
+    <Description>Logic Pro Adventure (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mfjump</MachineName>
+    <Description>Monster Farm Jump (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mgcldate</MachineName>
+    <Description>Magical Date / Magical Date - Dokidoki Kokuhaku Daisakusen (Ver 2.02J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mgcldtex</MachineName>
+    <Description>Magical Date EX / Magical Date - Sotsugyou Kokuhaku Daisakusen (Ver 2.01J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nbajamex</MachineName>
+    <Description>NBA Jam Extreme (ver. 1.10I)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nbajamexa</MachineName>
+    <Description>NBA Jam Extreme (ver. 1.04)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>plsmaswd</MachineName>
+    <Description>Plasma Sword: Nightmare of Bilstein (USA 980316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>plsmaswda</MachineName>
+    <Description>Plasma Sword: Nightmare of Bilstein (Asia 980316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>primrag2</MachineName>
+    <Description>Primal Rage 2 (Ver 0.36a)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>psyforce</MachineName>
+    <Description>Psychic Force (Ver 2.4O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>psyforcej</MachineName>
+    <Description>Psychic Force (Ver 2.4J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>psyforcex</MachineName>
+    <Description>Psychic Force EX (Ver 2.0J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raystorm</MachineName>
+    <Description>Ray Storm (Ver 2.06A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raystormj</MachineName>
+    <Description>Ray Storm (Ver 2.05J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raystormo</MachineName>
+    <Description>Ray Storm (Ver 2.05O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raystormu</MachineName>
+    <Description>Ray Storm (Ver 2.05A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rvschool</MachineName>
+    <Description>Rival Schools: United By Fate (Euro 971117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rvschoola</MachineName>
+    <Description>Rival Schools: United By Fate (Asia 971117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rvschoolu</MachineName>
+    <Description>Rival Schools: United By Fate (USA 971117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfchamp</MachineName>
+    <Description>Super Football Champ (Ver 2.5O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfchampj</MachineName>
+    <Description>Super Football Champ (Ver 2.4J)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfchampo</MachineName>
+    <Description>Super Football Champ (Ver 2.4O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfchampu</MachineName>
+    <Description>Super Football Champ (Ver 2.4A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex</MachineName>
+    <Description>Street Fighter EX (Euro 961219)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2</MachineName>
+    <Description>Street Fighter EX2 (Euro 980312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2a</MachineName>
+    <Description>Street Fighter EX2 (Asia 980312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2h</MachineName>
+    <Description>Street Fighter EX2 (Hispanic 980312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2j</MachineName>
+    <Description>Street Fighter EX2 (Japan 980312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2p</MachineName>
+    <Description>Street Fighter EX2 Plus (Euro 990611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2pa</MachineName>
+    <Description>Street Fighter EX2 Plus (Asia 990611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2ph</MachineName>
+    <Description>Street Fighter EX2 Plus (Hispanic 990611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2pj</MachineName>
+    <Description>Street Fighter EX2 Plus (Japan 990611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2pu</MachineName>
+    <Description>Street Fighter EX2 Plus (USA 990611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2u</MachineName>
+    <Description>Street Fighter EX2 (USA 980526)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfex2u1</MachineName>
+    <Description>Street Fighter EX2 (USA 980312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexa</MachineName>
+    <Description>Street Fighter EX (Asia 961219)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexj</MachineName>
+    <Description>Street Fighter EX (Japan 961130)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexp</MachineName>
+    <Description>Street Fighter EX Plus (USA 970407)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexpj</MachineName>
+    <Description>Street Fighter EX Plus (Japan 970407)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexpj1</MachineName>
+    <Description>Street Fighter EX Plus (Japan 970311)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexpu1</MachineName>
+    <Description>Street Fighter EX Plus (USA 970311)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfexu</MachineName>
+    <Description>Street Fighter EX (USA 961219)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shiryu2</MachineName>
+    <Description>Strider Hiryu 2 (Japan 991213)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shngmtkb</MachineName>
+    <Description>Shanghai Matekibuyuu (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sncwgltd</MachineName>
+    <Description>Sonic Wings Limited (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starglad</MachineName>
+    <Description>Star Gladiator Episode I: Final Crusade (USA 960627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stargladj</MachineName>
+    <Description>Star Gladiator Episode I: Final Crusade (Japan 960627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stargld2</MachineName>
+    <Description>Star Gladiator 2: Nightmare of Bilstein (Japan 980316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strider2</MachineName>
+    <Description>Strider 2 (Euro 991213)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strider2a</MachineName>
+    <Description>Strider 2 (Asia 991213)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strider2u</MachineName>
+    <Description>Strider 2 (USA 991213)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tblkkuzu</MachineName>
+    <Description>The Block Kuzushi (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>techromn</MachineName>
+    <Description>Tech Romancer (Euro 980914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>techromna</MachineName>
+    <Description>Tech Romancer (Asia 980914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>techromnu</MachineName>
+    <Description>Tech Romancer (USA 980914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tgmj</MachineName>
+    <Description>Tetris: The Grand Master (Japan 980710)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tondemo</MachineName>
+    <Description>Tondemo Crisis (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ts2</MachineName>
+    <Description>Battle Arena Toshinden 2 (Euro 951124)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ts2j</MachineName>
+    <Description>Battle Arena Toshinden 2 (Japan 951124)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ts2ja</MachineName>
+    <Description>Battle Arena Toshinden 2 (Japan 951124, 32Mb mask ROMs)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ts2u</MachineName>
+    <Description>Battle Arena Toshinden 2 (USA 951124)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ts2ua</MachineName>
+    <Description>Battle Arena Toshinden 2 (USA 951124, 32Mb mask ROMs)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>twcupmil</MachineName>
+    <Description>Tecmo World Cup Millennium (Japan)</Description>
+  </Machine>
+</Machines>

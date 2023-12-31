@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>40love</MachineName>
+    <Description>Forty-Love (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alpine</MachineName>
+    <Description>Alpine Ski (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arkretrn</MachineName>
+    <Description>Arkanoid Returns (Ver 2.02O 1997/02/10)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>asuka</MachineName>
+    <Description>Asuka &amp; Asuka (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bioatack</MachineName>
+    <Description>Bio Attack</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bking</MachineName>
+    <Description>Birdie King</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bking2</MachineName>
+    <Description>Birdie King 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bking3</MachineName>
+    <Description>Birdie King 3</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bublbobl</MachineName>
+    <Description>Bubble Bobble (Japan, Ver 0.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>buggychl</MachineName>
+    <Description>Buggy Challenge</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cachat</MachineName>
+    <Description>Cachat (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chaknpop</MachineName>
+    <Description>Chack'n Pop</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cleopatr</MachineName>
+    <Description>Cleopatra Fortune (Ver 2.1J 1996/09/05)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>crbaloon</MachineName>
+    <Description>Crazy Balloon (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cyclemb</MachineName>
+    <Description>Cycle Maabou (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>darius2</MachineName>
+    <Description>Darius II (triple screen) (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dariusgx</MachineName>
+    <Description>Darius Gaiden - Silver Hawk Extra Version (Ver 2.7J 1995/03/06) (Official Hack)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dockman</MachineName>
+    <Description>Dock Man (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>elevator</MachineName>
+    <Description>Elevator Action (BA3, 4 PCB version, 1.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>exzisus</MachineName>
+    <Description>Exzisus (Japan, dedicated)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fieldday</MachineName>
+    <Description>Field Day</Description>
+  </Machine>
+  <Machine>
+    <MachineName>frontlin</MachineName>
+    <Description>Front Line (AA1, 4 PCB version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>galastrm</MachineName>
+    <Description>Galactic Storm (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gekiridn</MachineName>
+    <Description>Gekirindan (Ver 2.3O 1995/09/21)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>groundfx</MachineName>
+    <Description>Ground Effects / Super Ground Effects (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hwrace</MachineName>
+    <Description>High Way Race</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jollyjgr</MachineName>
+    <Description>Jolly Jogger</Description>
+  </Machine>
+  <Machine>
+    <MachineName>junglek</MachineName>
+    <Description>Jungle King (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kicknrun</MachineName>
+    <Description>Kick and Run (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kikikai</MachineName>
+    <Description>KiKi KaiKai</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kikstart</MachineName>
+    <Description>Kick Start: Wheelie King</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kirameki</MachineName>
+    <Description>Kirameki Star Road (Ver 2.10J 1997/08/29)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>koshien</MachineName>
+    <Description>Ah Eikou no Koshien (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ksayakyu</MachineName>
+    <Description>Kusayakyuu</Description>
+  </Machine>
+  <Machine>
+    <MachineName>landmakr</MachineName>
+    <Description>Land Maker (Ver 2.02O 1998/06/02)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lkage</MachineName>
+    <Description>The Legend of Kage</Description>
+  </Machine>
+  <Machine>
+    <MachineName>minivadr</MachineName>
+    <Description>Mini Vaders</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mjnquest</MachineName>
+    <Description>Mahjong Quest (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mofflott</MachineName>
+    <Description>Maze of Flott (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msisaac</MachineName>
+    <Description>Metal Soldier Isaac II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pbobble</MachineName>
+    <Description>Puzzle Bobble (Japan, B-System)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pbobble3</MachineName>
+    <Description>Puzzle Bobble 3 (Ver 2.1O 1996/09/27)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pbobble4</MachineName>
+    <Description>Puzzle Bobble 4 (Ver 2.04O 1997/12/19)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pitnrun</MachineName>
+    <Description>Pit &amp; Run - F-1 Race (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>plumppop</MachineName>
+    <Description>Plump Pop (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>popnpop</MachineName>
+    <Description>Pop'n Pop (Ver 2.07O 1998/02/09)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>puchicar</MachineName>
+    <Description>Puchi Carat (Ver 2.02O 1997/10/29)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qcrayon</MachineName>
+    <Description>Quiz Crayon Shinchan (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qcrayon2</MachineName>
+    <Description>Crayon Shinchan Orato Asobo (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qjinsei</MachineName>
+    <Description>Quiz Jinsei Gekijoh (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qtheater</MachineName>
+    <Description>Quiz Theater - 3tsu no Monogatari (Ver 2.3J 1994/11/10)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qtorimon</MachineName>
+    <Description>Quiz Torimonochou (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quizhq</MachineName>
+    <Description>Quiz H.Q. (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qzchikyu</MachineName>
+    <Description>Quiz Chikyu Bouei Gun (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qzquest</MachineName>
+    <Description>Quiz Quest - Hime to Yuusha no Monogatari (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qzshowby</MachineName>
+    <Description>Quiz Sekai wa SHOW by shobai (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbisland</MachineName>
+    <Description>Rainbow Islands (new version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbislande</MachineName>
+    <Description>Rainbow Islands - Extra Version</Description>
+  </Machine>
+  <Machine>
+    <MachineName>retofinv</MachineName>
+    <Description>Return of the Invaders</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ryujin</MachineName>
+    <Description>Ryu Jin (Japan, ET910000B PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sbm</MachineName>
+    <Description>Sonic Blast Man (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sbowling</MachineName>
+    <Description>Strike Bowling</Description>
+  </Machine>
+  <Machine>
+    <MachineName>scyclone</MachineName>
+    <Description>Space Cyclone</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfposeid</MachineName>
+    <Description>Sea Fighter Poseidon</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skydest</MachineName>
+    <Description>Sky Destroyer (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacecr</MachineName>
+    <Description>Space Cruiser</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacedx</MachineName>
+    <Description>Space Invaders DX (US, v2.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spaceskr</MachineName>
+    <Description>Space Seeker</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spdheat</MachineName>
+    <Description>Super Dead Heat (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssrj</MachineName>
+    <Description>Super Speed Race Junior (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>superman</MachineName>
+    <Description>Superman (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suprmous</MachineName>
+    <Description>Super Mouse</Description>
+  </Machine>
+  <Machine>
+    <MachineName>syvalion</MachineName>
+    <Description>Syvalion (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>timetunl</MachineName>
+    <Description>Time Tunnel</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tinstar</MachineName>
+    <Description>The Tin Star (A10, 4 PCB version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tokio</MachineName>
+    <Description>Tokio / Scramble Formation (newer)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warriorb</MachineName>
+    <Description>Warrior Blade - Rastan Saga Episode III (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>waterski</MachineName>
+    <Description>Water Ski</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wwestern</MachineName>
+    <Description>Wild Western (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wyvernf0</MachineName>
+    <Description>Wyvern F-0 (Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>yesnoj</MachineName>
+    <Description>Yes/No Sinri Tokimeki Chart</Description>
+  </Machine>
+  <Machine>
+    <MachineName>yuyugogo</MachineName>
+    <Description>Yuuyu no Quiz de GO!GO! (Japan)</Description>
+  </Machine>
+</Machines>

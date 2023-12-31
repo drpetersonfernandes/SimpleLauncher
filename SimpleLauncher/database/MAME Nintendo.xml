@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>armwrest</MachineName>
+    <Description>Arm Wrestling</Description>
+  </Machine>
+  <Machine>
+    <MachineName>balonfgt</MachineName>
+    <Description>Vs. Balloon Fight (set BF4 A-3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cluclu</MachineName>
+    <Description>Vs. Clu Clu Land</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cothello</MachineName>
+    <Description>Computer Othello</Description>
+  </Machine>
+  <Machine>
+    <MachineName>drmario</MachineName>
+    <Description>Vs. Dr. Mario</Description>
+  </Machine>
+  <Machine>
+    <MachineName>duckhunt</MachineName>
+    <Description>Vs. Duck Hunt (set DH3 E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>excitebk</MachineName>
+    <Description>Vs. Excitebike (set EB4-3 E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>famibox</MachineName>
+    <Description>FamicomBox</Description>
+  </Machine>
+  <Machine>
+    <MachineName>famicom</MachineName>
+    <Description>Famicom</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gameboy</MachineName>
+    <Description>Game Boy</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gba</MachineName>
+    <Description>Game Boy Advance</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gbcolor</MachineName>
+    <Description>Game Boy Color</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_ball</MachineName>
+    <Description>Game &amp; Watch: Ball</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_bfight</MachineName>
+    <Description>Game &amp; Watch: Balloon Fight (Crystal Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_bjack</MachineName>
+    <Description>Game &amp; Watch: Black Jack</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_boxing</MachineName>
+    <Description>Micro Vs. System: Boxing</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_bsweep</MachineName>
+    <Description>Game &amp; Watch: Bomb Sweeper</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_cgrab</MachineName>
+    <Description>Game &amp; Watch: Crab Grab</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_chef</MachineName>
+    <Description>Game &amp; Watch: Chef</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_climber</MachineName>
+    <Description>Game &amp; Watch: Climber (Crystal Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkhockey</MachineName>
+    <Description>Micro Vs. System: Donkey Kong Hockey</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkjr</MachineName>
+    <Description>Game &amp; Watch: Donkey Kong Jr. (New Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkjrp</MachineName>
+    <Description>Game &amp; Watch: Donkey Kong Jr. (Panorama Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkong</MachineName>
+    <Description>Game &amp; Watch: Donkey Kong</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkong2</MachineName>
+    <Description>Game &amp; Watch: Donkey Kong II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_dkong3</MachineName>
+    <Description>Micro Vs. System: Donkey Kong 3</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_fire</MachineName>
+    <Description>Game &amp; Watch: Fire (Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_fireatk</MachineName>
+    <Description>Game &amp; Watch: Fire Attack</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_fires</MachineName>
+    <Description>Game &amp; Watch: Fire (Silver)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_flagman</MachineName>
+    <Description>Game &amp; Watch: Flagman</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_gcliff</MachineName>
+    <Description>Game &amp; Watch: Gold Cliff</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_ghouse</MachineName>
+    <Description>Game &amp; Watch: Green House</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_helmet</MachineName>
+    <Description>Game &amp; Watch: Helmet (version CN-17)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_judge</MachineName>
+    <Description>Game &amp; Watch: Judge (purple version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_lboat</MachineName>
+    <Description>Game &amp; Watch: Life Boat</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_lion</MachineName>
+    <Description>Game &amp; Watch: Lion</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_manhole</MachineName>
+    <Description>Game &amp; Watch: Manhole (New Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_manholeg</MachineName>
+    <Description>Game &amp; Watch: Manhole (Gold)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mario</MachineName>
+    <Description>Game &amp; Watch: Mario Bros.</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mariocm</MachineName>
+    <Description>Game &amp; Watch: Mario's Cement Factory (New Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mariocmt</MachineName>
+    <Description>Game &amp; Watch: Mario's Cement Factory (Table Top, version CM-72)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mariotj</MachineName>
+    <Description>Game &amp; Watch: Mario The Juggler</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mbaway</MachineName>
+    <Description>Game &amp; Watch: Mario's Bombs Away</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mickdon</MachineName>
+    <Description>Game &amp; Watch: Mickey &amp; Donald</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mmouse</MachineName>
+    <Description>Game &amp; Watch: Mickey Mouse (Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_mmousep</MachineName>
+    <Description>Game &amp; Watch: Mickey Mouse (Panorama Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_octopus</MachineName>
+    <Description>Game &amp; Watch: Octopus</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_opanic</MachineName>
+    <Description>Game &amp; Watch: Oil Panic</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_pchute</MachineName>
+    <Description>Game &amp; Watch: Parachute</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_pinball</MachineName>
+    <Description>Game &amp; Watch: Pinball</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_popeye</MachineName>
+    <Description>Game &amp; Watch: Popeye (Wide Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_popeyep</MachineName>
+    <Description>Game &amp; Watch: Popeye (Panorama Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_rshower</MachineName>
+    <Description>Game &amp; Watch: Rain Shower</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_sbuster</MachineName>
+    <Description>Game &amp; Watch: Safe Buster</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_smb</MachineName>
+    <Description>Game &amp; Watch: Super Mario Bros. (Crystal Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_snoopyp</MachineName>
+    <Description>Game &amp; Watch: Snoopy (Panorama Screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_squish</MachineName>
+    <Description>Game &amp; Watch: Squish</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_ssparky</MachineName>
+    <Description>Game &amp; Watch: Spitball Sparky</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_stennis</MachineName>
+    <Description>Game &amp; Watch: Snoopy Tennis</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_tbridge</MachineName>
+    <Description>Game &amp; Watch: Turtle Bridge</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_tfish</MachineName>
+    <Description>Game &amp; Watch: Tropical Fish</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_vermin</MachineName>
+    <Description>Game &amp; Watch: Vermin</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gnw_zelda</MachineName>
+    <Description>Game &amp; Watch: Zelda</Description>
+  </Machine>
+  <Machine>
+    <MachineName>helifire</MachineName>
+    <Description>HeliFire (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>highsplt</MachineName>
+    <Description>SF-HiSplitter (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hogalley</MachineName>
+    <Description>Vs. Hogan's Alley (set HA4-1 E-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>iceclimb</MachineName>
+    <Description>Vs. Ice Climber (set IC4-4 B-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>iceclmrd</MachineName>
+    <Description>Vs. Ice Climber Dual (set IC4-4 A-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmagic</MachineName>
+    <Description>Monkey Magic</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nes</MachineName>
+    <Description>Nintendo Entertainment System / Famicom (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nesm8</MachineName>
+    <Description>M8 Game Selectable Working Product Display (US, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nvs_machrider</MachineName>
+    <Description>Vs. Mach Rider (Endurance Course Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pokemini</MachineName>
+    <Description>Pokemon Mini</Description>
+  </Machine>
+  <Machine>
+    <MachineName>popeye</MachineName>
+    <Description>Popeye (revision D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punchout</MachineName>
+    <Description>Punch-Out!! (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>radarscp</MachineName>
+    <Description>Radar Scope (TRS02, rev. D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sheriff</MachineName>
+    <Description>Sheriff</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skyskipr</MachineName>
+    <Description>Sky Skipper</Description>
+  </Machine>
+  <Machine>
+    <MachineName>smgolf</MachineName>
+    <Description>Vs. Stroke &amp; Match Golf (Men Version, set GF4-2 F)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>snes</MachineName>
+    <Description>Super Nintendo Entertainment System / Super Famicom (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacefb</MachineName>
+    <Description>Space Firebird (rev. 04-u)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacefev</MachineName>
+    <Description>Space Fever (new version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacelnc</MachineName>
+    <Description>Space Launcher</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spnchout</MachineName>
+    <Description>Super Punch-Out!! (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suprmrio</MachineName>
+    <Description>Vs. Super Mario Bros. (set SM4-4 E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsgshoe</MachineName>
+    <Description>Vs. Gumshoe (set GM5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vspinbal</MachineName>
+    <Description>Vs. Pinball (US, set PN4 E-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vssoccer</MachineName>
+    <Description>Vs. Soccer (set SC4-2 A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wrecking</MachineName>
+    <Description>Vs. Wrecking Crew</Description>
+  </Machine>
+</Machines>

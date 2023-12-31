@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>10yard</MachineName>
+    <Description>10-Yard Fight (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>airass</MachineName>
+    <Description>Air Assault (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>airduel</MachineName>
+    <Description>Air Duel (World, M82 hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>andromed</MachineName>
+    <Description>Andromeda SS (Japan?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>battroad</MachineName>
+    <Description>The Battle-Road</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bbmanw</MachineName>
+    <Description>Bomber Man World / New Dyna Blaster - Global Quest</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bchopper</MachineName>
+    <Description>Battle Chopper (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bmaster</MachineName>
+    <Description>Blade Master (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cosmccop</MachineName>
+    <Description>Cosmic Cop (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dbreed</MachineName>
+    <Description>Dragon Breed (World, M81 hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>greenber</MachineName>
+    <Description>Green Beret (Irem)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunforc2</MachineName>
+    <Description>Gun Force II (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunforce</MachineName>
+    <Description>Gunforce - Battle Fire Engulfed Terror Island (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hasamu</MachineName>
+    <Description>Hasamu (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>headoni</MachineName>
+    <Description>Head On (Irem, M-15 Hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hharry</MachineName>
+    <Description>Hammerin' Harry (World, M81 hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hook</MachineName>
+    <Description>Hook (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>horizon</MachineName>
+    <Description>Horizon (Irem)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>imgfight</MachineName>
+    <Description>Image Fight (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>inthunt</MachineName>
+    <Description>In The Hunt (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kidniki</MachineName>
+    <Description>Kid Niki - Radical Ninja (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kikcubic</MachineName>
+    <Description>Meikyu Jima (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kungfum</MachineName>
+    <Description>Kung-Fu Master (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lethalth</MachineName>
+    <Description>Lethal Thunder (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>loht</MachineName>
+    <Description>Legend of Hero Tonma (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ltswords</MachineName>
+    <Description>Lightning Swords (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>majtitl2</MachineName>
+    <Description>Major Title 2 (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>majtitle</MachineName>
+    <Description>Major Title (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpatrol</MachineName>
+    <Description>Moon Patrol</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mysticri</MachineName>
+    <Description>Mystic Riders (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nbbatman</MachineName>
+    <Description>Ninja Baseball Bat Man (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nspirit</MachineName>
+    <Description>Ninja Spirit (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>poundfor</MachineName>
+    <Description>Pound for Pound (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ptrmj</MachineName>
+    <Description>PT Reach Mahjong (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quizf1</MachineName>
+    <Description>Quiz F1 1-2 Finish (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>riskchal</MachineName>
+    <Description>Risky Challenge</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rtype</MachineName>
+    <Description>R-Type (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rtype2</MachineName>
+    <Description>R-Type II (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rtypeleo</MachineName>
+    <Description>R-Type Leo (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skychut</MachineName>
+    <Description>Sky Chuter</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacbeam</MachineName>
+    <Description>Space Beam</Description>
+  </Machine>
+  <Machine>
+    <MachineName>travrusa</MachineName>
+    <Description>Traverse USA / Zippy Race</Description>
+  </Machine>
+  <Machine>
+    <MachineName>troangel</MachineName>
+    <Description>Tropical Angel</Description>
+  </Machine>
+  <Machine>
+    <MachineName>uccops</MachineName>
+    <Description>Undercover Cops (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>uniwars</MachineName>
+    <Description>UniWar S</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vigilant</MachineName>
+    <Description>Vigilante (World, Rev E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wilytowr</MachineName>
+    <Description>Wily Tower</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmultipl</MachineName>
+    <Description>X Multiply (World, M81 hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>youjyudn</MachineName>
+    <Description>Youjyuden (Japan)</Description>
+  </Machine>
+</Machines>

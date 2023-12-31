@@ -1,0 +1,899 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>005</MachineName>
+    <Description>005</Description>
+  </Machine>
+  <Machine>
+    <MachineName>abcop</MachineName>
+    <Description>A.B. Cop (World) (FD1094 317-0169b)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aburner2</MachineName>
+    <Description>After Burner II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aceattac</MachineName>
+    <Description>Ace Attacker (FD1094 317-0059)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>afighter</MachineName>
+    <Description>Action Fighter (FD1089A 317-0018)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alexkidd</MachineName>
+    <Description>Alex Kidd: The Lost Stars (set 2, unprotected)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alibaba</MachineName>
+    <Description>Ali Baba and 40 Thieves</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alien3</MachineName>
+    <Description>Alien3: The Gun (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aliensyn</MachineName>
+    <Description>Alien Syndrome (set 4, System 16B, unprotected)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>altbeast</MachineName>
+    <Description>Altered Beast (set 8) (8751 317-0078)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>anpanman</MachineName>
+    <Description>Soreike! Anpanman Popcorn Koujou (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arabfgt</MachineName>
+    <Description>Arabian Fight (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arescue</MachineName>
+    <Description>Air Rescue (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>astorm</MachineName>
+    <Description>Alien Storm (World, 2 Players) (FD1094 317-0154)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>astrob</MachineName>
+    <Description>Astro Blaster (version 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bakubaku</MachineName>
+    <Description>Baku Baku Animal (J 950407 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>beena</MachineName>
+    <Description>Advanced Pico BEENA</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bnzabros</MachineName>
+    <Description>Bonanza Bros (US, Floppy DS3-5000-07d? Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bodyslam</MachineName>
+    <Description>Body Slam (8751 317-0015)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>borench</MachineName>
+    <Description>Borench (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brdrline</MachineName>
+    <Description>Borderline</Description>
+  </Machine>
+  <Machine>
+    <MachineName>brival</MachineName>
+    <Description>Burning Rival (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>buckrog</MachineName>
+    <Description>Buck Rogers: Planet of Zoom</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bullet</MachineName>
+    <Description>Bullet (FD1094 317-0041)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>calorie</MachineName>
+    <Description>Calorie Kun vs Moguranian</Description>
+  </Machine>
+  <Machine>
+    <MachineName>carhntds</MachineName>
+    <Description>Car Hunt / Deep Scan (France)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>carnival</MachineName>
+    <Description>Carnival (upright, AY8912 music)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chboxing</MachineName>
+    <Description>Champion Boxing</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chwrestl</MachineName>
+    <Description>Champion Pro Wrestling</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cltchitr</MachineName>
+    <Description>Clutch Hitter (US) (FD1094 317-0176)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>colmns97</MachineName>
+    <Description>Columns '97 (JET 961209 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>columns</MachineName>
+    <Description>Columns (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>columns2</MachineName>
+    <Description>Columns II: The Voyage Through Time (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>commsega</MachineName>
+    <Description>Commando (Sega)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>congo</MachineName>
+    <Description>Congo Bongo (Rev C, 2 board stack)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coolridr</MachineName>
+    <Description>Cool Riders</Description>
+  </Machine>
+  <Machine>
+    <MachineName>critcrsh</MachineName>
+    <Description>Critter Crusher (EA 951204 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>crkdown</MachineName>
+    <Description>Crack Down (World, Floppy Based, FD1094 317-0058-04c)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>darkedge</MachineName>
+    <Description>Dark Edge (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dcclub</MachineName>
+    <Description>Dynamic Country Club (World, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddcrew</MachineName>
+    <Description>D. D. Crew (World, 3 Players) (FD1094 317-0190)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddux</MachineName>
+    <Description>Dynamite Dux (set 3, World) (FD1094 317-0096)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>desertbr</MachineName>
+    <Description>Desert Breaker (World) (FD1094 317-0196)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>diehard</MachineName>
+    <Description>Die Hard Arcade (UET 960515 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>digger</MachineName>
+    <Description>Digger</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dokidoki</MachineName>
+    <Description>Doki Doki Penguin Land</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dotrikun</MachineName>
+    <Description>Dottori Kun (new version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dunkshot</MachineName>
+    <Description>Dunk Shot (Rev C, FD1089A 317-0022)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ejihon</MachineName>
+    <Description>Ejihon Tantei Jimusho (J 950613 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>enduror</MachineName>
+    <Description>Enduro Racer (Rev A, YM2151, FD1089B 317-0013A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>eswat</MachineName>
+    <Description>E-Swat - Cyber Police (set 4, World) (FD1094 317-0130)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>exctleag</MachineName>
+    <Description>Excite League (FD1094 317-0079)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>f1en</MachineName>
+    <Description>F1 Exhaust Note (World, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>f1lap</MachineName>
+    <Description>F1 Super Lap (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fantzn2</MachineName>
+    <Description>Fantasy Zone II - The Tears of Opa-Opa (MC-8123, 317-0057)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fantzone</MachineName>
+    <Description>Fantasy Zone (Rev A, unprotected)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fhboxers</MachineName>
+    <Description>Funky Head Boxers (JUETBKAL 951218 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>flicky</MachineName>
+    <Description>Flicky (128k Version, 315-5051)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fpoint</MachineName>
+    <Description>Flash Point (set 2, Japan) (FD1094 317-0127A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>futspy</MachineName>
+    <Description>Future Spy (315-5061)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ga2</MachineName>
+    <Description>Golden Axe: The Revenge of Death Adder (World, Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gamegear</MachineName>
+    <Description>Game Gear (Europe/America)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gaxeduel</MachineName>
+    <Description>Golden Axe - The Duel (JUETL 950117 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gen_nomd</MachineName>
+    <Description>Genesis Nomad (USA Genesis handheld)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>genesis</MachineName>
+    <Description>Genesis (USA, NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gforce2</MachineName>
+    <Description>Galaxy Force 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gground</MachineName>
+    <Description>Gain Ground (World, 3 Players, Floppy Based, FD1094 317-0058-03d Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigas</MachineName>
+    <Description>Gigas (MC-8123, 317-5002)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gigasm2</MachineName>
+    <Description>Gigas Mark II (MC-8123, 317-5002)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gloc</MachineName>
+    <Description>G-LOC Air Battle (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>goldnaxe</MachineName>
+    <Description>Golden Axe (set 6, US) (8751 317-123A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gprider</MachineName>
+    <Description>GP Rider (World, FD1094 317-0163) (Twin setup)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hanagumi</MachineName>
+    <Description>Sakura Taisen - Hanagumi Taisen Columns (J 971007 V1.010)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hangon</MachineName>
+    <Description>Hang-On (Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hangonjr</MachineName>
+    <Description>Hang-On Jr. (Rev. B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>harddunk</MachineName>
+    <Description>Hard Dunk (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>headon2</MachineName>
+    <Description>Head On 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>holo</MachineName>
+    <Description>Holosseum (US, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hopprobo</MachineName>
+    <Description>Hopper Robo</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hotrod</MachineName>
+    <Description>Hot Rod (World, 3 Players, Turbo set 1, Floppy Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hvymetal</MachineName>
+    <Description>Heavy Metal (315-5135)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hwchamp</MachineName>
+    <Description>Heavyweight Champ (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ichir</MachineName>
+    <Description>Puzzle &amp; Action: Ichidant-R (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>invcarht</MachineName>
+    <Description>Invinco / Car Hunt (Germany)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>invds</MachineName>
+    <Description>Invinco / Deep Scan</Description>
+  </Machine>
+  <Machine>
+    <MachineName>invho2</MachineName>
+    <Description>Invinco / Head On 2 (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>invinco</MachineName>
+    <Description>Invinco</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jpark</MachineName>
+    <Description>Jurassic Park (World, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kokoroj</MachineName>
+    <Description>Soreike Kokology (Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kokoroj2</MachineName>
+    <Description>Soreike Kokology Vol. 2 - Kokoro no Tanteikyoku</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastsurv</MachineName>
+    <Description>Last Survivor (Japan) (FD1094 317-0083)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lghost</MachineName>
+    <Description>Laser Ghost (World) (FD1094 317-0166)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>loffire</MachineName>
+    <Description>Line of Fire / Bakudan Yarou (World) (FD1094 317-0136)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mahmajn</MachineName>
+    <Description>Tokoro San no MahMahjan (Japan, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mahmajn2</MachineName>
+    <Description>Tokoro San no MahMahjan 2 (Japan, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megatech</MachineName>
+    <Description>Mega-Tech</Description>
+  </Machine>
+  <Machine>
+    <MachineName>micrombc</MachineName>
+    <Description>Microman Battle Charge (J 990326 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mjleague</MachineName>
+    <Description>Major League</Description>
+  </Machine>
+  <Machine>
+    <MachineName>monsterb</MachineName>
+    <Description>Monster Bash</Description>
+  </Machine>
+  <Machine>
+    <MachineName>motoraid</MachineName>
+    <Description>Motor Raid - Twin</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_col3</MachineName>
+    <Description>Columns III (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_gaxe2</MachineName>
+    <Description>Golden Axe II (Mega Play) (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_gslam</MachineName>
+    <Description>Grand Slam (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_gunhe</MachineName>
+    <Description>Gunstar Heroes (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_mazin</MachineName>
+    <Description>Mazin Wars / Mazin Saga (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_soni2</MachineName>
+    <Description>Sonic The Hedgehog 2 (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_sonic</MachineName>
+    <Description>Sonic The Hedgehog (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_sor2</MachineName>
+    <Description>Streets of Rage II (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mp_twcup</MachineName>
+    <Description>Tecmo World Cup (Mega Play)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mrviking</MachineName>
+    <Description>Mister Viking (315-5041)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvp</MachineName>
+    <Description>MVP (set 2, US) (FD1094 317-0143)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mwalk</MachineName>
+    <Description>Michael Jackson's Moonwalker (World) (FD1094/8751 317-0159)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>newufo</MachineName>
+    <Description>New UFO Catcher (standard)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nsub</MachineName>
+    <Description>N-Sub (upright)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>opaopa</MachineName>
+    <Description>Opa Opa (MC-8123, 317-0042)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>orunners</MachineName>
+    <Description>OutRunners (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>outrun</MachineName>
+    <Description>Out Run (sitdown/upright, Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>passsht</MachineName>
+    <Description>Passing Shot (World, 2 Players) (FD1094 317-0080)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>patocar</MachineName>
+    <Description>Hashire Patrol Car (J 990326 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pdrift</MachineName>
+    <Description>Power Drift (World, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pdriftl</MachineName>
+    <Description>Power Drift - Link Version (Japan, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pengo</MachineName>
+    <Description>Pengo (World, not encrypted, rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pignewt</MachineName>
+    <Description>Pig Newton (version C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pitfall2</MachineName>
+    <Description>Pitfall II (315-5093)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>potopoto</MachineName>
+    <Description>Poto Poto (Japan, Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pulsar</MachineName>
+    <Description>Pulsar</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qgh</MachineName>
+    <Description>Quiz Ghost Hunter (Japan, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qrouka</MachineName>
+    <Description>Quiz Rouka Ni Tattenasai (Japan, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qsww</MachineName>
+    <Description>Quiz Syukudai wo Wasuremashita (Japan, Floppy Based, FD1094 317-0058-08b)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quartet</MachineName>
+    <Description>Quartet (Rev A, 8751 315-5194)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quizmeku</MachineName>
+    <Description>Quiz Mekurumeku Story (Japan, ROM Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rachero</MachineName>
+    <Description>Racing Hero (FD1094 317-0144)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>radm</MachineName>
+    <Description>Rad Mobile (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>radr</MachineName>
+    <Description>Rad Rally (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>razmataz</MachineName>
+    <Description>Razzmatazz</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rchase</MachineName>
+    <Description>Rail Chase (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rchase2</MachineName>
+    <Description>Rail Chase 2 (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>regulus</MachineName>
+    <Description>Regulus (315-5033, Rev A.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ribbit</MachineName>
+    <Description>Ribbit!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roughrac</MachineName>
+    <Description>Rough Racer (Japan, Floppy Based, FD1094 317-0058-06b)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>samurai</MachineName>
+    <Description>Samurai (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sandor</MachineName>
+    <Description>Puzzle &amp; Action: Sando-R (J 951114 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sasissu</MachineName>
+    <Description>Taisen Tanto-R Sashissu!! (J 980216 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sc3000</MachineName>
+    <Description>SC-3000</Description>
+  </Machine>
+  <Machine>
+    <MachineName>scross</MachineName>
+    <Description>Stadium Cross (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sdi</MachineName>
+    <Description>SDI - Strategic Defense Initiative (Japan, newer, System 16A, FD1089B 317-0027)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>segajw</MachineName>
+    <Description>Joker's Wild (Rev. B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>seganinj</MachineName>
+    <Description>Sega Ninja (315-5102)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sg1000</MachineName>
+    <Description>SG-1000</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgmast</MachineName>
+    <Description>Super Masters Golf (World?, Floppy Based, FD1094 317-0058-05d?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shangon</MachineName>
+    <Description>Super Hang-On (sitdown/upright) (unprotected)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sharrier</MachineName>
+    <Description>Space Harrier (Rev A, 8751 315-5163A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shdancer</MachineName>
+    <Description>Shadow Dancer (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shinobi</MachineName>
+    <Description>Shinobi (set 6, System 16A) (unprotected)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shtngmst</MachineName>
+    <Description>Shooting Master (8751 315-5159a)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sindbadm</MachineName>
+    <Description>Sindbad Mystery</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skychal</MachineName>
+    <Description>Sky Challenger (J 000406 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slapshtr</MachineName>
+    <Description>Slap Shooter</Description>
+  </Machine>
+  <Machine>
+    <MachineName>smgp</MachineName>
+    <Description>Super Monaco GP (World, Rev B) (FD1094 317-0126a)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sms</MachineName>
+    <Description>Master System II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sonic</MachineName>
+    <Description>SegaSonic The Hedgehog (Japan, rev. C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sonicbom</MachineName>
+    <Description>Sonic Boom (FD1094 317-0053)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>soniccar</MachineName>
+    <Description>Waku Waku Sonic Patrol Car</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sonicfgt</MachineName>
+    <Description>SegaSonic Cosmo Fighter (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sonicpop</MachineName>
+    <Description>SegaSonic Popcorn Shop (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spaceod</MachineName>
+    <Description>Space Odyssey (version 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacetrk</MachineName>
+    <Description>Space Trek (upright)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacfury</MachineName>
+    <Description>Space Fury (revision C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spatter</MachineName>
+    <Description>Spatter (315-5096)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spidman</MachineName>
+    <Description>Spider-Man: The Videogame (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sspacaho</MachineName>
+    <Description>Space Attack / Head On</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sspaceat</MachineName>
+    <Description>Space Attack (upright set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sspirits</MachineName>
+    <Description>Scramble Spirits (World, Floppy Based)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stactics</MachineName>
+    <Description>Space Tactics</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starjack</MachineName>
+    <Description>Star Jacker (Sega)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>startrek</MachineName>
+    <Description>Star Trek</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stkclmns</MachineName>
+    <Description>Stack Columns (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strkfgtr</MachineName>
+    <Description>Strike Fighter (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>subroc3d</MachineName>
+    <Description>Subroc-3D</Description>
+  </Machine>
+  <Machine>
+    <MachineName>supgoal</MachineName>
+    <Description>Nerae! Super Goal (J 981218 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suprleag</MachineName>
+    <Description>Super League (FD1094 317-0045)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suprloco</MachineName>
+    <Description>Super Locomotive (Rev.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>svf</MachineName>
+    <Description>Super Visual Football: European Sega Cup (Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>swa</MachineName>
+    <Description>Star Wars Arcade (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>szaxxon</MachineName>
+    <Description>Super Zaxxon (315-5013)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tacscan</MachineName>
+    <Description>Tac/Scan</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tantr</MachineName>
+    <Description>Puzzle &amp; Action: Tant-R (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>techbowl</MachineName>
+    <Description>Technical Bowling (J 971212 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>teddybb</MachineName>
+    <Description>TeddyBoy Blues (315-5115, New Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tetris</MachineName>
+    <Description>Tetris (set 4, Japan, System 16A) (FD1094 317-0093)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tetrisse</MachineName>
+    <Description>Tetris (Japan, System E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>thndrbld</MachineName>
+    <Description>Thunder Blade (upright) (FD1094 317-0056)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>timescan</MachineName>
+    <Description>Time Scanner (set 2, System 16B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>titlef</MachineName>
+    <Description>Title Fight (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tokisens</MachineName>
+    <Description>Toki no Senshi - Chrono Soldier (MC-8123, 317-0040)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>toryumon</MachineName>
+    <Description>Toryumon</Description>
+  </Machine>
+  <Machine>
+    <MachineName>toutrun</MachineName>
+    <Description>Turbo Out Run (Out Run upgrade) (FD1094 317-0118)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tranqgun</MachineName>
+    <Description>Tranquillizer Gun</Description>
+  </Machine>
+  <Machine>
+    <MachineName>transfrm</MachineName>
+    <Description>Transformer</Description>
+  </Machine>
+  <Machine>
+    <MachineName>turbo</MachineName>
+    <Description>Turbo (program 1513-1515)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>twinsqua</MachineName>
+    <Description>Twin Squash</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ufo21</MachineName>
+    <Description>UFO Catcher 21</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ufo800</MachineName>
+    <Description>UFO Catcher 800</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ufomini</MachineName>
+    <Description>UFO Catcher Mini</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ufosensi</MachineName>
+    <Description>Ufo Senshi Yohko Chan (MC-8123, 317-0064)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ultracin</MachineName>
+    <Description>Waku Waku Ultraman Racing</Description>
+  </Machine>
+  <Machine>
+    <MachineName>upndown</MachineName>
+    <Description>Up'n Down (315-5030)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf2</MachineName>
+    <Description>Virtua Fighter 2 (Version 2.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vfkids</MachineName>
+    <Description>Virtua Fighter Kids (JUET 960319 V0.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vr</MachineName>
+    <Description>Virtua Racing</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wantsega</MachineName>
+    <Description>Wanted (Sega)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wasafari</MachineName>
+    <Description>Wanpaku Safari (J 981109 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wingwar</MachineName>
+    <Description>Wing War (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>winterht</MachineName>
+    <Description>Winter Heat (JUET 971012 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wmatch</MachineName>
+    <Description>Water Match (315-5064)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wrestwar</MachineName>
+    <Description>Wrestle War (set 3, World) (8751 317-0103)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wwallyj</MachineName>
+    <Description>Wally wo Sagase! (rev B, Japan, 2 players) (FD1094 317-0197B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wwanpanm</MachineName>
+    <Description>Waku Waku Anpanman (Rev A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wwmarine</MachineName>
+    <Description>Waku Waku Marine</Description>
+  </Machine>
+  <Machine>
+    <MachineName>yamato</MachineName>
+    <Description>Yamato (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zaxxon</MachineName>
+    <Description>Zaxxon (set 1, rev D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zektor</MachineName>
+    <Description>Zektor (revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>znpwfv</MachineName>
+    <Description>Zen Nippon Pro-Wrestling Featuring Virtua (J 971123 V1.000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zunkyou</MachineName>
+    <Description>Zunzunkyou no Yabou (Japan)</Description>
+  </Machine>
+</Machines>

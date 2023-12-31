@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>aquajack</MachineName>
+    <Description>Aqua Jack (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arabianm</MachineName>
+    <Description>Arabian Magic (Ver 1.0O 1992/07/06)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arkanoid</MachineName>
+    <Description>Arkanoid (World, older)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>arknoid2</MachineName>
+    <Description>Arkanoid - Revenge of DOH (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ashura</MachineName>
+    <Description>Ashura Blaster (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bonzeadv</MachineName>
+    <Description>Bonze Adventure (World, newer)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bshark</MachineName>
+    <Description>Battle Shark (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bubblem</MachineName>
+    <Description>Bubble Memories: The Story Of Bubble Bobble III (Ver 2.4O 1996/02/15)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bublbob2</MachineName>
+    <Description>Bubble Bobble II (Ver 2.6O 1994/12/16)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cadash</MachineName>
+    <Description>Cadash (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbombers</MachineName>
+    <Description>Chase Bombers (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>champwr</MachineName>
+    <Description>Champion Wrestler (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chasehq</MachineName>
+    <Description>Chase H.Q. (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chukatai</MachineName>
+    <Description>Chuka Taisen (World) (P0-028-A PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>contcirc</MachineName>
+    <Description>Continental Circus (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>crimec</MachineName>
+    <Description>Crime City (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cupfinal</MachineName>
+    <Description>Taito Cup Finals (Ver 1.0O 1993/02/28)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>darius</MachineName>
+    <Description>Darius (World, rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dariusg</MachineName>
+    <Description>Darius Gaiden - Silver Hawk (Ver 2.5O 1994/09/19)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>deadconx</MachineName>
+    <Description>Dead Connection (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dinorex</MachineName>
+    <Description>Dino Rex (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dondokod</MachineName>
+    <Description>Don Doko Don (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>elvactr</MachineName>
+    <Description>Elevator Action Returns (Ver 2.2O 1995/02/20)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>enforce</MachineName>
+    <Description>Enforce (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>euroch92</MachineName>
+    <Description>Euro Champ '92 (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>extrmatn</MachineName>
+    <Description>Extermination (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fhawk</MachineName>
+    <Description>Fighting Hawk (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finalb</MachineName>
+    <Description>Final Blow (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>footchmp</MachineName>
+    <Description>Football Champ / Euro Football Champ (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>growl</MachineName>
+    <Description>Growl (World, Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gseeker</MachineName>
+    <Description>Grid Seeker: Project Storm Hammer (Ver 1.3O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunbustr</MachineName>
+    <Description>Gunbuster (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunfront</MachineName>
+    <Description>Gun &amp; Frontier (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunlock</MachineName>
+    <Description>Gunlock (Ver 2.3O 1994/01/20)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>insectx</MachineName>
+    <Description>Insector X (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>intcup94</MachineName>
+    <Description>International Cup '94 (Ver 2.2O 1994/05/26)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kaiserkn</MachineName>
+    <Description>Kaiser Knuckle (Ver 2.1O 1994/07/29)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kurikint</MachineName>
+    <Description>Kuri Kinton (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lightbr</MachineName>
+    <Description>Light Bringer (Ver 2.2O 1994/04/08)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>liquidk</MachineName>
+    <Description>Liquid Kids (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>masterw</MachineName>
+    <Description>Master of Weapon (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megablst</MachineName>
+    <Description>Mega Blast (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>metalb</MachineName>
+    <Description>Metal Black (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nastar</MachineName>
+    <Description>Nastar (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nightstr</MachineName>
+    <Description>Night Striker (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ninjak</MachineName>
+    <Description>The Ninja Kids (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ninjaw</MachineName>
+    <Description>The Ninja Warriors (World, later version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>opwolf</MachineName>
+    <Description>Operation Wolf (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>opwolf3</MachineName>
+    <Description>Operation Wolf 3 (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>othunder</MachineName>
+    <Description>Operation Thunderbolt (World, rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pbobble2</MachineName>
+    <Description>Puzzle Bobble 2 (Ver 2.3O 1995/07/31)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>plotting</MachineName>
+    <Description>Plotting (World set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pulirula</MachineName>
+    <Description>PuLiRuLa (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>puzznic</MachineName>
+    <Description>Puzznic (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pwrgoal</MachineName>
+    <Description>Taito Power Goal (Ver 2.5O 1994/11/03)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>racingb</MachineName>
+    <Description>Racing Beat (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raimais</MachineName>
+    <Description>Raimais (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rastan</MachineName>
+    <Description>Rastan (World Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>realpunc</MachineName>
+    <Description>Real Puncher (World, v2.12O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>recordbr</MachineName>
+    <Description>Recordbreaker (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ridingf</MachineName>
+    <Description>Riding Fight (Ver 1.0O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringrage</MachineName>
+    <Description>Ring Rage (Ver 2.3O 1992/08/09)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>scfinals</MachineName>
+    <Description>Super Cup Finals (Ver 2.2O 1994/01/13, single PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sci</MachineName>
+    <Description>Special Criminal Investigation (World set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>silentd</MachineName>
+    <Description>Silent Dragon (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slapshot</MachineName>
+    <Description>Slap Shot (Ver 3.0 O)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>solfigtr</MachineName>
+    <Description>Solitary Fighter (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacegun</MachineName>
+    <Description>Space Gun (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spcinv95</MachineName>
+    <Description>Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5O 1995/06/14)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssi</MachineName>
+    <Description>Super Space Invaders '91 (World, revised code, Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>superchs</MachineName>
+    <Description>Super Chase - Criminal Termination (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tcobra2</MachineName>
+    <Description>Twin Cobra II (Ver 2.1O 1995/11/30)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>thundfox</MachineName>
+    <Description>Thunder Fox (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tnzs</MachineName>
+    <Description>The NewZealand Story (World, new version) (P0-043A PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topland</MachineName>
+    <Description>Top Landing (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topspeed</MachineName>
+    <Description>Top Speed (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>trstar</MachineName>
+    <Description>Top Ranking Stars (Ver 2.1O 1993/05/21) (New Version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>twinhawk</MachineName>
+    <Description>Twin Hawk (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>undrfire</MachineName>
+    <Description>Under Fire (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>viofight</MachineName>
+    <Description>Violence Fight (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>volfied</MachineName>
+    <Description>Volfied (World, revision 1)</Description>
+  </Machine>
+</Machines>

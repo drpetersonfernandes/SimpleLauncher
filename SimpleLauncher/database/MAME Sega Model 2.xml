@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>airwlkrs</MachineName>
+    <Description>Air Walkers</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bel</MachineName>
+    <Description>Behind Enemy Lines</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytona</MachineName>
+    <Description>Daytona USA (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytona93</MachineName>
+    <Description>Daytona USA</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonagtx</MachineName>
+    <Description>Daytona USA (GTX 2004 Edition)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonam</MachineName>
+    <Description>Daytona USA (To The MAXX)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonas</MachineName>
+    <Description>Daytona USA (With Saturn Adverts)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonase</MachineName>
+    <Description>Daytona USA Special Edition (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonat</MachineName>
+    <Description>Daytona USA (Turbo hack, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daytonata</MachineName>
+    <Description>Daytona USA (Turbo hack, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>desert</MachineName>
+    <Description>Desert Tank</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doa</MachineName>
+    <Description>Dead or Alive (Model 2B, Revision C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doaa</MachineName>
+    <Description>Dead or Alive (Model 2A, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doaab</MachineName>
+    <Description>Dead or Alive (Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doaae</MachineName>
+    <Description>Dead or Alive (Export, Model 2A, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>doab</MachineName>
+    <Description>Dead or Alive (Model 2B, Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynabb</MachineName>
+    <Description>Dynamite Baseball</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynabb97</MachineName>
+    <Description>Dynamite Baseball 97 (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynamcop</MachineName>
+    <Description>Dynamite Cop (Export, Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynamcopb</MachineName>
+    <Description>Dynamite Cop (Export, Model 2B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynamcopc</MachineName>
+    <Description>Dynamite Cop (USA, Model 2C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dyndeka2</MachineName>
+    <Description>Dynamite Deka 2 (Japan, Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dyndeka2b</MachineName>
+    <Description>Dynamite Deka 2 (Japan, Model 2B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fvipers</MachineName>
+    <Description>Fighting Vipers (Revision D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fvipersb</MachineName>
+    <Description>Fighting Vipers (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunblade</MachineName>
+    <Description>Gunblade NY (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hotd</MachineName>
+    <Description>The House of the Dead (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hotdo</MachineName>
+    <Description>The House of the Dead</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hotdp</MachineName>
+    <Description>The House of the Dead (prototype)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hpyagu98</MachineName>
+    <Description>Hanguk Pro Yagu 98</Description>
+  </Machine>
+  <Machine>
+    <MachineName>indy500</MachineName>
+    <Description>INDY 500 Twin (Revision A, Newer)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>indy500d</MachineName>
+    <Description>INDY 500 Deluxe (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>indy500to</MachineName>
+    <Description>INDY 500 Twin (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastbrnx</MachineName>
+    <Description>Last Bronx (Export, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastbrnxj</MachineName>
+    <Description>Last Bronx: Tokyo Bangaichi (Japan, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastbrnxu</MachineName>
+    <Description>Last Bronx (USA, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>manxtt</MachineName>
+    <Description>Manx TT Superbike - DX/Twin (Revision D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>manxttc</MachineName>
+    <Description>Manx TT Superbike - DX/Twin (Revision C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>manxttdx</MachineName>
+    <Description>Manx TT Superbike - DX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>motoraid</MachineName>
+    <Description>Motor Raid - Twin</Description>
+  </Machine>
+  <Machine>
+    <MachineName>motoraiddx</MachineName>
+    <Description>Motor Raid - Twin/DX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>overrev</MachineName>
+    <Description>Over Rev (Model 2C, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>overrevb</MachineName>
+    <Description>Over Rev (Model 2B, Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>overrevba</MachineName>
+    <Description>Over Rev (Model 2B, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pltkids</MachineName>
+    <Description>Pilot Kids (Model 2B, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pltkidsa</MachineName>
+    <Description>Pilot Kids (Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>powsled</MachineName>
+    <Description>Power Sled (Slave, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>powsledm</MachineName>
+    <Description>Power Sled (Main, hack of Relay)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>powsledr</MachineName>
+    <Description>Power Sled (Relay, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rascot2</MachineName>
+    <Description>Royal Ascot II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rchase2</MachineName>
+    <Description>Rail Chase 2 (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>schamp</MachineName>
+    <Description>Sonic Championship (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>segawski</MachineName>
+    <Description>Sega Water Ski (Japan, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfight</MachineName>
+    <Description>Sonic the Fighters (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgt24h</MachineName>
+    <Description>Super GT 24h</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skisuprg</MachineName>
+    <Description>Sega Ski Super G</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skytargt</MachineName>
+    <Description>Sky Target</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srallyc</MachineName>
+    <Description>Sega Rally Championship - Twin/DX (Revision C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srallycb</MachineName>
+    <Description>Sega Rally Championship - Twin/DX (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srallycc</MachineName>
+    <Description>Sega Rally Championship - Twin/DX (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srallycdx</MachineName>
+    <Description>Sega Rally Championship - DX (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srallycdxa</MachineName>
+    <Description>Sega Rally Championship - DX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stcc</MachineName>
+    <Description>Sega Touring Car Championship</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stcca</MachineName>
+    <Description>Sega Touring Car Championship (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stccb</MachineName>
+    <Description>Sega Touring Car Championship (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topskatr</MachineName>
+    <Description>Top Skater (Export, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topskatrj</MachineName>
+    <Description>Top Skater (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topskatru</MachineName>
+    <Description>Top Skater (USA, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>topskatruo</MachineName>
+    <Description>Top Skater (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vcop</MachineName>
+    <Description>Virtua Cop (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vcop2</MachineName>
+    <Description>Virtua Cop 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vcopa</MachineName>
+    <Description>Virtua Cop (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf2</MachineName>
+    <Description>Virtua Fighter 2 (Version 2.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf2a</MachineName>
+    <Description>Virtua Fighter 2 (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf2b</MachineName>
+    <Description>Virtua Fighter 2 (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf2o</MachineName>
+    <Description>Virtua Fighter 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>von</MachineName>
+    <Description>Cyber Troopers Virtual-On - Twin (Export)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vonj</MachineName>
+    <Description>Cyber Troopers Virtual-On - Twin (Japan, Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vonr</MachineName>
+    <Description>Cyber Troopers Virtual-On - Relay (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vonu</MachineName>
+    <Description>Cyber Troopers Virtual-On - Twin (USA, Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vstriker</MachineName>
+    <Description>Virtua Striker (Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vstrikero</MachineName>
+    <Description>Virtua Striker</Description>
+  </Machine>
+  <Machine>
+    <MachineName>waverunr</MachineName>
+    <Description>Wave Runner (Japan, Revision A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zerogun</MachineName>
+    <Description>Zero Gunner (Export, Model 2B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zeroguna</MachineName>
+    <Description>Zero Gunner (Export, Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zerogunaj</MachineName>
+    <Description>Zero Gunner (Japan, Model 2A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zerogunj</MachineName>
+    <Description>Zero Gunner (Japan, Model 2B)</Description>
+  </Machine>
+</Machines>

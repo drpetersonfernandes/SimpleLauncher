@@ -1,0 +1,923 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>1941</MachineName>
+    <Description>1941: Counter Attack (World 900227)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1941j</MachineName>
+    <Description>1941: Counter Attack (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1941r1</MachineName>
+    <Description>1941: Counter Attack (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1941u</MachineName>
+    <Description>1941: Counter Attack (USA 900227)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wonders</MachineName>
+    <Description>Three Wonders (World 910520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wondersb</MachineName>
+    <Description>Three Wonders (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wondersh</MachineName>
+    <Description>Three Wonders (hack)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wondersr1</MachineName>
+    <Description>Three Wonders (World 910513)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wondersu</MachineName>
+    <Description>Three Wonders (USA 910520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>area88</MachineName>
+    <Description>Area 88 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>area88r</MachineName>
+    <Description>Area 88 (Japan Resale Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcomm</MachineName>
+    <Description>Captain Commando (World 911202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcommb</MachineName>
+    <Description>Captain Commando (bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcommj</MachineName>
+    <Description>Captain Commando (Japan 911202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcommjr1</MachineName>
+    <Description>Captain Commando (Japan 910928)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcommr1</MachineName>
+    <Description>Captain Commando (World 911014)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcommu</MachineName>
+    <Description>Captain Commando (USA 910928)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawing</MachineName>
+    <Description>Carrier Air Wing (World 901012)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawingj</MachineName>
+    <Description>U.S. Navy (Japan 901012)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawingr1</MachineName>
+    <Description>Carrier Air Wing (World 901009)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawingu</MachineName>
+    <Description>Carrier Air Wing (USA 901130)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawingur1</MachineName>
+    <Description>Carrier Air Wing (USA 901012)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chikij</MachineName>
+    <Description>Chiki Chiki Boys (Japan 900619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cworld2j</MachineName>
+    <Description>Adventure Quiz Capcom World 2 (Japan 920611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cworld2ja</MachineName>
+    <Description>Adventure Quiz Capcom World 2 (Japan 920611, B-Board 90629B-3, no battery)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cworld2jb</MachineName>
+    <Description>Adventure Quiz Capcom World 2 (Japan 920611, B-Board 91634B-2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daimakai</MachineName>
+    <Description>Daimakaimura (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>daimakair</MachineName>
+    <Description>Daimakaimura (Japan Resale Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dino</MachineName>
+    <Description>Cadillacs and Dinosaurs (World 930201)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dinoa</MachineName>
+    <Description>Cadillacs and Dinosaurs (Asia TW 930223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dinohunt</MachineName>
+    <Description>Dinosaur Hunter (Chinese bootleg of Cadillacs and Dinosaurs)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dinoj</MachineName>
+    <Description>Cadillacs: Kyouryuu Shin Seiki (Japan 930201)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dinou</MachineName>
+    <Description>Cadillacs and Dinosaurs (USA 930201)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynwar</MachineName>
+    <Description>Dynasty Wars (USA, B-Board 89624B-?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynwara</MachineName>
+    <Description>Dynasty Wars (USA, B-Board 88622B-3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynwarj</MachineName>
+    <Description>Tenchi wo Kurau (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynwarjr</MachineName>
+    <Description>Tenchi wo Kurau (Japan Resale Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffight</MachineName>
+    <Description>Final Fight (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffighta</MachineName>
+    <Description>Final Fight (World, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightae</MachineName>
+    <Description>Final Fight 30th Anniversary Edition (World, hack)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightj</MachineName>
+    <Description>Final Fight (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightj1</MachineName>
+    <Description>Final Fight (Japan 900112)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightj2</MachineName>
+    <Description>Final Fight (Japan 900305)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightj3</MachineName>
+    <Description>Final Fight (Japan 900405)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightj4</MachineName>
+    <Description>Final Fight (Japan 900613)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightjh</MachineName>
+    <Description>Street Smart / Final Fight (Japan, hack)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightu</MachineName>
+    <Description>Final Fight (USA, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightu1</MachineName>
+    <Description>Final Fight (USA, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightua</MachineName>
+    <Description>Final Fight (USA 900112)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightub</MachineName>
+    <Description>Final Fight (USA 900424)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffightuc</MachineName>
+    <Description>Final Fight (USA 900613)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottn</MachineName>
+    <Description>Forgotten Worlds (World, newer)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottna</MachineName>
+    <Description>Forgotten Worlds (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnj</MachineName>
+    <Description>Forgotten Worlds (Japan) (English prototype)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnu</MachineName>
+    <Description>Forgotten Worlds (USA, B-Board 88621B-2, Rev. C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnua</MachineName>
+    <Description>Forgotten Worlds (USA, B-Board 88618B-2, Rev. A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnuaa</MachineName>
+    <Description>Forgotten Worlds (USA, B-Board 88618B-2, Rev. AA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnuc</MachineName>
+    <Description>Forgotten Worlds (USA, B-Board 88618B-2, Rev. C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottnue</MachineName>
+    <Description>Forgotten Worlds (USA, B-Board 88618B-2, Rev. E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ganbare</MachineName>
+    <Description>Ganbare! Marine Kun (Japan 2K0411)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ghouls</MachineName>
+    <Description>Ghouls'n Ghosts (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ghoulsu</MachineName>
+    <Description>Ghouls'n Ghosts (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gulunpa</MachineName>
+    <Description>Gulun.Pa! (Japan 931220 L) (prototype)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knights</MachineName>
+    <Description>Knights of the Round (World 911127)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knightsb2</MachineName>
+    <Description>Knights of the Round (bootleg, World 911127)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knightsj</MachineName>
+    <Description>Knights of the Round (Japan 911127, B-Board 91634B-2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knightsja</MachineName>
+    <Description>Knights of the Round (Japan 911127, B-Board 89625B-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knightsu</MachineName>
+    <Description>Knights of the Round (USA 911127)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kod</MachineName>
+    <Description>The King of Dragons (World 910805)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kodj</MachineName>
+    <Description>The King of Dragons (Japan 910805, B-Board 90629B-3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kodja</MachineName>
+    <Description>The King of Dragons (Japan 910805, B-Board 89625B-1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kodr1</MachineName>
+    <Description>The King of Dragons (World 910711)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kodr2</MachineName>
+    <Description>The King of Dragons (World 910731)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kodu</MachineName>
+    <Description>The King of Dragons (USA 910910)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lostwrld</MachineName>
+    <Description>Lost Worlds (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lostwrldo</MachineName>
+    <Description>Lost Worlds (Japan Old Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mbomberj</MachineName>
+    <Description>Muscle Bomber: The Body Explosion (Japan 930713)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mbombrd</MachineName>
+    <Description>Muscle Bomber Duo: Ultimate Team Battle (World 931206)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mbombrdj</MachineName>
+    <Description>Muscle Bomber Duo: Heat Up Warriors (Japan 931206)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman</MachineName>
+    <Description>Mega Man: The Power Battle (CPS1, USA 951006)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megamana</MachineName>
+    <Description>Mega Man: The Power Battle (CPS1, Asia 951006)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mercs</MachineName>
+    <Description>Mercs (World 900302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mercsj</MachineName>
+    <Description>Senjou no Ookami II (Japan 900302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mercsu</MachineName>
+    <Description>Mercs (USA 900608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mercsur1</MachineName>
+    <Description>Mercs (USA 900302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpumpkin</MachineName>
+    <Description>Magical Pumpkin: Puroland de Daibouken (Japan 960712)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msword</MachineName>
+    <Description>Magic Sword: Heroic Fantasy (World 900725)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mswordj</MachineName>
+    <Description>Magic Sword: Heroic Fantasy (Japan 900623)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mswordr1</MachineName>
+    <Description>Magic Sword: Heroic Fantasy (World 900623)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mswordu</MachineName>
+    <Description>Magic Sword: Heroic Fantasy (USA 900725)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mtwins</MachineName>
+    <Description>Mega Twins (World 900619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nemo</MachineName>
+    <Description>Nemo (World 901130)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nemoj</MachineName>
+    <Description>Nemo (Japan 901120, 89622B-3 ROM board)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nemoja</MachineName>
+    <Description>Nemo (Japan 901120, 89625B-1 ROM board)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nemor1</MachineName>
+    <Description>Nemo (World 901109)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3</MachineName>
+    <Description>Pang! 3 (Euro 950601)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3b</MachineName>
+    <Description>Pang! 3 (bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3b2</MachineName>
+    <Description>Pang! 3 (bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3b3</MachineName>
+    <Description>Pang! 3 (bootleg, set 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3b4</MachineName>
+    <Description>Pang! 3 (bootleg, set 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3b5</MachineName>
+    <Description>Pang! 3 (bootleg, set 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3j</MachineName>
+    <Description>Pang! 3: Kaitou Tachi no Karei na Gogo (Japan 950511)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pang3r1</MachineName>
+    <Description>Pang! 3 (Euro 950511)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pmonster</MachineName>
+    <Description>Gamushara Battle! Puchi Monster (Japan 990519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pnickj</MachineName>
+    <Description>Pnickies (Japan 940608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pokonyan</MachineName>
+    <Description>Pokonyan! Balloon (Japan 940322)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisher</MachineName>
+    <Description>The Punisher (World 930422)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisherbz</MachineName>
+    <Description>Biaofeng Zhanjing (Chinese bootleg of The Punisher)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisherh</MachineName>
+    <Description>The Punisher (Hispanic 930422)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisherj</MachineName>
+    <Description>The Punisher (Japan 930422)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisheru</MachineName>
+    <Description>The Punisher (USA 930422)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qad</MachineName>
+    <Description>Quiz &amp; Dragons: Capcom Quiz Game (USA 920701)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qadjr</MachineName>
+    <Description>Quiz &amp; Dragons: Capcom Quiz Game (Japan Resale Ver. 940921)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qtono2j</MachineName>
+    <Description>Quiz Tonosama no Yabou 2: Zenkoku-ban (Japan 950123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rockmanj</MachineName>
+    <Description>Rockman: The Power Battle (CPS1, Japan 950922)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910522)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2acc</MachineName>
+    <Description>Street Fighter II': Champion Edition (Accelerator!, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2acca</MachineName>
+    <Description>Street Fighter II': Champion Edition (Accelerator!, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2accp2</MachineName>
+    <Description>Street Fighter II': Champion Edition (Accelerator Pt.II, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2amf</MachineName>
+    <Description>Street Fighter II': Champion Edition (Alpha Magic-F, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2amf2</MachineName>
+    <Description>Street Fighter II': Champion Edition (L735 Test Rom, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2amf3</MachineName>
+    <Description>Street Fighter II': Champion Edition (L735 Test Rom, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2bhh</MachineName>
+    <Description>Street Fighter II': Champion Edition (Hung Hsi, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ce</MachineName>
+    <Description>Street Fighter II': Champion Edition (World 920513)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceblp</MachineName>
+    <Description>Street Fighter II': Champion Edition (protected bootleg on non-dash board)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cebltw</MachineName>
+    <Description>Street Fighter II': Champion Edition ('Taiwan' bootleg with PAL)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceds6</MachineName>
+    <Description>Street Fighter II': Champion Edition (Dstreet-6, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceea</MachineName>
+    <Description>Street Fighter II': Champion Edition (World 920313)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceec</MachineName>
+    <Description>Street Fighter II': Champion Edition (World 920803)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceja</MachineName>
+    <Description>Street Fighter II': Champion Edition (Japan 920322)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cejb</MachineName>
+    <Description>Street Fighter II': Champion Edition (Japan 920513)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cejc</MachineName>
+    <Description>Street Fighter II': Champion Edition (Japan 920803)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cems6a</MachineName>
+    <Description>Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cems6b</MachineName>
+    <Description>Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cems6c</MachineName>
+    <Description>Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2cet</MachineName>
+    <Description>Street Fighter II': Champion Edition (Taiwan 920313)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceua</MachineName>
+    <Description>Street Fighter II': Champion Edition (USA 920313)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceub</MachineName>
+    <Description>Street Fighter II': Champion Edition (USA 920513)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceuc</MachineName>
+    <Description>Street Fighter II': Champion Edition (USA 920803)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ceupl</MachineName>
+    <Description>Street Fighter II': Champion Edition (UPL bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2dkot2</MachineName>
+    <Description>Street Fighter II': Champion Edition (Double K.O. Turbo II, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2dongb</MachineName>
+    <Description>Street Fighter II': Champion Edition (Dongfang Bubai protection, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ea</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2eb</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910214)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ebbl</MachineName>
+    <Description>Street Fighter II: The World Warrior (TAB Austria, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ebbl2</MachineName>
+    <Description>Street Fighter II: The World Warrior (TAB Austria, bootleg, set 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ebbl3</MachineName>
+    <Description>Street Fighter II: The World Warrior (TAB Austria, bootleg, set 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ed</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910318)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ee</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910228)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ef</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910411)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2em</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910129)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2en</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910204, conversion)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2hf</MachineName>
+    <Description>Street Fighter II': Hyper Fighting (World 921209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2hfj</MachineName>
+    <Description>Street Fighter II' Turbo: Hyper Fighting (Japan 921209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2hfu</MachineName>
+    <Description>Street Fighter II': Hyper Fighting (USA 921209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2j</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 911210, CPS-B-13)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2j17</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 911210, CPS-B-17)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ja</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 910214)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2jc</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 910306)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2jf</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 910411)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2jh</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 910522)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2jl</MachineName>
+    <Description>Street Fighter II: The World Warrior (Japan 920312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2koryu</MachineName>
+    <Description>Street Fighter II': Champion Edition (Xiang Long, Chinese bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2level</MachineName>
+    <Description>Street Fighter II': Champion Edition (bootleg with level selection)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m10</MachineName>
+    <Description>Street Fighter II': Champion Edition (M10, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m2</MachineName>
+    <Description>Street Fighter II': Champion Edition (M2, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m3</MachineName>
+    <Description>Street Fighter II': Champion Edition (M3, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m4</MachineName>
+    <Description>Street Fighter II': Champion Edition (M4, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m5</MachineName>
+    <Description>Street Fighter II': Champion Edition (M5, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m6</MachineName>
+    <Description>Street Fighter II': Champion Edition (M6, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m7</MachineName>
+    <Description>Street Fighter II': Champion Edition (M7, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2m8</MachineName>
+    <Description>Street Fighter II': Champion Edition (M8, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2mkot</MachineName>
+    <Description>Street Fighter II': Magic KO Turbo!! - Nightmare Crack</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2qp1</MachineName>
+    <Description>Street Fighter II: The World Warrior (Quicken Pt-I, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2qp2</MachineName>
+    <Description>Street Fighter II: The World Warrior (Quicken, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2rb</MachineName>
+    <Description>Street Fighter II': Champion Edition (Rainbow, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2rb2</MachineName>
+    <Description>Street Fighter II': Champion Edition (Rainbow, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2rb3</MachineName>
+    <Description>Street Fighter II': Champion Edition (Rainbow, bootleg, set 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2re</MachineName>
+    <Description>Street Fighter II': Champion Edition (RE, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2red</MachineName>
+    <Description>Street Fighter II': Champion Edition (Red Wave, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2reda</MachineName>
+    <Description>Street Fighter II': Champion Edition (Red Wave, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2redp2</MachineName>
+    <Description>Street Fighter II': Champion Edition (Red Wave PtII, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2rk</MachineName>
+    <Description>Street Fighter II: The World Warrior (RK, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2rules</MachineName>
+    <Description>Street Fighter II: The World Warrior (bootleg with rules screen)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2stt</MachineName>
+    <Description>Street Fighter II: The World Warrior (TAB Austria, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2thndr</MachineName>
+    <Description>Street Fighter II: The World Warrior (Thunder Edition, bootleg, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2thndr2</MachineName>
+    <Description>Street Fighter II: The World Warrior (Thunder Edition, bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ua</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910206)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ub</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910214)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2uc</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910306)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ud</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910318)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ue</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910228)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2uf</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910411)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ug</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910522, Rev. G)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2uh</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910522, Rev. H)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ui</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 910522, Rev. I)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2uk</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 911101)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2um</MachineName>
+    <Description>Street Fighter II: The World Warrior (USA 920312)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2v004</MachineName>
+    <Description>Street Fighter II': Champion Edition (V004, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2yyc</MachineName>
+    <Description>Street Fighter II': Champion Edition (YYC, bootleg)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfach</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (CPS Changer, Publicity USA 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzbch</MachineName>
+    <Description>Street Fighter Zero (CPS Changer, Brazil 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzch</MachineName>
+    <Description>Street Fighter Zero (CPS Changer, Japan 951020)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slammast</MachineName>
+    <Description>Saturday Night Slam Masters (World 930713)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slammastu</MachineName>
+    <Description>Saturday Night Slam Masters (USA 930713)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strider</MachineName>
+    <Description>Strider (USA, B-Board 89624B-2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>striderj</MachineName>
+    <Description>Strider Hiryu (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>striderjr</MachineName>
+    <Description>Strider Hiryu (Japan Resale Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>striderua</MachineName>
+    <Description>Strider (USA, B-Board 89624B-3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strideruc</MachineName>
+    <Description>Strider (USA, B-Board 90629B-3, buggy Street Fighter II conversion)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>unsquad</MachineName>
+    <Description>U.N. Squadron (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varth</MachineName>
+    <Description>Varth: Operation Thunderstorm (World 920714)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthb2</MachineName>
+    <Description>Varth: Operation Thunderstorm (bootleg, set 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthb3</MachineName>
+    <Description>Varth: Operation Thunderstorm (bootleg, set 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthj</MachineName>
+    <Description>Varth: Operation Thunderstorm (Japan 920714)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthjr</MachineName>
+    <Description>Varth: Operation Thunderstorm (Japan Resale Ver. 920714)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthr1</MachineName>
+    <Description>Varth: Operation Thunderstorm (World 920612)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varthu</MachineName>
+    <Description>Varth: Operation Thunderstorm (USA 920612)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>willow</MachineName>
+    <Description>Willow (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>willowj</MachineName>
+    <Description>Willow (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>willowu</MachineName>
+    <Description>Willow (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>willowuo</MachineName>
+    <Description>Willow (USA Old Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wof</MachineName>
+    <Description>Warriors of Fate (World 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofa</MachineName>
+    <Description>Sangokushi II (Asia 921005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofch</MachineName>
+    <Description>Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofhfh</MachineName>
+    <Description>Huo Feng Huang (Chinese bootleg of Sangokushi II)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofj</MachineName>
+    <Description>Tenchi wo Kurau II: Sekiheki no Tatakai (Japan 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofr1</MachineName>
+    <Description>Warriors of Fate (World 921002)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofu</MachineName>
+    <Description>Warriors of Fate (USA 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wonder3</MachineName>
+    <Description>Wonder 3 (Japan 910520)</Description>
+  </Machine>
+</Machines>

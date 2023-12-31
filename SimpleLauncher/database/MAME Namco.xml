@@ -1,0 +1,731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>30test</MachineName>
+    <Description>30 Test (remake)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>abcheck</MachineName>
+    <Description>Abnormal Check</Description>
+  </Machine>
+  <Machine>
+    <MachineName>acedrive</MachineName>
+    <Description>Ace Driver: Racing Evolution (World, AD2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>adillor</MachineName>
+    <Description>Armadillo Racing (World, AM2 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>airco22b</MachineName>
+    <Description>Air Combat 22 (Japan, ACS1 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aliensec</MachineName>
+    <Description>Alien Sector</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alpinerd</MachineName>
+    <Description>Alpine Racer (World, AR2 Ver.D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alpines</MachineName>
+    <Description>Alpine Surfer (World, AF2 Ver.A, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alpinr2b</MachineName>
+    <Description>Alpine Racer 2 (World, ARS2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aquajet</MachineName>
+    <Description>Aqua Jet (World, AJ2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aquarush</MachineName>
+    <Description>Aqua Rush (Japan, AQ1/VER.A1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>assault</MachineName>
+    <Description>Assault (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bakutotu</MachineName>
+    <Description>Bakutotsu Kijuutei</Description>
+  </Machine>
+  <Machine>
+    <MachineName>berabohm</MachineName>
+    <Description>Chou Zetsurinjin Berabowman (Japan, Rev C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bkrtmaq</MachineName>
+    <Description>Bakuretsu Quiz Ma-Q Dai Bouken (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>blastoff</MachineName>
+    <Description>Blast Off (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>blazer</MachineName>
+    <Description>Blazer (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bombbee</MachineName>
+    <Description>Bomb Bee</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bosco</MachineName>
+    <Description>Bosconian - Star Destroyer (version 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>boxyboy</MachineName>
+    <Description>Boxy Boy (World, SB2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>btlecity</MachineName>
+    <Description>Vs. Battle City</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bubbletr</MachineName>
+    <Description>Bubble Trouble - Golly! Ghost! 2 (World, Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>burnforc</MachineName>
+    <Description>Burning Force (Japan, new version (Rev C))</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cgangpzl</MachineName>
+    <Description>Cosmo Gang the Puzzle (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chocovdr</MachineName>
+    <Description>Uchuu Daisakusen: Chocovader Contactee (Japan, CVC1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cosmogng</MachineName>
+    <Description>Cosmo Gang the Video (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cutieq</MachineName>
+    <Description>Cutie Q</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybrcomm</MachineName>
+    <Description>Cyber Commando (Japan, CY1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybrcycc</MachineName>
+    <Description>Cyber Cycles (World, CB2 Ver.C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>danceyes</MachineName>
+    <Description>Dancing Eyes (World, DC2/VER.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dangseed</MachineName>
+    <Description>Dangerous Seed (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>digdug</MachineName>
+    <Description>Dig Dug (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>digdug2</MachineName>
+    <Description>Dig Dug II (New Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dirtfoxj</MachineName>
+    <Description>Dirt Fox (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>drgnbstr</MachineName>
+    <Description>Dragon Buster</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dsaber</MachineName>
+    <Description>Dragon Saber (World, DO2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dspirit</MachineName>
+    <Description>Dragon Spirit (new version (DS3))</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dunkmnia</MachineName>
+    <Description>Dunk Mania (World, DM2/VER.C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>emeralda</MachineName>
+    <Description>Emeraldia (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>exvania</MachineName>
+    <Description>Exvania (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>faceoff</MachineName>
+    <Description>Face Off (Japan 2 Players)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fghtatck</MachineName>
+    <Description>Fighter &amp; Attacker (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finalap2</MachineName>
+    <Description>Final Lap 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finalap3</MachineName>
+    <Description>Final Lap 3 (World, Rev C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finalapr</MachineName>
+    <Description>Final Lap R (Rev. B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finallap</MachineName>
+    <Description>Final Lap (Rev E)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>finehour</MachineName>
+    <Description>Finest Hour (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fourtrax</MachineName>
+    <Description>Four Trax (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>funcube</MachineName>
+    <Description>Funcube (v1.5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>funcube2</MachineName>
+    <Description>Funcube 2 (v1.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>funcube3</MachineName>
+    <Description>Funcube 3 (v1.1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>funcube4</MachineName>
+    <Description>Funcube 4 (v1.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>funcube5</MachineName>
+    <Description>Funcube 5 (v1.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>galaga</MachineName>
+    <Description>Galaga (Namco rev. B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>galaga88</MachineName>
+    <Description>Galaga '88</Description>
+  </Machine>
+  <Machine>
+    <MachineName>galaxian</MachineName>
+    <Description>Galaxian (Namco set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gaplus</MachineName>
+    <Description>Gaplus (GP2 rev. B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>geebee</MachineName>
+    <Description>Gee Bee (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>genpeitd</MachineName>
+    <Description>Genpei ToumaDen</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gollygho</MachineName>
+    <Description>Golly! Ghost!</Description>
+  </Machine>
+  <Machine>
+    <MachineName>grobda</MachineName>
+    <Description>Grobda (New Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gslgr94u</MachineName>
+    <Description>Great Sluggers '94</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gslugrsj</MachineName>
+    <Description>Great Sluggers (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hopmappy</MachineName>
+    <Description>Hopping Mappy</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kaiunqz</MachineName>
+    <Description>Kaiun Quiz (Japan, KW1/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kingball</MachineName>
+    <Description>King &amp; Balloon (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knckhead</MachineName>
+    <Description>Knuckle Heads (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knpuzzle</MachineName>
+    <Description>Kotoba no Puzzle Mojipittan (Japan, KPM1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kungfur</MachineName>
+    <Description>Kung-Fu Roushi</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kyukaidk</MachineName>
+    <Description>Kyuukai Douchuuki (Japan, new version (Rev B))</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lbgrande</MachineName>
+    <Description>Libero Grande (World, LG2/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>liblrabl</MachineName>
+    <Description>Libble Rabble</Description>
+  </Machine>
+  <Machine>
+    <MachineName>luckywld</MachineName>
+    <Description>Lucky &amp; Wild</Description>
+  </Machine>
+  <Machine>
+    <MachineName>machbrkr</MachineName>
+    <Description>Mach Breakers (World, MB2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mappy</MachineName>
+    <Description>Mappy (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>marvland</MachineName>
+    <Description>Marvel Land (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>metlhawk</MachineName>
+    <Description>Metal Hawk (Rev C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>metrocrs</MachineName>
+    <Description>Metro-Cross (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mirninja</MachineName>
+    <Description>Mirai Ninja (Japan, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mmaze</MachineName>
+    <Description>Marchen Maze (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>motos</MachineName>
+    <Description>Motos</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mrdrillr</MachineName>
+    <Description>Mr. Driller (US, DRI3/VER.A2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mrdrilr2</MachineName>
+    <Description>Mr. Driller 2 (World, DR22 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mrdrilrg</MachineName>
+    <Description>Mr. Driller G (Japan, DRG1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>navarone</MachineName>
+    <Description>Navarone</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ncv1</MachineName>
+    <Description>Namco Classic Collection Vol.1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ncv2</MachineName>
+    <Description>Namco Classic Collection Vol.2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nebulray</MachineName>
+    <Description>Nebulas Ray (World, NR2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nrallyx</MachineName>
+    <Description>New Rally X</Description>
+  </Machine>
+  <Machine>
+    <MachineName>numanath</MachineName>
+    <Description>Numan Athletics (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ordyne</MachineName>
+    <Description>Ordyne (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>outfxies</MachineName>
+    <Description>The Outfoxies (World, OU2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>paccarn</MachineName>
+    <Description>Pac-Carnival</Description>
+  </Machine>
+  <Machine>
+    <MachineName>paceight</MachineName>
+    <Description>Pac-Eight</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pacland</MachineName>
+    <Description>Pac-Land (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>paclandp</MachineName>
+    <Description>Pac-Land (United Amusements PC Engine)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pacmania</MachineName>
+    <Description>Pac-Mania</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pacnpal</MachineName>
+    <Description>Pac &amp; Pal</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pacslot</MachineName>
+    <Description>Pac-Slot</Description>
+  </Machine>
+  <Machine>
+    <MachineName>panikuru</MachineName>
+    <Description>Panikuru Panekuru (Japan, PPA1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>phelios</MachineName>
+    <Description>Phelios</Description>
+  </Machine>
+  <Machine>
+    <MachineName>phozon</MachineName>
+    <Description>Phozon (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pistoldm</MachineName>
+    <Description>Pistol Daimyo no Bouken (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pocketrc</MachineName>
+    <Description>Pocket Racer (Japan, PKR1/VER.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>polepos</MachineName>
+    <Description>Pole Position (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>polepos2</MachineName>
+    <Description>Pole Position II (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>primglex</MachineName>
+    <Description>Prime Goal EX (Japan, PG1/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>propcycl</MachineName>
+    <Description>Prop Cycle (World, PR2 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ptblank</MachineName>
+    <Description>Point Blank (World, GN2 Rev B, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ptblank2</MachineName>
+    <Description>Point Blank 2 (World, GNB5/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ptblank3</MachineName>
+    <Description>Point Blank 3 (World, GNN2 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>puckman</MachineName>
+    <Description>Puck Man (Japan set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quester</MachineName>
+    <Description>Quester (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quiztou</MachineName>
+    <Description>Nettou! Gekitou! Quiztou!! (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rallyx</MachineName>
+    <Description>Rally X (32k Ver.?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>raverace</MachineName>
+    <Description>Rave Racer (World, RV2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbibb</MachineName>
+    <Description>Vs. Atari R.B.I. Baseball (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ridgera2</MachineName>
+    <Description>Ridge Racer 2 (World, RRS2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ridgerac</MachineName>
+    <Description>Ridge Racer (World, RR2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roishtar</MachineName>
+    <Description>The Return of Ishtar</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rompers</MachineName>
+    <Description>Rompers (Japan, new version (Rev B))</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rthun2</MachineName>
+    <Description>Rolling Thunder 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rthunder</MachineName>
+    <Description>Rolling Thunder (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgunner</MachineName>
+    <Description>Steel Gunner (Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgunner2</MachineName>
+    <Description>Steel Gunner 2 (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shadowld</MachineName>
+    <Description>Shadowland (YD3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skykid</MachineName>
+    <Description>Sky Kid (new version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skykiddx</MachineName>
+    <Description>Sky Kid Deluxe (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>soulclbr</MachineName>
+    <Description>Soul Calibur (Asia, SOC14/VER.C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>souledge</MachineName>
+    <Description>Soul Edge Ver. II (Asia, SO4/VER.C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>speedrcr</MachineName>
+    <Description>Speed Racer</Description>
+  </Machine>
+  <Machine>
+    <MachineName>splatter</MachineName>
+    <Description>Splatter House (World, new version (SH3))</Description>
+  </Machine>
+  <Machine>
+    <MachineName>squizchs</MachineName>
+    <Description>Seishun-Quiz Colorful High School (CHS1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starblad</MachineName>
+    <Description>Starblade (ST2, World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starlstr</MachineName>
+    <Description>Vs. Star Luster</Description>
+  </Machine>
+  <Machine>
+    <MachineName>startrgn</MachineName>
+    <Description>Star Trigon (Japan, STT1 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>superpac</MachineName>
+    <Description>Super Pac-Man</Description>
+  </Machine>
+  <Machine>
+    <MachineName>supxevs</MachineName>
+    <Description>Vs. Super Xevious</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suzuk8h2</MachineName>
+    <Description>Suzuka 8 Hours 2 (World, Rev B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>suzuka8h</MachineName>
+    <Description>Suzuka 8 Hours (World, Rev C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>swcourt</MachineName>
+    <Description>Super World Court (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws</MachineName>
+    <Description>Super World Stadium (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws92</MachineName>
+    <Description>Super World Stadium '92 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws93</MachineName>
+    <Description>Super World Stadium '93 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws95</MachineName>
+    <Description>Super World Stadium '95 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws96</MachineName>
+    <Description>Super World Stadium '96 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws97</MachineName>
+    <Description>Super World Stadium '97 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws98</MachineName>
+    <Description>Super World Stadium '98 (Japan, SS81/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sws99</MachineName>
+    <Description>Super World Stadium '99 (Japan, SS91/VER.A3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sxevious</MachineName>
+    <Description>Super Xevious</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tankbatt</MachineName>
+    <Description>Tank Battalion</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tankfrce</MachineName>
+    <Description>Tank Force (US, 2 Players)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tceptor</MachineName>
+    <Description>Thunder Ceptor</Description>
+  </Machine>
+  <Machine>
+    <MachineName>technodr</MachineName>
+    <Description>Techno Drive (Japan, TH1/VER.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tekken</MachineName>
+    <Description>Tekken (World, TE2/VER.C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tekken2</MachineName>
+    <Description>Tekken 2 Ver.B (US, TES3/VER.D)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tekken3</MachineName>
+    <Description>Tekken 3 (World, TET2/VER.E1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tekkenbs</MachineName>
+    <Description>Tekken Battle Scratch</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tekkencw</MachineName>
+    <Description>Tekken Card World</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tektagt</MachineName>
+    <Description>Tekken Tag Tournament (World, TEG2/VER.C1, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tenkomor</MachineName>
+    <Description>Tenkomori Shooting (World, TKM2/VER.A1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>timecris</MachineName>
+    <Description>Time Crisis (World, TS2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tinklpit</MachineName>
+    <Description>Tinkle Pit (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tjumpman</MachineName>
+    <Description>Tobikose! Jumpman</Description>
+  </Machine>
+  <Machine>
+    <MachineName>todruaga</MachineName>
+    <Description>The Tower of Druaga (New Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tokyowar</MachineName>
+    <Description>Tokyo Wars (World, TW2 Ver.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>toypop</MachineName>
+    <Description>Toypop</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ujlnow</MachineName>
+    <Description>Um Jammer Lammy NOW! (Japan, UL1/VER.A)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>valkyrie</MachineName>
+    <Description>Valkyrie no Densetsu (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>victlap</MachineName>
+    <Description>Ace Driver: Victory Lap (World, ADV2 Ver.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vshoot</MachineName>
+    <Description>J-League Soccer V-Shoot (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsskykid</MachineName>
+    <Description>Vs. Super SkyKid</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warpwarp</MachineName>
+    <Description>Warp &amp; Warp</Description>
+  </Machine>
+  <Machine>
+    <MachineName>winrun</MachineName>
+    <Description>Winning Run (World) (89/06/06, Ver.09)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>winrun91</MachineName>
+    <Description>Winning Run '91 (Japan) (1991/03/05, Main Ver 1.0, Sub Ver 1.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>winrungp</MachineName>
+    <Description>Winning Run Suzuka Grand Prix (Japan) (89/12/03, Ver.02)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wldcourt</MachineName>
+    <Description>Pro Tennis World Court (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wndrmomo</MachineName>
+    <Description>Wonder Momo</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ws</MachineName>
+    <Description>Pro Yakyuu World Stadium (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xday2</MachineName>
+    <Description>X-Day 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xevi3dg</MachineName>
+    <Description>Xevious 3D/G (World, XV32/VER.B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xevious</MachineName>
+    <Description>Xevious (Namco)</Description>
+  </Machine>
+</Machines>

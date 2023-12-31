@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>1941</MachineName>
+    <Description>1941: Counter Attack (World 900227)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1942</MachineName>
+    <Description>1942 (Revision B)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1943</MachineName>
+    <Description>1943: The Battle of Midway (Euro)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1943kai</MachineName>
+    <Description>1943 Kai: Midway Kaisen (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>1943mii</MachineName>
+    <Description>1943: The Battle of Midway Mark II (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>19xx</MachineName>
+    <Description>19XX: The War Against Destiny (Euro 960104)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>3wonders</MachineName>
+    <Description>Three Wonders (World 910520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>armwar</MachineName>
+    <Description>Armored Warriors (Euro 941024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avengers</MachineName>
+    <Description>Avengers (US, revision C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avsp</MachineName>
+    <Description>Alien vs. Predator (Euro 940520)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batcir</MachineName>
+    <Description>Battle Circuit (Euro 970319)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bionicc</MachineName>
+    <Description>Bionic Commando (Euro)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>blktiger</MachineName>
+    <Description>Black Tiger</Description>
+  </Machine>
+  <Machine>
+    <MachineName>block</MachineName>
+    <Description>Block Block (World 911219 Joystick)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>captcomm</MachineName>
+    <Description>Captain Commando (World 911202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cawing</MachineName>
+    <Description>Carrier Air Wing (World 901012)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cbasebal</MachineName>
+    <Description>Capcom Baseball (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000c</MachineName>
+    <Description>ZN1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh3002c</MachineName>
+    <Description>ZN2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>commando</MachineName>
+    <Description>Commando (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csclub</MachineName>
+    <Description>Capcom Sports Club (Euro 971017)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cworld</MachineName>
+    <Description>Capcom World (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cworld2j</MachineName>
+    <Description>Adventure Quiz Capcom World 2 (Japan 920611)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cybots</MachineName>
+    <Description>Cyberbots: Fullmetal Madness (Euro 950424)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddsom</MachineName>
+    <Description>Dungeons &amp; Dragons: Shadow over Mystara (Euro 960619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ddtod</MachineName>
+    <Description>Dungeons &amp; Dragons: Tower of Doom (Euro 940412)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dino</MachineName>
+    <Description>Cadillacs and Dinosaurs (World 930201)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dokaben</MachineName>
+    <Description>Dokaben (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dokaben2</MachineName>
+    <Description>Dokaben 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dstlk</MachineName>
+    <Description>Darkstalkers: The Night Warriors (Euro 940705)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynwar</MachineName>
+    <Description>Dynasty Wars (USA, B-Board 89624B-?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ecofghtr</MachineName>
+    <Description>Eco Fighters (World 931203)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>exedexes</MachineName>
+    <Description>Exed Exes</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffight</MachineName>
+    <Description>Final Fight (World, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ffreveng</MachineName>
+    <Description>Final Fight Revenge / Final Revenge (JUET 990930 V1.100)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>forgottn</MachineName>
+    <Description>Forgotten Worlds (World, newer)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ganbare</MachineName>
+    <Description>Ganbare! Marine Kun (Japan 2K0411)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ghouls</MachineName>
+    <Description>Ghouls'n Ghosts (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gng</MachineName>
+    <Description>Ghosts'n Goblins (World? set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gunsmoke</MachineName>
+    <Description>Gun.Smoke (World, 1985-11-15)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hatena</MachineName>
+    <Description>Adventure Quiz 2 - Hatena? no Daibouken (Japan 900228)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>higemaru</MachineName>
+    <Description>Pirate Ship Higemaru</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hsf2</MachineName>
+    <Description>Hyper Street Fighter II: The Anniversary Edition (USA 040202)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojo</MachineName>
+    <Description>JoJo's Venture (Euro 990128)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jojoba</MachineName>
+    <Description>JoJo's Bizarre Adventure (Euro 990927)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jyangoku</MachineName>
+    <Description>Jyangokushi: Haoh no Saihai (Japan 990527)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>knights</MachineName>
+    <Description>Knights of the Round (World 911127)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kod</MachineName>
+    <Description>The King of Dragons (World 910805)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastduel</MachineName>
+    <Description>Last Duel (US New Ver.)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>leds2011</MachineName>
+    <Description>Led Storm Rally 2011 (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lwings</MachineName>
+    <Description>Legendary Wings (US set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>madgear</MachineName>
+    <Description>Mad Gear (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mbombrd</MachineName>
+    <Description>Muscle Bomber Duo: Ultimate Team Battle (World 931206)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman</MachineName>
+    <Description>Mega Man: The Power Battle (CPS1, USA 951006)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>megaman2</MachineName>
+    <Description>Mega Man 2: The Power Fighters (USA 960708)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mercs</MachineName>
+    <Description>Mercs (World 900302)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mpumpkin</MachineName>
+    <Description>Magical Pumpkin: Puroland de Daibouken (Japan 960712)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msh</MachineName>
+    <Description>Marvel Super Heroes (Euro 951024)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mshvsf</MachineName>
+    <Description>Marvel Super Heroes Vs. Street Fighter (Euro 970625)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>msword</MachineName>
+    <Description>Magic Sword: Heroic Fantasy (World 900725)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mtwins</MachineName>
+    <Description>Mega Twins (World 900619)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mvsc</MachineName>
+    <Description>Marvel Vs. Capcom: Clash of Super Heroes (Euro 980123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nemo</MachineName>
+    <Description>Nemo (World 901130)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nwarr</MachineName>
+    <Description>Night Warriors: Darkstalkers' Revenge (Euro 950316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>plsmaswd</MachineName>
+    <Description>Plasma Sword: Nightmare of Bilstein (USA 980316)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pnickj</MachineName>
+    <Description>Pnickies (Japan 940608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pokonyan</MachineName>
+    <Description>Pokonyan! Balloon (Japan 940322)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>punisher</MachineName>
+    <Description>The Punisher (World 930422)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qad</MachineName>
+    <Description>Quiz &amp; Dragons: Capcom Quiz Game (USA 920701)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qndream</MachineName>
+    <Description>Quiz Nanairo Dreams: Nijiirochou no Kiseki (Japan 96086)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qsangoku</MachineName>
+    <Description>Quiz Sangokushi (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qtono1</MachineName>
+    <Description>Quiz Tonosama no Yabou (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qtono2j</MachineName>
+    <Description>Quiz Tonosama no Yabou 2: Zenkoku-ban (Japan 950123)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redearth</MachineName>
+    <Description>Red Earth (Euro 961121)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ringdest</MachineName>
+    <Description>Ring of Destruction: Slammasters II (Euro 940902)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rvschool</MachineName>
+    <Description>Rival Schools: United By Fate (Euro 971117)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sectionz</MachineName>
+    <Description>Section Z (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf</MachineName>
+    <Description>Street Fighter (US, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2</MachineName>
+    <Description>Street Fighter II: The World Warrior (World 910522)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2ce</MachineName>
+    <Description>Street Fighter II': Champion Edition (World 920513)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2hf</MachineName>
+    <Description>Street Fighter II': Hyper Fighting (World 921209)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa</MachineName>
+    <Description>Street Fighter Alpha: Warriors' Dreams (Euro 950727)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa2</MachineName>
+    <Description>Street Fighter Alpha 2 (Euro 960229)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfa3</MachineName>
+    <Description>Street Fighter Alpha 3 (Euro 980904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii</MachineName>
+    <Description>Street Fighter III: New Generation (Euro 970204)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii2</MachineName>
+    <Description>Street Fighter III 2nd Impact: Giant Attack (USA 970930)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfiii3</MachineName>
+    <Description>Street Fighter III 3rd Strike: Fight for the Future (Euro 990608)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfz2al</MachineName>
+    <Description>Street Fighter Zero 2 Alpha (Asia 960826)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfzch</MachineName>
+    <Description>Street Fighter Zero (CPS Changer, Japan 951020)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgemf</MachineName>
+    <Description>Super Gem Fighter Mini Mix (USA 970904)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sidearms</MachineName>
+    <Description>Side Arms - Hyper Dyne (World, 861129)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slammast</MachineName>
+    <Description>Saturday Night Slam Masters (World 930713)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>slipstrm</MachineName>
+    <Description>Slip Stream (Brazil 950515)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sonson</MachineName>
+    <Description>Son Son</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spf2t</MachineName>
+    <Description>Super Puzzle Fighter II Turbo (Euro 960529)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>srumbler</MachineName>
+    <Description>The Speed Rumbler (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2</MachineName>
+    <Description>Super Street Fighter II: The New Challengers (World 931005)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssf2t</MachineName>
+    <Description>Super Street Fighter II Turbo (World 940223)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starglad</MachineName>
+    <Description>Star Gladiator Episode I: Final Crusade (USA 960627)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>strider</MachineName>
+    <Description>Strider (USA, B-Board 89624B-2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>techromn</MachineName>
+    <Description>Tech Romancer (Euro 980914)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tigeroad</MachineName>
+    <Description>Tiger Road (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>trojan</MachineName>
+    <Description>Trojan (US set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>unsquad</MachineName>
+    <Description>U.N. Squadron (USA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>varth</MachineName>
+    <Description>Varth: Operation Thunderstorm (World 920714)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vhunt2</MachineName>
+    <Description>Vampire Hunter 2: Darkstalkers Revenge (Japan 970929)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsav</MachineName>
+    <Description>Vampire Savior: The Lord of Vampire (Euro 970519)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vsav2</MachineName>
+    <Description>Vampire Savior 2: The Lord of Vampire (Japan 970913)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vulgus</MachineName>
+    <Description>Vulgus (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>willow</MachineName>
+    <Description>Willow (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wof</MachineName>
+    <Description>Warriors of Fate (World 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wofch</MachineName>
+    <Description>Tenchi wo Kurau II: Sekiheki no Tatakai (CPS Changer, Japan 921031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmcota</MachineName>
+    <Description>X-Men: Children of the Atom (Euro 950331)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xmvsf</MachineName>
+    <Description>X-Men Vs. Street Fighter (Euro 961004)</Description>
+  </Machine>
+</Machines>

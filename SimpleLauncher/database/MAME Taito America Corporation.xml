@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>bigevglf</MachineName>
+    <Description>Big Event Golf (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cameltry</MachineName>
+    <Description>Cameltry (US, YM2610)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>changela</MachineName>
+    <Description>Change Lanes</Description>
+  </Machine>
+  <Machine>
+    <MachineName>complexx</MachineName>
+    <Description>Complex X</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dblaxle</MachineName>
+    <Description>Double Axle (US, Rev 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dleague</MachineName>
+    <Description>Dynamite League (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>elecyoyo</MachineName>
+    <Description>The Electric Yo-Yo (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>horshoes</MachineName>
+    <Description>American Horseshoes (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kram</MachineName>
+    <Description>Kram (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mlanding</MachineName>
+    <Description>Midnight Landing (Germany)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ppking</MachineName>
+    <Description>Ping-Pong King</Description>
+  </Machine>
+  <Machine>
+    <MachineName>qix</MachineName>
+    <Description>Qix (Rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sdungeon</MachineName>
+    <Description>Space Dungeon</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zookeep</MachineName>
+    <Description>Zoo Keeper (set 1)</Description>
+  </Machine>
+</Machines>

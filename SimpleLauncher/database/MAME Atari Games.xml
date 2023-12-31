@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>720</MachineName>
+    <Description>720 Degrees (rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>apb</MachineName>
+    <Description>APB - All Points Bulletin (rev 7)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>area51</MachineName>
+    <Description>Area 51 (R3000)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>area51mx</MachineName>
+    <Description>Area 51 / Maximum Force Duo v2.0</Description>
+  </Machine>
+  <Machine>
+    <MachineName>atetris</MachineName>
+    <Description>Tetris (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>badlands</MachineName>
+    <Description>Bad Lands</Description>
+  </Machine>
+  <Machine>
+    <MachineName>batman</MachineName>
+    <Description>Batman</Description>
+  </Machine>
+  <Machine>
+    <MachineName>blstroid</MachineName>
+    <Description>Blasteroids (rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>calspeed</MachineName>
+    <Description>California Speed (Version 2.1a Apr 17 1998, GUTS 1.25 Apr 17 1998 / MAIN Apr 17 1998)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>csprint</MachineName>
+    <Description>Championship Sprint (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cyberbal</MachineName>
+    <Description>Cyberball (rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>eprom</MachineName>
+    <Description>Escape from the Planet of the Robot Monsters (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>esb</MachineName>
+    <Description>The Empire Strikes Back</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gaunt2</MachineName>
+    <Description>Gauntlet II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gauntleg</MachineName>
+    <Description>Gauntlet Legends (version 1.6)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gauntlet</MachineName>
+    <Description>Gauntlet (rev 14)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>guardian</MachineName>
+    <Description>Guardians of the 'Hood</Description>
+  </Machine>
+  <Machine>
+    <MachineName>harddriv</MachineName>
+    <Description>Hard Drivin' (cockpit, rev 7)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hydra</MachineName>
+    <Description>Hydra</Description>
+  </Machine>
+  <Machine>
+    <MachineName>indytemp</MachineName>
+    <Description>Indiana Jones and the Temple of Doom (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>klax</MachineName>
+    <Description>Klax (version 6)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mace</MachineName>
+    <Description>Mace: The Dark Age (boot ROM 1.0ce, HDD 1.0b)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>marble</MachineName>
+    <Description>Marble Madness (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>maxforce</MachineName>
+    <Description>Maximum Force v1.05</Description>
+  </Machine>
+  <Machine>
+    <MachineName>motofren</MachineName>
+    <Description>Moto Frenzy</Description>
+  </Machine>
+  <Machine>
+    <MachineName>offtwall</MachineName>
+    <Description>Off the Wall (2/3-player upright)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>paperboy</MachineName>
+    <Description>Paperboy (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>peterpak</MachineName>
+    <Description>Peter Pack Rat</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pitfight</MachineName>
+    <Description>Pit Fighter (rev 9)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>primrage</MachineName>
+    <Description>Primal Rage (version 2.3, Jan 1995)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>racedriv</MachineName>
+    <Description>Race Drivin' (cockpit, rev 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rampart</MachineName>
+    <Description>Rampart (Trackball)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>relief</MachineName>
+    <Description>Relief Pitcher (Rev D, 07 Jun 1992 / 28 May 1992)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roadblst</MachineName>
+    <Description>Road Blasters (upright, rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roadburn</MachineName>
+    <Description>Road Burners (ver 1.04)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roadriot</MachineName>
+    <Description>Road Riot 4WD (set 1, 04 Dec 1991)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roadrunn</MachineName>
+    <Description>Road Runner (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2049</MachineName>
+    <Description>San Francisco Rush 2049</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sf2049se</MachineName>
+    <Description>San Francisco Rush 2049: Special Edition</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfrush</MachineName>
+    <Description>San Francisco Rush</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sfrushrk</MachineName>
+    <Description>San Francisco Rush: The Rock (boot rom L 1.0, GUTS Oct 6 1997 / MAIN Oct 16 1997)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>shuuz</MachineName>
+    <Description>Shuuz (version 8.0)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skullxbo</MachineName>
+    <Description>Skull &amp; Crossbones (rev 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spclords</MachineName>
+    <Description>Space Lords (rev C)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssprint</MachineName>
+    <Description>Super Sprint (rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>steeltal</MachineName>
+    <Description>Steel Talons (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>stunrun</MachineName>
+    <Description>S.T.U.N. Runner (rev 6)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>thunderj</MachineName>
+    <Description>ThunderJaws (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tmek</MachineName>
+    <Description>T-MEK (v5.1, The Warlords)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>toobin</MachineName>
+    <Description>Toobin' (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vaportrx</MachineName>
+    <Description>Vapor TRX (GUTS Jul 2 1998 / MAIN Jul 18 1998)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vindctr2</MachineName>
+    <Description>Vindicators Part II (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vindictr</MachineName>
+    <Description>Vindicators (rev 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warfa</MachineName>
+    <Description>War: Final Assault (EPROM 1.9 Mar 25 1999, GUTS 1.3 Apr 20 1999, GAME Apr 20 1999)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wg3dh</MachineName>
+    <Description>Wayne Gretzky's 3D Hockey (ver 1.3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xybots</MachineName>
+    <Description>Xybots (rev 2)</Description>
+  </Machine>
+</Machines>

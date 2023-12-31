@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>netmerc</MachineName>
+    <Description>Sega NetMerc</Description>
+  </Machine>
+  <Machine>
+    <MachineName>swa</MachineName>
+    <Description>Star Wars Arcade (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>swaj</MachineName>
+    <Description>Star Wars Arcade (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vf</MachineName>
+    <Description>Virtua Fighter</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vformula</MachineName>
+    <Description>Virtua Formula</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vr</MachineName>
+    <Description>Virtua Racing</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wingwar</MachineName>
+    <Description>Wing War (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wingwar360</MachineName>
+    <Description>Wing War R360 (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wingwarj</MachineName>
+    <Description>Wing War (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>wingwaru</MachineName>
+    <Description>Wing War (US)</Description>
+  </Machine>
+</Machines>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>a2600</MachineName>
+    <Description>Atari 2600 (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>a400</MachineName>
+    <Description>Atari 400 (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>a5200</MachineName>
+    <Description>Atari 5200</Description>
+  </Machine>
+  <Machine>
+    <MachineName>a7800</MachineName>
+    <Description>Atari 7800 (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>a800</MachineName>
+    <Description>Atari 800 (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>a800xl</MachineName>
+    <Description>Atari 800XL (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>abaseb</MachineName>
+    <Description>Atari Baseball (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>astdelux</MachineName>
+    <Description>Asteroids Deluxe (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>asteroid</MachineName>
+    <Description>Asteroids (rev 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>atarifb</MachineName>
+    <Description>Atari Football (revision 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>avalnche</MachineName>
+    <Description>Avalanche</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bradley</MachineName>
+    <Description>Bradley Trainer</Description>
+  </Machine>
+  <Machine>
+    <MachineName>breakout</MachineName>
+    <Description>Breakout [TTL]</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bsktball</MachineName>
+    <Description>Atari Basketball</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bwidow</MachineName>
+    <Description>Black Widow</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bzone</MachineName>
+    <Description>Battle Zone (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>canyon</MachineName>
+    <Description>Canyon Bomber</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ccastles</MachineName>
+    <Description>Crystal Castles (version 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>centiped</MachineName>
+    <Description>Centipede (revision 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cloak</MachineName>
+    <Description>Cloak &amp; Dagger (rev 5)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>coh1000w</MachineName>
+    <Description>Atari PSX</Description>
+  </Machine>
+  <Machine>
+    <MachineName>copsnrob</MachineName>
+    <Description>Cops'n Robbers</Description>
+  </Machine>
+  <Machine>
+    <MachineName>destroyr</MachineName>
+    <Description>Destroyer (version O2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dominos</MachineName>
+    <Description>Dominos</Description>
+  </Machine>
+  <Machine>
+    <MachineName>firefox</MachineName>
+    <Description>Fire Fox (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>firetrk</MachineName>
+    <Description>Fire Truck / Smokey Joe (PROM version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>flyball</MachineName>
+    <Description>Flyball (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gravitar</MachineName>
+    <Description>Gravitar (version 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hercules</MachineName>
+    <Description>Hercules</Description>
+  </Machine>
+  <Machine>
+    <MachineName>irobot</MachineName>
+    <Description>I, Robot</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jedi</MachineName>
+    <Description>Return of the Jedi</Description>
+  </Machine>
+  <Machine>
+    <MachineName>liberatr</MachineName>
+    <Description>Liberator (version 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>llander</MachineName>
+    <Description>Lunar Lander (rev 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lynx</MachineName>
+    <Description>Lynx</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mhavoc</MachineName>
+    <Description>Major Havoc (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>milliped</MachineName>
+    <Description>Millipede</Description>
+  </Machine>
+  <Machine>
+    <MachineName>missile</MachineName>
+    <Description>Missile Command (rev 3)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>montecar</MachineName>
+    <Description>Monte Carlo</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nitedrvr</MachineName>
+    <Description>Night Driver</Description>
+  </Machine>
+  <Machine>
+    <MachineName>orbit</MachineName>
+    <Description>Orbit</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pofo</MachineName>
+    <Description>Portfolio</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pong</MachineName>
+    <Description>Pong (Rev E) [TTL]</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pongd</MachineName>
+    <Description>Pong Doubles [TTL]</Description>
+  </Machine>
+  <Machine>
+    <MachineName>poolshrk</MachineName>
+    <Description>Poolshark</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rebound</MachineName>
+    <Description>Rebound (Rev B) [TTL]</Description>
+  </Machine>
+  <Machine>
+    <MachineName>redbaron</MachineName>
+    <Description>Red Baron (revised hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roadrunr</MachineName>
+    <Description>Road Runner</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sbrkout</MachineName>
+    <Description>Super Breakout (rev 04)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skydiver</MachineName>
+    <Description>Sky Diver</Description>
+  </Machine>
+  <Machine>
+    <MachineName>skyraid</MachineName>
+    <Description>Sky Raider</Description>
+  </Machine>
+  <Machine>
+    <MachineName>soccer</MachineName>
+    <Description>Atari Soccer</Description>
+  </Machine>
+  <Machine>
+    <MachineName>solarwar</MachineName>
+    <Description>Solar War</Description>
+  </Machine>
+  <Machine>
+    <MachineName>spacduel</MachineName>
+    <Description>Space Duel (version 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sprint4</MachineName>
+    <Description>Sprint 4 (Rev 03)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sprint8</MachineName>
+    <Description>Sprint 8</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starshp1</MachineName>
+    <Description>Starship 1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>starwars</MachineName>
+    <Description>Star Wars (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>subs</MachineName>
+    <Description>Subs</Description>
+  </Machine>
+  <Machine>
+    <MachineName>supermap</MachineName>
+    <Description>Superman (Pinball)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tempest</MachineName>
+    <Description>Tempest (rev 3, Revised Hardware)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>touchme</MachineName>
+    <Description>Touch Me (handheld, Rev. 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tourtabl</MachineName>
+    <Description>Tournament Table (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>triplhnt</MachineName>
+    <Description>Triple Hunt</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tunhunt</MachineName>
+    <Description>Tunnel Hunt</Description>
+  </Machine>
+  <Machine>
+    <MachineName>videopin</MachineName>
+    <Description>Video Pinball (16 PROMs version)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>warlords</MachineName>
+    <Description>Warlords</Description>
+  </Machine>
+  <Machine>
+    <MachineName>xegs</MachineName>
+    <Description>Atari XE Game System</Description>
+  </Machine>
+</Machines>

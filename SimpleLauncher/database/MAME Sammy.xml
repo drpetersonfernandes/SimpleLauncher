@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>animalc</MachineName>
+    <Description>Animal Catch</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cairblad</MachineName>
+    <Description>Change Air Blade (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>dynagear</MachineName>
+    <Description>Dyna Gear</Description>
+  </Machine>
+  <Machine>
+    <MachineName>eaglshot</MachineName>
+    <Description>Eagle Shot Golf (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gocowboy</MachineName>
+    <Description>Go Go Cowboy (English, prize)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>haekaka</MachineName>
+    <Description>Hae Hae Ka Ka Ka</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hypreac2</MachineName>
+    <Description>Mahjong Hyper Reaction 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hypreact</MachineName>
+    <Description>Mahjong Hyper Reaction (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>itazuram</MachineName>
+    <Description>Itazura Monkey</Description>
+  </Machine>
+  <Machine>
+    <MachineName>meosism</MachineName>
+    <Description>Meosis Magic (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pyenaget</MachineName>
+    <Description>Pye-nage Taikai</Description>
+  </Machine>
+  <Machine>
+    <MachineName>survarts</MachineName>
+    <Description>Survival Arts (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sxyreac2</MachineName>
+    <Description>Pachinko Sexy Reaction 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sxyreact</MachineName>
+    <Description>Pachinko Sexy Reaction (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tdoboon</MachineName>
+    <Description>Taihou de Doboon</Description>
+  </Machine>
+</Machines>

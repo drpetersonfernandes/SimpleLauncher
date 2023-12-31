@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Machines>
+  <Machine>
+    <MachineName>3countb</MachineName>
+    <Description>3 Count Bout / Fire Suplex (NGM-043 ~ NGH-043)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aes</MachineName>
+    <Description>Neo-Geo AES (NTSC)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>alpham2</MachineName>
+    <Description>Alpha Mission II / ASO II - Last Guardian (NGM-007 ~ NGH-007)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aof</MachineName>
+    <Description>Art of Fighting / Ryuuko no Ken (NGM-044 ~ NGH-044)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aof2</MachineName>
+    <Description>Art of Fighting 2 / Ryuuko no Ken 2 (NGM-056)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aof3</MachineName>
+    <Description>Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden</Description>
+  </Machine>
+  <Machine>
+    <MachineName>aso</MachineName>
+    <Description>ASO - Armored Scrum Object</Description>
+  </Machine>
+  <Machine>
+    <MachineName>athena</MachineName>
+    <Description>Athena</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bbusters</MachineName>
+    <Description>Beast Busters (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bermudat</MachineName>
+    <Description>Bermuda Triangle (World?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bstars</MachineName>
+    <Description>Baseball Stars Professional (NGM-002)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>bstars2</MachineName>
+    <Description>Baseball Stars 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>burningf</MachineName>
+    <Description>Burning Fight (NGM-018 ~ NGH-018)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>canvas</MachineName>
+    <Description>Canvas Croquis</Description>
+  </Machine>
+  <Machine>
+    <MachineName>chopper</MachineName>
+    <Description>Chopper I (US Ver 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>countryc</MachineName>
+    <Description>Country Club</Description>
+  </Machine>
+  <Machine>
+    <MachineName>cyberlip</MachineName>
+    <Description>Cyber-Lip (NGM-010)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fatfursp</MachineName>
+    <Description>Fatal Fury Special / Garou Densetsu Special (NGM-058 ~ NGH-058, set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fatfury1</MachineName>
+    <Description>Fatal Fury - King of Fighters / Garou Densetsu - Shukumei no Tatakai (NGM-033 ~ NGH-033)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fatfury2</MachineName>
+    <Description>Fatal Fury 2 / Garou Densetsu 2 - Arata-naru Tatakai (NGM-047 ~ NGH-047)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fatfury3</MachineName>
+    <Description>Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - Haruka-naru Tatakai (NGM-069 ~ NGH-069)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fbfrenzy</MachineName>
+    <Description>Football Frenzy (NGM-034 ~ NGH-034)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fitegolf</MachineName>
+    <Description>Lee Trevino's Fighting Golf (World?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>fsoccer</MachineName>
+    <Description>Fighting Soccer (version 4)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>garou</MachineName>
+    <Description>Garou - Mark of the Wolves (NGM-2530)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>goldmedl</MachineName>
+    <Description>Gold Medalist (set 1, Alpha68k II PCB)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gpilots</MachineName>
+    <Description>Ghost Pilots (NGM-020 ~ NGH-020)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>gwar</MachineName>
+    <Description>Guerrilla War (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>hal21</MachineName>
+    <Description>HAL21</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ikari</MachineName>
+    <Description>Ikari Warriors (US JAMMA)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ikari3</MachineName>
+    <Description>Ikari III - The Rescue (World version 1, 8-Way Joystick)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jcross</MachineName>
+    <Description>Jumping Cross (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jongbou</MachineName>
+    <Description>Mahjong Block Jongbou (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>jongbou2</MachineName>
+    <Description>Mahjong Block Jongbou 2 (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>joyfulr</MachineName>
+    <Description>Joyful Road (Japan)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>joyjoy</MachineName>
+    <Description>Puzzled / Joy Joy Kid (NGM-021 ~ NGH-021)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kizuna</MachineName>
+    <Description>Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof2000</MachineName>
+    <Description>The King of Fighters 2000 (NGM-2570 ~ NGH-2570)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof94</MachineName>
+    <Description>The King of Fighters '94 (NGM-055 ~ NGH-055)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof95</MachineName>
+    <Description>The King of Fighters '95 (NGM-084)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof96</MachineName>
+    <Description>The King of Fighters '96 (NGM-214)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof97</MachineName>
+    <Description>The King of Fighters '97 (NGM-2320)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof98</MachineName>
+    <Description>The King of Fighters '98 - The Slugfest / King of Fighters '98 - Dream Match Never Ends (NGM-2420)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kof99</MachineName>
+    <Description>The King of Fighters '99 - Millennium Battle (NGM-2510)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kotm</MachineName>
+    <Description>King of the Monsters (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>kotm2</MachineName>
+    <Description>King of the Monsters 2 - The Next Thing (NGM-039 ~ NGH-039)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lasso</MachineName>
+    <Description>Lasso</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastblad</MachineName>
+    <Description>The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGM-2340)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lastbld2</MachineName>
+    <Description>The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (NGM-2430 ~ NGH-2430)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lbowling</MachineName>
+    <Description>League Bowling (NGM-019 ~ NGH-019)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>lresort</MachineName>
+    <Description>Last Resort</Description>
+  </Machine>
+  <Machine>
+    <MachineName>madcrash</MachineName>
+    <Description>Mad Crasher</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mahretsu</MachineName>
+    <Description>Mahjong Kyo Retsuden (NGM-004 ~ NGH-004)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mainsnk</MachineName>
+    <Description>Main Event (1984)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>marvins</MachineName>
+    <Description>Marvin's Maze</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mechatt</MachineName>
+    <Description>Mechanized Attack (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>meijinsn</MachineName>
+    <Description>Meijinsen (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>micon2</MachineName>
+    <Description>Micon-Kit Part II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mslug2</MachineName>
+    <Description>Metal Slug 2 - Super Vehicle-001/II (NGM-2410 ~ NGH-2410)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mslug3</MachineName>
+    <Description>Metal Slug 3 (NGM-2560)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mslugx</MachineName>
+    <Description>Metal Slug X - Super Vehicle-001 (NGM-2500 ~ NGH-2500)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>mutnat</MachineName>
+    <Description>Mutation Nation (NGM-014 ~ NGH-014)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>nam1975</MachineName>
+    <Description>NAM-1975 (NGM-001 ~ NGH-001)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>neocdz</MachineName>
+    <Description>Neo-Geo CDZ (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>neocup98</MachineName>
+    <Description>Neo-Geo Cup '98 - The Road to the Victory</Description>
+  </Machine>
+  <Machine>
+    <MachineName>neogeo</MachineName>
+    <Description>Neo-Geo MV-6F</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ng_mv1</MachineName>
+    <Description>Neo-Geo MV-1</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ng_mv2f</MachineName>
+    <Description>Neo-Geo MV-2F</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ng_mv4f</MachineName>
+    <Description>Neo-Geo MV-4F</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ngp</MachineName>
+    <Description>NeoGeo Pocket</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ozmawars</MachineName>
+    <Description>Ozma Wars (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>paddlema</MachineName>
+    <Description>Paddle Mania</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pballoon</MachineName>
+    <Description>Pioneer Balloon</Description>
+  </Machine>
+  <Machine>
+    <MachineName>pow</MachineName>
+    <Description>P.O.W. - Prisoners of War (US version 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>prehisle</MachineName>
+    <Description>Prehistoric Isle in 1930 (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>psychos</MachineName>
+    <Description>Psycho Soldier (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quizdai2</MachineName>
+    <Description>Quiz Meitantei Neo &amp; Geo - Quiz Daisousa Sen part 2 (NGM-042 ~ NGH-042)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>quizdais</MachineName>
+    <Description>Quiz Daisousa Sen - The Last Count Down (NGM-023 ~ NGH-023)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbff1</MachineName>
+    <Description>Real Bout Fatal Fury / Real Bout Garou Densetsu (NGM-095 ~ NGH-095)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbff2</MachineName>
+    <Description>Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - The Newcomers (NGM-2400)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>rbffspec</MachineName>
+    <Description>Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ridhero</MachineName>
+    <Description>Riding Hero (NGM-006 ~ NGH-006)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>roboarmy</MachineName>
+    <Description>Robo Army</Description>
+  </Machine>
+  <Machine>
+    <MachineName>samsho</MachineName>
+    <Description>Samurai Shodown / Samurai Spirits (NGM-045)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>samsho2</MachineName>
+    <Description>Samurai Shodown II / Shin Samurai Spirits - Haohmaru Jigokuhen (NGM-063 ~ NGH-063)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>samsho3</MachineName>
+    <Description>Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGM-087)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>samsho4</MachineName>
+    <Description>Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (NGM-222 ~ NGH-222)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sasuke</MachineName>
+    <Description>Sasuke vs. Commander</Description>
+  </Machine>
+  <Machine>
+    <MachineName>satansat</MachineName>
+    <Description>Satan of Saturn (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>savagere</MachineName>
+    <Description>Savage Reign / Fu'un Mokushiroku - Kakutou Sousei</Description>
+  </Machine>
+  <Machine>
+    <MachineName>searchar</MachineName>
+    <Description>SAR - Search And Rescue (World)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sengoku</MachineName>
+    <Description>Sengoku / Sengoku Denshou (NGM-017 ~ NGH-017)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sengoku2</MachineName>
+    <Description>Sengoku 2 / Sengoku Denshou 2</Description>
+  </Machine>
+  <Machine>
+    <MachineName>sgladiat</MachineName>
+    <Description>Gladiator 1984</Description>
+  </Machine>
+  <Machine>
+    <MachineName>smiconk</MachineName>
+    <Description>Space Micon Kit</Description>
+  </Machine>
+  <Machine>
+    <MachineName>socbrawl</MachineName>
+    <Description>Soccer Brawl (NGM-031)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssideki</MachineName>
+    <Description>Super Sidekicks / Tokuten Ou</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssideki2</MachineName>
+    <Description>Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - Real Fight Football (NGM-061 ~ NGH-061)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssideki3</MachineName>
+    <Description>Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - Eikou e no Chousen</Description>
+  </Machine>
+  <Machine>
+    <MachineName>ssideki4</MachineName>
+    <Description>The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero</Description>
+  </Machine>
+  <Machine>
+    <MachineName>streetsm</MachineName>
+    <Description>Street Smart (US version 2)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>superspy</MachineName>
+    <Description>The Super Spy (NGM-011 ~ NGH-011)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tdfever</MachineName>
+    <Description>TouchDown Fever (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tnextspc</MachineName>
+    <Description>The Next Space (set 1)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tnk3</MachineName>
+    <Description>T.N.K III (US)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tophuntr</MachineName>
+    <Description>Top Hunter - Roddy &amp; Cathy (NGM-046)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>tpgolf</MachineName>
+    <Description>Top Player's Golf (NGM-003 ~ NGH-003)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vangrd2</MachineName>
+    <Description>Vanguard II</Description>
+  </Machine>
+  <Machine>
+    <MachineName>vanguard</MachineName>
+    <Description>Vanguard (SNK)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>victroad</MachineName>
+    <Description>Victory Road</Description>
+  </Machine>
+  <Machine>
+    <MachineName>worldwar</MachineName>
+    <Description>World Wars (World?)</Description>
+  </Machine>
+  <Machine>
+    <MachineName>zupapa</MachineName>
+    <Description>Zupapa!</Description>
+  </Machine>
+</Machines>
