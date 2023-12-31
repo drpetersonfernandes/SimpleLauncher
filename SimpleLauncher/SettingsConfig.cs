@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-
+using System.Globalization;
 
 namespace SimpleLauncher
 {
@@ -34,7 +34,7 @@ namespace SimpleLauncher
             }
 
             XElement settings = XElement.Load(_filePath);
-            ThumbnailSize = int.Parse(settings.Element("ThumbnailSize").Value);
+            ThumbnailSize = int.Parse(settings.Element("ThumbnailSize").Value, CultureInfo.InvariantCulture);
             HideGamesWithNoCover = bool.Parse(settings.Element("HideGamesWithNoCover").Value);
             EnableGamePadNavigation = bool.Parse(settings.Element("EnableGamePadNavigation").Value);
         }

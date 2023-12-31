@@ -240,7 +240,7 @@ namespace SimpleLauncher
 
         public void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.3", "About");
+            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.4", "About");
         }
 
         public void Exit_Click(object sender, RoutedEventArgs e)

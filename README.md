@@ -17,6 +17,7 @@ The format of the "system.xml" file is as follows:
     <SystemConfig>
         <SystemName>Amstrad CPC GX4000</SystemName>
         <SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
+        <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7zip</FormatToSearch>
@@ -43,6 +44,7 @@ The "system.xml" contains the following fields:
 
 - **SystemName**: Name of the system.
 - **SystemFolder**: Folder where the ROMs or games are located.
+- **SystemIsMAME**: Notify the program whether the system is based on MAME or not. If true, the application will load the ROM descriptions alongside the ROM filenames.
 - **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
 - **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
 - **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
