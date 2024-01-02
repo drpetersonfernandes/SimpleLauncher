@@ -143,10 +143,15 @@ namespace SimpleLauncher
             if (string.IsNullOrEmpty(systemName))
                 return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no system is selected.
 
-            string imagePath = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.png");
+            // First, try to find a PNG image.
+            string imagePathPng = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.png");
+            if (File.Exists(imagePathPng))
+                return imagePathPng;
 
-            if (File.Exists(imagePath))
-                return imagePath;
+            // If a PNG isn't found, try to find a JPG image.
+            string imagePathJpg = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.jpg");
+            if (File.Exists(imagePathJpg))
+                return imagePathJpg;
 
             return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
         }
