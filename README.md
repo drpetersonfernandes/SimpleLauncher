@@ -8,6 +8,8 @@ This program reads a file called "system.xml" located inside the program folder.
 
 Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game. Each cell of the grid displays a game cover, its name, a YouTube link, and an info link.
 
+![Screenshot](screenshot2.png)
+
 The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png". You can find cover images on the website https://github.com/libretro-thumbnails/libretro-thumbnails, with which I'm not affiliated.
 
 The format of the "system.xml" file is as follows:
@@ -51,8 +53,6 @@ The "system.xml" contains the following fields:
 - **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
 - **EmulatorLocation**: Location of the emulator.
 - **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
-
-![Screenshot](screenshot2.png)
 
 The program also reads the file "settings.xml", which contains the user's preferences. The format of this file is as follows:
 
