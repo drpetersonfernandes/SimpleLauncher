@@ -10,6 +10,8 @@ Based on the selected system, the application opens the system directory and the
 
 The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
 
+You can find cover images on the website https://github.com/libretro-thumbnails/libretro-thumbnails, with which I'm not affiliated.
+
 The format of the "system.xml" file is as follows:
 
 ```xml
@@ -52,6 +54,8 @@ The "system.xml" contains the following fields:
 - **EmulatorLocation**: Location of the emulator.
 - **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
 
+![Screenshot](screenshot2.png)
+
 The program also reads the file "settings.xml", which contains the user's preferences. The format of this file is as follows:
 
 ```xml
@@ -67,6 +71,8 @@ The "settings.xml" contains the following fields:
 - **ThumbnailSize**: Height of the thumbnail.
 - **HideGamesWithNoCover**: Whether to hide games without a cover.
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
+
+![Screenshot](screenshot3.png)
 
 This program is Windows-only and has been tested on Windows 11.
 
