@@ -37,6 +37,21 @@
 				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800 -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800_cass</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800_cass -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800_flop</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800_flop -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
