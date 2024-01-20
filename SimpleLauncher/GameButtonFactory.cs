@@ -157,7 +157,6 @@ namespace SimpleLauncher
             return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no specific image exists.
         }
 
-
         private void PlayClickSound()
         {
             try

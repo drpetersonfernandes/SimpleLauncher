@@ -28,6 +28,12 @@
     <IsPublishable>False</IsPublishable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="images\logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\logo2.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Content Include="mame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -47,9 +53,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="images\logo.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </None>
-    <None Update="images\logo2.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </None>
   </ItemGroup>

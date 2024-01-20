@@ -13,18 +13,13 @@ namespace SimpleLauncher
         // Instance variables
         private GamePadController _inputControl;
         readonly private List<SystemConfig> _systemConfigs;
-        private readonly LoadFiles _loadFiles = new();
+        //private readonly LoadFiles _loadFiles = new();
         readonly private LetterNumberMenu _LetterNumberMenu = new();
         readonly private WrapPanel _gameFileGrid;
         private GameButtonFactory _gameButtonFactory;
         private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
         public List<MameConfig> _machines;
-
-        //// Menu Item Constants
-        //private const bool DefaultHideGamesWithNoCover = false;
-        //private const bool DefaultEnableGamePadNavigation = true;
-        //private const int DefaultThumbnailSize = 350;
 
         public MainWindow()
         {
@@ -34,8 +29,20 @@ namespace SimpleLauncher
             string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
             _machines = MameConfig.LoadFromXml(xmlPath);
 
-            // Load settings
+            // Load settings.xml
             _settings = new AppSettings("settings.xml");
+
+            // Load system.xml
+            try
+            {
+                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+                _systemConfigs = SystemConfig.LoadSystemConfigs(path);
+                SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex, "Error while loading system configurations");
+            }
 
             // Apply settings to your application
             HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
@@ -54,18 +61,6 @@ namespace SimpleLauncher
             // Initialize _gameFileGrid
             _gameFileGrid = this.FindName("gameFileGrid") as WrapPanel;
 
-            // Load system.xml and Populate the SystemComboBox
-            try
-            {
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
-                _systemConfigs = SystemConfig.LoadSystemConfigs(path);
-                SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
-            }
-            catch (Exception ex)
-            {
-                HandleError(ex, "Error while loading system configurations");
-            }
-
             // Create and integrate LetterNumberMenu
             _LetterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
@@ -75,9 +70,6 @@ namespace SimpleLauncher
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
             Grid.SetRow(_LetterNumberMenu.LetterPanel, 1);
             ((Grid)this.Content).Children.Add(_LetterNumberMenu.LetterPanel);
-
-            //// Simulate a click on the "A" button
-            //_LetterNumberMenu.SimulateClick("A");
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -90,7 +82,6 @@ namespace SimpleLauncher
 
             // Check for updates
             Loaded += async (sender, e) => await UpdateChecker.CheckForUpdatesAsync(this);
-
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -179,7 +170,7 @@ namespace SimpleLauncher
                 // Extract the file extensions from the selected system configuration
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
 
-                List<string> allFiles = await _loadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+                List<string> allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
 
                 allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
@@ -236,11 +227,47 @@ namespace SimpleLauncher
             await LogErrors.LogErrorAsync(ex, message);
         }
 
+        private async void RefreshGameButtons()
+        {
+            // Clear existing buttons
+            _gameFileGrid.Children.Clear();
+
+            // Initialize _gameButtonFactory with default values
+            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+
+            // Recreate the buttons with the new image height
+            foreach (var filePath in _currentGameFilePaths)
+            {
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == SystemComboBox.SelectedItem.ToString());
+                if (selectedConfig != null)
+                {
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                    _gameFileGrid.Children.Add(gameButton);
+                }
+            }
+        }
+
+        private void UpdateMenuCheckMarks(int selectedSize)
+        {
+            Size100.IsChecked = (selectedSize == 100);
+            Size150.IsChecked = (selectedSize == 150);
+            Size200.IsChecked = (selectedSize == 200);
+            Size250.IsChecked = (selectedSize == 250);
+            Size300.IsChecked = (selectedSize == 300);
+            Size350.IsChecked = (selectedSize == 350);
+            Size400.IsChecked = (selectedSize == 400);
+            Size450.IsChecked = (selectedSize == 450);
+            Size500.IsChecked = (selectedSize == 500);
+            Size550.IsChecked = (selectedSize == 550);
+            Size600.IsChecked = (selectedSize == 600);
+        }
+
         #region Menu Items
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("SimpleLauncher\n\nAn open source emulator frontend\n\nVersion 2.4.0.0", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            About aboutWindow = new();
+            aboutWindow.ShowDialog();
         }
 
         public void Exit_Click(object sender, RoutedEventArgs e)
@@ -324,41 +351,6 @@ namespace SimpleLauncher
         }
 
         #endregion
-
-        private async void RefreshGameButtons()
-        {
-            // Clear existing buttons
-            _gameFileGrid.Children.Clear();
-
-            // Initialize _gameButtonFactory with default values
-            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
-
-            // Recreate the buttons with the new image height
-            foreach (var filePath in _currentGameFilePaths)
-            {
-                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == SystemComboBox.SelectedItem.ToString());
-                if (selectedConfig != null)
-                {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-                    _gameFileGrid.Children.Add(gameButton);
-                }
-            }
-        }
-
-        private void UpdateMenuCheckMarks(int selectedSize)
-        {
-            Size100.IsChecked = (selectedSize == 100);
-            Size150.IsChecked = (selectedSize == 150);
-            Size200.IsChecked = (selectedSize == 200);
-            Size250.IsChecked = (selectedSize == 250);
-            Size300.IsChecked = (selectedSize == 300);
-            Size350.IsChecked = (selectedSize == 350);
-            Size400.IsChecked = (selectedSize == 400);
-            Size450.IsChecked = (selectedSize == 450);
-            Size500.IsChecked = (selectedSize == 500);
-            Size550.IsChecked = (selectedSize == 550);
-            Size600.IsChecked = (selectedSize == 600);
-        }
 
     }
 }

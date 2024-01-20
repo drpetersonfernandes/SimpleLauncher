@@ -9,7 +9,7 @@ namespace SimpleLauncher
 {
     public class LoadFiles
     {
-        public async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
+        public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {
             return await Task.Run(() =>
             {
@@ -51,7 +51,7 @@ namespace SimpleLauncher
             }
         }
 
-        public async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
+        public static async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
         {
             // Load all system configs
             var allConfigs = SystemConfig.LoadSystemConfigs("system.xml"); // Assuming your XML path
@@ -89,8 +89,6 @@ namespace SimpleLauncher
                 return 0; // Or handle this scenario as appropriate for your application
             }
         }
-
-
 
     }
 }
