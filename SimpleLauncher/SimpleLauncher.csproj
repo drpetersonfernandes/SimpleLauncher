@@ -46,6 +46,12 @@
     <None Update="images\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="images\logo.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </None>
+    <None Update="images\logo2.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="audio\click.mp3">
