@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Xml.Linq;
-using System.IO;
 
 namespace SimpleLauncher
 {
@@ -23,10 +21,10 @@ namespace SimpleLauncher
         private readonly AppSettings _settings;
         public List<MameConfig> _machines;
 
-        // Menu Item Constants
-        private const bool DefaultHideGamesWithNoCover = false;
-        private const bool DefaultEnableGamePadNavigation = true;
-        private const int DefaultThumbnailSize = 350;
+        //// Menu Item Constants
+        //private const bool DefaultHideGamesWithNoCover = false;
+        //private const bool DefaultEnableGamePadNavigation = true;
+        //private const int DefaultThumbnailSize = 350;
 
         public MainWindow()
         {
@@ -89,6 +87,9 @@ namespace SimpleLauncher
             {
                 AddNoSystemMessage();
             }
+
+            // Check for updates
+            Loaded += async (sender, e) => await UpdateChecker.CheckForUpdatesAsync(this);
 
         }
 
@@ -237,9 +238,9 @@ namespace SimpleLauncher
 
         #region Menu Items
 
-        public void About_Click(object sender, RoutedEventArgs e)
+        private void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Simple Launcher.\nAn Open Source Emulator Launcher.\nVersion 2.4", "About");
+            MessageBox.Show("SimpleLauncher\n\nAn open source emulator frontend\n\nVersion 2.4.0.0", "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void Exit_Click(object sender, RoutedEventArgs e)
