@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="About"
     Width="400"
-    Height="350"
+    Height="390"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner">
     
@@ -31,10 +31,16 @@
 
         <StackPanel Grid.Row="1" Margin="10">
             <TextBlock Text="Find Duplicates" FontWeight="Bold" />
+            <TextBlock Text="An open source emulator frontend" />
             <TextBlock Margin="0,10,0,0" Text="{Binding ApplicationVersion}" />
+            <TextBlock Margin="0,10,0,0" >
+                <Hyperlink NavigateUri="https://purelogiccode.com" RequestNavigate="Hyperlink_RequestNavigate">
+                    https://purelogiccode.com
+                </Hyperlink>
+            </TextBlock>
             <TextBlock Margin="0,10,0,10" >
-                <Hyperlink NavigateUri="https://www.purelogiccode.com" RequestNavigate="Hyperlink_RequestNavigate">
-                    https://www.purelogiccode.com
+                <Hyperlink NavigateUri="https://github.com/drpetersonfernandes/SimpleLauncher" RequestNavigate="Hyperlink_RequestNavigate">
+                    https://github.com/drpetersonfernandes/SimpleLauncher
                 </Hyperlink>
             </TextBlock>
         </StackPanel>
