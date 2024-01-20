@@ -8,7 +8,9 @@ This program reads a file called "system.xml" located inside the program folder.
 
 Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game. Each cell of the grid displays a game cover, its name, a YouTube link, and an info link.
 
-The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
+![Screenshot](screenshot2.png)
+
+The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png". You can find cover images on the website https://github.com/libretro-thumbnails/libretro-thumbnails, with which I'm not affiliated.
 
 The format of the "system.xml" file is as follows:
 
@@ -67,6 +69,8 @@ The "settings.xml" contains the following fields:
 - **ThumbnailSize**: Height of the thumbnail.
 - **HideGamesWithNoCover**: Whether to hide games without a cover.
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
+
+![Screenshot](screenshot3.png)
 
 This program is Windows-only and has been tested on Windows 11.
 

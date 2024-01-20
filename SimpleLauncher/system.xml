@@ -13,9 +13,9 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\cap32_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorName>MAME gx4000</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>gx4000 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -36,6 +36,21 @@
 				<EmulatorName>Altirra</EmulatorName>
 				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800 -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800_cass</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800_cass -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME a800_flop</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>a800_flop -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -248,7 +263,7 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
+				<EmulatorName>MAME pv1000</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>pv1000 -cart</EmulatorParameters>
 			</Emulator>
@@ -272,6 +287,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\gearcoleco_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME coleco</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>coleco -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -292,6 +312,26 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\vice_x64_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME c64_cart</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>c64_cart -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME c64_cass</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>c64_cass -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME c64_flop_misc</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>c64_flop_misc -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME c64_flop_orig</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>c64_flop_orig -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -311,6 +351,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\puae_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME cd32</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>cd32 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -942,13 +987,23 @@
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
 			<FormatToLaunch>caq</FormatToLaunch>
 			<FormatToLaunch>rom</FormatToLaunch>
 			<FormatToLaunch>bin</FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME aquarius_cart</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>aquarius_cart -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME aquarius_cass</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>aquarius_cass -cart</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>AquaLite</EmulatorName>
 				<EmulatorLocation>G:\Emulators\AquaLite\AquaLite.exe</EmulatorLocation>
@@ -973,6 +1028,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\freeintv_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME intv</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>intv -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1581,6 +1641,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\same_cdi_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME cdi</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>cdi -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -1761,6 +1826,16 @@
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
+				<EmulatorName>MAME sc3000_cart</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>sc3000_cart -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME sc3000_cass</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>sc3000_cass -cart</EmulatorParameters>
+			</Emulator>
+			<Emulator>
 				<EmulatorName>Retroarch MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
@@ -1790,6 +1865,11 @@
 			<FormatToLaunch></FormatToLaunch>
 		</FileFormatsToLaunch>
 		<Emulators>
+			<Emulator>
+				<EmulatorName>MAME sg1000</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>sg1000 -cart</EmulatorParameters>
+			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
@@ -1845,6 +1925,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\neocd_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME neocd</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>neocd -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -1865,6 +1950,11 @@
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME ngp</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>ngp -cart</EmulatorParameters>
+			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -1884,6 +1974,11 @@
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
 				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME ngpc</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>ngpc -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>

@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using System.IO;
 
-
 namespace SimpleLauncher
 {
     public partial class MainWindow : Window
