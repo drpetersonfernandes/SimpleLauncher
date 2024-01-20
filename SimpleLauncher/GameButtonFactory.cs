@@ -143,18 +143,20 @@ namespace SimpleLauncher
             if (string.IsNullOrEmpty(systemName))
                 return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no system is selected.
 
-            // First, try to find a PNG image.
-            string imagePathPng = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.png");
-            if (File.Exists(imagePathPng))
-                return imagePathPng;
+            // Extensions to check
+            string[] extensions = [".png", ".jpg", ".jpeg"];
 
-            // If a PNG isn't found, try to find a JPG image.
-            string imagePathJpg = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}.jpg");
-            if (File.Exists(imagePathJpg))
-                return imagePathJpg;
+            // Check each extension for a valid image file
+            foreach (var ext in extensions)
+            {
+                string imagePath = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}{ext}");
+                if (File.Exists(imagePath))
+                    return imagePath;
+            }
 
-            return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if the specific image doesn't exist.
+            return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no specific image exists.
         }
+
 
         private void PlayClickSound()
         {
