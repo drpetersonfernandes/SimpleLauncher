@@ -1,6 +1,6 @@
 # Simple Launcher
 
-A simple emulator launcher for Windows.
+An open source emulator frontend for Windows.
 
 ![Screenshot](screenshot.png)
 
@@ -10,7 +10,9 @@ Based on the selected system, the application opens the system directory and the
 
 ![Screenshot](screenshot2.png)
 
-The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png". You can find cover images on the website https://github.com/libretro-thumbnails/libretro-thumbnails, with which I'm not affiliated.
+The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG, JPG or JPEG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
+
+You can find cover images in the websites https://github.com/libretro-thumbnails/libretro-thumbnails or https://emumovies.com/, with which I'm not affiliated.
 
 The format of the "system.xml" file is as follows:
 
@@ -71,6 +73,10 @@ The "settings.xml" contains the following fields:
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
 
 ![Screenshot](screenshot3.png)
+
+The aplication has an update notification system. If a new version is available, the user will be notified.
+
+The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
 This program is Windows-only and has been tested on Windows 11.
 
