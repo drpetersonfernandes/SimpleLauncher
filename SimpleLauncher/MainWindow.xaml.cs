@@ -13,7 +13,6 @@ namespace SimpleLauncher
         // Instance variables
         private GamePadController _inputControl;
         readonly private List<SystemConfig> _systemConfigs;
-        //private readonly LoadFiles _loadFiles = new();
         readonly private LetterNumberMenu _LetterNumberMenu = new();
         readonly private WrapPanel _gameFileGrid;
         private GameButtonFactory _gameButtonFactory;

@@ -109,10 +109,9 @@ namespace SimpleLauncher
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
                         MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
                         string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
                         errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
-                        File.AppendAllText(errorLogPath, errorMessage);
+                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
                     }
                 }
                 else
@@ -123,13 +122,12 @@ namespace SimpleLauncher
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
                 string errorDetails = $"Exception Details:\n{ex}\n";
                 if (psi != null)
                 {
                     errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
                 }
-                File.AppendAllText(errorLogPath, errorDetails);
+                await LogErrors.LogErrorAsync(ex, errorDetails);
             }
         }
     }
