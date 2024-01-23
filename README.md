@@ -1,6 +1,6 @@
 # Simple Launcher
 
-Simple Launcher is a free program for Windows that lets you play games on emulators with ease.
+Simple Launcher is a free program for Windows that lets you play games on emulators with ease.<br>
 
 ![Screenshot](screenshot.png)
 
@@ -12,7 +12,7 @@ Simple Launcher is a free program for Windows that lets you play games on emulat
 
 - **Game Info:** Each grid cell shows a game cover, its name, a link to a YouTube video about the game, and an info link.
 
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.<br>
 
 ![Screenshot](screenshot2.png)
 
@@ -25,13 +25,21 @@ You can find cover images on websites like https://github.com/libretro-thumbnail
 This file holds information about different systems and their settings. You can add as many systems and emulators as you want.
 
 - **SystemName**: Name of the system.
+
 - **SystemFolder**: Folder where the ROMs or games are located.
+
 - **SystemIsMAME**: Notify the program whether the system is based on MAME or not. If true, the application will load the ROM descriptions alongside the ROM filenames.
+
 - **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
+
 - **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
+
 - **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
+
 - **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
+
 - **EmulatorLocation**: Location of the emulator.
+
 - **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
 
 ```xml
@@ -65,7 +73,9 @@ This file holds information about different systems and their settings. You can 
 This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation.
 
 - **ThumbnailSize**: Height of the thumbnail.
+
 - **HideGamesWithNoCover**: Whether to hide games without a cover.
+
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
 
 ```xml
@@ -80,13 +90,15 @@ This file contains your preferences for the program, such as thumbnail size, hid
 ## Additional Features:
 
 - **Update Notifications:** You'll be notified if a new version is available.
+
 - **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
 ## Technical Details:
 
 Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.
+
 This program is Windows-only and has been tested on Windows 11.
 
 ## Contributors
-- Peterson Fernandes - [Github Profile](https://github.com/drpetersonfernandes)
-- RFSVIEIRA - [Github Profile](https://github.com/RFSVIEIRA)
+- **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
+- **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)
