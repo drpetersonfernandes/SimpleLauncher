@@ -1,20 +1,38 @@
 # Simple Launcher
 
-An open source emulator frontend for Windows.
+Simple Launcher is a free program for Windows that lets you play games on emulators with ease.
 
 ![Screenshot](screenshot.png)
 
-This program reads a file called "system.xml" located inside the program folder. All system and emulator settings are stored in this file.
+## How it Works:
 
-Based on the selected system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game. Each cell of the grid displays a game cover, its name, a YouTube link, and an info link.
+- **Configuration:** The program looks for a file called "system.xml" in its folder, which holds all the system and emulator settings. You should edit this file to comply wich your needs.
+
+- **Game Selection:** When you choose a system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game.
+
+- **Game Info:** Each grid cell shows a game cover, its name, a link to a YouTube video about the game, and an info link.
+
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.
 
 ![Screenshot](screenshot2.png)
 
-The cover images should have the same filename as the game to be launched. These images will be loaded from a folder inside the images folder, which needs to have the same name as the specific system. The images must be in PNG, JPG or JPEG format and have the same filename as the game. If the launcher doesn't find an image with the matching filename inside the folder, it will load "default.png".
+## Where to Find Game Covers:
 
-You can find cover images in the websites https://github.com/libretro-thumbnails/libretro-thumbnails or https://emumovies.com/, with which I'm not affiliated.
+You can find cover images on websites like https://github.com/libretro-thumbnails/libretro-thumbnails or https://emumovies.com/, but these sites are not affiliated with Simple Launcher.
 
-The format of the "system.xml" file is as follows:
+## Configuration File ("system.xml"):
+
+This file holds information about different systems and their settings. You can add as many systems and emulators as you want.
+
+- **SystemName**: Name of the system.
+- **SystemFolder**: Folder where the ROMs or games are located.
+- **SystemIsMAME**: Notify the program whether the system is based on MAME or not. If true, the application will load the ROM descriptions alongside the ROM filenames.
+- **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
+- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
+- **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
+- **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
+- **EmulatorLocation**: Location of the emulator.
+- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
 
 ```xml
 <SystemConfigs>
@@ -42,21 +60,13 @@ The format of the "system.xml" file is as follows:
 </SystemConfigs>
 ```
 
-You can add as many systems and emulators as you want.
+## User Preferences ("settings.xml"):
 
-The "system.xml" contains the following fields:
+This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation.
 
-- **SystemName**: Name of the system.
-- **SystemFolder**: Folder where the ROMs or games are located.
-- **SystemIsMAME**: Notify the program whether the system is based on MAME or not. If true, the application will load the ROM descriptions alongside the ROM filenames.
-- **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
-- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
-- **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
-- **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
-- **EmulatorLocation**: Location of the emulator.
-- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
-
-The program also reads the file "settings.xml", which contains the user's preferences. The format of this file is as follows:
+- **ThumbnailSize**: Height of the thumbnail.
+- **HideGamesWithNoCover**: Whether to hide games without a cover.
+- **EnableGamePadNavigation**: Whether to enable GamePad navigation.
 
 ```xml
 <Settings>
@@ -65,26 +75,17 @@ The program also reads the file "settings.xml", which contains the user's prefer
 	<EnableGamePadNavigation>true</EnableGamePadNavigation>
 </Settings>
 ```
-
-The "settings.xml" contains the following fields:
-
-- **ThumbnailSize**: Height of the thumbnail.
-- **HideGamesWithNoCover**: Whether to hide games without a cover.
-- **EnableGamePadNavigation**: Whether to enable GamePad navigation.
-
 ![Screenshot](screenshot3.png)
 
-The aplication has an update notification system. If a new version is available, the user will be notified.
+## Additional Features:
 
-The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
+- **Update Notifications:** You'll be notified if a new version is available.
+- **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
+## Technical Details:
+
+Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.
 This program is Windows-only and has been tested on Windows 11.
-
-## Code Language
-*Written in C# using<br>
-Microsoft Visual Studio Community 2022 (64-bit) Version 17.9.0 Preview 2.0<br>
-Windows Presentation Foundation (WPF) Framework<br>
-Microsoft .NET 8.0*
 
 ## Contributors
 - Peterson Fernandes - [Github Profile](https://github.com/drpetersonfernandes)
