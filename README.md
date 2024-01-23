@@ -1,8 +1,10 @@
 # Simple Launcher
 
-Simple Launcher is a free program for Windows that lets you play games on emulators with ease.<br>
+Simple Launcher is a free program for Windows that lets you play games on emulators with ease.
+
 
 ![Screenshot](screenshot.png)
+
 
 ## How it Works:
 
@@ -12,9 +14,11 @@ Simple Launcher is a free program for Windows that lets you play games on emulat
 
 - **Game Info:** Each grid cell shows a game cover, its name, a link to a YouTube video about the game, and an info link.
 
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.<br>
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.
+
 
 ![Screenshot](screenshot2.png)
+
 
 ## Where to Find Game Covers:
 
@@ -85,7 +89,9 @@ This file contains your preferences for the program, such as thumbnail size, hid
 	<EnableGamePadNavigation>true</EnableGamePadNavigation>
 </Settings>
 ```
+
 ![Screenshot](screenshot3.png)
+
 
 ## Additional Features:
 
@@ -100,5 +106,6 @@ Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (6
 This program is Windows-only and has been tested on Windows 11.
 
 ## Contributors
+
 - **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
 - **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)
