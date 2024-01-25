@@ -38,9 +38,9 @@ namespace SimpleLauncher
                 _systemConfigs = SystemConfig.LoadSystemConfigs(path);
                 SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
             }
-            catch (Exception ex)
+            catch
             {
-                HandleError(ex, "Error while loading system configurations");
+                Application.Current.Shutdown();
             }
 
             // Apply settings to your application
@@ -262,6 +262,12 @@ namespace SimpleLauncher
         }
 
         #region Menu Items
+
+        private void BugReport_Click(object sender, RoutedEventArgs e)
+        {
+            BugReport bugReportWindow = new();
+            bugReportWindow.ShowDialog();
+        }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {

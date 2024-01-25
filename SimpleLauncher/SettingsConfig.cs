@@ -8,7 +8,7 @@ namespace SimpleLauncher
     public class AppSettings
     {
         private readonly string _filePath;
-        private readonly HashSet<int> _validThumbnailSizes = new HashSet<int> { 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600 };
+        private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
 
         public int ThumbnailSize { get; set; }
         public bool HideGamesWithNoCover { get; set; }
@@ -47,7 +47,7 @@ namespace SimpleLauncher
             }
         }
 
-        private bool ParseBoolSetting(XElement settings, string settingName)
+        private static bool ParseBoolSetting(XElement settings, string settingName)
         {
             if (bool.TryParse(settings.Element(settingName)?.Value, out bool value))
             {

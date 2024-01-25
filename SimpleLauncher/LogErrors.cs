@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Reflection;
 
 namespace SimpleLauncher
@@ -44,8 +43,8 @@ namespace SimpleLauncher
             var formData = new MultipartFormDataContent
             {
                 { new StringContent("contact@purelogiccode.com"), "recipient" },
-                { new StringContent("Error Log"), "subject" },
-                { new StringContent("SimpleLauncher"), "name" },
+                { new StringContent("Error Log from SimpleLauncher"), "subject" },
+                { new StringContent("SimpleLauncher User"), "name" },
                 { new StringContent(logContent), "message" }
             };
 
@@ -62,7 +61,8 @@ namespace SimpleLauncher
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("An error occurred while launching the game. The error has been logged and sent to the developer.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("An error occurred while launching the game. The error has been logged and sent to the developer.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
                 else if (!response.IsSuccessStatusCode)
                 {

@@ -78,6 +78,10 @@
                     Header="Enable GamePad Navigation" />
             </MenuItem>
             <MenuItem
+                x:Name="BugReportButton"
+                Click="BugReport_Click"
+                Header="Bug Report" />
+            <MenuItem
                 x:Name="AboutButton"
                 Click="About_Click"
                 Header="About" />

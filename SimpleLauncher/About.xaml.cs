@@ -30,7 +30,7 @@ namespace SimpleLauncher
 
         private async void CheckForUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await UpdateChecker.CheckForUpdatesAsync(this);
+            await UpdateChecker.CheckForUpdatesAsync2(this);
         }
 
         public static string ApplicationVersion
