@@ -1,10 +1,8 @@
 # Simple Launcher
 
-Simple Launcher is a free program for Windows that lets you play games on emulators with ease.
-
+Simple Launcher is a free program for Windows that lets you play games on emulators with ease.<br><br>
 
 ![Screenshot](screenshot.png)
-
 
 ## How it Works:
 
@@ -14,11 +12,9 @@ Simple Launcher is a free program for Windows that lets you play games on emulat
 
 - **Game Info:** Each grid cell shows a game cover, its name, a link to a YouTube video about the game, and an info link.
 
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.
-
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.<br><br>
 
 ![Screenshot](screenshot2.png)
-
 
 ## Where to Find Game Covers:
 
@@ -44,37 +40,34 @@ This file holds information about different systems and their settings. You can 
 
 - **EmulatorLocation**: Location of the emulator.
 
-- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.
+- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.<br><br>
 
 ```xml
-<SystemConfigs>
-    <SystemConfig>
-        <SystemName>Amstrad CPC GX4000</SystemName>
-        <SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch></FormatToLaunch>
-            <FormatToLaunch></FormatToLaunch>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <EmulatorName>Retroarch</EmulatorName>
-                <EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L "G:\Emulators\Retroarch\cores\cap32_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-            </Emulator>
-        </Emulators>
-    </SystemConfig>
-</SystemConfigs>
+	<SystemConfig>
+		<SystemName>Atari 2600</SystemName>
+		<SystemFolder>G:\OK\Atari 2600</SystemFolder>
+		<SystemIsMAME>false</SystemIsMAME>
+		<FileFormatsToSearch>
+			<FormatToSearch>zip</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
 ```
 
 ## User Preferences ("settings.xml"):
 
-This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation. You should not manually configure this file. The file will be managed directly by the aplication. To change these settings you change in the application menu.
+This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation.<br>
+You should not manually configure this file. The file will be managed directly by the aplication. To change these settings you use the application menu.
 
 - **ThumbnailSize**: Height of the thumbnail.
 
@@ -83,15 +76,15 @@ This file contains your preferences for the program, such as thumbnail size, hid
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
 
 ```xml
-<Settings>
-	<ThumbnailSize>350</ThumbnailSize>
-	<HideGamesWithNoCover>false</HideGamesWithNoCover>
-	<EnableGamePadNavigation>true</EnableGamePadNavigation>
-</Settings>
+	<Settings>
+		<ThumbnailSize>350</ThumbnailSize>
+		<HideGamesWithNoCover>false</HideGamesWithNoCover>
+		<EnableGamePadNavigation>true</EnableGamePadNavigation>
+	</Settings>
 ```
+<br>
 
 ![Screenshot](screenshot3.png)
-
 
 ## Additional Features:
 
@@ -101,15 +94,88 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Special Settings:
 
-- **RPCS3:** This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml" you should set `<FormatToSearch>bat</FormatToSearch>` as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
+**RPCS3**
+
+This emulator loads games extracted from ISO files into a folder.<br>
+To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games.<br>
+When configuring this system in "system.xml" you should set `<FormatToSearch>bat</FormatToSearch>` as shown below.<br>
+We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
 
 ```xml
- <SystemConfig>
-		<SystemName>Sony Playstation 3</SystemName>
-		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+	 <SystemConfig>
+			<SystemName>Sony Playstation 3</SystemName>
+			<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+			<SystemIsMAME>false</SystemIsMAME>
+			<FileFormatsToSearch>
+				<FormatToSearch>bat</FormatToSearch>
+			</FileFormatsToSearch>
+			<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+			<FileFormatsToLaunch>
+				<FormatToLaunch></FormatToLaunch>
+			</FileFormatsToLaunch>
+			<Emulators>
+				<Emulator>
+					<EmulatorName>RPCS3</EmulatorName>
+					<EmulatorLocation></EmulatorLocation>
+					<EmulatorParameters></EmulatorParameters>
+				</Emulator>
+			</Emulators>
+	</SystemConfig>
+```
+
+<br>
+
+**MAME**
+
+When setting up the MAME emulator you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>` this way the application will load the game description into UI alongside the game filename.<br>
+When setting the EmulatorParameters you just need to put the folder where your games are located `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
+You can also launch MAME Roms using the Retroarch emulator just like the example below.<br>
+Another way to launch MAME Roms is using RocketLauncher just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.
+
+```xml
+	<SystemConfig>
+			<SystemName>MAME</SystemName>
+			<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
+			<SystemIsMAME>true</SystemIsMAME>
+			<FileFormatsToSearch>
+				<FormatToSearch>zip</FormatToSearch>
+			</FileFormatsToSearch>
+			<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+			<FileFormatsToLaunch>
+				<FormatToLaunch></FormatToLaunch>
+			</FileFormatsToLaunch>
+			<Emulators>
+				<Emulator>
+					<EmulatorName>MAME</EmulatorName>
+					<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+					<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
+				</Emulator>
+				<Emulator>
+					<EmulatorName>Retroarch</EmulatorName>
+					<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+					<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				</Emulator>
+				<Emulator>
+					<EmulatorName>MAME through RocketLauncher</EmulatorName>
+					<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+					<EmulatorParameters>"MAME"</EmulatorParameters>
+				</Emulator>
+			</Emulators>
+	</SystemConfig>
+```
+
+<br>
+
+If you want to use MAME to launch Software List Roms (or MESS Roms) you should put the name of the system in the EmulatorParameters `<EmulatorParameters>gx4000 -cart</EmulatorParameters>` just like the example below.<br>
+For this to work you need to follow the patterns found in folder .\MAME\hash\\. You can found a list of XML files inside this folder that represent all the systems that MAME can emulate. Use the XML filename of the chosen system in the EmulatorParameters.<br><br>
+
+```xml
+	<SystemConfig>
+		<SystemName>Amstrad CPC GX4000</SystemName>
+		<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
-			<FormatToSearch>bat</FormatToSearch>
+			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
@@ -117,13 +183,14 @@ This file contains your preferences for the program, such as thumbnail size, hid
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>RPCS3</EmulatorName>
-				<EmulatorLocation></EmulatorLocation>
-				<EmulatorParameters></EmulatorParameters>
+				<EmulatorName>MAME gx4000</EmulatorName>
+				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorParameters>gx4000 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
 ```
+
 
 ## Related Utilities:
 
@@ -131,8 +198,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Technical Details:
 
-Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.
-
+Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.<br>
 This program is Windows-only. Compatibility with Windows 7 and later versions is expected. It has been tested on Windows 11.
 
 ## Contributors
