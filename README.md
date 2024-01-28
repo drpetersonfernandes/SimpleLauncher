@@ -99,6 +99,32 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 - **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
+## Special Settings:
+
+- **RPCS3:** This emulator load games extracted from iso files into a folder. To launch the specific game it look it up for a file called EBOOT.BIN located inside the folder PS3_GAME\USRDIR\ or USRDIR\. That make it trick to configure the games inside an emulator frontend. The fast and easy solution we could find was to create bat files that could launch that game with ease, then we can configure Simple Launcher to treat bat files as games. When configuring that system in "system.xml" you should configure <FormatToSearch>bat</FormatToSearch> just as show below. We create an utility that can batch create the bat files for you. Just look below to section Related Utilities.
+
+```xml
+ <SystemConfig>
+		<SystemName>Sony Playstation 3</SystemName>
+		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+		<SystemIsMAME>false</SystemIsMAME>
+		<FileFormatsToSearch>
+			<FormatToSearch>bat</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>RPCS3</EmulatorName>
+				<EmulatorLocation></EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+```
+
 ## Related Utilities:
 
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create bat files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
