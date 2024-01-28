@@ -213,7 +213,7 @@ namespace SimpleLauncher
             gameFileGrid.Children.Clear();
             gameFileGrid.Children.Add(new TextBlock
             {
-                Text = $"\nDirectory: {systemFolderPath}\nTotal Games: {gameCount}\n\nPlease select a Letter",
+                Text = $"\nDirectory: {systemFolderPath}\nTotal number of files in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter",
                 FontWeight = FontWeights.Bold,
                 Padding = new Thickness(10)
             });

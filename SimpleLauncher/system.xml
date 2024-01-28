@@ -2029,7 +2029,27 @@
 	</SystemConfig>
 
 	<SystemConfig>
-		<SystemName>Sony Playstation 3</SystemName>
+		<SystemName>Sony Playstation 3 (for bat files)</SystemName>
+		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+		<SystemIsMAME>false</SystemIsMAME>
+		<FileFormatsToSearch>
+			<FormatToSearch>bat</FormatToSearch>
+		</FileFormatsToSearch>
+		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+		<FileFormatsToLaunch>
+			<FormatToLaunch></FormatToLaunch>
+		</FileFormatsToLaunch>
+		<Emulators>
+			<Emulator>
+				<EmulatorName>RPCS3</EmulatorName>
+				<EmulatorLocation></EmulatorLocation>
+				<EmulatorParameters></EmulatorParameters>
+			</Emulator>
+		</Emulators>
+	</SystemConfig>
+
+	<SystemConfig>
+		<SystemName>Sony Playstation 3 (for iso files)</SystemName>
 		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>

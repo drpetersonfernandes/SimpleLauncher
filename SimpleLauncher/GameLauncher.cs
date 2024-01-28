@@ -17,6 +17,39 @@ namespace SimpleLauncher
 
             try
             {
+                string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+
+                // Check if the file is a .bat file
+                if (fileExtension == ".BAT")
+                {
+                    psi = new ProcessStartInfo
+                    {
+                        FileName = filePath,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    Process process = new() { StartInfo = psi };
+                    process.Start();
+
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+
+                    process.WaitForExit();
+
+                    if (process.ExitCode != 0)
+                    {
+                        MessageBox.Show("Error executing the batch file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string errorMessage = $"Error launching batch file: Exit code {process.ExitCode}\n";
+                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
+                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                    }
+
+                    return;
+                }
+
+                // Regular call of the method (not a bat)
                 if (EmulatorComboBox.SelectedItem != null)
                 {
                     string selectedEmulatorName = EmulatorComboBox.SelectedItem.ToString();
@@ -43,11 +76,7 @@ namespace SimpleLauncher
                     // Determine if extraction is needed based on system configuration
                     if (systemConfig.ExtractFileBeforeLaunch)
                     {
-                        int index = filePath.LastIndexOf('.');
-                        string fileExtension = (index > 0) ? filePath[index..] : null;
-                        fileExtension = fileExtension.ToUpperInvariant();
-
-                        if (fileExtension == ".ZIP" || fileExtension == ".zip" || fileExtension == ".7Z" || fileExtension == ".7z")
+                        if (fileExtension == ".ZIP" || fileExtension == ".7Z")
                         {
                             // Extract the archive to a temporary location
                             string tempExtractLocation = ExtractCompressedFile.Instance.ExtractArchiveToTemp(filePath);

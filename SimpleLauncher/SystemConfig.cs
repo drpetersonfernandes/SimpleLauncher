@@ -62,9 +62,6 @@ namespace SimpleLauncher
                         if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
                             throw new InvalidOperationException("EmulatorName should not be empty or null.");
 
-                        if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorLocation")?.Value))
-                            throw new InvalidOperationException("EmulatorLocation should not be empty or null.");
-
                         return new Emulator
                         {
                             EmulatorName = emulatorElement.Element("EmulatorName").Value,

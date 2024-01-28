@@ -15,17 +15,17 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    Console.WriteLine($"Directory Path: {directoryPath}"); // Debug line
+                    Console.WriteLine($"Directory Path: {directoryPath}");
 
                     if (!Directory.Exists(directoryPath))
                     {
-                        Console.WriteLine("Directory doesn't exist!"); // Debug line
+                        Console.WriteLine("Directory doesn't exist!");
                         return [];
                     }
 
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
 
-                    Console.WriteLine($"Found {foundFiles.Count} files."); // Debug line
+                    Console.WriteLine($"Found {foundFiles.Count} files.");
                     return foundFiles;
                 }
                 catch (Exception ex)
@@ -54,7 +54,7 @@ namespace SimpleLauncher
         public static async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
         {
             // Load all system configs
-            var allConfigs = SystemConfig.LoadSystemConfigs("system.xml"); // Assuming your XML path
+            var allConfigs = SystemConfig.LoadSystemConfigs("system.xml");
             var targetSystemConfig = allConfigs.FirstOrDefault(sc => sc.SystemName == systemName);
 
             if (targetSystemConfig == null)
@@ -71,22 +71,21 @@ namespace SimpleLauncher
 
         public static int CountFiles(string folderPath)
         {
-            // Check if the directory exists before attempting to get files
             if (!Directory.Exists(folderPath))
             {
                 MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return 0; // Or handle this scenario as appropriate for your application
+                return 0;
             }
 
             try
             {
-                // Count all files in the directory and its subdirectories
-                return Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).Length;
+                // Count all files in the directory not recursively
+                return Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly).Length;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return 0; // Or handle this scenario as appropriate for your application
+                return 0;
             }
         }
 
