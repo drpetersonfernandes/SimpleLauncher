@@ -19,7 +19,7 @@
     <AssemblyVersion>2.6.2.3</AssemblyVersion>
     <FileVersion>2.6.2.3</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
-    <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
     <NoWin32Manifest>true</NoWin32Manifest>
     <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
