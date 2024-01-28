@@ -73,7 +73,7 @@ You should not manually configure this file. The file will be managed directly b
 
 - **HideGamesWithNoCover**: Whether to hide games without a cover.
 
-- **EnableGamePadNavigation**: Whether to enable GamePad navigation.
+- **EnableGamePadNavigation**: Whether to enable GamePad navigation.<br><br>
 
 ```xml
 <Settings>
@@ -99,7 +99,7 @@ You should not manually configure this file. The file will be managed directly b
 This emulator loads games extracted from ISO files into a folder.<br>
 To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games.<br>
 When configuring this system in "system.xml" you should set `<FormatToSearch>bat</FormatToSearch>` as shown below.<br>
-We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
+We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.<br><br>
 
 ```xml
 <SystemConfig>
@@ -130,7 +130,7 @@ We have created a utility that can generate these BAT files for you. Please see 
 When setting up the MAME emulator you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>` this way the application will load the game description into UI alongside the game filename.<br>
 When setting the EmulatorParameters you just need to put the folder where your games are located `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
 You can also launch MAME Roms using the Retroarch emulator just like the example below.<br>
-Another way to launch MAME Roms is using RocketLauncher just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.
+Another way to launch MAME Roms is using RocketLauncher just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.<br><br>
 
 ```xml
 <SystemConfig>
