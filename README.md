@@ -43,25 +43,25 @@ This file holds information about different systems and their settings. You can 
 - **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.<br><br>
 
 ```xml
-	<SystemConfig>
-		<SystemName>Atari 2600</SystemName>
-		<SystemFolder>G:\OK\Atari 2600</SystemFolder>
-		<SystemIsMAME>false</SystemIsMAME>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-		</Emulators>
-	</SystemConfig>
+<SystemConfig>
+	<SystemName>Atari 2600</SystemName>
+	<SystemFolder>G:\OK\Atari 2600</SystemFolder>
+	<SystemIsMAME>false</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>zip</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>Retroarch</EmulatorName>
+			<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+			<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+		</Emulator>
+	</Emulators>
+</SystemConfig>
 ```
 
 ## User Preferences ("settings.xml"):
@@ -102,25 +102,25 @@ When configuring this system in "system.xml" you should set `<FormatToSearch>bat
 We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
 
 ```xml
-	 <SystemConfig>
-			<SystemName>Sony Playstation 3</SystemName>
-			<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
-			<SystemIsMAME>false</SystemIsMAME>
-			<FileFormatsToSearch>
-				<FormatToSearch>bat</FormatToSearch>
-			</FileFormatsToSearch>
-			<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-			<FileFormatsToLaunch>
-				<FormatToLaunch></FormatToLaunch>
-			</FileFormatsToLaunch>
-			<Emulators>
-				<Emulator>
-					<EmulatorName>RPCS3</EmulatorName>
-					<EmulatorLocation></EmulatorLocation>
-					<EmulatorParameters></EmulatorParameters>
-				</Emulator>
-			</Emulators>
-	</SystemConfig>
+<SystemConfig>
+	<SystemName>Sony Playstation 3</SystemName>
+	<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+	<SystemIsMAME>false</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>bat</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>RPCS3</EmulatorName>
+			<EmulatorLocation></EmulatorLocation>
+			<EmulatorParameters></EmulatorParameters>
+		</Emulator>
+	</Emulators>
+</SystemConfig>
 ```
 
 <br>
@@ -133,47 +133,10 @@ You can also launch MAME Roms using the Retroarch emulator just like the example
 Another way to launch MAME Roms is using RocketLauncher just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.
 
 ```xml
-	<SystemConfig>
-			<SystemName>MAME</SystemName>
-			<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
-			<SystemIsMAME>true</SystemIsMAME>
-			<FileFormatsToSearch>
-				<FormatToSearch>zip</FormatToSearch>
-			</FileFormatsToSearch>
-			<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-			<FileFormatsToLaunch>
-				<FormatToLaunch></FormatToLaunch>
-			</FileFormatsToLaunch>
-			<Emulators>
-				<Emulator>
-					<EmulatorName>MAME</EmulatorName>
-					<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-					<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
-				</Emulator>
-				<Emulator>
-					<EmulatorName>Retroarch</EmulatorName>
-					<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-					<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-				</Emulator>
-				<Emulator>
-					<EmulatorName>MAME through RocketLauncher</EmulatorName>
-					<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
-					<EmulatorParameters>"MAME"</EmulatorParameters>
-				</Emulator>
-			</Emulators>
-	</SystemConfig>
-```
-
-<br>
-
-If you want to use MAME to launch Software List Roms (or MESS Roms) you should put the name of the system in the EmulatorParameters `<EmulatorParameters>gx4000 -cart</EmulatorParameters>` just like the example below.<br>
-For this to work you need to follow the patterns found in folder .\MAME\hash\\. You can found a list of XML files inside this folder that represent all the systems that MAME can emulate. Use the XML filename of the chosen system in the EmulatorParameters.<br><br>
-
-```xml
-	<SystemConfig>
-		<SystemName>Amstrad CPC GX4000</SystemName>
-		<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
-		<SystemIsMAME>false</SystemIsMAME>
+<SystemConfig>
+		<SystemName>MAME</SystemName>
+		<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
+		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
 		</FileFormatsToSearch>
@@ -183,12 +146,49 @@ For this to work you need to follow the patterns found in folder .\MAME\hash\\. 
 		</FileFormatsToLaunch>
 		<Emulators>
 			<Emulator>
-				<EmulatorName>MAME gx4000</EmulatorName>
+				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>gx4000 -cart</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>Retroarch</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+			</Emulator>
+			<Emulator>
+				<EmulatorName>MAME through RocketLauncher</EmulatorName>
+				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
-	</SystemConfig>
+</SystemConfig>
+```
+
+<br>
+
+If you want to use MAME to launch Software List Roms (or MESS Roms) you should put the name of the system in the EmulatorParameters `<EmulatorParameters>gx4000 -cart</EmulatorParameters>` just like the example below.<br>
+For this to work you need to follow the patterns found in folder .\MAME\hash\\. You can found a list of XML files inside this folder that represent all the systems that MAME can emulate. Use the XML filename of the chosen system in the EmulatorParameters.<br><br>
+
+```xml
+<SystemConfig>
+	<SystemName>Amstrad CPC GX4000</SystemName>
+	<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
+	<SystemIsMAME>false</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>zip</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>MAME gx4000</EmulatorName>
+			<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+			<EmulatorParameters>gx4000 -cart</EmulatorParameters>
+		</Emulator>
+	</Emulators>
+</SystemConfig>
 ```
 
 
