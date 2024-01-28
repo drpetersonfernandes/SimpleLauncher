@@ -101,7 +101,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Related Utilities
 
-
+- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create bat files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
 
 ## Technical Details:
 
