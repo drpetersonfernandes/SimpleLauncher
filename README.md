@@ -129,8 +129,8 @@ We have created a utility that can generate these BAT files for you. Please see 
 
 When setting up the MAME emulator you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>` this way the application will load the game description into UI alongside the game filename.<br>
 When setting the EmulatorParameters you just need to put the folder where your games are located `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
-You can also launch MAME Roms using the Retroarch emulator just like the example below.<br>
-Another way to launch MAME Roms is using RocketLauncher just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.<br><br>
+You can also launch MAME Roms using the Retroarch emulator.<br>
+Another way to launch MAME Roms is using [RocketLauncher](https://www.rlauncher.com/) just like the example below. For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.<br><br>
 
 ```xml
 <SystemConfig>
@@ -194,6 +194,12 @@ For this to work you need to follow the patterns found in folder .\MAME\hash\\. 
 ## Related Utilities:
 
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
+
+- **MAMEListCreator:** Program that create a simplified XML of the MAME games. You need the MAME full driver information in XML format available in the [MAME website](https://www.mamedev.org/release.php). It will create multiple simplified (and smaller) XML databases. One of those databases with have all the games of MAME (called mame.xml), that is used in the Simple Launcher application to load game description of MAME games. It will also create multiple other databases for each and every driver emulated by MAME. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB
+
+- **FindRomCover:** Program that help you organize your cover collection of images inside a image folder. It will try to match the filename of image files with the filename of the roms. It uses The Levenshtein Algorithm to compare filenames of files. Written by a Simple Launcher developer.- I'M WORKING TO PUBLISH IT ON GITHUB
+
+- **ScrapingRomCover:** Program that scrap the web searching for cover images of games. It uses Google Image Search API or Bing Image Search API (which I prefer). You will need to provide you own KEY to access Bing or Google APIs, charges may apply. Written by a Simple Launcher developer.- I'M WORKING TO PUBLISH IT ON GITHUB
 
 ## Technical Details:
 
