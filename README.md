@@ -26,7 +26,7 @@ You can find cover images on websites like https://github.com/libretro-thumbnail
 
 ## Configuration File ("system.xml"):
 
-This file holds information about different systems and their settings. You can add as many systems and emulators as you want.
+This file holds information about different systems and their settings. You can add as many systems and emulators as you want. You should manually configure this file to meet your needs.
 
 - **SystemName**: Name of the system.
 
@@ -74,7 +74,7 @@ This file holds information about different systems and their settings. You can 
 
 ## User Preferences ("settings.xml"):
 
-This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation.
+This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation. You should not manually configure this file. The file will be managed directly by the aplication. To change these settings you change in the application menu.
 
 - **ThumbnailSize**: Height of the thumbnail.
 
@@ -101,7 +101,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Special Settings:
 
-- **RPCS3:** This emulator load games extracted from iso files into a folder. To launch the specific game it look it up for a file called EBOOT.BIN located inside the folder PS3_GAME\USRDIR\ or USRDIR\. That make it trick to configure the games inside an emulator frontend. The fast and easy solution we could find was to create bat files that could launch that game with ease, then we can configure Simple Launcher to treat bat files as games. When configuring that system in "system.xml" you should configure <FormatToSearch>bat</FormatToSearch> just as show below. We create an utility that can batch create the bat files for you. Just look below to section Related Utilities.
+- **RPCS3:** This emulator load games extracted from iso files into a folder. To launch the specific game it look it up for a file called EBOOT.BIN located inside the folder PS3_GAME\USRDIR\ or USRDIR\. That make it trick to configure the games inside an emulator frontend. The fast and easy solution we could find was to create bat files that could launch that game with ease, then we can configure Simple Launcher to treat bat files as games. When configuring that system in "system.xml" you should configure <FormatToSearch>bat</FormatToSearch> just as show below. We create an utility that can create the bat files for you. Just look below to section Related Utilities.
 
 ```xml
  <SystemConfig>
@@ -133,7 +133,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.
 
-This program is Windows-only and has been tested on Windows 11.
+This program is Windows-only. Compatibility with Windows 7 and later versions is expected. It has been tested on Windows 11.
 
 ## Contributors
 
