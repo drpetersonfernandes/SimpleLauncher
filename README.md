@@ -76,11 +76,11 @@ You should not manually configure this file. The file will be managed directly b
 - **EnableGamePadNavigation**: Whether to enable GamePad navigation.
 
 ```xml
-	<Settings>
-		<ThumbnailSize>350</ThumbnailSize>
-		<HideGamesWithNoCover>false</HideGamesWithNoCover>
-		<EnableGamePadNavigation>true</EnableGamePadNavigation>
-	</Settings>
+<Settings>
+	<ThumbnailSize>350</ThumbnailSize>
+	<HideGamesWithNoCover>false</HideGamesWithNoCover>
+	<EnableGamePadNavigation>true</EnableGamePadNavigation>
+</Settings>
 ```
 <br>
 
@@ -134,33 +134,33 @@ Another way to launch MAME Roms is using RocketLauncher just like the example be
 
 ```xml
 <SystemConfig>
-		<SystemName>MAME</SystemName>
-		<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
-		<SystemIsMAME>true</SystemIsMAME>
-		<FileFormatsToSearch>
-			<FormatToSearch>zip</FormatToSearch>
-		</FileFormatsToSearch>
-		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-		<FileFormatsToLaunch>
-			<FormatToLaunch></FormatToLaunch>
-		</FileFormatsToLaunch>
-		<Emulators>
-			<Emulator>
-				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
-				<EmulatorParameters>"MAME"</EmulatorParameters>
-			</Emulator>
-		</Emulators>
+	<SystemName>MAME</SystemName>
+	<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
+	<SystemIsMAME>true</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>zip</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>MAME</EmulatorName>
+			<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+			<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
+		</Emulator>
+		<Emulator>
+			<EmulatorName>Retroarch</EmulatorName>
+			<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+			<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+		</Emulator>
+		<Emulator>
+			<EmulatorName>MAME through RocketLauncher</EmulatorName>
+			<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+			<EmulatorParameters>"MAME"</EmulatorParameters>
+		</Emulator>
+	</Emulators>
 </SystemConfig>
 ```
 
@@ -190,7 +190,6 @@ For this to work you need to follow the patterns found in folder .\MAME\hash\\. 
 	</Emulators>
 </SystemConfig>
 ```
-
 
 ## Related Utilities:
 
