@@ -99,6 +99,10 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 - **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
+## Related Utilities
+
+
+
 ## Technical Details:
 
 Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.
