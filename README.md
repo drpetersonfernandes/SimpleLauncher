@@ -101,7 +101,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Special Settings:
 
-- **RPCS3:** This emulator load games extracted from iso files into a folder. To launch the specific game it look it up for a file called EBOOT.BIN located inside the folder PS3_GAME\USRDIR\ or USRDIR\. That make it trick to configure the games inside an emulator frontend. The fast and easy solution we could find was to create bat files that could launch that game with ease, then we can configure Simple Launcher to treat bat files as games. When configuring that system in "system.xml" you should configure <FormatToSearch>bat</FormatToSearch> just as show below. We create an utility that can create the bat files for you. Just look below to section Related Utilities.
+- **RPCS3:** This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml" you should set <FormatToSearch>bat</FormatToSearch> as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
 
 ```xml
  <SystemConfig>
@@ -127,7 +127,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Related Utilities:
 
-- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create bat files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
+- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
 
 ## Technical Details:
 
