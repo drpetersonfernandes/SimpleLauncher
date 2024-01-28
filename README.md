@@ -99,7 +99,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 - **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
 
-## Related Utilities
+## Related Utilities:
 
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create bat files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
 
