@@ -36,7 +36,7 @@ This file holds information about different systems and their settings. You can 
 
 - **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
 
-- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the zip or 7z file into a temp folder, then it will load the extracted file.
+- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temp folder, then it will load the extracted file.
 
 - **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
 
@@ -101,7 +101,7 @@ This file contains your preferences for the program, such as thumbnail size, hid
 
 ## Special Settings:
 
-- **RPCS3:** This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml" you should set <FormatToSearch>bat</FormatToSearch> as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
+- **RPCS3:** This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml" you should set `<FormatToSearch>bat</FormatToSearch>` as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.
 
 ```xml
  <SystemConfig>
