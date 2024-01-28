@@ -25,16 +25,20 @@ namespace SimpleLauncher
                 File.AppendAllText(errorLogPath, errorMessage);
             }
 
-            await SendLogToApiAsync();
+            // Check the result of SendLogToApiAsync and delete the log file if successful
+            if (await SendLogToApiAsync())
+            {
+                File.Delete(errorLogPath);
+            }
         }
 
-        public static async Task SendLogToApiAsync()
+        public static async Task<bool> SendLogToApiAsync()
         {
             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
             if (!File.Exists(errorLogPath))
             {
                 //LogInternalError("Error log file not found.");
-                return;
+                return false;
             }
 
             string logContent = File.ReadAllText(errorLogPath);
@@ -59,21 +63,12 @@ namespace SimpleLauncher
                 // Send the POST request
                 HttpResponseMessage response = await _httpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    //MessageBox.Show("An error occurred while launching the game. The error has been logged and sent to the developer.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                else if (!response.IsSuccessStatusCode)
-                {
-                    //LogInternalError($"Failed to send log to the developer. Status code: {response.StatusCode}");
-                    return;
-                }
+                return response.IsSuccessStatusCode;
             }
             catch
             {
                 //LogInternalError($"Exception occurred while sending log to the developer: {ex.Message}");
-                return;
+                return false;
             }
         }
 
