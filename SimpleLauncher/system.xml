@@ -14,7 +14,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME gx4000</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>gx4000 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -34,22 +34,22 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Altirra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME a800</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>a800 -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME a800_cass</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>a800_cass -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME a800_flop</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>a800_flop -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -69,8 +69,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\stella_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -89,12 +89,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Altirra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -114,8 +114,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\prosystem_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\prosystem_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -134,7 +134,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>BigPEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -155,7 +155,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>BigPEmu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -175,8 +175,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_lynx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_lynx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -199,12 +199,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\hatari_libretro.dll" -c "G:\Emulators\Retroarch\hatari.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\hatari_libretro.dll" -c "D:\Emulators\Retroarch\hatari.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Hatari</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Hatari\hatari.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Hatari\hatari.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -224,8 +224,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -244,8 +244,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_wswan_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -264,7 +264,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME pv1000</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>pv1000 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -284,12 +284,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\gearcoleco_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\gearcoleco_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME coleco</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>coleco -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -309,27 +309,27 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\vice_x64_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\vice_x64_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME c64_cart</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>c64_cart -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME c64_cass</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>c64_cass -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME c64_flop_misc</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>c64_flop_misc -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME c64_flop_orig</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>c64_flop_orig -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -349,12 +349,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\puae_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\puae_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME cd32</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>cd32 -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -374,8 +374,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\o2em_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\o2em_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -394,17 +394,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -424,17 +424,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Atari"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -454,17 +454,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Bally Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -484,17 +484,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Banpresto"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -514,17 +514,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Capcom"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -544,17 +544,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Data East"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -574,17 +574,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Irem"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -604,17 +604,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Jaleco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -634,17 +634,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Konami"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -664,17 +664,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -694,17 +694,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Mitchell"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -724,17 +724,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Namco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -754,17 +754,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Nintendo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -784,17 +784,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Sammy"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -814,17 +814,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Sega"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -844,17 +844,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME SNK"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -874,17 +874,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Sony ZiNc"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -904,17 +904,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Taito"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -934,17 +934,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Tecmo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -964,17 +964,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>-rompath "G:\OK\MAME Visco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME through RocketLauncher</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\RocketLauncher\RocketLauncher.exe</EmulatorLocation>
 				<EmulatorParameters>"MAME"</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -996,17 +996,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME aquarius_cart</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>aquarius_cart -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME aquarius_cass</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>aquarius_cass -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>AquaLite</EmulatorName>
-				<EmulatorLocation>G:\Emulators\AquaLite\AquaLite.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\AquaLite\AquaLite.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1026,12 +1026,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\freeintv_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\freeintv_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME intv</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>intv -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1051,8 +1051,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1071,8 +1071,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\bluemsx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1091,7 +1091,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Xemu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Xemu\xemu.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Xemu\xemu.exe</EmulatorLocation>
 				<EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1111,7 +1111,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Xenia</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Xenia\xenia.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Xenia\xenia.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1131,8 +1131,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1151,8 +1151,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_pce_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1171,8 +1171,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_pcfx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_pcfx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1191,8 +1191,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_supergrafx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_supergrafx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1211,12 +1211,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\citra_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\citra_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Citra</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Citra\Citra\nightly\citra-qt.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Citra\Citra\nightly\citra-qt.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1236,8 +1236,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1256,8 +1256,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1276,8 +1276,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\melonds_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\melonds_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1296,18 +1296,18 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch FCEUX</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch Mesen</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch Nestopia UE</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1326,8 +1326,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1346,8 +1346,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\mgba_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\mgba_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1366,8 +1366,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\sameboy_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1386,12 +1386,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Dolphin</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1412,18 +1412,18 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch FCEUX</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\fceumm_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch Mesen</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mesen_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch Nestopia UE</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\nestopia_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1442,17 +1442,17 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch bsnes</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\bsnes_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1472,12 +1472,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1497,12 +1497,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\snes9x_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Snes9x</EmulatorName>
-				<EmulatorLocation>G:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1523,7 +1523,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Ryujinx</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
@@ -1548,12 +1548,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Dolphin</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1573,7 +1573,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Cemu</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Cemu\cemu.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Cemu\cemu.exe</EmulatorLocation>
 				<EmulatorParameters>-f -g</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1593,12 +1593,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\dolphin_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Dolphin</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Dolphin\Dolphin.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1618,8 +1618,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\opera_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\opera_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1638,12 +1638,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\same_cdi_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\same_cdi_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME cdi</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>cdi -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1663,12 +1663,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch Flycast</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\flycast_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Redream</EmulatorName>
-				<EmulatorLocation>G:\Emulators\Redream\redream.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\Redream\redream.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1688,8 +1688,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1710,18 +1710,18 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch PicoDrive</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch Genesis Plus GX</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch BlastEm</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\blastem_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\blastem_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1741,8 +1741,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1762,13 +1762,13 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch Genesis Plus GX</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch PicoDrive</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\picodrive_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1787,8 +1787,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\genesis_plus_gx_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1807,8 +1807,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_saturn_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_saturn_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1827,27 +1827,27 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME sc3000_cart</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>sc3000_cart -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME sc3000_cass</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>sc3000_cass -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MasterGear</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MasterGear\MG.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MasterGear\MG.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>BizHawk</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1867,22 +1867,22 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>MAME sg1000</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>sg1000 -cart</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch MAME</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mame_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MasterGear</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MasterGear\MG.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MasterGear\MG.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>BizHawk</EmulatorName>
-				<EmulatorLocation>G:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1902,8 +1902,8 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\fuse_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\fuse_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 		</Emulators>
 	</SystemConfig>
@@ -1922,12 +1922,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\neocd_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\neocd_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME neocd</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>neocd -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1947,12 +1947,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME ngp</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>ngp -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1972,12 +1972,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mednafen_ngp_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>MAME ngpc</EmulatorName>
-				<EmulatorLocation>G:\Emulators\MAME\mame.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
 				<EmulatorParameters>ngpc -cart</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -1997,12 +1997,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\mednafen_psx_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\mednafen_psx_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>DuckStation</EmulatorName>
-				<EmulatorLocation>G:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
 				<EmulatorParameters>-fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -2022,7 +2022,7 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>PCSX2</EmulatorName>
-				<EmulatorLocation>G:\Emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
 		</Emulators>
@@ -2062,12 +2062,12 @@
 		<Emulators>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
-				<EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "G:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "G:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+				<EmulatorParameters>-L "D:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>PPSSPP</EmulatorName>
-				<EmulatorLocation>G:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
+				<EmulatorLocation>D:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
 				<EmulatorParameters>--fullscreen</EmulatorParameters>
 			</Emulator>
 		</Emulators>
