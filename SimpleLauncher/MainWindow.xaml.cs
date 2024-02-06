@@ -269,6 +269,23 @@ namespace SimpleLauncher
             bugReportWindow.ShowDialog();
         }
 
+        private void Donate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "https://www.buymeacoffee.com/purelogiccode",
+                    UseShellExecute = true
+                };
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Unable to open the link: " + ex.Message);
+            }
+        }
+
         private void About_Click(object sender, RoutedEventArgs e)
         {
             About aboutWindow = new();

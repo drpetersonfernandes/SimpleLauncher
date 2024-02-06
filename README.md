@@ -24,7 +24,7 @@ You can find cover images on websites such as [Libretro Thumbnails](https://gith
 
 ## Configuration File ("system.xml"):
 
-This file contains information about different systems and their settings. You can add as many systems and emulators as you wish. You should manually configure this file to meet your needs.
+This file contains information about different systems and their settings. You can add as many systems and emulators as you wish. `You should manually configure this file to meet your needs.`
 
 - **SystemName**: The name of the system.
 
@@ -74,35 +74,7 @@ This file contains information about different systems and their settings. You c
 
 ## Special Settings:
 
-**RPCS3**
-
-This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories. Configuring these games in an emulator frontend can be challenging. The quickest and easiest solution we found was to create BAT files that can launch the games with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml," you should set `<FormatToSearch>bat</FormatToSearch>` as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.<br><br>
-
-```xml
-<SystemConfig>
-	<SystemName>Sony Playstation 3</SystemName>
-	<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
-	<SystemIsMAME>false</SystemIsMAME>
-	<FileFormatsToSearch>
-		<FormatToSearch>bat</FormatToSearch>
-	</FileFormatsToSearch>
-	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-	<FileFormatsToLaunch>
-		<FormatToLaunch></FormatToLaunch>
-	</FileFormatsToLaunch>
-	<Emulators>
-		<Emulator>
-			<EmulatorName>RPCS3</EmulatorName>
-			<EmulatorLocation></EmulatorLocation>
-			<EmulatorParameters></EmulatorParameters>
-		</Emulator>
-	</Emulators>
-</SystemConfig>
-```
-
-<br>
-
-**MAME**
+**MAME Emulator**
 
 When setting up the MAME emulator, you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>`. This way, the application will load the game description into the UI alongside the game filename.<br>
 When setting the EmulatorParameters, you only need to specify the folder where your games are located: `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
@@ -168,6 +140,63 @@ For this to work, you need to follow the patterns found in the folder `.\MAME\ha
 </SystemConfig>
 ```
 
+<br>
+
+**Microsoft Windows Games or Applications**
+
+If you want to add your Windows Games or Applications to Simple Launcher, you should create a folder with Shortcuts (lnk) or BAT files (bat) that call the Game or Application. When configuring this system in "system.xml," you should set `<FormatToSearch>lnk</FormatToSearch>` or `<FormatToSearch>bat</FormatToSearch>` as shown below.<br><br>
+
+```xml
+<SystemConfig>
+	<SystemName>Microsoft Windows</SystemName>
+	<SystemFolder>G:\Microsoft Windows</SystemFolder>
+	<SystemIsMAME>false</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>lnk</FormatToSearch>
+		<FormatToSearch>bat</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>No Emulator</EmulatorName>
+			<EmulatorLocation></EmulatorLocation>
+			<EmulatorParameters></EmulatorParameters>
+		</Emulator>
+	</Emulators>
+</SystemConfig>
+```
+
+<br>
+
+**RPCS3 Emulator**
+
+This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories. Configuring these games in an emulator frontend can be challenging. The quickest and easiest solution we found was to create BAT files that can launch the games with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml," you should set `<FormatToSearch>bat</FormatToSearch>` as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.<br><br>
+
+```xml
+<SystemConfig>
+	<SystemName>Sony Playstation 3</SystemName>
+	<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+	<SystemIsMAME>false</SystemIsMAME>
+	<FileFormatsToSearch>
+		<FormatToSearch>bat</FormatToSearch>
+	</FileFormatsToSearch>
+	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+	<FileFormatsToLaunch>
+		<FormatToLaunch></FormatToLaunch>
+	</FileFormatsToLaunch>
+	<Emulators>
+		<Emulator>
+			<EmulatorName>RPCS3</EmulatorName>
+			<EmulatorLocation></EmulatorLocation>
+			<EmulatorParameters></EmulatorParameters>
+		</Emulator>
+	</Emulators>
+</SystemConfig>
+```
+
 ## Related Utilities:
 
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** A program that automatically creates BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
@@ -183,7 +212,11 @@ For this to work, you need to follow the patterns found in the folder `.\MAME\ha
 Simple Launcher is written in C# using Microsoft Visual Studio Community 2022 (64-bit) and the Windows Presentation Foundation (WPF) Framework with Microsoft .NET 8.0.<br>
 This program is Windows-only. Compatibility with Windows 7 and later versions is expected. It has been tested on Windows 11.
 
-## Contributors
+## Support the Project:
+
+Did you enjoy using the Simple Launcher frontend? Consider [donating](https://www.buymeacoffee.com/purelogiccode) to support the project or simply to say thanks!
+
+## Contributors:
 
 - **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
 - **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)

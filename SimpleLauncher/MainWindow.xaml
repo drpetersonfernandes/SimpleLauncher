@@ -82,6 +82,10 @@
                 Click="BugReport_Click"
                 Header="Bug Report" />
             <MenuItem
+                x:Name="DonateButton"
+                Click="Donate_Click"
+                Header="Donate" />
+            <MenuItem
                 x:Name="AboutButton"
                 Click="About_Click"
                 Header="About" />

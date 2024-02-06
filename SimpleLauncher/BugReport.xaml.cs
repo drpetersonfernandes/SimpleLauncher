@@ -33,7 +33,10 @@ namespace SimpleLauncher
 
         private async void SendBugReport_Click(object sender, RoutedEventArgs e)
         {
+            string nameText = NameTextBox.Text;
+            string emailText = EmailTextBox.Text;
             string bugReportText = BugReportTextBox.Text;
+            string applicationVersion = ApplicationVersion;
 
             if (string.IsNullOrWhiteSpace(bugReportText))
             {
@@ -41,13 +44,15 @@ namespace SimpleLauncher
                 return;
             }
 
-            await SendBugReportToApiAsync(bugReportText);
+            // Using string interpolation to concatenate the message
+            string fullMessage = $"\n\n{applicationVersion}\nName: {nameText}\nEmail: {emailText}\nBug Report:\n\n{bugReportText}";
+
+            await SendBugReportToApiAsync(fullMessage);
         }
 
-        public async Task SendBugReportToApiAsync(string bugReportText)
+        public async Task SendBugReportToApiAsync(string fullMessage)
         {
-            // Append the application version to the bug report
-            string messageWithVersion = bugReportText + Environment.NewLine + Environment.NewLine + ApplicationVersion;
+            string messageWithVersion = fullMessage;
 
             // Prepare the POST data with the bug report text and application version
             var formData = new MultipartFormDataContent
@@ -71,6 +76,8 @@ namespace SimpleLauncher
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Bug report sent successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    NameTextBox.Clear();
+                    EmailTextBox.Clear();
                     BugReportTextBox.Clear();
                 }
                 else

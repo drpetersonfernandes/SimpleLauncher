@@ -49,7 +49,67 @@ namespace SimpleLauncher
                     return;
                 }
 
-                // Regular call of the method (not a bat)
+                // Check if the file is a .lnk (shortcut) file
+                if (fileExtension == ".LNK")
+                {
+                    psi = new ProcessStartInfo
+                    {
+                        FileName = filePath,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    Process process = new() { StartInfo = psi };
+                    process.Start();
+
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+
+                    process.WaitForExit();
+
+                    if (process.ExitCode != 0)
+                    {
+                        MessageBox.Show("Error executing the shortcut.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string errorMessage = $"Error launching shortcut: Exit code {process.ExitCode}\n";
+                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
+                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                    }
+
+                    return;
+                }
+
+                // Check if the file is a .exe file
+                if (fileExtension == ".EXE")
+                {
+                    psi = new ProcessStartInfo
+                    {
+                        FileName = filePath,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    Process process = new() { StartInfo = psi };
+                    process.Start();
+
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+
+                    process.WaitForExit();
+
+                    if (process.ExitCode != 0)
+                    {
+                        MessageBox.Show("Error executing the program.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string errorMessage = $"Error launching the program: Exit code {process.ExitCode}\n";
+                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
+                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                    }
+
+                    return;
+                }
+
+                // Regular call of the method
                 if (EmulatorComboBox.SelectedItem != null)
                 {
                     string selectedEmulatorName = EmulatorComboBox.SelectedItem.ToString();
