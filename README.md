@@ -6,41 +6,43 @@ Simple Launcher is a free program for Windows that lets you play games on emulat
 
 ## How it Works:
 
-- **Configuration:** The program looks for a file called "system.xml" in its folder, which holds all the system and emulator settings. You should edit this file to comply wich your needs.
+- **Configuration:** The program searches for a file named "system.xml" in its folder, which contains all the settings for the system and emulators. You should edit this file to match your needs.
 
-- **Game Selection:** When you choose a system, the application opens the system directory and the list of emulators configured for that specific system. It then creates a grid of games located inside the system folder. Each cell of the grid is clickable, and the app will launch the selected emulator with the chosen game.
+- **Game Selection:** When you select a system, the application opens the system directory and a list of emulators configured for that specific system. It then displays a grid of games located in the system folder. Each cell in the grid is clickable, and the app will launch the selected emulator with the chosen game.
 
-- **Game Info:** Each grid cell shows a game cover, its name, a link to a YouTube video about the game, and an info link.
+- **Game Info:** Each grid cell displays a game cover, its name, a link to a YouTube video about the game, and an info link.
 
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the images folder, which should have the same name as the system. The images must be in PNG, JPG or JPEG format. If a cover is missing, it uses a default image.<br><br>
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the "images" folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used.<br><br>
 
 ![Screenshot](screenshot2.png)
 
+![Screenshot](screenshot3.png)
+
 ## Where to Find Game Covers:
 
-You can find cover images on websites like https://github.com/libretro-thumbnails/libretro-thumbnails or https://emumovies.com/, but these sites are not affiliated with Simple Launcher.
+You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com). However, please note that these sites are not affiliated with Simple Launcher.
 
 ## Configuration File ("system.xml"):
 
-This file holds information about different systems and their settings. You can add as many systems and emulators as you want. You should manually configure this file to meet your needs.
+This file contains information about different systems and their settings. You can add as many systems and emulators as you wish. You should manually configure this file to meet your needs.
 
-- **SystemName**: Name of the system.
+- **SystemName**: The name of the system.
 
-- **SystemFolder**: Folder where the ROMs or games are located.
+- **SystemFolder**: The folder where the ROMs or games are located.
 
-- **SystemIsMAME**: Notify the program whether the system is based on MAME or not. If true, the application will load the ROM descriptions alongside the ROM filenames.
+- **SystemIsMAME**: Indicates to the program whether the system is based on MAME. If true, the application will load the ROM descriptions alongside the ROM filenames.
 
-- **FormatToSearch**: List of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
+- **FormatToSearch**: A list of file extensions that will be loaded from the SystemFolder. You can use as many as you want.
 
-- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temp folder, then it will load the extracted file.
+- **ExtractFileBeforeLaunch**: Should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temporary folder before loading the extracted file.
 
-- **FormatToLaunch**: In case you extract the file to a temp folder. You should specify here which extensions will be launched from the extracted folder.
+- **FormatToLaunch**: If you extract the file to a temporary folder, you should specify here which extensions will be launched from the extracted folder.
 
-- **EmulatorName**: Name of the emulator. You can add as many emulators as you want for each system.
+- **EmulatorName**: The name of the emulator. You can add as many emulators as you want for each system.
 
-- **EmulatorLocation**: Location of the emulator.
+- **EmulatorLocation**: The location of the emulator.
 
-- **EmulatorParameters**: Parameters that are used for each emulator. Not all emulators need parameters.<br><br>
+- **EmulatorParameters**: The parameters that are used for each emulator. Not all emulators require parameters.<br><br>
 
 ```xml
 <SystemConfig>
@@ -64,42 +66,17 @@ This file holds information about different systems and their settings. You can 
 </SystemConfig>
 ```
 
-## User Preferences ("settings.xml"):
-
-This file contains your preferences for the program, such as thumbnail size, hiding games without covers, and enabling GamePad navigation.<br>
-You should not manually configure this file. The file will be managed directly by the aplication. To change these settings you use the application menu.
-
-- **ThumbnailSize**: Height of the thumbnail.
-
-- **HideGamesWithNoCover**: Whether to hide games without a cover.
-
-- **EnableGamePadNavigation**: Whether to enable GamePad navigation.<br><br>
-
-```xml
-<Settings>
-	<ThumbnailSize>350</ThumbnailSize>
-	<HideGamesWithNoCover>false</HideGamesWithNoCover>
-	<EnableGamePadNavigation>true</EnableGamePadNavigation>
-</Settings>
-```
-<br>
-
-![Screenshot](screenshot3.png)
-
 ## Additional Features:
 
-- **Update Notifications:** You'll be notified if a new version is available.
+- **Update Notifications:** You will be notified if a new version is available.
 
-- **Error Logging:** The aplication also has an error logging mechanism that notify the developers of any errors that may occur. This way we can fix bugs and improve the program over time.
+- **Error Logging:** The application also has an error logging mechanism that notifies the developers of any errors that occur. This way, we can fix bugs and improve the program over time.
 
 ## Special Settings:
 
 **RPCS3**
 
-This emulator loads games extracted from ISO files into a folder.<br>
-To launch a specific game, it searches for a file named EBOOT.BIN located inside the PS3_GAME\USRDIR\ or USRDIR\ directories. This makes it tricky to configure these games in an emulator frontend. The quickest and easiest solution we found was to create BAT files that can launch the game with ease. These BAT files can then be configured in Simple Launcher to be treated as games.<br>
-When configuring this system in "system.xml" you should set `<FormatToSearch>bat</FormatToSearch>` as shown below.<br>
-We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.<br><br>
+This emulator loads games extracted from ISO files into a folder. To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories. Configuring these games in an emulator frontend can be challenging. The quickest and easiest solution we found was to create BAT files that can launch the games with ease. These BAT files can then be configured in Simple Launcher to be treated as games. When configuring this system in "system.xml," you should set `<FormatToSearch>bat</FormatToSearch>` as shown below. We have created a utility that can generate these BAT files for you. Please see the section "Related Utilities" for more information.<br><br>
 
 ```xml
 <SystemConfig>
@@ -127,10 +104,10 @@ We have created a utility that can generate these BAT files for you. Please see 
 
 **MAME**
 
-When setting up the MAME emulator you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>` this way the application will load the game description into UI alongside the game filename.<br>
-When setting the EmulatorParameters you just need to put the folder where your games are located `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
+When setting up the MAME emulator, you should set SystemIsMAME to true `<SystemIsMAME>true</SystemIsMAME>`. This way, the application will load the game description into the UI alongside the game filename.<br>
+When setting the EmulatorParameters, you only need to specify the folder where your games are located: `<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>`.<br>
 You can also launch MAME Roms using the Retroarch emulator.<br>
-Another way to launch MAME Roms is using [RocketLauncher](https://www.rlauncher.com/). For this to work [RocketLauncher](https://www.rlauncher.com/) need to be configured to launch MAME Roms.<br><br>
+Another method to launch MAME Roms is by using [RocketLauncher](https://www.rlauncher.com/). For this to work, [RocketLauncher](https://www.rlauncher.com/) needs to be configured to launch MAME Roms.
 
 ```xml
 <SystemConfig>
@@ -166,8 +143,8 @@ Another way to launch MAME Roms is using [RocketLauncher](https://www.rlauncher.
 
 <br>
 
-If you want to use MAME to launch Software List Roms (or MESS Roms) you should put the name of the system in the EmulatorParameters `<EmulatorParameters>gx4000 -cart</EmulatorParameters>` just like the example below.<br>
-For this to work you need to follow the patterns found in folder .\MAME\hash\\. You can found a list of XML files inside this folder that represent all the systems that MAME can emulate. Use the XML filename of the chosen system in the EmulatorParameters.<br><br>
+If you want to use MAME to launch Software List Roms (Legacy MESS Roms), you should include the name of the system in the EmulatorParameters like this: `<EmulatorParameters>gx4000 -cart</EmulatorParameters>`, as shown in the example below.<br>
+For this to work, you need to follow the patterns found in the folder `.\MAME\hash\`. Inside this folder, you can find a list of XML files representing all the systems that MAME can emulate. Use the XML filename of the chosen system in the EmulatorParameters.<br><br>
 
 ```xml
 <SystemConfig>
@@ -193,13 +170,13 @@ For this to work you need to follow the patterns found in folder .\MAME\hash\\. 
 
 ## Related Utilities:
 
-- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** Program that automatic create BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
+- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** A program that automatically creates BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
 
-- **MAMEListCreator:** Program that create a simplified XML of the MAME games. You need the MAME full driver information in XML format available in the [MAME website](https://www.mamedev.org/release.php). It will create multiple simplified (and smaller) XML databases. One of those databases with have all the games of MAME (called mame.xml), which is used in the Simple Launcher application to load game description of MAME games. It will also create multiple other databases for each and every driver emulated by MAME. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB
+- **MAMEListCreator:** A program that creates a simplified XML of the MAME games. You need the MAME full driver information in XML format, available on the [MAME](https://www.mamedev.org/release.php)  website. It will generate multiple simplified (and smaller) XML databases. One of these databases will contain all the MAME games (called mame.xml), which is used in the Simple Launcher application to load game descriptions of MAME games. It will also create multiple other databases for each driver emulated by MAME. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB.
 
-- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** Program that help you organize your cover collection of images. It will try to match the filename of image files with the filename of the roms. It uses [The Levenshtein Algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), created by Soviet mathematician Vladimir Levenshtein, to compare filenames of files. Written by a Simple Launcher developer.
+- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** A program that helps you organize your cover image collection. It attempts to match the filename of image files with the filename of the ROMs. It uses [The Levenshtein Algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), created by Soviet mathematician Vladimir Levenshtein, to compare filenames of files. Written by a Simple Launcher developer.
 
-- **ScrapingRomCover:** Program that scrap the web searching for cover images of games. It uses Google Image Search API or Bing Image Search API (which I prefer). You will need to provide you own KEY to access Bing or Google APIs, charges may apply. Written by a Simple Launcher developer.- I'M WORKING TO PUBLISH IT ON GITHUB
+- **ScrapingRomCover:** A program that scrapes the web searching for cover images of games. It uses the Google Image Search API or the Bing Image Search API (which is preferred). You will need to provide your own KEY to access Bing or Google APIs; charges may apply. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB.
 
 ## Technical Details:
 
