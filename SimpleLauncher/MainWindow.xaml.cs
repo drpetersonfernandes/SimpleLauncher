@@ -12,7 +12,6 @@ namespace SimpleLauncher
     public partial class MainWindow : Window
     {
         // Instance variables
-        private GamePadController _inputControl;
         readonly private List<SystemConfig> _systemConfigs;
         readonly private LetterNumberMenu _LetterNumberMenu = new();
         readonly private WrapPanel _gameFileGrid;
@@ -55,15 +54,18 @@ namespace SimpleLauncher
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
             // Initialize the GamePadController.cs
-            _inputControl = new GamePadController((ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait());
+            // Setting the error logger
+            GamePadController.Instance.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
+
             // Check if GamePad navigation is enabled in the settings
             if (_settings.EnableGamePadNavigation)
             {
-                // User wants GamePad support, start the controller
-                _inputControl.Start();
+                GamePadController.Instance.Start();
             }
-            // If EnableGamePadNavigation is false, _inputControl.Start() will not be called,
-            // effectively not starting the GamePad controller.
+            else
+            {
+                GamePadController.Instance.Stop();
+            }
 
             // Initialize _gameFileGrid
             _gameFileGrid = this.FindName("gameFileGrid") as WrapPanel;
@@ -98,11 +100,8 @@ namespace SimpleLauncher
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (_inputControl != null)
-            {
-                _inputControl.Stop();
-                _inputControl.Dispose();
-            }
+            GamePadController.Instance.Stop();
+            GamePadController.Instance.Dispose();
         }
 
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -341,6 +340,7 @@ namespace SimpleLauncher
 
         private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
         {
+            // Adjust event handler logic to use the singleton instance
             if (sender is MenuItem menuItem)
             {
                 menuItem.IsChecked = !menuItem.IsChecked;
@@ -349,15 +349,11 @@ namespace SimpleLauncher
 
                 if (menuItem.IsChecked)
                 {
-                    // If the gamepad navigation is being enabled, start the controller.
-                    _inputControl ??= new GamePadController((ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait());
-                    _inputControl.Start();
+                    GamePadController.Instance.Start();
                 }
                 else
                 {
-                    // If the gamepad navigation is being disabled, stop and dispose of the controller.
-                    _inputControl?.Dispose();
-                    _inputControl = null;
+                    GamePadController.Instance.Stop();
                 }
             }
         }

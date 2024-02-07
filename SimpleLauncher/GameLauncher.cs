@@ -22,6 +22,14 @@ namespace SimpleLauncher
                 // Check if the file is a .bat file
                 if (fileExtension == ".BAT")
                 {
+                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+
+                    // If the GamePadController is running, stop it before executing the .BAT
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Stop();
+                    }
+
                     psi = new ProcessStartInfo
                     {
                         FileName = filePath,
@@ -38,11 +46,16 @@ namespace SimpleLauncher
 
                     process.WaitForExit();
 
+                    // If the GamePadController was running, restart it after the .BAT execution
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Start();
+                    }
+
                     if (process.ExitCode != 0)
                     {
                         MessageBox.Show("Error executing the batch file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching batch file: Exit code {process.ExitCode}\n";
-                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
+                        string errorMessage = $"Error launching batch file: Exit code {process.ExitCode}\nOutput: {output}\nError: {error}\nProcess Start Info:\nFileName: {psi.FileName}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                     }
 
@@ -52,6 +65,14 @@ namespace SimpleLauncher
                 // Check if the file is a .lnk (shortcut) file
                 if (fileExtension == ".LNK")
                 {
+                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+
+                    // If the GamePadController is running, stop it before launching the .LNK
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Stop();
+                    }
+
                     psi = new ProcessStartInfo
                     {
                         FileName = filePath,
@@ -61,7 +82,13 @@ namespace SimpleLauncher
                     try
                     {
                         Process process = Process.Start(psi); // Start the process without redirecting output/error
-                        process.WaitForExit();
+                        process.WaitForExit(); // Wait for the process to exit
+
+                        // If the GamePadController was running, restart it after the .LNK exits
+                        if (wasGamePadControllerRunning)
+                        {
+                            GamePadController.Instance.Start();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -70,12 +97,21 @@ namespace SimpleLauncher
                         // Log the error with more details
                         await LogErrors.LogErrorAsync(new Exception(ex.Message));
                     }
+
                     return;
                 }
 
                 // Check if the file is a .exe (executable) file
                 if (fileExtension == ".EXE")
                 {
+                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+
+                    // If the GamePadController is running, stop it before launching the .EXE
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Stop();
+                    }
+
                     psi = new ProcessStartInfo
                     {
                         FileName = filePath,
@@ -85,13 +121,20 @@ namespace SimpleLauncher
                     try
                     {
                         Process process = Process.Start(psi); // Start the process without redirecting output/error
-                        process.WaitForExit();
+                        await process.WaitForExitAsync(); // Use WaitForExitAsync to asynchronously wait for the process to exit
+
+                        // If the GamePadController was running, restart it after the .EXE exits
+                        if (wasGamePadControllerRunning)
+                        {
+                            GamePadController.Instance.Start();
+                        }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Error executing the executable: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         await LogErrors.LogErrorAsync(new Exception(ex.Message));
                     }
+
                     return;
                 }
 

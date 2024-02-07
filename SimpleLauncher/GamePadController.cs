@@ -7,7 +7,13 @@ namespace SimpleLauncher
 {
     public class GamePadController : IDisposable
     {
-        private readonly Action<Exception, string> _errorLogger;
+        private static readonly Lazy<GamePadController> _instance = new(() => new GamePadController());
+        public static GamePadController Instance => _instance.Value;
+
+        // Add an Action for error logging
+        public Action<Exception, string> ErrorLogger { get; set; }
+
+        //private readonly Action<Exception, string> _errorLogger;
         private const int RefreshRate = 60;
         private const float MaxThumbValue = 32767.0f;  // Maximum thumbstick value for normalization.
 
@@ -24,12 +30,11 @@ namespace SimpleLauncher
 
         public bool IsRunning { get; private set; }
 
-        public GamePadController(Action<Exception, string> errorLogger = null)
+        private GamePadController()
         {
             _controller = new Controller(UserIndex.One);
             _mouseSimulator = new InputSimulator().Mouse;
             _timer = new Timer(obj => Update());
-            _errorLogger = errorLogger;
         }
 
         public void Start()
@@ -53,7 +58,6 @@ namespace SimpleLauncher
             _timer?.Dispose();
             _isDisposed = true;
 
-            // Suppress finalization.
             GC.SuppressFinalize(this);
         }
 
@@ -69,7 +73,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                _errorLogger?.Invoke(ex, "Error in GamePadController Update.");
+                ErrorLogger?.Invoke(ex, "Error in GamePadController Update.");
             }
         }
 
