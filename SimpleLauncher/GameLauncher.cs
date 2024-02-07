@@ -55,57 +55,43 @@ namespace SimpleLauncher
                     psi = new ProcessStartInfo
                     {
                         FileName = filePath,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
+                        UseShellExecute = true
                     };
 
-                    Process process = new() { StartInfo = psi };
-                    process.Start();
-
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    string error = await process.StandardError.ReadToEndAsync();
-
-                    process.WaitForExit();
-
-                    if (process.ExitCode != 0)
+                    try
                     {
-                        MessageBox.Show("Error executing the shortcut.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching shortcut: Exit code {process.ExitCode}\n";
-                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
-                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                        Process process = Process.Start(psi); // Start the process without redirecting output/error
+                        process.WaitForExit();
                     }
-
+                    catch (Exception ex)
+                    {
+                        // Handle the exception
+                        MessageBox.Show($"Error executing the shortcut: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // Log the error with more details
+                        await LogErrors.LogErrorAsync(new Exception(ex.Message));
+                    }
                     return;
                 }
 
-                // Check if the file is a .exe file
+                // Check if the file is a .exe (executable) file
                 if (fileExtension == ".EXE")
                 {
                     psi = new ProcessStartInfo
                     {
                         FileName = filePath,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
+                        UseShellExecute = true
                     };
 
-                    Process process = new() { StartInfo = psi };
-                    process.Start();
-
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    string error = await process.StandardError.ReadToEndAsync();
-
-                    process.WaitForExit();
-
-                    if (process.ExitCode != 0)
+                    try
                     {
-                        MessageBox.Show("Error executing the program.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching the program: Exit code {process.ExitCode}\n";
-                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\n";
-                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                        Process process = Process.Start(psi); // Start the process without redirecting output/error
+                        process.WaitForExit();
                     }
-
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error executing the executable: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        await LogErrors.LogErrorAsync(new Exception(ex.Message));
+                    }
                     return;
                 }
 
@@ -219,5 +205,6 @@ namespace SimpleLauncher
                 await LogErrors.LogErrorAsync(ex, errorDetails);
             }
         }
+
     }
 }

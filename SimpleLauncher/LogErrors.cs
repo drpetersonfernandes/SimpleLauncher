@@ -20,15 +20,24 @@ namespace SimpleLauncher
 
             string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
 
-            lock (_lockObject)
+            // Attempt to write to the log file, ignoring exceptions if the file cannot be accessed
+            try
             {
-                File.AppendAllText(errorLogPath, errorMessage);
-            }
+                lock (_lockObject)
+                {
+                    File.AppendAllText(errorLogPath, errorMessage);
+                }
 
-            // Check the result of SendLogToApiAsync and delete the log file if successful
-            if (await SendLogToApiAsync())
+                // Check the result of SendLogToApiAsync and delete the log file if successful
+                if (await SendLogToApiAsync())
+                {
+                    File.Delete(errorLogPath);
+                }
+            }
+            catch
             {
-                File.Delete(errorLogPath);
+                // If an exception occurs while accessing the log file, simply ignore it and return.
+                return;
             }
         }
 

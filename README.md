@@ -144,7 +144,15 @@ For this to work, you need to follow the patterns found in the folder `.\MAME\ha
 
 **Microsoft Windows Games or Applications**
 
-If you want to add your Windows Games or Applications to Simple Launcher, you should create a folder with Shortcuts (lnk) or BAT files (bat) that call the Game or Application. When configuring this system in "system.xml," you should set `<FormatToSearch>lnk</FormatToSearch>` or `<FormatToSearch>bat</FormatToSearch>` as shown below.<br><br>
+If you want to add your Windows Games or Applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that call the Game or Application. When configuring this system in "system.xml," you should set `<FormatToSearch>lnk</FormatToSearch>` or `<FormatToSearch>bat</FormatToSearch>` or `<FormatToSearch>exe</FormatToSearch>` as shown below.<br>
+If you prefer to use BAT (bat) files to call your games use the model below as an example.<br>
+
+```bat
+@echo off
+cd /d "J:\Microsoft Windows\Mega Man 11"
+start game.exe
+```
+<br>
 
 ```xml
 <SystemConfig>
@@ -154,6 +162,7 @@ If you want to add your Windows Games or Applications to Simple Launcher, you sh
 	<FileFormatsToSearch>
 		<FormatToSearch>lnk</FormatToSearch>
 		<FormatToSearch>bat</FormatToSearch>
+		<FormatToSearch>exe</FormatToSearch>
 	</FileFormatsToSearch>
 	<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 	<FileFormatsToLaunch>

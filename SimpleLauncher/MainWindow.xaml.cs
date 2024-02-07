@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleLauncher.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -55,7 +56,14 @@ namespace SimpleLauncher
 
             // Initialize the GamePadController.cs
             _inputControl = new GamePadController((ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait());
-            _inputControl.Start();
+            // Check if GamePad navigation is enabled in the settings
+            if (_settings.EnableGamePadNavigation)
+            {
+                // User wants GamePad support, start the controller
+                _inputControl.Start();
+            }
+            // If EnableGamePadNavigation is false, _inputControl.Start() will not be called,
+            // effectively not starting the GamePad controller.
 
             // Initialize _gameFileGrid
             _gameFileGrid = this.FindName("gameFileGrid") as WrapPanel;

@@ -1079,11 +1079,12 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft Windows</SystemName>
-		<SystemFolder>G:\Microsoft Windows</SystemFolder>
+		<SystemFolder>J:\Microsoft Windows</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>lnk</FormatToSearch>
 			<FormatToSearch>bat</FormatToSearch>
+			<FormatToSearch>exe</FormatToSearch>
 		</FileFormatsToSearch>
 		<ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
 		<FileFormatsToLaunch>
