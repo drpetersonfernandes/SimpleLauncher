@@ -210,7 +210,7 @@ This emulator loads games extracted from ISO files into a folder. To launch a sp
 
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** A program that automatically creates BAT files to easily launch PS3 games on the RPCS3 emulator. Written by a Simple Launcher developer.
 
-- **MAMEListCreator:** A program that creates a simplified XML of the MAME games. You need the MAME full driver information in XML format, available on the [MAME](https://www.mamedev.org/release.php)  website. It will generate multiple simplified (and smaller) XML databases. One of these databases will contain all the MAME games (called mame.xml), which is used in the Simple Launcher application to load game descriptions of MAME games. It will also create multiple other databases for each driver emulated by MAME. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB.
+- **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility to manage the MAME full driver information in XML format that is available on the [MAME](https://www.mamedev.org/release.html)  website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML. Written by a Simple Launcher developer.
 
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** A program that helps you organize your cover image collection. It attempts to match the filename of image files with the filename of the ROMs. It uses [The Levenshtein Algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), created by Soviet mathematician Vladimir Levenshtein, to compare filenames of files. Written by a Simple Launcher developer.
 
