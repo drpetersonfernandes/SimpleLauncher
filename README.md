@@ -212,7 +212,7 @@ This emulator loads games extracted from ISO files into a folder. To launch a sp
 
 - **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility to manage the MAME full driver information in XML format that is available on the [MAME](https://www.mamedev.org/release.html)  website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML. Written by a Simple Launcher developer.
 
-- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** A program that helps you organize your cover image collection. It attempts to match the filename of image files with the filename of the ROMs. It uses [The Levenshtein Algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), created by Soviet mathematician Vladimir Levenshtein, to compare filenames of files. Written by a Simple Launcher developer.
+- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** A program that helps you organize your cover image collection. It attempts to match the filename of image files with the filename of the ROMs. User can choose the similarity Algorithm to compare filenames of files. Written by a Simple Launcher developer.
 
 - **ScrapingRomCover:** A program that scrapes the web searching for cover images of games. It uses the Google Image Search API or the Bing Image Search API (which is preferred). You will need to provide your own KEY to access Bing or Google APIs; charges may apply. Written by a Simple Launcher developer. - I'M WORKING TO PUBLISH IT ON GITHUB.
 
