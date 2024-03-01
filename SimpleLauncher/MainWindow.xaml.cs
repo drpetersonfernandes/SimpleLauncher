@@ -1,5 +1,4 @@
-﻿using SimpleLauncher.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,21 +8,21 @@ using System.Windows.Controls;
 
 namespace SimpleLauncher
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         // Instance variables
-        readonly private List<SystemConfig> _systemConfigs;
-        readonly private LetterNumberMenu _LetterNumberMenu = new();
-        readonly private WrapPanel _gameFileGrid;
+        private readonly List<SystemConfig> _systemConfigs;
+        private readonly LetterNumberMenu _letterNumberMenu = new();
+        private readonly WrapPanel _gameFileGrid;
         private GameButtonFactory _gameButtonFactory;
         private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
-        public List<MameConfig> _machines;
+        private readonly List<MameConfig> _machines;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            
             // Load mame.xml
             string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
             _machines = MameConfig.LoadFromXml(xmlPath);
@@ -34,7 +33,7 @@ namespace SimpleLauncher
             // Load system.xml
             try
             {
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
                 _systemConfigs = SystemConfig.LoadSystemConfigs(path);
                 SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
             }
@@ -49,7 +48,7 @@ namespace SimpleLauncher
             UpdateMenuCheckMarks(_settings.ThumbnailSize);
 
             // Attach the Closing event handler to ensure resources are disposed of
-            this.Closing += MainWindow_Closing;
+            Closing += MainWindow_Closing;
 
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
@@ -68,17 +67,17 @@ namespace SimpleLauncher
             }
 
             // Initialize _gameFileGrid
-            _gameFileGrid = this.FindName("gameFileGrid") as WrapPanel;
+            _gameFileGrid = FindName("gameFileGrid") as WrapPanel;
 
             // Create and integrate LetterNumberMenu
-            _LetterNumberMenu.OnLetterSelected += async (selectedLetter) =>
+            _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
                 await LoadGameFiles(selectedLetter);
             };
 
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
-            Grid.SetRow(_LetterNumberMenu.LetterPanel, 1);
-            ((Grid)this.Content).Children.Add(_LetterNumberMenu.LetterPanel);
+            Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
+            ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -90,7 +89,8 @@ namespace SimpleLauncher
             }
 
             // Check for updates
-            Loaded += async (sender, e) => await UpdateChecker.CheckForUpdatesAsync(this);
+            Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
+            
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -128,11 +128,11 @@ namespace SimpleLauncher
                     // Display the system info
                     string systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-                    int gameCount = LoadFiles.CountFiles(systemFolderPath);
+                    int gameCount = LoadFiles.CountFiles(systemFolderPath, fileExtensions);
                     DisplaySystemInfo(systemFolderPath, gameCount);
-
+                    
                     // Call DeselectLetter to clear any selected letter
-                    _LetterNumberMenu.DeselectLetter();
+                    _letterNumberMenu.DeselectLetter();
                 }
                 else
                 {
@@ -145,6 +145,17 @@ namespace SimpleLauncher
             }
         }
 
+        private void DisplaySystemInfo(string systemFolderPath, int gameCount)
+        {
+            GameFileGrid.Children.Clear();
+            GameFileGrid.Children.Add(new TextBlock
+            {
+                Text = $"\nDirectory: {systemFolderPath}\nTotal number of games in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter",
+                FontWeight = FontWeights.Bold,
+                Padding = new Thickness(10)
+            });
+        }
+
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Handle the logic when an Emulator is selected
@@ -154,7 +165,7 @@ namespace SimpleLauncher
         {
             try
             {
-                gameFileGrid.Children.Clear();
+                GameFileGrid.Children.Clear();
 
                 if (SystemComboBox.SelectedItem == null)
                 {
@@ -191,7 +202,7 @@ namespace SimpleLauncher
                 {
                     // Adjust the CreateGameButton call.
                     Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-                    gameFileGrid.Children.Add(gameButton);
+                    GameFileGrid.Children.Add(gameButton);
                 }
             }
             catch (Exception ex)
@@ -202,8 +213,8 @@ namespace SimpleLauncher
 
         private void AddNoSystemMessage()
         {
-            gameFileGrid.Children.Clear();
-            gameFileGrid.Children.Add(new TextBlock
+            GameFileGrid.Children.Clear();
+            GameFileGrid.Children.Add(new TextBlock
             {
                 Text = "\nPlease select a System",
                 FontWeight = FontWeights.Bold,
@@ -211,19 +222,8 @@ namespace SimpleLauncher
             });
 
             // Deselect any selected letter when no system is selected
-            _LetterNumberMenu.DeselectLetter();
+            _letterNumberMenu.DeselectLetter();
 
-        }
-
-        private void DisplaySystemInfo(string systemFolderPath, int gameCount)
-        {
-            gameFileGrid.Children.Clear();
-            gameFileGrid.Children.Add(new TextBlock
-            {
-                Text = $"\nDirectory: {systemFolderPath}\nTotal number of files in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter",
-                FontWeight = FontWeights.Bold,
-                Padding = new Thickness(10)
-            });
         }
 
         private static async void HandleError(Exception ex, string message)
@@ -270,6 +270,11 @@ namespace SimpleLauncher
 
         #region Menu Items
 
+        private void EditSystem_Click(object sender, RoutedEventArgs e)
+        {
+            EditSystem editSystemWindow = new();
+            editSystemWindow.ShowDialog();
+        }
         private void BugReport_Click(object sender, RoutedEventArgs e)
         {
             BugReport bugReportWindow = new();
@@ -289,7 +294,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Unable to open the link: " + ex.Message);
+                MessageBox.Show("Unable to open the link: " + ex.Message);
             }
         }
 
@@ -299,9 +304,9 @@ namespace SimpleLauncher
             aboutWindow.ShowDialog();
         }
 
-        public void Exit_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void HideGamesNoCover_Click(object sender, RoutedEventArgs e)
@@ -364,7 +369,7 @@ namespace SimpleLauncher
             {
                 // Extract the numeric value from the header
                 var sizeText = clickedItem.Header.ToString();
-                if (int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
+                if (int.TryParse(new string(sizeText!.Where(char.IsDigit).ToArray()), out int newSize))
                 {
                     _gameButtonFactory.ImageHeight = newSize; // Update the image height
                     _settings.ThumbnailSize = newSize; // Update the settings

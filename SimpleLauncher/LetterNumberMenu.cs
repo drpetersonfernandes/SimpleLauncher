@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace SimpleLauncher
@@ -54,7 +55,7 @@ namespace SimpleLauncher
         {
             if (selectedButton != null && selectedButton != button)
             {
-                selectedButton.ClearValue(Button.BackgroundProperty);
+                selectedButton.ClearValue(Control.BackgroundProperty);
             }
 
             button.Background = Brushes.Green;
@@ -65,7 +66,7 @@ namespace SimpleLauncher
         {
             if (letterButtons.TryGetValue(letter, out Button value))
             {
-                value.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                value.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
         }
 
@@ -73,7 +74,7 @@ namespace SimpleLauncher
         {
             if (selectedButton != null)
             {
-                selectedButton.ClearValue(Button.BackgroundProperty);
+                selectedButton.ClearValue(Control.BackgroundProperty);
                 selectedButton = null;
             }
         }

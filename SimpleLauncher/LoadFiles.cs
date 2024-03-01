@@ -15,22 +15,22 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    Console.WriteLine($"Directory Path: {directoryPath}");
+                    Console.WriteLine($@"Directory Path: {directoryPath}");
 
                     if (!Directory.Exists(directoryPath))
                     {
-                        Console.WriteLine("Directory doesn't exist!");
+                        Console.WriteLine(@"Directory doesn't exist!");
                         return [];
                     }
 
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
 
-                    Console.WriteLine($"Found {foundFiles.Count} files.");
+                    Console.WriteLine($@"Found {foundFiles.Count} files.");
                     return foundFiles;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine($@"An error occurred: {ex.Message}");
                     return [];
                 }
             });
@@ -59,7 +59,7 @@ namespace SimpleLauncher
 
             if (targetSystemConfig == null)
             {
-                Console.WriteLine($"System '{systemName}' not found in config.");
+                Console.WriteLine($@"System '{systemName}' not found in config.");
                 return [];
             }
 
@@ -69,7 +69,7 @@ namespace SimpleLauncher
             return filteredGames;
         }
 
-        public static int CountFiles(string folderPath)
+        public static int CountFiles(string folderPath, List<string> extensions)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -79,8 +79,11 @@ namespace SimpleLauncher
 
             try
             {
-                // Count all files in the directory not recursively
-                return Directory.GetFiles(folderPath, "*", SearchOption.TopDirectoryOnly).Length;
+                // Get all files in the directory that match the specified extensions
+                var files = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly)
+                    .Where(file => extensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)));
+
+                return files.Count();
             }
             catch (Exception ex)
             {
@@ -88,6 +91,7 @@ namespace SimpleLauncher
                 return 0;
             }
         }
+
 
     }
 }

@@ -23,6 +23,7 @@
     <Version>$(VersionPrefix)</Version>
     <NoWin32Manifest>true</NoWin32Manifest>
     <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <IsPublishable>False</IsPublishable>

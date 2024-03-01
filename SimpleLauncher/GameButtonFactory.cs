@@ -42,7 +42,7 @@ namespace SimpleLauncher
 
             var image = new Image
             {
-                Height = this.ImageHeight,
+                Height = ImageHeight,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
@@ -218,7 +218,7 @@ namespace SimpleLauncher
             };
 
             // Set Z-Index to ensure it's on top
-            youtubeIcon.SetValue(Grid.ZIndexProperty, 1);
+            youtubeIcon.SetValue(Panel.ZIndexProperty, 1);
 
             youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
             {
@@ -251,7 +251,7 @@ namespace SimpleLauncher
             };
 
             // Set Z-Index to ensure it's on top
-            infoIcon.SetValue(Grid.ZIndexProperty, 1);
+            infoIcon.SetValue(Panel.ZIndexProperty, 1);
 
             infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
             {

@@ -78,6 +78,10 @@
                     Header="Enable GamePad Navigation" />
             </MenuItem>
             <MenuItem
+                x:Name="EditSystemButton"
+                Click="EditSystem_Click"
+                Header="Edit System" />
+            <MenuItem
                 x:Name="BugReportButton"
                 Click="BugReport_Click"
                 Header="Bug Report" />
@@ -130,7 +134,7 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
-            <WrapPanel x:Name="gameFileGrid" Orientation="Horizontal">
+            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>

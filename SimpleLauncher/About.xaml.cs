@@ -15,7 +15,7 @@ namespace SimpleLauncher
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
