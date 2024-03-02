@@ -32,6 +32,7 @@
     <None Remove="images\logo2.png" />
     <None Remove="~syncthing~EditSystem.xaml.tmp" />
     <None Remove="~syncthing~EditSystem.xaml.cs.tmp" />
+    <None Remove="database\**" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -86,5 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
+    <Compile Remove="database\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="database\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="database\**" />
   </ItemGroup>
 </Project>
