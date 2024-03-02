@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="system.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
     <ItemGroup>

@@ -69,25 +69,31 @@ namespace SimpleLauncher
             return filteredGames;
         }
 
-        public static int CountFiles(string folderPath, List<string> extensions)
+        public static int CountFiles(string folderPath, List<string> fileExtensions)
         {
             if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return 0;
             }
 
             try
             {
-                // Get all files in the directory that match the specified extensions
-                var files = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(file => extensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)));
+                int fileCount = 0;
 
-                return files.Count();
+                foreach (string extension in fileExtensions)
+                {
+                    string searchPattern = $"*.{extension}";
+                    fileCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
+                }
+
+                return fileCount;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return 0;
             }
         }

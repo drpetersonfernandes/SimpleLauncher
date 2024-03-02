@@ -127,7 +127,7 @@ namespace SimpleLauncher
 
                     // Display the system info
                     string systemFolderPath = selectedConfig.SystemFolder;
-                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
                     int gameCount = LoadFiles.CountFiles(systemFolderPath, fileExtensions);
                     DisplaySystemInfo(systemFolderPath, gameCount);
                     

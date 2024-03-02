@@ -2,7 +2,7 @@
 
 	<SystemConfig>
 		<SystemName>Amstrad CPC GX4000</SystemName>
-		<SystemFolder>G:\OK\Amstrad CPC GX4000</SystemFolder>
+		<SystemFolder>G:\Amstrad CPC GX4000</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -22,7 +22,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari 8-Bit</SystemName>
-		<SystemFolder>G:\OK\Atari 8-Bit</SystemFolder>
+		<SystemFolder>G:\Atari 8-Bit</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -57,7 +57,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari 2600</SystemName>
-		<SystemFolder>G:\OK\Atari 2600</SystemFolder>
+		<SystemFolder>G:\Atari 2600</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -77,7 +77,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari 5200</SystemName>
-		<SystemFolder>G:\OK\Atari 5200</SystemFolder>
+		<SystemFolder>G:\Atari 5200</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -102,7 +102,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari 7800</SystemName>
-		<SystemFolder>G:\OK\Atari 7800</SystemFolder>
+		<SystemFolder>G:\Atari 7800</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -122,7 +122,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari Jaguar</SystemName>
-		<SystemFolder>G:\OK\Atari Jaguar</SystemFolder>
+		<SystemFolder>G:\Atari Jaguar</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -142,7 +142,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari Jaguar CD</SystemName>
-		<SystemFolder>G:\OK\Atari Jaguar CD</SystemFolder>
+		<SystemFolder>G:\Atari Jaguar CD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -163,7 +163,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari Lynx</SystemName>
-		<SystemFolder>G:\OK\Atari Lynx</SystemFolder>
+		<SystemFolder>G:\Atari Lynx</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -183,7 +183,7 @@
 
 	<SystemConfig>
 		<SystemName>Atari ST</SystemName>
-		<SystemFolder>G:\OK\Atari ST</SystemFolder>
+		<SystemFolder>G:\Atari ST</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -212,7 +212,7 @@
 
 	<SystemConfig>
 		<SystemName>Bandai WonderSwan</SystemName>
-		<SystemFolder>G:\OK\Bandai WonderSwan</SystemFolder>
+		<SystemFolder>G:\Bandai WonderSwan</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -232,7 +232,7 @@
 
 	<SystemConfig>
 		<SystemName>Bandai WonderSwan Color</SystemName>
-		<SystemFolder>G:\OK\Bandai WonderSwan Color</SystemFolder>
+		<SystemFolder>G:\Bandai WonderSwan Color</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -252,7 +252,7 @@
 
 	<SystemConfig>
 		<SystemName>Casio PV-1000</SystemName>
-		<SystemFolder>G:\OK\Casio PV-1000</SystemFolder>
+		<SystemFolder>G:\Casio PV-1000</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -272,7 +272,7 @@
 
 	<SystemConfig>
 		<SystemName>ColecoVision</SystemName>
-		<SystemFolder>G:\OK\ColecoVision</SystemFolder>
+		<SystemFolder>G:\ColecoVision</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -297,7 +297,7 @@
 
 	<SystemConfig>
 		<SystemName>Commodore 64</SystemName>
-		<SystemFolder>G:\OK\Commodore 64</SystemFolder>
+		<SystemFolder>G:\Commodore 64</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -337,7 +337,7 @@
 
 	<SystemConfig>
 		<SystemName>Commodore Amiga CD32</SystemName>
-		<SystemFolder>G:\OK\Commodore Amiga CD32</SystemFolder>
+		<SystemFolder>G:\Commodore Amiga CD32</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -362,7 +362,7 @@
 
 	<SystemConfig>
 		<SystemName>Magnavox Odyssey 2</SystemName>
-		<SystemFolder>G:\OK\Magnavox Odyssey 2</SystemFolder>
+		<SystemFolder>G:\Magnavox Odyssey 2</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -382,7 +382,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME</SystemName>
-		<SystemFolder>G:\OK\MAME\MAME Roms</SystemFolder>
+		<SystemFolder>G:\MAME\MAME Roms</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -395,7 +395,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME\MAME Roms"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -412,7 +412,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Atari</SystemName>
-		<SystemFolder>G:\OK\MAME Atari</SystemFolder>
+		<SystemFolder>G:\MAME Atari</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -425,7 +425,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Atari"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Atari"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -442,7 +442,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Bally Midway</SystemName>
-		<SystemFolder>G:\OK\MAME Bally Midway</SystemFolder>
+		<SystemFolder>G:\MAME Bally Midway</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -455,7 +455,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Bally Midway"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Bally Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -472,7 +472,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Banpresto</SystemName>
-		<SystemFolder>G:\OK\MAME Banpresto</SystemFolder>
+		<SystemFolder>G:\MAME Banpresto</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -485,7 +485,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Banpresto"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Banpresto"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -502,7 +502,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Capcom</SystemName>
-		<SystemFolder>G:\OK\MAME Capcom</SystemFolder>
+		<SystemFolder>G:\MAME Capcom</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -515,7 +515,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Capcom"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Capcom"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -532,7 +532,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Data East</SystemName>
-		<SystemFolder>G:\OK\MAME Data East</SystemFolder>
+		<SystemFolder>G:\MAME Data East</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -545,7 +545,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Data East"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Data East"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -562,7 +562,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Irem</SystemName>
-		<SystemFolder>G:\OK\MAME Irem</SystemFolder>
+		<SystemFolder>G:\MAME Irem</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -575,7 +575,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Irem"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Irem"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -592,7 +592,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Jaleco</SystemName>
-		<SystemFolder>G:\OK\MAME Jaleco</SystemFolder>
+		<SystemFolder>G:\MAME Jaleco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -605,7 +605,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Jaleco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Jaleco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -622,7 +622,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Konami</SystemName>
-		<SystemFolder>G:\OK\MAME Konami</SystemFolder>
+		<SystemFolder>G:\MAME Konami</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -635,7 +635,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Konami"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Konami"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -652,7 +652,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Midway</SystemName>
-		<SystemFolder>G:\OK\MAME Midway</SystemFolder>
+		<SystemFolder>G:\MAME Midway</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -665,7 +665,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Midway"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Midway"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -682,7 +682,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Mitchell</SystemName>
-		<SystemFolder>G:\OK\MAME Mitchell</SystemFolder>
+		<SystemFolder>G:\MAME Mitchell</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -695,7 +695,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Mitchell"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Mitchell"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -712,7 +712,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Namco</SystemName>
-		<SystemFolder>G:\OK\MAME Namco</SystemFolder>
+		<SystemFolder>G:\MAME Namco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -725,7 +725,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Namco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Namco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -742,7 +742,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Nintendo</SystemName>
-		<SystemFolder>G:\OK\MAME Nintendo</SystemFolder>
+		<SystemFolder>G:\MAME Nintendo</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -755,7 +755,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Nintendo"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Nintendo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -772,7 +772,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sammy</SystemName>
-		<SystemFolder>G:\OK\MAME Sammy</SystemFolder>
+		<SystemFolder>G:\MAME Sammy</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -785,7 +785,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Sammy"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Sammy"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -802,7 +802,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sega</SystemName>
-		<SystemFolder>G:\OK\MAME Sega</SystemFolder>
+		<SystemFolder>G:\MAME Sega</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -815,7 +815,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Sega"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Sega"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -832,7 +832,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME SNK</SystemName>
-		<SystemFolder>G:\OK\MAME SNK</SystemFolder>
+		<SystemFolder>G:\MAME SNK</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -845,7 +845,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME SNK"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME SNK"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -862,7 +862,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Sony ZiNc</SystemName>
-		<SystemFolder>G:\OK\MAME Sony ZiNc</SystemFolder>
+		<SystemFolder>G:\MAME Sony ZiNc</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -875,7 +875,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Sony ZiNc"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Sony ZiNc"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -892,7 +892,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Taito</SystemName>
-		<SystemFolder>G:\OK\MAME Taito</SystemFolder>
+		<SystemFolder>G:\MAME Taito</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -905,7 +905,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Taito"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Taito"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -922,7 +922,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Tecmo</SystemName>
-		<SystemFolder>G:\OK\MAME Tecmo</SystemFolder>
+		<SystemFolder>G:\MAME Tecmo</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -935,7 +935,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Tecmo"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Tecmo"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -952,7 +952,7 @@
 
 	<SystemConfig>
 		<SystemName>MAME Visco</SystemName>
-		<SystemFolder>G:\OK\MAME Visco</SystemFolder>
+		<SystemFolder>G:\MAME Visco</SystemFolder>
 		<SystemIsMAME>true</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -965,7 +965,7 @@
 			<Emulator>
 				<EmulatorName>MAME</EmulatorName>
 				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>-rompath "G:\OK\MAME Visco"</EmulatorParameters>
+				<EmulatorParameters>-rompath "G:\MAME Visco"</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
@@ -982,7 +982,7 @@
 
 	<SystemConfig>
 		<SystemName>Mattel Aquarius</SystemName>
-		<SystemFolder>G:\OK\Mattel Aquarius</SystemFolder>
+		<SystemFolder>G:\Mattel Aquarius</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1014,7 +1014,7 @@
 
 	<SystemConfig>
 		<SystemName>Mattel Intellivision</SystemName>
-		<SystemFolder>G:\OK\Mattel Intellivision</SystemFolder>
+		<SystemFolder>G:\Mattel Intellivision</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1039,7 +1039,7 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft MSX</SystemName>
-		<SystemFolder>G:\OK\Microsoft MSX</SystemFolder>
+		<SystemFolder>G:\Microsoft MSX</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1059,7 +1059,7 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft MSX2</SystemName>
-		<SystemFolder>G:\OK\Microsoft MSX2</SystemFolder>
+		<SystemFolder>G:\Microsoft MSX2</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1079,7 +1079,7 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft Windows</SystemName>
-		<SystemFolder>J:\Microsoft Windows</SystemFolder>
+		<SystemFolder>G:\Microsoft Windows</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>lnk</FormatToSearch>
@@ -1101,7 +1101,7 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft Xbox</SystemName>
-		<SystemFolder>J:\Microsoft Xbox Roms</SystemFolder>
+		<SystemFolder>I:\Microsoft Xbox Roms</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>iso</FormatToSearch>
@@ -1121,7 +1121,7 @@
 
 	<SystemConfig>
 		<SystemName>Microsoft Xbox 360</SystemName>
-		<SystemFolder>J:\Microsoft Xbox360 Roms</SystemFolder>
+		<SystemFolder>I:\Microsoft Xbox360 Roms</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>iso</FormatToSearch>
@@ -1141,7 +1141,7 @@
 
 	<SystemConfig>
 		<SystemName>NEC PC Engine</SystemName>
-		<SystemFolder>G:\OK\NEC PC Engine</SystemFolder>
+		<SystemFolder>G:\NEC PC Engine</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1161,7 +1161,7 @@
 
 	<SystemConfig>
 		<SystemName>NEC PC Engine CD</SystemName>
-		<SystemFolder>G:\OK\NEC PC Engine CD</SystemFolder>
+		<SystemFolder>G:\NEC PC Engine CD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1181,7 +1181,7 @@
 
 	<SystemConfig>
 		<SystemName>NEC PC-FX</SystemName>
-		<SystemFolder>G:\OK\NEC PC-FX</SystemFolder>
+		<SystemFolder>G:\NEC PC-FX</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1201,7 +1201,7 @@
 
 	<SystemConfig>
 		<SystemName>NEC SuperGrafx</SystemName>
-		<SystemFolder>G:\OK\NEC SuperGrafx</SystemFolder>
+		<SystemFolder>G:\NEC SuperGrafx</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1246,7 +1246,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo 64</SystemName>
-		<SystemFolder>G:\OK\Nintendo 64</SystemFolder>
+		<SystemFolder>G:\Nintendo 64</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1266,7 +1266,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo 64DD</SystemName>
-		<SystemFolder>G:\OK\Nintendo 64DD</SystemFolder>
+		<SystemFolder>G:\Nintendo 64DD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1286,7 +1286,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo DS DSi</SystemName>
-		<SystemFolder>G:\OK\Nintendo DS DSi</SystemFolder>
+		<SystemFolder>G:\Nintendo DS DSi</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1306,7 +1306,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Family Computer Disk System</SystemName>
-		<SystemFolder>G:\OK\Nintendo Family Computer Disk System</SystemFolder>
+		<SystemFolder>G:\Nintendo Family Computer Disk System</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1336,7 +1336,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy</SystemName>
-		<SystemFolder>G:\OK\Nintendo Game Boy</SystemFolder>
+		<SystemFolder>G:\Nintendo Game Boy</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1356,7 +1356,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy Advance</SystemName>
-		<SystemFolder>G:\OK\Nintendo Game Boy Advance</SystemFolder>
+		<SystemFolder>G:\Nintendo Game Boy Advance</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1376,7 +1376,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Game Boy Color</SystemName>
-		<SystemFolder>G:\OK\Nintendo Game Boy Color</SystemFolder>
+		<SystemFolder>G:\Nintendo Game Boy Color</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1396,7 +1396,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo GameCube</SystemName>
-		<SystemFolder>G:\OK\Nintendo GameCube</SystemFolder>
+		<SystemFolder>G:\Nintendo GameCube</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>rvz</FormatToSearch>
@@ -1421,7 +1421,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo NES</SystemName>
-		<SystemFolder>G:\OK\Nintendo NES</SystemFolder>
+		<SystemFolder>G:\Nintendo NES</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1452,7 +1452,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Satellaview</SystemName>
-		<SystemFolder>G:\OK\Nintendo Satellaview</SystemFolder>
+		<SystemFolder>G:\Nintendo Satellaview</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1482,7 +1482,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo SNES</SystemName>
-		<SystemFolder>G:\OK\Nintendo SNES</SystemFolder>
+		<SystemFolder>G:\Nintendo SNES</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1507,7 +1507,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo SNES MSU1</SystemName>
-		<SystemFolder>G:\OK\Nintendo SNES MSU1</SystemFolder>
+		<SystemFolder>G:\Nintendo SNES MSU1</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1558,7 +1558,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo Wii</SystemName>
-		<SystemFolder>I:\OK\Nintendo Wii</SystemFolder>
+		<SystemFolder>G:\Nintendo Wii</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>rvz</FormatToSearch>
@@ -1603,7 +1603,7 @@
 
 	<SystemConfig>
 		<SystemName>Nintendo WiiWare</SystemName>
-		<SystemFolder>I:\OK\Nintendo WiiWare</SystemFolder>
+		<SystemFolder>I:\Nintendo WiiWare</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>wad</FormatToSearch>
@@ -1628,7 +1628,7 @@
 
 	<SystemConfig>
 		<SystemName>Panasonic 3DO</SystemName>
-		<SystemFolder>G:\OK\Panasonic 3DO</SystemFolder>
+		<SystemFolder>G:\Panasonic 3DO</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1648,7 +1648,7 @@
 
 	<SystemConfig>
 		<SystemName>Philips CD-i</SystemName>
-		<SystemFolder>G:\OK\Philips CD-i</SystemFolder>
+		<SystemFolder>G:\Philips CD-i</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1673,7 +1673,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Dreamcast</SystemName>
-		<SystemFolder>G:\OK\Sega Dreamcast</SystemFolder>
+		<SystemFolder>G:\Sega Dreamcast</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1698,7 +1698,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Game Gear</SystemName>
-		<SystemFolder>G:\OK\Sega Game Gear</SystemFolder>
+		<SystemFolder>G:\Sega Game Gear</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1718,7 +1718,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Genesis</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis</SystemFolder>
+		<SystemFolder>G:\Sega Genesis</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1750,7 +1750,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Genesis 32X</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis 32X</SystemFolder>
+		<SystemFolder>G:\Sega Genesis 32X</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1771,7 +1771,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Genesis CD</SystemName>
-		<SystemFolder>G:\OK\Sega Genesis CD</SystemFolder>
+		<SystemFolder>G:\Sega Genesis CD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1797,7 +1797,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Master System</SystemName>
-		<SystemFolder>G:\OK\Sega Master System</SystemFolder>
+		<SystemFolder>G:\Sega Master System</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1817,7 +1817,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega Saturn</SystemName>
-		<SystemFolder>G:\OK\Sega Saturn</SystemFolder>
+		<SystemFolder>G:\Sega Saturn</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1837,7 +1837,7 @@
 
 	<SystemConfig>
 		<SystemName>Sega SC-3000</SystemName>
-		<SystemFolder>G:\OK\Sega SC-3000</SystemFolder>
+		<SystemFolder>G:\Sega SC-3000</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1877,7 +1877,7 @@
 	
 	<SystemConfig>
 		<SystemName>Sega SG-1000</SystemName>
-		<SystemFolder>G:\OK\Sega SG-1000</SystemFolder>
+		<SystemFolder>G:\Sega SG-1000</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1912,7 +1912,7 @@
 
 	<SystemConfig>
 		<SystemName>Sinclair ZX Spectrum</SystemName>
-		<SystemFolder>G:\OK\Sinclair ZX Spectrum</SystemFolder>
+		<SystemFolder>G:\Sinclair ZX Spectrum</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1932,7 +1932,7 @@
 
 	<SystemConfig>
 		<SystemName>SNK Neo Geo CD</SystemName>
-		<SystemFolder>G:\OK\SNK Neo Geo CD</SystemFolder>
+		<SystemFolder>G:\SNK Neo Geo CD</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -1957,7 +1957,7 @@
 
 	<SystemConfig>
 		<SystemName>SNK Neo Geo Pocket</SystemName>
-		<SystemFolder>G:\OK\SNK Neo Geo Pocket</SystemFolder>
+		<SystemFolder>G:\SNK Neo Geo Pocket</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -1982,7 +1982,7 @@
 
 	<SystemConfig>
 		<SystemName>SNK Neo Geo Pocket Color</SystemName>
-		<SystemFolder>G:\OK\SNK Neo Geo Pocket Color</SystemFolder>
+		<SystemFolder>G:\SNK Neo Geo Pocket Color</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>zip</FormatToSearch>
@@ -2007,7 +2007,7 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 1</SystemName>
-		<SystemFolder>I:\OK\Sony Playstation 1</SystemFolder>
+		<SystemFolder>I:\Sony Playstation 1</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -2032,7 +2032,7 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 2</SystemName>
-		<SystemFolder>I:\OK\Sony PlayStation 2</SystemFolder>
+		<SystemFolder>I:\Sony PlayStation 2</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>chd</FormatToSearch>
@@ -2052,7 +2052,7 @@
 
 	<SystemConfig>
 		<SystemName>Sony Playstation 3</SystemName>
-		<SystemFolder>J:\Sony PS3 Roms</SystemFolder>
+		<SystemFolder>I:\Sony PlayStation 3</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>bat</FormatToSearch>
@@ -2072,7 +2072,7 @@
 
 	<SystemConfig>
 		<SystemName>Sony PSP</SystemName>
-		<SystemFolder>G:\OK\Sony PSP</SystemFolder>
+		<SystemFolder>G:\Sony PSP</SystemFolder>
 		<SystemIsMAME>false</SystemIsMAME>
 		<FileFormatsToSearch>
 			<FormatToSearch>cso</FormatToSearch>
