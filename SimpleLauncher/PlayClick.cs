@@ -13,7 +13,7 @@ public static class PlayClick
     {
         try
         {
-            var soundPath = Path.Combine(BaseDirectory, "audio", "/audio/click.mp3");
+            var soundPath = Path.Combine(BaseDirectory, "audio", "click.mp3");
             MediaPlayer mediaPlayer = new();
             mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
             mediaPlayer.Play();
