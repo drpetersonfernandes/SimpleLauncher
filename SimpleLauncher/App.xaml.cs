@@ -1,8 +1,6 @@
-﻿using System.Windows;
-
-namespace SimpleLauncher
+﻿namespace SimpleLauncher
 {
-    public partial class App : Application
+    public partial class App
     {
     }
 }

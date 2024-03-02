@@ -44,7 +44,7 @@ namespace SimpleLauncher
                     string output = await process.StandardOutput.ReadToEndAsync();
                     string error = await process.StandardError.ReadToEndAsync();
 
-                    process.WaitForExit();
+                    await process.WaitForExitAsync();
 
                     // If the GamePadController was running, restart it after the .BAT execution
                     if (wasGamePadControllerRunning)
@@ -82,7 +82,7 @@ namespace SimpleLauncher
                     try
                     {
                         Process process = Process.Start(psi); // Start the process without redirecting output/error
-                        process.WaitForExit(); // Wait for the process to exit
+                        if (process != null) await process.WaitForExitAsync(); // Wait for the process to exit
 
                         // If the GamePadController was running, restart it after the .LNK exits
                         if (wasGamePadControllerRunning)
@@ -222,7 +222,7 @@ namespace SimpleLauncher
                     string error = await process.StandardError.ReadToEndAsync();
 
                     // Wait for the process to exit
-                    process.WaitForExit();
+                    await process.WaitForExitAsync();
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {

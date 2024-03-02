@@ -12,25 +12,23 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameButtonFactory
+    internal class GameButtonFactory(
+        ComboBox emulatorComboBox,
+        ComboBox systemComboBox,
+        List<SystemConfig> systemConfigs,
+        List<MameConfig> machines,
+        AppSettings settings)
     {
         private const string DefaultImagePath = "default.png";
-        public int ImageHeight { get; set; }
+        public int ImageHeight { get; set; } = settings.ThumbnailSize; // Initialize ImageHeight
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private readonly List<MameConfig> _machines; // List to hold machine data
 
-        public ComboBox EmulatorComboBox { get; set; }
-        public ComboBox SystemComboBox { get; set; }
-        public List<SystemConfig> SystemConfigs { get; set; }
+        // List to hold machine data
+        // Initialize _machines
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
-        {
-            EmulatorComboBox = emulatorComboBox;
-            SystemComboBox = systemComboBox;
-            SystemConfigs = systemConfigs;
-            _machines = machines; // Initialize _machines
-            ImageHeight = settings.ThumbnailSize; // Initialize ImageHeight
-        }
+        private ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
+        private ComboBox SystemComboBox { get; set; } = systemComboBox;
+        private List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
@@ -60,7 +58,7 @@ namespace SimpleLauncher
 
             if (systemConfig.SystemIsMAME)
             {
-                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                 if (machine != null)
                 {
                     var descriptionTextBlock = new TextBlock
@@ -112,7 +110,7 @@ namespace SimpleLauncher
                 Padding = new Thickness(0)
             };
 
-            button.PreviewMouseLeftButtonDown += (sender, args) =>
+            button.PreviewMouseLeftButtonDown += (_, args) =>
             {
                 if (args.OriginalSource is Image img && (img.Name == "youtubeIcon" || img.Name == "infoIcon"))
                 {
@@ -128,8 +126,7 @@ namespace SimpleLauncher
                 button.Tag = "DefaultImage";
             }
 
-            GameLauncher gameLauncher = new();
-            button.Click += async (sender, args) =>
+            button.Click += async (_, _) =>
             {
                 PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
@@ -178,7 +175,7 @@ namespace SimpleLauncher
             ArgumentNullException.ThrowIfNull(imageControl);
 
             if (string.IsNullOrWhiteSpace(imagePath))
-                throw new ArgumentException("Invalid image path.", nameof(imagePath));
+                throw new ArgumentException(@"Invalid image path.", nameof(imagePath));
 
             BitmapImage bitmapImage = null;
 
@@ -220,7 +217,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             youtubeIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            youtubeIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
@@ -253,7 +250,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             infoIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            infoIcon.PreviewMouseLeftButtonUp += (sender, e) =>
+            infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClickSound();
                 string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";

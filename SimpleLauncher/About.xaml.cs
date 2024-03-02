@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SimpleLauncher
 {
-    public partial class About : Window
+    public partial class About
     {
         public About()
         {

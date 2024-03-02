@@ -22,18 +22,16 @@ namespace SimpleLauncher
             // Keep track of the temp directory
             _tempDirectories.Add(tempDirectory);
 
-            using (var archive = ArchiveFactory.Open(archivePath))
+            using var archive = ArchiveFactory.Open(archivePath);
+            foreach (var entry in archive.Entries)
             {
-                foreach (var entry in archive.Entries)
+                if (!entry.IsDirectory)
                 {
-                    if (!entry.IsDirectory)
+                    entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
                     {
-                        entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
-                        {
-                            ExtractFullPath = true,
-                            Overwrite = true
-                        });
-                    }
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
                 }
             }
 

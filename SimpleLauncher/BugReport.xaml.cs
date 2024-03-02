@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SimpleLauncher
 {
-    public partial class BugReport : Window
+    public partial class BugReport
     {
         private static readonly HttpClient _httpClient = new();
 
@@ -22,7 +22,7 @@ namespace SimpleLauncher
             Close();
         }
 
-        public static string ApplicationVersion
+        private static string ApplicationVersion
         {
             get
             {
@@ -44,13 +44,11 @@ namespace SimpleLauncher
                 return;
             }
 
-            // Using string interpolation to concatenate the message
             string fullMessage = $"\n\n{applicationVersion}\nName: {nameText}\nEmail: {emailText}\nBug Report:\n\n{bugReportText}";
-
             await SendBugReportToApiAsync(fullMessage);
         }
 
-        public async Task SendBugReportToApiAsync(string fullMessage)
+        private async Task SendBugReportToApiAsync(string fullMessage)
         {
             string messageWithVersion = fullMessage;
 
@@ -83,7 +81,7 @@ namespace SimpleLauncher
                 else
                 {
                     string errorMessage = "An error occurred while sending the bug report.";
-                    Task logTask = LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage), "An error occurred while sending the bug report.");
+                    await LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage), "An error occurred while sending the bug report.");
                     MessageBox.Show("An error occurred while sending the bug report.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
