@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace SimpleLauncher
 {
-    public class GameLauncher
+    public static class GameLauncher
     {
         public static async Task HandleButtonClick(string filePath, ComboBox EmulatorComboBox, ComboBox SystemComboBox, List<SystemConfig> SystemConfigs)
         {
@@ -202,9 +202,7 @@ namespace SimpleLauncher
 
                     string programLocation = emulatorConfig.EmulatorLocation;
                     string parameters = emulatorConfig.EmulatorParameters;
-                    string filename = Path.GetFileName(gamePathToLaunch);
                     string arguments = $"{parameters} \"{gamePathToLaunch}\"";
-
                     // Create ProcessStartInfo
                     psi = new ProcessStartInfo
                     {

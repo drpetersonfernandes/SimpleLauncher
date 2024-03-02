@@ -10,19 +10,19 @@ namespace SimpleLauncher
 {
     public class SystemConfig
     {
-        public string SystemName { get; set; }
-        public string SystemFolder { get; set; }
-        public bool SystemIsMAME { get; set; }
-        public List<string> FileFormatsToSearch { get; set; }
-        public bool ExtractFileBeforeLaunch { get; set; }
-        public List<string> FileFormatsToLaunch { get; set; }
-        public List<Emulator> Emulators { get; set; }
+        public string SystemName { get; private init; }
+        public string SystemFolder { get; private init; }
+        public bool SystemIsMAME { get; private init; }
+        public List<string> FileFormatsToSearch { get; private init; }
+        public bool ExtractFileBeforeLaunch { get; private init; }
+        public List<string> FileFormatsToLaunch { get; private init; }
+        public List<Emulator> Emulators { get; private init; }
 
         public class Emulator
         {
-            public string EmulatorName { get; set; }
-            public string EmulatorLocation { get; set; }
-            public string EmulatorParameters { get; set; }
+            public string EmulatorName { get; init; }
+            public string EmulatorLocation { get; init; }
+            public string EmulatorParameters { get; init; }
         }
 
         public static List<SystemConfig> LoadSystemConfigs(string xmlPath)
@@ -37,10 +37,10 @@ namespace SimpleLauncher
 
                 foreach (var sysConfigElement in doc.Root!.Elements("SystemConfig"))
                 {
-                    if (sysConfigElement.Element("SystemName") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemName").Value))
+                    if (sysConfigElement.Element("SystemName") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemName")!.Value))
                         throw new InvalidOperationException("Missing or empty SystemName in XML.");
 
-                    if (sysConfigElement.Element("SystemFolder") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder").Value))
+                    if (sysConfigElement.Element("SystemFolder") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")!.Value))
                         throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
 
                     if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMAME))
@@ -75,8 +75,8 @@ namespace SimpleLauncher
 
                     systemConfigs.Add(new SystemConfig
                     {
-                        SystemName = sysConfigElement.Element("SystemName").Value,
-                        SystemFolder = sysConfigElement.Element("SystemFolder").Value,
+                        SystemName = sysConfigElement.Element("SystemName")?.Value,
+                        SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
                         SystemIsMAME = systemIsMAME,
                         ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                         FileFormatsToSearch = formatsToSearch,

@@ -66,7 +66,7 @@
                 Padding="10"
                 HorizontalAlignment="Center"
                 Click="SaveSystemButton_Click"
-                Content="Save System" />
+                Content="Save or Update System" />
 
         <!-- Delete System -->
         <Button
@@ -77,7 +77,7 @@
             Padding="10"
             HorizontalAlignment="Center"
             Click="DeleteSystemButton_Click"
-            Content="Delete Open System" />
+            Content="Delete Selected System" />
 
         <ScrollViewer
             Grid.Row="2"
@@ -141,7 +141,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    IsHitTestVisible="True"
+                    IsHitTestVisible="False"
                     Foreground="LightGray"
                     Text="required" />
 
@@ -159,8 +159,7 @@
                     Grid.Column="1"
                     Background="Transparent"
                     GotFocus="SystemFolderTextBox_GotFocus"
-                    LostFocus="SystemFolderTextBox_LostFocus"
-                    TextChanged="SystemFolderTextBox_TextChanged"/>
+                    LostFocus="SystemFolderTextBox_LostFocus"/>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="SystemFolderPlaceholderTextBox"
@@ -208,8 +207,7 @@
                     Grid.Column="1"
                     Background="Transparent"
                     GotFocus="FormatToSearchTextBox_GotFocus"
-                    LostFocus="FormatToSearchTextBox_LostFocus"
-                    TextChanged="FormatToSearchTextBox_TextChanged" />
+                    LostFocus="FormatToSearchTextBox_LostFocus" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchPlaceholderTextBox"
@@ -255,8 +253,7 @@
                     Grid.Column="1"
                     Background="Transparent"
                     GotFocus="FormatToLaunchTextBox_GotFocus"
-                    LostFocus="FormatToLaunchTextBox_LostFocus"
-                    TextChanged="FormatToLaunchTextBox_TextChanged"/>
+                    LostFocus="FormatToLaunchTextBox_LostFocus" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToLaunchPlaceholderTextBox"
@@ -286,8 +283,7 @@
                     Grid.Column="1"
                     Background="Transparent"
                     GotFocus="Emulator1NameTextBox_GotFocus"
-                    LostFocus="Emulator1NameTextBox_LostFocus"
-                    TextChanged="Emulator1NameTextBox_TextChanged" />
+                    LostFocus="Emulator1NameTextBox_LostFocus" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="Emulator1NamePlaceholderTextBox"
@@ -326,6 +322,16 @@
                     x:Name="Emulator1ParametersTextBox"
                     Grid.Row="8"
                     Grid.Column="1" />
+                <Button 
+                    Margin="0"
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="HelpLink_Click"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </Button>
 
                 <!-- Emulator 2 -->
                 <Label
@@ -370,6 +376,16 @@
                     x:Name="Emulator2ParametersTextBox"
                     Grid.Row="11"
                     Grid.Column="1"/>
+                <Button 
+                    Margin="0"
+                    Grid.Row="11"
+                    Grid.Column="2"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="HelpLink_Click"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Button>
 
                 <!-- Emulator 3 -->
                 <Button
@@ -431,6 +447,18 @@
                     Grid.Row="17"
                     Grid.Column="1"
                     Visibility="Collapsed"/>
+                <Button 
+                    x:Name="Emulator3ParametersHelper"
+                    Margin="0"
+                    Grid.Row="17"
+                    Grid.Column="2"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="HelpLink_Click"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Visibility="Collapsed">
+                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Button>
 
                 <!-- Emulator 4 -->
                 <Button
@@ -492,6 +520,18 @@
                     Grid.Row="20"
                     Grid.Column="1"
                     Visibility="Collapsed"/>
+                <Button 
+                    x:Name="Emulator4ParametersHelper"
+                    Margin="0"
+                    Grid.Row="20"
+                    Grid.Column="2"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="HelpLink_Click"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Visibility="Collapsed">
+                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Button>
 
                 <!-- Emulator 5 -->
                 <Button
@@ -548,11 +588,24 @@
                     x:Name="Emulator5NameLabel3"
                     Visibility="Collapsed"/>
                 <TextBox
-                    Margin="0,0,10,30"
+                    Margin="0,0,10,10"
                     x:Name="Emulator5ParametersTextBox"
                     Grid.Row="23"
                     Grid.Column="1"
                     Visibility="Collapsed"/>
+                <Button 
+                    x:Name="Emulator5ParametersHelper"
+                    Margin="0,0,10,10"
+                    Grid.Row="23"
+                    Grid.Column="2"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Click="HelpLink_Click"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Visibility="Collapsed">
+                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Button>
+                
             </Grid>
         </ScrollViewer>
 

@@ -10,11 +10,10 @@ namespace SimpleLauncher
 {
     public class MameConfig
     {
-        public string MachineName { get; set; }
-        public string Description { get; set; }
+        public string MachineName { get; private init; }
+        public string Description { get; private init; }
 
-        public static List<MameConfig> LoadFromXml(string xmlPath)
-        {
+        public static async Task<List<MameConfig>> LoadFromXml(string xmlPath)        {
             try
             {
                 if (File.Exists(xmlPath))
@@ -30,19 +29,16 @@ namespace SimpleLauncher
                 else
                 {
                     MessageBox.Show("mame.xml not found.", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     string errorMessage = "mame.xml not found. Unable to load MAME configurations.";
-                    Task logTask = LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage), "MameConfig LoadFromXml: mame.xml not found");
-
+                    await LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage),
+                        "MameConfig LoadFromXml: mame.xml not found");
                     return [];
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                Task logTask = LogErrors.LogErrorAsync(ex, "Error loading MAME configurations from XML.");
-
+                await LogErrors.LogErrorAsync(ex, "Error loading MAME configurations from XML.");
                 return [];
             }
         }

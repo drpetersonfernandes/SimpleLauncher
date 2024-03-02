@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
@@ -128,7 +127,7 @@ namespace SimpleLauncher
 
             button.Click += async (_, _) =>
             {
-                PlayClickSound();
+                PlayClick.PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
             };
 
@@ -152,22 +151,6 @@ namespace SimpleLauncher
             }
 
             return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no specific image exists.
-        }
-
-        private void PlayClickSound()
-        {
-            try
-            {
-                string soundPath = Path.Combine(_baseDirectory, "audio", "click.mp3");
-                MediaPlayer mediaPlayer = new();
-                mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-                mediaPlayer.Play();
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions or log errors
-                Debug.WriteLine($"Error playing sound: {ex.Message}");
-            }
         }
 
         private static async Task LoadImageAsync(Image imageControl, string imagePath)
@@ -219,7 +202,7 @@ namespace SimpleLauncher
 
             youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
-                PlayClickSound();
+                PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
                 string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
                 Process.Start(new ProcessStartInfo
@@ -252,7 +235,7 @@ namespace SimpleLauncher
 
             infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
-                PlayClickSound();
+                PlayClick.PlayClickSound();
                 string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
                 Process.Start(new ProcessStartInfo
                 {

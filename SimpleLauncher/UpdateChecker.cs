@@ -5,7 +5,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-
 namespace SimpleLauncher
 {
     public partial class UpdateChecker

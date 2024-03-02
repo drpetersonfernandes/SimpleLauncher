@@ -30,6 +30,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="images\logo2.png" />
+    <None Remove="~syncthing~EditSystem.xaml.tmp" />
+    <None Remove="~syncthing~EditSystem.xaml.cs.tmp" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -38,6 +40,8 @@
     <Content Include="mame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="images\help.png" />
+    <Resource Include="images\help.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="system.xml">
@@ -79,5 +83,8 @@
     <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="GlobalSuppressions.cs" />
   </ItemGroup>
 </Project>

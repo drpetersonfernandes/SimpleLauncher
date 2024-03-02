@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace SimpleLauncher
 {
-    public class LoadFiles
+    public static class LoadFiles
     {
         public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {

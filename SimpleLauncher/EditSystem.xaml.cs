@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -168,6 +169,8 @@ namespace SimpleLauncher
                         Emulator5LocationTextBox.Clear();
                         Emulator5ParametersTextBox.Clear();
                     }
+                    // Adjust the visibility of the placeholder based on the newly loaded data
+                    AdjustPlaceholderVisibility();
                 }
             }
         }
@@ -270,6 +273,7 @@ namespace SimpleLauncher
         private void AddSystemButton_Click(object sender, RoutedEventArgs e)
         {
             ClearFields();
+            AdjustPlaceholderVisibility();
             MessageBox.Show("You can add a new system now", "Info", MessageBoxButton.OK);
         }
 
@@ -476,6 +480,7 @@ namespace SimpleLauncher
                     _xmlDoc.Save(_xmlFilePath);
                     PopulateSystemNamesDropdown();
                     ClearFields();
+                    AdjustPlaceholderVisibility();
                     MessageBox.Show($"System '{selectedSystemName}' has been deleted.", "Info", MessageBoxButton.OK);
                 }
             }
@@ -489,16 +494,19 @@ namespace SimpleLauncher
         {
             if (Emulator3NameLabel.Visibility == Visibility.Visible)
             {
+                ToggleEmulator3Button.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel.Visibility = Visibility.Collapsed;
                 Emulator3NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel2.Visibility = Visibility.Collapsed;
-                Emulator3LocationTextBox.Visibility = Visibility.Visible;
-                Emulator3LocationButton.Visibility = Visibility.Visible;
+                Emulator3LocationTextBox.Visibility = Visibility.Collapsed;
+                Emulator3LocationButton.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel3.Visibility = Visibility.Collapsed;
-                Emulator3ParametersTextBox.Visibility = Visibility.Visible;
+                Emulator3ParametersTextBox.Visibility = Visibility.Collapsed;
+                Emulator3ParametersHelper.Visibility = Visibility.Collapsed;
             }
             else
             {
+                ToggleEmulator3Button.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel.Visibility = Visibility.Visible;
                 Emulator3NameTextBox.Visibility = Visibility.Visible;
                 Emulator3NameLabel2.Visibility = Visibility.Visible;
@@ -506,7 +514,7 @@ namespace SimpleLauncher
                 Emulator3LocationButton.Visibility = Visibility.Visible;
                 Emulator3NameLabel3.Visibility = Visibility.Visible;
                 Emulator3ParametersTextBox.Visibility = Visibility.Visible;
-                ToggleEmulator3Button.Visibility = Visibility.Collapsed;
+                Emulator3ParametersHelper.Visibility = Visibility.Visible;
             }
         }
 
@@ -514,16 +522,19 @@ namespace SimpleLauncher
         {
             if (Emulator4NameLabel.Visibility == Visibility.Visible)
             {
+                ToggleEmulator4Button.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel.Visibility = Visibility.Collapsed;
                 Emulator4NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel2.Visibility = Visibility.Collapsed;
-                Emulator4LocationTextBox.Visibility = Visibility.Visible;
-                Emulator4LocationButton.Visibility = Visibility.Visible;
+                Emulator4LocationTextBox.Visibility = Visibility.Collapsed;
+                Emulator4LocationButton.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel3.Visibility = Visibility.Collapsed;
-                Emulator4ParametersTextBox.Visibility = Visibility.Visible;
+                Emulator4ParametersTextBox.Visibility = Visibility.Collapsed;
+                Emulator4ParametersHelper.Visibility = Visibility.Collapsed;
             }
             else
             {
+                ToggleEmulator4Button.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel.Visibility = Visibility.Visible;
                 Emulator4NameTextBox.Visibility = Visibility.Visible;
                 Emulator4NameLabel2.Visibility = Visibility.Visible;
@@ -531,7 +542,7 @@ namespace SimpleLauncher
                 Emulator4LocationButton.Visibility = Visibility.Visible;
                 Emulator4NameLabel3.Visibility = Visibility.Visible;
                 Emulator4ParametersTextBox.Visibility = Visibility.Visible;
-                ToggleEmulator4Button.Visibility = Visibility.Collapsed;
+                Emulator4ParametersHelper.Visibility = Visibility.Visible;
             }
         }
 
@@ -539,16 +550,19 @@ namespace SimpleLauncher
         {
             if (Emulator5NameLabel.Visibility == Visibility.Visible)
             {
+                ToggleEmulator5Button.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel.Visibility = Visibility.Collapsed;
                 Emulator5NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel2.Visibility = Visibility.Collapsed;
-                Emulator5LocationTextBox.Visibility = Visibility.Visible;
-                Emulator5LocationButton.Visibility = Visibility.Visible;
+                Emulator5LocationTextBox.Visibility = Visibility.Collapsed;
+                Emulator5LocationButton.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel3.Visibility = Visibility.Collapsed;
-                Emulator5ParametersTextBox.Visibility = Visibility.Visible;
+                Emulator5ParametersTextBox.Visibility = Visibility.Collapsed;
+                Emulator5ParametersHelper.Visibility = Visibility.Collapsed;
             }
             else
             {
+                ToggleEmulator5Button.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel.Visibility = Visibility.Visible;
                 Emulator5NameTextBox.Visibility = Visibility.Visible;
                 Emulator5NameLabel2.Visibility = Visibility.Visible;
@@ -556,24 +570,24 @@ namespace SimpleLauncher
                 Emulator5LocationButton.Visibility = Visibility.Visible;
                 Emulator5NameLabel3.Visibility = Visibility.Visible;
                 Emulator5ParametersTextBox.Visibility = Visibility.Visible;
-                ToggleEmulator5Button.Visibility = Visibility.Collapsed;
+                Emulator5ParametersHelper.Visibility = Visibility.Visible;
             }
         }
 
         private void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Prepare the process start info
-            var processModule = System.Diagnostics.Process.GetCurrentProcess().MainModule;
+            var processModule = Process.GetCurrentProcess().MainModule;
             if (processModule != null)
             {
-                var startInfo = new System.Diagnostics.ProcessStartInfo
+                var startInfo = new ProcessStartInfo
                 {
                     FileName = processModule.FileName,
                     UseShellExecute = true
                 };
 
                 // Start the new application instance
-                System.Diagnostics.Process.Start(startInfo);
+                Process.Start(startInfo);
             }
 
             // Shutdown the current application instance
@@ -581,16 +595,20 @@ namespace SimpleLauncher
             Environment.Exit(0);
         }
         
+        //Placeholder Visibility
+        private void AdjustPlaceholderVisibility()
+        {
+            SystemNamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemNameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            SystemFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            FormatToSearchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToSearchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            FormatToLaunchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToLaunchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            Emulator1NamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(Emulator1NameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+        }
+        
+        //SystemName Placeholder
         private void SystemNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(SystemNameTextBox.Text))
-            {
-                SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
-            else if (!string.IsNullOrEmpty(SystemNameTextBox.Text))
-            {
-                SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
+            SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
         }
         private void SystemNameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -603,86 +621,84 @@ namespace SimpleLauncher
                 SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
             }
         }
-       
 
+        //SystemFolder Placeholder
         private void SystemFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            SystemFolderPlaceholderTextBox.Visibility = SystemFolderTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+            SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
         }
         private void SystemFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            SystemFolderPlaceholderTextBox.Visibility = SystemFolderTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
-        }
-        private void SystemFolderTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(SystemFolderTextBox.Text))
-            {
-                SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
-            else if (!SystemFolderTextBox.IsFocused)
+            if (string.IsNullOrEmpty(SystemFolderTextBox.Text))
             {
                 SystemFolderPlaceholderTextBox.Visibility = Visibility.Visible;
             }
-        }
-        
-        private void FormatToSearchTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            FormatToSearchPlaceholderTextBox.Visibility = FormatToSearchTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
-        }
-        private void FormatToSearchTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            FormatToSearchPlaceholderTextBox.Visibility = FormatToSearchTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
-        }
-        private void FormatToSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(FormatToSearchTextBox.Text))
+            else if (!string.IsNullOrEmpty(SystemFolderTextBox.Text))
             {
-                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
-            else if (!FormatToSearchTextBox.IsFocused)
-            {
-                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Visible;
+                SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void FormatToLaunchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //FormatToSearch Placeholder
+        private void FormatToSearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            FormatToLaunchPlaceholderTextBox.Visibility = FormatToLaunchTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+            FormatToSearchPlaceholderTextBox.Visibility = Visibility.Collapsed;
         }
-        private void FormatToLaunchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void FormatToSearchTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            FormatToLaunchPlaceholderTextBox.Visibility = FormatToLaunchTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
-        }
-        private void FormatToLaunchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(FormatToLaunchTextBox.Text))
+            if (string.IsNullOrEmpty(FormatToSearchTextBox.Text))
             {
-                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Collapsed;
+                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Visible;
             }
-            else if (!FormatToLaunchTextBox.IsFocused)
+            else if (!string.IsNullOrEmpty(FormatToSearchTextBox.Text))
             {
-                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Visible;
+                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Collapsed;
             }
         }
         
+        //FormatToLaunch Placeholder
+        private void FormatToLaunchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Collapsed;
+        }
+        private void FormatToLaunchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(FormatToLaunchTextBox.Text))
+            {
+                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+            else if (!string.IsNullOrEmpty(FormatToLaunchTextBox.Text))
+            {
+                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+        
+        //Emulator1Name Placeholder
         private void Emulator1NameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            Emulator1NamePlaceholderTextBox.Visibility = Emulator1NameTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+            Emulator1NamePlaceholderTextBox.Visibility = Visibility.Collapsed;
         }
         private void Emulator1NameTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            Emulator1NamePlaceholderTextBox.Visibility = Emulator1NameTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
-        }
-        private void Emulator1NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(Emulator1NameTextBox.Text))
-            {
-                Emulator1NamePlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
-            else if (!Emulator1NameTextBox.IsFocused)
+            if (string.IsNullOrEmpty(Emulator1NameTextBox.Text))
             {
                 Emulator1NamePlaceholderTextBox.Visibility = Visibility.Visible;
             }
+            else if (!string.IsNullOrEmpty(Emulator1NameTextBox.Text))
+            {
+                Emulator1NamePlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void HelpLink_Click(object sender, RoutedEventArgs e)
+        {
+            PlayClick.PlayClickSound();
+            string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = searchUrl,
+                UseShellExecute = true
+            });
         }
 
     }
