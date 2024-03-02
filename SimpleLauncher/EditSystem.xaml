@@ -7,7 +7,7 @@
     Title="Edit System"
     Width="900"
     Height="700"
-    mc:Ignorable="d" WindowState="Maximized">
+    mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,22 +21,37 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- System Name -->
-        <ComboBox
-            x:Name="SystemNameDropdown"
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="10"
-            HorizontalAlignment="Stretch"
-            SelectionChanged="SystemNameDropdown_SelectionChanged" />
+        <Grid Grid.Row="0" Grid.Column="0" ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- System Name -->
+            <Label
+                Margin="10,20,10,10"
+                Grid.Row="0"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Content="Choose a system" />
+            <ComboBox
+                x:Name="SystemNameDropdown"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,20,10,10"
+                HorizontalAlignment="Stretch"
+                SelectionChanged="SystemNameDropdown_SelectionChanged" />            
+        </Grid>
 
         <!-- Add New System -->
         <Button
                 x:Name="AddSystemButton"
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="10,0,10,10"
+                Margin="10"
                 Padding="10"
                 HorizontalAlignment="Center"
                 Click="AddSystemButton_Click"
@@ -47,7 +62,7 @@
                 x:Name="SaveSystemButton"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="10,0,10,10"
+                Margin="10"
                 Padding="10"
                 HorizontalAlignment="Center"
                 Click="SaveSystemButton_Click"
@@ -58,7 +73,7 @@
             x:Name="DeleteSystemButton"
             Grid.Row="1"
             Grid.Column="2"
-            Margin="10,0,10,10"
+            Margin="10"
             Padding="10"
             HorizontalAlignment="Center"
             Click="DeleteSystemButton_Click"
@@ -116,7 +131,19 @@
                     x:Name="SystemNameTextBox"
                     Grid.Row="0"
                     Grid.Column="1"
-                    HorizontalAlignment="Stretch"/>
+                    HorizontalAlignment="Stretch"
+                    Background="Transparent"
+                    GotFocus="SystemNameTextBox_GotFocus"
+                    LostFocus="SystemNameTextBox_LostFocus" />
+                <TextBox
+                    Margin="0,20,10,10"
+                    x:Name="SystemNamePlaceholderTextBox"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    IsHitTestVisible="True"
+                    Foreground="LightGray"
+                    Text="required" />
 
                 <!-- System Folder -->
                 <Label
@@ -129,7 +156,19 @@
                     Margin="0,0,10,10"
                     x:Name="SystemFolderTextBox"
                     Grid.Row="1"
-                    Grid.Column="1"/>
+                    Grid.Column="1"
+                    Background="Transparent"
+                    GotFocus="SystemFolderTextBox_GotFocus"
+                    LostFocus="SystemFolderTextBox_LostFocus"
+                    TextChanged="SystemFolderTextBox_TextChanged"/>
+                <TextBox
+                    Margin="0,0,10,10"
+                    x:Name="SystemFolderPlaceholderTextBox"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsHitTestVisible="False"
+                    Foreground="LightGray"
+                    Text="required" />
                 <Button
                     Margin="0,0,10,10"
                     Name="SystemFolderButton"
@@ -166,7 +205,19 @@
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchTextBox"
                     Grid.Row="3"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    Background="Transparent"
+                    GotFocus="FormatToSearchTextBox_GotFocus"
+                    LostFocus="FormatToSearchTextBox_LostFocus"
+                    TextChanged="FormatToSearchTextBox_TextChanged" />
+                <TextBox
+                    Margin="0,0,10,10"
+                    x:Name="FormatToSearchPlaceholderTextBox"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsHitTestVisible="False"
+                    Foreground="LightGray"
+                    Text="Hint: zip, 7z, iso, chd" />
                 <Label
                     Margin="0,0,10,10"
                     Grid.Row="3"
@@ -201,7 +252,19 @@
                     Margin="0,0,10,10"
                     x:Name="FormatToLaunchTextBox"
                     Grid.Row="5"
-                    Grid.Column="1"/>
+                    Grid.Column="1"
+                    Background="Transparent"
+                    GotFocus="FormatToLaunchTextBox_GotFocus"
+                    LostFocus="FormatToLaunchTextBox_LostFocus"
+                    TextChanged="FormatToLaunchTextBox_TextChanged"/>
+                <TextBox
+                    Margin="0,0,10,10"
+                    x:Name="FormatToLaunchPlaceholderTextBox"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    IsHitTestVisible="False"
+                    Foreground="LightGray"
+                    Text="Hint: bin, rom, md, sms, nes, sfc, smc" />
                 <Label
                     Margin="0,0,10,10"
                     Grid.Row="5"
@@ -220,7 +283,19 @@
                     Margin="0,0,10,10"
                     x:Name="Emulator1NameTextBox"
                     Grid.Row="6"
-                    Grid.Column="1"/>
+                    Grid.Column="1"
+                    Background="Transparent"
+                    GotFocus="Emulator1NameTextBox_GotFocus"
+                    LostFocus="Emulator1NameTextBox_LostFocus"
+                    TextChanged="Emulator1NameTextBox_TextChanged" />
+                <TextBox
+                    Margin="0,0,10,10"
+                    x:Name="Emulator1NamePlaceholderTextBox"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    IsHitTestVisible="False"
+                    Foreground="LightGray"
+                    Text="required" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="7"
@@ -250,7 +325,7 @@
                     Margin="0,0,10,10"
                     x:Name="Emulator1ParametersTextBox"
                     Grid.Row="8"
-                    Grid.Column="1"/>
+                    Grid.Column="1" />
 
                 <!-- Emulator 2 -->
                 <Label

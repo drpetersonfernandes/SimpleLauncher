@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace SimpleLauncher
 {
@@ -323,20 +324,53 @@ namespace SimpleLauncher
             if(string.IsNullOrEmpty(formatToLaunchInput))
                 formatsToLaunch.Add(string.Empty); // Add an empty string if the input was empty
             
+            // Emulator1 validation
+            var emulator1Name = Emulator1NameTextBox.Text;
+            bool hasValidEmulator = !string.IsNullOrEmpty(emulator1Name);
+            if (!hasValidEmulator)
+            {
+                MessageBox.Show("The name for Emulator 1 is required.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            
+            // Initialize 'emulatorsElement' as an XElement
             var emulatorsElement = new XElement("Emulators");
-            AddEmulatorToXml(emulatorsElement, Emulator1NameTextBox.Text, Emulator1LocationTextBox.Text,
-                Emulator1ParametersTextBox.Text);
-            AddEmulatorToXml(emulatorsElement, Emulator2NameTextBox.Text, Emulator2LocationTextBox.Text,
-                Emulator2ParametersTextBox.Text);
-            AddEmulatorToXml(emulatorsElement, Emulator3NameTextBox.Text, Emulator3LocationTextBox.Text,
-                Emulator3ParametersTextBox.Text);
-            AddEmulatorToXml(emulatorsElement, Emulator4NameTextBox.Text, Emulator4LocationTextBox.Text,
-                Emulator4ParametersTextBox.Text);
-            AddEmulatorToXml(emulatorsElement, Emulator5NameTextBox.Text, Emulator5LocationTextBox.Text,
-                Emulator5ParametersTextBox.Text);
 
+            // Add Emulator1 details to XML
+            AddEmulatorToXml(emulatorsElement, Emulator1NameTextBox.Text, Emulator1LocationTextBox.Text, Emulator1ParametersTextBox.Text);
+
+            // Arrays for emulator names, locations, and parameters TextBoxes
+            TextBox[] nameTextBoxes = new[] { Emulator2NameTextBox, Emulator3NameTextBox, Emulator4NameTextBox, Emulator5NameTextBox };
+            TextBox[] locationTextBoxes = new[] { Emulator2LocationTextBox, Emulator3LocationTextBox, Emulator4LocationTextBox, Emulator5LocationTextBox };
+            TextBox[] parametersTextBoxes = new[] { Emulator2ParametersTextBox, Emulator3ParametersTextBox, Emulator4ParametersTextBox, Emulator5ParametersTextBox };
+
+            // Loop over the emulators 2 through 5 to validate and add their details
+            for (int i = 0; i < nameTextBoxes.Length; i++)
+            {
+                var emulatorName = nameTextBoxes[i].Text;
+                var emulatorLocation = locationTextBoxes[i].Text;
+                var emulatorParameters = parametersTextBoxes[i].Text;
+
+                // Check if any data related to the emulator is provided
+                if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
+                {
+                    // Make the emulator name required if related data is provided
+                    if (string.IsNullOrEmpty(emulatorName))
+                    {
+                        MessageBox.Show($"Emulator {i + 2} name is required because related data has been provided.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return; // Exit the method to prevent saving incomplete data
+                    }
+                }
+
+                // If the emulator name is provided, add the emulator details to XML
+                if (!string.IsNullOrEmpty(emulatorName))
+                {
+                    AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters);
+                }
+            }
+            
+            
             _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
             var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemName}']");
 
             if (existingSystem != null)
@@ -545,6 +579,110 @@ namespace SimpleLauncher
             // Shutdown the current application instance
             Application.Current.Shutdown();
             Environment.Exit(0);
+        }
+        
+        private void SystemNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SystemNameTextBox.Text))
+            {
+                SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (!string.IsNullOrEmpty(SystemNameTextBox.Text))
+            {
+                SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void SystemNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SystemNameTextBox.Text))
+            {
+                SystemNamePlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+            else if (!string.IsNullOrEmpty(SystemNameTextBox.Text))
+            {
+                SystemNamePlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+       
+
+        private void SystemFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SystemFolderPlaceholderTextBox.Visibility = SystemFolderTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+        }
+        private void SystemFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SystemFolderPlaceholderTextBox.Visibility = SystemFolderTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
+        }
+        private void SystemFolderTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SystemFolderTextBox.Text))
+            {
+                SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (!SystemFolderTextBox.IsFocused)
+            {
+                SystemFolderPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+        }
+        
+        private void FormatToSearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FormatToSearchPlaceholderTextBox.Visibility = FormatToSearchTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+        }
+        private void FormatToSearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            FormatToSearchPlaceholderTextBox.Visibility = FormatToSearchTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
+        }
+        private void FormatToSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(FormatToSearchTextBox.Text))
+            {
+                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (!FormatToSearchTextBox.IsFocused)
+            {
+                FormatToSearchPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void FormatToLaunchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FormatToLaunchPlaceholderTextBox.Visibility = FormatToLaunchTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+        }
+        private void FormatToLaunchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            FormatToLaunchPlaceholderTextBox.Visibility = FormatToLaunchTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
+        }
+        private void FormatToLaunchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(FormatToLaunchTextBox.Text))
+            {
+                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (!FormatToLaunchTextBox.IsFocused)
+            {
+                FormatToLaunchPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+        }
+        
+        private void Emulator1NameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Emulator1NamePlaceholderTextBox.Visibility = Emulator1NameTextBox.Text == "" ? Visibility.Collapsed : Visibility.Visible;
+        }
+        private void Emulator1NameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Emulator1NamePlaceholderTextBox.Visibility = Emulator1NameTextBox.Text == "" ? Visibility.Visible : Visibility.Collapsed;
+        }
+        private void Emulator1NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Emulator1NameTextBox.Text))
+            {
+                Emulator1NamePlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (!Emulator1NameTextBox.IsFocused)
+            {
+                Emulator1NamePlaceholderTextBox.Visibility = Visibility.Visible;
+            }
         }
 
     }
