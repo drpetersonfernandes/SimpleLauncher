@@ -121,7 +121,9 @@ namespace SimpleLauncher
                     try
                     {
                         Process process = Process.Start(psi); // Start the process without redirecting output/error
-                        await process.WaitForExitAsync(); // Use WaitForExitAsync to asynchronously wait for the process to exit
+                        if (process != null)
+                            await process
+                                .WaitForExitAsync(); // Use WaitForExitAsync to asynchronously wait for the process to exit
 
                         // If the GamePadController was running, restart it after the .EXE exits
                         if (wasGamePadControllerRunning)
@@ -218,8 +220,8 @@ namespace SimpleLauncher
                     process.Start();
 
                     // Read the output streams
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    string error = await process.StandardError.ReadToEndAsync();
+                    await process.StandardOutput.ReadToEndAsync();
+                    await process.StandardError.ReadToEndAsync();
 
                     // Wait for the process to exit
                     await process.WaitForExitAsync();

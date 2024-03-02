@@ -23,7 +23,7 @@ namespace SimpleLauncher
 
         private bool _wasADown;
         private bool _wasBDown;
-        private bool _isDisposed = false;
+        private bool _isDisposed;
 
         readonly float deadZoneX = 0.05f;
         readonly float deadZoneY = 0.02f;
@@ -34,7 +34,7 @@ namespace SimpleLauncher
         {
             _controller = new Controller(UserIndex.One);
             _mouseSimulator = new InputSimulator().Mouse;
-            _timer = new Timer(obj => Update());
+            _timer = new Timer(_ => Update());
         }
 
         public void Start()
@@ -108,8 +108,8 @@ namespace SimpleLauncher
 
         private static (float, float) ProcessThumbStick(short thumbX, short thumbY, float dzX, float dzY)
         {
-            float normalizedX = Math.Max(-1, (float)thumbX / MaxThumbValue);
-            float normalizedY = Math.Max(-1, (float)thumbY / MaxThumbValue);
+            float normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
+            float normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
 
             float resultX = (Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX)));
             float resultY = (Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY)));

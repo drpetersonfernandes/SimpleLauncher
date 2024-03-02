@@ -33,7 +33,7 @@ namespace SimpleLauncher
                 XElement settings = XElement.Load(_filePath);
 
                 // Validate and assign ThumbnailSize
-                int thumbnailSize = int.Parse(settings.Element("ThumbnailSize").Value, CultureInfo.InvariantCulture);
+                int thumbnailSize = int.Parse(settings.Element("ThumbnailSize")!.Value, CultureInfo.InvariantCulture);
                 ThumbnailSize = _validThumbnailSizes.Contains(thumbnailSize) ? thumbnailSize : 350;
 
                 // Assign boolean settings

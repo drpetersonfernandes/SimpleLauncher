@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
@@ -14,13 +13,7 @@ namespace SimpleLauncher
         private const string RepoOwner = "drpetersonfernandes";
         private const string RepoName = "SimpleLauncher";
 
-        public static string CurrentVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        private static string CurrentVersion => Assembly.GetExecutingAssembly().GetName().Version!.ToString();
 
         public static async Task CheckForUpdatesAsync(Window mainWindow)
         {
@@ -42,7 +35,6 @@ namespace SimpleLauncher
                     }
                     else
                     {
-                        return;
                     }
                 }
             }
@@ -128,7 +120,7 @@ namespace SimpleLauncher
                 string releaseUrl = htmlUrlElement.GetString();
 
                 // This regex matches a sequence of numbers (and periods), optionally prefixed by non-digit characters
-                var versionMatch = MyRegex().Match(versionTag);
+                var versionMatch = MyRegex().Match(versionTag!);
                 if (versionMatch.Success)
                 {
                     return (versionMatch.Value, releaseUrl);

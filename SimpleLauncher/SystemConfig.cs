@@ -35,7 +35,7 @@ namespace SimpleLauncher
                 var doc = XDocument.Load(xmlPath);
                 var systemConfigs = new List<SystemConfig>();
 
-                foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
+                foreach (var sysConfigElement in doc.Root!.Elements("SystemConfig"))
                 {
                     if (sysConfigElement.Element("SystemName") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemName").Value))
                         throw new InvalidOperationException("Missing or empty SystemName in XML.");
@@ -64,8 +64,8 @@ namespace SimpleLauncher
 
                         return new Emulator
                         {
-                            EmulatorName = emulatorElement.Element("EmulatorName").Value,
-                            EmulatorLocation = emulatorElement.Element("EmulatorLocation").Value,
+                            EmulatorName = emulatorElement.Element("EmulatorName")!.Value,
+                            EmulatorLocation = emulatorElement.Element("EmulatorLocation")!.Value,
                             EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value // It's okay if this is null or empty
                         };
                     }).ToList();
@@ -95,7 +95,7 @@ namespace SimpleLauncher
                 MessageBox.Show($"The system.xml is broken: {ex.Message}\nPlease fix system.xml and try to run the program again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Wait for up to 2 seconds for the logTask to complete
-                bool completed = logTask.Wait(TimeSpan.FromSeconds(2));
+                logTask.Wait(TimeSpan.FromSeconds(2));
 
                 return null;
             }

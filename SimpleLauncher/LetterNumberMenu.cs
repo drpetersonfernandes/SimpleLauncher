@@ -11,8 +11,8 @@ namespace SimpleLauncher
     public class LetterNumberMenu
     {
         public StackPanel LetterPanel { get; private set; } = new StackPanel { Orientation = Orientation.Horizontal };
-        readonly private Dictionary<string, Button> letterButtons = [];
-        private Button selectedButton = null;
+        private readonly Dictionary<string, Button> letterButtons = [];
+        private Button selectedButton;
 
         public event Action<string> OnLetterSelected;
 
@@ -28,7 +28,7 @@ namespace SimpleLauncher
             {
                 Button button = new() { Content = c.ToString(), Width = 30, Height = 30 };
 
-                button.Click += (sender, e) =>
+                button.Click += (_, _) =>
                 {
                     UpdateSelectedButton(button);
                     OnLetterSelected?.Invoke(c.ToString());
@@ -42,7 +42,7 @@ namespace SimpleLauncher
         private void InitializeNumberButton()
         {
             Button numButton = new() { Content = "#", Width = 30, Height = 30 };
-            numButton.Click += (sender, e) =>
+            numButton.Click += (_, _) =>
             {
                 UpdateSelectedButton(numButton);
                 OnLetterSelected?.Invoke("#");

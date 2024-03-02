@@ -16,7 +16,7 @@ namespace SimpleLauncher
             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
 
             // Get application version
-            var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var version = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
 
             string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
 
@@ -37,11 +37,10 @@ namespace SimpleLauncher
             catch
             {
                 // If an exception occurs while accessing the log file, simply ignore it and return.
-                return;
             }
         }
 
-        public static async Task<bool> SendLogToApiAsync()
+        private static async Task<bool> SendLogToApiAsync()
         {
             string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
             if (!File.Exists(errorLogPath))
@@ -50,7 +49,7 @@ namespace SimpleLauncher
                 return false;
             }
 
-            string logContent = File.ReadAllText(errorLogPath);
+            string logContent = await File.ReadAllTextAsync(errorLogPath);
 
             // Prepare the POST data
             var formData = new MultipartFormDataContent
