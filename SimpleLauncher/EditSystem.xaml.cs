@@ -693,7 +693,7 @@ namespace SimpleLauncher
         private void HelpLink_Click(object sender, RoutedEventArgs e)
         {
             PlayClick.PlayClickSound();
-            string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki";
+            string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
             Process.Start(new ProcessStartInfo
             {
                 FileName = searchUrl,
