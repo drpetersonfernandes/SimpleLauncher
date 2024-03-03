@@ -199,7 +199,7 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Format To Search in System Folder"/>
+                    Content="Format To Search In System Folder"/>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchTextBox"

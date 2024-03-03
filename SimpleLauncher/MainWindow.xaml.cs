@@ -14,8 +14,8 @@ namespace SimpleLauncher
         private readonly List<SystemConfig> _systemConfigs;
         private readonly LetterNumberMenu _letterNumberMenu = new();
         private readonly WrapPanel _gameFileGrid;
-        private GameButtonFactory _gameButtonFactory;
-        private List<string> _currentGameFilePaths = [];
+        private readonly GameButtonFactory _gameButtonFactory;
+        // private List<string> _currentGameFilePaths = [];
         private readonly AppSettings _settings;
         private readonly List<MameConfig> _machines;
 
@@ -193,7 +193,7 @@ namespace SimpleLauncher
                 allFiles.Sort();
 
                 // Update the list of current game file paths
-                _currentGameFilePaths = allFiles;
+                // _currentGameFilePaths = allFiles;
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -233,25 +233,25 @@ namespace SimpleLauncher
             await LogErrors.LogErrorAsync(ex, message);
         }
 
-        private async void RefreshGameButtons()
-        {
-            // Clear existing buttons
-            _gameFileGrid.Children.Clear();
-
-            // Initialize _gameButtonFactory with default values
-            _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
-
-            // Recreate the buttons with the new image height
-            foreach (var filePath in _currentGameFilePaths)
-            {
-                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == SystemComboBox.SelectedItem.ToString());
-                if (selectedConfig != null)
-                {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-                    _gameFileGrid.Children.Add(gameButton);
-                }
-            }
-        }
+        // private async void RefreshGameButtons()
+        // {
+        //     // Clear existing buttons
+        //     _gameFileGrid.Children.Clear();
+        //
+        //     // Initialize _gameButtonFactory with default values
+        //     _gameButtonFactory ??= new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+        //
+        //     // Recreate the buttons with the new image height
+        //     foreach (var filePath in _currentGameFilePaths)
+        //     {
+        //         var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == SystemComboBox.SelectedItem.ToString());
+        //         if (selectedConfig != null)
+        //         {
+        //             var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+        //             _gameFileGrid.Children.Add(gameButton);
+        //         }
+        //     }
+        // }
 
         private void UpdateMenuCheckMarks(int selectedSize)
         {
@@ -374,8 +374,7 @@ namespace SimpleLauncher
                     _gameButtonFactory.ImageHeight = newSize; // Update the image height
                     _settings.ThumbnailSize = newSize; // Update the settings
                     _settings.Save(); // Save the settings
-                    RefreshGameButtons(); // Refresh the UI
-
+                    // RefreshGameButtons(); // Refresh the UI
                     UpdateMenuCheckMarks(newSize);
                 }
             }
