@@ -74,7 +74,6 @@ namespace SimpleLauncher
             }
         }
 
-
         private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
         {
             return new Version(latestVersion).CompareTo(new Version(currentVersion)) > 0;

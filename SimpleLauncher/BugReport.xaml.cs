@@ -9,7 +9,7 @@ namespace SimpleLauncher
 {
     public partial class BugReport
     {
-        private static readonly HttpClient _httpClient = new();
+        private static readonly HttpClient HttpClient = new();
 
         public BugReport()
         {
@@ -62,14 +62,14 @@ namespace SimpleLauncher
     };
 
             // Set the API Key
-            if (!_httpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
+            if (!HttpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
             {
-                _httpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
+                HttpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
             }
 
             try
             {
-                HttpResponseMessage response = await _httpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
+                HttpResponseMessage response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
 
                 if (response.IsSuccessStatusCode)
                 {

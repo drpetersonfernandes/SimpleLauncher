@@ -8,8 +8,8 @@ namespace SimpleLauncher
 {
     public class LogErrors
     {
-        private static readonly object _lockObject = new();
-        private static readonly HttpClient _httpClient = new();
+        private static readonly object LockObject = new();
+        private static readonly HttpClient HttpClient = new();
 
         public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
         {
@@ -23,7 +23,7 @@ namespace SimpleLauncher
             // Attempt to write to the log file, ignoring exceptions if the file cannot be accessed
             try
             {
-                lock (_lockObject)
+                lock (LockObject)
                 {
                     File.AppendAllText(errorLogPath, errorMessage);
                 }
@@ -61,15 +61,15 @@ namespace SimpleLauncher
             };
 
             // Set the API Key
-            if (!_httpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
+            if (!HttpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
             {
-                _httpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
+                HttpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
             }
 
             try
             {
                 // Send the POST request
-                HttpResponseMessage response = await _httpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
+                HttpResponseMessage response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
 
                 return response.IsSuccessStatusCode;
             }
