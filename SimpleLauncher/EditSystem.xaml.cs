@@ -65,7 +65,7 @@ namespace SimpleLauncher
                 SystemNameTextBox.Text = selectedSystem.Element("SystemName")?.Value ?? string.Empty;
                 SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
 
-                var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "True" : "False";
+                var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "true" : "false";
                 SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>()
                     .FirstOrDefault(item => item.Content.ToString() == systemIsMameValue);
 
@@ -78,8 +78,8 @@ namespace SimpleLauncher
                     : string.Empty;
 
                 var extractFileBeforeLaunchValue = selectedSystem.Element("ExtractFileBeforeLaunch")?.Value == "true"
-                    ? "True"
-                    : "False";
+                    ? "true"
+                    : "false";
                 ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items
                     .Cast<ComboBoxItem>()
                     .FirstOrDefault(item => item.Content.ToString() == extractFileBeforeLaunchValue);
@@ -184,6 +184,8 @@ namespace SimpleLauncher
             {
                 string foldername = dialog.SelectedPath;
                 SystemFolderTextBox.Text = foldername;
+                // Adjust the visibility of the placeholder based on the newly loaded data
+                AdjustPlaceholderVisibility();
             }
         }
 

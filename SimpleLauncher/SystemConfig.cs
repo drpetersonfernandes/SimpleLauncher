@@ -92,7 +92,7 @@ namespace SimpleLauncher
                 string contextMessage = $"Error loading system configurations from XML: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                MessageBox.Show($"The system.xml is broken: {ex.Message}\nPlease fix system.xml and try to run the program again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"The system.xml is broken: {ex.Message}\n\nPlease fix system.xml and try to run the program again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Wait for up to 2 seconds for the logTask to complete
                 logTask.Wait(TimeSpan.FromSeconds(2));

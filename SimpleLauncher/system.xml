@@ -37,21 +37,6 @@
 				<EmulatorLocation>D:\Emulators\Altirra\Altirra64.exe</EmulatorLocation>
 				<EmulatorParameters></EmulatorParameters>
 			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME a800</EmulatorName>
-				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>a800 -cart</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME a800_cass</EmulatorName>
-				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>a800_cass -cart</EmulatorParameters>
-			</Emulator>
-			<Emulator>
-				<EmulatorName>MAME a800_flop</EmulatorName>
-				<EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-				<EmulatorParameters>a800_flop -cart</EmulatorParameters>
-			</Emulator>
 		</Emulators>
 	</SystemConfig>
 
@@ -90,7 +75,7 @@
 			<Emulator>
 				<EmulatorName>Retroarch</EmulatorName>
 				<EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+				<EmulatorParameters>-L "D:\Emulators\Retroarch\cores\atari800_libretro.dll" -c "D:\Emulators\Retroarch\atari800.cfg" -f</EmulatorParameters>
 			</Emulator>
 			<Emulator>
 				<EmulatorName>Altirra</EmulatorName>

@@ -189,8 +189,8 @@
                     x:Name="SystemIsMameComboBox"
                     Grid.Row="2"
                     Grid.Column="1">
-                    <ComboBoxItem>True</ComboBoxItem>
-                    <ComboBoxItem>False</ComboBoxItem>
+                    <ComboBoxItem>true</ComboBoxItem>
+                    <ComboBoxItem>false</ComboBoxItem>
                 </ComboBox>
 
                 <!-- Format To Search Inside System Folder -->
@@ -235,8 +235,8 @@
                     x:Name="ExtractFileBeforeLaunchComboBox"
                     Grid.Row="4"
                     Grid.Column="1">
-                    <ComboBoxItem>True</ComboBoxItem>
-                    <ComboBoxItem>False</ComboBoxItem>
+                    <ComboBoxItem>true</ComboBoxItem>
+                    <ComboBoxItem>false</ComboBoxItem>
                 </ComboBox>
 
                 <!-- Format To Launch After Extraction -->
