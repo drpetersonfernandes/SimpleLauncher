@@ -2,18 +2,22 @@
 
 ### Amstrad CPC GX4000
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** MAME<br>
+**Emulator Name:** MAME gx4000<br>
 **Emulator Location:** [MAME Folder]\mame.exe<br>
 **Emulator Parameters:** gx4000 -cart<br>
 
 ### Atari 2600
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -22,8 +26,10 @@
 
 ### Atari 5200
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Altirra<br>
@@ -32,8 +38,10 @@
 
 ### Atari 7800
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -42,8 +50,10 @@
 
 ### Atari 8-Bit
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Altirra<br>
@@ -52,8 +62,10 @@
 
 ### Atari Jaguar
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** BigPEmu<br>
@@ -62,8 +74,10 @@
 
 ### Atari Jaguar CD
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, cdi<br>
-**Extract File Before Launch:** true<br>
+**Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** cue, cdi<br>
 
 **Emulator Name:** BigPEmu<br>
@@ -72,8 +86,10 @@
 
 ### Atari Lynx
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -82,13 +98,15 @@
 
 ### Atari ST
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
-**Format To Launch After Extraction:** st, msa, stx, dim, ipf
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -c "[Retroarch Folder]\hatari.cfg" -f<br>
 
 **Emulator Name:** Hatari<br>
 **Emulator Location:** [Hatari Folder]\hatari.exe<br>
@@ -96,8 +114,10 @@
 
 ### Bandai WonderSwan
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -106,8 +126,10 @@
 
 ### Bandai WonderSwan Color
 
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -116,10 +138,10 @@
 
 ### Casio PV-1000
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** true<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** MAME pv1000<br>
@@ -128,10 +150,10 @@
 
 ### ColecoVision
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -140,10 +162,10 @@
 
 ### Commodore 64
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -152,10 +174,10 @@
 
 ### Commodore Amiga CD32
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** chd<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -164,21 +186,22 @@
 
 ### Magnavox Odyssey 2
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\o2em_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\o2em_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
 ### MAME
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** true<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** MAME<br>
@@ -191,10 +214,10 @@
 
 ### Mattel Aquarius
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** true<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** AquaLite<br>
@@ -203,10 +226,10 @@
 
 ### Mattel Intellivision
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** true<br>
+**Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** int, rom, bin<br>
 
 **Emulator Name:** Retroarch<br>
@@ -215,10 +238,10 @@
 
 ### Microsoft MSX
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** true<br>
+**Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, mx1, mx2, dsk, cas, ri, col, sg, sc, m3u<br>
 
 **Emulator Name:** Retroarch fmsx<br>
@@ -231,10 +254,10 @@
 
 ### Microsoft MSX2
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** true<br>
+**Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, mx1, mx2, dsk, cas, ri, col, sg, sc, m3u<br>
 
 **Emulator Name:** Retroarch fmsx<br>
@@ -247,11 +270,11 @@
 
 ### Microsoft Windows
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** lnk, bat, exe<br>
-**Extract File Before Launch:** true<br>
-**Format To Launch After Extraction:** rom, mx1, mx2, dsk, cas, ri, col, sg, sc, m3u<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Direct Launch<br>
 **Emulator Location:** <br>
@@ -259,10 +282,10 @@
 
 ### Microsoft Xbox
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Xemu<br>
@@ -271,10 +294,10 @@
 
 ### Microsoft Xbox 360
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Xenia<br>
@@ -283,10 +306,10 @@
 
 ### NEC PC Engine
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -295,10 +318,10 @@
 
 ### NEC PC Engine CD
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** chd<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -307,10 +330,10 @@
 
 ### NEC PC-FX
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** chd<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -319,10 +342,10 @@
 
 ### NEC SuperGrafx
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -331,10 +354,10 @@
 
 ### Nintendo 3DS
 
-**System Location:** [ROM Folder]<br>
-**System Is MAME:** false<br>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
 **Format To Search In System Folder:** 3ds<br>
-**Extract File Before Launch:** false<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch<br>
@@ -342,69 +365,45 @@
 **Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\citra_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
 **Emulator Name:** Citra<br>
-**Emulator Location:** [Citra Folder]\nightly\citra-qt.exe<br>
-**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\citra_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+**Emulator Location:** [Citra Folder]\citra-qt.exe<br>
+**Emulator Parameters:** <br>
 
+### Nintendo 64
 
-    <SystemName>Nintendo 64</SystemName>
-    <SystemFolder>G:\Nintendo 64</SystemFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-      <Emulator>
-        <EmulatorName>Retroarch</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-      </Emulator>
-    </Emulators>
-  </SystemConfig>
-  <SystemConfig>
-    <SystemName>Nintendo 64DD</SystemName>
-    <SystemFolder>G:\Nintendo 64DD</SystemFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-      <Emulator>
-        <EmulatorName>Retroarch</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-      </Emulator>
-    </Emulators>
-  </SystemConfig>
-  <SystemConfig>
-    <SystemName>Nintendo DS</SystemName>
-    <SystemFolder>G:\Nintendo DS</SystemFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-      <FormatToLaunch>nds</FormatToLaunch>
-      <FormatToLaunch>bin</FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-      <Emulator>
-        <EmulatorName>Retroarch melonds</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\RetroArch\cores\melonds_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
-        <EmulatorName>Retroarch desmume</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\RetroArch\cores\desmume_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
-      </Emulator>
-    </Emulators>
-  </SystemConfig>
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Retroarch<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+
+### Nintendo 64DD
+
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Retroarch<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+
+### Nintendo DS
+
+**System Folder:** [ROM or ISO Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** nds, bin<br>
+
+**Emulator Name:** Retroarch melonds<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\melonds_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
+
+**Emulator Name:** Retroarch desmume<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Parameters:** -L "-L "[Retroarch Folder]\cores\desmume_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
