@@ -578,6 +578,28 @@ namespace SimpleLauncher
 
         private void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            MessageBoxResult result = MessageBox.Show("Do you want to save a backup copy of the current configuration?",
+                "Alert",
+                MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+                string sourceFilePath = Path.Combine(appFolderPath, "system.xml");
+                string backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+                string backupFilePath = Path.Combine(appFolderPath, backupFileName);
+
+                if (File.Exists(sourceFilePath))
+                {
+                    File.Copy(sourceFilePath, backupFilePath);
+                    MessageBox.Show("The backup was created in the application folder", "Info", MessageBoxButton.OK);
+                }
+                else
+                {
+                    // Handle error, e.g., show a message box saying that the system.xml file was not found.
+                }
+            }
+
             // Prepare the process start info
             var processModule = Process.GetCurrentProcess().MainModule;
             if (processModule != null)
@@ -590,11 +612,11 @@ namespace SimpleLauncher
 
                 // Start the new application instance
                 Process.Start(startInfo);
-            }
 
-            // Shutdown the current application instance
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+                // Shutdown the current application instance
+                Application.Current.Shutdown();
+                Environment.Exit(0);
+            }
         }
         
         //Placeholder Visibility
