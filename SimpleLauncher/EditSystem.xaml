@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Edit System"
     Width="900"
+    MinWidth="900"
     Height="700"
     mc:Ignorable="d">
 
