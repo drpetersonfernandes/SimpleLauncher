@@ -40,7 +40,7 @@ There are special cases that need to be detailed, like adding Windows Games and 
 
 ## Wiki:
 
-You can find a more detailed explanation of how the Frontend works in the [Wiki](https://https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
+You can find a more detailed explanation of how the Frontend works in the [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
 
 ## Related Utilities:
 
