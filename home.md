@@ -21,7 +21,7 @@ You just need to download the application from the [release page](https://github
 
 ## Where to Find Game Covers:
 
-We do NOT provide ROMs, ISOs or Game Covers.
+We do NOT provide ROMs, ISOs or Game Covers.<br>
 You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com). However, please note that these sites are not affiliated with Simple Launcher.
 
 ## List of Parameters for Emulators
@@ -33,8 +33,8 @@ Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/paramete
 
 **Microsoft Windows Games or Applications**
 
-If you want to add your Windows Games or Applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the Game or Application.
-If you prefer to use BAT (bat) files to call your games use the model below as an example of bat file.
+If you want to add your Windows Games or Applications to the Simple Launcher frontend you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the Game or Application.
+If you prefer to use BAT (bat) files use the model below as an example of bat file.
 
 ```bat
 @echo off
@@ -44,11 +44,11 @@ start game.exe
 
 **RPCS3 Emulator**
 
-This emulator loads games extracted from ISO files into a Game Folder.
-To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.
-Configuring these games in an Emulator Frontend can be challenging. The quickest and easiest solution we found was to create BAT (bat) files that can directly launch the games. These BAT (bat) files can then be configured in Simple Launcher to be treated as games.
+This emulator loads games extracted from ISO files into a Game Folder.<br>
+To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.<br>
+Configuring these games in an Emulator Frontend can be challenging. The quickest and easiest solution we found was to create BAT (bat) files that can directly launch the games. These BAT (bat) files can be configured in Simple Launcher to be treated as games.<br>
 When configuring the System Sony Playstation 3 you should set Format To Search In System Folder as BAT (bat).
-We have created a utility that can automatic generate these BAT files for you. Please see the section "Related Utilities" below for more information.<br><br>
+We have created a utility that can automatic generate these BAT files for you. Please see the section "Related Utilities" below for more information.
 
 ## Explaining how the Frontend Works:
 
