@@ -10,6 +10,14 @@ namespace SimpleLauncher
 {
     public partial class MainWindow
     {
+        // pagination related
+        private int _currentPage = 1;
+        private int _filesPerPage = 500;
+        private int _totalFiles = 0;
+        private const int PaginationThreshold = 500;
+        private Button _nextPageButton;
+        private Button _prevPageButton;
+        
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
         private readonly LetterNumberMenu _letterNumberMenu = new();
@@ -86,10 +94,8 @@ namespace SimpleLauncher
             {
                 AddNoSystemMessage();
             }
-
             // Check for updates
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
-            
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -171,10 +177,8 @@ namespace SimpleLauncher
                     AddNoSystemMessage();
                     return;
                 }
-
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
                 if (selectedConfig == null)
                 {
                     HandleError(new Exception("Selected system configuration not found"), "Error while loading selected system configuration");
@@ -190,6 +194,16 @@ namespace SimpleLauncher
 
                 allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
+                
+                _totalFiles = allFiles.Count;
+                
+                if (_totalFiles > PaginationThreshold)
+                {
+                    // Enable pagination and adjust file list based on the current page
+                    allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
+                    // Update or create pagination controls here (not shown in this snippet)
+                    InitializePaginationButtons();
+                }
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -200,11 +214,49 @@ namespace SimpleLauncher
                     Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
                     GameFileGrid.Children.Add(gameButton);
                 }
+                
+                // Optionally, update the UI to reflect the current pagination status
+                UpdatePaginationControls();
             }
             catch (Exception ex)
             {
                 HandleError(ex, "Error while loading ROM files");
             }
+        }
+        
+        private void InitializePaginationButtons()
+        {
+            // Previous Page Button
+            _prevPageButton = new Button { Content = "< Prev", Width = 60, Height = 30, IsEnabled = false };
+            _prevPageButton.Click += (_, _) => ChangePage(-1);
+
+            // Next Page Button
+            _nextPageButton = new Button { Content = "Next >", Width = 60, Height = 30 };
+            _nextPageButton.Click += (_, _) => ChangePage(1);
+
+            LetterPanel.Children.Add(_prevPageButton);
+            LetterPanel.Children.Add(_nextPageButton);
+            UpdatePaginationButtons();
+        }
+        
+        private void ChangePage(int delta)
+        {
+            _currentPage += delta;
+            LoadFilesForCurrentPage(); // This method needs to handle loading and displaying the files for the current page
+            UpdatePaginationButtons();
+        }
+
+        private void UpdatePaginationButtons()
+        {
+            int totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
+            _prevPageButton.IsEnabled = _currentPage > 1;
+            _nextPageButton.IsEnabled = _currentPage < totalPages;
+        }
+        
+        private void UpdatePaginationControls()
+        {
+            // This method should enable/disable pagination buttons and update any pagination indicators based on _currentPage and _totalFiles
+            // For example, enable the "Next" button only if there are more files to show
         }
 
         private void AddNoSystemMessage()
