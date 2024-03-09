@@ -18,7 +18,6 @@ namespace SimpleLauncher
         private readonly Button _nextPageButton;
         private readonly Button _prevPageButton;
         private readonly string _currentFilter = null;
-
         
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
@@ -89,6 +88,8 @@ namespace SimpleLauncher
             ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
             
             // pagination related
+            PrevPageButton.IsEnabled = false;
+            NextPageButton.IsEnabled = false;
             _prevPageButton = PrevPageButton; // Connects the field to the XAML-defined button
             _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
@@ -100,6 +101,7 @@ namespace SimpleLauncher
             {
                 AddNoSystemMessage();
             }
+
             // Check for updates
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
         }
@@ -161,7 +163,7 @@ namespace SimpleLauncher
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = $"\nDirectory: {systemFolderPath}\nTotal number of games in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter",
+                Text = $"\nDirectory: {systemFolderPath}\nTotal number of games in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter above",
                 FontWeight = FontWeights.Bold,
                 Padding = new Thickness(10)
             });
@@ -170,6 +172,7 @@ namespace SimpleLauncher
         private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Handle the logic when an Emulator is selected
+            // for future use
         }
 
         private async Task LoadGameFiles(string startLetter = null)
@@ -193,27 +196,32 @@ namespace SimpleLauncher
 
                 // Get the SystemFolder from the selected configuration
                 string systemFolderPath = selectedConfig.SystemFolder;
+                
                 // Extract the file extensions from the selected system configuration
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-
+                
+                // List of files with that match the system extensions
+                // then sort the list alphabetically 
                 List<string> allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
-
                 allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 allFiles.Sort();
-                
+
+                // Count the list of files
                 _totalFiles = allFiles.Count;
-                
+
+                // Pagination related
                 if (_totalFiles > PaginationThreshold)
                 {
                     // Enable pagination and adjust file list based on the current page
                     allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
-                    // Update or create pagination controls here (not shown in this snippet)
+                    // Update or create pagination controls
                     InitializePaginationButtons();
                 }
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
-
+                
+                // Create Button action for each cell
                 foreach (var filePath in allFiles)
                 {
                     // Adjust the CreateGameButton call.
@@ -221,7 +229,7 @@ namespace SimpleLauncher
                     GameFileGrid.Children.Add(gameButton);
                 }
                 
-                // Optionally, update the UI to reflect the current pagination status
+                // Update the UI to reflect the current pagination status
                 UpdatePaginationButtons();
             }
             catch (Exception ex)
@@ -248,7 +256,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                HandleError(ex, ex.Message);
                 throw;
             }
         }
@@ -266,7 +274,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                HandleError(ex, ex.Message);
                 throw;
             }
         }
@@ -289,14 +297,6 @@ namespace SimpleLauncher
 
             // Deselect any selected letter when no system is selected
             _letterNumberMenu.DeselectLetter();
-
-        }
-
-        private static async void HandleError(Exception ex, string message)
-        {
-            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            _ = new LogErrors();
-            await LogErrors.LogErrorAsync(ex, message);
         }
 
         private void UpdateMenuCheckMarks(int selectedSize)
@@ -312,6 +312,13 @@ namespace SimpleLauncher
             Size500.IsChecked = (selectedSize == 500);
             Size550.IsChecked = (selectedSize == 550);
             Size600.IsChecked = (selectedSize == 600);
+        }
+        
+        private static async void HandleError(Exception ex, string message)
+        {
+            MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+            _ = new LogErrors();
+            await LogErrors.LogErrorAsync(ex, message);
         }
 
         #region Menu Items
@@ -361,12 +368,11 @@ namespace SimpleLauncher
             {
                 menuItem.IsChecked = !menuItem.IsChecked;
                 _settings.HideGamesWithNoCover = menuItem.IsChecked;
-                _settings.Save();  // Save the settings
+                _settings.Save();
 
-                // Your logic to hide games with no cover
+                // Hide games with no cover
                 if (menuItem.IsChecked)
                 {
-                    // Code to hide games
                     foreach (var child in _gameFileGrid.Children)
                     {
                         if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
@@ -377,7 +383,7 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    // Code to show games
+                    // Show all games
                     foreach (var child in _gameFileGrid.Children)
                     {
                         if (child is Button btn)
@@ -391,12 +397,12 @@ namespace SimpleLauncher
 
         private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
         {
-            // Adjust event handler logic to use the singleton instance
+            // Event handler logic to use the singleton instance
             if (sender is MenuItem menuItem)
             {
                 menuItem.IsChecked = !menuItem.IsChecked;
                 _settings.EnableGamePadNavigation = menuItem.IsChecked;
-                _settings.Save();  // Save the settings
+                _settings.Save();
 
                 if (menuItem.IsChecked)
                 {
