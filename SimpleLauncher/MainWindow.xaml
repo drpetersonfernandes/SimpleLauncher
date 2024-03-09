@@ -141,16 +141,9 @@
             </WrapPanel>
         </ScrollViewer>
         
-        <StackPanel
-            Grid.Row="5"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Label
-                Width="95"
-                VerticalAlignment="Center"
-                Content="Pagination:" />
-            <Button></Button>
-            <Button></Button>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="PrevPageButton" Content="&lt; Prev" Width="100" Height="30" Margin="5" Click="PrevPageButton_Click"/>
+            <Button x:Name="NextPageButton" Content="Next &gt;" Width="100" Height="30" Margin="5" Click="NextPageButton_Click"/>
         </StackPanel>
         
     </Grid>

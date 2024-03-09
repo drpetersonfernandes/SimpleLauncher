@@ -12,11 +12,13 @@ namespace SimpleLauncher
     {
         // pagination related
         private int _currentPage = 1;
-        private int _filesPerPage = 500;
-        private int _totalFiles = 0;
-        private const int PaginationThreshold = 500;
-        private Button _nextPageButton;
-        private Button _prevPageButton;
+        private readonly int _filesPerPage = 250;
+        private int _totalFiles;
+        private const int PaginationThreshold = 250;
+        private readonly Button _nextPageButton;
+        private readonly Button _prevPageButton;
+        private readonly string _currentFilter = null;
+
         
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
@@ -85,6 +87,10 @@ namespace SimpleLauncher
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
             Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
             ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
+            
+            // pagination related
+            _prevPageButton = PrevPageButton; // Connects the field to the XAML-defined button
+            _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -216,7 +222,7 @@ namespace SimpleLauncher
                 }
                 
                 // Optionally, update the UI to reflect the current pagination status
-                UpdatePaginationControls();
+                UpdatePaginationButtons();
             }
             catch (Exception ex)
             {
@@ -226,37 +232,49 @@ namespace SimpleLauncher
         
         private void InitializePaginationButtons()
         {
-            // Previous Page Button
-            _prevPageButton = new Button { Content = "< Prev", Width = 60, Height = 30, IsEnabled = false };
-            _prevPageButton.Click += (_, _) => ChangePage(-1);
-
-            // Next Page Button
-            _nextPageButton = new Button { Content = "Next >", Width = 60, Height = 30 };
-            _nextPageButton.Click += (_, _) => ChangePage(1);
-
-            LetterPanel.Children.Add(_prevPageButton);
-            LetterPanel.Children.Add(_nextPageButton);
-            UpdatePaginationButtons();
+            _prevPageButton.IsEnabled = _currentPage > 1;
+            _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
         }
         
-        private void ChangePage(int delta)
+        private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
         {
-            _currentPage += delta;
-            LoadFilesForCurrentPage(); // This method needs to handle loading and displaying the files for the current page
-            UpdatePaginationButtons();
+            try
+            {
+                if (_currentPage > 1)
+                {
+                    _currentPage--;
+                    await LoadGameFiles(_currentFilter);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+                throw;
+            }
         }
 
-        private void UpdatePaginationButtons()
+        private async void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
             int totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
-            _prevPageButton.IsEnabled = _currentPage > 1;
-            _nextPageButton.IsEnabled = _currentPage < totalPages;
+            try
+            {
+                if (_currentPage < totalPages)
+                {
+                    _currentPage++;
+                    await LoadGameFiles(_currentFilter);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+                throw;
+            }
         }
         
-        private void UpdatePaginationControls()
+        private void UpdatePaginationButtons()
         {
-            // This method should enable/disable pagination buttons and update any pagination indicators based on _currentPage and _totalFiles
-            // For example, enable the "Next" button only if there are more files to show
+            _prevPageButton.IsEnabled = _currentPage > 1;
+            _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
         }
 
         private void AddNoSystemMessage()
