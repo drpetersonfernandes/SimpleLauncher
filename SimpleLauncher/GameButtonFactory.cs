@@ -31,9 +31,13 @@ namespace SimpleLauncher
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
+            // Load Video Url and Info Url from settings (settings.xml)
+            string videoUrl = settings.VideoUrl;
+            string infoUrl = settings.InfoUrl;
+            
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
-
+            
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
@@ -74,8 +78,8 @@ namespace SimpleLauncher
                 }
             }
 
-            var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName);
-            var infoIcon = CreateInfoIcon(fileNameWithoutExtension);
+            var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName, videoUrl);
+            var infoIcon = CreateInfoIcon(fileNameWithoutExtension, systemName, infoUrl);
 
             var grid = new Grid
             {
@@ -183,7 +187,7 @@ namespace SimpleLauncher
             }
         }
 
-        private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName)
+        private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName, string videoUrl)
         {
             var youtubeIcon = new Image
             {
@@ -204,7 +208,7 @@ namespace SimpleLauncher
             {
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-                string searchUrl = $"https://www.youtube.com/results?search_query={Uri.EscapeDataString(searchTerm)}";
+                string searchUrl = $"{videoUrl}{Uri.EscapeDataString(searchTerm)}";
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = searchUrl,
@@ -216,7 +220,7 @@ namespace SimpleLauncher
             return youtubeIcon;
         }
 
-        private Image CreateInfoIcon(string fileNameWithoutExtension)
+        private Image CreateInfoIcon(string fileNameWithoutExtension, string systemName, string infoUrl)
         {
             var infoIcon = new Image
             {
@@ -236,7 +240,8 @@ namespace SimpleLauncher
             infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClick.PlayClickSound();
-                string searchUrl = $"https://www.igdb.com/search?type=1&q={Uri.EscapeDataString(fileNameWithoutExtension)}";
+                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
+                string searchUrl = $"{infoUrl}{Uri.EscapeDataString(searchTerm)}";
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = searchUrl,

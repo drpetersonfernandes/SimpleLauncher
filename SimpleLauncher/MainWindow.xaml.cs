@@ -12,9 +12,9 @@ namespace SimpleLauncher
     {
         // pagination related
         private int _currentPage = 1;
-        private readonly int _filesPerPage = 250;
+        private readonly int _filesPerPage = 200;
         private int _totalFiles;
-        private const int PaginationThreshold = 250;
+        private const int PaginationThreshold = 200;
         private readonly Button _nextPageButton;
         private readonly Button _prevPageButton;
         private readonly string _currentFilter = null;
@@ -87,7 +87,7 @@ namespace SimpleLauncher
             Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
             ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
             
-            // pagination related
+            // Pagination related
             PrevPageButton.IsEnabled = false;
             NextPageButton.IsEnabled = false;
             _prevPageButton = PrevPageButton; // Connects the field to the XAML-defined button
@@ -256,7 +256,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                HandleError(ex, ex.Message);
+                HandleError(ex, "Previous page button error");
                 throw;
             }
         }
@@ -274,7 +274,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                HandleError(ex, ex.Message);
+                HandleError(ex, "Next page button error");
                 throw;
             }
         }
@@ -314,7 +314,7 @@ namespace SimpleLauncher
             Size600.IsChecked = (selectedSize == 600);
         }
         
-        private static async void HandleError(Exception ex, string message)
+        public static async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
             _ = new LogErrors();
@@ -347,7 +347,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to open the link: " + ex.Message);
+                HandleError(ex, "Unable to open the donation link");
             }
         }
 

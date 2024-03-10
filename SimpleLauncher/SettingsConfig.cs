@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
@@ -13,6 +14,8 @@ namespace SimpleLauncher
         public int ThumbnailSize { get; set; }
         public bool HideGamesWithNoCover { get; set; }
         public bool EnableGamePadNavigation { get; set; }
+        public string VideoUrl { get; private set; }
+        public string InfoUrl { get; private set; }
 
         public AppSettings(string filePath)
         {
@@ -39,10 +42,21 @@ namespace SimpleLauncher
                 // Assign boolean settings
                 HideGamesWithNoCover = ParseBoolSetting(settings, "HideGamesWithNoCover");
                 EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
+
+                // Validate and assign VideoUrl
+                string videoUrl = settings.Element("VideoUrl")?.Value;
+                VideoUrl = !string.IsNullOrEmpty(videoUrl) ? videoUrl : "https://www.youtube.com/results?search_query=";
+
+                // Validate and assign InfoUrl
+                string infoUrl = settings.Element("InfoUrl")?.Value;
+                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?type=1&amp;amp;q=";
+               
             }
-            catch
+            catch (Exception ex)
             {
-                // If there's an error in loading or parsing, use defaults
+                // Handle error in loading or parsing setting.xml
+                MainWindow.HandleError(ex, "Error in loading or parsing setting.xml");
+                // Use defaults values in case of errors
                 SetDefaultsAndSave();
             }
         }
@@ -58,9 +72,11 @@ namespace SimpleLauncher
 
         private void SetDefaultsAndSave()
         {
-            ThumbnailSize = 350;
+            ThumbnailSize = 250;
             HideGamesWithNoCover = false;
-            EnableGamePadNavigation = true;
+            EnableGamePadNavigation = false;
+            VideoUrl = "https://www.youtube.com/results?search_query=";
+            InfoUrl = "https://www.igdb.com/search?type=1&amp;amp;q=";
             Save();
         }
 
@@ -69,7 +85,9 @@ namespace SimpleLauncher
             new XElement("Settings",
                 new XElement("ThumbnailSize", ThumbnailSize),
                 new XElement("HideGamesWithNoCover", HideGamesWithNoCover),
-                new XElement("EnableGamePadNavigation", EnableGamePadNavigation)
+                new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
+                new XElement("VideoUrl", VideoUrl),
+                new XElement("InfoUrl", InfoUrl)
             ).Save(_filePath);
         }
     }
