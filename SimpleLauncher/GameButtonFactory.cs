@@ -38,7 +38,7 @@ namespace SimpleLauncher
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
             
-            string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName);
+            string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
             var image = new Image
@@ -138,10 +138,12 @@ namespace SimpleLauncher
             return button;
         }
 
-        private string DetermineImagePath(string fileNameWithoutExtension, string systemName)
+        private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
         {
-            if (string.IsNullOrEmpty(systemName))
-                return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no system is selected.
+            // Check if systemConfig or its SystemImageFolder is null or empty
+            string baseImageDirectory = string.IsNullOrEmpty(systemConfig?.SystemImageFolder)
+                ? Path.Combine(_baseDirectory, "images", systemName)
+                : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder);
 
             // Extensions to check
             string[] extensions = [".png", ".jpg", ".jpeg"];
@@ -149,12 +151,13 @@ namespace SimpleLauncher
             // Check each extension for a valid image file
             foreach (var ext in extensions)
             {
-                string imagePath = Path.Combine(_baseDirectory, "images", systemName, $"{fileNameWithoutExtension}{ext}");
+                string imagePath = Path.Combine(baseImageDirectory, $"{fileNameWithoutExtension}{ext}");
                 if (File.Exists(imagePath))
                     return imagePath;
             }
 
-            return Path.Combine(_baseDirectory, "images", DefaultImagePath); // Return the default image if no specific image exists.
+            // Return the default image if no specific image exists
+            return Path.Combine(_baseDirectory, "images", DefaultImagePath);
         }
 
         private static async Task LoadImageAsync(Image imageControl, string imagePath)

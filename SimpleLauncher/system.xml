@@ -3,6 +3,7 @@
   <SystemConfig>
     <SystemName>Amstrad CPC GX4000</SystemName>
     <SystemFolder>G:\Amstrad CPC GX4000</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -22,6 +23,7 @@
   <SystemConfig>
     <SystemName>Atari 2600</SystemName>
     <SystemFolder>G:\Atari 2600</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -41,6 +43,7 @@
   <SystemConfig>
     <SystemName>Atari 5200</SystemName>
     <SystemFolder>G:\Atari 5200</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -60,6 +63,7 @@
   <SystemConfig>
     <SystemName>Atari 7800</SystemName>
     <SystemFolder>G:\Atari 7800</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -79,6 +83,7 @@
   <SystemConfig>
     <SystemName>Atari 8-Bit</SystemName>
     <SystemFolder>G:\Atari 8-Bit</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -98,6 +103,7 @@
   <SystemConfig>
     <SystemName>Atari Jaguar</SystemName>
     <SystemFolder>G:\Atari Jaguar</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -117,6 +123,7 @@
   <SystemConfig>
     <SystemName>Atari Jaguar CD</SystemName>
     <SystemFolder>G:\Atari Jaguar CD</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -137,6 +144,7 @@
   <SystemConfig>
     <SystemName>Atari Lynx</SystemName>
     <SystemFolder>G:\Atari Lynx</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -156,6 +164,7 @@
   <SystemConfig>
     <SystemName>Atari ST</SystemName>
     <SystemFolder>G:\Atari ST</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -180,6 +189,7 @@
   <SystemConfig>
     <SystemName>Bandai WonderSwan</SystemName>
     <SystemFolder>G:\Bandai WonderSwan</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -199,6 +209,7 @@
   <SystemConfig>
     <SystemName>Bandai WonderSwan Color</SystemName>
     <SystemFolder>G:\Bandai WonderSwan Color</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -218,6 +229,7 @@
   <SystemConfig>
     <SystemName>Casio PV-1000</SystemName>
     <SystemFolder>G:\Casio PV-1000</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -237,6 +249,7 @@
   <SystemConfig>
     <SystemName>ColecoVision</SystemName>
     <SystemFolder>G:\ColecoVision</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -256,6 +269,7 @@
   <SystemConfig>
     <SystemName>Commodore 64</SystemName>
     <SystemFolder>G:\Commodore 64</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -275,6 +289,7 @@
   <SystemConfig>
     <SystemName>Commodore Amiga CD32</SystemName>
     <SystemFolder>G:\Commodore Amiga CD32</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -294,6 +309,7 @@
   <SystemConfig>
     <SystemName>Magnavox Odyssey 2</SystemName>
     <SystemFolder>G:\Magnavox Odyssey 2</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -313,6 +329,7 @@
   <SystemConfig>
     <SystemName>MAME</SystemName>
     <SystemFolder>G:\MAME\MAME Roms</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -337,6 +354,7 @@
   <SystemConfig>
     <SystemName>MAME Atari</SystemName>
     <SystemFolder>G:\MAME Atari</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -361,6 +379,7 @@
   <SystemConfig>
     <SystemName>MAME Bally Midway</SystemName>
     <SystemFolder>G:\MAME Bally Midway</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -385,6 +404,7 @@
   <SystemConfig>
     <SystemName>MAME Banpresto</SystemName>
     <SystemFolder>G:\MAME Banpresto</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -409,6 +429,7 @@
   <SystemConfig>
     <SystemName>MAME Capcom</SystemName>
     <SystemFolder>G:\MAME Capcom</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -433,6 +454,7 @@
   <SystemConfig>
     <SystemName>MAME Data East</SystemName>
     <SystemFolder>G:\MAME Data East</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -457,6 +479,7 @@
   <SystemConfig>
     <SystemName>MAME Irem</SystemName>
     <SystemFolder>G:\MAME Irem</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -481,6 +504,7 @@
   <SystemConfig>
     <SystemName>MAME Jaleco</SystemName>
     <SystemFolder>G:\MAME Jaleco</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -505,6 +529,7 @@
   <SystemConfig>
     <SystemName>MAME Konami</SystemName>
     <SystemFolder>G:\MAME Konami</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -529,6 +554,7 @@
   <SystemConfig>
     <SystemName>MAME Midway</SystemName>
     <SystemFolder>G:\MAME Midway</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -553,6 +579,7 @@
   <SystemConfig>
     <SystemName>MAME Mitchell</SystemName>
     <SystemFolder>G:\MAME Mitchell</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -577,6 +604,7 @@
   <SystemConfig>
     <SystemName>MAME Namco</SystemName>
     <SystemFolder>G:\MAME Namco</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -601,6 +629,7 @@
   <SystemConfig>
     <SystemName>MAME Nintendo</SystemName>
     <SystemFolder>G:\MAME Nintendo</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -625,6 +654,7 @@
   <SystemConfig>
     <SystemName>MAME Sammy</SystemName>
     <SystemFolder>G:\MAME Sammy</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -649,6 +679,7 @@
   <SystemConfig>
     <SystemName>MAME Sega</SystemName>
     <SystemFolder>G:\MAME Sega</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -673,6 +704,7 @@
   <SystemConfig>
     <SystemName>MAME SNK</SystemName>
     <SystemFolder>G:\MAME SNK</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -697,6 +729,7 @@
   <SystemConfig>
     <SystemName>MAME Sony ZiNc</SystemName>
     <SystemFolder>G:\MAME Sony ZiNc</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -721,6 +754,7 @@
   <SystemConfig>
     <SystemName>MAME Taito</SystemName>
     <SystemFolder>G:\MAME Taito</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -745,6 +779,7 @@
   <SystemConfig>
     <SystemName>MAME Tecmo</SystemName>
     <SystemFolder>G:\MAME Tecmo</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -769,6 +804,7 @@
   <SystemConfig>
     <SystemName>MAME Visco</SystemName>
     <SystemFolder>G:\MAME Visco</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -793,6 +829,7 @@
   <SystemConfig>
     <SystemName>Mattel Aquarius</SystemName>
     <SystemFolder>G:\Mattel Aquarius MAME Roms</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -812,6 +849,7 @@
   <SystemConfig>
     <SystemName>Mattel Intellivision</SystemName>
     <SystemFolder>G:\Mattel Intellivision</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -833,6 +871,7 @@
   <SystemConfig>
     <SystemName>Microsoft MSX</SystemName>
     <SystemFolder>G:\Microsoft MSX</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -866,6 +905,7 @@
   <SystemConfig>
     <SystemName>Microsoft MSX2</SystemName>
     <SystemFolder>G:\Microsoft MSX2</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -899,6 +939,7 @@
   <SystemConfig>
     <SystemName>Microsoft Windows</SystemName>
     <SystemFolder>G:\Microsoft Windows</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>lnk</FormatToSearch>
@@ -920,6 +961,7 @@
   <SystemConfig>
     <SystemName>Microsoft Xbox</SystemName>
     <SystemFolder>I:\Microsoft Xbox Roms</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>iso</FormatToSearch>
@@ -939,6 +981,7 @@
   <SystemConfig>
     <SystemName>Microsoft Xbox 360</SystemName>
     <SystemFolder>I:\Microsoft Xbox360 Roms</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>iso</FormatToSearch>
@@ -958,6 +1001,7 @@
   <SystemConfig>
     <SystemName>NEC PC Engine</SystemName>
     <SystemFolder>G:\NEC PC Engine</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -977,6 +1021,7 @@
   <SystemConfig>
     <SystemName>NEC PC Engine CD</SystemName>
     <SystemFolder>G:\NEC PC Engine CD</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -996,6 +1041,7 @@
   <SystemConfig>
     <SystemName>NEC PC-FX</SystemName>
     <SystemFolder>G:\NEC PC-FX</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1015,6 +1061,7 @@
   <SystemConfig>
     <SystemName>NEC SuperGrafx</SystemName>
     <SystemFolder>G:\NEC SuperGrafx</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1034,6 +1081,7 @@
   <SystemConfig>
     <SystemName>Nintendo 3DS</SystemName>
     <SystemFolder>I:\Nintendo 3DS</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>3ds</FormatToSearch>
@@ -1058,6 +1106,7 @@
   <SystemConfig>
     <SystemName>Nintendo 64</SystemName>
     <SystemFolder>G:\Nintendo 64</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1077,6 +1126,7 @@
   <SystemConfig>
     <SystemName>Nintendo 64DD</SystemName>
     <SystemFolder>G:\Nintendo 64DD</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1096,6 +1146,7 @@
   <SystemConfig>
     <SystemName>Nintendo DS</SystemName>
     <SystemFolder>I:\Nintendo DS</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>nds</FormatToSearch>
@@ -1120,6 +1171,7 @@
   <SystemConfig>
     <SystemName>Nintendo Family Computer Disk System</SystemName>
     <SystemFolder>G:\Nintendo Family Computer Disk System</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1149,6 +1201,7 @@
   <SystemConfig>
     <SystemName>Nintendo Game Boy</SystemName>
     <SystemFolder>G:\Nintendo Game Boy</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1168,6 +1221,7 @@
   <SystemConfig>
     <SystemName>Nintendo Game Boy Advance</SystemName>
     <SystemFolder>G:\Nintendo Game Boy Advance</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1187,6 +1241,7 @@
   <SystemConfig>
     <SystemName>Nintendo Game Boy Color</SystemName>
     <SystemFolder>G:\Nintendo Game Boy Color</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1206,6 +1261,7 @@
   <SystemConfig>
     <SystemName>Nintendo GameCube</SystemName>
     <SystemFolder>G:\Nintendo GameCube</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>rvz</FormatToSearch>
@@ -1230,6 +1286,7 @@
   <SystemConfig>
     <SystemName>Nintendo NES</SystemName>
     <SystemFolder>G:\Nintendo NES</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1260,6 +1317,7 @@
   <SystemConfig>
     <SystemName>Nintendo Satellaview</SystemName>
     <SystemFolder>G:\Nintendo Satellaview</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1279,6 +1337,7 @@
   <SystemConfig>
     <SystemName>Nintendo SNES</SystemName>
     <SystemFolder>G:\Nintendo SNES</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1303,6 +1362,7 @@
   <SystemConfig>
     <SystemName>Nintendo SNES MSU1</SystemName>
     <SystemFolder>G:\Nintendo SNES MSU1</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1327,6 +1387,7 @@
   <SystemConfig>
     <SystemName>Nintendo Switch</SystemName>
     <SystemFolder>G:\Nintendo Switch</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>nsp</FormatToSearch>
@@ -1352,6 +1413,7 @@
   <SystemConfig>
     <SystemName>Nintendo Wii</SystemName>
     <SystemFolder>G:\Nintendo Wii</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>rvz</FormatToSearch>
@@ -1376,6 +1438,7 @@
   <SystemConfig>
     <SystemName>Nintendo WiiU</SystemName>
     <SystemFolder>G:\Nintendo WiiU</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>wua</FormatToSearch>
@@ -1395,6 +1458,7 @@
   <SystemConfig>
     <SystemName>Nintendo WiiWare</SystemName>
     <SystemFolder>G:\Nintendo WiiWare</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>wad</FormatToSearch>
@@ -1419,6 +1483,7 @@
   <SystemConfig>
     <SystemName>Panasonic 3DO</SystemName>
     <SystemFolder>G:\Panasonic 3DO</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1438,6 +1503,7 @@
   <SystemConfig>
     <SystemName>Philips CD-i</SystemName>
     <SystemFolder>G:\Philips CD-i</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1458,6 +1524,7 @@
   <SystemConfig>
     <SystemName>Sega Dreamcast</SystemName>
     <SystemFolder>G:\Sega Dreamcast</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1482,6 +1549,7 @@
   <SystemConfig>
     <SystemName>Sega Game Gear</SystemName>
     <SystemFolder>G:\Sega Game Gear</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1501,6 +1569,7 @@
   <SystemConfig>
     <SystemName>Sega Genesis</SystemName>
     <SystemFolder>G:\Sega Genesis</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1531,6 +1600,7 @@
   <SystemConfig>
     <SystemName>Sega Genesis 32X</SystemName>
     <SystemFolder>G:\Sega Genesis 32X</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1550,6 +1620,7 @@
   <SystemConfig>
     <SystemName>Sega Genesis CD</SystemName>
     <SystemFolder>G:\Sega Genesis CD</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1572,6 +1643,7 @@
   <SystemConfig>
     <SystemName>Sega Master System</SystemName>
     <SystemFolder>G:\Sega Master System</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1591,6 +1663,7 @@
   <SystemConfig>
     <SystemName>Sega Saturn</SystemName>
     <SystemFolder>G:\Sega Saturn</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1610,6 +1683,7 @@
   <SystemConfig>
     <SystemName>Sega SC-3000</SystemName>
     <SystemFolder>G:\Sega SC-3000</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1640,6 +1714,7 @@
   <SystemConfig>
     <SystemName>Sega SG-1000</SystemName>
     <SystemFolder>G:\Sega SG-1000</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1670,6 +1745,7 @@
   <SystemConfig>
     <SystemName>Sinclair ZX Spectrum</SystemName>
     <SystemFolder>G:\Sinclair ZX Spectrum</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1689,6 +1765,7 @@
   <SystemConfig>
     <SystemName>SNK Neo Geo CD</SystemName>
     <SystemFolder>G:\SNK Neo Geo CD</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1708,6 +1785,7 @@
   <SystemConfig>
     <SystemName>SNK Neo Geo Pocket</SystemName>
     <SystemFolder>G:\SNK Neo Geo Pocket</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1727,6 +1805,7 @@
   <SystemConfig>
     <SystemName>SNK Neo Geo Pocket Color</SystemName>
     <SystemFolder>G:\SNK Neo Geo Pocket Color</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
@@ -1746,6 +1825,7 @@
   <SystemConfig>
     <SystemName>Sony Playstation 1</SystemName>
     <SystemFolder>I:\Sony Playstation 1</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1770,6 +1850,7 @@
   <SystemConfig>
     <SystemName>Sony Playstation 2</SystemName>
     <SystemFolder>I:\Sony PlayStation 2</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
@@ -1789,6 +1870,7 @@
   <SystemConfig>
     <SystemName>Sony Playstation 3</SystemName>
     <SystemFolder>I:\Sony PlayStation 3</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>bat</FormatToSearch>
@@ -1808,6 +1890,7 @@
   <SystemConfig>
     <SystemName>Sony PSP</SystemName>
     <SystemFolder>G:\Sony PSP</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>cso</FormatToSearch>
@@ -1833,6 +1916,7 @@
   <SystemConfig>
     <SystemName>Test</SystemName>
     <SystemFolder>C:\Test</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
