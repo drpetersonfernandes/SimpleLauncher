@@ -64,6 +64,7 @@ namespace SimpleLauncher
             {
                 SystemNameTextBox.Text = selectedSystem.Element("SystemName")?.Value ?? string.Empty;
                 SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
+                SystemImageFolderTextBox.Text = selectedSystem.Element("SystemImageFolder")?.Value ?? string.Empty;
 
                 var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "true" : "false";
                 SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>()
@@ -188,6 +189,20 @@ namespace SimpleLauncher
                 AdjustPlaceholderVisibility();
             }
         }
+        
+        private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            dialog.Description = @"Please select the System Image Folder";
+            DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                string foldername = dialog.SelectedPath;
+                SystemImageFolderTextBox.Text = foldername;
+                // Adjust the visibility of the placeholder based on the newly loaded data
+                AdjustPlaceholderVisibility();
+            }
+        }
 
         private void ChooseEmulator1Location(object sender, RoutedEventArgs e)
         {
@@ -284,6 +299,7 @@ namespace SimpleLauncher
             SystemNameDropdown.SelectedItem = null;
             SystemNameTextBox.Text = string.Empty;
             SystemFolderTextBox.Text = string.Empty;
+            SystemImageFolderTextBox.Text = string.Empty;
             SystemIsMameComboBox.SelectedItem = null;
             FormatToSearchTextBox.Text = string.Empty;
             ExtractFileBeforeLaunchComboBox.SelectedItem = null;
@@ -309,6 +325,7 @@ namespace SimpleLauncher
         {
             var systemName = SystemNameTextBox.Text;
             var systemFolder = SystemFolderTextBox.Text;
+            var systemImageFolder = SystemImageFolderTextBox.Text;
 
             string systemIsMame = SystemIsMameComboBox.SelectedItem == null ? "false" : (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             
@@ -374,8 +391,7 @@ namespace SimpleLauncher
                     AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters);
                 }
             }
-            
-            
+           
             _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
             var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemName}']");
 
@@ -383,6 +399,7 @@ namespace SimpleLauncher
             {
                 // Update existing system
                 existingSystem.SetElementValue("SystemFolder", systemFolder);
+                existingSystem.SetElementValue("SystemImageFolder", systemImageFolder);
                 existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
                 existingSystem.Element("FileFormatsToSearch")
                     ?.ReplaceNodes(formatsToSearch.Select(format => new XElement("FormatToSearch", format)));
@@ -421,6 +438,7 @@ namespace SimpleLauncher
                 var newSystem = new XElement("SystemConfig",
                     new XElement("SystemName", systemName),
                     new XElement("SystemFolder", systemFolder),
+                    new XElement("SystemImageFolder", systemImageFolder),
                     new XElement("SystemIsMAME", systemIsMame),
                     new XElement("FileFormatsToSearch",
                         formatsToSearch.Select(format => new XElement("FormatToSearch", format))),
@@ -596,7 +614,7 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    // Handle error, e.g., show a message box saying that the system.xml file was not found.
+                    MessageBox.Show("The system.xml file was not found in the application folder.\nWe could not backup it!", "Alert", MessageBoxButton.OK);
                 }
             }
 
@@ -624,6 +642,7 @@ namespace SimpleLauncher
         {
             SystemNamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemNameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             SystemFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            SystemImageFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemImageFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToSearchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToSearchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToLaunchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToLaunchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             Emulator1NamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(Emulator1NameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
@@ -660,6 +679,23 @@ namespace SimpleLauncher
             else if (!string.IsNullOrEmpty(SystemFolderTextBox.Text))
             {
                 SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
+        
+        //SystemImageFolder Placeholder
+        private void SystemImageFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
+        }
+        private void SystemImageFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
+            {
+                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+            else if (!string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
+            {
+                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
             }
         }
 

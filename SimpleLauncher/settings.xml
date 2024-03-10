@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <ThumbnailSize>250</ThumbnailSize>
+  <ThumbnailSize>200</ThumbnailSize>
+  <GamesPerPage>200</GamesPerPage>
   <HideGamesWithNoCover>false</HideGamesWithNoCover>
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
-  <InfoUrl>https://www.igdb.com/search?type=1&amp;amp;q=</InfoUrl>
+  <InfoUrl>https://www.igdb.com/search?type=1&amp;q=</InfoUrl>
 </Settings>

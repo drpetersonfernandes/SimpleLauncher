@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace SimpleLauncher
     {
         // pagination related
         private int _currentPage = 1;
-        private readonly int _filesPerPage = 200;
+        private int _filesPerPage; //variable instance
         private int _totalFiles;
-        private const int PaginationThreshold = 200;
+        private int _paginationThreshold; //variable instance
         private readonly Button _nextPageButton;
         private readonly Button _prevPageButton;
         private readonly string _currentFilter = null;
@@ -54,11 +55,9 @@ namespace SimpleLauncher
             HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
             EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
             UpdateMenuCheckMarks(_settings.ThumbnailSize);
-
-            // Attach the Closing event handler to ensure resources are disposed of
-            Closing += MainWindow_Closing;
-
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+            UpdateMenuCheckMarks2(_settings.GamesPerPage);
+            _filesPerPage = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
+            _paginationThreshold = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
 
             // Initialize the GamePadController.cs
             // Setting the error logger
@@ -104,6 +103,11 @@ namespace SimpleLauncher
 
             // Check for updates
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
+            
+            // Attach the Closing event handler to ensure resources are disposed of
+            Closing += MainWindow_Closing;
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
@@ -115,6 +119,27 @@ namespace SimpleLauncher
         {
             GamePadController.Instance.Stop();
             GamePadController.Instance.Dispose();
+        }
+        
+        private void MainWindow_Restart()
+        {
+            // Prepare the process start info
+            var processModule = Process.GetCurrentProcess().MainModule;
+            if (processModule != null)
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = processModule.FileName,
+                    UseShellExecute = true
+                };
+
+                // Start the new application instance
+                Process.Start(startInfo);
+
+                // Shutdown the current application instance
+                Application.Current.Shutdown();
+                Environment.Exit(0);
+            }
         }
 
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -146,6 +171,9 @@ namespace SimpleLauncher
                     
                     // Call DeselectLetter to clear any selected letter
                     _letterNumberMenu.DeselectLetter();
+                    
+                    // Restart pagination controls
+                    ResetPaginationButtons();
                 }
                 else
                 {
@@ -210,7 +238,7 @@ namespace SimpleLauncher
                 _totalFiles = allFiles.Count;
 
                 // Pagination related
-                if (_totalFiles > PaginationThreshold)
+                if (_totalFiles > _paginationThreshold)
                 {
                     // Enable pagination and adjust file list based on the current page
                     allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
@@ -238,6 +266,12 @@ namespace SimpleLauncher
             }
         }
         
+        private void ResetPaginationButtons()
+        {
+            _prevPageButton.IsEnabled = false;
+            _nextPageButton.IsEnabled = false;
+            _currentPage = 1;
+        }
         private void InitializePaginationButtons()
         {
             _prevPageButton.IsEnabled = _currentPage > 1;
@@ -314,6 +348,20 @@ namespace SimpleLauncher
             Size600.IsChecked = (selectedSize == 600);
         }
         
+        private void UpdateMenuCheckMarks2(int selectedSize)
+        {
+            Page100.IsChecked = (selectedSize == 100);
+            Page200.IsChecked = (selectedSize == 200);
+            Page300.IsChecked = (selectedSize == 300);
+            Page400.IsChecked = (selectedSize == 400);
+            Page500.IsChecked = (selectedSize == 500);
+            Page600.IsChecked = (selectedSize == 600);
+            Page700.IsChecked = (selectedSize == 700);
+            Page800.IsChecked = (selectedSize == 800);
+            Page900.IsChecked = (selectedSize == 900);
+            Page1000.IsChecked = (selectedSize == 1000);
+        }
+       
         public static async void HandleError(Exception ex, string message)
         {
             MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -344,12 +392,12 @@ namespace SimpleLauncher
         {
             try
             {
-                var psi = new System.Diagnostics.ProcessStartInfo
+                var psi = new ProcessStartInfo
                 {
                     FileName = "https://www.buymeacoffee.com/purelogiccode",
                     UseShellExecute = true
                 };
-                System.Diagnostics.Process.Start(psi);
+                Process.Start(psi);
             }
             catch (Exception ex)
             {
@@ -433,6 +481,27 @@ namespace SimpleLauncher
                     _settings.ThumbnailSize = newSize; // Update the settings
                     _settings.Save(); // Save the settings
                     UpdateMenuCheckMarks(newSize);
+                }
+            }
+        }
+        
+        private void GamesPerPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem clickedItem)
+            {
+                // Extract the numeric value from the header
+                var pageText = clickedItem.Header.ToString();
+                if (int.TryParse(new string(pageText!.Where(char.IsDigit).ToArray()), out int newPage))
+                {
+                    _filesPerPage = newPage; // Update the page size
+                    _paginationThreshold = newPage; // update pagination threshold
+                    _settings.GamesPerPage = newPage; // Update the settings
+                    
+                    _settings.Save(); // Save the settings
+                    UpdateMenuCheckMarks2(newPage);
+                    
+                    // Restart Application
+                    MainWindow_Restart();
                 }
             }
         }

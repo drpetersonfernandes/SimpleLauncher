@@ -7,7 +7,7 @@
     Title="Edit Links"
     Width="600"
     MinWidth="600"
-    Height="290"
+    Height="270"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
@@ -30,13 +30,7 @@
             Grid.Row="0"
             Grid.ColumnSpan="3"
             Margin="10,20,10,10"
-            VerticalAlignment="Center">
-            <TextBlock TextWrapping="Wrap">
-                You can define custom URL to use in the Video Button and Info Button.
-                <LineBreak/>
-                If you want to revert back to default values just delete your input and Save. The application will revert back to original value.
-            </TextBlock>
-        </Label>
+            VerticalAlignment="Center">You can define custom URL to use in the Video Button and Info Button.</Label>
         
         <!-- Video Link -->
         <Label
@@ -81,16 +75,32 @@
             Grid.Row="2"
             Grid.Column="2" />
 
+    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+       <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+       </Grid.ColumnDefinitions>
+    
         <!-- Save Button -->
-        <Button
+       <Button
             x:Name="SaveLinksButton"
-            Grid.Row="3"
-            Grid.ColumnSpan="3" Grid.Column="0"
+            Grid.Column="0"
             Margin="10"
             Padding="10"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             Click="SaveLinksButton_Click"
             Content="Save or Update Links" />
+        
+        <!-- Revert Button -->
+        <Button
+            x:Name="RevertLinksButton"
+            Grid.Column="1"
+            Margin="10"
+            Padding="10"
+            HorizontalAlignment="Left"
+            Click="RevertLinksButton_Click"
+            Content="Revert to Default Values" />
+        </Grid>
 
     </Grid>
 </Window>

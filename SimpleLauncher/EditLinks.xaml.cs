@@ -40,7 +40,7 @@ namespace SimpleLauncher
 
                 // Validate and assign InfoUrl
                 string infoUrl = settings.Element("InfoUrl")?.Value;
-                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?type=1&amp;q=";
+                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?q=";
                 InfoLinkTextBox.Text = InfoUrl!;
                 
             }
@@ -62,13 +62,29 @@ namespace SimpleLauncher
 
             // Validate and encode InfoUrl
             var infoUrl = string.IsNullOrWhiteSpace(InfoLinkTextBox.Text)
-                ? "https://www.igdb.com/search?type=1&amp;q="
+                ? "https://www.igdb.com/search?q="
                 : EncodeForXml(InfoLinkTextBox.Text);
 
             // Now passing the validated and encoded values to the Save method
             Save(videoUrl, infoUrl);
 
             MessageBox.Show("Links saved successfully.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Revert VideoUrl
+            VideoLinkTextBox.Text = "https://www.youtube.com/results?search_query="; 
+            var videoUrl = VideoLinkTextBox.Text;
+
+            // Revert InfoUrl
+            InfoLinkTextBox.Text = "https://www.igdb.com/search?q="; 
+            var infoUrl = InfoLinkTextBox.Text;
+
+            // Now passing the validated and encoded values to the Save method
+            Save(videoUrl, infoUrl);
+
+            MessageBox.Show("Links reverted to default values.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
         private string EncodeForXml(string input)
@@ -111,7 +127,7 @@ namespace SimpleLauncher
         private void SetDefaultsAndSave()
         {
             string videoUrl = "https://www.youtube.com/results?search_query=";
-            string infoUrl = "https://www.igdb.com/search?type=1&amp;q=";
+            string infoUrl = "https://www.igdb.com/search?q=";
             
             // Load the existing XML document
             var settings = File.Exists(_filePath) ? XElement.Load(_filePath) :

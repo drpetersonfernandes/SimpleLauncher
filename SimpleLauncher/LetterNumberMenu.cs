@@ -16,9 +16,9 @@ namespace SimpleLauncher
 
         public LetterNumberMenu()
         {
+            InitializeAllButton();
             InitializeNumberButton();
             InitializeLetterButtons();
-            InitializeAllButton();
         }
         
         private void InitializeNumberButton()

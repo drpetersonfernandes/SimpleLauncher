@@ -70,6 +70,48 @@
                         Click="ThumbnailSize_Click"
                         Header="600 pixels" />
                 </MenuItem>
+                <MenuItem Header="Set the Number of Games Per Page">
+                    <MenuItem
+                        x:Name="Page100"
+                        Click="GamesPerPage_Click"
+                        Header="100 games" />
+                    <MenuItem
+                        x:Name="Page200"
+                        Click="GamesPerPage_Click"
+                        Header="200 games" />
+                    <MenuItem
+                        x:Name="Page300"
+                        Click="GamesPerPage_Click"
+                        Header="300 games" />
+                    <MenuItem
+                        x:Name="Page400"
+                        Click="GamesPerPage_Click"
+                        Header="400 games" />
+                    <MenuItem
+                        x:Name="Page500"
+                        Click="GamesPerPage_Click"
+                        Header="500 games" />
+                    <MenuItem
+                        x:Name="Page600"
+                        Click="GamesPerPage_Click"
+                        Header="600 games" />
+                    <MenuItem
+                        x:Name="Page700"
+                        Click="GamesPerPage_Click"
+                        Header="700 games" />
+                    <MenuItem
+                        x:Name="Page800"
+                        Click="GamesPerPage_Click"
+                        Header="800 games" />
+                    <MenuItem
+                        x:Name="Page900"
+                        Click="GamesPerPage_Click"
+                        Header="900 games" />
+                    <MenuItem
+                        x:Name="Page1000"
+                        Click="GamesPerPage_Click"
+                        Header="1000 games" />
+                </MenuItem>
                 <MenuItem
                     x:Name="HideGamesNoCover"
                     Click="HideGamesNoCover_Click"
@@ -115,7 +157,7 @@
             <Label
                 Width="95"
                 VerticalAlignment="Center"
-                Content="Select System:" />
+                Content="Select System" />
             <ComboBox
                 Name="SystemComboBox"
                 Width="765"
@@ -130,7 +172,7 @@
             <Label
                 Width="95"
                 VerticalAlignment="Center"
-                Content="Select Emulator:" />
+                Content="Select Emulator" />
             <ComboBox
                 Name="EmulatorComboBox"
                 Width="765"
