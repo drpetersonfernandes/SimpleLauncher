@@ -29,7 +29,6 @@ namespace SimpleLauncher
                 UpdateSelectedButton(numButton);
                 OnLetterSelected?.Invoke("#");
             };
-
             LetterPanel.Children.Add(numButton);
         }
 
@@ -44,7 +43,6 @@ namespace SimpleLauncher
                     UpdateSelectedButton(button);
                     OnLetterSelected?.Invoke(c.ToString());
                 };
-
                 _letterButtons.Add(c.ToString(), button);
                 LetterPanel.Children.Add(button);
             }
@@ -58,7 +56,6 @@ namespace SimpleLauncher
                 UpdateSelectedButton(allButton);
                 OnLetterSelected?.Invoke(null); // Or use "All" or another identifier
             };
-
             LetterPanel.Children.Add(allButton);
         }
 

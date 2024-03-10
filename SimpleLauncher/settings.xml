@@ -5,5 +5,5 @@
   <HideGamesWithNoCover>false</HideGamesWithNoCover>
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
-  <InfoUrl>https://www.igdb.com/search?type=1&amp;q=</InfoUrl>
+  <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
 </Settings>

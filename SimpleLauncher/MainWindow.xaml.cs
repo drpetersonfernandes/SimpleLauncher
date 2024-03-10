@@ -79,6 +79,9 @@ namespace SimpleLauncher
             // Create and integrate LetterNumberMenu
             _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
+                // Reset pagination controls
+                ResetPaginationButtons();
+                
                 await LoadGameFiles(selectedLetter);
             };
 
@@ -172,7 +175,7 @@ namespace SimpleLauncher
                     // Call DeselectLetter to clear any selected letter
                     _letterNumberMenu.DeselectLetter();
                     
-                    // Restart pagination controls
+                    // Reset pagination controls
                     ResetPaginationButtons();
                 }
                 else
