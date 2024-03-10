@@ -328,6 +328,12 @@ namespace SimpleLauncher
             EditSystem editSystemWindow = new();
             editSystemWindow.ShowDialog();
         }
+        
+        private void EditLinks_Click(object sender, RoutedEventArgs e)
+        {
+            EditLinks editLinksWindow = new();
+            editLinksWindow.ShowDialog();
+        }
         private void BugReport_Click(object sender, RoutedEventArgs e)
         {
             BugReport bugReportWindow = new();

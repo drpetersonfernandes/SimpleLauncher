@@ -84,6 +84,10 @@
                 Click="EditSystem_Click"
                 Header="Edit System" />
             <MenuItem
+                x:Name="EditLinksButton"
+                Click="EditLinks_Click"
+                Header="Edit Links" />
+            <MenuItem
                 x:Name="BugReportButton"
                 Click="BugReport_Click"
                 Header="Bug Report" />

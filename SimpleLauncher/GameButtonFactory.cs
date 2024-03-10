@@ -209,11 +209,21 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
                 string searchUrl = $"{videoUrl}{Uri.EscapeDataString(searchTerm)}";
-                Process.Start(new ProcessStartInfo
+
+                try
                 {
-                    FileName = searchUrl,
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = searchUrl,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception exception)
+                {
+                    MainWindow.HandleError(exception, "The URL provided for Video Link did not work.\nPlease update the Video Link in the Edit Links menu.");
+                    throw;
+                }
+
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
             };
 
@@ -242,11 +252,21 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
                 string searchUrl = $"{infoUrl}{Uri.EscapeDataString(searchTerm)}";
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = searchUrl,
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = searchUrl,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception exception)
+                {
+                    MainWindow.HandleError(exception, "The URL provided for Info Link did not work.\nPlease update the Info Link in the Edit Links menu.");
+                    throw;
+                }
+                
+
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
             };
 

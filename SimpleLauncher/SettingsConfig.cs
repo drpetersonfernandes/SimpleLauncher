@@ -49,7 +49,7 @@ namespace SimpleLauncher
 
                 // Validate and assign InfoUrl
                 string infoUrl = settings.Element("InfoUrl")?.Value;
-                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?type=1&amp;amp;q=";
+                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?type=1&amp;q=";
                
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace SimpleLauncher
             HideGamesWithNoCover = false;
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
-            InfoUrl = "https://www.igdb.com/search?type=1&amp;amp;q=";
+            InfoUrl = "https://www.igdb.com/search?type=1&amp;q=";
             Save();
         }
 
