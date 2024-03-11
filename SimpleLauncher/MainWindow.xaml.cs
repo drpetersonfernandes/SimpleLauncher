@@ -32,13 +32,13 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
+            // Load settings.xml
+            _settings = new AppSettings("settings.xml");
+            
             // Load mame.xml
             string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
             _machines = MameConfig.LoadFromXml(xmlPath).Result;
             
-            // Load settings.xml
-            _settings = new AppSettings("settings.xml");
-
             // Load system.xml
             try
             {
@@ -83,6 +83,9 @@ namespace SimpleLauncher
                 ResetPaginationButtons();
                 
                 await LoadGameFiles(selectedLetter);
+                
+                // Move scroller to top
+                Scroller.ScrollToTop();
             };
 
             // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
@@ -107,25 +110,50 @@ namespace SimpleLauncher
             // Check for updates
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
             
-            // Attach the Closing event handler to ensure resources are disposed of
-            Closing += MainWindow_Closing;
+            // Attach the Load and Close event handler.
+            this.Loaded += MainWindow_Loaded;
+            this.Closing += MainWindow_Closing;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
         }
 
+        // Delete temp files from ExtractCompressedFile class.
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             ExtractCompressedFile.Instance.Cleanup();
         }
 
+        // Save state and size of Main Window to settings.xml
+        private void SaveWindowState()
+        {
+            _settings.MainWindowWidth = this.Width;
+            _settings.MainWindowHeight = this.Height;
+            _settings.MainWindowState = this.WindowState.ToString();
+            _settings.Save();
+        }
+
+        // Load state and size of Main Window from settings.xml
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Width = _settings.MainWindowWidth;
+            this.Height = _settings.MainWindowHeight;
+            this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+        }
+
+        // Dispose gamepad resources. Save MainWindow state and size to setting.xml.
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             GamePadController.Instance.Stop();
             GamePadController.Instance.Dispose();
+            SaveWindowState();
         }
-        
+
+        // Restart Application
         private void MainWindow_Restart()
         {
+            // Explicitly save the Windows state and size before restarting
+            SaveWindowState();
+
             // Prepare the process start info
             var processModule = Process.GetCurrentProcess().MainModule;
             if (processModule != null)
@@ -136,15 +164,15 @@ namespace SimpleLauncher
                     UseShellExecute = true
                 };
 
-                // Start the new application instance
+                // Start new application instance
                 Process.Start(startInfo);
 
-                // Shutdown the current application instance
+                // Shutdown current application instance
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
         }
-
+        
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EmulatorComboBox.ItemsSource = null;
@@ -274,11 +302,13 @@ namespace SimpleLauncher
             _prevPageButton.IsEnabled = false;
             _nextPageButton.IsEnabled = false;
             _currentPage = 1;
+            Scroller.ScrollToTop();
         }
         private void InitializePaginationButtons()
         {
             _prevPageButton.IsEnabled = _currentPage > 1;
             _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+            Scroller.ScrollToTop();
         }
         
         private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
@@ -289,6 +319,7 @@ namespace SimpleLauncher
                 {
                     _currentPage--;
                     await LoadGameFiles(_currentFilter);
+                    Scroller.ScrollToTop();
                 }
             }
             catch (Exception ex)
@@ -307,6 +338,7 @@ namespace SimpleLauncher
                 {
                     _currentPage++;
                     await LoadGameFiles(_currentFilter);
+                    Scroller.ScrollToTop();
                 }
             }
             catch (Exception ex)

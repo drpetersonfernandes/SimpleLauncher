@@ -5,11 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Simple Launcher"
-    Width="890"
     MinWidth="890"
-    Height="500"
+    MinHeight="300"
     Closing="MainWindow_Closing"
-    WindowState="Maximized"
     mc:Ignorable="d">
 
     <Grid Name="Grid">
@@ -181,7 +179,7 @@
 
         </StackPanel>
 
-        <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
+        <ScrollViewer x:Name="Scroller" Grid.Row="4" VerticalScrollBarVisibility="Visible">
             <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>

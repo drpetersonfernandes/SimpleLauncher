@@ -6,4 +6,7 @@
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
   <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
+  <MainWindowWidth>890</MainWindowWidth>
+  <MainWindowHeight>500</MainWindowHeight>
+  <MainWindowState>Normal</MainWindowState>
 </Settings>

@@ -18,6 +18,9 @@ namespace SimpleLauncher
         public bool EnableGamePadNavigation { get; set; }
         public string VideoUrl { get; private set; }
         public string InfoUrl { get; private set; }
+        public double MainWindowWidth { get; set; }
+        public double MainWindowHeight { get; set; }
+        public string MainWindowState { get; set; }
 
         public AppSettings(string filePath)
         {
@@ -55,7 +58,31 @@ namespace SimpleLauncher
 
                 // Validate and assign InfoUrl
                 string infoUrl = settings.Element("InfoUrl")?.Value;
-                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?type=1&amp;q=";
+                InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?q=";
+                
+                // Validate and assign MainWindowWidth
+                string mainWindowWidthValue = settings.Element("MainWindowWidth")?.Value;
+                bool parseSuccess = double.TryParse(mainWindowWidthValue, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out var mainWindowWidth);
+                if (!parseSuccess || mainWindowWidth < 890)
+                {
+                    mainWindowWidth = 890;
+                }
+                MainWindowWidth = mainWindowWidth;
+                
+                // Validate and assign MainWindowHeight
+                string mainWindowHeightValue = settings.Element("MainWindowHeight")?.Value;
+                bool parseSuccess2 = double.TryParse(mainWindowHeightValue, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out var mainWindowHeight);
+                if (!parseSuccess2 || mainWindowHeight < 300)
+                {
+                    mainWindowHeight = 300;
+                }
+                MainWindowHeight = mainWindowHeight;
+                
+                // Validate and assign MainWindowState
+                string mainWindowState = settings.Element("MainWindowState")?.Value;
+                MainWindowState = !string.IsNullOrEmpty(mainWindowState) ? mainWindowState : "Normal";
                
             }
             catch (Exception ex)
@@ -84,6 +111,9 @@ namespace SimpleLauncher
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
             InfoUrl = "https://www.igdb.com/search?type=1&amp;q=";
+            MainWindowWidth = 890;
+            MainWindowHeight = 500;
+            MainWindowState = "Normal";
             Save();
         }
 
@@ -95,7 +125,10 @@ namespace SimpleLauncher
                 new XElement("HideGamesWithNoCover", HideGamesWithNoCover),
                 new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
                 new XElement("VideoUrl", VideoUrl),
-                new XElement("InfoUrl", InfoUrl)
+                new XElement("InfoUrl", InfoUrl),
+                new XElement("MainWindowWidth", MainWindowWidth),
+                new XElement("MainWindowHeight", MainWindowHeight),
+                new XElement("MainWindowState", MainWindowState)
             ).Save(_filePath);
         }
     }
