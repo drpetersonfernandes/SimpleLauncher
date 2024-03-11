@@ -74,7 +74,7 @@ namespace SimpleLauncher
             }
 
             // Initialize _gameFileGrid
-            _gameFileGrid = FindName("gameFileGrid") as WrapPanel;
+            _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
 
             // Create and integrate LetterNumberMenu
             _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
