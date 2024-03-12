@@ -38,7 +38,7 @@ For more detailed explanations of how the frontend works, visit our [Wiki](https
 - **Control Thumbnail Size:** Conveniently adjust the size of the cover images in the UI.
 - **Update Notifications:** Be informed whenever a new version becomes available.
 - **Error Logging:** The application includes an error logging mechanism that informs the developers of any errors that occur, thus enabling us to rectify bugs and enhance the program over time.
-- 
+
 ## Related Utilities:
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
 - **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
