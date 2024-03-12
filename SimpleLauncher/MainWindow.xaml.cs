@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -132,7 +133,7 @@ namespace SimpleLauncher
             _settings.Save();
         }
 
-        // Load state and size of Main Window from settings.xml
+        // Load state and size of MainWindow from settings.xml
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Width = _settings.MainWindowWidth;
@@ -151,7 +152,7 @@ namespace SimpleLauncher
         // Restart Application
         private void MainWindow_Restart()
         {
-            // Explicitly save the Windows state and size before restarting
+            // Explicitly save the MainWindow state and size before restarting
             SaveWindowState();
 
             // Prepare the process start info
@@ -198,7 +199,7 @@ namespace SimpleLauncher
                     string systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
                     int gameCount = LoadFiles.CountFiles(systemFolderPath, fileExtensions);
-                    DisplaySystemInfo(systemFolderPath, gameCount);
+                    DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig);
                     
                     // Call DeselectLetter to clear any selected letter
                     _letterNumberMenu.DeselectLetter();
@@ -217,13 +218,29 @@ namespace SimpleLauncher
             }
         }
 
-        private void DisplaySystemInfo(string systemFolderPath, int gameCount)
+        private void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig)
         {
             GameFileGrid.Children.Clear();
+
+            var emulatorInfoBuilder = new StringBuilder();
+            for (int i = 0; i < selectedConfig.Emulators.Count; i++)
+            {
+                emulatorInfoBuilder.AppendLine($"Emulator {i + 1} Name: {selectedConfig.Emulators[i].EmulatorName}\n" +
+                                               $"Emulator {i + 1} Location: {selectedConfig.Emulators[i].EmulatorLocation}\n" +
+                                               $"Emulator {i + 1} Parameters: {selectedConfig.Emulators[i].EmulatorParameters}\n");
+            }
+            
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = $"\nDirectory: {systemFolderPath}\nTotal number of games in the System directory, excluding files in subdirectories: {gameCount}\n\nPlease select a Letter above",
-                FontWeight = FontWeights.Bold,
+                Text = $"\nSystem Folder: {systemFolder}\n" +
+                       $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}\n\n" +
+                       $"System Image Folder: {selectedConfig.SystemImageFolder}\n" +
+                       $"System is MAME? {selectedConfig.SystemIsMAME}\n" +
+                       $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
+                       $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
+                       $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n\n" +
+                       emulatorInfoBuilder +
+                       $"Please select a Button above to see the games.",
                 Padding = new Thickness(10)
             });
         }
@@ -267,6 +284,14 @@ namespace SimpleLauncher
 
                 // Count the list of files
                 _totalFiles = allFiles.Count;
+                
+                // Calculate the indices of files displayed on the current page
+                int startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
+                int endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
+                if (endIndex > _totalFiles)
+                {
+                    endIndex = _totalFiles;
+                }
 
                 // Pagination related
                 if (_totalFiles > _paginationThreshold)
@@ -276,6 +301,9 @@ namespace SimpleLauncher
                     // Update or create pagination controls
                     InitializePaginationButtons();
                 }
+                
+                // Update the UI to reflect the current pagination status and the indices of files being displayed
+                TotalFilesLabel.Content = $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -290,6 +318,7 @@ namespace SimpleLauncher
                 
                 // Update the UI to reflect the current pagination status
                 UpdatePaginationButtons();
+               
             }
             catch (Exception ex)
             {
@@ -303,6 +332,7 @@ namespace SimpleLauncher
             _nextPageButton.IsEnabled = false;
             _currentPage = 1;
             Scroller.ScrollToTop();
+            TotalFilesLabel.Content = null;
         }
         private void InitializePaginationButtons()
         {
@@ -360,7 +390,6 @@ namespace SimpleLauncher
             GameFileGrid.Children.Add(new TextBlock
             {
                 Text = "\nPlease select a System",
-                FontWeight = FontWeights.Bold,
                 Padding = new Thickness(10)
             });
 
@@ -408,12 +437,18 @@ namespace SimpleLauncher
 
         private void EditSystem_Click(object sender, RoutedEventArgs e)
         {
+            // Save MainWindow state and size before call the EditSystem Window
+            SaveWindowState();
+                
             EditSystem editSystemWindow = new();
             editSystemWindow.ShowDialog();
         }
         
         private void EditLinks_Click(object sender, RoutedEventArgs e)
         {
+            // Save MainWindow state and size before call the EditLinks Window
+            SaveWindowState();
+                
             EditLinks editLinksWindow = new();
             editLinksWindow.ShowDialog();
         }

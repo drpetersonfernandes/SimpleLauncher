@@ -214,7 +214,7 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="System Is MAME?" />
+                    Content="System is MAME?" />
                 <ComboBox
                     Margin="0,0,10,10"
                     x:Name="SystemIsMameComboBox"
@@ -230,7 +230,7 @@
                     Grid.Row="4"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Format To Search In System Folder"/>
+                    Content="Format to Search in the System Folder"/>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchTextBox"
@@ -276,7 +276,7 @@
                     Grid.Row="6"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Format To Launch After Extraction"/>
+                    Content="Format to Launch After Extraction"/>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToLaunchTextBox"

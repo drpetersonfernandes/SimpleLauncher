@@ -146,7 +146,7 @@ namespace SimpleLauncher
                 : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder);
 
             // Extensions to check
-            string[] extensions = [".png", ".jpg", ".jpeg"];
+            string[] extensions = new string[] {".png", ".jpg", ".jpeg"};
 
             // Check each extension for a valid image file
             foreach (var ext in extensions)
@@ -156,7 +156,14 @@ namespace SimpleLauncher
                     return imagePath;
             }
 
-            // Return the default image if no specific image exists
+            // Try to find default.png in the SystemImageFolder if specified, otherwise use the global default
+            string defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
+            if (File.Exists(defaultImagePath))
+            {
+                return defaultImagePath;
+            }
+
+            // Fall back to the global default image path if no specific or system default image exists
             return Path.Combine(_baseDirectory, "images", DefaultImagePath);
         }
 

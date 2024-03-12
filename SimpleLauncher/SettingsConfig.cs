@@ -42,7 +42,7 @@ namespace SimpleLauncher
 
                 // Validate and assign ThumbnailSize
                 int thumbnailSize = int.Parse(settings.Element("ThumbnailSize")!.Value, CultureInfo.InvariantCulture);
-                ThumbnailSize = _validThumbnailSizes.Contains(thumbnailSize) ? thumbnailSize : 350;
+                ThumbnailSize = _validThumbnailSizes.Contains(thumbnailSize) ? thumbnailSize : 200;
                 
                 // Validate and assign GamesPerPage
                 int gamesPerPage = int.Parse(settings.Element("GamesPerPage")!.Value, CultureInfo.InvariantCulture);
@@ -74,9 +74,9 @@ namespace SimpleLauncher
                 string mainWindowHeightValue = settings.Element("MainWindowHeight")?.Value;
                 bool parseSuccess2 = double.TryParse(mainWindowHeightValue, NumberStyles.Any,
                     CultureInfo.InvariantCulture, out var mainWindowHeight);
-                if (!parseSuccess2 || mainWindowHeight < 300)
+                if (!parseSuccess2 || mainWindowHeight < 500)
                 {
-                    mainWindowHeight = 300;
+                    mainWindowHeight = 500;
                 }
                 MainWindowHeight = mainWindowHeight;
                 

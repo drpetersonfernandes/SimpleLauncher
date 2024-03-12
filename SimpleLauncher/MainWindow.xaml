@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Simple Launcher"
     MinWidth="890"
-    MinHeight="300"
+    MinHeight="500"
     Closing="MainWindow_Closing"
     mc:Ignorable="d">
 
@@ -188,6 +188,10 @@
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="PrevPageButton" Content="&lt; Prev" Width="100" Height="30" Margin="5" Click="PrevPageButton_Click"/>
             <Button x:Name="NextPageButton" Content="Next &gt;" Width="100" Height="30" Margin="5" Click="NextPageButton_Click"/>
+            <Label
+                x:Name="TotalFilesLabel"
+                Margin="5"
+                Content="" />
         </StackPanel>
         
     </Grid>
