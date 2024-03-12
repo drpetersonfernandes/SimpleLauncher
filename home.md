@@ -16,7 +16,7 @@ Simply download the application from the [release](https://github.com/drpeterson
 * Select a button at the top of the application.
 * Click on the game you want to launch.
 
-Note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu item.
+Note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu.
 
 ## Where to Find Game Covers:
 Please note that we do NOT provide ROMs, ISOs or Game Covers. You can find cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com). However, these sites are not affiliated with Simple Launcher.

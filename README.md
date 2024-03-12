@@ -19,7 +19,7 @@ You just need to download the application from the [release page](https://github
 * Click on the top button of the application.
 * Click on the game you wish to launch.
   
-Please note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu item.
+Please note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu.
 
 ## Where to Find Game Covers:
 We do NOT provide ROMs, ISOs or Game Covers.<br>
