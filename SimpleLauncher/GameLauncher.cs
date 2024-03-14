@@ -143,6 +143,15 @@ namespace SimpleLauncher
                 // Regular call of the method
                 if (EmulatorComboBox.SelectedItem != null)
                 {
+                    
+                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+
+                    // If the GamePadController is running, stop it before proceeding
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Stop();
+                    }
+                    
                     string selectedEmulatorName = EmulatorComboBox.SelectedItem.ToString();
                     string selectedSystem = SystemComboBox.SelectedItem.ToString();
 
@@ -230,6 +239,12 @@ namespace SimpleLauncher
                         string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
                         errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                    }
+                    
+                    // If the GamePadController was running, restart it after the psi exits
+                    if (wasGamePadControllerRunning)
+                    {
+                        GamePadController.Instance.Start();
                     }
                 }
                 else

@@ -26,11 +26,13 @@
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require bios files or special configurations to work properly.<br>
 
-[//]: # (**Emulator Name:** Stella<br>)
+**Emulator Name:** Stella<br>
 
-[//]: # (**Emulator Location:** [Stella Folder]\stella.exe<br>)
+**Emulator Location:** [Stella Folder]\Stella.exe<br>
 
-[//]: # (**Emulator Parameters:** <br>)
+**Emulator Parameters:** -fullscreen 1<br>
+
+Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).<br>
 
 ## Atari 5200
 
@@ -57,12 +59,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\prosystem_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/). Core may require bios files or special configurations to work properly.<br>
-
-[//]: # (**Emulator Name:** BupSystem<br>)
-
-[//]: # (**Emulator Location:** [BupSystem Folder]\.exe<br>)
-
-[//]: # (**Emulator Parameters:** <br>)
 
 
 [//]: # (**Emulator Name:** A7800<br>)
