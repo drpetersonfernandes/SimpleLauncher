@@ -521,7 +521,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Microsoft Windows
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [BAT Folder] or [LNK Folder] or [EXE Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** lnk, bat, exe<br>
 **Extract File Before Launch?** false<br>
@@ -530,6 +530,16 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Name:** Direct Launch<br>
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
+
+LNK files are shortcut links. You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
+
+If you prefer to use BAT files, you can use the following model as an example:
+
+```bat
+@echo off
+cd /d "J:\Microsoft Windows\Mega Man 11"
+start game.exe
+```
 
 ## Microsoft Xbox
 
@@ -1115,6 +1125,30 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/). Core may require bios files or special configurations to work properly.<br>
 
+## ScummVM
+
+**System Folder:** [BAT Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** bat<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Direct Launch<br>
+**Emulator Location:** <br>
+**Emulator Parameters:** <br>
+
+Command line parameters can be found [here](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
+
+Bat file model:
+```bat
+[ScummVM Folder]\scummvm.exe -p "[BAT Folder]\[Game Folder]" --auto-detect --fullscreen
+```
+
+Bat file example:
+```bat
+D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
+```
+
 ## Sega Dreamcast
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1355,7 +1389,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sony Playstation 3
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [BAT Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
@@ -1364,6 +1398,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Name:** RPCS3<br>
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
+
+Use the [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) I wrote to generate the BAT files for you.
 
 ## Sony PSP
 

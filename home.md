@@ -28,8 +28,9 @@ We have compiled a list of parameters for each emulator for your convenience. Cl
 
 **Microsoft Windows Games or Applications**
 
-If you want to add your Windows games or applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the game or application.
-If you prefer to use BAT (bat) files, you can use the model below as an example of a bat file.
+If you want to add your Windows games or applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the game or application.<br>
+LNK files are shortcut links. You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
+If you prefer to use BAT files, you can use the following model as an example:
 
 ```bat
 @echo off
@@ -43,7 +44,21 @@ This emulator loads games extracted from ISO files into a Game Folder.<br>
 To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.  
 Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in Simple Launcher to be treated as games.  
 For the Sony Playstation 3 system configuration, you should set the Format To Search In System Folder as batch (.bat).
-We have created a utility that can automatically generate these batch files for you. Please see the "Related Utilities" section below for more information.
+I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generate these batch files for you.
+
+**ScummVM Games**
+
+If you want to add your ScummVM games to the Simple Launcher frontend, you should create a folder with BAT (bat) files that directly call the game.<br>
+
+Bat file model:
+```bat
+[ScummVM Folder]\scummvm.exe -p "[BAT Folder]\[Game Folder]" --auto-detect --fullscreen
+```
+
+Bat file example:
+```bat
+D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
+```
 
 ## How the Frontend Works:
 
