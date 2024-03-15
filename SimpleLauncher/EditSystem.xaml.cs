@@ -323,7 +323,7 @@ namespace SimpleLauncher
 
         private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            var systemName = SystemNameTextBox.Text;
+            var systemName = SystemNameTextBox.Text.Trim();
             var systemFolder = SystemFolderTextBox.Text;
             var systemImageFolder = SystemImageFolderTextBox.Text;
 
