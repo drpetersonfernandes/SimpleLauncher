@@ -54,8 +54,8 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0)
                     {
-                        MessageBox.Show("Error executing the batch file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching batch file: Exit code {process.ExitCode}\nOutput: {output}\nError: {error}\nProcess Start Info:\nFileName: {psi.FileName}\n";
+                        MessageBox.Show($"Error launching batch file:\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}\nFileName: {psi.FileName}\n", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string errorMessage = $"Error launching batch file:\n\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nFileName: {psi.FileName}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                     }
 
@@ -183,7 +183,7 @@ namespace SimpleLauncher
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {
-                                MessageBox.Show("Failed to extract the archive.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Failed to extract the archive.\nCheck if the compressed file is corrupt.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
 
@@ -203,7 +203,7 @@ namespace SimpleLauncher
 
                             if (!fileFound)
                             {
-                                MessageBox.Show("Couldn't find a file with the specified extensions after extraction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Couldn't find a file with the specified extensions after extraction.\nEdit System to fix it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         }
@@ -235,10 +235,10 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        MessageBox.Show("The emulator could not open this file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching external program: Exit code {process.ExitCode}\n";
-                        errorMessage += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                        string errorMessage = $"Error launching external program:\n\nExit code {process.ExitCode}\n";
+                        errorMessage += $"FileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                        MessageBox.Show($"The emulator could not open this file.\n\n{errorMessage}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     
                     // If the GamePadController was running, restart it after the psi exits
@@ -249,18 +249,18 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("Please select an emulator", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Please select an emulator first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 string errorDetails = $"Exception Details:\n{ex}\n";
                 if (psi != null)
                 {
-                    errorDetails += $"Process Start Info:\nFileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                    errorDetails += $"FileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
                 }
                 await LogErrors.LogErrorAsync(ex, errorDetails);
+                MessageBox.Show($"An error occurred: {ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
