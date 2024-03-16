@@ -38,6 +38,11 @@
         <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\stella_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Stella</EmulatorName>
+        <EmulatorLocation>D:\Emulators\Stella\Stella.exe</EmulatorLocation>
+        <EmulatorParameters>-fullscreen 1</EmulatorParameters>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1522,6 +1527,26 @@
     </Emulators>
   </SystemConfig>
   <SystemConfig>
+    <SystemName>ScummVM</SystemName>
+    <SystemFolder>I:\ScummVM</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>bat</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch></FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Direct Launch</EmulatorName>
+        <EmulatorLocation></EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
     <SystemName>Sega Dreamcast</SystemName>
     <SystemFolder>G:\Sega Dreamcast</SystemFolder>
     <SystemImageFolder></SystemImageFolder>
@@ -1910,26 +1935,6 @@
         <EmulatorName>PPSSPP</EmulatorName>
         <EmulatorLocation>D:\Emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
         <EmulatorParameters>--fullscreen</EmulatorParameters>
-      </Emulator>
-    </Emulators>
-  </SystemConfig>
-  <SystemConfig>
-    <SystemName>Test</SystemName>
-    <SystemFolder>C:\Test</SystemFolder>
-    <SystemImageFolder></SystemImageFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-      <Emulator>
-        <EmulatorName>Test Emulator</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
