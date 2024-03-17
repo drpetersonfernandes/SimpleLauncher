@@ -17,8 +17,8 @@
     <PackageIcon>icon2.png</PackageIcon>
     <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.10.0.10</AssemblyVersion>
-    <FileVersion>2.10.0.10</FileVersion>
+    <AssemblyVersion>2.11.0.5</AssemblyVersion>
+    <FileVersion>2.11.0.5</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
@@ -79,7 +79,6 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress" Version="0.36.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="XamlAnimatedGif" Version="2.2.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
