@@ -5,22 +5,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Simple Launcher"
-    MinWidth="890"
+    MinWidth="900"
     MinHeight="500"
     Closing="MainWindow_Closing"
     mc:Ignorable="d">
 
-    <Grid Name="Grid">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
         <Menu Grid.Row="0" VerticalAlignment="Top">
-
             <MenuItem Header="Options">
                 <MenuItem Header="Set Thumbnail Size">
                     <MenuItem
@@ -120,77 +118,91 @@
                     Header="Enable GamePad Navigation" />
             </MenuItem>
             <MenuItem
-                x:Name="EditSystemButton"
                 Click="EditSystem_Click"
                 Header="Edit System" />
             <MenuItem
-                x:Name="EditLinksButton"
                 Click="EditLinks_Click"
                 Header="Edit Links" />
             <MenuItem
-                x:Name="BugReportButton"
                 Click="BugReport_Click"
                 Header="Bug Report" />
             <MenuItem
-                x:Name="DonateButton"
                 Click="Donate_Click"
                 Header="Donate" />
             <MenuItem
-                x:Name="AboutButton"
                 Click="About_Click"
                 Header="About" />
             <MenuItem
-                x:Name="ExitButton"
                 Click="Exit_Click"
                 Header="Exit" />
         </Menu>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <!--  Dynamically add letter buttons here or define them manually in XAML  -->
-        </StackPanel>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <StackPanel
-            Grid.Row="2"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Label
-                Width="95"
-                VerticalAlignment="Center"
-                Content="Select System" />
-            <ComboBox
-                Name="SystemComboBox"
-                Width="765"
-                VerticalAlignment="Center"
-                SelectionChanged="SystemComboBox_SelectionChanged" />
-        </StackPanel>
+            <StackPanel x:Name="LetterNumberMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <!--  Dynamically add letter buttons here or define them manually in XAML  -->
+            </StackPanel>
 
-        <StackPanel
-            Grid.Row="3"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Label
-                Width="95"
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,10,0,5"
                 VerticalAlignment="Center"
-                Content="Select Emulator" />
-            <ComboBox
-                Name="EmulatorComboBox"
-                Width="765"
+                Orientation="Horizontal">
+                <Label
+                    Width="95"
+                    VerticalAlignment="Center"
+                    Content="Select System" />
+                <ComboBox
+                    Name="SystemComboBox"
+                    Width="500"
+                    VerticalAlignment="Center"
+                    SelectionChanged="SystemComboBox_SelectionChanged" />
+            </StackPanel>
+            
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,0,10,10"
                 VerticalAlignment="Center"
-                SelectionChanged="EmulatorComboBox_SelectionChanged" />
-
-        </StackPanel>
-
-        <ScrollViewer x:Name="Scroller" Grid.Row="4" VerticalScrollBarVisibility="Visible">
-            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal">
+                Orientation="Horizontal">
+                <Label
+                    Width="95"
+                    VerticalAlignment="Center"
+                    Content="Select Emulator" />
+                <ComboBox
+                    Name="EmulatorComboBox"
+                    Width="500"
+                    VerticalAlignment="Center"
+                    SelectionChanged="EmulatorComboBox_SelectionChanged" />
+            </StackPanel>
+            
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchTextBox" Margin="0,10,10,5" Width="245" HorizontalAlignment="Stretch"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="Search Inside Selected System" Width="180" Margin="0,0,10,10" Click="SearchButton_Click" HorizontalAlignment="Center"/>
+           
+        </Grid>
+        
+        <ScrollViewer x:Name="Scroller" Grid.Row="2" VerticalScrollBarVisibility="Visible" Margin="0">
+            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="5,0,5,0">
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>
         
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="PrevPageButton" Content="&lt; Prev" Width="100" Height="30" Margin="5" Click="PrevPageButton_Click"/>
-            <Button x:Name="NextPageButton" Content="Next &gt;" Width="100" Height="30" Margin="5" Click="NextPageButton_Click"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10">
+            <Button x:Name="PrevPageButton" Content="&lt; Prev" Width="100" Height="30" Margin="0,0,10,0" Click="PrevPageButton_Click"/>
+            <Button x:Name="NextPageButton" Content="Next &gt;" Width="100" Height="30" Margin="0,0,10,0" Click="NextPageButton_Click"/>
             <Label
                 x:Name="TotalFilesLabel"
-                Margin="5"
+                Margin="10,0,10,0"
                 Content="" />
         </StackPanel>
         

@@ -23,7 +23,7 @@ namespace SimpleLauncher
         
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
-        private readonly LetterNumberMenu _letterNumberMenu = new();
+        private readonly LetterNumberMenu _letterNumberMenu;
         private readonly WrapPanel _gameFileGrid;
         private readonly GameButtonFactory _gameButtonFactory;
         private readonly AppSettings _settings;
@@ -76,7 +76,16 @@ namespace SimpleLauncher
 
             // Initialize _gameFileGrid
             _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
-
+            
+            // // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
+            // Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
+            // ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
+            
+            // Initialize LetterNumberMenu and add it to the UI
+            _letterNumberMenu = new LetterNumberMenu();
+            LetterNumberMenu.Children.Clear(); // Clear if necessary
+            LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel); // Add the LetterPanel directly
+            
             // Create and integrate LetterNumberMenu
             _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
@@ -88,10 +97,6 @@ namespace SimpleLauncher
                 // Move scroller to top
                 Scroller.ScrollToTop();
             };
-
-            // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
-            Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
-            ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
             
             // Pagination related
             PrevPageButton.IsEnabled = false;
@@ -251,7 +256,7 @@ namespace SimpleLauncher
             // for future use
         }
 
-        private async Task LoadGameFiles(string startLetter = null)
+        private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
         {
             try
             {
@@ -279,10 +284,39 @@ namespace SimpleLauncher
                 // List of files with that match the system extensions
                 // then sort the list alphabetically 
                 List<string> allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
-                allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                
+                if (!string.IsNullOrWhiteSpace(startLetter))
+                {
+                    allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                }
+                
+                // Search engine
+                if (!string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    bool systemIsMame = selectedConfig.SystemIsMAME;
+                    allFiles = allFiles.Where(file =>
+                    {
+                        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                        // Search in filename
+                        bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                
+                        if (!systemIsMame) // If not a MAME system, return match based on filename only
+                        {
+                            return filenameMatch;
+                        }
+                
+                        // For MAME systems, additionally check the description for a match
+                        var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                        bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                        return filenameMatch || descriptionMatch;
+                
+                    }).ToList();
+                }
+                
+                //Sort the collection of files
                 allFiles.Sort();
 
-                // Count the list of files
+                // Count the collection of files
                 _totalFiles = allFiles.Count;
                 
                 // Calculate the indices of files displayed on the current page
@@ -578,5 +612,39 @@ namespace SimpleLauncher
 
         #endregion
 
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchQuery = SearchTextBox.Text.Trim();
+
+            if (SystemComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Show the "Please Wait" window
+            var pleaseWaitWindow = new PleaseWaitWindow();
+            pleaseWaitWindow.Show();
+
+            try
+            {
+                await LoadGameFiles(searchQuery: searchQuery);
+            }
+            finally
+            {
+                // Close the "Please Wait" window
+                pleaseWaitWindow.Close();
+            }
+        }
+
+
+
+        
     }
 }
