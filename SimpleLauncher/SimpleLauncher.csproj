@@ -44,6 +44,7 @@
     </Content>
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
+    <None Remove="images\wait.gif" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="system.xml">
@@ -78,6 +79,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress" Version="0.36.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="XamlAnimatedGif" Version="2.2.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="InputSimulatorCore" Version="1.0.5" />

@@ -1,11 +1,14 @@
 <Window x:Class="SimpleLauncher.PleaseWaitWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         Title="Please Wait" Height="120" Width="300"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" WindowStyle="ToolWindow">
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock Text="Searching, please wait..." HorizontalAlignment="Center" Margin="20"/>
-        <ProgressBar IsIndeterminate="True" Width="200" Margin="10"/>
-    </StackPanel>
+        WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" AllowsTransparency="True">
+
+    <Border BorderBrush="Gray" BorderThickness="1" >
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Searching, please wait..." HorizontalAlignment="Center" Margin="20" />
+            <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
+        </StackPanel>
+    </Border>
 </Window>

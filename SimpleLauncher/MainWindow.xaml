@@ -186,7 +186,7 @@
                     SelectionChanged="EmulatorComboBox_SelectionChanged" />
             </StackPanel>
             
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchTextBox" Margin="0,10,10,5" Width="245" HorizontalAlignment="Stretch"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="SearchTextBox" Margin="0,10,10,5" Width="245" HorizontalAlignment="Stretch" KeyDown="SearchTextBox_KeyDown" />
             <Button Grid.Row="2" Grid.Column="1" Content="Search Inside Selected System" Width="180" Margin="0,0,10,10" Click="SearchButton_Click" HorizontalAlignment="Center"/>
            
         </Grid>

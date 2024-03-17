@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SimpleLauncher
 {
@@ -336,8 +337,14 @@ namespace SimpleLauncher
                     InitializePaginationButtons();
                 }
                 
+                // Display message if the number of files == 0
+                if (allFiles.Count == 0)
+                {
+                    NoFilesMessage();
+                }
+               
                 // Update the UI to reflect the current pagination status and the indices of files being displayed
-                TotalFilesLabel.Content = $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
+                TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";                
 
                 // Create a new instance of GameButtonFactory within the LoadGameFiles method.
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
@@ -424,6 +431,19 @@ namespace SimpleLauncher
             GameFileGrid.Children.Add(new TextBlock
             {
                 Text = "\nPlease select a System",
+                Padding = new Thickness(10)
+            });
+
+            // Deselect any selected letter when no system is selected
+            _letterNumberMenu.DeselectLetter();
+        }
+        
+        private void NoFilesMessage()
+        {
+            GameFileGrid.Children.Clear();
+            GameFileGrid.Children.Add(new TextBlock
+            {
+                Text = "\nI did not find any games with this search query",
                 Padding = new Thickness(10)
             });
 
@@ -643,6 +663,39 @@ namespace SimpleLauncher
             }
         }
 
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var searchQuery = SearchTextBox.Text.Trim();
+
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(searchQuery))
+                {
+                    MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Show the "Please Wait" window
+                var pleaseWaitWindow = new PleaseWaitWindow();
+                pleaseWaitWindow.Show();
+
+                try
+                {
+                    await LoadGameFiles(searchQuery: searchQuery);
+                }
+                finally
+                {
+                    // Close the "Please Wait" window
+                    pleaseWaitWindow.Close();
+                }
+            }
+        }
 
 
         
