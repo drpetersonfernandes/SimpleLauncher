@@ -8,50 +8,38 @@ namespace SimpleLauncher
 {
     public class LogErrors
     {
-        private static readonly object LockObject = new();
         private static readonly HttpClient HttpClient = new();
 
         public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
         {
-            string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-
-            // Get application version
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string errorLogPath = Path.Combine(baseDirectory, "error.log");
+            string userLogPath = Path.Combine(baseDirectory, "error_user.log");
             var version = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-
             string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
 
-            // Attempt to write to the log file, ignoring exceptions if the file cannot be accessed
             try
             {
-                lock (LockObject)
-                {
-                    File.AppendAllText(errorLogPath, errorMessage);
-                }
+                // Append the error message to both the general and user-specific logs.
+                await File.AppendAllTextAsync(errorLogPath, errorMessage);
+                await File.AppendAllTextAsync(userLogPath, errorMessage);
 
-                // Check the result of SendLogToApiAsync and delete the log file if successful
-                if (await SendLogToApiAsync())
+                // Attempt to send the error log content to the API.
+                if (await SendLogToApiAsync(errorMessage))
                 {
+                    // If the log was successfully sent, delete the general log file to clean up.
                     File.Delete(errorLogPath);
                 }
             }
-            catch
+            catch (Exception)
             {
-                // If an exception occurs while accessing the log file, simply ignore it and return.
+                // Ignore
             }
         }
-
-        private static async Task<bool> SendLogToApiAsync()
+        
+        private static async Task<bool> SendLogToApiAsync(string logContent)
         {
-            string errorLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error.log");
-            if (!File.Exists(errorLogPath))
-            {
-                //LogInternalError("Error log file not found.");
-                return false;
-            }
-
-            string logContent = await File.ReadAllTextAsync(errorLogPath);
-
-            // Prepare the POST data
+            // Prepare the content to be sent via HTTP POST.
             var formData = new MultipartFormDataContent
             {
                 { new StringContent("contact@purelogiccode.com"), "recipient" },
@@ -60,34 +48,22 @@ namespace SimpleLauncher
                 { new StringContent(logContent), "message" }
             };
 
-            // Set the API Key
-            if (!HttpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://purelogiccode.com/simplelauncher/send_email.php")
             {
-                HttpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
-            }
+                Content = formData
+            };
+            request.Headers.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
 
             try
             {
-                // Send the POST request
-                HttpResponseMessage response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
-
+                HttpResponseMessage response = await HttpClient.SendAsync(request);
                 return response.IsSuccessStatusCode;
             }
             catch
             {
-                //LogInternalError($"Exception occurred while sending log to the developer: {ex.Message}");
                 return false;
             }
         }
-
-        //private static void LogInternalError(string message)
-        //{
-        //    string internalLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "internal_error.log");
-        //    string logMessage = $"Date: {DateTime.Now}\n{message}\n\n";
-        //    lock (_lockObject)
-        //    {
-        //        File.AppendAllText(internalLogPath, logMessage);
-        //    }
-        //}
+        
     }
 }
