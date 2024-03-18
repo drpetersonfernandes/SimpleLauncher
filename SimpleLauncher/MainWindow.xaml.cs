@@ -54,10 +54,11 @@ namespace SimpleLauncher
             }
 
             // Apply settings to your application
-            HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
+            // HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
             EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
             UpdateMenuCheckMarks(_settings.ThumbnailSize);
             UpdateMenuCheckMarks2(_settings.GamesPerPage);
+            UpdateMenuCheckMarks3(_settings.ShowGames);
             _filesPerPage = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
             _paginationThreshold = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
 
@@ -127,7 +128,7 @@ namespace SimpleLauncher
         // Delete temp files from ExtractCompressedFile class.
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            ExtractCompressedFile.Instance.Cleanup();
+            ExtractCompressedFile.Instance2.Cleanup();
         }
 
         // Save state and size of Main Window to settings.xml
@@ -479,6 +480,13 @@ namespace SimpleLauncher
             Page900.IsChecked = (selectedSize == 900);
             Page1000.IsChecked = (selectedSize == 1000);
         }
+        
+        private void UpdateMenuCheckMarks3(string selectedValue)
+        {
+            ShowAll.IsChecked = (selectedValue == "ShowAll");
+            ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
+            ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
+        }
        
         public static async void HandleError(Exception ex, string message)
         {
@@ -540,39 +548,84 @@ namespace SimpleLauncher
             Close();
         }
 
-        private void HideGamesNoCover_Click(object sender, RoutedEventArgs e)
+        // private void HideGamesNoCover_Click(object sender, RoutedEventArgs e)
+        // {
+        //     if (sender is MenuItem menuItem)
+        //     {
+        //         menuItem.IsChecked = !menuItem.IsChecked;
+        //         _settings.HideGamesWithNoCover = menuItem.IsChecked;
+        //         _settings.Save();
+        //
+        //         // Hide games with no cover
+        //         if (menuItem.IsChecked)
+        //         {
+        //             foreach (var child in _gameFileGrid.Children)
+        //             {
+        //                 if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
+        //                 {
+        //                     btn.Visibility = Visibility.Collapsed; // Hide the button
+        //                 }
+        //             }
+        //         }
+        //         else
+        //         {
+        //             // Show all games
+        //             foreach (var child in _gameFileGrid.Children)
+        //             {
+        //                 if (child is Button btn)
+        //                 {
+        //                     btn.Visibility = Visibility.Visible; // Show the button
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        
+        private void ShowAllGames_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is MenuItem menuItem)
-            {
-                menuItem.IsChecked = !menuItem.IsChecked;
-                _settings.HideGamesWithNoCover = menuItem.IsChecked;
-                _settings.Save();
+            UpdateGameVisibility(visibilityCondition: _ => true); // Show all games
+            UpdateShowGamesSetting("ShowAll");
+            UpdateMenuCheckMarks("ShowAll");
+        }
+        
+        private void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGameVisibility(visibilityCondition: btn => btn.Tag?.ToString() != "DefaultImage"); // Show games with covers only
+            UpdateShowGamesSetting("ShowWithCover");
+            UpdateMenuCheckMarks("ShowWithCover");
+        }
 
-                // Hide games with no cover
-                if (menuItem.IsChecked)
+        private void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGameVisibility(visibilityCondition: btn => btn.Tag?.ToString() == "DefaultImage"); // Show games without covers only
+            UpdateShowGamesSetting("ShowWithoutCover");
+            UpdateMenuCheckMarks("ShowWithoutCover");
+        }
+
+        private void UpdateGameVisibility(Func<Button, bool> visibilityCondition)
+        {
+            foreach (var child in _gameFileGrid.Children)
+            {
+                if (child is Button btn)
                 {
-                    foreach (var child in _gameFileGrid.Children)
-                    {
-                        if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
-                        {
-                            btn.Visibility = Visibility.Collapsed; // Hide the button
-                        }
-                    }
-                }
-                else
-                {
-                    // Show all games
-                    foreach (var child in _gameFileGrid.Children)
-                    {
-                        if (child is Button btn)
-                        {
-                            btn.Visibility = Visibility.Visible; // Show the button
-                        }
-                    }
+                    btn.Visibility = visibilityCondition(btn) ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
         }
 
+        private void UpdateShowGamesSetting(string showGames)
+        {
+            _settings.ShowGames = showGames;
+            _settings.Save();
+        }
+        
+        private void UpdateMenuCheckMarks(string selectedMenu)
+        {
+            ShowAll.IsChecked = selectedMenu == "ShowAll";
+            ShowWithCover.IsChecked = selectedMenu == "ShowWithCover";
+            ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
+        }
+        
         private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
         {
             // Event handler logic to use the singleton instance

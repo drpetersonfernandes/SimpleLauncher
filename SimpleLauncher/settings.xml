@@ -2,11 +2,11 @@
 <Settings>
   <ThumbnailSize>200</ThumbnailSize>
   <GamesPerPage>200</GamesPerPage>
-  <HideGamesWithNoCover>false</HideGamesWithNoCover>
+  <ShowGames>ShowAll</ShowGames>
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
   <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
-  <MainWindowWidth>890</MainWindowWidth>
+  <MainWindowWidth>900</MainWindowWidth>
   <MainWindowHeight>500</MainWindowHeight>
   <MainWindowState>Normal</MainWindowState>
 </Settings>

@@ -179,7 +179,7 @@ namespace SimpleLauncher
                         if (fileExtension == ".ZIP" || fileExtension == ".7Z")
                         {
                             // Extract the archive to a temporary location
-                            string tempExtractLocation = ExtractCompressedFile.Instance.ExtractArchiveToTemp(filePath);
+                            string tempExtractLocation = ExtractCompressedFile.Instance2.ExtractArchiveToTemp(filePath);
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {

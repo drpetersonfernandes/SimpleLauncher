@@ -11,10 +11,13 @@ namespace SimpleLauncher
         private readonly string _filePath;
         private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
         private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+        private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
+
 
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
-        public bool HideGamesWithNoCover { get; set; }
+        // public bool HideGamesWithNoCover { get; set; }
+        public string ShowGames { get; set; }
         public bool EnableGamePadNavigation { get; set; }
         public string VideoUrl { get; private set; }
         public string InfoUrl { get; private set; }
@@ -48,8 +51,14 @@ namespace SimpleLauncher
                 int gamesPerPage = int.Parse(settings.Element("GamesPerPage")!.Value, CultureInfo.InvariantCulture);
                 GamesPerPage = _validGamesPerPage.Contains(gamesPerPage) ? gamesPerPage : 200;
 
-                // Assign boolean settings
-                HideGamesWithNoCover = ParseBoolSetting(settings, "HideGamesWithNoCover");
+                // // Assign HideGamesWithNoCover
+                // HideGamesWithNoCover = ParseBoolSetting(settings, "HideGamesWithNoCover");
+                
+                // Validate and assign ShowGames
+                string showGames = settings.Element("ShowGames")?.Value ?? "ShowAll"; // Default to "ShowAll" if null
+                ShowGames = _validShowGames.Contains(showGames) ? showGames : "ShowAll";
+                
+                // Assign EnableGamePadNavigation
                 EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
 
                 // Validate and assign VideoUrl
@@ -107,7 +116,8 @@ namespace SimpleLauncher
         {
             ThumbnailSize = 250;
             GamesPerPage = 200;
-            HideGamesWithNoCover = false;
+            ShowGames = "ShowAll";
+            // HideGamesWithNoCover = false;
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
             InfoUrl = "https://www.igdb.com/search?type=1&amp;q=";
@@ -122,7 +132,8 @@ namespace SimpleLauncher
             new XElement("Settings",
                 new XElement("ThumbnailSize", ThumbnailSize),
                 new XElement("GamesPerPage", GamesPerPage),
-                new XElement("HideGamesWithNoCover", HideGamesWithNoCover),
+                new XElement("ShowGames", ShowGames),
+                // new XElement("HideGamesWithNoCover", HideGamesWithNoCover),
                 new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
                 new XElement("VideoUrl", VideoUrl),
                 new XElement("InfoUrl", InfoUrl),
