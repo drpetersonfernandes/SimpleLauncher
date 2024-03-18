@@ -8,8 +8,8 @@ namespace SimpleLauncher
 {
     internal class ExtractCompressedFile
     {
-        private static readonly Lazy<ExtractCompressedFile> _instance = new(() => new ExtractCompressedFile());
-        public static ExtractCompressedFile Instance2 => _instance.Value;
+        private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
+        public static ExtractCompressedFile Instance2 => Instance.Value;
         private readonly List<string> _tempDirectories = [];
 
         private ExtractCompressedFile() { } // Private constructor to enforce singleton pattern

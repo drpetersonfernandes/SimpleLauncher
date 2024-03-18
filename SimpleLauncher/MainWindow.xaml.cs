@@ -64,16 +64,16 @@ namespace SimpleLauncher
 
             // Initialize the GamePadController.cs
             // Setting the error logger
-            GamePadController.Instance.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
+            GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
 
             // Check if GamePad navigation is enabled in the settings
             if (_settings.EnableGamePadNavigation)
             {
-                GamePadController.Instance.Start();
+                GamePadController.Instance2.Start();
             }
             else
             {
-                GamePadController.Instance.Stop();
+                GamePadController.Instance2.Stop();
             }
 
             // Initialize _gameFileGrid
@@ -151,8 +151,8 @@ namespace SimpleLauncher
         // Dispose gamepad resources. Save MainWindow state and size to setting.xml.
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            GamePadController.Instance.Stop();
-            GamePadController.Instance.Dispose();
+            GamePadController.Instance2.Stop();
+            GamePadController.Instance2.Dispose();
             SaveWindowState();
         }
 
@@ -242,7 +242,7 @@ namespace SimpleLauncher
                 Text = $"\nSystem Folder: {systemFolder}\n" +
                        $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}\n\n" +
                        $"System Image Folder: {selectedConfig.SystemImageFolder}\n" +
-                       $"System is MAME? {selectedConfig.SystemIsMAME}\n" +
+                       $"System is MAME? {selectedConfig.SystemIsMame}\n" +
                        $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
                        $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
                        $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n\n" +
@@ -295,7 +295,7 @@ namespace SimpleLauncher
                 // Search engine
                 if (!string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    bool systemIsMame = selectedConfig.SystemIsMAME;
+                    bool systemIsMame = selectedConfig.SystemIsMame;
                     allFiles = allFiles.Where(file =>
                     {
                         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
@@ -637,11 +637,11 @@ namespace SimpleLauncher
 
                 if (menuItem.IsChecked)
                 {
-                    GamePadController.Instance.Start();
+                    GamePadController.Instance2.Start();
                 }
                 else
                 {
-                    GamePadController.Instance.Stop();
+                    GamePadController.Instance2.Stop();
                 }
             }
         }

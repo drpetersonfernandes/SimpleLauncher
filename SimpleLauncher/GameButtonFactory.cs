@@ -59,7 +59,7 @@ namespace SimpleLauncher
                 ToolTip = fileNameWithoutExtension
             };
 
-            if (systemConfig.SystemIsMAME)
+            if (systemConfig.SystemIsMame)
             {
                 var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                 if (machine != null)

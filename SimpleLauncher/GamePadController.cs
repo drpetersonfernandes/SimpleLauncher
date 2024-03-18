@@ -7,8 +7,8 @@ namespace SimpleLauncher
 {
     public class GamePadController : IDisposable
     {
-        private static readonly Lazy<GamePadController> _instance = new(() => new GamePadController());
-        public static GamePadController Instance => _instance.Value;
+        private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
+        public static GamePadController Instance2 => Instance.Value;
 
         // Add an Action for error logging
         public Action<Exception, string> ErrorLogger { get; set; }
@@ -25,8 +25,8 @@ namespace SimpleLauncher
         private bool _wasBDown;
         private bool _isDisposed;
 
-        readonly float deadZoneX = 0.05f;
-        readonly float deadZoneY = 0.02f;
+        readonly float _deadZoneX = 0.05f;
+        readonly float _deadZoneY = 0.02f;
 
         public bool IsRunning { get; private set; }
 
@@ -95,14 +95,14 @@ namespace SimpleLauncher
 
         private void HandleScroll(State state)
         {
-            var (x, y) = ProcessThumbStick(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, deadZoneX, deadZoneY);
+            var (x, y) = ProcessThumbStick(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, _deadZoneX, _deadZoneY);
             _mouseSimulator.HorizontalScroll((int)x);
             _mouseSimulator.VerticalScroll((int)y);
         }
 
         private void HandleMovement(State state)
         {
-            var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, deadZoneX, deadZoneY);
+            var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, _deadZoneX, _deadZoneY);
             _mouseSimulator.MoveMouseBy((int)x, -(int)y);
         }
 

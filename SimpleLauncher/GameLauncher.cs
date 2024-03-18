@@ -11,7 +11,7 @@ namespace SimpleLauncher
 {
     public static class GameLauncher
     {
-        public static async Task HandleButtonClick(string filePath, ComboBox EmulatorComboBox, ComboBox SystemComboBox, List<SystemConfig> SystemConfigs)
+        public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
         {
             ProcessStartInfo psi = null;
 
@@ -22,12 +22,12 @@ namespace SimpleLauncher
                 // Check if the file is a .bat file
                 if (fileExtension == ".BAT")
                 {
-                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+                    bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
 
                     // If the GamePadController is running, stop it before executing the .BAT
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Stop();
+                        GamePadController.Instance2.Stop();
                     }
 
                     psi = new ProcessStartInfo
@@ -49,7 +49,7 @@ namespace SimpleLauncher
                     // If the GamePadController was running, restart it after the .BAT execution
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Start();
+                        GamePadController.Instance2.Start();
                     }
 
                     if (process.ExitCode != 0)
@@ -65,12 +65,12 @@ namespace SimpleLauncher
                 // Check if the file is a .lnk (shortcut) file
                 if (fileExtension == ".LNK")
                 {
-                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+                    bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
 
                     // If the GamePadController is running, stop it before launching the .LNK
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Stop();
+                        GamePadController.Instance2.Stop();
                     }
 
                     psi = new ProcessStartInfo
@@ -87,7 +87,7 @@ namespace SimpleLauncher
                         // If the GamePadController was running, restart it after the .LNK exits
                         if (wasGamePadControllerRunning)
                         {
-                            GamePadController.Instance.Start();
+                            GamePadController.Instance2.Start();
                         }
                     }
                     catch (Exception ex)
@@ -104,12 +104,12 @@ namespace SimpleLauncher
                 // Check if the file is a .exe (executable) file
                 if (fileExtension == ".EXE")
                 {
-                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+                    bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
 
                     // If the GamePadController is running, stop it before launching the .EXE
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Stop();
+                        GamePadController.Instance2.Stop();
                     }
 
                     psi = new ProcessStartInfo
@@ -128,7 +128,7 @@ namespace SimpleLauncher
                         // If the GamePadController was running, restart it after the .EXE exits
                         if (wasGamePadControllerRunning)
                         {
-                            GamePadController.Instance.Start();
+                            GamePadController.Instance2.Start();
                         }
                     }
                     catch (Exception ex)
@@ -141,21 +141,21 @@ namespace SimpleLauncher
                 }
 
                 // Regular call of the method
-                if (EmulatorComboBox.SelectedItem != null)
+                if (emulatorComboBox.SelectedItem != null)
                 {
                     
-                    bool wasGamePadControllerRunning = GamePadController.Instance.IsRunning;
+                    bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
 
                     // If the GamePadController is running, stop it before proceeding
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Stop();
+                        GamePadController.Instance2.Stop();
                     }
                     
-                    string selectedEmulatorName = EmulatorComboBox.SelectedItem.ToString();
-                    string selectedSystem = SystemComboBox.SelectedItem.ToString();
+                    string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+                    string selectedSystem = systemComboBox.SelectedItem.ToString();
 
-                    var systemConfig = SystemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+                    var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
 
                     if (systemConfig == null)
                     {
@@ -244,7 +244,7 @@ namespace SimpleLauncher
                     // If the GamePadController was running, restart it after the psi exits
                     if (wasGamePadControllerRunning)
                     {
-                        GamePadController.Instance.Start();
+                        GamePadController.Instance2.Start();
                     }
                 }
                 else

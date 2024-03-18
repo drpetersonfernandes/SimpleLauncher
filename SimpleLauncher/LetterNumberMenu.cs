@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,8 +7,7 @@ namespace SimpleLauncher
 {
     public class LetterNumberMenu
     {
-        public StackPanel LetterPanel { get; private set; } = new StackPanel { Orientation = Orientation.Horizontal };
-        private readonly Dictionary<string, Button> _letterButtons = new Dictionary<string, Button>();
+        public StackPanel LetterPanel { get; private set; } = new() { Orientation = Orientation.Horizontal };
         private Button _selectedButton;
 
         public event Action<string> OnLetterSelected;
@@ -43,7 +41,6 @@ namespace SimpleLauncher
                     UpdateSelectedButton(button);
                     OnLetterSelected?.Invoke(c.ToString());
                 };
-                _letterButtons.Add(c.ToString(), button);
                 LetterPanel.Children.Add(button);
             }
         }

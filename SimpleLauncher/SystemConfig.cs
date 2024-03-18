@@ -13,7 +13,7 @@ namespace SimpleLauncher
         public string SystemName { get; private init; }
         public string SystemFolder { get; private init; }
         public string SystemImageFolder { get; private init; }
-        public bool SystemIsMAME { get; private init; }
+        public bool SystemIsMame { get; private init; }
         public List<string> FileFormatsToSearch { get; private init; }
         public bool ExtractFileBeforeLaunch { get; private init; }
         public List<string> FileFormatsToLaunch { get; private init; }
@@ -44,7 +44,7 @@ namespace SimpleLauncher
                     if (sysConfigElement.Element("SystemFolder") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")!.Value))
                         throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
                     
-                    if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMAME))
+                    if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
                         throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
 
                     var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")?.Elements("FormatToSearch").Select(e => e.Value).ToList();
@@ -79,7 +79,7 @@ namespace SimpleLauncher
                         SystemName = sysConfigElement.Element("SystemName")?.Value,
                         SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
                         SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
-                        SystemIsMAME = systemIsMAME,
+                        SystemIsMame = systemIsMame,
                         ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                         FileFormatsToSearch = formatsToSearch,
                         FileFormatsToLaunch = formatsToLaunch,
