@@ -87,13 +87,11 @@ namespace SimpleLauncher
             // Create and integrate LetterNumberMenu
             _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
             {
-                // Reset pagination controls
+                // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
                 
                 await LoadGameFiles(selectedLetter);
-                
-                // Move scroller to top
-                Scroller.ScrollToTop();
+
             };
             
             // Pagination related
@@ -144,7 +142,7 @@ namespace SimpleLauncher
             this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
         }
 
-        // Dispose gamepad resources. Save MainWindow state and size to setting.xml.
+        // Dispose gamepad resources and Save MainWindow state and size to setting.xml.
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             GamePadController.Instance2.Stop();
@@ -249,16 +247,10 @@ namespace SimpleLauncher
             });
         }
 
-        private void EmulatorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Handle the logic when an Emulator is selected
-            // for future use
-        }
-
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
         {
-            // Ensure pagination is reset at the beginning
-            ResetPaginationButtons();
+            // Move scroller to top
+            Scroller.ScrollToTop();
             
             try
             {
@@ -347,7 +339,7 @@ namespace SimpleLauncher
                 // Update the UI to reflect the current pagination status and the indices of files being displayed
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";                
 
-                // Create a new instance of GameButtonFactory within the LoadGameFiles method.
+                // Create a new instance of GameButtonFactory
                 var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
                 
                 // Create Button action for each cell
@@ -358,6 +350,9 @@ namespace SimpleLauncher
                     GameFileGrid.Children.Add(gameButton);
                 }
                 
+                // Apply visibility settings based on _settings.ShowGames
+                ApplyShowGamesSetting();
+                
                 // Update the UI to reflect the current pagination status
                 UpdatePaginationButtons();
                
@@ -365,6 +360,22 @@ namespace SimpleLauncher
             catch (Exception ex)
             {
                 HandleError(ex, "Error while loading ROM files");
+            }
+        }
+        
+        private void ApplyShowGamesSetting()
+        {
+            switch (_settings.ShowGames)
+            {
+                case "ShowAll":
+                    ShowAllGames_Click(ShowAll, null);
+                    break;
+                case "ShowWithCover":
+                    ShowGamesWithCover_Click(ShowWithCover, null);
+                    break;
+                case "ShowWithoutCover":
+                    ShowGamesWithoutCover_Click(ShowWithoutCover, null);
+                    break;
             }
         }
         
@@ -391,7 +402,6 @@ namespace SimpleLauncher
                 {
                     _currentPage--;
                     await LoadGameFiles(_currentFilter);
-                    Scroller.ScrollToTop();
                 }
             }
             catch (Exception ex)
@@ -410,7 +420,6 @@ namespace SimpleLauncher
                 {
                     _currentPage++;
                     await LoadGameFiles(_currentFilter);
-                    Scroller.ScrollToTop();
                 }
             }
             catch (Exception ex)
@@ -497,6 +506,9 @@ namespace SimpleLauncher
         
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            // Pagination reset
+            ResetPaginationButtons();
+            
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -530,6 +542,9 @@ namespace SimpleLauncher
         {
             if (e.Key == Key.Enter)
             {
+                // Pagination reset
+                ResetPaginationButtons();
+                
                 var searchQuery = SearchTextBox.Text.Trim();
 
                 if (SystemComboBox.SelectedItem == null)
