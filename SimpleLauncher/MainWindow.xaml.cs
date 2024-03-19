@@ -350,7 +350,7 @@ namespace SimpleLauncher
                     GameFileGrid.Children.Add(gameButton);
                 }
                 
-                // Apply visibility settings based on _settings.ShowGames
+                // Apply visibility settings to each button based on _settings.ShowGames
                 ApplyShowGamesSetting();
                 
                 // Update the UI to reflect the current pagination status
