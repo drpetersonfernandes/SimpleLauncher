@@ -179,6 +179,7 @@ namespace SimpleLauncher
         
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SearchTextBox.Text = "";
             EmulatorComboBox.ItemsSource = null;
             EmulatorComboBox.SelectedIndex = -1;
 
@@ -256,6 +257,9 @@ namespace SimpleLauncher
 
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
         {
+            // Ensure pagination is reset at the beginning
+            ResetPaginationButtons();
+            
             try
             {
                 GameFileGrid.Children.Clear();
@@ -493,9 +497,6 @@ namespace SimpleLauncher
         
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            // Reset pagination controls
-            ResetPaginationButtons();
-            
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
