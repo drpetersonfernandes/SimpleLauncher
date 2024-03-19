@@ -53,14 +53,13 @@ namespace SimpleLauncher
                 Application.Current.Shutdown();
             }
 
-            // Apply settings to your application
-            // HideGamesNoCover.IsChecked = _settings.HideGamesWithNoCover;
+            // Apply settings to application from settings.xml
             EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
             UpdateMenuCheckMarks(_settings.ThumbnailSize);
             UpdateMenuCheckMarks2(_settings.GamesPerPage);
             UpdateMenuCheckMarks3(_settings.ShowGames);
-            _filesPerPage = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
-            _paginationThreshold = _settings.GamesPerPage; // load GamesPerPage value from setting.xml
+            _filesPerPage = _settings.GamesPerPage;
+            _paginationThreshold = _settings.GamesPerPage;
 
             // Initialize the GamePadController.cs
             // Setting the error logger
@@ -79,10 +78,7 @@ namespace SimpleLauncher
             // Initialize _gameFileGrid
             _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
             
-            // // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
-            // Grid.SetRow(_letterNumberMenu.LetterPanel, 1);
-            // ((Grid)Content).Children.Add(_letterNumberMenu.LetterPanel);
-            
+            // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
             // Initialize LetterNumberMenu and add it to the UI
             _letterNumberMenu = new LetterNumberMenu();
             LetterNumberMenu.Children.Clear(); // Clear if necessary
@@ -494,6 +490,74 @@ namespace SimpleLauncher
             _ = new LogErrors();
             await LogErrors.LogErrorAsync(ex, message);
         }
+        
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset pagination controls
+            ResetPaginationButtons();
+            
+            var searchQuery = SearchTextBox.Text.Trim();
+
+            if (SystemComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Show the "Please Wait" window
+            var pleaseWaitWindow = new PleaseWaitWindow();
+            pleaseWaitWindow.Show();
+
+            try
+            {
+                await LoadGameFiles(searchQuery: searchQuery);
+            }
+            finally
+            {
+                // Close the "Please Wait" window
+                pleaseWaitWindow.Close();
+            }
+        }
+
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var searchQuery = SearchTextBox.Text.Trim();
+
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(searchQuery))
+                {
+                    MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Show the "Please Wait" window
+                var pleaseWaitWindow = new PleaseWaitWindow();
+                pleaseWaitWindow.Show();
+
+                try
+                {
+                    await LoadGameFiles(searchQuery: searchQuery);
+                }
+                finally
+                {
+                    // Close the "Please Wait" window
+                    pleaseWaitWindow.Close();
+                }
+            }
+        }
 
         #region Menu Items
 
@@ -547,39 +611,6 @@ namespace SimpleLauncher
         {
             Close();
         }
-
-        // private void HideGamesNoCover_Click(object sender, RoutedEventArgs e)
-        // {
-        //     if (sender is MenuItem menuItem)
-        //     {
-        //         menuItem.IsChecked = !menuItem.IsChecked;
-        //         _settings.HideGamesWithNoCover = menuItem.IsChecked;
-        //         _settings.Save();
-        //
-        //         // Hide games with no cover
-        //         if (menuItem.IsChecked)
-        //         {
-        //             foreach (var child in _gameFileGrid.Children)
-        //             {
-        //                 if (child is Button btn && btn.Tag?.ToString() == "DefaultImage")
-        //                 {
-        //                     btn.Visibility = Visibility.Collapsed; // Hide the button
-        //                 }
-        //             }
-        //         }
-        //         else
-        //         {
-        //             // Show all games
-        //             foreach (var child in _gameFileGrid.Children)
-        //             {
-        //                 if (child is Button btn)
-        //                 {
-        //                     btn.Visibility = Visibility.Visible; // Show the button
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         
         private void ShowAllGames_Click(object sender, RoutedEventArgs e)
         {
@@ -684,73 +715,6 @@ namespace SimpleLauncher
         }
 
         #endregion
-
-        private async void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            var searchQuery = SearchTextBox.Text.Trim();
-
-            if (SystemComboBox.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(searchQuery))
-            {
-                MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            // Show the "Please Wait" window
-            var pleaseWaitWindow = new PleaseWaitWindow();
-            pleaseWaitWindow.Show();
-
-            try
-            {
-                await LoadGameFiles(searchQuery: searchQuery);
-            }
-            finally
-            {
-                // Close the "Please Wait" window
-                pleaseWaitWindow.Close();
-            }
-        }
-
-        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                var searchQuery = SearchTextBox.Text.Trim();
-
-                if (SystemComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(searchQuery))
-                {
-                    MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                // Show the "Please Wait" window
-                var pleaseWaitWindow = new PleaseWaitWindow();
-                pleaseWaitWindow.Show();
-
-                try
-                {
-                    await LoadGameFiles(searchQuery: searchQuery);
-                }
-                finally
-                {
-                    // Close the "Please Wait" window
-                    pleaseWaitWindow.Close();
-                }
-            }
-        }
-
-
         
     }
 }

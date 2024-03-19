@@ -24,14 +24,13 @@ namespace SimpleLauncher
 
         // List to hold machine data
         // Initialize _machines
-
         private ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
         private ComboBox SystemComboBox { get; set; } = systemComboBox;
         private List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
-            // Load Video Url and Info Url from settings (settings.xml)
+            // Load Video Url and Info Url from settings.xml
             string videoUrl = settings.VideoUrl;
             string infoUrl = settings.InfoUrl;
             
@@ -40,14 +39,6 @@ namespace SimpleLauncher
             
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
-
-            var image = new Image
-            {
-                Height = ImageHeight,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-
-            await LoadImageAsync(image, imagePath);
 
             var textBlock = new TextBlock
             {
@@ -112,7 +103,15 @@ namespace SimpleLauncher
                 Margin = new Thickness(0),
                 Padding = new Thickness(0)
             };
+            
+            var image = new Image
+            {
+                Height = ImageHeight,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
 
+            await LoadImageAsync(image, button, imagePath, DefaultImagePath);
+            
             button.PreviewMouseLeftButtonDown += (_, args) =>
             {
                 if (args.OriginalSource is Image img && (img.Name == "youtubeIcon" || img.Name == "infoIcon"))
@@ -167,35 +166,67 @@ namespace SimpleLauncher
             return Path.Combine(_baseDirectory, "images", DefaultImagePath);
         }
 
-        private static async Task LoadImageAsync(Image imageControl, string imagePath)
+        private static async Task LoadImageAsync(Image imageControl, Button button, string imagePath, string defaultImagePath)
         {
             ArgumentNullException.ThrowIfNull(imageControl);
 
             if (string.IsNullOrWhiteSpace(imagePath))
                 throw new ArgumentException(@"Invalid image path.", nameof(imagePath));
-
-            BitmapImage bitmapImage = null;
-
-            await Task.Run(() =>
+            try
             {
-                using var stream = File.OpenRead(imagePath);
-                bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = stream;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze(); // Important for multi-threaded access
-            });
-
-            // Update the UI thread with the loaded image
-            if (bitmapImage != null)
-            {
-                imageControl.Dispatcher.Invoke(() =>
+                var bitmapImage = await Task.Run(() =>
                 {
-                    imageControl.Source = bitmapImage;
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    // Ensure the stream stays open until the BitmapImage is loaded
+                    bi.StreamSource = File.OpenRead(imagePath);
+                    bi.EndInit();
+                    // Important for multi-threaded access
+                    bi.Freeze();
+                    return bi;
                 });
+
+                // Assign the loaded image to the image control on the UI thread
+                imageControl.Source = bitmapImage;
+            }
+            catch (Exception)
+            {
+                // If an exception occurs (e.g., the image is corrupt), load a default image
+                // This uses the dispatcher to ensure UI elements are accessed on the UI thread
+                imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, defaultImagePath));
+                MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\nThis image is corrupted!\nA default image will be displayed instead.", "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private static void LoadFallbackImage(Image imageControl, Button button, string defaultImagePath)
+        {
+            string fallbackImagePath = defaultImagePath;
+
+            // If the specific default image doesn't exist, try the global default image
+            if (!File.Exists(fallbackImagePath))
+            {
+                fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", DefaultImagePath);
+            }
+
+            if (File.Exists(fallbackImagePath))
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(fallbackImagePath, UriKind.Absolute);
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze(); // Important for multi-threaded access
+                imageControl.Source = bitmapImage; // Assign the fallback image
+                button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
+            }
+            else
+            {
+                // If even the global default image is not found, handle accordingly
+                MessageBox.Show("No valid default image found.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName, string videoUrl)
         {
@@ -275,11 +306,8 @@ namespace SimpleLauncher
                     MainWindow.HandleError(exception, "The URL provided for Info Link did not work.\nPlease update the Info Link in the Edit Links menu.");
                     throw;
                 }
-                
-
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
             };
-
             return infoIcon;
         }
 

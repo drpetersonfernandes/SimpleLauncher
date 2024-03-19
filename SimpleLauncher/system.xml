@@ -1938,4 +1938,24 @@
       </Emulator>
     </Emulators>
   </SystemConfig>
+  <SystemConfig>
+    <SystemName>Test</SystemName>
+    <SystemFolder>C:\Test</SystemFolder>
+    <SystemImageFolder>C:\Test\images</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch></FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Retroarch ppsspp</EmulatorName>
+        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L "D:\Emulators\RetroArch\cores\ppsspp_libretro.dll" -c "D:\Emulators\RetroArch\Config.cfg" -f</EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
 </SystemConfigs>
