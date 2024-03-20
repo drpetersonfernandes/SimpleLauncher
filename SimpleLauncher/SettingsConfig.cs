@@ -16,7 +16,6 @@ namespace SimpleLauncher
 
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
-        // public bool HideGamesWithNoCover { get; set; }
         public string ShowGames { get; set; }
         public bool EnableGamePadNavigation { get; set; }
         public string VideoUrl { get; private set; }
@@ -51,9 +50,6 @@ namespace SimpleLauncher
                 int gamesPerPage = int.Parse(settings.Element("GamesPerPage")!.Value, CultureInfo.InvariantCulture);
                 GamesPerPage = _validGamesPerPage.Contains(gamesPerPage) ? gamesPerPage : 200;
 
-                // // Assign HideGamesWithNoCover
-                // HideGamesWithNoCover = ParseBoolSetting(settings, "HideGamesWithNoCover");
-                
                 // Validate and assign ShowGames
                 string showGames = settings.Element("ShowGames")?.Value ?? "ShowAll"; // Default to "ShowAll" if null
                 ShowGames = _validShowGames.Contains(showGames) ? showGames : "ShowAll";
@@ -114,13 +110,12 @@ namespace SimpleLauncher
 
         private void SetDefaultsAndSave()
         {
-            ThumbnailSize = 250;
+            ThumbnailSize = 200;
             GamesPerPage = 200;
             ShowGames = "ShowAll";
-            // HideGamesWithNoCover = false;
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
-            InfoUrl = "https://www.igdb.com/search?type=1&amp;q=";
+            InfoUrl = "https://www.igdb.com/search?q=";
             MainWindowWidth = 890;
             MainWindowHeight = 500;
             MainWindowState = "Normal";
@@ -133,7 +128,6 @@ namespace SimpleLauncher
                 new XElement("ThumbnailSize", ThumbnailSize),
                 new XElement("GamesPerPage", GamesPerPage),
                 new XElement("ShowGames", ShowGames),
-                // new XElement("HideGamesWithNoCover", HideGamesWithNoCover),
                 new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
                 new XElement("VideoUrl", VideoUrl),
                 new XElement("InfoUrl", InfoUrl),
