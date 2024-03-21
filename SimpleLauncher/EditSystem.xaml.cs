@@ -174,6 +174,17 @@ namespace SimpleLauncher
                     AdjustPlaceholderVisibility();
                 }
             }
+            
+            // Validate the system configuration for existence of files and folders
+            string systemFolderTextBox = SystemFolderTextBox.Text;
+            string systemImageFolderTextBox = SystemImageFolderTextBox.Text;
+            string emulator1LocationTextBox = Emulator1LocationTextBox.Text;
+            string emulator2LocationTextBox = Emulator2LocationTextBox.Text;
+            string emulator3LocationTextBox = Emulator3LocationTextBox.Text;
+            string emulator4LocationTextBox = Emulator4LocationTextBox.Text;
+            string emulator5LocationTextBox = Emulator5LocationTextBox.Text;
+            CheckSystem.ValidateSystemConfiguration(systemFolderTextBox, systemImageFolderTextBox,
+                emulator1LocationTextBox, emulator2LocationTextBox, emulator3LocationTextBox, emulator4LocationTextBox, emulator5LocationTextBox);
         }
 
         private void ChooseSystemFolder(object sender, RoutedEventArgs e)

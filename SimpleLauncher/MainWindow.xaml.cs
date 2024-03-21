@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -224,14 +223,7 @@ namespace SimpleLauncher
         {
             GameFileGrid.Children.Clear();
 
-            var emulatorInfoBuilder = new StringBuilder();
-            for (int i = 0; i < selectedConfig.Emulators.Count; i++)
-            {
-                emulatorInfoBuilder.AppendLine($"Emulator {i + 1} Name: {selectedConfig.Emulators[i].EmulatorName}\n" +
-                                               $"Emulator {i + 1} Location: {selectedConfig.Emulators[i].EmulatorLocation}\n" +
-                                               $"Emulator {i + 1} Parameters: {selectedConfig.Emulators[i].EmulatorParameters}\n");
-            }
-            
+            // Display system and game information
             GameFileGrid.Children.Add(new TextBlock
             {
                 Text = $"\nSystem Folder: {systemFolder}\n" +
@@ -240,11 +232,31 @@ namespace SimpleLauncher
                        $"System is MAME? {selectedConfig.SystemIsMame}\n" +
                        $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
                        $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
-                       $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n\n" +
-                       emulatorInfoBuilder +
-                       $"Please select a Button above to see the games.",
+                       $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n",
                 Padding = new Thickness(10)
             });
+
+            // Dynamically create and add a TextBlock for each emulator
+            foreach (var emulator in selectedConfig.Emulators)
+            {
+                var emulatorInfo = new TextBlock
+                {
+                    Text = $"Emulator Name: {emulator.EmulatorName}\n" +
+                           $"Emulator Location: {emulator.EmulatorLocation}\n" +
+                           $"Emulator Parameters: {emulator.EmulatorParameters}\n",
+                    Padding = new Thickness(10)
+                };
+
+                GameFileGrid.Children.Add(emulatorInfo);
+            }
+
+            // Assuming the first 5 emulators are always present as per the earlier code
+            // Now let's call the validation for each emulator dynamically
+            var emulatorPaths = selectedConfig.Emulators
+                .Select(emulator => emulator.EmulatorLocation)
+                .ToArray(); // Convert to array to pass to the method, adjust if your method expects differently
+
+            CheckSystem.ValidateSystemConfiguration2(systemFolder, selectedConfig.SystemImageFolder, emulatorPaths);
         }
 
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)

@@ -58,11 +58,6 @@ namespace SimpleLauncher
                         else
                         {
                             string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.model");
-                            // Prompt user to use the system_model.xml if no backup was found
-                            MessageBoxResult restoreResult2 = MessageBox.Show(
-                                "I could not find the file system.xml, which is required to start the application.\nI can create this file for you with pre configured values.\nCan I do that?",
-                                "Create system.xml?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (restoreResult2 == MessageBoxResult.Yes)
                                 try
                                 {
                                     // Rename system.model to to system.xml
@@ -75,20 +70,13 @@ namespace SimpleLauncher
                                     throw;
                                 }
                         }
-                        // else
-                        // {
-                        //     var defaultConfig = new SystemConfig();
-                        //     defaultConfig.SetDefaultsAndSave(xmlPath);
-                        //     return [defaultConfig];
-                        // }
-
+     
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                         throw;
                     }
-
                 }
 
                 var doc = XDocument.Load(xmlPath!);
