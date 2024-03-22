@@ -15,22 +15,22 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    Console.WriteLine($@"Directory Path: {directoryPath}");
+                    // Console.WriteLine($@"Directory Path: {directoryPath}");
 
                     if (!Directory.Exists(directoryPath))
                     {
-                        Console.WriteLine(@"Directory doesn't exist!");
+                        // Console.WriteLine(@"Directory doesn't exist!");
                         return [];
                     }
 
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
 
-                    Console.WriteLine($@"Found {foundFiles.Count} files.");
+                    // Console.WriteLine($@"Found {foundFiles.Count} files.");
                     return foundFiles;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Console.WriteLine($@"An error occurred: {ex.Message}");
+                    // Console.WriteLine($@"An error occurred: {ex.Message}");
                     return [];
                 }
             });
@@ -51,30 +51,30 @@ namespace SimpleLauncher
             }
         }
 
-        public static async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
-        {
-            // Load all system configs
-            var allConfigs = SystemConfig.LoadSystemConfigs("system.xml");
-            var targetSystemConfig = allConfigs.FirstOrDefault(sc => sc.SystemName == systemName);
-
-            if (targetSystemConfig == null)
-            {
-                Console.WriteLine($@"System '{systemName}' not found in config.");
-                return [];
-            }
-
-            var fileExtensions = targetSystemConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-            var gameFiles = await GetFilesAsync(targetSystemConfig.SystemFolder, fileExtensions);
-            var filteredGames = FilterFiles(gameFiles, filterLetter);
-            return filteredGames;
-        }
+        // public static async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
+        // {
+        //     // Load all system configs
+        //     var allConfigs = SystemConfig.LoadSystemConfigs("system.xml");
+        //     var targetSystemConfig = allConfigs.FirstOrDefault(sc => sc.SystemName == systemName);
+        //
+        //     if (targetSystemConfig == null)
+        //     {
+        //         Console.WriteLine($@"System '{systemName}' not found in config.");
+        //         return [];
+        //     }
+        //
+        //     var fileExtensions = targetSystemConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+        //     var gameFiles = await GetFilesAsync(targetSystemConfig.SystemFolder, fileExtensions);
+        //     var filteredGames = FilterFiles(gameFiles, filterLetter);
+        //     return filteredGames;
+        // }
 
         public static int CountFiles(string folderPath, List<string> fileExtensions)
         {
             if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                // MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found",
+                //     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return 0;
             }
 

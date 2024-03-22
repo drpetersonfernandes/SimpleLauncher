@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -221,10 +222,18 @@ namespace SimpleLauncher
 
         private void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig)
         {
+            // Clear existing content
             GameFileGrid.Children.Clear();
 
-            // Display system and game information
-            GameFileGrid.Children.Add(new TextBlock
+            // Create a StackPanel to hold TextBlocks vertically
+            var verticalStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Margin = new Thickness(10)
+            };
+
+            // Create and add system info TextBlock
+            var systemInfoTextBlock = new TextBlock
             {
                 Text = $"\nSystem Folder: {systemFolder}\n" +
                        $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}\n\n" +
@@ -233,30 +242,82 @@ namespace SimpleLauncher
                        $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
                        $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
                        $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n",
-                Padding = new Thickness(10)
-            });
+                Padding = new Thickness(0),
+                TextWrapping = TextWrapping.Wrap
+            };
+            verticalStackPanel.Children.Add(systemInfoTextBlock);
 
-            // Dynamically create and add a TextBlock for each emulator
+            // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
             foreach (var emulator in selectedConfig.Emulators)
             {
-                var emulatorInfo = new TextBlock
+                var emulatorInfoTextBlock = new TextBlock
                 {
-                    Text = $"Emulator Name: {emulator.EmulatorName}\n" +
+                    Text = $"\nEmulator Name: {emulator.EmulatorName}\n" +
                            $"Emulator Location: {emulator.EmulatorLocation}\n" +
                            $"Emulator Parameters: {emulator.EmulatorParameters}\n",
-                    Padding = new Thickness(10)
+                    Padding = new Thickness(0),
+                    TextWrapping = TextWrapping.Wrap
                 };
+                verticalStackPanel.Children.Add(emulatorInfoTextBlock);
+            }
+    
+            // Add the vertical StackPanel to the horizontal WrapPanel
+            GameFileGrid.Children.Add(verticalStackPanel);
+    
+            // Directly call the validation for each emulator
+            ValidateSystemConfiguration(systemFolder, selectedConfig);
+        }
 
-                GameFileGrid.Children.Add(emulatorInfo);
+        private void ValidateSystemConfiguration(string systemFolder, SystemConfig selectedConfig)
+        {
+            StringBuilder errorMessages = new StringBuilder();
+            bool hasErrors = false;
+
+            // Validate the system folder path
+            if (!IsValidPath(systemFolder))
+            {
+                hasErrors = true;
+                errorMessages.AppendLine($"System Folder path is not valid: '{systemFolder}'");
             }
 
-            // Assuming the first 5 emulators are always present as per the earlier code
-            // Now let's call the validation for each emulator dynamically
-            var emulatorPaths = selectedConfig.Emulators
-                .Select(emulator => emulator.EmulatorLocation)
-                .ToArray(); // Convert to array to pass to the method, adjust if your method expects differently
+            // Validate the system image folder path, if it's provided
+            if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
+            {
+                hasErrors = true;
+                errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'");
+            }
 
-            CheckSystem.ValidateSystemConfiguration2(systemFolder, selectedConfig.SystemImageFolder, emulatorPaths);
+            // Validate each emulator's location path
+            foreach (var emulator in selectedConfig.Emulators)
+            {
+                if (!IsValidPath(emulator.EmulatorLocation))
+                {
+                    hasErrors = true;
+                    errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'");
+                }
+            }
+
+            // Display all error messages if there are any errors
+            if (hasErrors)
+            {
+                MessageBox.Show(errorMessages.ToString(), "Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private bool IsValidPath(string path)
+        {
+            // Check if the path is not null or whitespace
+            if (string.IsNullOrWhiteSpace(path)) return false;
+
+            // Check if the path is an absolute path and exists
+            if (Directory.Exists(path) || File.Exists(path)) return true;
+
+            // Assume the path might be relative and combine it with the base directory
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string fullPath = Path.Combine(basePath, path);
+
+            // Check if the combined path exists
+            return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
 
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)

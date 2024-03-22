@@ -175,16 +175,37 @@ namespace SimpleLauncher
                 }
             }
             
-            // Validate the system configuration for existence of files and folders
-            string systemFolderTextBox = SystemFolderTextBox.Text;
-            string systemImageFolderTextBox = SystemImageFolderTextBox.Text;
-            string emulator1LocationTextBox = Emulator1LocationTextBox.Text;
-            string emulator2LocationTextBox = Emulator2LocationTextBox.Text;
-            string emulator3LocationTextBox = Emulator3LocationTextBox.Text;
-            string emulator4LocationTextBox = Emulator4LocationTextBox.Text;
-            string emulator5LocationTextBox = Emulator5LocationTextBox.Text;
-            CheckSystem.ValidateSystemConfiguration(systemFolderTextBox, systemImageFolderTextBox,
-                emulator1LocationTextBox, emulator2LocationTextBox, emulator3LocationTextBox, emulator4LocationTextBox, emulator5LocationTextBox);
+            // Validate System Folder and System Image Folder (System Image Folder is valid if empty)
+            MarkInvalid(SystemFolderTextBox, IsValidPath(SystemFolderTextBox.Text));
+            MarkInvalid(SystemImageFolderTextBox, string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) || IsValidPath(SystemImageFolderTextBox.Text));
+
+            // Validate Emulator Location Text Boxes (considered valid if empty)
+            MarkInvalid(Emulator1LocationTextBox, string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text));
+            MarkInvalid(Emulator2LocationTextBox, string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || IsValidPath(Emulator2LocationTextBox.Text));
+            MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text));
+            MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
+            MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
+        }
+        
+        private bool IsValidPath(string path)
+        {
+            // Check if the path is not null or whitespace
+            if (string.IsNullOrWhiteSpace(path)) return false;
+
+            // Check if the path is an absolute path and exists
+            if (Directory.Exists(path) || File.Exists(path)) return true;
+
+            // Assume the path might be relative and combine it with the base directory
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string fullPath = Path.Combine(basePath, path);
+
+            // Check if the combined path exists
+            return Directory.Exists(fullPath) || File.Exists(fullPath);
+        }
+        
+        private void MarkInvalid(TextBox textBox, bool isValid)
+        {
+            textBox.Foreground = isValid ? System.Windows.Media.Brushes.Black : System.Windows.Media.Brushes.Red;
         }
 
         private void ChooseSystemFolder(object sender, RoutedEventArgs e)
@@ -334,6 +355,30 @@ namespace SimpleLauncher
 
         private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
         {
+            // Basic validation
+            bool isSystemFolderValid = IsValidPath(SystemFolderTextBox.Text);
+            bool isSystemImageFolderValid = string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) || IsValidPath(SystemImageFolderTextBox.Text);
+            bool isEmulator1LocationValid = string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text);
+            bool isEmulator2LocationValid = string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || IsValidPath(Emulator2LocationTextBox.Text);
+            bool isEmulator3LocationValid = string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text);
+            bool isEmulator4LocationValid = string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text);
+            bool isEmulator5LocationValid = string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text);
+    
+            // Mark fields based on validation
+            MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
+            MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
+            MarkInvalid(Emulator1LocationTextBox, isEmulator1LocationValid);
+            MarkInvalid(Emulator2LocationTextBox, isEmulator2LocationValid);
+            MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
+            MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
+            MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
+
+            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
+            {
+                MessageBox.Show("One or more paths are invalid. Please correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return; // Stop execution to prevent saving
+            }
+            
             var systemName = SystemNameTextBox.Text.Trim();
             var systemFolder = SystemFolderTextBox.Text;
             var systemImageFolder = SystemImageFolderTextBox.Text;

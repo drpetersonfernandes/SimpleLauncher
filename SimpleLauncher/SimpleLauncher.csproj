@@ -90,6 +90,8 @@
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
     <Compile Remove="database\**" />
+    <Compile Remove="CheckEmulator.cs" />
+    <Compile Remove="CheckSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="database\**" />
