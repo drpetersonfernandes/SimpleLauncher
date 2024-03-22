@@ -189,17 +189,16 @@ namespace SimpleLauncher
         
         private bool IsValidPath(string path)
         {
-            // Check if the path is not null or whitespace
             if (string.IsNullOrWhiteSpace(path)) return false;
 
-            // Check if the path is an absolute path and exists
+            // Directly check if the path exists (for absolute paths)
             if (Directory.Exists(path) || File.Exists(path)) return true;
 
-            // Assume the path might be relative and combine it with the base directory
+            // Combine with the base directory to check for relative paths
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string fullPath = Path.Combine(basePath, path);
+            // Ensure we correctly handle relative paths that go up from the base directory
+            string fullPath = Path.GetFullPath(new Uri(Path.Combine(basePath, path)).LocalPath);
 
-            // Check if the combined path exists
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
