@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace SimpleLauncher
 {
-    public partial class UpdateChecker
+    public class UpdateChecker
     {
         private const string RepoOwner = "drpetersonfernandes";
         private const string RepoName = "SimpleLauncher";
@@ -31,9 +33,6 @@ namespace SimpleLauncher
                     if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                     {
                         ShowUpdateDialog(releaseUrl, CurrentVersion, latestVersion, mainWindow);
-                    }
-                    else
-                    {
                     }
                 }
             }
@@ -92,12 +91,12 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    var psi = new System.Diagnostics.ProcessStartInfo
+                    var psi = new ProcessStartInfo
                     {
                         FileName = releaseUrl,
                         UseShellExecute = true
                     };
-                    System.Diagnostics.Process.Start(psi);
+                    Process.Start(psi);
                 }
                 catch
                 {
@@ -123,18 +122,14 @@ namespace SimpleLauncher
                 {
                     return (versionMatch.Value, releaseUrl);
                 }
-                else
-                {
-                    throw new InvalidOperationException("Version number not found in tag.");
-                }
+
+                throw new InvalidOperationException("Version number not found in tag.");
             }
-            else
-            {
-                throw new InvalidOperationException("Version information not found in the response.");
-            }
+
+            throw new InvalidOperationException("Version information not found in the response.");
         }
 
-        [System.Text.RegularExpressions.GeneratedRegex(@"(?<=\D*)\d+(\.\d+)*")]
-        private static partial System.Text.RegularExpressions.Regex MyRegex();
+        private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
+
     }
 }

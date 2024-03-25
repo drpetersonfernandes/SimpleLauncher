@@ -34,6 +34,9 @@
     <None Remove="~syncthing~EditSystem.xaml.tmp" />
     <None Remove="~syncthing~EditSystem.xaml.cs.tmp" />
     <None Remove="database\**" />
+    <None Update="system_model.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -45,11 +48,6 @@
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
     <None Remove="images\wait.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="system.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">

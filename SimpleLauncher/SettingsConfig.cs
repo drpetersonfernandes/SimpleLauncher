@@ -13,7 +13,6 @@ namespace SimpleLauncher
         private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
         private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
 
-
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
         public string ShowGames { get; set; }

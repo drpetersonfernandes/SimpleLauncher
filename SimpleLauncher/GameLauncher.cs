@@ -54,8 +54,8 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0)
                     {
-                        MessageBox.Show($"Error launching batch file:\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}\nFileName: {psi.FileName}\n", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        string errorMessage = $"Error launching batch file:\n\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nFileName: {psi.FileName}\n";
+                        MessageBox.Show($"Error launching batch file:\n\nExit code: {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nFileName: {psi.FileName}\n", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string errorMessage = $"Error launching batch file:\n\nExit code {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nFileName: {psi.FileName}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                     }
 
@@ -133,7 +133,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error executing the executable: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Error running the executable: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         await LogErrors.LogErrorAsync(new Exception(ex.Message));
                     }
 
@@ -235,8 +235,8 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        string errorMessage = $"Error launching external program:\n\nExit code {process.ExitCode}\n";
-                        errorMessage += $"FileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                        string errorMessage = $"Error launching external program:\n\nExit code {process.ExitCode}\n\n";
+                        errorMessage += $"Emulator: {psi.FileName}\n\nArguments: {psi.Arguments}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                         MessageBox.Show($"The emulator could not open this file.\n\n{errorMessage}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -254,13 +254,14 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string errorDetails = $"Exception Details:\n{ex}\n";
+                string errorDetails = $"\nException Details: {ex}\n";
                 if (psi != null)
                 {
-                    errorDetails += $"FileName: {psi.FileName}\nArguments: {psi.Arguments}\n";
+                    errorDetails += $"\nEmulator: {psi.FileName}\n\nArguments: {psi.Arguments}\n";
                 }
                 await LogErrors.LogErrorAsync(ex, errorDetails);
-                MessageBox.Show($"An error occurred: {ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // MessageBox.Show($"An error occurred: {ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

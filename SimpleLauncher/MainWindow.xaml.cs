@@ -264,7 +264,7 @@ namespace SimpleLauncher
             // Add the vertical StackPanel to the horizontal WrapPanel
             GameFileGrid.Children.Add(verticalStackPanel);
     
-            // Directly call the validation for each emulator
+            // Validate the System
             ValidateSystemConfiguration(systemFolder, selectedConfig);
         }
 
@@ -300,10 +300,12 @@ namespace SimpleLauncher
             // Display all error messages if there are any errors
             if (hasErrors)
             {
-                MessageBox.Show(errorMessages.ToString(), "Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
+                string extraline = "\nClick the 'Edit System' button in the menu.";
+                MessageBox.Show(errorMessages + extraline,"Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        // Check paths. Allow relative paths.
         private bool IsValidPath(string path)
         {
             // Check if the path is not null or whitespace

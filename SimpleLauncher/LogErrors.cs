@@ -16,7 +16,8 @@ namespace SimpleLauncher
             string errorLogPath = Path.Combine(baseDirectory, "error.log");
             string userLogPath = Path.Combine(baseDirectory, "error_user.log");
             var version = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-            string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\nContext: {contextMessage}\nException Details:\n{ex}\n\n";
+            // string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\nContext: {contextMessage}\n\nException Details:\n{ex}\n\n";
+            string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\n\n{contextMessage}\n";
 
             try
             {

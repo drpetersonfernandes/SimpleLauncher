@@ -43,7 +43,7 @@ namespace SimpleLauncher
                         {
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
-                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\nBut I found a backup configuration file.\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\nBut I found a backup system file.\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                             if (restoreResult == MessageBoxResult.Yes) 
                                 try {
                                     // Rename the most recent backup file to system.xml
@@ -57,7 +57,7 @@ namespace SimpleLauncher
                         }
                         else
                         {
-                            string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.model");
+                            string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
                                 try
                                 {
                                     // Rename system.model to to system.xml

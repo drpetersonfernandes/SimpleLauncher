@@ -194,6 +194,7 @@ namespace SimpleLauncher
             // Directly check if the path exists (for absolute paths)
             if (Directory.Exists(path) || File.Exists(path)) return true;
 
+            // Allow relative paths
             // Combine with the base directory to check for relative paths
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             // Ensure we correctly handle relative paths that go up from the base directory
@@ -205,6 +206,11 @@ namespace SimpleLauncher
         private void MarkInvalid(TextBox textBox, bool isValid)
         {
             textBox.Foreground = isValid ? System.Windows.Media.Brushes.Black : System.Windows.Media.Brushes.Red;
+        }
+        
+        private void MarkValid(TextBox textBox)
+        {
+            textBox.Foreground = System.Windows.Media.Brushes.Black;
         }
 
         private void ChooseSystemFolder(object sender, RoutedEventArgs e)
@@ -218,6 +224,7 @@ namespace SimpleLauncher
                 SystemFolderTextBox.Text = foldername;
                 // Adjust the visibility of the placeholder based on the newly loaded data
                 AdjustPlaceholderVisibility();
+                MarkValid(SystemFolderTextBox);
             }
         }
         
@@ -232,6 +239,7 @@ namespace SimpleLauncher
                 SystemImageFolderTextBox.Text = foldername;
                 // Adjust the visibility of the placeholder based on the newly loaded data
                 AdjustPlaceholderVisibility();
+                MarkValid(SystemImageFolderTextBox);
             }
         }
 
@@ -248,6 +256,7 @@ namespace SimpleLauncher
             {
                 string filename = dialog.FileName;
                 Emulator1LocationTextBox.Text = filename;
+                MarkValid(Emulator1LocationTextBox);
             }
         }
 
@@ -265,6 +274,7 @@ namespace SimpleLauncher
             {
                 string filename = dialog.FileName;
                 Emulator2LocationTextBox.Text = filename;
+                MarkValid(Emulator2LocationTextBox);
             }
         }
 
@@ -282,6 +292,7 @@ namespace SimpleLauncher
             {
                 string filename = dialog.FileName;
                 Emulator3LocationTextBox.Text = filename;
+                MarkValid(Emulator3LocationTextBox);
             }
         }
 
@@ -299,6 +310,7 @@ namespace SimpleLauncher
             {
                 string filename = dialog.FileName;
                 Emulator4LocationTextBox.Text = filename;
+                MarkValid(Emulator4LocationTextBox);
             }
         }
 
@@ -315,6 +327,7 @@ namespace SimpleLauncher
             {
                 string filename = dialog.FileName;
                 Emulator5LocationTextBox.Text = filename;
+                MarkValid(Emulator5LocationTextBox);
             }
         }
 
@@ -354,7 +367,7 @@ namespace SimpleLauncher
 
         private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            // Basic validation
+            // Validation. Check folder location and emulator location. Allow empty SystemImageFolder and empty EmulatorLocation. 
             bool isSystemFolderValid = IsValidPath(SystemFolderTextBox.Text);
             bool isSystemImageFolderValid = string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) || IsValidPath(SystemImageFolderTextBox.Text);
             bool isEmulator1LocationValid = string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text);
