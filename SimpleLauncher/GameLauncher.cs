@@ -235,7 +235,7 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        string errorMessage = $"Error launching external program:\n\nExit code {process.ExitCode}\n\n";
+                        string errorMessage = $"Error launching external program\n\nExit code: {process.ExitCode}\n\n";
                         errorMessage += $"Emulator: {psi.FileName}\n\nArguments: {psi.Arguments}\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                         MessageBox.Show($"The emulator could not open this file.\n\n{errorMessage}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -254,14 +254,15 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string errorDetails = $"\nException Details: {ex}\n";
+                string errorDetails = $"Exception Details: {ex}\n";
                 if (psi != null)
                 {
-                    errorDetails += $"\nEmulator: {psi.FileName}\n\nArguments: {psi.Arguments}\n";
+                    errorDetails += $"\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n";
                 }
                 await LogErrors.LogErrorAsync(ex, errorDetails);
                 // MessageBox.Show($"An error occurred: {ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show($"{ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // MessageBox.Show($"{ex.Message}\n{errorDetails}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Exception Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n\nPlease visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
