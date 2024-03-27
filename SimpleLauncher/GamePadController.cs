@@ -1,6 +1,7 @@
 ﻿using SharpDX.XInput;
 using System;
 using System.Threading;
+using System.Windows;
 using WindowsInput;
 
 namespace SimpleLauncher
@@ -73,7 +74,9 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                ErrorLogger?.Invoke(ex, "Error in GamePadController Update.");
+                ErrorLogger?.Invoke(ex, $"Error in GamePadController Update.\n\nException detail: {ex}");
+                MessageBox.Show("There was an error in the GamePad Controller mechanism.\n\nThe developer was notified to fix the issue.\n\nWe only support Xbox controller.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Instance2.Stop();
             }
         }
 

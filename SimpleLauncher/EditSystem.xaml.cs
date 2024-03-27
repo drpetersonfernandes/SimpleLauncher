@@ -31,7 +31,7 @@ namespace SimpleLauncher
         {
             if (!File.Exists(_xmlFilePath))
             {
-                MessageBox.Show("system.xml not found inside the application folder.\nWe created one for you.");
+                MessageBox.Show("system.xml not found inside the application folder.\nWe created one for you.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 _xmlDoc = new XDocument();
                 _xmlDoc.Add(new XElement("SystemConfigs"));
                 _xmlDoc.Save(_xmlFilePath);
@@ -335,7 +335,7 @@ namespace SimpleLauncher
         {
             ClearFields();
             AdjustPlaceholderVisibility();
-            MessageBox.Show("You can add a new system now", "Info", MessageBoxButton.OK);
+            MessageBox.Show("You can add a new system now", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ClearFields()
@@ -480,24 +480,24 @@ namespace SimpleLauncher
             }
             else if (string.IsNullOrEmpty(systemName))
             {
-                MessageBox.Show("The System Name is empty.\nPlease fill this field.", "Alert", MessageBoxButton.OK,
+                MessageBox.Show("The System Name is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 return;
             }
             else if (string.IsNullOrEmpty(systemFolder))
             {
-                MessageBox.Show("The System Folder is empty.\nPlease fill this field.", "Alert", MessageBoxButton.OK,
+                MessageBox.Show("The System Folder is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 return;
             }
             else if (!formatsToSearch.Any())
             {
-                MessageBox.Show("The File Formats To Search is empty.\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The File Formats To Search is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else if (string.IsNullOrEmpty(formatToLaunchInput) && extractFileBeforeLaunch == "true")
             {
-                MessageBox.Show("The File Formats To Launch is required when Extract File Before Launch is set to true.\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The File Formats To Launch is required when Extract File Before Launch is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else
@@ -547,7 +547,7 @@ namespace SimpleLauncher
         {
             if (SystemNameDropdown.SelectedItem == null)
             {
-                MessageBox.Show("Please select a system to delete.", "Alert", MessageBoxButton.OK);
+                MessageBox.Show("Please select a system to delete.", "Alert", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -569,12 +569,12 @@ namespace SimpleLauncher
                     PopulateSystemNamesDropdown();
                     ClearFields();
                     AdjustPlaceholderVisibility();
-                    MessageBox.Show($"System '{selectedSystemName}' has been deleted.", "Info", MessageBoxButton.OK);
+                    MessageBox.Show($"System '{selectedSystemName}' has been deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Selected system not found in the XML document!", "Alert", MessageBoxButton.OK);
+                MessageBox.Show("Selected system not found in the XML document!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -678,11 +678,11 @@ namespace SimpleLauncher
                 if (File.Exists(sourceFilePath))
                 {
                     File.Copy(sourceFilePath, backupFilePath);
-                    MessageBox.Show("The backup was created in the application folder", "Info", MessageBoxButton.OK);
+                    MessageBox.Show("The backup was created in the application folder", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("The system.xml file was not found in the application folder.\nWe could not backup it!", "Alert", MessageBoxButton.OK);
+                    MessageBox.Show("The system.xml file was not found in the application folder.\nWe could not backup it!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
 

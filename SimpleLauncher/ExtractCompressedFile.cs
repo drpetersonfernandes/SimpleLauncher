@@ -3,6 +3,7 @@ using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Exception = System.Exception;
 
 namespace SimpleLauncher
 {
@@ -38,7 +39,7 @@ namespace SimpleLauncher
             return tempDirectory;
         }
 
-        public void Cleanup()
+        public async void Cleanup()
         {
             foreach (var dir in _tempDirectories)
             {
@@ -48,10 +49,10 @@ namespace SimpleLauncher
                     {
                         Directory.Delete(dir, true);
                     }
-                    catch
+                    catch (Exception exception)
                     {
-                        // Handle exceptions if needed
-                        // Log errors or ignore
+                        string errorMessage = "Error occurred while cleaning up temp directories.";
+                        await LogErrors.LogErrorAsync(exception, errorMessage);
                     }
                 }
             }

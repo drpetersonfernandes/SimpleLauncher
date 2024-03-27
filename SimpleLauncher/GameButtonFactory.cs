@@ -22,8 +22,7 @@ namespace SimpleLauncher
         public int ImageHeight { get; set; } = settings.ThumbnailSize; // Initialize ImageHeight
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-        // List to hold machine data
-        // Initialize _machines
+        // List to hold MAME descriptions from mame.xml
         private ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
         private ComboBox SystemComboBox { get; set; } = systemComboBox;
         private List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
@@ -245,7 +244,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             youtubeIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
+            youtubeIcon.PreviewMouseLeftButtonUp += async (_, e) =>
             {
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
@@ -261,7 +260,11 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    MainWindow.HandleError(exception, "The URL provided for Video Link did not work.\nPlease update the Video Link in the Edit Links menu.");
+                    // MainWindow.HandleError(exception, "The URL provided for Video Link did not work.");
+                    string errorMessage = "The URL provided for Video Link did not work.";
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(
+                        "The URL provided for Video Link did not work.\n\nPlease update the Video Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
 
@@ -288,7 +291,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             infoIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
+            infoIcon.PreviewMouseLeftButtonUp += async (_, e) =>
             {
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
@@ -303,7 +306,11 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    MainWindow.HandleError(exception, "The URL provided for Info Link did not work.\nPlease update the Info Link in the Edit Links menu.");
+                    // MainWindow.HandleError(exception, "The URL provided for Info Link did not work.");
+                    string errorMessage = "The URL provided for Info Link did not work.";
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(
+                        "The URL provided for Info Link did not work.\n\nPlease update the Info Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
                 e.Handled = true; // Stops the click event from propagating to the button's main click event

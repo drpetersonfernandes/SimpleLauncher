@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
-using System.IO;
 
 namespace SimpleLauncher
 {
@@ -81,8 +80,9 @@ namespace SimpleLauncher
                 else
                 {
                     string errorMessage = "An error occurred while sending the bug report.";
-                    await LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage), "An error occurred while sending the bug report.");
-                    MessageBox.Show("An error occurred while sending the bug report.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Exception exception = new Exception(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
@@ -92,6 +92,5 @@ namespace SimpleLauncher
             }
 
         }
-
     }
 }
