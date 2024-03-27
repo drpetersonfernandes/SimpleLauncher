@@ -28,17 +28,18 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("mame.xml not found.", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    string errorMessage = "mame.xml not found. Unable to load MAME configurations.";
-                    await LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage),
-                        "MameConfig LoadFromXml: mame.xml not found");
+                    string errorMessage = $"mame.xml not found.\n\nUnable to load MAME configurations.\n";
+                    Exception exception = new FileNotFoundException(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return [];
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                await LogErrors.LogErrorAsync(ex, "Error loading MAME configurations from XML.");
+                string errorMessage = "Error loading MAME configurations from XML.";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await LogErrors.LogErrorAsync(ex, $"{errorMessage}\n\nException details: {ex}");
                 return [];
             }
         }

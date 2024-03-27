@@ -43,39 +43,28 @@ namespace SimpleLauncher
                         {
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
-                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\nBut I found a backup system file.\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (restoreResult == MessageBoxResult.Yes) 
-                                try {
-                                    // Rename the most recent backup file to system.xml
-                                    File.Copy(mostRecentBackupFile, xmlPath!, false); // Does not Overwrite the file if it already exists
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e);
-                                    throw;
-                                }
+                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\nBut I found a backup system file.\n\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (restoreResult == MessageBoxResult.Yes)
+                            {
+                                // Rename the most recent backup file to system.xml
+                                File.Copy(mostRecentBackupFile, xmlPath!, false); // Does not Overwrite the file if it already exists
+                            }
                         }
                         else
                         {
                             string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
-                                try
-                                {
-                                    // Rename system.model to to system.xml
-                                    File.Copy(systemModel, xmlPath!,
-                                        false); // Does not Overwrite the file if it already exists
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e);
-                                    throw;
-                                }
+                            // Rename system.model to to system.xml
+                            File.Copy(systemModel, xmlPath!,
+                                false); // Does not Overwrite the file if it already exists
                         }
-     
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine(e);
-                        throw;
+                        string contextMessage = $"Error creating the file system.xml.\n\nException details: {ex}\n";
+                        Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                        MessageBox.Show($"The system.xml is broken: {ex.Message}\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        return null;
                     }
                 }
 
@@ -135,67 +124,16 @@ namespace SimpleLauncher
 
                 return systemConfigs;
             }
-            catch (Exception ex)
+            catch (Exception ex2)
             {
-                string contextMessage = $"Error loading system configurations from XML: {ex.Message}";
-                // Log the error
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                MessageBox.Show($"The system.xml is broken: {ex.Message}\nPlease fix it manually or delete it.\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // Wait the logger
+                string contextMessage = $"Error loading system configurations from XML.\n\nException details: {ex2}";
+                Task logTask = LogErrors.LogErrorAsync(ex2, contextMessage);
+                MessageBox.Show($"The system.xml is broken: {ex2.Message}\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-
-                // Return null
                 return null;
             }
 
         }
-        
-        // private void SetDefaultsAndSave(string xmlPath)
-        // {
-        //     SystemName = "Arcade";
-        //     SystemFolder = @"c:\arcade";
-        //     SystemImageFolder = @"c:\arcade\images";
-        //     SystemIsMame = false;
-        //     FileFormatsToSearch = ["zip"];
-        //     ExtractFileBeforeLaunch = false;
-        //     FileFormatsToLaunch = new List<string>(); // Empty list if no formats
-        //     Emulators =
-        //     [
-        //         new Emulator
-        //         {
-        //             EmulatorName = "MAME",
-        //             EmulatorLocation = @"c:\mame\mame.exe",
-        //             EmulatorParameters = "-rompath \"c:\\mame\\roms\""
-        //         }
-        //     ];
-        //
-        //     Save(xmlPath);
-        // }
 
-        // private void Save(string xmlPath)
-        // {
-        //     var settings = new XElement("SystemConfigs",
-        //         new XElement("SystemConfig",
-        //             new XElement("SystemName", SystemName),
-        //             new XElement("SystemFolder", SystemFolder),
-        //             new XElement("SystemImageFolder", SystemImageFolder),
-        //             new XElement("SystemIsMAME", SystemIsMame),
-        //             new XElement("FileFormatsToSearch", FileFormatsToSearch.Select(f => new XElement("FormatToSearch", f))),
-        //             new XElement("ExtractFileBeforeLaunch", ExtractFileBeforeLaunch),
-        //             new XElement("FileFormatsToLaunch", FileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f))),
-        //             new XElement("Emulators", Emulators.Select(e =>
-        //                 new XElement("Emulator",
-        //                     new XElement("EmulatorName", e.EmulatorName),
-        //                     new XElement("EmulatorLocation", e.EmulatorLocation),
-        //                     new XElement("EmulatorParameters", e.EmulatorParameters)
-        //                 )
-        //             ))
-        //         )
-        //     );
-        //
-        //     settings.Save(xmlPath);
-        // }
     }
 }

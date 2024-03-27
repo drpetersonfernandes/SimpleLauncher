@@ -20,8 +20,9 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
-            await LogErrors.LogErrorAsync(ex, "Error sending bug report from Bug Report Window");
-            MessageBox.Show($"An error occurred while sending the bug report: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string errorMessage = $"Error playing the click sound.";
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            await LogErrors.LogErrorAsync(ex, $"{errorMessage}\n\nException details: {ex}");
         }
     }
 }

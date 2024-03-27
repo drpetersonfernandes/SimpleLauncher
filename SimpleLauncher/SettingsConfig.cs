@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace SimpleLauncher
 {
@@ -29,7 +30,7 @@ namespace SimpleLauncher
             Load();
         }
 
-        private void Load()
+        private async void Load()
         {
             if (!File.Exists(_filePath))
             {
@@ -89,10 +90,11 @@ namespace SimpleLauncher
                 MainWindowState = !string.IsNullOrEmpty(mainWindowState) ? mainWindowState : "Normal";
                
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                // Handle error in loading or parsing setting.xml
-                MainWindow.HandleError(ex, "Error in loading or parsing setting.xml");
+                string errorMessage = "Error in loading or parsing setting.xml.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 // Use defaults values in case of errors
                 SetDefaultsAndSave();
             }

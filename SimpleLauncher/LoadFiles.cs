@@ -11,26 +11,22 @@ namespace SimpleLauncher
     {
         public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 try
                 {
-                    // Console.WriteLine($@"Directory Path: {directoryPath}");
-
                     if (!Directory.Exists(directoryPath))
                     {
-                        // Console.WriteLine(@"Directory doesn't exist!");
                         return [];
                     }
-
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
-
-                    // Console.WriteLine($@"Found {foundFiles.Count} files.");
                     return foundFiles;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    // Console.WriteLine($@"An error occurred: {ex.Message}");
+                    string errorMessage = "There was an error getting the list of files from folder.";
+                    await LogErrors.LogErrorAsync(exception, $"{errorMessage}\n\nException details: {exception}");
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return [];
                 }
             });
@@ -51,30 +47,10 @@ namespace SimpleLauncher
             }
         }
 
-        // public static async Task<List<string>> LoadGamesAsync(string systemName, string filterLetter = "A")
-        // {
-        //     // Load all system configs
-        //     var allConfigs = SystemConfig.LoadSystemConfigs("system.xml");
-        //     var targetSystemConfig = allConfigs.FirstOrDefault(sc => sc.SystemName == systemName);
-        //
-        //     if (targetSystemConfig == null)
-        //     {
-        //         Console.WriteLine($@"System '{systemName}' not found in config.");
-        //         return [];
-        //     }
-        //
-        //     var fileExtensions = targetSystemConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-        //     var gameFiles = await GetFilesAsync(targetSystemConfig.SystemFolder, fileExtensions);
-        //     var filteredGames = FilterFiles(gameFiles, filterLetter);
-        //     return filteredGames;
-        // }
-
         public static int CountFiles(string folderPath, List<string> fileExtensions)
         {
             if (!Directory.Exists(folderPath))
             {
-                // MessageBox.Show($"The directory {folderPath} does not exist.", "Directory Not Found",
-                //     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return 0;
             }
 
@@ -97,7 +73,6 @@ namespace SimpleLauncher
                 return 0;
             }
         }
-
 
     }
 }

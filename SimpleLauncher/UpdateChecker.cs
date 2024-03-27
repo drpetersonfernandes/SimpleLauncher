@@ -36,9 +36,11 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch
+            catch (Exception exception)
             {
-                // Silent fail
+                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
 
@@ -63,13 +65,15 @@ namespace SimpleLauncher
                     else
                     {
                         // If no new version is available, show a message box with the current version
-                        MessageBox.Show(mainWindow, $"There is no update available.\nThe current version is {CurrentVersion}", "No Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(mainWindow, $"There is no update available.\n\nThe current version is {CurrentVersion}", "No Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
-            catch
+            catch (Exception exception)
             {
-                // Silent fail
+                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
 
@@ -82,7 +86,7 @@ namespace SimpleLauncher
         {
             string message = $"There is a software update available.\n" +
                              $"The current version is {currentVersion}.\n" +
-                             $"The update version is {latestVersion}.\n" +
+                             $"The update version is {latestVersion}.\n\n" +
                              "Do you want to download the latest version?";
 
             MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -98,9 +102,11 @@ namespace SimpleLauncher
                     };
                     Process.Start(psi);
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // Silent fail
+                    string contextMessage = $"There was an error opening the update link.\n\nException details: {exception}";
+                    Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }

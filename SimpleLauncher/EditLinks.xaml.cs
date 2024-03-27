@@ -21,7 +21,7 @@ namespace SimpleLauncher
             this.Closing += EditLinks_Closing; // attach event handler
         }
 
-        private void LoadLinks()
+        private async void LoadLinks()
         {
             if (!File.Exists(_filePath))
             {
@@ -44,10 +44,12 @@ namespace SimpleLauncher
                 InfoLinkTextBox.Text = InfoUrl!;
                 
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                // Handle error in loading or parsing setting.xml
-                MainWindow.HandleError(ex, "Error in loading or parsing setting.xml");
+                string errorMessage = "Error in loading or parsing setting.xml.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 // Use defaults values in case of errors
                 SetDefaultsAndSave();
             }

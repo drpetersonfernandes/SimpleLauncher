@@ -277,14 +277,14 @@ namespace SimpleLauncher
             if (!IsValidPath(systemFolder))
             {
                 hasErrors = true;
-                errorMessages.AppendLine($"System Folder path is not valid: '{systemFolder}'");
+                errorMessages.AppendLine($"System Folder path is not valid: '{systemFolder}'\n\n");
             }
 
             // Validate the system image folder path, if it's provided
             if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
             {
                 hasErrors = true;
-                errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'");
+                errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
             }
 
             // Validate each emulator's location path
@@ -293,14 +293,14 @@ namespace SimpleLauncher
                 if (!IsValidPath(emulator.EmulatorLocation))
                 {
                     hasErrors = true;
-                    errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'");
+                    errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
                 }
             }
 
             // Display all error messages if there are any errors
             if (hasErrors)
             {
-                string extraline = "\nClick the 'Edit System' button in the menu.";
+                string extraline = "Click the 'Edit System' button in the menu to fix it.";
                 MessageBox.Show(errorMessages + extraline,"Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -340,7 +340,11 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    HandleError(new Exception("Selected system configuration not found"), "Error while loading selected system configuration");
+                    string errorMessage = "Error while loading selected system configuration.\n\n";
+                    Exception exception = new Exception(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
                     return;
                 }
 
@@ -432,9 +436,11 @@ namespace SimpleLauncher
                 UpdatePaginationButtons();
                
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                HandleError(ex, "Error while loading ROM files");
+                string errorMessage = "Error while loading ROM files.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -479,9 +485,11 @@ namespace SimpleLauncher
                     await LoadGameFiles(_currentFilter);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                HandleError(ex, "Previous page button error");
+                string errorMessage = "Previous page button error.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -497,9 +505,11 @@ namespace SimpleLauncher
                     await LoadGameFiles(_currentFilter);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                HandleError(ex, "Next page button error");
+                string errorMessage = "Next page button error.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -528,7 +538,7 @@ namespace SimpleLauncher
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = "\nI did not find any games with this search query",
+                Text = "\nUnfortunately, no games matched your search query or the selected button.",
                 Padding = new Thickness(10)
             });
 
@@ -572,12 +582,12 @@ namespace SimpleLauncher
             ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
         }
        
-        public static async void HandleError(Exception ex, string message)
-        {
-            MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
-            _ = new LogErrors();
-            await LogErrors.LogErrorAsync(ex, message);
-        }
+        // public static async void HandleError(Exception ex, string message)
+        // {
+        //     MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
+        //     _ = new LogErrors();
+        //     await LogErrors.LogErrorAsync(ex, message);
+        // }
         
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -675,7 +685,7 @@ namespace SimpleLauncher
             bugReportWindow.ShowDialog();
         }
 
-        private void Donate_Click(object sender, RoutedEventArgs e)
+        private async void Donate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -686,9 +696,11 @@ namespace SimpleLauncher
                 };
                 Process.Start(psi);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                HandleError(ex, "Unable to open the donation link");
+                string errorMessage = "Unable to open the donation link.\n";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
