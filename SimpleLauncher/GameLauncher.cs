@@ -56,7 +56,8 @@ namespace SimpleLauncher
                     {
                         string errorMessage = $"Error launching the batch file.\n\nExit code {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nBAT file: {psi.FileName}\n";
                         MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                        Exception exception = new Exception(errorMessage);
+                        await LogErrors.LogErrorAsync(exception, errorMessage);
                     }
 
                     return;
@@ -185,7 +186,8 @@ namespace SimpleLauncher
                             {
                                 string errorMessage = "Failed to extract the archive.\n\nCheck if the compressed file is corrupt.\n";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                                Exception exception = new Exception(errorMessage);
+                                await LogErrors.LogErrorAsync(exception, errorMessage);
                                 return;
                             }
 
@@ -207,7 +209,8 @@ namespace SimpleLauncher
                             {
                                 string errorMessage = "Couldn't find a file with the specified extensions after extraction.\n\nEdit System to fix it.\n";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                await LogErrors.LogErrorAsync(new Exception(errorMessage));
+                                Exception exception = new Exception(errorMessage);
+                                await LogErrors.LogErrorAsync(exception, errorMessage);
                                 return;
                             }
                         }
