@@ -239,8 +239,7 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\n";
-                        errorMessage += $"Emulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n\n";
+                        string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n\n";
                         await LogErrors.LogErrorAsync(new Exception(errorMessage));
                         MessageBox.Show($"{errorMessage}Please visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
