@@ -287,10 +287,10 @@ namespace SimpleLauncher
                 errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
             }
 
-            // Validate each emulator's location path
+            // Validate each emulator's location path, if it's provided
             foreach (var emulator in selectedConfig.Emulators)
             {
-                if (!IsValidPath(emulator.EmulatorLocation))
+                if (!string.IsNullOrWhiteSpace(emulator.EmulatorLocation) && !IsValidPath(emulator.EmulatorLocation))
                 {
                     hasErrors = true;
                     errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
