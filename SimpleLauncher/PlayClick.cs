@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,7 +10,7 @@ public static class PlayClick
 {
     private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    public static async void PlayClickSound()
+    public static void PlayClickSound()
     {
         try
         {
@@ -20,9 +21,10 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error playing the click sound.";
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            await LogErrors.LogErrorAsync(ex, $"{errorMessage}\n\nException details: {ex}");
+            string contextMessage = $"Error playing the click sound.\n\nException details: {ex}";
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
 }

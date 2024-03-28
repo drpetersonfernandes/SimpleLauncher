@@ -68,8 +68,11 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
+                string contextMessage = $"An error occurred while counting files.\n\nException details: {ex}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
+                logTask.Wait(TimeSpan.FromSeconds(2));
                 return 0;
             }
         }

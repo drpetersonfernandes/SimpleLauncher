@@ -59,7 +59,6 @@ namespace SimpleLauncher
                         Exception exception = new Exception(errorMessage);
                         await LogErrors.LogErrorAsync(exception, errorMessage);
                     }
-
                     return;
                 }
 
@@ -97,7 +96,6 @@ namespace SimpleLauncher
                         MessageBox.Show(errorDetails, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         await LogErrors.LogErrorAsync(ex, errorDetails);
                     }
-
                     return;
                 }
 
@@ -144,7 +142,6 @@ namespace SimpleLauncher
                 // Regular call of the method
                 if (emulatorComboBox.SelectedItem != null)
                 {
-                    
                     bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
 
                     // If the GamePadController is running, stop it before proceeding

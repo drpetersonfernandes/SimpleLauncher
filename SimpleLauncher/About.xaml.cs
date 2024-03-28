@@ -11,6 +11,7 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             DataContext = this; // Set the data context for data binding
+            AppVersionTextBlock.Text = ApplicationVersion;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -33,7 +34,7 @@ namespace SimpleLauncher
             await UpdateChecker.CheckForUpdatesAsync2(this);
         }
 
-        public static string ApplicationVersion
+        private static string ApplicationVersion
         {
             get
             {

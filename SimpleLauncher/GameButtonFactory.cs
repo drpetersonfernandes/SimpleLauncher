@@ -194,7 +194,7 @@ namespace SimpleLauncher
                 // If an exception occurs (e.g., the image is corrupt), load a default image
                 // This uses the dispatcher to ensure UI elements are accessed on the UI thread
                 imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, defaultImagePath));
-                MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\nThis image is corrupted!\nA default image will be displayed instead.", "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\n\nThis image is corrupted!\n\nA default image will be displayed instead.", "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -226,7 +226,6 @@ namespace SimpleLauncher
             }
         }
 
-
         private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName, string videoUrl)
         {
             var youtubeIcon = new Image
@@ -244,7 +243,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             youtubeIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            youtubeIcon.PreviewMouseLeftButtonUp += async (_, e) =>
+            youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
@@ -260,17 +259,14 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    // MainWindow.HandleError(exception, "The URL provided for Video Link did not work.");
-                    string errorMessage = "The URL provided for Video Link did not work.";
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(
-                        "The URL provided for Video Link did not work.\n\nPlease update the Video Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string contextMessage = "The URL provided for Video Link did not work.";
+                    Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    MessageBox.Show("The URL provided for Video Link did not work.\n\nPlease update the Video Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
-
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
             };
-
             return youtubeIcon;
         }
 
@@ -291,7 +287,7 @@ namespace SimpleLauncher
             // Set Z-Index to ensure it's on top
             infoIcon.SetValue(Panel.ZIndexProperty, 1);
 
-            infoIcon.PreviewMouseLeftButtonUp += async (_, e) =>
+            infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClick.PlayClickSound();
                 string searchTerm = $"{fileNameWithoutExtension} {systemName}";
@@ -306,11 +302,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    // MainWindow.HandleError(exception, "The URL provided for Info Link did not work.");
-                    string errorMessage = "The URL provided for Info Link did not work.";
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(
-                        "The URL provided for Info Link did not work.\n\nPlease update the Info Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string contextMessage = "The URL provided for Info Link did not work.";
+                    Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    MessageBox.Show("The URL provided for Info Link did not work.\n\nPlease update the Info Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
                 e.Handled = true; // Stops the click event from propagating to the button's main click event

@@ -344,7 +344,6 @@ namespace SimpleLauncher
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                     MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
                     return;
                 }
 
@@ -685,7 +684,7 @@ namespace SimpleLauncher
             bugReportWindow.ShowDialog();
         }
 
-        private async void Donate_Click(object sender, RoutedEventArgs e)
+        private void Donate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -698,9 +697,10 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = "Unable to open the donation link.\n";
-                await LogErrors.LogErrorAsync(exception, errorMessage);
-                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"Unable to open the donation link.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
 
