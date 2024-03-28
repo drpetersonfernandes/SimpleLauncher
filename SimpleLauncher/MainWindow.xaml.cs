@@ -89,9 +89,12 @@ namespace SimpleLauncher
             {
                 // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
-                
-                await LoadGameFiles(selectedLetter);
 
+                // Clear SearchTextBox
+                SearchTextBox.Text = "";
+                
+                // Load games
+                await LoadGameFiles(selectedLetter);
             };
             
             // Pagination related
@@ -581,13 +584,6 @@ namespace SimpleLauncher
             ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
         }
        
-        // public static async void HandleError(Exception ex, string message)
-        // {
-        //     MessageBox.Show($"An error occurred: {ex.Message}", "Alert", MessageBoxButton.OK, MessageBoxImage.Error);
-        //     _ = new LogErrors();
-        //     await LogErrors.LogErrorAsync(ex, message);
-        // }
-        
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             // Pagination reset
@@ -610,6 +606,9 @@ namespace SimpleLauncher
             // Show the "Please Wait" window
             var pleaseWaitWindow = new PleaseWaitWindow();
             pleaseWaitWindow.Show();
+            
+            // Call DeselectLetter to clear any selected letter
+            _letterNumberMenu.DeselectLetter();
 
             try
             {
@@ -646,6 +645,9 @@ namespace SimpleLauncher
                 // Show the "Please Wait" window
                 var pleaseWaitWindow = new PleaseWaitWindow();
                 pleaseWaitWindow.Show();
+                
+                // Call DeselectLetter to clear any selected letter
+                _letterNumberMenu.DeselectLetter();
 
                 try
                 {
