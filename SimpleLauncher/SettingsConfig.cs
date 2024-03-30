@@ -92,12 +92,12 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string contextMessage = $"Error in loading or parsing setting.xml.\n\nException details: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-
                 // Use defaults values in case of errors
                 SetDefaultsAndSave();
+                
+                string contextMessage = $"Error in loading or parsing setting.xml.\n\nThe app just saved a Default settings.xml.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
 

@@ -106,6 +106,7 @@ namespace SimpleLauncher
                 {
                     string contextMessage = $"There was an error opening the update link.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                 }
             }

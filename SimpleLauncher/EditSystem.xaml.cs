@@ -34,10 +34,10 @@ namespace SimpleLauncher
         {
             if (!File.Exists(_xmlFilePath))
             {
-                MessageBox.Show("system.xml not found inside the application folder.\n\nWe created one for you.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                _xmlDoc = new XDocument();
-                _xmlDoc.Add(new XElement("SystemConfigs"));
-                _xmlDoc.Save(_xmlFilePath);
+                MessageBox.Show("system.xml not found inside the application folder!\n\nPlease restart the application.\n\nIf that does not work, please reinstall Simple Launcher.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // _xmlDoc = new XDocument();
+                // _xmlDoc.Add(new XElement("SystemConfigs"));
+                // _xmlDoc.Save(_xmlFilePath);
             }
             else
             {
