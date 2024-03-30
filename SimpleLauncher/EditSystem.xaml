@@ -49,8 +49,7 @@
 
         <!-- Add New System -->
         <Button
-                x:Name="AddSystemButton"
-                Grid.Row="1"
+            Grid.Row="1"
                 Grid.Column="0"
                 Margin="10"
                 Padding="10"

@@ -25,6 +25,9 @@ namespace SimpleLauncher
             LoadXml();
             PopulateSystemNamesDropdown();
             this.Closing += EditSystem_Closing; // attach event handler
+
+            SaveSystemButton.IsEnabled = false;
+            DeleteSystemButton.IsEnabled = false;
         }
 
         private void LoadXml()
@@ -53,6 +56,9 @@ namespace SimpleLauncher
 
         private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SaveSystemButton.IsEnabled = true;
+            DeleteSystemButton.IsEnabled = true;
+            
             if (SystemNameDropdown.SelectedItem == null) return;
             if (_xmlDoc == null) return;
 

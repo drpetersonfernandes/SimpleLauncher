@@ -24,8 +24,8 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string errorMessage = "There was an error getting the list of files from folder.";
-                    await LogErrors.LogErrorAsync(exception, $"{errorMessage}\n\nException details: {exception}");
+                    string errorMessage = $"There was an error getting the list of files from folder.\n\nException details: {exception}";
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
                     MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return [];
                 }
@@ -70,8 +70,7 @@ namespace SimpleLauncher
             {
                 string contextMessage = $"An error occurred while counting files.\n\nException details: {ex}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 return 0;
             }

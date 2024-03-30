@@ -222,7 +222,7 @@ namespace SimpleLauncher
             else
             {
                 // If even the global default image is not found, handle accordingly
-                MessageBox.Show("No valid default image found.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No valid default image found.\n\nPlease reinstall the Simple Launcher.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -259,10 +259,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = "The URL provided for Video Link did not work.";
+                    string contextMessage = $"There was a problem open up the Video Link.\n\nException detail: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    MessageBox.Show($"There was a problem open up the Video Link.\n\nException detail: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                    MessageBox.Show("The URL provided for Video Link did not work.\n\nPlease update the Video Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
@@ -302,10 +302,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = "The URL provided for Info Link did not work.";
+                    string contextMessage = $"There was a problem open up the Info Link.\n\nException detail: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    MessageBox.Show($"There was a problem open up the Info Link.\n\nException detail: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                    MessageBox.Show("The URL provided for Info Link did not work.\n\nPlease update the Info Link in the Edit Links menu.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
                 e.Handled = true; // Stops the click event from propagating to the button's main click event

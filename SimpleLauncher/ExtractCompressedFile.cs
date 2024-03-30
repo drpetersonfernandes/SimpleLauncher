@@ -36,7 +36,6 @@ namespace SimpleLauncher
                     });
                 }
             }
-
             return tempDirectory;
         }
 
@@ -52,7 +51,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception exception)
                     {
-                        string contextMessage = "Error occurred while cleaning up temp directories.";
+                        string contextMessage = $"Error occurred while cleaning up temp directories.\n\nException detail: {exception}";
                         Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                     }

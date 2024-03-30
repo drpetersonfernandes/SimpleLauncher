@@ -54,7 +54,7 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0)
                     {
-                        string errorMessage = $"Error launching the batch file.\n\nExit code {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nBAT file: {psi.FileName}\n";
+                        string errorMessage = $"Error launching the batch file.\n\nExit code {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nBAT file: {psi.FileName}";
                         MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         Exception exception = new Exception(errorMessage);
                         await LogErrors.LogErrorAsync(exception, errorMessage);
@@ -92,7 +92,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string errorDetails = $"Error launching the shortcut: {ex.Message}\n\nShortcut: {psi.FileName}\n";
+                        string errorDetails = $"Error launching the shortcut: {ex.Message}\n\nShortcut: {psi.FileName}";
                         MessageBox.Show(errorDetails, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         await LogErrors.LogErrorAsync(ex, errorDetails);
                     }
@@ -181,7 +181,7 @@ namespace SimpleLauncher
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {
-                                string errorMessage = "Failed to extract the archive.\n\nCheck if the compressed file is corrupt.\n";
+                                string errorMessage = "Failed to extract the archive.\n\nCheck if the compressed file is corrupt.";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 Exception exception = new Exception(errorMessage);
                                 await LogErrors.LogErrorAsync(exception, errorMessage);
@@ -204,7 +204,7 @@ namespace SimpleLauncher
 
                             if (!fileFound)
                             {
-                                string errorMessage = "Couldn't find a file with the specified extensions after extraction.\n\nEdit System to fix it.\n";
+                                string errorMessage = "Couldn't find a file with the specified extension after extraction.\n\nEdit System to fix it.";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 Exception exception = new Exception(errorMessage);
                                 await LogErrors.LogErrorAsync(exception, errorMessage);
@@ -239,10 +239,10 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n\n";
+                        string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
                         Exception exception = new Exception(errorMessage);
                         await LogErrors.LogErrorAsync(exception, errorMessage);
-                        MessageBox.Show($"{errorMessage}Please visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{errorMessage}\n\nPlease visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     // If the GamePadController was running, restart it after the psi exits
@@ -258,9 +258,9 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"Exception Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}\n\n";
+                string formattedException = $"Exception Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                MessageBox.Show($"{formattedException}Please visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{formattedException}\n\nPlease visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

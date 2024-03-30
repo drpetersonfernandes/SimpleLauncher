@@ -15,9 +15,9 @@ namespace SimpleLauncher
     {
         // pagination related
         private int _currentPage = 1;
-        private int _filesPerPage; //variable instance
+        private int _filesPerPage;
         private int _totalFiles;
-        private int _paginationThreshold; //variable instance
+        private int _paginationThreshold;
         private readonly Button _nextPageButton;
         private readonly Button _prevPageButton;
         private readonly string _currentFilter = null;
@@ -62,7 +62,7 @@ namespace SimpleLauncher
             _paginationThreshold = _settings.GamesPerPage;
 
             // Initialize the GamePadController.cs
-            // Setting the error logger
+            // Setting the error logger for GamePad
             GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
 
             // Check if GamePad navigation is enabled in the settings
@@ -122,7 +122,7 @@ namespace SimpleLauncher
 
         }
 
-        // Delete temp files from ExtractCompressedFile class.
+        // The app will delete generated temp files before close.
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             ExtractCompressedFile.Instance2.Cleanup();
@@ -145,7 +145,7 @@ namespace SimpleLauncher
             this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
         }
 
-        // Dispose gamepad resources and Save MainWindow state and size to setting.xml.
+        // Dispose gamepad resources and Save MainWindow state and size to setting.xml before close.
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             GamePadController.Instance2.Stop();
@@ -154,6 +154,7 @@ namespace SimpleLauncher
         }
 
         // Restart Application
+        // Used in cases that need to reload system.xml or update the pagination settings or update the video and info links 
         private void MainWindow_Restart()
         {
             // Explicitly save the MainWindow state and size before restarting
@@ -177,7 +178,8 @@ namespace SimpleLauncher
                 Environment.Exit(0);
             }
         }
-        
+
+        // User select a system
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SearchTextBox.Text = "";
@@ -280,17 +282,17 @@ namespace SimpleLauncher
             if (!IsValidPath(systemFolder))
             {
                 hasErrors = true;
-                errorMessages.AppendLine($"System Folder path is not valid: '{systemFolder}'\n\n");
+                errorMessages.AppendLine($"System Folder path is not valid or does not exist: '{systemFolder}'\n\n");
             }
 
-            // Validate the system image folder path, if it's provided
+            // Validate the system image folder path, if it's provided. Allow null or empty.
             if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
             {
                 hasErrors = true;
                 errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
             }
 
-            // Validate each emulator's location path, if it's provided
+            // Validate each emulator's location path, if it's provided. Allow null or empty.
             foreach (var emulator in selectedConfig.Emulators)
             {
                 if (!string.IsNullOrWhiteSpace(emulator.EmulatorLocation) && !IsValidPath(emulator.EmulatorLocation))
@@ -318,6 +320,7 @@ namespace SimpleLauncher
             if (Directory.Exists(path) || File.Exists(path)) return true;
 
             // Assume the path might be relative and combine it with the base directory
+            // Allow relative paths
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string fullPath = Path.Combine(basePath, path);
 
@@ -343,7 +346,7 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    string errorMessage = "Error while loading selected system configuration.\n\n";
+                    string errorMessage = "Error while loading selected system configuration.";
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                     MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -440,7 +443,7 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = "Error while loading ROM files.\n";
+                string errorMessage = $"Error while loading ROM files.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -489,7 +492,7 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = "Previous page button error.\n";
+                string errorMessage = $"Previous page button error.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
@@ -509,7 +512,7 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = "Next page button error.\n";
+                string errorMessage = $"Next page button error.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
