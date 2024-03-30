@@ -31,7 +31,7 @@ namespace SimpleLauncher
         {
             if (!File.Exists(_xmlFilePath))
             {
-                MessageBox.Show("system.xml not found inside the application folder.\nWe created one for you.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("system.xml not found inside the application folder.\n\nWe created one for you.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 _xmlDoc = new XDocument();
                 _xmlDoc.Add(new XElement("SystemConfigs"));
                 _xmlDoc.Save(_xmlFilePath);
@@ -335,7 +335,7 @@ namespace SimpleLauncher
         {
             ClearFields();
             AdjustPlaceholderVisibility();
-            MessageBox.Show("You can add a new system now", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("You can add a new system now.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ClearFields()
@@ -387,7 +387,7 @@ namespace SimpleLauncher
 
             if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
             {
-                MessageBox.Show("One or more paths are invalid. Please correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // Stop execution to prevent saving
             }
             
@@ -682,7 +682,7 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("The system.xml file was not found in the application folder.\nWe could not backup it!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
 

@@ -169,7 +169,6 @@
                     Text="required" />
                 <Button
                     Margin="0,0,10,10"
-                    Name="SystemFolderButton"
                     Grid.Row="1"
                     Grid.Column="2"
                     Width="160"
@@ -201,7 +200,6 @@
                     Text="optional" />
                 <Button
                     Margin="0,0,10,10"
-                    Name="SystemImageFolderButton"
                     Grid.Row="2"
                     Grid.Column="2"
                     Width="160"
@@ -390,7 +388,6 @@
                     HorizontalAlignment="Stretch" />
                 <Button
                     Margin="0,0,10,10"
-                    Name="Emulator2LocationButton"
                     Grid.Row="11"
                     Grid.Column="2"
                     Width="160"

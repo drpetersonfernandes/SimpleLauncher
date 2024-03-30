@@ -83,8 +83,7 @@
     
         <!-- Save Button -->
        <Button
-            x:Name="SaveLinksButton"
-            Grid.Column="0"
+           Grid.Column="0"
             Margin="10"
             Padding="10"
             HorizontalAlignment="Right"
@@ -93,7 +92,6 @@
         
         <!-- Revert Button -->
         <Button
-            x:Name="RevertLinksButton"
             Grid.Column="1"
             Margin="10"
             Padding="10"

@@ -51,7 +51,7 @@ namespace SimpleLauncher
         {
             string messageWithVersion = fullMessage;
 
-            // Prepare the POST data with the bug report text and application version
+            // Prepare the POST data
             var formData = new MultipartFormDataContent
     {
         { new StringContent("contact@purelogiccode.com"), "recipient" },
@@ -87,7 +87,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                await LogErrors.LogErrorAsync(ex, "Error sending bug report from Bug Report Window");
+                await LogErrors.LogErrorAsync(ex, $"Error sending bug report from Bug Report Window.\n\nException detail: {ex}");
                 MessageBox.Show($"An error occurred while sending the bug report: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
