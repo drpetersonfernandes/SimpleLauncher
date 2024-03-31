@@ -413,7 +413,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## MAME
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -421,7 +421,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** MAME<br>
 **Emulator Location:** [MAME Folder]\mame.exe<br>
-**Emulator Parameters:** -rompath "[MAME Folder]\MAME Roms"<br>
+**Emulator Parameters:** -rompath "[ROM Folder]"<br>
+**Emulator Parameters example:** -rompath "c:\mame\roms"<br>
 
 **Emulator Name:** Retroarch mame<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>

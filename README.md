@@ -6,8 +6,6 @@ Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 ![Screenshot](screenshot3.png)
 ![Screenshot](screenshot4.png)
 ![Screenshot](screenshot5.png)
-![Screenshot](screenshot6.png)
-![Screenshot](screenshot7.png)
 
 ## Installation
 You just need to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases), then extract the zip file into your chosen folder.
