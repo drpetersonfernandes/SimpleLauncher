@@ -29,15 +29,14 @@ namespace SimpleLauncher
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
-            // Load Video Url and Info Url from settings.xml
-            string videoUrl = settings.VideoUrl;
-            string infoUrl = settings.InfoUrl;
-            
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
             
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
+            
+            // Default search term for Video link and Info link
+            string searchTerm = fileNameWithoutExtension;
 
             var textBlock = new TextBlock
             {
@@ -54,6 +53,9 @@ namespace SimpleLauncher
                 var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                 if (machine != null)
                 {
+                    // Check if the machine's description is not null or empty; otherwise, keep using fileNameWithoutExtension
+                    searchTerm = !string.IsNullOrWhiteSpace(machine.Description) ? machine.Description : fileNameWithoutExtension;
+
                     var descriptionTextBlock = new TextBlock
                     {
                         Text = machine.Description,
@@ -67,9 +69,8 @@ namespace SimpleLauncher
                     textBlock.Inlines.Add(descriptionTextBlock);
                 }
             }
-
-            var youtubeIcon = CreateYoutubeIcon(fileNameWithoutExtension, systemName, videoUrl);
-            var infoIcon = CreateInfoIcon(fileNameWithoutExtension, systemName, infoUrl);
+            var youtubeIcon = CreateYoutubeIcon(searchTerm, systemName, settings.VideoUrl);
+            var infoIcon = CreateInfoIcon(searchTerm, systemName, settings.InfoUrl);
 
             var grid = new Grid
             {
@@ -226,7 +227,7 @@ namespace SimpleLauncher
             }
         }
 
-        private Image CreateYoutubeIcon(string fileNameWithoutExtension, string systemName, string videoUrl)
+        private Image CreateYoutubeIcon(string searchTerm, string systemName, string videoUrl)
         {
             var youtubeIcon = new Image
             {
@@ -246,8 +247,8 @@ namespace SimpleLauncher
             youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClick.PlayClickSound();
-                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-                string searchUrl = $"{videoUrl}{Uri.EscapeDataString(searchTerm)}";
+                string searchTerm2 = $"{searchTerm} {systemName}";
+                string searchUrl = $"{videoUrl}{Uri.EscapeDataString(searchTerm2)}";
 
                 try
                 {
@@ -259,9 +260,9 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = $"There was a problem open up the Video Link.\n\nException detail: {exception}";
+                    string contextMessage = $"There was a problem open up the Video Link.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                    MessageBox.Show($"There was a problem open up the Video Link.\n\nException detail: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"There was a problem open up the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     throw;
                 }
@@ -270,7 +271,7 @@ namespace SimpleLauncher
             return youtubeIcon;
         }
 
-        private Image CreateInfoIcon(string fileNameWithoutExtension, string systemName, string infoUrl)
+        private Image CreateInfoIcon(string searchTerm, string systemName, string infoUrl)
         {
             var infoIcon = new Image
             {
@@ -290,8 +291,8 @@ namespace SimpleLauncher
             infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
             {
                 PlayClick.PlayClickSound();
-                string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-                string searchUrl = $"{infoUrl}{Uri.EscapeDataString(searchTerm)}";
+                string searchTerm2 = $"{searchTerm} {systemName}";
+                string searchUrl = $"{infoUrl}{Uri.EscapeDataString(searchTerm2)}";
                 try
                 {
                     Process.Start(new ProcessStartInfo
@@ -302,9 +303,9 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = $"There was a problem open up the Info Link.\n\nException detail: {exception}";
+                    string contextMessage = $"There was a problem open up the Info Link.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                    MessageBox.Show($"There was a problem open up the Info Link.\n\nException detail: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"There was a problem open up the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     throw;
                 }

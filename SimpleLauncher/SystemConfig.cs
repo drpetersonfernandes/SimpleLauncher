@@ -30,7 +30,7 @@ namespace SimpleLauncher
         {
             try
             {
-                // Check for the existence of the system.xml file
+                // Check for the existence of the system.xml
                 if (!File.Exists(xmlPath))
                 {
                     // Search for backup files in the application directory
@@ -52,17 +52,30 @@ namespace SimpleLauncher
                         }
                         else
                         {
-                            string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
-                            // Rename system.model to to system.xml
-                            File.Copy(systemModel, xmlPath!,
-                                false); // Does not Overwrite the file if it already exists
+                            try
+                            {
+                                // Location of system_model.xml
+                                string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
+
+                                // Rename system.model to to system.xml
+                                File.Copy(systemModel, xmlPath!, false); // Does not Overwrite the file if it already exists
+                            }
+                            catch (Exception)
+                            {
+                                string contextMessage = $"The file system_model.xml is missing.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.";
+                                MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                                // Shutdown the application and exit
+                                Application.Current.Shutdown();
+                                Environment.Exit(0);
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
-                        string contextMessage = $"Error creating the file system.xml.\n\nException details: {ex}\n";
+                        string contextMessage = $"The file system.xml is corrupted.\n\nException details: {ex}";
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                        MessageBox.Show($"The system.xml is broken: {ex.Message}\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"The system.xml is corrupted: {ex.Message}\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         return null;
                     }
@@ -126,7 +139,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex2)
             {
-                string contextMessage = $"Error loading system configurations from XML.\n\nException details: {ex2}";
+                string contextMessage = $"Error loading system configurations from system.xml.\n\nException details: {ex2}";
                 Task logTask = LogErrors.LogErrorAsync(ex2, contextMessage);
                 MessageBox.Show($"The system.xml is broken: {ex2.Message}\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 logTask.Wait(TimeSpan.FromSeconds(2));

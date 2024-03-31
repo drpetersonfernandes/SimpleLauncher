@@ -39,7 +39,7 @@ namespace SimpleLauncher
             
             // Load mame.xml
             string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
-            _machines = MameConfig.LoadFromXml(xmlPath).Result;
+            _machines = MameConfig.LoadFromXml(xmlPath);
             
             // Load system.xml
             try

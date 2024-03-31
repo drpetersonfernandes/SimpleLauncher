@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -341,6 +342,10 @@ namespace SimpleLauncher
         {
             ClearFields();
             AdjustPlaceholderVisibility();
+
+            SaveSystemButton.IsEnabled = true;
+            DeleteSystemButton.IsEnabled = false;
+            
             MessageBox.Show("You can add a new system now.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -535,6 +540,44 @@ namespace SimpleLauncher
 
             MessageBox.Show("System saved successfully.", "Info", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+            
+            // Create a folder inside images folder with the same name as SystemName
+            // only do that if user does not provide the SystemImageFolder
+            if (string.IsNullOrWhiteSpace(systemImageFolder))
+            {
+                // Get the application directory
+                string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                // Construct the path to the 'images' directory
+                string imagesDirectory = Path.Combine(applicationDirectory, "images");
+
+                // Check if 'images' directory exists
+                if (!Directory.Exists(imagesDirectory))
+                {
+                    Directory.CreateDirectory(imagesDirectory);
+                }
+
+                // Use SystemName as the name for the new folder inside 'images'
+                string newFolderPath = Path.Combine(imagesDirectory, systemName);
+
+                try
+                {
+                    // Check if the folder exists, and create it if it doesn't
+                    if (!Directory.Exists(newFolderPath))
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                        MessageBox.Show($"I have also created a folder for this System within the 'images' folder at {newFolderPath}.\n\nYou may place the cover images for this System inside this folder.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    string formattedException = $"The Simple Launcher failed to create an image folder for the newly created system.\n\nException detail: {exception}";
+                    Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    throw;
+                }
+
+            }
         }
 
         private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters)
