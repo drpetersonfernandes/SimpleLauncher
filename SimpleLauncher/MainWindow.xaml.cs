@@ -112,14 +112,16 @@ namespace SimpleLauncher
                 AddNoSystemMessage();
             }
 
-            // Check for updates
+            // Check for updates using Async Event Handler
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
             
             // Attach the Load and Close event handler.
             this.Loaded += MainWindow_Loaded;
             this.Closing += MainWindow_Closing;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-
+            
+            // Stats using Async Event Handler
+            Loaded += async (_, _) => await Stats.CallApiAsync();
         }
 
         // The app will delete generated temp files before close.

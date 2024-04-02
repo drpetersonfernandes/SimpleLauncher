@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,9 +37,6 @@ namespace SimpleLauncher
             if (!File.Exists(_xmlFilePath))
             {
                 MessageBox.Show("system.xml not found inside the application folder!\n\nPlease restart the application.\n\nIf that does not work, please reinstall Simple Launcher.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                // _xmlDoc = new XDocument();
-                // _xmlDoc.Add(new XElement("SystemConfigs"));
-                // _xmlDoc.Save(_xmlFilePath);
             }
             else
             {
@@ -192,6 +190,13 @@ namespace SimpleLauncher
             MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text));
             MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
             MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
+            
+            // Validate Parameters (considered valid if empty)
+            MarkInvalid(Emulator1ParametersTextBox, string.IsNullOrWhiteSpace(Emulator1ParametersTextBox.Text) || IsValidPath2(Emulator1ParametersTextBox.Text));
+            MarkInvalid(Emulator2ParametersTextBox, string.IsNullOrWhiteSpace(Emulator2ParametersTextBox.Text) || IsValidPath2(Emulator2ParametersTextBox.Text));
+            MarkInvalid(Emulator3ParametersTextBox, string.IsNullOrWhiteSpace(Emulator3ParametersTextBox.Text) || IsValidPath2(Emulator3ParametersTextBox.Text));
+            MarkInvalid(Emulator4ParametersTextBox, string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text));
+            MarkInvalid(Emulator5ParametersTextBox, string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text));
         }
         
         private bool IsValidPath(string path)
@@ -210,11 +215,44 @@ namespace SimpleLauncher
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
+        private bool IsValidPath2(string parameters)
+        {
+            // Return true immediately if the parameter string is empty or null.
+            if (string.IsNullOrWhiteSpace(parameters)) return true;
+
+            // This pattern looks for paths enclosed in quotes or following a known flag (like -L or -rompath).
+            string pattern = @"(?:-L|-rompath|\s)""([^""]+)""";
+            var matches = Regex.Matches(parameters, pattern);
+
+            // Assume validity until proven otherwise.
+            bool allPathsValid = true;
+
+            // Iterate over all matches to validate each path found.
+            foreach (Match match in matches)
+            {
+                // Extract the path, removing quotes if present.
+                string path = match.Groups[1].Value;
+
+                // Check if the path is valid (exists as either a file or directory).
+                bool isValid = Directory.Exists(path) || File.Exists(path);
+
+                // If any path is invalid, set allPathsValid to false and break out of the loop.
+                if (!isValid)
+                {
+                    allPathsValid = false;
+                    break;
+                }
+            }
+
+            // Return the final validity status.
+            return allPathsValid;
+        }
+
         private void MarkInvalid(TextBox textBox, bool isValid)
         {
             textBox.Foreground = isValid ? System.Windows.Media.Brushes.Black : System.Windows.Media.Brushes.Red;
         }
-        
+       
         private void MarkValid(TextBox textBox)
         {
             textBox.Foreground = System.Windows.Media.Brushes.Black;
