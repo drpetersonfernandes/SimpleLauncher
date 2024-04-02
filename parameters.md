@@ -27,12 +27,10 @@
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require bios files or special configurations to work properly.<br>
 
 **Emulator Name:** Stella<br>
-
 **Emulator Location:** [Stella Folder]\Stella.exe<br>
-
 **Emulator Parameters:** -fullscreen 1<br>
 
-Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).<br>
+Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).
 
 ## Atari 5200
 
@@ -62,16 +60,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 
 [//]: # (**Emulator Name:** A7800<br>)
-
 [//]: # (**Emulator Location:** [A7800 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** ProSystem<br>)
-
 [//]: # (**Emulator Location:** [ProSystem Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Atari 8-Bit
@@ -88,16 +81,12 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 
 [//]: # (**Emulator Name:** Atari800<br>)
-
 [//]: # (**Emulator Location:** [Atari800 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 
 [//]: # (**Emulator Name:** Atari++<br>)
-
 [//]: # (**Emulator Location:** [Atari++ Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Atari Jaguar
@@ -140,16 +129,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 
 [//]: # (**Emulator Name:** Felix<br>)
-
 [//]: # (**Emulator Location:** [Felix Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** OpenEmu<br>)
-
 [//]: # (**Emulator Location:** [OpenEmu Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Atari ST
@@ -172,16 +156,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 
 [//]: # (**Emulator Name:** Steem SSE<br>)
-
 [//]: # (**Emulator Location:** [Steem SSE Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** ARAnyM<br>)
-
 [//]: # (**Emulator Location:** [ARAnyM Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Bandai WonderSwan
@@ -203,11 +182,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** <br>
 
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 ## Bandai WonderSwan Color
 
@@ -228,9 +204,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** <br>
 
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Casio PV-1000
@@ -273,65 +247,40 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/vice/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** Denise<br>)
-
 [//]: # (**Emulator Location:** [Denise Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** Hoxs64<br>)
-
 [//]: # (**Emulator Location:** [Hoxs64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** Z64K<br>)
-
 [//]: # (**Emulator Location:** [Z64K Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** VirtualC64<br>)
-
 [//]: # (**Emulator Location:** [VirtualC64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** Kernal64<br>)
-
 [//]: # (**Emulator Location:** [Kernal64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Commodore 128
 
 [//]: # (**System Folder:** [ROM or ISO Folder]<br>)
-
 [//]: # (**System Is MAME?** false<br>)
-
 [//]: # (**Format To Search In System Folder:** zip<br>)
-
 [//]: # (**Extract File Before Launch?** false<br>)
-
 [//]: # (**Format To Launch After Extraction:** <br>)
 
-
 [//]: # (**Emulator Name:** VICE<br>)
-
 [//]: # (**Emulator Location:** [VICE Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** Z64K<br>)
-
 [//]: # (**Emulator Location:** [Z64K Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Commodore Amiga CD32
@@ -348,33 +297,35 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** WinUAE<br>)
-
 [//]: # (**Emulator Location:** [WinUAE Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** FS-UAE<br>)
-
 [//]: # (**Emulator Location:** [FS-UAE Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** Akiko<br>)
-
 [//]: # (**Emulator Location:** [Akiko Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** Amiga Forever<br>)
-
 [//]: # (**Emulator Location:** [Amiga Forever Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
+
+## LaserDisk
+
+**System Folder:** [BAT Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** bat<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Daphne<br>
+**Emulator Location:** <br>
+**Emulator Parameters:** <br>
+
+You need to create a bat file that can directly launch the game.
 
 ## Magnavox Odyssey 2
 
@@ -390,25 +341,16 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** MAME<br>)
-
 [//]: # (**Emulator Location:** [MAME Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** O2EM<br>)
-
 [//]: # (**Emulator Location:** [O2EM Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** Pantheon<br>)
-
 [//]: # (**Emulator Location:** [Pantheon Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## MAME
@@ -442,11 +384,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location:** [AquaLite Folder]\AquaLite.exe<br>
 **Emulator Parameters:** <br>
 
-
 [//]: # (**Emulator Name:** MAME<br>)
-
 [//]: # (**Emulator Location:** [MAME Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Mattel Intellivision
@@ -463,18 +402,12 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** MAME<br>)
-
 [//]: # (**Emulator Location:** [MAME Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** jzIntv<br>)
-
 [//]: # (**Emulator Location:** [jzIntv Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Microsoft MSX
@@ -491,13 +424,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** openMSX<br>)
-
 [//]: # (**Emulator Location:** [openMSX Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 ## Microsoft MSX2
 
@@ -513,11 +442,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** openMSX<br>)
-
 [//]: # (**Emulator Location:** [openMSX Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Microsoft Windows
@@ -580,18 +506,12 @@ start game.exe
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** Mesen<br>)
-
 [//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## NEC PC Engine CD
@@ -613,9 +533,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** <br>
 
 [//]: # (**Emulator Name:** Mesen<br>)
-
 [//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## NEC PC-FX
@@ -650,18 +568,12 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** Mesen<br>)
-
 [//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Nintendo 3DS
@@ -697,23 +609,15 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Core may require bios files or special configurations to work properly.<br>
 
 [//]: # (**Emulator Name:** RMG<br>)
-
 [//]: # (**Emulator Location:** [RMG Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** simple64<br>)
-
 [//]: # (**Emulator Location:** [simple64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Nintendo 64DD
@@ -734,39 +638,24 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
-
 [//]: # (**Emulator Name:** Project64<br>)
-
 [//]: # (**Emulator Location:** [Project64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** ares<br>)
-
 [//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** simple64<br>)
-
 [//]: # (**Emulator Location:** [simple64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** CEN64<br>)
-
 [//]: # (**Emulator Location:** [CEN64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
-
 [//]: # (**Emulator Name:** CEN64<br>)
-
 [//]: # (**Emulator Location:** [CEN64 Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
 
 ## Nintendo DS
@@ -815,87 +704,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Core may require bios files or special configurations to work properly.<br>
 
-
 [//]: # (**Emulator Name:** puNES<br>)
-
 [//]: # (**Emulator Location:** [puNES Folder]\.exe<br>)
-
 [//]: # (**Emulator Parameters:** <br>)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Nintendo Game Boy
 

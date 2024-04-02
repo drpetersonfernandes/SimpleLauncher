@@ -635,7 +635,7 @@
   </SystemConfig>
   <SystemConfig>
     <SystemName>Nintendo 64</SystemName>
-    <SystemFolder>D:\ROMsAndISOs\Nintendo 64</SystemFolder>
+    <SystemFolder>G:\Nintendo 64</SystemFolder>
     <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
@@ -650,6 +650,26 @@
         <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
         <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mupen64plus_next_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>D:\Emulators\Ares\ares.exe</EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Simple64</EmulatorName>
+        <EmulatorLocation>D:\Emulators\Simple64\simple64-gui.exe</EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>BizHawk</EmulatorName>
+        <EmulatorLocation>D:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Project64</EmulatorName>
+        <EmulatorLocation>D:\Emulators\Project64\Project64.exe</EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1252,7 +1272,7 @@
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>D:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters>--fullscreen</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>MasterGear</EmulatorName>
@@ -1283,7 +1303,7 @@
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>D:\Emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters>--fullscreen</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>MasterGear</EmulatorName>
