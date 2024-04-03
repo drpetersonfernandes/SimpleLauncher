@@ -424,6 +424,13 @@ namespace SimpleLauncher
             bool isEmulator3LocationValid = string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text);
             bool isEmulator4LocationValid = string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text);
             bool isEmulator5LocationValid = string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text);
+            
+            // Validate parameters. Allow empty. 
+            bool isEmulator1ParametersValid = string.IsNullOrWhiteSpace(Emulator1ParametersTextBox.Text) || IsValidPath2(Emulator1ParametersTextBox.Text);
+            bool isEmulator2ParametersValid = string.IsNullOrWhiteSpace(Emulator2ParametersTextBox.Text) || IsValidPath2(Emulator2ParametersTextBox.Text);
+            bool isEmulator3ParametersValid = string.IsNullOrWhiteSpace(Emulator3ParametersTextBox.Text) || IsValidPath2(Emulator3ParametersTextBox.Text);
+            bool isEmulator4ParametersValid = string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text);
+            bool isEmulator5ParametersValid = string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text);
     
             // Mark fields based on validation
             MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
@@ -433,8 +440,13 @@ namespace SimpleLauncher
             MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
             MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
             MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
+            MarkInvalid(Emulator1ParametersTextBox, isEmulator1ParametersValid);
+            MarkInvalid(Emulator2ParametersTextBox, isEmulator2ParametersValid);
+            MarkInvalid(Emulator3ParametersTextBox, isEmulator3ParametersValid);
+            MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
+            MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
-            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
+            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
             {
                 MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // Stop execution to prevent saving
