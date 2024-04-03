@@ -215,6 +215,7 @@ namespace SimpleLauncher
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
+        // Check paths inside parameters. Allow relative paths.
         private bool IsValidPath2(string parameters)
         {
             // Return true immediately if the parameter string is empty or null.
@@ -227,14 +228,20 @@ namespace SimpleLauncher
             // Assume validity until proven otherwise.
             bool allPathsValid = true;
 
+            // Use the application's current directory as the base for relative paths.
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
             // Iterate over all matches to validate each path found.
             foreach (Match match in matches)
             {
                 // Extract the path, removing quotes if present.
                 string path = match.Groups[1].Value;
 
-                // Check if the path is valid (exists as either a file or directory).
-                bool isValid = Directory.Exists(path) || File.Exists(path);
+                // Convert relative paths to absolute using the base directory.
+                string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
+
+                // Check if the path (either absolute or converted from relative) is valid.
+                bool isValid = Directory.Exists(absolutePath) || File.Exists(absolutePath);
 
                 // If any path is invalid, set allPathsValid to false and break out of the loop.
                 if (!isValid)

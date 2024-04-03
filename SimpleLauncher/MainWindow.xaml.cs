@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -303,6 +304,16 @@ namespace SimpleLauncher
                     errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
                 }
             }
+            
+            // Validate each emulator's parameters, if it's provided. Allow null or empty.
+            foreach (var emulator in selectedConfig.Emulators)
+            {
+                if (!string.IsNullOrWhiteSpace(emulator.EmulatorParameters) && !IsValidPath2(emulator.EmulatorParameters))
+                {
+                    hasErrors = true;
+                    errorMessages.AppendLine($"Emulator parameters is not valid for {emulator.EmulatorName}: '{emulator.EmulatorParameters}'\n\n");
+                }
+            }
 
             // Display all error messages if there are any errors
             if (hasErrors)
@@ -312,7 +323,7 @@ namespace SimpleLauncher
             }
         }
 
-        // Check paths. Allow relative paths.
+        // Check paths in SystemFolder, SystemImageFolder and EmulatorLocation. Allow relative paths.
         private bool IsValidPath(string path)
         {
             // Check if the path is not null or whitespace
@@ -328,6 +339,46 @@ namespace SimpleLauncher
 
             // Check if the combined path exists
             return Directory.Exists(fullPath) || File.Exists(fullPath);
+        }
+        
+        // Check parameters for each emulator. Allow relative paths.
+        private bool IsValidPath2(string parameters)
+        {
+            // Return true immediately if the parameter string is empty or null.
+            if (string.IsNullOrWhiteSpace(parameters)) return true;
+
+            // This pattern looks for paths enclosed in quotes or following a known flag (like -L or -rompath).
+            string pattern = @"(?:-L|-rompath|\s)""([^""]+)""";
+            var matches = Regex.Matches(parameters, pattern);
+
+            // Assume validity until proven otherwise.
+            bool allPathsValid = true;
+
+            // Use the application's current directory as the base for relative paths.
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Iterate over all matches to validate each path found.
+            foreach (Match match in matches)
+            {
+                // Extract the path, removing quotes if present.
+                string path = match.Groups[1].Value;
+
+                // Convert relative paths to absolute using the base directory.
+                string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
+
+                // Check if the path (either absolute or converted from relative) is valid.
+                bool isValid = Directory.Exists(absolutePath) || File.Exists(absolutePath);
+
+                // If any path is invalid, set allPathsValid to false and break out of the loop.
+                if (!isValid)
+                {
+                    allPathsValid = false;
+                    break;
+                }
+            }
+
+            // Return the final validity status.
+            return allPathsValid;
         }
 
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
