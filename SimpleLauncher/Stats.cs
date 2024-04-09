@@ -10,12 +10,15 @@ public static class Stats
     {
         var client = new HttpClient();
         string apiUrl = "https://purelogiccode.com/simplelauncher/stats.php";
+        string apiKey = "HJUYU675678rthgyjUIkder34343ghr43ehhhhhhJJJJJd";
+
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         try
         {
             HttpResponseMessage response = await client.GetAsync(apiUrl);
-            response.EnsureSuccessStatusCode(); // Throws an exception if the HTTP response status is an error
-           
+            response.EnsureSuccessStatusCode(); // Exception if the HTTP response status is an error
+       
         }
         catch (HttpRequestException ex)
         {
@@ -32,5 +35,3 @@ public static class Stats
     }
     
 }
-
-
