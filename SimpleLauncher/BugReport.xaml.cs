@@ -3,17 +3,35 @@ using System.Reflection;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher
 {
     public partial class BugReport
     {
         private static readonly HttpClient HttpClient = new();
-
+        private static string ApiKey { get; set; }
+        
         public BugReport()
         {
             InitializeComponent();
             DataContext = this; // Set the data context for data binding
+            LoadConfiguration(); // Load the API key
+        }
+        
+        private void LoadConfiguration()
+        {
+            string configFile = "appsettings.json";
+            if (File.Exists(configFile))
+            {
+                var config = JObject.Parse(File.ReadAllText(configFile));
+                ApiKey = config["ApiKey"]?.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Configuration file missing. The application may not function correctly.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -60,10 +78,16 @@ namespace SimpleLauncher
         { new StringContent(messageWithVersion), "message" }
     };
 
-            // Set the API Key
-            if (!HttpClient.DefaultRequestHeaders.Contains("X-API-KEY"))
+            // Set the API Key from the loaded configuration
+            HttpClient.DefaultRequestHeaders.Remove("X-API-KEY"); // Remove existing to avoid duplicates
+            if (!string.IsNullOrEmpty(ApiKey))
             {
-                HttpClient.DefaultRequestHeaders.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
+                HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+            }
+            else
+            {
+                MessageBox.Show("API Key is not configured. Please check your configuration.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             try

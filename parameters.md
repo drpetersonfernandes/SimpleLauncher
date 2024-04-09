@@ -327,6 +327,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 You need to create a bat file that can directly launch the game.
 
+Try launching your batch file directly outside of Simple Launcher first. If it works there, it should also work inside Simple Launcher.
+
 ## Magnavox Odyssey 2
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -467,6 +469,8 @@ If you prefer to use BAT files, you can use the following model as an example:
 cd /d "J:\Microsoft Windows\Mega Man 11"
 start game.exe
 ```
+
+Try launching your batch file directly outside of Simple Launcher first. If it works there, it should also work inside Simple Launcher.
 
 ## Microsoft Xbox
 
@@ -961,6 +965,8 @@ Bat file example:
 D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
 ```
 
+Try launching your batch file directly outside of Simple Launcher first. If it works there, it should also work inside Simple Launcher.
+
 ## Sega Dreamcast
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1212,6 +1218,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** <br>
 
 Use the [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) I wrote to generate the BAT files for you.
+
+Try launching your batch file directly outside of Simple Launcher first. If it works there, it should also work inside Simple Launcher.
 
 ## Sony PSP
 
