@@ -3,12 +3,29 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Reflection;
+using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher
 {
     public class LogErrors
     {
         private static readonly HttpClient HttpClient = new();
+        private static string ApiKey { get; set; }
+        
+        static LogErrors()
+        {
+            LoadConfiguration();
+        }
+        
+        private static void LoadConfiguration()
+        {
+            string configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+            if (File.Exists(configFile))
+            {
+                var config = JObject.Parse(File.ReadAllText(configFile));
+                ApiKey = config["ApiKey"]?.ToString();
+            }
+        }
 
         public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
         {
@@ -39,6 +56,12 @@ namespace SimpleLauncher
         
         private static async Task<bool> SendLogToApiAsync(string logContent)
         {
+            if (string.IsNullOrEmpty(ApiKey))
+            {
+                // Log or handle the missing API key appropriately
+                return false;
+            }
+            
             // Prepare the content to be sent via HTTP POST.
             var formData = new MultipartFormDataContent
             {
@@ -52,7 +75,7 @@ namespace SimpleLauncher
             {
                 Content = formData
             };
-            request.Headers.Add("X-API-KEY", "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
+            request.Headers.Add("X-API-KEY", ApiKey);
 
             try
             {
