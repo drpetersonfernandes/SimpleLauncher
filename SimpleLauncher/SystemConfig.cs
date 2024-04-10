@@ -38,36 +38,43 @@ namespace SimpleLauncher
                     
                     try
                     {
-                        var backupFiles = Directory.GetFiles(directoryPath!, "system_backup*.xml").ToList();
-                        if (backupFiles.Count > 0)
+                        if (directoryPath != null)
                         {
-                            // Sort the backup files by their creation time to find the most recent one
-                            var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
-                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\nBut I found a backup system file.\n\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (restoreResult == MessageBoxResult.Yes)
+                            var backupFiles = Directory.GetFiles(directoryPath, "system_backup*.xml").ToList();
+                            if (backupFiles.Count > 0)
                             {
-                                // Rename the most recent backup file to system.xml
-                                File.Copy(mostRecentBackupFile, xmlPath!, false); // Does not Overwrite the file if it already exists
+                                // Sort the backup files by their creation time to find the most recent one
+                                var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
+                                MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\nBut I found a backup system file.\n\nWould you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                if (restoreResult == MessageBoxResult.Yes)
+                                {
+                                    // Rename the most recent backup file to system.xml
+                                    if (xmlPath != null)
+                                        File.Copy(mostRecentBackupFile, xmlPath,
+                                            false); // Does not Overwrite the file if it already exists
+                                }
                             }
-                        }
-                        else
-                        {
-                            try
+                            else
                             {
-                                // Location of system_model.xml
-                                string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
+                                try
+                                {
+                                    // Location of system_model.xml
+                                    string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
 
-                                // Rename system.model to to system.xml
-                                File.Copy(systemModel, xmlPath!, false); // Does not Overwrite the file if it already exists
-                            }
-                            catch (Exception)
-                            {
-                                string contextMessage = $"The file system_model.xml is missing.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.";
-                                MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    // Rename system.model to system.xml
+                                    if (xmlPath != null)
+                                        File.Copy(systemModel, xmlPath,
+                                            false); // Does not Overwrite the file if it already exists
+                                }
+                                catch (Exception)
+                                {
+                                    string contextMessage = $"The file system_model.xml is missing.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.";
+                                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                                // Shutdown the application and exit
-                                Application.Current.Shutdown();
-                                Environment.Exit(0);
+                                    // Shutdown the application and exit
+                                    Application.Current.Shutdown();
+                                    Environment.Exit(0);
+                                }
                             }
                         }
                     }
@@ -81,59 +88,70 @@ namespace SimpleLauncher
                     }
                 }
 
-                var doc = XDocument.Load(xmlPath!);
+                var doc = XDocument.Load(xmlPath ?? throw new ArgumentNullException(nameof(xmlPath)));
                 var systemConfigs = new List<SystemConfig>();
 
-                foreach (var sysConfigElement in doc.Root!.Elements("SystemConfig"))
-                {
-                    if (sysConfigElement.Element("SystemName") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemName")!.Value))
-                        throw new InvalidOperationException("Missing or empty SystemName in XML.");
-
-                    if (sysConfigElement.Element("SystemFolder") == null || string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")!.Value))
-                        throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
-                    
-                    if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
-                        throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
-
-                    var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")?.Elements("FormatToSearch").Select(e => e.Value).ToList();
-                    if (formatsToSearch == null || formatsToSearch.Count == 0)
-                        throw new InvalidOperationException("FileFormatsToSearch should have at least one value.");
-
-                    if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value, out bool extractFileBeforeLaunch))
-                        throw new InvalidOperationException("Invalid or missing value for ExtractFileBeforeLaunch.");
-
-                    var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")?.Elements("FormatToLaunch").Select(e => e.Value).ToList();
-                    if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                        throw new InvalidOperationException("FileFormatsToLaunch should have at least one value when ExtractFileBeforeLaunch is true.");
-
-                    var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(emulatorElement =>
+                if (doc.Root != null)
+                    foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                     {
-                        if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                            throw new InvalidOperationException("EmulatorName should not be empty or null.");
+                        if (sysConfigElement.Element("SystemName") == null ||
+                            string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
+                            throw new InvalidOperationException("Missing or empty SystemName in XML.");
 
-                        return new Emulator
+                        if (sysConfigElement.Element("SystemFolder") == null ||
+                            string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
+                            throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
+
+                        if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
+                            throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
+
+                        var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
+                            ?.Elements("FormatToSearch").Select(e => e.Value).ToList();
+                        if (formatsToSearch == null || formatsToSearch.Count == 0)
+                            throw new InvalidOperationException("FileFormatsToSearch should have at least one value.");
+
+                        if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
+                                out bool extractFileBeforeLaunch))
+                            throw new InvalidOperationException(
+                                "Invalid or missing value for ExtractFileBeforeLaunch.");
+
+                        var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
+                            ?.Elements("FormatToLaunch").Select(e => e.Value).ToList();
+                        if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
+                            throw new InvalidOperationException(
+                                "FileFormatsToLaunch should have at least one value when ExtractFileBeforeLaunch is true.");
+
+                        var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(
+                            emulatorElement =>
+                            {
+                                if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
+                                    throw new InvalidOperationException("EmulatorName should not be empty or null.");
+
+                                return new Emulator
+                                {
+                                    EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
+                                    EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
+                                    EmulatorParameters =
+                                        emulatorElement.Element("EmulatorParameters")
+                                            ?.Value // It's okay if this is null or empty
+                                };
+                            }).ToList();
+
+                        if (emulators == null || emulators.Count == 0)
+                            throw new InvalidOperationException("Emulators list should not be empty or null.");
+
+                        systemConfigs.Add(new SystemConfig
                         {
-                            EmulatorName = emulatorElement.Element("EmulatorName")!.Value,
-                            EmulatorLocation = emulatorElement.Element("EmulatorLocation")!.Value,
-                            EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value // It's okay if this is null or empty
-                        };
-                    }).ToList();
-
-                    if (emulators == null || emulators.Count == 0)
-                        throw new InvalidOperationException("Emulators list should not be empty or null.");
-
-                    systemConfigs.Add(new SystemConfig
-                    {
-                        SystemName = sysConfigElement.Element("SystemName")?.Value,
-                        SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
-                        SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
-                        SystemIsMame = systemIsMame,
-                        ExtractFileBeforeLaunch = extractFileBeforeLaunch,
-                        FileFormatsToSearch = formatsToSearch,
-                        FileFormatsToLaunch = formatsToLaunch,
-                        Emulators = emulators
-                    });
-                }
+                            SystemName = sysConfigElement.Element("SystemName")?.Value,
+                            SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
+                            SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
+                            SystemIsMame = systemIsMame,
+                            ExtractFileBeforeLaunch = extractFileBeforeLaunch,
+                            FileFormatsToSearch = formatsToSearch,
+                            FileFormatsToLaunch = formatsToLaunch,
+                            Emulators = emulators
+                        });
+                    }
 
                 return systemConfigs;
             }

@@ -36,12 +36,12 @@ namespace SimpleLauncher
                 // Validate and assign VideoUrl
                 string videoUrl = settings.Element("VideoUrl")?.Value;
                 VideoUrl = !string.IsNullOrEmpty(videoUrl) ? videoUrl : "https://www.youtube.com/results?search_query=";
-                VideoLinkTextBox.Text = VideoUrl!;
+                VideoLinkTextBox.Text = VideoUrl;
 
                 // Validate and assign InfoUrl
                 string infoUrl = settings.Element("InfoUrl")?.Value;
                 InfoUrl = !string.IsNullOrEmpty(infoUrl) ? infoUrl : "https://www.igdb.com/search?q=";
-                InfoLinkTextBox.Text = InfoUrl!;
+                InfoLinkTextBox.Text = InfoUrl;
                 
             }
             catch (Exception exception)

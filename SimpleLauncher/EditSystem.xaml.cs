@@ -61,7 +61,7 @@ namespace SimpleLauncher
             if (SystemNameDropdown.SelectedItem == null) return;
             if (_xmlDoc == null) return;
 
-            string selectedSystemName = SystemNameDropdown.SelectedItem.ToString()!;
+            string selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
             var selectedSystem = _xmlDoc.Descendants("SystemConfig")
                 .FirstOrDefault(x => x.Element("SystemName")?.Value == selectedSystemName);
 
@@ -657,7 +657,7 @@ namespace SimpleLauncher
                 return;
             }
 
-            string selectedSystemName = SystemNameDropdown.SelectedItem.ToString()!;
+            string selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
             if (_xmlDoc == null) return;
             var systemNode = _xmlDoc.Descendants("SystemConfig")

@@ -43,12 +43,23 @@ namespace SimpleLauncher
                 XElement settings = XElement.Load(_filePath);
 
                 // Validate and assign ThumbnailSize
-                int thumbnailSize = int.Parse(settings.Element("ThumbnailSize")!.Value, CultureInfo.InvariantCulture);
-                ThumbnailSize = _validThumbnailSizes.Contains(thumbnailSize) ? thumbnailSize : 200;
-                
+                int thumbnailSize = 200;
+                if (settings.Element("ThumbnailSize")?.Value is not null)
+                {
+                    if (int.TryParse(settings.Element("ThumbnailSize")?.Value, NumberStyles.Any,
+                            CultureInfo.InvariantCulture, out int parsed))
+                    {
+                        thumbnailSize = _validThumbnailSizes.Contains(parsed) ? parsed : 200;
+                    }
+                }
+                ThumbnailSize = thumbnailSize;
+
                 // Validate and assign GamesPerPage
-                int gamesPerPage = int.Parse(settings.Element("GamesPerPage")!.Value, CultureInfo.InvariantCulture);
-                GamesPerPage = _validGamesPerPage.Contains(gamesPerPage) ? gamesPerPage : 200;
+                if (settings.Element("GamesPerPage") != null)
+                {
+                    int gamesPerPage = int.Parse(settings.Element("GamesPerPage")?.Value ?? string.Empty, CultureInfo.InvariantCulture);
+                    GamesPerPage = _validGamesPerPage.Contains(gamesPerPage) ? gamesPerPage : 200;
+                }
 
                 // Validate and assign ShowGames
                 string showGames = settings.Element("ShowGames")?.Value ?? "ShowAll"; // Default to "ShowAll" if null

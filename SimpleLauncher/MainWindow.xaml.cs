@@ -363,7 +363,7 @@ namespace SimpleLauncher
                 // Extract the path, removing quotes if present.
                 string path = match.Groups[1].Value;
 
-                // Convert relative paths to absolute using the base directory.
+                // Convert relative path to absolutely path using the base directory.
                 string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
 
                 // Check if the path (either absolute or converted from relative) is valid.
@@ -844,7 +844,7 @@ namespace SimpleLauncher
             {
                 // Extract the numeric value from the header
                 var sizeText = clickedItem.Header.ToString();
-                if (int.TryParse(new string(sizeText!.Where(char.IsDigit).ToArray()), out int newSize))
+                if (sizeText != null && int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
                 {
                     _gameButtonFactory.ImageHeight = newSize; // Update the image height
                     _settings.ThumbnailSize = newSize; // Update the settings
@@ -860,7 +860,7 @@ namespace SimpleLauncher
             {
                 // Extract the numeric value from the header
                 var pageText = clickedItem.Header.ToString();
-                if (int.TryParse(new string(pageText!.Where(char.IsDigit).ToArray()), out int newPage))
+                if (pageText != null && int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out int newPage))
                 {
                     _filesPerPage = newPage; // Update the page size
                     _paginationThreshold = newPage; // update pagination threshold
