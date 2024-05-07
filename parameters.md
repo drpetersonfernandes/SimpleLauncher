@@ -10,6 +10,7 @@
 
 **Emulator Name:** MAME gx4000<br>
 **Emulator Location:** [MAME Folder]\mame.exe<br>
+**Emulator Location (Example):** C:\emulators\mame\mame.exe<br>
 **Emulator Parameters:** gx4000 -cart<br>
 
 ## Atari 2600
@@ -22,12 +23,14 @@
 
 **Emulator Name:** Retroarch stella<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\stella_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require bios files or special configurations to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 **Emulator Name:** Stella<br>
 **Emulator Location:** [Stella Folder]\Stella.exe<br>
+**Emulator Location (Example):** C:\emulators\stella\Stella.exe<br>
 **Emulator Parameters:** -fullscreen 1<br>
 
 Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).
@@ -42,6 +45,7 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 
 **Emulator Name:** Altirra<br>
 **Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
+**Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
 **Emulator Parameters:** <br>
 
 ## Atari 7800
@@ -54,10 +58,10 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 
 **Emulator Name:** Retroarch prosystem<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\prosystem_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/). Core may require bios files or special configurations to work properly.<br>
-
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 [//]: # (**Emulator Name:** A7800<br>)
 [//]: # (**Emulator Location:** [A7800 Folder]\.exe<br>)
@@ -77,13 +81,13 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Altirra<br>
 **Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
+**Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
 **Emulator Parameters:** <br>
 
 
 [//]: # (**Emulator Name:** Atari800<br>)
 [//]: # (**Emulator Location:** [Atari800 Folder]\.exe<br>)
 [//]: # (**Emulator Parameters:** <br>)
-
 
 [//]: # (**Emulator Name:** Atari++<br>)
 [//]: # (**Emulator Location:** [Atari++ Folder]\.exe<br>)
@@ -99,6 +103,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** BigPEmu<br>
 **Emulator Location:** [BigPEmu Folder]\BigPEmu.exe<br>
+**Emulator Location (Example):** C:\emulators\bigpemu\BigPEmu.exe<br>
 **Emulator Parameters:** <br>
 
 ## Atari Jaguar CD
@@ -111,6 +116,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** BigPEmu<br>
 **Emulator Location:** [BigPEmu Folder]\BigPEmu.exe<br>
+**Emulator Location (Example):** C:\emulators\bigpemu\BigPEmu.exe<br>
 **Emulator Parameters:** <br>
 
 ## Atari Lynx
@@ -123,10 +129,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch mednafen_lynx<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_lynx_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Core may require bios files or special configurations to work properly.<br>
-
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 [//]: # (**Emulator Name:** Felix<br>)
 [//]: # (**Emulator Location:** [Felix Folder]\.exe<br>)
@@ -146,14 +152,14 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch hatari<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -c "[Retroarch Folder]\hatari.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Core may require bios files or special configurations to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 **Emulator Name:** Hatari<br>
 **Emulator Location:** [Hatari Folder]\hatari.exe<br>
 **Emulator Parameters:** <br>
-
 
 [//]: # (**Emulator Name:** Steem SSE<br>)
 [//]: # (**Emulator Location:** [Steem SSE Folder]\.exe<br>)
@@ -173,12 +179,14 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_wswan_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require bios files or special configurations to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
+**Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
 [//]: # (**Emulator Name:** ares<br>)
@@ -195,12 +203,14 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_wswan_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require bios files or special configurations to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
+**Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
 [//]: # (**Emulator Name:** ares<br>)
@@ -217,6 +227,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** MAME pv1000<br>
 **Emulator Location:** [MAME Folder]\mame.exe<br>
+**Emulator Location (Example):** C:\emulators\mame\mame.exe<br>
 **Emulator Parameters:** pv1000 -cart<br>
 
 ## ColecoVision
@@ -229,9 +240,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch gearcoleco<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\gearcoleco_libretro.dll" -c "[Retroarch Folder]\Config.cfg" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/). Core may require bios files or special configurations to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 ## Commodore 64
 
