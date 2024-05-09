@@ -23,7 +23,7 @@ namespace SimpleLauncher
             if (File.Exists(configFile))
             {
                 var config = JObject.Parse(File.ReadAllText(configFile));
-                ApiKey = config["ApiKey"]?.ToString();
+                ApiKey = config[nameof(ApiKey)]?.ToString();
             }
         }
 

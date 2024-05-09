@@ -182,7 +182,7 @@ namespace SimpleLauncher
                     // Ensure the stream stays open until the BitmapImage is loaded
                     bi.StreamSource = File.OpenRead(imagePath);
                     bi.EndInit();
-                    // Important for multi-threaded access
+                    // Important for multithreaded access
                     bi.Freeze();
                     return bi;
                 });
@@ -216,7 +216,7 @@ namespace SimpleLauncher
                 bitmapImage.UriSource = new Uri(fallbackImagePath, UriKind.Absolute);
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
-                bitmapImage.Freeze(); // Important for multi-threaded access
+                bitmapImage.Freeze(); // Important for multithreaded access
                 imageControl.Source = bitmapImage; // Assign the fallback image
                 button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
             }
@@ -241,7 +241,7 @@ namespace SimpleLauncher
                 Cursor = System.Windows.Input.Cursors.Hand
             };
 
-            // Set Z-Index to ensure it's on top
+            // Set Z-Index to ensure it is on top
             youtubeIcon.SetValue(Panel.ZIndexProperty, 1);
 
             youtubeIcon.PreviewMouseLeftButtonUp += (_, e) =>
@@ -285,7 +285,7 @@ namespace SimpleLauncher
                 Cursor = System.Windows.Input.Cursors.Hand
             };
 
-            // Set Z-Index to ensure it's on top
+            // Set Z-Index to ensure it is on top
             infoIcon.SetValue(Panel.ZIndexProperty, 1);
 
             infoIcon.PreviewMouseLeftButtonUp += (_, e) =>

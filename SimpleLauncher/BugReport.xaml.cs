@@ -26,7 +26,7 @@ namespace SimpleLauncher
             if (File.Exists(configFile))
             {
                 var config = JObject.Parse(File.ReadAllText(configFile));
-                ApiKey = config["ApiKey"]?.ToString();
+                ApiKey = config[nameof(ApiKey)]?.ToString();
             }
             else
             {
@@ -79,7 +79,7 @@ namespace SimpleLauncher
     };
 
             // Set the API Key from the loaded configuration
-            HttpClient.DefaultRequestHeaders.Remove("X-API-KEY"); // Remove existing to avoid duplicates
+            HttpClient.DefaultRequestHeaders.Remove("X-API-KEY");
             if (!string.IsNullOrEmpty(ApiKey))
             {
                 HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);

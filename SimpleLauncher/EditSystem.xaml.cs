@@ -27,7 +27,6 @@ namespace SimpleLauncher
             LoadXml();
             PopulateSystemNamesDropdown();
             this.Closing += EditSystem_Closing; // attach event handler
-
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
         }
@@ -237,7 +236,7 @@ namespace SimpleLauncher
                 // Extract the path, removing quotes if present.
                 string path = match.Groups[1].Value;
 
-                // Convert relative paths to absolute using the base directory.
+                // Convert relative paths to absolute paths using the base directory.
                 string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
 
                 // Check if the path (either absolute or converted from relative) is valid.

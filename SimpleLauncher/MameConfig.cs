@@ -23,7 +23,7 @@ namespace SimpleLauncher
                 Application.Current.Shutdown();
                 Environment.Exit(0);
 
-                return new List<MameConfig>(); // This is technically unreachable due to the application exit above
+                return new List<MameConfig>();
             }
 
             try
@@ -44,7 +44,7 @@ namespace SimpleLauncher
                 Application.Current.Shutdown();
                 Environment.Exit(0);
 
-                return new List<MameConfig>(); // This line is also technically unreachable due to the application exit
+                return new List<MameConfig>();
             }
         }
     }
