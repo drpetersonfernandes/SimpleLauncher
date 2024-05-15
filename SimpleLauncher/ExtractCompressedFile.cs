@@ -16,9 +16,34 @@ namespace SimpleLauncher
 
         private ExtractCompressedFile() { } // Private constructor to enforce singleton pattern
 
+        //public string ExtractArchiveToTemp(string archivePath)
+        //{
+        //    string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        //    Directory.CreateDirectory(tempDirectory);
+
+        //    // Keep track of the temp directory
+        //    _tempDirectories.Add(tempDirectory);
+
+        //    using var archive = ArchiveFactory.Open(archivePath);
+        //    foreach (var entry in archive.Entries)
+        //    {
+        //        if (!entry.IsDirectory)
+        //        {
+        //            entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
+        //            {
+        //                ExtractFullPath = true,
+        //                Overwrite = true
+        //            });
+        //        }
+        //    }
+        //    return tempDirectory;
+        //}
+        
         public string ExtractArchiveToTemp(string archivePath)
         {
-            string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            // Use the application's directory for the temporary directory
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string tempDirectory = Path.Combine(appDirectory, "temp", Path.GetRandomFileName());
             Directory.CreateDirectory(tempDirectory);
 
             // Keep track of the temp directory
