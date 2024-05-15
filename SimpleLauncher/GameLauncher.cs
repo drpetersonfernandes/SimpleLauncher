@@ -56,7 +56,7 @@ namespace SimpleLauncher
                     {
                         string errorMessage = $"Error launching the batch file.\n\nExit code {process.ExitCode}\n\nOutput: {output}\n\nError: {error}\n\nBAT file: {psi.FileName}";
                         MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Exception exception = new Exception(errorMessage);
+                        Exception exception = new(errorMessage);
                         await LogErrors.LogErrorAsync(exception, errorMessage);
                     }
                     return;
@@ -174,19 +174,28 @@ namespace SimpleLauncher
                     // Determine if extraction is needed based on system configuration
                     if (systemConfig.ExtractFileBeforeLaunch)
                     {
+                        
                         if (fileExtension == ".ZIP" || fileExtension == ".7Z")
                         {
+                            var pleaseWaitExtraction = new PleaseWaitExtraction();
+                            pleaseWaitExtraction.Show();
+                            
                             // Extract the archive to a temporary location
                             string tempExtractLocation = ExtractCompressedFile.Instance2.ExtractArchiveToTemp(filePath);
+                            
+                            var delayTask = Task.Delay(1500);
+                            await delayTask;
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {
                                 string errorMessage = "Failed to extract the archive.\n\nCheck if the compressed file is corrupt.";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                Exception exception = new Exception(errorMessage);
+                                Exception exception = new(errorMessage);
                                 await LogErrors.LogErrorAsync(exception, errorMessage);
                                 return;
                             }
+
+                            pleaseWaitExtraction.Close();
 
                             // Iterate through the formats to launch and find the first file with the specified extension
                             bool fileFound = false;
@@ -206,7 +215,7 @@ namespace SimpleLauncher
                             {
                                 string errorMessage = "Couldn't find a file with the specified extension after extraction.\n\nEdit System to fix it.";
                                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                Exception exception = new Exception(errorMessage);
+                                Exception exception = new(errorMessage);
                                 await LogErrors.LogErrorAsync(exception, errorMessage);
                                 return;
                             }
@@ -240,7 +249,7 @@ namespace SimpleLauncher
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
                         string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
-                        Exception exception = new Exception(errorMessage);
+                        Exception exception = new(errorMessage);
                         await LogErrors.LogErrorAsync(exception, errorMessage);
                         MessageBox.Show($"{errorMessage}\n\nPlease visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
