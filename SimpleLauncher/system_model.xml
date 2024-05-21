@@ -1231,6 +1231,26 @@
     </Emulators>
   </SystemConfig>
   <SystemConfig>
+    <SystemName>Sega Model3</SystemName>
+    <SystemFolder>D:\BAT Folder for Sega Model3</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
+    <SystemIsMAME>true</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>bat</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch></FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Supermodel</EmulatorName>
+        <EmulatorLocation></EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
     <SystemName>Sega Saturn</SystemName>
     <SystemFolder>D:\ROMsAndISOs\Sega Saturn</SystemFolder>
     <SystemImageFolder></SystemImageFolder>
