@@ -1,0 +1,48 @@
+﻿<Window
+    x:Class="SimpleLauncher.EditSystemEasyMode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Edit System"
+    Width="350"
+    Height="300"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical">
+        
+        <Label
+            Margin="10,10,10,20"
+            Content="What do you Want to do?"
+            FontWeight="Bold"
+            FontSize="18"
+            HorizontalAlignment="Center"/>
+
+        <Button
+            Margin="10"
+            Padding="10"
+            Width="150"
+            HorizontalAlignment="Center"
+            Click="AddSystemButton_Click"
+            Content="Add New System">
+        </Button>
+
+        <Button
+            Margin="10"
+            Padding="10"
+            Width="150"
+            HorizontalAlignment="Center"
+            Click="EditSystemButton_Click"
+            Content="Edit Existing System" />
+        
+        <Button
+            Margin="10"
+            Padding="10"
+            Width="150"
+            HorizontalAlignment="Center"
+            Click="DeleteSystemButton_Click"
+            Content="Delete Existing System" />
+        
+    </StackPanel>
+
+</Window>

@@ -1,0 +1,68 @@
+﻿<Window
+    x:Class="SimpleLauncher.EditSystemEasyModeAddSystem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Edit System"
+    Width="500"
+    Height="500"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" Margin="10">
+        
+        <Label
+            Content="Please choose a system to Add"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"/>
+
+        <ComboBox
+            x:Name="SystemNameDropdown"
+            HorizontalAlignment="Stretch"
+            SelectionChanged="SystemNameDropdown_SelectionChanged" />
+        
+        <Label
+            x:Name="AskUser1"
+            Content="Do you already have an emulator for this system?"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Visibility="Hidden"/>
+
+        <ComboBox
+            x:Name="AlreadyHaveEmulatorDropdown"
+            HorizontalAlignment="Stretch"
+            Visibility="Hidden"
+            SelectionChanged="AlreadyHaveEmulatorDropdown_SelectionChanged" />  
+        
+        <Label
+            x:Name="AskUser2"
+            Content="Please select an emulator for this system"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            Visibility="Hidden"/>
+
+        <ComboBox
+            x:Name="EmulatorDropdown"
+            HorizontalAlignment="Stretch"
+            Visibility="Hidden"
+            SelectionChanged="EmulatorDropdown_SelectionChanged" />
+
+        <Button
+            x:Name="DownloadButton"
+            Content="Download Emulator"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="10"
+            Visibility="Hidden"
+            Click="DownloadButton_Click" />
+
+        <ProgressBar
+            x:Name="DownloadProgressBar"
+            HorizontalAlignment="Stretch"
+            Height="25"
+            Margin="10"
+            Visibility="Hidden" />
+
+    </StackPanel>
+
+</Window>

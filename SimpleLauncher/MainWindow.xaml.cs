@@ -718,10 +718,17 @@ namespace SimpleLauncher
         }
 
         #region Menu Items
-
-        private void EditSystem_Click(object sender, RoutedEventArgs e)
+        
+        private void EasyMode_Click(object sender, RoutedEventArgs e)
         {
-            // Save MainWindow state and size before call the EditSystem Window
+            SaveWindowState();
+                
+            EditSystemEasyMode editSystemEasyModeWindow = new();
+            editSystemEasyModeWindow.ShowDialog();
+        }
+
+        private void ExpertMode_Click(object sender, RoutedEventArgs e)
+        {
             SaveWindowState();
                 
             EditSystem editSystemWindow = new();
@@ -876,6 +883,6 @@ namespace SimpleLauncher
         }
 
         #endregion
-        
+
     }
 }
