@@ -4,96 +4,65 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SharpCompress.Archives;
+using SharpCompress.Common;
 
 namespace SimpleLauncher
 {
     public partial class EditSystemEasyModeAddSystem : Window
     {
-        private static readonly string EmulatorDownloadUrl = "https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe";
+        private EmulatorList _emulatorList;
 
         public EditSystemEasyModeAddSystem()
         {
             InitializeComponent();
-            ListOfSystems();
+            LoadEmulatorList();
+            PopulateSystemDropdown();
         }
 
-        private void ListOfSystems()
+        private void LoadEmulatorList()
         {
-            SystemNameDropdown.Items.Add("Amstrad CPC GX4000");
-            SystemNameDropdown.Items.Add("Atari 2600");
-            SystemNameDropdown.Items.Add("Atari 5200");
-            SystemNameDropdown.Items.Add("Atari 7800");
-            SystemNameDropdown.Items.Add("Atari 8-Bit");
-            SystemNameDropdown.Items.Add("Atari Jaguar");
-            SystemNameDropdown.Items.Add("Atari Jaguar CD");
-            SystemNameDropdown.Items.Add("Atari Lynx");
-            SystemNameDropdown.Items.Add("Atari ST");
-            SystemNameDropdown.Items.Add("Bandai WonderSwan");
-            SystemNameDropdown.Items.Add("Bandai WonderSwan Color");
-            SystemNameDropdown.Items.Add("Casio PV-1000");
-            SystemNameDropdown.Items.Add("Colecovision");
-            SystemNameDropdown.Items.Add("Commodore 64");
-            SystemNameDropdown.Items.Add("Commodore Amiga CD32");
-            SystemNameDropdown.Items.Add("LaserDisk");
-            SystemNameDropdown.Items.Add("Magnavox Odyssey 2");
-            SystemNameDropdown.Items.Add("MAME");
-            SystemNameDropdown.Items.Add("Mattel Aquarius");
-            SystemNameDropdown.Items.Add("Mattel Intellivision");
-            SystemNameDropdown.Items.Add("Microsoft MSX");
-            SystemNameDropdown.Items.Add("Microsoft MSX2");
-            SystemNameDropdown.Items.Add("Microsoft Windows");
-            SystemNameDropdown.Items.Add("Microsoft Xbox");
-            SystemNameDropdown.Items.Add("Microsoft Xbox 360");
-            SystemNameDropdown.Items.Add("NEC PC Engine");
-            SystemNameDropdown.Items.Add("NEC PC Engine CD");
-            SystemNameDropdown.Items.Add("NEC PC-FX");
-            SystemNameDropdown.Items.Add("NEC Supergrafx");
-            SystemNameDropdown.Items.Add("Nintendo 3DS");
-            SystemNameDropdown.Items.Add("Nintendo 64");
-            SystemNameDropdown.Items.Add("Nintendo 64DD");
-            SystemNameDropdown.Items.Add("Nintendo DS");
-            SystemNameDropdown.Items.Add("Nintendo Family Computer Disk System");
-            SystemNameDropdown.Items.Add("Nintendo Game Boy");
-            SystemNameDropdown.Items.Add("Nintendo Game Boy Advance");
-            SystemNameDropdown.Items.Add("Nintendo Game Boy Color");
-            SystemNameDropdown.Items.Add("Nintendo GameCube");
-            SystemNameDropdown.Items.Add("Nintendo NES");
-            SystemNameDropdown.Items.Add("Nintendo Satellaview");
-            SystemNameDropdown.Items.Add("Nintendo SNES");
-            SystemNameDropdown.Items.Add("Nintendo SNES MSU1");
-            SystemNameDropdown.Items.Add("Nintendo Switch");
-            SystemNameDropdown.Items.Add("Nintendo Wii");
-            SystemNameDropdown.Items.Add("Nintendo WiiU");
-            SystemNameDropdown.Items.Add("Nintendo WiiWare");
-            SystemNameDropdown.Items.Add("Panasonic 3DO");
-            SystemNameDropdown.Items.Add("Philips CD-i");
-            SystemNameDropdown.Items.Add("ScummVM");
-            SystemNameDropdown.Items.Add("Sega Dreamcast");
-            SystemNameDropdown.Items.Add("Sega Game Gear");
-            SystemNameDropdown.Items.Add("Sega Genesis");
-            SystemNameDropdown.Items.Add("Sega Genesis 32X");
-            SystemNameDropdown.Items.Add("Sega Genesis CD");
-            SystemNameDropdown.Items.Add("Sega Master System");
-            SystemNameDropdown.Items.Add("Sega Model3");
-            SystemNameDropdown.Items.Add("Sega Saturn");
-            SystemNameDropdown.Items.Add("Sega SC-3000");
-            SystemNameDropdown.Items.Add("Sega SG-1000");
-            SystemNameDropdown.Items.Add("Sinclair ZX Spectrum");
-            SystemNameDropdown.Items.Add("SNK Neo Geo CD");
-            SystemNameDropdown.Items.Add("SNK Neo Geo Pocket");
-            SystemNameDropdown.Items.Add("SNK Neo Geo Pocket Color");
-            SystemNameDropdown.Items.Add("Sony Playstation 1");
-            SystemNameDropdown.Items.Add("Sony Playstation 2");
-            SystemNameDropdown.Items.Add("Sony Playstation 3");
-            SystemNameDropdown.Items.Add("Sony PSP");
+            string filePath = "emulatorlist.xml";
+            if (File.Exists(filePath))
+            {
+                _emulatorList = EmulatorList.LoadFromFile(filePath);
+            }
+            else
+            {
+                MessageBox.Show("Emulator list file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+            }
+        }
+
+        private void PopulateSystemDropdown()
+        {
+            var systems = new[]
+            {
+                "Amstrad CPC GX4000", "Arcade", "Atari 2600", "Atari 5200", "Atari 7800", "Atari 8-Bit",
+                "Atari Jaguar", "Atari Jaguar CD", "Atari Lynx", "Atari ST", "Bandai WonderSwan", "Bandai WonderSwan Color",
+                "Casio PV-1000", "Colecovision", "Commodore 64", "Commodore Amiga CD32", "LaserDisk", "Magnavox Odyssey 2",
+                "Mattel Aquarius", "Mattel Intellivision", "Microsoft MSX", "Microsoft MSX2", "Microsoft Windows",
+                "Microsoft Xbox", "Microsoft Xbox 360", "NEC PC Engine", "NEC PC Engine CD", "NEC PC-FX", "NEC Supergrafx",
+                "Nintendo 3DS", "Nintendo 64", "Nintendo 64DD", "Nintendo DS", "Nintendo Family Computer Disk System",
+                "Nintendo Game Boy", "Nintendo Game Boy Advance", "Nintendo Game Boy Color", "Nintendo GameCube",
+                "Nintendo NES", "Nintendo Satellaview", "Nintendo SNES", "Nintendo SNES MSU1", "Nintendo Switch",
+                "Nintendo Wii", "Nintendo WiiU", "Nintendo WiiWare", "Panasonic 3DO", "Philips CD-i", "ScummVM",
+                "Sega Dreamcast", "Sega Game Gear", "Sega Genesis", "Sega Genesis 32X", "Sega Genesis CD", "Sega Master System",
+                "Sega Model3", "Sega Saturn", "Sega SC-3000", "Sega SG-1000", "Sinclair ZX Spectrum", "SNK Neo Geo CD",
+                "SNK Neo Geo Pocket", "SNK Neo Geo Pocket Color", "Sony Playstation 1", "Sony Playstation 2",
+                "Sony Playstation 3", "Sony PSP"
+            };
+
+            foreach (var system in systems)
+            {
+                SystemNameDropdown.Items.Add(system);
+            }
         }
 
         private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SystemNameDropdown.SelectedItem != null)
             {
-                AskUser1.Visibility = Visibility.Visible;
-                AlreadyHaveEmulatorDropdown.Visibility = Visibility.Visible;
                 AlreadyHaveEmulatorDropdown.Items.Clear();
                 AlreadyHaveEmulatorDropdown.Items.Add("Yes");
                 AlreadyHaveEmulatorDropdown.Items.Add("No");
@@ -107,12 +76,9 @@ namespace SimpleLauncher
                 if (AlreadyHaveEmulatorDropdown.SelectedItem.ToString() == "Yes")
                 {
                     // Handle the case where the user already has an emulator
-                    // You can add more logic here if needed
                 }
                 else if (AlreadyHaveEmulatorDropdown.SelectedItem.ToString() == "No")
                 {
-                    MessageBox.Show("Please choose one emulator from the list below", "Choose one emulator", 
-                        MessageBoxButton.OK, MessageBoxImage.Information);
                     LoadListOfEmulators(SystemNameDropdown.SelectedItem.ToString());
                 }
             }
@@ -121,71 +87,81 @@ namespace SimpleLauncher
         private void LoadListOfEmulators(string system)
         {
             EmulatorDropdown.Items.Clear();
-            EmulatorDropdown.Visibility = Visibility.Visible;
-            AskUser2.Visibility = Visibility.Visible;
 
-            switch (system)
+            foreach (var emulator in _emulatorList.Emulators)
             {
-                case "Amstrad CPC GX4000":
-                    EmulatorDropdown.Items.Add("Emulator1 for Amstrad CPC GX4000");
-                    EmulatorDropdown.Items.Add("Emulator2 for Amstrad CPC GX4000");
-                    break;
-                case "Atari 2600":
-                    EmulatorDropdown.Items.Add("Emulator1 for Atari 2600");
-                    EmulatorDropdown.Items.Add("Emulator2 for Atari 2600");
-                    break;
-                case "Atari 5200":
-                    EmulatorDropdown.Items.Add("Emulator1 for Atari 5200");
-                    EmulatorDropdown.Items.Add("Emulator2 for Atari 5200");
-                    break;
-                case "Atari 7800":
-                    EmulatorDropdown.Items.Add("Emulator1 for Atari 7800");
-                    EmulatorDropdown.Items.Add("Emulator2 for Atari 7800");
-                    break;
-                // Add other cases for other systems
-                default:
-                    EmulatorDropdown.Items.Add("Default Emulator");
-                    break;
+                if (emulator.RelatedSystems.Contains(system))
+                {
+                    EmulatorDropdown.Items.Add(emulator.EmulatorName);
+                }
             }
-            DownloadButton.Visibility = Visibility.Visible;
+
+            if (EmulatorDropdown.Items.Count > 0)
+            {
+                DownloadEmulatorButton.IsEnabled = false;
+                DownloadCoreButton.IsEnabled = false;
+                DownloadExtrasButton.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("No emulator found for the selected system.", "No Emulators", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void EmulatorDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (EmulatorDropdown.SelectedItem != null)
             {
-                DownloadButton.Visibility = Visibility.Visible;
+                var selectedEmulator = _emulatorList.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
+
+                if (selectedEmulator != null)
+                {
+                    DownloadEmulatorButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadBinary);
+                    DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadCore);
+                    DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadExtras);
+
+                    DownloadEmulatorButton.Content = $"Download {selectedEmulator.EmulatorName} Emulator";
+                    DownloadCoreButton.Content = $"Download {selectedEmulator.EmulatorName} Core";
+                    DownloadExtrasButton.Content = $"Download {selectedEmulator.EmulatorName} Extras";
+                }
             }
         }
 
-        private async void DownloadButton_Click(object sender, RoutedEventArgs e)
+        private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
             string emulatorName = EmulatorDropdown.SelectedItem.ToString();
             string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
             string emulatorsFolderPath = Path.Combine(appFolderPath, "emulators");
-            string emulatorFolderPath = Path.Combine(emulatorsFolderPath, emulatorName);
-            string filePath = Path.Combine(emulatorFolderPath, "mame0265b_64bit.exe");
 
-            // Create directories if they don't exist
-            Directory.CreateDirectory(emulatorFolderPath);
-
-            MessageBox.Show($"I will try to download {emulatorName} for you.", "Download Emulator", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
-
-            DownloadProgressBar.Visibility = Visibility.Visible;
-            bool success = await DownloadFileAsync(EmulatorDownloadUrl, filePath);
-
-            DownloadProgressBar.Visibility = Visibility.Hidden;
-
-            if (success)
+            var selectedEmulator = _emulatorList.Emulators.Find(em => em.EmulatorName == emulatorName);
+            if (selectedEmulator != null)
             {
-                MessageBox.Show("The download was successful!", "Download Success", 
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("The download failed. Please try again.", "Download Failed", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                string emulatorFolderPath = Path.Combine(emulatorsFolderPath, emulatorName);
+                string filePath = Path.Combine(emulatorFolderPath, Path.GetFileName(selectedEmulator.EmulatorDownloadBinary));
+
+                // Create directories if they don't exist
+                Directory.CreateDirectory(emulatorFolderPath);
+
+                bool success = await DownloadFileAsync(selectedEmulator.EmulatorDownloadBinary, filePath);
+
+                if (success)
+                {
+                    bool extractSuccess = ExtractFile(filePath, emulatorFolderPath);
+
+                    if (extractSuccess)
+                    {
+                        File.Delete(filePath);
+                        MessageBox.Show("The download and extraction were successful!", "Download Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The extraction failed. Please try again.", "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The download failed. Please try again.", "Download Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -218,9 +194,10 @@ namespace SimpleLauncher
                         totalRead += read;
                         if (canReportProgress)
                         {
+                            var read1 = totalRead;
                             Dispatcher.Invoke(() =>
                             {
-                                DownloadProgressBar.Value = (double)totalRead / totalBytes * 100;
+                                DownloadProgressBar.Value = (double)read1 / totalBytes * 100;
                             });
                         }
                     }
@@ -228,10 +205,49 @@ namespace SimpleLauncher
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Error downloading file: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
+
+        private bool ExtractFile(string filePath, string destinationFolder)
+        {
+            try
+            {
+                using var archive = ArchiveFactory.Open(filePath);
+                foreach (var entry in archive.Entries)
+                {
+                    if (!entry.IsDirectory)
+                    {
+                        entry.WriteToDirectory(destinationFolder, new ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        private void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Implement core download logic here
+            throw new NotImplementedException();
+        }
+
+        private void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Implement extras download logic here
+            throw new NotImplementedException();
         }
     }
 }

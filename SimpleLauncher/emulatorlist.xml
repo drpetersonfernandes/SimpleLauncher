@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EmulatorList>
+
+    <Emulator>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorDownloadBinary>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorDownloadBinary>
+        <EmulatorDownloadCore>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorDownloadCore>
+        <EmulatorDownloadExtras></EmulatorDownloadExtras>
+        <RelatedSystems>
+            <RelatedSystem>Atari 2600</RelatedSystem>
+            <RelatedSystem>Atari 7800</RelatedSystem>
+            <RelatedSystem>Atari Lynx</RelatedSystem>
+            <RelatedSystem>Atari ST</RelatedSystem>
+            <RelatedSystem>Bandai WonderSwan</RelatedSystem>
+            <RelatedSystem>Bandai WonderSwan Color</RelatedSystem>
+            <RelatedSystem>Colecovision</RelatedSystem>
+            <RelatedSystem>Commodore 64</RelatedSystem>
+            <RelatedSystem>Commodore Amiga CD32</RelatedSystem>
+            <RelatedSystem>Magnavox Odyssey 2</RelatedSystem>
+            <RelatedSystem>Arcade</RelatedSystem>
+            <RelatedSystem>Mattel Intellivision</RelatedSystem>
+            <RelatedSystem>Microsoft MSX</RelatedSystem>
+            <RelatedSystem>Microsoft MSX2</RelatedSystem>
+            <RelatedSystem>NEC PC Engine</RelatedSystem>
+            <RelatedSystem>NEC PC Engine CD</RelatedSystem>
+            <RelatedSystem>NEC PC-FX</RelatedSystem>
+            <RelatedSystem>NEC Supergrafx</RelatedSystem>
+            <RelatedSystem>Nintendo 3DS</RelatedSystem>
+            <RelatedSystem>Nintendo 64</RelatedSystem>
+            <RelatedSystem>Nintendo 64DD</RelatedSystem>
+            <RelatedSystem>Nintendo DS</RelatedSystem>
+            <RelatedSystem>Nintendo Family Computer Disk System</RelatedSystem>
+            <RelatedSystem>Nintendo Game Boy</RelatedSystem>
+            <RelatedSystem>Nintendo Game Boy Advance</RelatedSystem>
+            <RelatedSystem>Nintendo Game Boy Color</RelatedSystem>
+            <RelatedSystem>Nintendo GameCube</RelatedSystem>
+            <RelatedSystem>Nintendo NES</RelatedSystem>
+            <RelatedSystem>Nintendo Satellaview</RelatedSystem>
+            <RelatedSystem>Nintendo SNES</RelatedSystem>
+            <RelatedSystem>Nintendo SNES MSU1</RelatedSystem>
+            <RelatedSystem>Nintendo Wii</RelatedSystem>
+            <RelatedSystem>Nintendo WiiWare</RelatedSystem>
+            <RelatedSystem>Panasonic 3DO</RelatedSystem>
+            <RelatedSystem>Philips CD-i</RelatedSystem>
+            <RelatedSystem>Sega Dreamcast</RelatedSystem>
+            <RelatedSystem>Sega Game Gear</RelatedSystem>
+            <RelatedSystem>Sega Genesis</RelatedSystem>
+            <RelatedSystem>Sega Genesis 32X</RelatedSystem>
+            <RelatedSystem>Sega Genesis CD</RelatedSystem>
+            <RelatedSystem>Sega Master System</RelatedSystem>
+            <RelatedSystem>Sega Saturn</RelatedSystem>
+            <RelatedSystem>Sinclair ZX Spectrum</RelatedSystem>
+            <RelatedSystem>SNK Neo Geo CD</RelatedSystem>
+            <RelatedSystem>SNK Neo Geo Pocket</RelatedSystem>
+            <RelatedSystem>SNK Neo Geo Pocket Color</RelatedSystem>
+            <RelatedSystem>Sony Playstation 1</RelatedSystem>
+            <RelatedSystem>Sony PSP</RelatedSystem>
+        </RelatedSystems>
+    </Emulator>
+
+    <Emulator>
+        <EmulatorName>Stella</EmulatorName>
+        <EmulatorWebsite>https://stella-emu.github.io/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://stella-emu.github.io/downloads.html</EmulatorDownloadPage>
+        <EmulatorDownloadBinary>https://github.com/stella-emu/stella/releases/download/6.7.1/Stella-6.7.1-windows.zip</EmulatorDownloadBinary>
+        <EmulatorDownloadCore></EmulatorDownloadCore>
+        <EmulatorDownloadExtras></EmulatorDownloadExtras>
+        <RelatedSystems>
+            <RelatedSystem>Atari 2600</RelatedSystem>
+        </RelatedSystems>
+    </Emulator>
+
+</EmulatorList>
