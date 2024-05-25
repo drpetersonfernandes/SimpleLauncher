@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SystemPreset>
+
+    <System>
+        <SystemName>Arcade Retroarch</SystemName>
+        <SystemIsMAME>true</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\MAME</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\Mame_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Arcade MAME</SystemName>
+        <SystemIsMAME>true</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\MAME</SystemRomPath>
+        <EmulatorName>MAME</EmulatorName>
+        <EmulatorWebsite>https://www.mamedev.org/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+        <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>true</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo>7z</EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\MAME</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload></EmulatorCoreDownload>
+        <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\MAME\</EmulatorFolder>
+        <EmulatorExecutableFile>mame.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-rompath ".\roms\MAME"</EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Atari 2600</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Atari 2600</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\stella_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\Stella_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Atari 7800</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Atari 7800</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\prosystem_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\ProSystem_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Atari Lynx</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Atari Lynx</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\MednafenLynx_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Atari ST</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Atari ST</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\hatari_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\Hatari_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <RelatedSystems>
+        <RelatedSystem>Bandai WonderSwan</RelatedSystem>
+        <RelatedSystem>Bandai WonderSwan Color</RelatedSystem>
+        <RelatedSystem>Colecovision</RelatedSystem>
+        <RelatedSystem>Commodore 64</RelatedSystem>
+        <RelatedSystem>Commodore Amiga CD32</RelatedSystem>
+        <RelatedSystem>Magnavox Odyssey 2</RelatedSystem>
+        <RelatedSystem>Mattel Intellivision</RelatedSystem>
+        <RelatedSystem>Microsoft MSX</RelatedSystem>
+        <RelatedSystem>Microsoft MSX2</RelatedSystem>
+        <RelatedSystem>NEC PC Engine</RelatedSystem>
+        <RelatedSystem>NEC PC Engine CD</RelatedSystem>
+        <RelatedSystem>NEC PC-FX</RelatedSystem>
+        <RelatedSystem>NEC Supergrafx</RelatedSystem>
+        <RelatedSystem>Nintendo 3DS</RelatedSystem>
+        <RelatedSystem>Nintendo 64</RelatedSystem>
+        <RelatedSystem>Nintendo 64DD</RelatedSystem>
+        <RelatedSystem>Nintendo DS</RelatedSystem>
+        <RelatedSystem>Nintendo Family Computer Disk System</RelatedSystem>
+        <RelatedSystem>Nintendo Game Boy</RelatedSystem>
+        <RelatedSystem>Nintendo Game Boy Advance</RelatedSystem>
+        <RelatedSystem>Nintendo Game Boy Color</RelatedSystem>
+        <RelatedSystem>Nintendo GameCube</RelatedSystem>
+        <RelatedSystem>Nintendo NES</RelatedSystem>
+        <RelatedSystem>Nintendo Satellaview</RelatedSystem>
+        <RelatedSystem>Nintendo SNES</RelatedSystem>
+        <RelatedSystem>Nintendo SNES MSU1</RelatedSystem>
+        <RelatedSystem>Nintendo Wii</RelatedSystem>
+        <RelatedSystem>Nintendo WiiWare</RelatedSystem>
+        <RelatedSystem>Panasonic 3DO</RelatedSystem>
+        <RelatedSystem>Philips CD-i</RelatedSystem>
+        <RelatedSystem>Sega Dreamcast</RelatedSystem>
+        <RelatedSystem>Sega Game Gear</RelatedSystem>
+        <RelatedSystem>Sega Genesis</RelatedSystem>
+        <RelatedSystem>Sega Genesis 32X</RelatedSystem>
+        <RelatedSystem>Sega Genesis CD</RelatedSystem>
+        <RelatedSystem>Sega Master System</RelatedSystem>
+        <RelatedSystem>Sega Saturn</RelatedSystem>
+        <RelatedSystem>Sinclair ZX Spectrum</RelatedSystem>
+        <RelatedSystem>SNK Neo Geo CD</RelatedSystem>
+        <RelatedSystem>SNK Neo Geo Pocket</RelatedSystem>
+        <RelatedSystem>SNK Neo Geo Pocket Color</RelatedSystem>
+        <RelatedSystem>Sony Playstation 1</RelatedSystem>
+        <RelatedSystem>Sony PSP</RelatedSystem>
+    </RelatedSystems>
+</System>
+
+<System>
+<SystemName>Amstrad CPC GX4000</SystemName>
+<SystemIsMAME>true</SystemIsMAME>
+<SystemFileFormatsToSearch>
+    <SystemFormatToSearch>zip</SystemFormatToSearch>
+    <SystemFormatToSearch>7z</SystemFormatToSearch>
+</SystemFileFormatsToSearch>
+<SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+<SystemFileFormatsToLaunch>
+    <SystemFormatToLaunch></SystemFormatToLaunch>
+</SystemFileFormatsToLaunch>
+<SystemRomPath>.\roms\Amstrad CPC GX4000</SystemRomPath>
+<EmulatorName>MAME</EmulatorName>
+<EmulatorWebsite>https://www.mamedev.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+<EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+<EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe
+</EmulatorBinaryDownload>
+<EmulatorBinaryRename>true</EmulatorBinaryRename>
+<EmulatorBinaryRenameTo>7z</EmulatorBinaryRenameTo>
+<EmulatorBinaryExtractPath>.\emulators\MAME</EmulatorBinaryExtractPath>
+<EmulatorCoreDownload></EmulatorCoreDownload>
+<EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+<EmulatorExtrasDownload></EmulatorExtrasDownload>
+<EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+<EmulatorFolder>.\emulators\MAME\</EmulatorFolder>
+<EmulatorExecutableFile>mame.exe</EmulatorExecutableFile>
+<EmulatorParameters>-rompath ".\roms\Amstrad CPC GX4000"</EmulatorParameters>
+</System>
+
+<System>
+<SystemName>Casio PV-1000</SystemName>
+<SystemIsMAME>true</SystemIsMAME>
+<SystemFileFormatsToSearch>
+    <SystemFormatToSearch>zip</SystemFormatToSearch>
+    <SystemFormatToSearch>7z</SystemFormatToSearch>
+</SystemFileFormatsToSearch>
+<SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+<SystemFileFormatsToLaunch>
+    <SystemFormatToLaunch></SystemFormatToLaunch>
+</SystemFileFormatsToLaunch>
+<SystemRomPath>.\roms\Casio PV-1000</SystemRomPath>
+<EmulatorName>MAME</EmulatorName>
+<EmulatorWebsite>https://www.mamedev.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+<EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+<EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe
+</EmulatorBinaryDownload>
+<EmulatorBinaryRename>true</EmulatorBinaryRename>
+<EmulatorBinaryRenameTo>7z</EmulatorBinaryRenameTo>
+<EmulatorBinaryExtractPath>.\emulators\MAME</EmulatorBinaryExtractPath>
+<EmulatorCoreDownload></EmulatorCoreDownload>
+<EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+<EmulatorExtrasDownload></EmulatorExtrasDownload>
+<EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+<EmulatorFolder>.\emulators\MAME\</EmulatorFolder>
+<EmulatorExecutableFile>mame.exe</EmulatorExecutableFile>
+<EmulatorParameters>-rompath ".\roms\Casio PV-1000"</EmulatorParameters>
+</System>
+
+<Emulator>
+<EmulatorName>Altirra</EmulatorName>
+<EmulatorWebsite>https://www.virtualdub.org/altirra.html</EmulatorWebsite>
+<EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
+<EmulatorLatestVersion>4.21</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Atari 5200</RelatedSystem>
+    <RelatedSystem>Atari 8-Bit</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>BigPEmu</EmulatorName>
+<EmulatorWebsite>https://www.richwhitehouse.com/jaguar/?ref=readonlymemo.com</EmulatorWebsite>
+<EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.14</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v114.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Atari Jaguar</RelatedSystem>
+    <RelatedSystem>Atari Jaguar CD</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Hatari</EmulatorName>
+<EmulatorWebsite>http://hatari.tuxfamily.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://download.tuxfamily.org/hatari/</EmulatorDownloadPage>
+<EmulatorLatestVersion>2.5.0</EmulatorLatestVersion>
+<EmulatorDownloadBinary></EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Atari ST</RelatedSystem>
+    <RelatedSystem>Atari Jaguar CD</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>BizHawk</EmulatorName>
+<EmulatorWebsite>https://tasvideos.org/Bizhawk</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases/</EmulatorDownloadPage>
+<EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/TASEmulators/BizHawk/releases/download/2.9.1/BizHawk-2.9.1-win-x64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Bandai WonderSwan</RelatedSystem>
+    <RelatedSystem>Bandai WonderSwan Color</RelatedSystem>
+    <RelatedSystem>NEC PC Engine CD</RelatedSystem>
+    <RelatedSystem>NEC PC-FX</RelatedSystem>
+    <RelatedSystem>Nintendo 64DD</RelatedSystem>
+    <RelatedSystem>Sega SC-3000</RelatedSystem>
+    <RelatedSystem>Sega SG-1000</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Daphne</EmulatorName>
+<EmulatorWebsite>http://www.daphne-emu.com/</EmulatorWebsite>
+<EmulatorDownloadPage>http://www.daphne-emu.com/site3/index_hi.php</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.0.12</EmulatorLatestVersion>
+<EmulatorDownloadBinary>http://www.daphne-emu.com/download/daphne-1.0v-win32.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>LaserDisk</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>AquaLite</EmulatorName>
+<EmulatorWebsite>https://aquarius.je/aqualite/</EmulatorWebsite>
+<EmulatorDownloadPage>https://aquarius.je/aqualite/</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.36</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://aquarius.je/wp-content/uploads/AquaLite.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Mattel Aquarius</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Direct Launch for Microsoft Windows</EmulatorName>
+<EmulatorWebsite></EmulatorWebsite>
+<EmulatorDownloadPage></EmulatorDownloadPage>
+<EmulatorLatestVersion></EmulatorLatestVersion>
+<EmulatorDownloadBinary></EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Microsoft Windows</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>ScummVM (Direct Launch)</EmulatorName>
+<EmulatorWebsite>https://www.scummvm.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://www.scummvm.org/downloads/</EmulatorDownloadPage>
+<EmulatorLatestVersion>2.8.1</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://downloads.scummvm.org/frs/scummvm/2.8.1/scummvm-2.8.1-win32-x86_64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Maniac Mansion Virtual Machine</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Supermodel (Direct Launch)</EmulatorName>
+<EmulatorWebsite>https://www.supermodel3.com/</EmulatorWebsite>
+<EmulatorDownloadPage>https://www.supermodel3.com/Download.html</EmulatorDownloadPage>
+<EmulatorLatestVersion>0.3a</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://www.supermodel3.com/Files/Git_Snapshots/Supermodel_0.3a-git-7d32bde_Win64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sega Model 3</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Xemu</EmulatorName>
+<EmulatorWebsite>https://xemu.app/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/xemu-project/xemu/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>0.7.122</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/xemu-project/xemu/releases/download/v0.7.122/xemu-win-release.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Microsoft Xbox</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Xenia</EmulatorName>
+<EmulatorWebsite>https://xenia.jp/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/xenia-project/release-builds-windows/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.0.2816</EmulatorLatestVersion>
+<EmulatorDownloadBinary>
+    https://github.com/xenia-project/release-builds-windows/releases/download/v1.0.2816-master/xenia_master.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Microsoft Xbox 360</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Citra (PabloMK7 fork)</EmulatorName>
+<EmulatorWebsite>https://github.com/PabloMK7/citra</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/PabloMK7/citra/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>r64e3e9f</EmulatorLatestVersion>
+<EmulatorDownloadBinary>
+    https://github.com/PabloMK7/citra/releases/download/r64e3e9f/citra-windows-msvc-20240516-64e3e9f.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo 3DS</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Lime3DS</EmulatorName>
+<EmulatorWebsite>https://github.com/Lime3DS/Lime3DS</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/Lime3DS/Lime3DS/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>2113</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/Lime3DS/Lime3DS/releases/download/2113/lime3ds-2113-windows-msvc.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo 3DS</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Dolphin</EmulatorName>
+<EmulatorWebsite>https://dolphin-emu.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://dolphin-emu.org/download/?ref=btn</EmulatorDownloadPage>
+<EmulatorLatestVersion>5.0-21460</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://dl.dolphin-emu.org/builds/b4/33/dolphin-master-5.0-21460-x64.7z</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo GameCube</RelatedSystem>
+    <RelatedSystem>Nintendo Wii</RelatedSystem>
+    <RelatedSystem>Nintendo WiiWare</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Snes9x</EmulatorName>
+<EmulatorWebsite>https://github.com/snes9xgit/snes9x</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/snes9xgit/snes9x/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.62.3</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/snes9xgit/snes9x/releases/download/1.62.3/snes9x-1.62.3-win32-x64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo SNES</RelatedSystem>
+    <RelatedSystem>Nintendo SNES MSU1</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Ryujinx</EmulatorName>
+<EmulatorWebsite>https://ryujinx.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/Ryujinx/release-channel-master/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.1.1321</EmulatorLatestVersion>
+<EmulatorDownloadBinary>
+    https://github.com/Ryujinx/release-channel-master/releases/download/1.1.1321/ryujinx-1.1.1321-win_x64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo Switch</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Sudachi</EmulatorName>
+<EmulatorWebsite>https://github.com/sudachi-emu/sudachi</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/sudachi-emu/sudachi/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>edd7896</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/sudachi-emu/sudachi/releases/download/vedd7896/edd7896-windows.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo Switch</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Torzu</EmulatorName>
+<EmulatorWebsite>https://github.com/litucks/torzu</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/litucks/torzu/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>2024-05-14</EmulatorLatestVersion>
+<EmulatorDownloadBinary></EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo Switch</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Cemu</EmulatorName>
+<EmulatorWebsite>https://cemu.info/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>2.0-83</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/cemu-project/Cemu/releases/download/v2.0-83/cemu-2.0-83-windows-x64.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Nintendo WiiU</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>Redream</EmulatorName>
+<EmulatorWebsite>http://redream.io/</EmulatorWebsite>
+<EmulatorDownloadPage>https://redream.io/download</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.5.0-1127-g6b62eff</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://redream.io/download/redream.x86_64-windows-v1.5.0-1127-g6b62eff.zip
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sega Dreamcast</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>MasterGear</EmulatorName>
+<EmulatorWebsite>https://fms.komkon.org/MG/</EmulatorWebsite>
+<EmulatorDownloadPage>https://fms.komkon.org/MG/#Downloads</EmulatorDownloadPage>
+<EmulatorLatestVersion>4.9</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://fms.komkon.org/MG/MG49-Windows-bin.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sega SC-3000</RelatedSystem>
+    <RelatedSystem>Sega SG-1000</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>DuckStation</EmulatorName>
+<EmulatorWebsite>https://github.com/stenzek/duckstation</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion></EmulatorLatestVersion>
+<EmulatorDownloadBinary></EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sony Playstation 1</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>PCSX2</EmulatorName>
+<EmulatorWebsite>https://pcsx2.net/</EmulatorWebsite>
+<EmulatorDownloadPage>https://github.com/PCSX2/pcsx2/releases</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.7.5839</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5839/pcsx2-v1.7.5839-windows-x64-Qt.7z
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sony Playstation 2</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>RPCS3</EmulatorName>
+<EmulatorWebsite>https://rpcs3.net/</EmulatorWebsite>
+<EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>
+<EmulatorLatestVersion>0.0.32-16523</EmulatorLatestVersion>
+<EmulatorDownloadBinary>
+    https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-3dfbd14de2856c7c058bf859e77182c514a61084/rpcs3-v0.0.32-16523-3dfbd14d_win64.7z
+</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sony Playstation 3</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+<Emulator>
+<EmulatorName>PPSSPP</EmulatorName>
+<EmulatorWebsite>https://www.ppsspp.org/</EmulatorWebsite>
+<EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
+<EmulatorLatestVersion>1.17.1</EmulatorLatestVersion>
+<EmulatorDownloadBinary>https://www.ppsspp.org/files/1_17_1/ppsspp_win.zip</EmulatorDownloadBinary>
+<EmulatorDownloadCore></EmulatorDownloadCore>
+<EmulatorDownloadExtras></EmulatorDownloadExtras>
+<RelatedSystems>
+    <RelatedSystem>Sony PSP</RelatedSystem>
+</RelatedSystems>
+</Emulator>
+
+        </SystemPreset>
