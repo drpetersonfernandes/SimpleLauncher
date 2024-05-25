@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using SharpCompress.Archives;
-using SharpCompress.Common;
 
 namespace SimpleLauncher
 {
-    public partial class EditSystemEasyModeAddSystem : Window
+    public partial class EditSystemEasyModeAddSystem
     {
         private EmulatorList _emulatorList;
 
@@ -36,22 +35,11 @@ namespace SimpleLauncher
 
         private void PopulateSystemDropdown()
         {
-            var systems = new[]
-            {
-                "Amstrad CPC GX4000", "Arcade", "Atari 2600", "Atari 5200", "Atari 7800", "Atari 8-Bit",
-                "Atari Jaguar", "Atari Jaguar CD", "Atari Lynx", "Atari ST", "Bandai WonderSwan", "Bandai WonderSwan Color",
-                "Casio PV-1000", "Colecovision", "Commodore 64", "Commodore Amiga CD32", "LaserDisk", "Magnavox Odyssey 2",
-                "Mattel Aquarius", "Mattel Intellivision", "Microsoft MSX", "Microsoft MSX2", "Microsoft Windows",
-                "Microsoft Xbox", "Microsoft Xbox 360", "NEC PC Engine", "NEC PC Engine CD", "NEC PC-FX", "NEC Supergrafx",
-                "Nintendo 3DS", "Nintendo 64", "Nintendo 64DD", "Nintendo DS", "Nintendo Family Computer Disk System",
-                "Nintendo Game Boy", "Nintendo Game Boy Advance", "Nintendo Game Boy Color", "Nintendo GameCube",
-                "Nintendo NES", "Nintendo Satellaview", "Nintendo SNES", "Nintendo SNES MSU1", "Nintendo Switch",
-                "Nintendo Wii", "Nintendo WiiU", "Nintendo WiiWare", "Panasonic 3DO", "Philips CD-i", "ScummVM",
-                "Sega Dreamcast", "Sega Game Gear", "Sega Genesis", "Sega Genesis 32X", "Sega Genesis CD", "Sega Master System",
-                "Sega Model3", "Sega Saturn", "Sega SC-3000", "Sega SG-1000", "Sinclair ZX Spectrum", "SNK Neo Geo CD",
-                "SNK Neo Geo Pocket", "SNK Neo Geo Pocket Color", "Sony Playstation 1", "Sony Playstation 2",
-                "Sony Playstation 3", "Sony PSP"
-            };
+            var systems = _emulatorList.Emulators
+                .SelectMany(emulator => emulator.RelatedSystems)
+                .Distinct()
+                .OrderBy(system => system) // Order systems alphabetically
+                .ToList();
 
             foreach (var system in systems)
             {
@@ -63,24 +51,7 @@ namespace SimpleLauncher
         {
             if (SystemNameDropdown.SelectedItem != null)
             {
-                AlreadyHaveEmulatorDropdown.Items.Clear();
-                AlreadyHaveEmulatorDropdown.Items.Add("Yes");
-                AlreadyHaveEmulatorDropdown.Items.Add("No");
-            }
-        }
-
-        private void AlreadyHaveEmulatorDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (AlreadyHaveEmulatorDropdown.SelectedItem != null)
-            {
-                if (AlreadyHaveEmulatorDropdown.SelectedItem.ToString() == "Yes")
-                {
-                    // Handle the case where the user already has an emulator
-                }
-                else if (AlreadyHaveEmulatorDropdown.SelectedItem.ToString() == "No")
-                {
-                    LoadListOfEmulators(SystemNameDropdown.SelectedItem.ToString());
-                }
+                LoadListOfEmulators(SystemNameDropdown.SelectedItem.ToString());
             }
         }
 
@@ -88,12 +59,14 @@ namespace SimpleLauncher
         {
             EmulatorDropdown.Items.Clear();
 
-            foreach (var emulator in _emulatorList.Emulators)
+            var emulators = _emulatorList.Emulators
+                .Where(emulator => emulator.RelatedSystems.Contains(system))
+                .OrderBy(emulator => emulator.EmulatorName)
+                .ToList();
+
+            foreach (var emulator in emulators)
             {
-                if (emulator.RelatedSystems.Contains(system))
-                {
-                    EmulatorDropdown.Items.Add(emulator.EmulatorName);
-                }
+                EmulatorDropdown.Items.Add(emulator.EmulatorName);
             }
 
             if (EmulatorDropdown.Items.Count > 0)
@@ -104,7 +77,8 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("No emulator found for the selected system.", "No Emulators", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("No emulator found for the selected system.", "No Emulators", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
         }
 
@@ -112,7 +86,8 @@ namespace SimpleLauncher
         {
             if (EmulatorDropdown.SelectedItem != null)
             {
-                var selectedEmulator = _emulatorList.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
+                var selectedEmulator =
+                    _emulatorList.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
 
                 if (selectedEmulator != null)
                 {
@@ -137,7 +112,8 @@ namespace SimpleLauncher
             if (selectedEmulator != null)
             {
                 string emulatorFolderPath = Path.Combine(emulatorsFolderPath, emulatorName);
-                string filePath = Path.Combine(emulatorFolderPath, Path.GetFileName(selectedEmulator.EmulatorDownloadBinary));
+                string filePath = Path.Combine(emulatorFolderPath,
+                    Path.GetFileName(selectedEmulator.EmulatorDownloadBinary));
 
                 // Create directories if they don't exist
                 Directory.CreateDirectory(emulatorFolderPath);
@@ -146,21 +122,52 @@ namespace SimpleLauncher
 
                 if (success)
                 {
-                    bool extractSuccess = ExtractFile(filePath, emulatorFolderPath);
+                    // Check if the downloaded file is an executable
+                    string fileExtension = Path.GetExtension(filePath).ToLower();
+                    if (fileExtension == ".exe" || fileExtension == ".msi")
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error launching installer: {ex.Message}", "Launch Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+
+                        return;
+                    }
+
+                    // Show PleaseWaitExtraction window
+                    var pleaseWaitWindow = new PleaseWaitExtraction();
+                    pleaseWaitWindow.Show();
+
+                    bool extractSuccess = await ExtractFileWith7ZipAsync(filePath, emulatorFolderPath);
+
+                    // Close PleaseWaitExtraction window
+                    pleaseWaitWindow.Close();
 
                     if (extractSuccess)
                     {
                         File.Delete(filePath);
-                        MessageBox.Show("The download and extraction were successful!", "Download Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("The download and extraction were successful!", "Download Success",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("The extraction failed. Please try again.", "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The extraction failed. Please try again.", "Extraction Failed",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("The download failed. Please try again.", "Download Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The download failed. Please try again.", "Download Failed", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                 }
             }
         }
@@ -170,12 +177,15 @@ namespace SimpleLauncher
             try
             {
                 using HttpClient client = new HttpClient();
-                using HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+                using HttpResponseMessage response =
+                    await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
                 response.EnsureSuccessStatusCode();
                 var totalBytes = response.Content.Headers.ContentLength ?? -1L;
                 var canReportProgress = totalBytes != -1;
 
-                await using Stream contentStream = await response.Content.ReadAsStreamAsync(), fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                await using Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                    fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192,
+                        true);
                 var totalRead = 0L;
                 var buffer = new byte[8192];
                 var isMoreToRead = true;
@@ -195,10 +205,7 @@ namespace SimpleLauncher
                         if (canReportProgress)
                         {
                             var read1 = totalRead;
-                            Dispatcher.Invoke(() =>
-                            {
-                                DownloadProgressBar.Value = (double)read1 / totalBytes * 100;
-                            });
+                            Dispatcher.Invoke(() => { DownloadProgressBar.Value = (double)read1 / totalBytes * 100; });
                         }
                     }
                 }
@@ -207,37 +214,61 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error downloading file: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error downloading file: {ex.Message}", "Download Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return false;
             }
         }
 
-        private bool ExtractFile(string filePath, string destinationFolder)
+        private async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
         {
             try
             {
-                using var archive = ArchiveFactory.Open(filePath);
-                foreach (var entry in archive.Entries)
+                string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
+                if (!File.Exists(sevenZipPath))
                 {
-                    if (!entry.IsDirectory)
-                    {
-                        entry.WriteToDirectory(destinationFolder, new ExtractionOptions()
-                        {
-                            ExtractFullPath = true,
-                            Overwrite = true
-                        });
-                    }
+                    MessageBox.Show("7z.exe not found. Please ensure 7-Zip is installed and 7z.exe is available.",
+                        "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                var processStartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = sevenZipPath,
+                    Arguments = $"x \"{filePath}\" -o\"{destinationFolder}\" -y",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using var process = new System.Diagnostics.Process();
+                process.StartInfo = processStartInfo;
+                process.Start();
+
+                // Optionally read output and error streams
+                await process.StandardOutput.ReadToEndAsync();
+                string error = await process.StandardError.ReadToEndAsync();
+
+                await process.WaitForExitAsync();
+
+                if (process.ExitCode != 0)
+                {
+                    MessageBox.Show($"Error extracting file: {error}", "Extraction Error", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return false;
                 }
 
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return false;
             }
         }
-
+        
         private void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
             // Implement core download logic here

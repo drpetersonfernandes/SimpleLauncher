@@ -69,6 +69,9 @@
         <EmulatorDownloadBinary>https://github.com/stella-emu/stella/releases/download/6.7.1/Stella-6.7.1-windows.zip</EmulatorDownloadBinary>
         <EmulatorDownloadCore></EmulatorDownloadCore>
         <EmulatorDownloadExtras></EmulatorDownloadExtras>
+        <EmulatorMoveFilesToRootDirectory>false</EmulatorMoveFilesToRootDirectory>
+        <EmulatorExecutableFile></EmulatorExecutableFile>
+        <EmulatorPreferredCore></EmulatorPreferredCore>
         <RelatedSystems>
             <RelatedSystem>Atari 2600</RelatedSystem>
         </RelatedSystems>
@@ -77,11 +80,14 @@
     <Emulator>
         <EmulatorName>MAME</EmulatorName>
         <EmulatorWebsite>https://www.mamedev.org/</EmulatorWebsite>
-        <EmulatorDownloadPage>https://www.mamedev.org/release.php</EmulatorDownloadPage>
+        <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
         <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
         <EmulatorDownloadBinary>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe</EmulatorDownloadBinary>
         <EmulatorDownloadCore></EmulatorDownloadCore>
         <EmulatorDownloadExtras></EmulatorDownloadExtras>
+        <EmulatorMoveFilesToRootDirectory>false</EmulatorMoveFilesToRootDirectory>
+        <EmulatorExecutableFile></EmulatorExecutableFile>
+        <EmulatorPreferredCore></EmulatorPreferredCore>
         <RelatedSystems>
             <RelatedSystem>Arcade</RelatedSystem>
             <RelatedSystem>Amstrad CPC GX4000</RelatedSystem>

@@ -23,6 +23,7 @@ namespace SimpleLauncher
         public string EmulatorName { get; set; }
         public string EmulatorWebsite { get; set; }
         public string EmulatorDownloadPage { get; set; }
+        public string EmulatorLatestVersion { get; set; }
         public string EmulatorDownloadBinary { get; set; }
         public string EmulatorDownloadCore { get; set; }
         public string EmulatorDownloadExtras { get; set; }

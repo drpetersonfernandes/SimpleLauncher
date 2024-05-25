@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Edit System"
     Width="900"
-    Height="500"
+    Height="600"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Margin="10">
@@ -15,25 +15,27 @@
         <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch"
                   SelectionChanged="SystemNameDropdown_SelectionChanged" />
 
-        <Label x:Name="AskUser1" Content="Do you already have an emulator for this system?"
-               HorizontalAlignment="Center" />
-        <ComboBox x:Name="AlreadyHaveEmulatorDropdown" HorizontalAlignment="Stretch"
-                  SelectionChanged="AlreadyHaveEmulatorDropdown_SelectionChanged" />
-
-        <Label x:Name="AskUser2" Content="Please select an emulator for this system" 
+        <Label x:Name="AskUser2" Content="Please select an emulator for this system"
                HorizontalAlignment="Center" />
         <ComboBox x:Name="EmulatorDropdown" HorizontalAlignment="Stretch"
                   SelectionChanged="EmulatorDropdown_SelectionChanged" />
 
         <StackPanel Orientation="Horizontal" Margin="10,10,10,0" HorizontalAlignment="Center">
             <Button x:Name="DownloadEmulatorButton" Content="Download Emulator" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadEmulatorButton_Click" IsEnabled="False" />
+                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadEmulatorButton_Click"
+                    IsEnabled="False" />
             <Button x:Name="DownloadCoreButton" Content="Download Core" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadCoreButton_Click" IsEnabled="False" />
+                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadCoreButton_Click"
+                    IsEnabled="False" />
             <Button x:Name="DownloadExtrasButton" Content="Download Extras" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadExtrasButton_Click" IsEnabled="False" />
+                    VerticalAlignment="Center" Margin="10" Padding="5" Click="DownloadExtrasButton_Click"
+                    IsEnabled="False" />
         </StackPanel>
 
-        <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="25" Margin="10" />
+        <Grid>
+            <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="25" Margin="10" />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Download Progress" />
+        </Grid>
+       
     </StackPanel>
 </Window>
