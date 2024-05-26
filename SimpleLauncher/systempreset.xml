@@ -20,7 +20,6 @@
         <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
         </EmulatorBinaryDownload>
         <EmulatorBinaryRename>false</EmulatorBinaryRename>
-        <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
         <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
         <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
         </EmulatorCoreDownload>
@@ -196,13 +195,185 @@
         </EmulatorParameters>
     </System>
 
+    <System>
+        <SystemName>Bandai WonderSwan</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Bandai WonderSwan</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\BandaiWonderSwan_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Bandai WonderSwan Color</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Bandai WonderSwan Color</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        </EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        </EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -c
+            ".\emulators\Retroarch\RetroArch-Win64\BandaiWonderSwan_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Colecovision</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Colecovision</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Colecovision_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Commodore 64</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+            <SystemFormatToSearch>7z</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Commodore 64</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\vice_x64_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Commodore64_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Commodore Amiga CD32</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>chd</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Commodore Amiga CD32</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\puae_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\CommodoreAmigaCD32_Config.cfg" -f
+        </EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Magnavox Odyssey 2</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Magnavox Odyssey 2</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\o2em_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\MagnavoxOdyssey2_Config.cfg" -f</EmulatorParameters>
+    </System>
+
     <RelatedSystems>
-        <RelatedSystem>Bandai WonderSwan</RelatedSystem>
-        <RelatedSystem>Bandai WonderSwan Color</RelatedSystem>
-        <RelatedSystem>Colecovision</RelatedSystem>
-        <RelatedSystem>Commodore 64</RelatedSystem>
-        <RelatedSystem>Commodore Amiga CD32</RelatedSystem>
-        <RelatedSystem>Magnavox Odyssey 2</RelatedSystem>
+
         <RelatedSystem>Mattel Intellivision</RelatedSystem>
         <RelatedSystem>Microsoft MSX</RelatedSystem>
         <RelatedSystem>Microsoft MSX2</RelatedSystem>
