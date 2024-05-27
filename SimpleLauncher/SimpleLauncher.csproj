@@ -41,12 +41,13 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="systempreset.xml">
+    <None Update="easymodepreset.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="7z.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Remove="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

@@ -5,16 +5,16 @@ using System.Xml.Serialization;
 namespace SimpleLauncher
 {
     [XmlRoot("EmulatorList")]
-    public class SystemPreset
+    public class EasyModePreset
     {
         [XmlElement("Emulator")]
         public List<Emulator> Emulators { get; set; }
 
-        public static SystemPreset LoadFromFile(string filePath)
+        public static EasyModePreset LoadFromFile(string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(SystemPreset));
+            XmlSerializer serializer = new XmlSerializer(typeof(EasyModePreset));
             using StreamReader reader = new StreamReader(filePath);
-            return (SystemPreset)serializer.Deserialize(reader);
+            return (EasyModePreset)serializer.Deserialize(reader);
         }
     }
 

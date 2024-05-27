@@ -10,7 +10,7 @@ namespace SimpleLauncher
 {
     public partial class EditSystemEasyModeAddSystem
     {
-        private SystemPreset _systemPreset;
+        private EasyModePreset _easyModePreset;
 
         public EditSystemEasyModeAddSystem()
         {
@@ -24,7 +24,7 @@ namespace SimpleLauncher
             string filePath = "emulatorlist.xml";
             if (File.Exists(filePath))
             {
-                _systemPreset = SystemPreset.LoadFromFile(filePath);
+                _easyModePreset = EasyModePreset.LoadFromFile(filePath);
             }
             else
             {
@@ -35,7 +35,7 @@ namespace SimpleLauncher
 
         private void PopulateSystemDropdown()
         {
-            var systems = _systemPreset.Emulators
+            var systems = _easyModePreset.Emulators
                 .SelectMany(emulator => emulator.RelatedSystems)
                 .Distinct()
                 .OrderBy(system => system) // Order systems alphabetically
@@ -59,7 +59,7 @@ namespace SimpleLauncher
         {
             EmulatorDropdown.Items.Clear();
 
-            var emulators = _systemPreset.Emulators
+            var emulators = _easyModePreset.Emulators
                 .Where(emulator => emulator.RelatedSystems.Contains(system))
                 .OrderBy(emulator => emulator.EmulatorName)
                 .ToList();
@@ -87,7 +87,7 @@ namespace SimpleLauncher
             if (EmulatorDropdown.SelectedItem != null)
             {
                 var selectedEmulator =
-                    _systemPreset.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
+                    _easyModePreset.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
 
                 if (selectedEmulator != null)
                 {
@@ -108,7 +108,7 @@ namespace SimpleLauncher
             string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
             string emulatorsFolderPath = Path.Combine(appFolderPath, "emulators");
 
-            var selectedEmulator = _systemPreset.Emulators.Find(em => em.EmulatorName == emulatorName);
+            var selectedEmulator = _easyModePreset.Emulators.Find(em => em.EmulatorName == emulatorName);
             if (selectedEmulator != null)
             {
                 string emulatorFolderPath = Path.Combine(emulatorsFolderPath, emulatorName);

@@ -372,10 +372,107 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\o2em_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\MagnavoxOdyssey2_Config.cfg" -f</EmulatorParameters>
     </System>
 
+    <System>
+        <SystemName>Mattel Intellivision</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>true</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <SystemFormatToLaunch></SystemFormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Mattel Intellivision</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\freeintv_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\MattelIntellivision_Config.cfg" -f</EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Microsoft MSX</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>true</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>ri</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Microsoft MSX</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\MicrosoftMSX_Config.cfg" -f</EmulatorParameters>
+    </System>
+
+    <System>
+        <SystemName>Microsoft MSX</SystemName>
+        <SystemIsMAME>false</SystemIsMAME>
+        <SystemFileFormatsToSearch>
+            <SystemFormatToSearch>zip</SystemFormatToSearch>
+        </SystemFileFormatsToSearch>
+        <SystemExtractFileBeforeLaunch>true</SystemExtractFileBeforeLaunch>
+        <SystemFileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>ri</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </SystemFileFormatsToLaunch>
+        <SystemRomPath>.\roms\Microsoft MSX</SystemRomPath>
+        <EmulatorName>Retroarch</EmulatorName>
+        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
+        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+        <EmulatorBinaryRename>false</EmulatorBinaryRename>
+        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
+        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorExtrasDownload></EmulatorExtrasDownload>
+        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
+        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\MicrosoftMSX_Config.cfg" -f</EmulatorParameters>
+    </System>
+
     <RelatedSystems>
 
-        <RelatedSystem>Mattel Intellivision</RelatedSystem>
-        <RelatedSystem>Microsoft MSX</RelatedSystem>
         <RelatedSystem>Microsoft MSX2</RelatedSystem>
         <RelatedSystem>NEC PC Engine</RelatedSystem>
         <RelatedSystem>NEC PC Engine CD</RelatedSystem>

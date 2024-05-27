@@ -1231,7 +1231,7 @@
     </Emulators>
   </SystemConfig>
   <SystemConfig>
-    <SystemName>Sega Model3</SystemName>
+    <SystemName>Sega Model 3</SystemName>
     <SystemFolder>D:\BAT Folder for Sega Model3</SystemFolder>
     <SystemImageFolder></SystemImageFolder>
     <SystemIsMAME>true</SystemIsMAME>
