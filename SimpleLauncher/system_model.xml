@@ -21,6 +21,31 @@
     </Emulators>
   </SystemConfig>
   <SystemConfig>
+    <SystemName>Arcade</SystemName>
+    <SystemFolder>D:\ROMsAndISOs\MAME\MAME Roms</SystemFolder>
+    <SystemImageFolder></SystemImageFolder>
+    <SystemIsMAME>true</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch></FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>MAME</EmulatorName>
+        <EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch mame</EmulatorName>
+        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
     <SystemName>Atari 2600</SystemName>
     <SystemFolder>D:\ROMsAndISOs\Atari 2600</SystemFolder>
     <SystemImageFolder></SystemImageFolder>
@@ -328,31 +353,6 @@
         <EmulatorName>Retroarch o2em</EmulatorName>
         <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\o2em_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-      </Emulator>
-    </Emulators>
-  </SystemConfig>
-  <SystemConfig>
-    <SystemName>MAME</SystemName>
-    <SystemFolder>D:\ROMsAndISOs\MAME\MAME Roms</SystemFolder>
-    <SystemImageFolder></SystemImageFolder>
-    <SystemIsMAME>true</SystemIsMAME>
-    <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-      <Emulator>
-        <EmulatorName>MAME</EmulatorName>
-        <EmulatorLocation>D:\Emulators\MAME\mame.exe</EmulatorLocation>
-        <EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
-      </Emulator>
-      <Emulator>
-        <EmulatorName>Retroarch mame</EmulatorName>
-        <EmulatorLocation>D:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L "D:\Emulators\Retroarch\cores\mame_libretro.dll" -c "D:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>

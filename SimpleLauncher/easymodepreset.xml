@@ -1,67 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SystemPreset>
-
-    <System>
-        <SystemName>Arcade Retroarch</SystemName>
+<EasyModePreset>
+    
+    <SystemConfig>
+        <SystemName>Amstrad CPC GX4000</SystemName>
+        <SystemFolder>.\roms\Amstrad CPC GX4000</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
-        <SystemFileFormatsToSearch>
-            <SystemFormatToSearch>zip</SystemFormatToSearch>
-            <SystemFormatToSearch>7z</SystemFormatToSearch>
-        </SystemFileFormatsToSearch>
-        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
-        <SystemFileFormatsToLaunch>
-            <SystemFormatToLaunch></SystemFormatToLaunch>
-        </SystemFileFormatsToLaunch>
-        <SystemRomPath>.\roms\MAME</SystemRomPath>
-        <EmulatorName>Retroarch</EmulatorName>
-        <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
-        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
-        </EmulatorBinaryDownload>
-        <EmulatorBinaryRename>false</EmulatorBinaryRename>
-        <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
-        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
-        </EmulatorCoreDownload>
-        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
-        <EmulatorExtrasDownload></EmulatorExtrasDownload>
-        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
-        <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
-        <EmulatorExecutableFile>retroarch.exe</EmulatorExecutableFile>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll" -c
-            ".\emulators\Retroarch\RetroArch-Win64\Mame_Config.cfg" -f
-        </EmulatorParameters>
-    </System>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME gx4000</EmulatorName>
+                <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+                <EmulatorParameters>gx4000 -cart</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>true</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPathTo>.\emulators\MAME\</EmulatorBinaryExtractPathTo>
+                <EmulatorCoreDownload></EmulatorCoreDownload>
+                <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </SystemConfig>
 
-    <System>
-        <SystemName>Arcade MAME</SystemName>
+    <SystemConfig>
+        <SystemName>Arcade</SystemName>
+        <SystemFolder>.\roms\MAME</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
-        <SystemFileFormatsToSearch>
-            <SystemFormatToSearch>zip</SystemFormatToSearch>
-            <SystemFormatToSearch>7z</SystemFormatToSearch>
-        </SystemFileFormatsToSearch>
-        <SystemExtractFileBeforeLaunch>false</SystemExtractFileBeforeLaunch>
-        <SystemFileFormatsToLaunch>
-            <SystemFormatToLaunch></SystemFormatToLaunch>
-        </SystemFileFormatsToLaunch>
-        <SystemRomPath>.\roms\MAME</SystemRomPath>
-        <EmulatorName>MAME</EmulatorName>
-        <EmulatorWebsite>https://www.mamedev.org/</EmulatorWebsite>
-        <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-        <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
-        <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe
-        </EmulatorBinaryDownload>
-        <EmulatorBinaryRename>true</EmulatorBinaryRename>
-        <EmulatorBinaryRenameTo>7z</EmulatorBinaryRenameTo>
-        <EmulatorBinaryExtractPath>.\emulators\MAME</EmulatorBinaryExtractPath>
-        <EmulatorCoreDownload></EmulatorCoreDownload>
-        <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
-        <EmulatorExtrasDownload></EmulatorExtrasDownload>
-        <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
-        <EmulatorFolder>.\emulators\MAME\</EmulatorFolder>
-        <EmulatorExecutableFile>mame.exe</EmulatorExecutableFile>
-        <EmulatorParameters>-rompath ".\roms\MAME"</EmulatorParameters>
-    </System>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch mame</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+                <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </SystemConfig>
+
+    <SystemConfig>
+        <SystemName>Atari 2600</SystemName>
+        <SystemFolder>.\roms\Atari 2600</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch stella</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\stella_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+                <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </SystemConfig>
 
     <System>
         <SystemName>Atari 2600</SystemName>
@@ -77,16 +105,16 @@
         <SystemRomPath>.\roms\Atari 2600</SystemRomPath>
         <EmulatorName>Retroarch</EmulatorName>
         <EmulatorWebsite>https://www.retroarch.com/</EmulatorWebsite>
-        <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-        <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-        <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z
+        <EmulatorDownloadPage></EmulatorDownloadPage>
+        <EmulatorLatestVersion></EmulatorLatestVersion>
+        <EmulatorBinaryDownload>
         </EmulatorBinaryDownload>
         <EmulatorBinaryRename>false</EmulatorBinaryRename>
         <EmulatorBinaryRenameTo></EmulatorBinaryRenameTo>
         <EmulatorBinaryExtractPath>.\emulators\Retroarch</EmulatorBinaryExtractPath>
-        <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z
+        <EmulatorCoreDownload>
         </EmulatorCoreDownload>
-        <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+        <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
         <EmulatorExtrasDownload></EmulatorExtrasDownload>
         <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
         <EmulatorFolder>.\emulators\Retroarch\RetroArch-Win64\</EmulatorFolder>
@@ -927,4 +955,4 @@
 </RelatedSystems>
 </Emulator>
 
-        </SystemPreset>
+        </EasyModePreset>
