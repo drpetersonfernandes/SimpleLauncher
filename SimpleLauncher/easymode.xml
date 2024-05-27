@@ -1,0 +1,1721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<EasyMode>
+
+    <EasyModeSystemConfig>
+        <SystemName>Amstrad CPC GX4000</SystemName>
+        <SystemFolder>.\roms\Amstrad CPC GX4000</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>MAME gx4000</EmulatorName>
+            <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+            <EmulatorParameters>gx4000 -cart</EmulatorParameters>
+            <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+            <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>true</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\MAME\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Arcade</SystemName>
+        <SystemFolder>.\roms\MAME</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mame</EmulatorName>
+            <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 2600</SystemName>
+        <SystemFolder>.\roms\Atari 2600</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch stella</EmulatorName>
+            <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\stella_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 5200</SystemName>
+        <SystemFolder>.\roms\Atari 5200</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Altirra</EmulatorName>
+            <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
+            <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Altirra\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 7800</SystemName>
+        <SystemFolder>.\roms\Atari 7800</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch prosystem</EmulatorName>
+            <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\prosystem_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 8-Bit</SystemName>
+        <SystemFolder>.\roms\Atari 8-Bit</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Altirra</EmulatorName>
+            <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
+            <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Altirra\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari Jaguar</SystemName>
+        <SystemFolder>.\roms\Atari Jaguar</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>BigPEmu</EmulatorName>
+            <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.14</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v114.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\BigPEmu\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari Jaguar CD</SystemName>
+        <SystemFolder>.\roms\Atari Jaguar CD</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>cdi</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>cue, cdi</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>BigPEmu</EmulatorName>
+            <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.14</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v114.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\BigPEmu\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari Lynx</SystemName>
+        <SystemFolder>.\roms\Atari Lynx</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_lynx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari ST</SystemName>
+        <SystemFolder>.\roms\Atari ST</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch hatari</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\hatari_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\hatari.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Bandai WonderSwan</SystemName>
+        <SystemFolder>.\roms\Bandai WonderSwan</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Bandai WonderSwan Color</SystemName>
+        <SystemFolder>.\roms\Bandai WonderSwan Color</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Casio PV-1000</SystemName>
+        <SystemFolder>.\roms\Casio PV-1000</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>MAME pv1000</EmulatorName>
+            <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+            <EmulatorParameters>pv1000 -cart</EmulatorParameters>
+            <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+            <EmulatorLatestVersion>0.265</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0265/mame0265b_64bit.exe</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>true</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\MAME\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>ColecoVision</SystemName>
+        <SystemFolder>.\roms\ColecoVision</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch gearcoleco</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Commodore 64</SystemName>
+        <SystemFolder>.\roms\Commodore 64</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch vice_x64</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\vice_x64_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Commodore Amiga CD32</SystemName>
+        <SystemFolder>.\roms\Commodore Amiga CD32</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch puae</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\puae_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Magnavox Odyssey 2</SystemName>
+        <SystemFolder>.\roms\Magnavox Odyssey 2</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch o2em</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\o2em_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Mattel Intellivision</SystemName>
+        <SystemFolder>.\roms\Mattel Intellivision</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>int</FormatToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch freeintv</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\freeintv_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX</SystemName>
+        <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>ri</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch fmsx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX2</SystemName>
+        <SystemFolder>.\roms\Microsoft MSX2</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>ri</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch fmsx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft Xbox 360</SystemName>
+        <SystemFolder>.\roms\Microsoft Xbox360</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Xenia</EmulatorName>
+            <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Xenia\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC PC Engine</SystemName>
+        <SystemFolder>.\roms\NEC PC Engine</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_pce</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC PC Engine CD</SystemName>
+        <SystemFolder>.\roms\NEC PC Engine CD</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_pce</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC PC-FX</SystemName>
+        <SystemFolder>.\roms\NEC PC-FX</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_pcfx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC SuperGrafx</SystemName>
+        <SystemFolder>.\roms\NEC SuperGrafx</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_supergrafx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo 3DS</SystemName>
+        <SystemFolder>.\roms\Nintendo 3DS</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>3ds</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch citra</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\citra_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo 64</SystemName>
+        <SystemFolder>.\roms\Nintendo 64</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo 64DD</SystemName>
+        <SystemFolder>.\roms\Nintendo 64DD</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo DS</SystemName>
+        <SystemFolder>.\roms\Nintendo DS</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>nds</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch melonds</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\melonds_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Entertainment System</SystemName>
+        <SystemFolder>.\roms\Nintendo Entertainment System</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch fceumm</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Family Computer Disk System</SystemName>
+        <SystemFolder>.\roms\Nintendo Family Computer Disk System</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch fceumm</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy</SystemName>
+        <SystemFolder>.\roms\Nintendo Game Boy</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch sameboy</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy Advance</SystemName>
+        <SystemFolder>.\roms\Nintendo Game Boy Advance</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mgba</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mgba_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy Color</SystemName>
+        <SystemFolder>.\roms\Nintendo Game Boy Color</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch sameboy</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo GameCube</SystemName>
+        <SystemFolder>.\roms\Nintendo GameCube</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>rvz</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch dolphin</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Satellaview</SystemName>
+        <SystemFolder>.\roms\Nintendo Satellaview</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch snes9x</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Super Nintendo Entertainment System</SystemName>
+        <SystemFolder>.\roms\Nintendo Super Nintendo Entertainment System</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch snes9x</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Super Nintendo Entertainment System MSU1</SystemName>
+        <SystemFolder>.\roms\Nintendo Super Nintendo Entertainment System MSU1</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>sfc</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch snes9x</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Switch</SystemName>
+        <SystemFolder>.\roms\Nintendo Switch</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>nsp</FormatToSearch>
+            <FormatToSearch>xci</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Ryujinx</EmulatorName>
+            <EmulatorLocation>.\emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://ryujinx.org/download</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.1.1325</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/Ryujinx/release-channel-master/releases/download/1.1.1325/ryujinx-1.1.1325-win_x64.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Ryujinx\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Wii</SystemName>
+        <SystemFolder>.\roms\Nintendo Wii</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>rvz</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch dolphin</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo WiiU</SystemName>
+        <SystemFolder>.\roms\Nintendo WiiU</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>wua</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Cemu</EmulatorName>
+            <EmulatorLocation>.\emulators\Cemu\cemu.exe</EmulatorLocation>
+            <EmulatorParameters>-f -g</EmulatorParameters>
+            <EmulatorDownloadPage>https://cemu.info/#download</EmulatorDownloadPage>
+            <EmulatorLatestVersion>2.0-85</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/cemu-project/Cemu/releases/download/v2.0-85/cemu-2.0-85-windows-x64.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Cemu\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo WiiWare</SystemName>
+        <SystemFolder>.\roms\Nintendo WiiWare</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>wad</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch dolphin</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Panasonic 3DO</SystemName>
+        <SystemFolder>.\roms\Panasonic 3DO</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch opera</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\opera_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Philips CD-i</SystemName>
+        <SystemFolder>.\roms\Philips CD-i</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch same_cdi</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\same_cdi_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Dreamcast</SystemName>
+        <SystemFolder>.\roms\Sega Dreamcast</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Redream</EmulatorName>
+            <EmulatorLocation>.\emulators\Redream\redream.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://redream.io/download</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.5.0-1127-g6b62eff</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://redream.io/download/redream.x86_64-windows-v1.5.0-1127-g6b62eff.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Redream\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Game Gear</SystemName>
+        <SystemFolder>.\roms\Sega Game Gear</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis</SystemName>
+        <SystemFolder>.\roms\Sega Genesis</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch picodrive</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis 32X</SystemName>
+        <SystemFolder>.\roms\Sega Genesis 32X</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch picodrive</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis CD</SystemName>
+        <SystemFolder>.\roms\Sega Genesis CD</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch />
+        <Emulator>
+            <EmulatorName>Retroarch picodrive</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Master System</SystemName>
+        <SystemFolder>.\roms\Sega Master System</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Saturn</SystemName>
+        <SystemFolder>.\roms\Sega Saturn</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_saturn</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega SC-3000</SystemName>
+        <SystemFolder>.\roms\Sega SC-3000</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>sms</FormatToLaunch>
+            <FormatToLaunch>gg</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>sf</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cht</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>BizHawk</EmulatorName>
+            <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+            <EmulatorParameters>--fullscreen</EmulatorParameters>
+            <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
+            <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/TASEmulators/BizHawk/releases/download/2.9.1/BizHawk-2.9.1-win-x64.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\BizHawk\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega SG-1000</SystemName>
+        <SystemFolder>.\roms\Sega SG-1000</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>sms</FormatToLaunch>
+            <FormatToLaunch>gg</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>sf</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cht</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>BizHawk</EmulatorName>
+            <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+            <EmulatorParameters>--fullscreen</EmulatorParameters>
+            <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
+            <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/TASEmulators/BizHawk/releases/download/2.9.1/BizHawk-2.9.1-win-x64.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\BizHawk\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sinclair ZX Spectrum</SystemName>
+        <SystemFolder>.\roms\Sinclair ZX Spectrum</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch fuse</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fuse_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo CD</SystemName>
+        <SystemFolder>.\roms\SNK Neo Geo CD</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch neocd</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\neocd_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo Pocket</SystemName>
+        <SystemFolder>.\roms\SNK Neo Geo Pocket</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo Pocket Color</SystemName>
+        <SystemFolder>.\roms\SNK Neo Geo Pocket Color</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony Playstation 1</SystemName>
+        <SystemFolder>.\roms\Sony Playstation 1</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>DuckStation</EmulatorName>
+            <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
+            <EmulatorParameters>-fullscreen</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.duckstation.org/windl</EmulatorDownloadPage>
+            <EmulatorLatestVersion>Latest Preview Build 05/27/2024</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\DuckStation\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload>https://aka.ms/vs/17/release/vc_redist.x64.exe</EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath>.\emulators\DuckStation\extras</EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony Playstation 2</SystemName>
+        <SystemFolder>.\roms\Sony PlayStation 2</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>PCSX2</EmulatorName>
+            <EmulatorLocation>.\emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
+            <EmulatorParameters></EmulatorParameters>
+            <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.7.5844</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5844/pcsx2-v1.7.5844-windows-x64-Qt.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\PCSX2\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload></EmulatorCoreDownload>
+            <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony PSP</SystemName>
+        <SystemFolder>.\roms\Sony PSP</SystemFolder>
+        <SystemImageFolder></SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>cso</FormatToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulator>
+            <EmulatorName>Retroarch ppsspp</EmulatorName>
+            <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\ppsspp_libretro.dll" -c ".\emulators\Retroarch\RetroArch-Win64\Config.cfg" -f</EmulatorParameters>
+            <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+            <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+            <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+            <EmulatorBinaryRename>false</EmulatorBinaryRename>
+            <EmulatorBinaryExtractPathTo>.\emulators\Retroarch\</EmulatorBinaryExtractPathTo>
+            <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+            <EmulatorCoreExtractPath>.\emulators\Retroarch\RetroArch-Win64\cores</EmulatorCoreExtractPath>
+            <EmulatorExtrasDownload></EmulatorExtrasDownload>
+            <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+        </Emulator>
+     </EasyModeSystemConfig>
+
+</EasyMode>

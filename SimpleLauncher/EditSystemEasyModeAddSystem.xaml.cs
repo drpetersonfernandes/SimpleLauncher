@@ -1,49 +1,35 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Net.Http;
 
 namespace SimpleLauncher
 {
     public partial class EditSystemEasyModeAddSystem
     {
-        private EasyModePreset _easyModePreset;
+        private EasyModeConfig _config;
 
         public EditSystemEasyModeAddSystem()
         {
             InitializeComponent();
-            LoadEmulatorList();
+            LoadConfig();
             PopulateSystemDropdown();
         }
 
-        private void LoadEmulatorList()
+        private void LoadConfig()
         {
-            string filePath = "emulatorlist.xml";
-            if (File.Exists(filePath))
-            {
-                _easyModePreset = EasyModePreset.LoadFromFile(filePath);
-            }
-            else
-            {
-                MessageBox.Show("Emulator list file not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-            }
+            string configPath = "easymode.xml";
+            _config = EasyModeConfig.Load(configPath);
         }
 
         private void PopulateSystemDropdown()
         {
-            var systems = _easyModePreset.Emulators
-                .SelectMany(emulator => emulator.RelatedSystems)
-                .Distinct()
-                .OrderBy(system => system) // Order systems alphabetically
-                .ToList();
-
-            foreach (var system in systems)
+            if (_config?.Systems != null)
             {
-                SystemNameDropdown.Items.Add(system);
+                SystemNameDropdown.ItemsSource = _config.Systems.Select(system => system.SystemName).ToList();
             }
         }
 
@@ -51,175 +37,114 @@ namespace SimpleLauncher
         {
             if (SystemNameDropdown.SelectedItem != null)
             {
-                LoadListOfEmulators(SystemNameDropdown.SelectedItem.ToString());
-            }
-        }
-
-        private void LoadListOfEmulators(string system)
-        {
-            EmulatorDropdown.Items.Clear();
-
-            var emulators = _easyModePreset.Emulators
-                .Where(emulator => emulator.RelatedSystems.Contains(system))
-                .OrderBy(emulator => emulator.EmulatorName)
-                .ToList();
-
-            foreach (var emulator in emulators)
-            {
-                EmulatorDropdown.Items.Add(emulator.EmulatorName);
-            }
-
-            if (EmulatorDropdown.Items.Count > 0)
-            {
-                DownloadEmulatorButton.IsEnabled = false;
-                DownloadCoreButton.IsEnabled = false;
-                DownloadExtrasButton.IsEnabled = false;
-            }
-            else
-            {
-                MessageBox.Show("No emulator found for the selected system.", "No Emulators", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            }
-        }
-
-        private void EmulatorDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (EmulatorDropdown.SelectedItem != null)
-            {
-                var selectedEmulator =
-                    _easyModePreset.Emulators.Find(em => em.EmulatorName == EmulatorDropdown.SelectedItem.ToString());
-
-                if (selectedEmulator != null)
-                {
-                    DownloadEmulatorButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadBinary);
-                    DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadCore);
-                    DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedEmulator.EmulatorDownloadExtras);
-
-                    DownloadEmulatorButton.Content = $"Download {selectedEmulator.EmulatorName} Emulator";
-                    DownloadCoreButton.Content = $"Download {selectedEmulator.EmulatorName} Core";
-                    DownloadExtrasButton.Content = $"Download {selectedEmulator.EmulatorName} Extras";
-                }
+                DownloadEmulatorButton.IsEnabled = true;
+                DownloadCoreButton.IsEnabled = true;
+                DownloadExtrasButton.IsEnabled = true;
+                AddSystemButton.IsEnabled = true;
             }
         }
 
         private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
-            string emulatorName = EmulatorDropdown.SelectedItem.ToString();
-            string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
-            string emulatorsFolderPath = Path.Combine(appFolderPath, "emulators");
-
-            var selectedEmulator = _easyModePreset.Emulators.Find(em => em.EmulatorName == emulatorName);
-            if (selectedEmulator != null)
+            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+            if (selectedSystem != null)
             {
-                string emulatorFolderPath = Path.Combine(emulatorsFolderPath, emulatorName);
-                string filePath = Path.Combine(emulatorFolderPath,
-                    Path.GetFileName(selectedEmulator.EmulatorDownloadBinary));
+                string emulatorDownloadUrl = selectedSystem.Emulator.EmulatorBinaryDownload;
+                string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
+                Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
+                string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl));
+                string destinationPath = selectedSystem.Emulator.EmulatorBinaryExtractPathTo;
 
-                // Create directories if they don't exist
-                Directory.CreateDirectory(emulatorFolderPath);
-
-                bool success = await DownloadFileAsync(selectedEmulator.EmulatorDownloadBinary, filePath);
-
-                if (success)
+                try
                 {
-                    // Check if the downloaded file is an executable
-                    string fileExtension = Path.GetExtension(filePath).ToLower();
-                    if (fileExtension == ".exe" || fileExtension == ".msi")
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                            {
-                                FileName = filePath,
-                                UseShellExecute = true
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error launching installer: {ex.Message}", "Launch Error",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                    // Display progress bar
+                    DownloadProgressBar.Visibility = Visibility.Visible;
+                    DownloadProgressBar.Value = 0;
 
-                        return;
+                    // Download the file
+                    using (HttpClient client = new HttpClient())
+                    using (HttpResponseMessage response = await client.GetAsync(emulatorDownloadUrl, HttpCompletionOption.ResponseHeadersRead))
+                    await using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
+                    await using (Stream streamToWriteTo = File.Open(downloadFilePath, FileMode.Create))
+                    {
+                        byte[] buffer = new byte[8192];
+                        int bytesRead;
+                        long totalBytesRead = 0;
+                        long totalBytes = response.Content.Headers.ContentLength ?? -1;
+                        while ((bytesRead = await streamToReadFrom.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await streamToWriteTo.WriteAsync(buffer, 0, bytesRead);
+                            totalBytesRead += bytesRead;
+                            if (totalBytes != -1)
+                            {
+                                DownloadProgressBar.Value = (double)totalBytesRead / totalBytes * 100;
+                            }
+                        }
                     }
 
-                    // Show PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtraction();
+                    // Show the PleaseWaitExtraction window
+                    PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                     pleaseWaitWindow.Show();
 
-                    bool extractSuccess = await ExtractFileWith7ZipAsync(filePath, emulatorFolderPath);
+                    // Extract the downloaded file
+                    bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
 
-                    // Close PleaseWaitExtraction window
+                    // Close the PleaseWaitExtraction window after extraction
                     pleaseWaitWindow.Close();
 
-                    if (extractSuccess)
+                    if (extractionSuccess)
                     {
-                        File.Delete(filePath);
-                        MessageBox.Show("The download and extraction were successful!", "Download Success",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("The extraction failed. Please try again.", "Extraction Failed",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Clean up the downloaded file only if extraction is successful
+                        File.Delete(downloadFilePath);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("The download failed. Please try again.", "Download Failed", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    MessageBox.Show($"Error downloading emulator: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    // // Hide progress bar
+                    // DownloadProgressBar.Visibility = Visibility.Collapsed;
                 }
             }
         }
 
-        private async Task<bool> DownloadFileAsync(string url, string outputPath)
+
+
+        private void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+            if (selectedSystem != null)
             {
-                using HttpClient client = new HttpClient();
-                using HttpResponseMessage response =
-                    await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-                response.EnsureSuccessStatusCode();
-                var totalBytes = response.Content.Headers.ContentLength ?? -1L;
-                var canReportProgress = totalBytes != -1;
+                string coreDownloadUrl = selectedSystem.Emulator.EmulatorCoreDownload;
+                string destinationPath = selectedSystem.Emulator.EmulatorCoreExtractPath;
 
-                await using Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                    fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192,
-                        true);
-                var totalRead = 0L;
-                var buffer = new byte[8192];
-                var isMoreToRead = true;
+                // Implement download logic here, e.g., using HttpClient and await the task
+                // Example:
+                // await DownloadFileAsync(coreDownloadUrl, destinationPath);
 
-                while (isMoreToRead)
-                {
-                    var read = await contentStream.ReadAsync(buffer);
-                    if (read == 0)
-                    {
-                        isMoreToRead = false;
-                    }
-                    else
-                    {
-                        await fileStream.WriteAsync(buffer.AsMemory(0, read));
-
-                        totalRead += read;
-                        if (canReportProgress)
-                        {
-                            var read1 = totalRead;
-                            Dispatcher.Invoke(() => { DownloadProgressBar.Value = (double)read1 / totalBytes * 100; });
-                        }
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error downloading file: {ex.Message}", "Download Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
+                MessageBox.Show($"Download Core logic for {selectedSystem.SystemName} goes here.", "Download Core", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
+        private void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+            if (selectedSystem != null)
+            {
+                string extrasDownloadUrl = selectedSystem.Emulator.EmulatorExtrasDownload;
+                string destinationPath = selectedSystem.Emulator.EmulatorExtrasExtractPath;
+
+                // Implement download logic here, e.g., using HttpClient and await the task
+                // Example:
+                // await DownloadFileAsync(extrasDownloadUrl, destinationPath);
+
+                MessageBox.Show($"Download Extras logic for {selectedSystem.SystemName} goes here.", "Download Extras", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        
         private async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
         {
             try
@@ -246,7 +171,6 @@ namespace SimpleLauncher
                 process.StartInfo = processStartInfo;
                 process.Start();
 
-                // Optionally read output and error streams
                 await process.StandardOutput.ReadToEndAsync();
                 string error = await process.StandardError.ReadToEndAsync();
 
@@ -268,17 +192,15 @@ namespace SimpleLauncher
                 return false;
             }
         }
-        
-        private void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Implement core download logic here
-            throw new NotImplementedException();
-        }
 
-        private void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
+        private void AddSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            // Implement extras download logic here
-            throw new NotImplementedException();
+            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+            if (selectedSystem != null)
+            {
+                // Implement logic to add system to Simple Launcher
+                MessageBox.Show($"Add System logic for {selectedSystem.SystemName} goes here.", "Add System", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

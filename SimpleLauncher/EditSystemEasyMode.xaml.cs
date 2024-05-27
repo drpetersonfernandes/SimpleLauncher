@@ -18,16 +18,16 @@ namespace SimpleLauncher
 
         private void EditSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            EditSystemEasyModeEditSystem editSystemEasyModeEdit = new();
+            EditSystem editSystem = new();
             Close();
-            editSystemEasyModeEdit.ShowDialog();
+            editSystem.ShowDialog();
         }
 
         private void DeleteSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            EditSystemEasyModeDeleteSystem editSystemEasyModeDelete = new();
+            EditSystem editSystem = new();
             Close();
-            editSystemEasyModeDelete.ShowDialog();
+            editSystem.ShowDialog();
         }
     }
 }

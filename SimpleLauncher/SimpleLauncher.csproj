@@ -41,7 +41,7 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="easymodepreset.xml">
+    <None Update="easymode.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="7z.exe">
@@ -102,6 +102,9 @@
     <Compile Remove="database\**" />
     <Compile Remove="CheckEmulator.cs" />
     <Compile Remove="CheckSystem.cs" />
+    <Compile Remove="EasyModePreset.cs" />
+    <Compile Remove="EditSystemEasyModeDeleteSystem.xaml.cs" />
+    <Compile Remove="EditSystemEasyModeEditSystem.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="database\**" />
@@ -118,15 +121,7 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="EditSystemEasyModeEditSystem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="EditSystemEasyModeDeleteSystem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
+    <Page Remove="EditSystemEasyModeDeleteSystem.xaml" />
+    <Page Remove="EditSystemEasyModeEditSystem.xaml" />
   </ItemGroup>
 </Project>
