@@ -26,6 +26,10 @@ We have compiled a list of parameters for each emulator for your convenience. Cl
 
 ## Special Settings:
 
+**LaserDisk**
+
+If you want to add LaserDisk games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the game.<br>
+
 **Microsoft Windows Games or Applications**
 
 If you want to add your Windows games or applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the game or application.<br>
@@ -38,17 +42,30 @@ cd /d "J:\Microsoft Windows\Mega Man 11"
 start game.exe
 ```
 
-**RPCS3 Emulator**
+**Sony Playstation 3**
 
-This emulator loads games extracted from ISO files into a Game Folder.<br>
+This RPCS3 emulator loads games extracted from ISO files into a Game Folder.<br>
 To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.  
 Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in Simple Launcher to be treated as games.  
 For the Sony Playstation 3 system configuration, you should set the Format To Search In System Folder as batch (.bat).
 I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generate these batch files for you.
 
+**Sega Model 3**
+
+If you want to add your Sega Model 3 games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the supermodel emulator.<br>
+
+BAT file example:
+```bat
+cd /d D:\Emulators\Supermodel
+Supermodel.exe "D:\Sega Model3\bass.zip" -fullscreen -show-fps
+```
+
+Adjust the batch file as per your needs. You need a separate batch file for each game (or ROM) you own. Name each batch file with the same name as the game (or ROM).<br>
+Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within Simple Launcher.
+
 **ScummVM Games**
 
-If you want to add your ScummVM games to the Simple Launcher frontend, you should create a folder with BAT (bat) files that directly call the game.<br>
+If you want to add your ScummVM games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the game.<br>
 
 Bat file model:
 ```bat

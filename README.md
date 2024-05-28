@@ -28,7 +28,7 @@ You can find cover images on websites such as [Libretro Thumbnails](https://gith
 
 ## List of Parameters for Emulators
 You can find a list of parameters gathered by us for each emulator [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters).<br>
-Some specific cases, like adding Windows Games, Sony Playstation 3 Games and ScummVM Games into the frontend, require special settings. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki#special-settings) for more details.
+Some specific cases, like adding LaserDisk, Windows Games, Sony Playstation 3, Sega Model 3 and ScummVM Games into the frontend, require special settings. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki#special-settings) for more details.
 
 ## Wiki:
 For more detailed explanations of how the frontend works, visit our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
