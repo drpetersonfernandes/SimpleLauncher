@@ -101,11 +101,14 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                        // Enable the AddSystemButton
-                        AddSystemButton.IsEnabled = true;
+                        
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
+                        
+                        // Disable DownloadEmulatorButton 
+                        DownloadEmulatorButton.IsEnabled = false;
                     }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -115,6 +118,7 @@ namespace SimpleLauncher
                 // {
                 //     // Hide progress bar
                 //     DownloadProgressBar.Visibility = Visibility.Collapsed;
+                //     DownloadProgressBarText.Text = "";
                 // }
             }
         }
@@ -170,10 +174,12 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Core for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                        // Enable the AddSystemButton
-                        AddSystemButton.IsEnabled = true;
+                        
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
+                        
+                        // Disable DownloadCoreButton
+                        DownloadCoreButton.IsEnabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -184,6 +190,7 @@ namespace SimpleLauncher
                 // {
                 //     // Hide progress bar
                 //     DownloadProgressBar.Visibility = Visibility.Collapsed;
+                //     DownloadProgressBarText.Text = "";
                 // }
             }
         }
@@ -239,10 +246,12 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Extras for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                        // Enable the AddSystemButton
-                        AddSystemButton.IsEnabled = true;
+
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
+                        
+                        // Disable DownloadExtrasButton
+                        DownloadExtrasButton.IsEnabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -253,6 +262,7 @@ namespace SimpleLauncher
                 // {
                 //     // Hide progress bar
                 //     DownloadProgressBar.Visibility = Visibility.Collapsed;
+                //     DownloadProgressBarText.Text = "";
                 // }
             }
         }
@@ -421,6 +431,6 @@ namespace SimpleLauncher
                 Environment.Exit(0);
             }
         }
-
+        
     }
 }
