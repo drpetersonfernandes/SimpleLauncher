@@ -127,12 +127,74 @@ namespace SimpleLauncher
             {
                 button.Tag = "DefaultImage";
             }
-
+            
             button.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
             };
+            
+            // Context menu
+            var contextMenu = new ContextMenu();
+
+            var launchMenuItem = new MenuItem { Header = "Launch Game" };
+            launchMenuItem.Click += async (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
+            };
+
+            var openSampleVideo = new MenuItem { Header = "Sample Video" };
+            openSampleVideo.Click += (_, _) =>
+            {
+                PlaySampleVideo(systemName, fileNameWithoutExtension);
+            };
+            
+            var openScreenshot = new MenuItem { Header = "Screenshot" };
+            openScreenshot.Click += (_, _) =>
+            {
+                OpenScreenshot(systemName, fileNameWithoutExtension);
+            };
+            
+            var openTitleScreen = new MenuItem { Header = "Title Screen" };
+            openTitleScreen.Click += (_, _) =>
+            {
+                OpenTitle(systemName, fileNameWithoutExtension);
+            };
+            
+            var openManual = new MenuItem { Header = "Manual" };
+            openManual.Click += (_, _) =>
+            {
+                OpenManual(systemName, fileNameWithoutExtension);
+            };
+            
+            var openWalkthrough = new MenuItem { Header = "Walkthrough" };
+            openWalkthrough.Click += (_, _) =>
+            {
+                OpenManual(systemName, fileNameWithoutExtension);
+            };
+            
+            var openCabinet = new MenuItem { Header = "Cabinet" };
+            openCabinet.Click += (_, _) =>
+            {
+                OpenManual(systemName, fileNameWithoutExtension);
+            };
+            
+            var openFlyer = new MenuItem { Header = "Flyer" };
+            openFlyer.Click += (_, _) =>
+            {
+                OpenManual(systemName, fileNameWithoutExtension);
+            };
+            
+            contextMenu.Items.Add(launchMenuItem);
+            contextMenu.Items.Add(openSampleVideo);
+            contextMenu.Items.Add(openScreenshot);
+            contextMenu.Items.Add(openTitleScreen);
+            contextMenu.Items.Add(openManual);
+            contextMenu.Items.Add(openWalkthrough);
+            contextMenu.Items.Add(openCabinet);
+            contextMenu.Items.Add(openFlyer);
+            button.ContextMenu = contextMenu;
 
             return button;
         }
@@ -312,6 +374,98 @@ namespace SimpleLauncher
                 e.Handled = true; // Stops the click event from propagating to the button's main click event
             };
             return infoIcon;
+        }
+        
+        private void PlaySampleVideo(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
+            string[] videoExtensions = [".mp4", ".avi", ".mkv"];
+
+            foreach (var extension in videoExtensions)
+            {
+                string videoPath = Path.Combine(videoDirectory, fileName + extension);
+                if (File.Exists(videoPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = videoPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no video associated with this file or button.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenScreenshot(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string screenshotDirectory = Path.Combine(baseDirectory, "screenshots", systemName);
+            string[] screenshotExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in screenshotExtensions)
+            {
+                string screenshotPath = Path.Combine(screenshotDirectory, fileName + extension);
+                if (File.Exists(screenshotPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = screenshotPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no screenshot associated with this file or button.", "Screenshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenTitle(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string titleDirectory = Path.Combine(baseDirectory, "title", systemName);
+            string[] titleExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in titleExtensions)
+            {
+                string titlePath = Path.Combine(titleDirectory, fileName + extension);
+                if (File.Exists(titlePath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = titlePath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no title associated with this file or button.", "Title Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenManual(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string manualDirectory = Path.Combine(baseDirectory, "manual", systemName);
+            string[] manualExtensions = [".pdf"];
+
+            foreach (var extension in manualExtensions)
+            {
+                string manualPath = Path.Combine(manualDirectory, fileName + extension);
+                if (File.Exists(manualPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = manualPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no manual associated with this file or button.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
     }
