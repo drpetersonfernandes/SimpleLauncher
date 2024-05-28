@@ -28,6 +28,11 @@ namespace SimpleLauncher
 
         public static List<SystemConfig> LoadSystemConfigs(string xmlPath)
         {
+            if (string.IsNullOrEmpty(xmlPath))
+            {
+                throw new ArgumentNullException(nameof(xmlPath), @"The path to the XML file cannot be null or empty.");
+            }
+
             try
             {
                 // Check for the existence of the system.xml
@@ -49,31 +54,38 @@ namespace SimpleLauncher
                                 if (restoreResult == MessageBoxResult.Yes)
                                 {
                                     // Rename the most recent backup file to system.xml
-                                    if (xmlPath != null)
-                                        File.Copy(mostRecentBackupFile, xmlPath,
-                                            false); // Does not Overwrite the file if it already exists
+                                    File.Copy(mostRecentBackupFile, xmlPath, false); // Does not overwrite the file if it already exists
                                 }
                             }
                             else
                             {
-                                try
+                                // Ask the user whether to create an empty system.xml or use a prefilled system_model.xml
+                                MessageBoxResult createNewFileResult = MessageBox.Show("The file system.xml is missing. Would you like to create an empty system.xml or use a prefilled system_model.xml?\n\nClick Yes to create an empty system.xml.\nClick No to use the prefilled system_model.xml.", "Create System.xml", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                if (createNewFileResult == MessageBoxResult.Yes)
                                 {
-                                    // Location of system_model.xml
-                                    string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
-
-                                    // Rename system.model to system.xml
-                                    if (xmlPath != null)
-                                        File.Copy(systemModel, xmlPath,
-                                            false); // Does not Overwrite the file if it already exists
+                                    // Create an empty system.xml
+                                    var emptyDoc = new XDocument(new XElement("Systems"));
+                                    emptyDoc.Save(xmlPath);
                                 }
-                                catch (Exception)
+                                else
                                 {
-                                    string contextMessage = $"The file system_model.xml is missing.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.";
-                                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    try
+                                    {
+                                        // Location of system_model.xml
+                                        string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
 
-                                    // Shutdown the application and exit
-                                    Application.Current.Shutdown();
-                                    Environment.Exit(0);
+                                        // Rename system.model to system.xml
+                                        File.Copy(systemModel, xmlPath, false); // Does not overwrite the file if it already exists
+                                    }
+                                    catch (Exception)
+                                    {
+                                        string contextMessage = $"The file system_model.xml is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.";
+                                        MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                                        // Shutdown the application and exit
+                                        Application.Current.Shutdown();
+                                        Environment.Exit(0);
+                                    }
                                 }
                             }
                         }
@@ -88,10 +100,11 @@ namespace SimpleLauncher
                     }
                 }
 
-                var doc = XDocument.Load(xmlPath ?? throw new ArgumentNullException(nameof(xmlPath)));
+                var doc = XDocument.Load(xmlPath);
                 var systemConfigs = new List<SystemConfig>();
 
                 if (doc.Root != null)
+                {
                     foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                     {
                         if (sysConfigElement.Element("SystemName") == null ||
@@ -152,6 +165,7 @@ namespace SimpleLauncher
                             Emulators = emulators
                         });
                     }
+                }
 
                 return systemConfigs;
             }
@@ -163,8 +177,6 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 return null;
             }
-
         }
-
     }
 }

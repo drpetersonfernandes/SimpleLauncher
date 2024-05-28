@@ -188,13 +188,9 @@ namespace SimpleLauncher
 
                             if (string.IsNullOrEmpty(tempExtractLocation))
                             {
-                                string errorMessage = "Failed to extract the archive.\n\nCheck if the compressed file is corrupt.";
-                                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                Exception exception = new(errorMessage);
-                                await LogErrors.LogErrorAsync(exception, errorMessage);
+                                pleaseWaitExtraction.Close();
                                 return;
                             }
-
                             pleaseWaitExtraction.Close();
 
                             // Iterate through the formats to launch and find the first file with the specified extension

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Net.Http;
+using System.Windows.Navigation;
 using System.Xml.Linq;
 
 namespace SimpleLauncher
@@ -13,6 +14,10 @@ namespace SimpleLauncher
     public partial class EditSystemEasyModeAddSystem
     {
         private EasyModeConfig _config;
+
+        private bool _isEmulatorDownloaded;
+        private bool _isCoreDownloaded;
+        private bool _isExtrasDownloaded;
 
         public EditSystemEasyModeAddSystem()
         {
@@ -46,6 +51,13 @@ namespace SimpleLauncher
                     DownloadEmulatorButton.IsEnabled = true;
                     DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.EmulatorCoreDownload);
                     DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.EmulatorExtrasDownload);
+
+                    // Reset download status
+                    _isEmulatorDownloaded = false;
+                    _isCoreDownloaded = !DownloadCoreButton.IsEnabled; // Assume downloaded if no download needed
+                    _isExtrasDownloaded = !DownloadExtrasButton.IsEnabled; // Assume downloaded if no download needed
+
+                    UpdateAddSystemButtonState();
                 }
             }
         }
@@ -88,6 +100,14 @@ namespace SimpleLauncher
                         }
                     }
 
+                    // Rename the file to .7z if EmulatorBinaryRename is true
+                    if (selectedSystem.Emulators.Emulator.EmulatorBinaryRename)
+                    {
+                        string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
+                        File.Move(downloadFilePath, newFilePath);
+                        downloadFilePath = newFilePath;
+                    }
+
                     // Show the PleaseWaitExtraction window
                     PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                     pleaseWaitWindow.Show();
@@ -101,27 +121,25 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                        
+                
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
-                        
-                        // Disable DownloadEmulatorButton 
+                
+                        // Mark as downloaded and disable button
+                        _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
+
+                        // Update AddSystemButton state
+                        UpdateAddSystemButtonState();
                     }
-                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error downloading emulator: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                // finally
-                // {
-                //     // Hide progress bar
-                //     DownloadProgressBar.Visibility = Visibility.Collapsed;
-                //     DownloadProgressBarText.Text = "";
-                // }
             }
         }
+
 
         private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -178,20 +196,18 @@ namespace SimpleLauncher
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
                         
-                        // Disable DownloadCoreButton
+                        // Mark as downloaded and disable button
+                        _isCoreDownloaded = true;
                         DownloadCoreButton.IsEnabled = false;
+
+                        // Update AddSystemButton state
+                        UpdateAddSystemButtonState();
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error downloading core: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                // finally
-                // {
-                //     // Hide progress bar
-                //     DownloadProgressBar.Visibility = Visibility.Collapsed;
-                //     DownloadProgressBarText.Text = "";
-                // }
             }
         }
 
@@ -250,20 +266,18 @@ namespace SimpleLauncher
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
                         
-                        // Disable DownloadExtrasButton
+                        // Mark as downloaded and disable button
+                        _isExtrasDownloaded = true;
                         DownloadExtrasButton.IsEnabled = false;
+
+                        // Update AddSystemButton state
+                        UpdateAddSystemButtonState();
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error downloading extras: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                // finally
-                // {
-                //     // Hide progress bar
-                //     DownloadProgressBar.Visibility = Visibility.Collapsed;
-                //     DownloadProgressBarText.Text = "";
-                // }
             }
         }
 
@@ -313,6 +327,11 @@ namespace SimpleLauncher
                     MessageBoxImage.Error);
                 return false;
             }
+        }
+
+        private void UpdateAddSystemButtonState()
+        {
+            AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded && _isExtrasDownloaded;
         }
 
         private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -400,7 +419,8 @@ namespace SimpleLauncher
                         Directory.CreateDirectory(imagesFolderPath);
                     }
 
-                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully, and the folders '{selectedSystem.SystemFolder}' and '{selectedSystem.SystemImageFolder}' have been created.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\nPut cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nIf you do not want to use these Default Paths, you can Edit this System to use Custom Paths.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AddSystemButton.IsEnabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -430,6 +450,12 @@ namespace SimpleLauncher
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }
+        }
+        
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
         }
         
     }

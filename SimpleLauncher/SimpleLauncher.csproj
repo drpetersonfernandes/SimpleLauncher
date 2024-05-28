@@ -48,6 +48,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Remove="ClassDiagram.cd" />
+    <None Remove="system_empty.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -59,6 +60,8 @@
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
     <None Remove="images\wait.gif" />
+    <None Remove="images\clickheretogethelp.png" />
+    <Resource Include="images\clickheretogethelp.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">
@@ -87,7 +90,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SharpCompress" Version="0.37.2" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>

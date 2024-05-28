@@ -1,10 +1,9 @@
-﻿using SharpCompress.Archives;
-using SharpCompress.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using Exception = System.Exception;
+using System.Windows;
 
 namespace SimpleLauncher
 {
@@ -12,33 +11,10 @@ namespace SimpleLauncher
     {
         private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
         public static ExtractCompressedFile Instance2 => Instance.Value;
-        private readonly List<string> _tempDirectories = [];
+        private readonly List<string> _tempDirectories = new();
 
         private ExtractCompressedFile() { } // Private constructor to enforce singleton pattern
 
-        //public string ExtractArchiveToTemp(string archivePath)
-        //{
-        //    string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-        //    Directory.CreateDirectory(tempDirectory);
-
-        //    // Keep track of the temp directory
-        //    _tempDirectories.Add(tempDirectory);
-
-        //    using var archive = ArchiveFactory.Open(archivePath);
-        //    foreach (var entry in archive.Entries)
-        //    {
-        //        if (!entry.IsDirectory)
-        //        {
-        //            entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
-        //            {
-        //                ExtractFullPath = true,
-        //                Overwrite = true
-        //            });
-        //        }
-        //    }
-        //    return tempDirectory;
-        //}
-        
         public string ExtractArchiveToTemp(string archivePath)
         {
             // Use the application's directory for the temporary directory
@@ -49,18 +25,43 @@ namespace SimpleLauncher
             // Keep track of the temp directory
             _tempDirectories.Add(tempDirectory);
 
-            using var archive = ArchiveFactory.Open(archivePath);
-            foreach (var entry in archive.Entries)
+            // Path to the 7z.exe executable
+            string sevenZipPath = Path.Combine(appDirectory, "7z.exe");
+
+            // Start the process to extract the archive
+            ProcessStartInfo processStartInfo = new()
             {
-                if (!entry.IsDirectory)
-                {
-                    entry.WriteToDirectory(tempDirectory, new ExtractionOptions()
-                    {
-                        ExtractFullPath = true,
-                        Overwrite = true
-                    });
-                }
+                FileName = sevenZipPath,
+                Arguments = $"x \"{archivePath}\" -o\"{tempDirectory}\" -y",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using Process process = new();
+            process.StartInfo = processStartInfo;
+            process.Start();
+
+            // Optionally, read the output and error streams
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                string errorMessage = $"7z.exe process failed with exit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                Exception exception = new(errorMessage);
+                Task logTask = LogErrors.LogErrorAsync(exception, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(1));
+                
+                string errorMessage2 = "Extraction of the compressed file failed! Maybe the file is corrupted.";
+                MessageBox.Show(errorMessage2, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                return null;
             }
+
             return tempDirectory;
         }
 
