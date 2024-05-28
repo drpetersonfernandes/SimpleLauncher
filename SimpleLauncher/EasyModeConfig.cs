@@ -13,10 +13,8 @@ namespace SimpleLauncher
         public static EasyModeConfig Load(string xmlFilePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(EasyModeConfig));
-            using (FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open))
-            {
-                return (EasyModeConfig)serializer.Deserialize(fileStream);
-            }
+            using FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open);
+            return (EasyModeConfig)serializer.Deserialize(fileStream);
         }
     }
 
@@ -37,6 +35,13 @@ namespace SimpleLauncher
         [XmlArrayItem("FormatToLaunch")]
         public List<string> FileFormatsToLaunch { get; set; }
 
+        [XmlElement("Emulators")]
+        public EmulatorsConfig Emulators { get; set; }
+    }
+
+    public class EmulatorsConfig
+    {
+        [XmlElement("Emulator")]
         public EmulatorConfig Emulator { get; set; }
     }
 
@@ -49,7 +54,7 @@ namespace SimpleLauncher
         public string EmulatorLatestVersion { get; set; }
         public string EmulatorBinaryDownload { get; set; }
         public bool EmulatorBinaryRename { get; set; }
-        public string EmulatorBinaryExtractPathTo { get; set; }
+        public string EmulatorBinaryExtractPath { get; set; }
         public string EmulatorCoreDownload { get; set; }
         public string EmulatorCoreExtractPath { get; set; }
         public string EmulatorExtrasDownload { get; set; }
