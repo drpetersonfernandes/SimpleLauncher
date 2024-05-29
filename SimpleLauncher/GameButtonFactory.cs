@@ -143,57 +143,96 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
             };
-
-            var openTitle = new MenuItem { Header = "Title" };
-            openTitle.Click += (_, _) =>
+            
+            var openVideoLink = new MenuItem { Header = "Open Video Link" };
+            openVideoLink.Click += (_, _) =>
             {
-                OpenTitle(systemName, fileNameWithoutExtension);
+                PlayClick.PlayClickSound();
+                OpenVideoLink(systemName, fileNameWithoutExtension);
             };
             
-            var openScreenshot = new MenuItem { Header = "Screenshot" };
-            openScreenshot.Click += (_, _) =>
+            var openInfoLink = new MenuItem { Header = "Open Info Link" };
+            openInfoLink.Click += (_, _) =>
             {
-                OpenScreenshot(systemName, fileNameWithoutExtension);
+                PlayClick.PlayClickSound();
+                OpenInfoLink(systemName, fileNameWithoutExtension);
+            };
+            
+            var openCover = new MenuItem { Header = "Cover" };
+            openCover.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenCover(systemName, fileNameWithoutExtension);
+            };
+
+            var openTitleSnapshot = new MenuItem { Header = "Title Snapshot" };
+            openTitleSnapshot.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenTitleSnapshot(systemName, fileNameWithoutExtension);
+            };
+            
+            var openGameplaySnapshot = new MenuItem { Header = "Gameplay Snapshot" };
+            openGameplaySnapshot.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
             };
           
             var openVideo = new MenuItem { Header = "Video" };
             openVideo.Click += (_, _) =>
             {
+                PlayClick.PlayClickSound();
                 PlayVideo(systemName, fileNameWithoutExtension);
             };
            
             var openManual = new MenuItem { Header = "Manual" };
             openManual.Click += (_, _) =>
             {
+                PlayClick.PlayClickSound();
                 OpenManual(systemName, fileNameWithoutExtension);
             };
             
             var openWalkthrough = new MenuItem { Header = "Walkthrough" };
             openWalkthrough.Click += (_, _) =>
             {
+                PlayClick.PlayClickSound();
                 OpenWalkthrough(systemName, fileNameWithoutExtension);
             };
             
             var openCabinet = new MenuItem { Header = "Cabinet" };
             openCabinet.Click += (_, _) =>
             {
+                PlayClick.PlayClickSound();
                 OpenCabinet(systemName, fileNameWithoutExtension);
             };
             
             var openFlyer = new MenuItem { Header = "Flyer" };
             openFlyer.Click += (_, _) =>
             {
+                PlayClick.PlayClickSound();
                 OpenFlyer(systemName, fileNameWithoutExtension);
             };
             
+            var openPcb = new MenuItem { Header = "PCB" };
+            openPcb.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenPcb(systemName, fileNameWithoutExtension);
+            };
+            
             contextMenu.Items.Add(launchMenuItem);
-            contextMenu.Items.Add(openTitle);
-            contextMenu.Items.Add(openScreenshot);
+            contextMenu.Items.Add(openVideoLink);
+            contextMenu.Items.Add(openInfoLink);
+            contextMenu.Items.Add(openCover);
+            contextMenu.Items.Add(openTitleSnapshot);
+            contextMenu.Items.Add(openGameplaySnapshot);
             contextMenu.Items.Add(openVideo);
             contextMenu.Items.Add(openManual);
             contextMenu.Items.Add(openWalkthrough);
             contextMenu.Items.Add(openCabinet);
             contextMenu.Items.Add(openFlyer);
+            contextMenu.Items.Add(openPcb);
             button.ContextMenu = contextMenu;
 
             return button;
@@ -376,50 +415,118 @@ namespace SimpleLauncher
             return infoIcon;
         }
         
-        private void OpenTitle(string systemName, string fileName)
+        private void OpenVideoLink(string systemName, string fileNameWithoutExtension)
+        {
+            string searchTerm = $"{fileNameWithoutExtension} {systemName}";
+            string searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception exception)
+            {
+                string contextMessage = $"There was a problem opening the Video Link.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                MessageBox.Show($"There was a problem opening the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                throw;
+            }
+        }
+
+        private void OpenInfoLink(string systemName, string fileNameWithoutExtension)
+        {
+            string searchTerm = $"{fileNameWithoutExtension} {systemName}";
+            string searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception exception)
+            {
+                string contextMessage = $"There was a problem opening the Info Link.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                MessageBox.Show($"There was a problem opening the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                throw;
+            }
+        }
+        
+        private void OpenCover(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string titleDirectory = Path.Combine(baseDirectory, "title", systemName);
+            string coverDirectory = Path.Combine(baseDirectory, "images", systemName);
             string[] titleExtensions = [".png", ".jpg", ".jpeg"];
 
             foreach (var extension in titleExtensions)
             {
-                string titlePath = Path.Combine(titleDirectory, fileName + extension);
-                if (File.Exists(titlePath))
+                string coverPath = Path.Combine(coverDirectory, fileName + extension);
+                if (File.Exists(coverPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = titlePath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(coverPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
 
-            MessageBox.Show("There is no title associated with this file or button.", "Title Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
         
-        private void OpenScreenshot(string systemName, string fileName)
+        private void OpenTitleSnapshot(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string screenshotDirectory = Path.Combine(baseDirectory, "screenshots", systemName);
-            string[] screenshotExtensions = [".png", ".jpg", ".jpeg"];
+            string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
+            string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
-            foreach (var extension in screenshotExtensions)
+            foreach (var extension in titleSnapshotExtensions)
             {
-                string screenshotPath = Path.Combine(screenshotDirectory, fileName + extension);
-                if (File.Exists(screenshotPath))
+                string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
+                if (File.Exists(titleSnapshotPath))
                 {
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = screenshotPath,
+                        FileName = titleSnapshotPath,
                         UseShellExecute = true
                     });
                     return;
                 }
             }
 
-            MessageBox.Show("There is no screenshot associated with this file or button.", "Screenshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no title snapshot associated with this file or button.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenGameplaySnapshot(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
+            string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in gameplaySnapshotExtensions)
+            {
+                string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
+                if (File.Exists(gameplaySnapshotPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = gameplaySnapshotPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
         private void PlayVideo(string systemName, string fileName)
@@ -448,8 +555,8 @@ namespace SimpleLauncher
         private void OpenManual(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string manualDirectory = Path.Combine(baseDirectory, "manual", systemName);
-            string[] manualExtensions = { ".pdf" };
+            string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
+            string[] manualExtensions = [".pdf"];
 
             foreach (var extension in manualExtensions)
             {
@@ -471,9 +578,6 @@ namespace SimpleLauncher
             MessageBox.Show("There is no manual associated with this file or button.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-
-
-        
         private void OpenWalkthrough(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -500,7 +604,7 @@ namespace SimpleLauncher
         private void OpenCabinet(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string cabinetDirectory = Path.Combine(baseDirectory, "cabinet", systemName);
+            string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
             string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
 
             foreach (var extension in cabinetExtensions)
@@ -523,7 +627,7 @@ namespace SimpleLauncher
         private void OpenFlyer(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string flyerDirectory = Path.Combine(baseDirectory, "flyer", systemName);
+            string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
             string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
             foreach (var extension in flyerExtensions)
@@ -541,6 +645,29 @@ namespace SimpleLauncher
             }
 
             MessageBox.Show("There is no flyer associated with this file or button.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenPcb(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
+            string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in pcbExtensions)
+            {
+                string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
+                if (File.Exists(pcbPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = pcbPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
     }

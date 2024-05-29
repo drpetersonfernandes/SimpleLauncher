@@ -405,19 +405,22 @@ namespace SimpleLauncher
                     // Save the updated XML document
                     xmlDoc.Save(systemXmlPath);
 
-                    // Create a folder inside the application folder named after the value in _config.SystemFolder
-                    string systemFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemFolder);
-                    if (!Directory.Exists(systemFolderPath))
-                    {
-                        Directory.CreateDirectory(systemFolderPath);
-                    }
-
-                    // Create a folder inside the images folder based on the value in _config.SystemImageFolder
-                    string imagesFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemImageFolder);
-                    if (!Directory.Exists(imagesFolderPath))
-                    {
-                        Directory.CreateDirectory(imagesFolderPath);
-                    }
+                    // // Create a folder inside the application folder named after the value in _config.SystemFolder
+                    // string systemFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemFolder);
+                    // if (!Directory.Exists(systemFolderPath))
+                    // {
+                    //     Directory.CreateDirectory(systemFolderPath);
+                    // }
+                    //
+                    // // Create a folder inside the images folder based on the value in _config.SystemImageFolder
+                    // string imagesFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemImageFolder);
+                    // if (!Directory.Exists(imagesFolderPath))
+                    // {
+                    //     Directory.CreateDirectory(imagesFolderPath);
+                    // }
+                    
+                    // Create necessary folders for the system
+                    CreateSystemFolders(selectedSystem.SystemName, selectedSystem.SystemFolder, selectedSystem.SystemImageFolder);
 
                     MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\nPut cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nIf you do not want to use these Default Paths, you can Edit this System to use Custom Paths.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
                     AddSystemButton.IsEnabled = false;
@@ -426,6 +429,51 @@ namespace SimpleLauncher
                 {
                     MessageBox.Show($"Error adding system: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+        
+        private void CreateSystemFolders(string systemName, string systemFolder, string systemImageFolder)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Paths for the primary system folder and image folder
+            string systemFolderPath = Path.Combine(baseDirectory, systemFolder);
+            string imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
+
+            // List of additional folders to create
+            string[] additionalFolders = ["title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs"
+            ];
+
+            try
+            {
+                // Create the primary system folder if it doesn't exist
+                if (!Directory.Exists(systemFolderPath))
+                {
+                    Directory.CreateDirectory(systemFolderPath);
+                }
+
+                // Create the primary image folder if it doesn't exist
+                if (!Directory.Exists(imagesFolderPath))
+                {
+                    Directory.CreateDirectory(imagesFolderPath);
+                }
+
+                // Create each additional folder
+                foreach (var folder in additionalFolders)
+                {
+                    string folderPath = Path.Combine(baseDirectory, folder, systemName);
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                string formattedException = $"The Simple Launcher failed to create the necessary folders for the newly added system.\n\nException detail: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                throw;
             }
         }
         

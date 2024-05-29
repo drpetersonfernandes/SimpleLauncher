@@ -5,8 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
-        Title="OpenPdfFiles" Height="450" Width="800">
+        Title="PDF Viewer" Height="450" Width="800">
     <Grid>
-        <cef:ChromiumWebBrowser Name="browser" Address="about:blank" />
+        <cef:ChromiumWebBrowser Name="Browser" Address="about:blank" />
     </Grid>
 </Window>

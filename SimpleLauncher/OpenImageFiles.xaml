@@ -4,8 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="OpenImageFiles" Height="450" Width="800">
+        Title="Image Viewer" Height="450" Width="800">
     <Grid>
-        
+        <Image Name="ImageViewer" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>

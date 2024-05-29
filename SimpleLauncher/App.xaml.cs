@@ -6,7 +6,7 @@ using CefSharp.Wpf;
 
 namespace SimpleLauncher
 {
-    public partial class App : Application
+    public partial class App
     {
         protected override void OnStartup(StartupEventArgs e)
         {

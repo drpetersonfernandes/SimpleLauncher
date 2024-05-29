@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -223,7 +222,8 @@
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>cue, cdi</FormatToLaunch>
+            <FormatToLaunch>cue</FormatToLaunch>
+            <FormatToLaunch>cdi</FormatToLaunch>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -894,13 +894,12 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Nintendo Entertainment System</SystemName>
-        <SystemFolder>.\roms\Nintendo Entertainment System</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Entertainment System</SystemImageFolder>
+        <SystemName>Nintendo NES</SystemName>
+        <SystemFolder>.\roms\Nintendo NES</SystemFolder>
+        <SystemImageFolder>.\images\Nintendo NES</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1105,9 +1104,9 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Nintendo Super Nintendo Entertainment System</SystemName>
-        <SystemFolder>.\roms\Nintendo Super Nintendo Entertainment System</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Super Nintendo Entertainment System</SystemImageFolder>
+        <SystemName>Nintendo SNES</SystemName>
+        <SystemFolder>.\roms\Nintendo SNES</SystemFolder>
+        <SystemImageFolder>.\images\Nintendo SNES</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1135,9 +1134,9 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Nintendo Super Nintendo Entertainment System MSU1</SystemName>
-        <SystemFolder>.\roms\Nintendo Super Nintendo Entertainment System MSU1</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Super Nintendo Entertainment System MSU1</SystemImageFolder>
+        <SystemName>Nintendo SNES MSU1</SystemName>
+        <SystemFolder>.\roms\Nintendo SNES MSU1</SystemFolder>
+        <SystemImageFolder>.\images\Nintendo SNES MSU1</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1413,7 +1412,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>

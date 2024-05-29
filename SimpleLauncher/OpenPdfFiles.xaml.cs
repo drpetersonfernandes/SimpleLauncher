@@ -6,7 +6,7 @@ using CefSharp.Wpf;
 
 namespace SimpleLauncher
 {
-    public partial class OpenPdfFiles : Window
+    public partial class OpenPdfFiles
     {
         public OpenPdfFiles()
         {
@@ -28,19 +28,12 @@ namespace SimpleLauncher
             if (File.Exists(filePath))
             {
                 var uri = new Uri(filePath);
-                browser.Address = uri.AbsoluteUri;
+                Browser.Address = uri.AbsoluteUri;
             }
             else
             {
                 MessageBox.Show("PDF file not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            // Do not call Cef.Shutdown() here as it can only be called once per process.
-            // Let the application shutdown handle it if necessary.
         }
     }
 }
