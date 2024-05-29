@@ -1,4 +1,4 @@
-<Window x:Class="SimpleLauncher.PleaseWaitWindow"
+<Window x:Class="SimpleLauncher.PleaseWaitSearch"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         Title="Please Wait" Height="120" Width="300"

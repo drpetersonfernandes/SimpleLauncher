@@ -1,8 +1,8 @@
 namespace SimpleLauncher;
 
-public partial class PleaseWaitWindow
+public partial class PleaseWaitSearch
 {
-    public PleaseWaitWindow()
+    public PleaseWaitSearch()
     {
         InitializeComponent();
     }

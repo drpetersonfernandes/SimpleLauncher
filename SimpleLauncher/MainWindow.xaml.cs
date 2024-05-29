@@ -660,7 +660,7 @@ namespace SimpleLauncher
             }
 
             // Show the "Please Wait" window
-            var pleaseWaitWindow = new PleaseWaitWindow();
+            var pleaseWaitWindow = new PleaseWaitSearch();
             pleaseWaitWindow.Show();
             
             // Call DeselectLetter to clear any selected letter
@@ -699,7 +699,7 @@ namespace SimpleLauncher
                 }
 
                 // Show the "Please Wait" window
-                var pleaseWaitWindow = new PleaseWaitWindow();
+                var pleaseWaitWindow = new PleaseWaitSearch();
                 pleaseWaitWindow.Show();
                 
                 // Call DeselectLetter to clear any selected letter
@@ -715,6 +715,50 @@ namespace SimpleLauncher
                     pleaseWaitWindow.Close();
                 }
             }
+        }
+        
+        private async Task<GlobalStats> CalculateGlobalStats()
+        {
+            int totalSystems = _systemConfigs.Count;
+            int totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
+            int totalGames = 0;
+            int totalImages = 0;
+            long totalDiskSize = 0;
+
+            foreach (var config in _systemConfigs)
+            {
+                var gameFiles = await LoadFiles.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
+                totalGames += gameFiles.Count;
+
+                if (!string.IsNullOrEmpty(config.SystemImageFolder))
+                {
+                    var imageFiles = Directory.EnumerateFiles(config.SystemImageFolder, "*.*", SearchOption.TopDirectoryOnly).ToList();
+                    totalImages += imageFiles.Count;
+                }
+
+                foreach (var gameFile in gameFiles)
+                {
+                    totalDiskSize += new FileInfo(gameFile).Length;
+                }
+            }
+
+            return new GlobalStats
+            {
+                TotalSystems = totalSystems,
+                TotalEmulators = totalEmulators,
+                TotalGames = totalGames,
+                TotalImages = totalImages,
+                TotalDiskSize = totalDiskSize
+            };
+        }
+
+        private class GlobalStats
+        {
+            public int TotalSystems { get; set; }
+            public int TotalEmulators { get; set; }
+            public int TotalGames { get; set; }
+            public int TotalImages { get; set; }
+            public long TotalDiskSize { get; set; }
         }
 
         #region Menu Items
@@ -881,8 +925,13 @@ namespace SimpleLauncher
                 }
             }
         }
+        
+        private void GlobalSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var globalSearchWindow = new GlobalSearch();
+            globalSearchWindow.Show();
+        }
 
         #endregion
-
     }
 }

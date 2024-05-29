@@ -129,6 +129,9 @@
                 Click="EditLinks_Click"
                 Header="Edit Links" />
             <MenuItem
+                Click="GlobalSearch_Click"
+                Header="Global Search" />
+            <MenuItem
                 Click="BugReport_Click"
                 Header="Bug Report" />
             <MenuItem
