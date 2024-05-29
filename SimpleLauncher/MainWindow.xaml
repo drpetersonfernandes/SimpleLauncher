@@ -132,6 +132,9 @@
                 Click="GlobalSearch_Click"
                 Header="Global Search" />
             <MenuItem
+                Click="GlobalStats_Click"
+                Header="Global Stats" />
+            <MenuItem
                 Click="BugReport_Click"
                 Header="Bug Report" />
             <MenuItem

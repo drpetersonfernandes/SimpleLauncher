@@ -15,7 +15,7 @@
             <Button Content="Search" Click="SearchButton_Click" />
             <Button Name="LaunchButton" Content="Launch Game" Click="LaunchButton_Click" IsEnabled="False" Margin="10,0,0,0" />
         </StackPanel>
-        <DataGrid Name="ResultsDataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False" MouseRightButtonUp="ResultsDataGrid_MouseRightButtonUp">
+        <DataGrid Name="ResultsDataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False" MouseRightButtonUp="ResultsDataGrid_MouseRightButtonUp" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*"/>
                 <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="*"/>
