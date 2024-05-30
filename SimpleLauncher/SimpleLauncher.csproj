@@ -49,6 +49,9 @@
     </None>
     <None Remove="ClassDiagram.cd" />
     <None Remove="system_empty.xml" />
+    <None Update="pdf_viewer.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -88,7 +91,6 @@
     <Resource Include="images\info.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="124.3.80" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
@@ -108,6 +110,7 @@
     <Compile Remove="EasyModePreset.cs" />
     <Compile Remove="EditSystemEasyModeDeleteSystem.xaml.cs" />
     <Compile Remove="EditSystemEasyModeEditSystem.xaml.cs" />
+    <Compile Remove="OpenPdfFiles.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="database\**" />
@@ -126,5 +129,6 @@
     </Page>
     <Page Remove="EditSystemEasyModeDeleteSystem.xaml" />
     <Page Remove="EditSystemEasyModeEditSystem.xaml" />
+    <Page Remove="OpenPdfFiles.xaml" />
   </ItemGroup>
 </Project>

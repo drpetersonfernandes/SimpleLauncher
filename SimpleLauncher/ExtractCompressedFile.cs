@@ -13,7 +13,7 @@ namespace SimpleLauncher
         public static ExtractCompressedFile Instance2 => Instance.Value;
         private readonly List<string> _tempDirectories = new();
 
-        private ExtractCompressedFile() { } // Private constructor to enforce singleton pattern
+        private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
         public string ExtractArchiveToTemp(string archivePath)
         {

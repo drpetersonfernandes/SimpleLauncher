@@ -121,10 +121,10 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
-                
+
                         // Mark as downloaded and disable button
                         _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
@@ -135,11 +135,18 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error downloading emulator: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxResult result = MessageBox.Show($"Error downloading emulator: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadPage,
+                            UseShellExecute = true
+                        });
+                    }
                 }
             }
         }
-
 
         private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -192,10 +199,10 @@ namespace SimpleLauncher
                     if (extractionSuccess)
                     {
                         MessageBox.Show($"Core for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                        
+
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
-                        
+
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
                         DownloadCoreButton.IsEnabled = false;
@@ -206,7 +213,15 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error downloading core: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxResult result = MessageBox.Show($"Error downloading core: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadPage,
+                            UseShellExecute = true
+                        });
+                    }
                 }
             }
         }
@@ -265,7 +280,7 @@ namespace SimpleLauncher
 
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
-                        
+
                         // Mark as downloaded and disable button
                         _isExtrasDownloaded = true;
                         DownloadExtrasButton.IsEnabled = false;
@@ -276,7 +291,15 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error downloading extras: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxResult result = MessageBox.Show($"Error downloading extras: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadPage,
+                            UseShellExecute = true
+                        });
+                    }
                 }
             }
         }
@@ -405,21 +428,7 @@ namespace SimpleLauncher
                     // Save the updated XML document
                     xmlDoc.Save(systemXmlPath);
 
-                    // // Create a folder inside the application folder named after the value in _config.SystemFolder
-                    // string systemFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemFolder);
-                    // if (!Directory.Exists(systemFolderPath))
-                    // {
-                    //     Directory.CreateDirectory(systemFolderPath);
-                    // }
-                    //
-                    // // Create a folder inside the images folder based on the value in _config.SystemImageFolder
-                    // string imagesFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, selectedSystem.SystemImageFolder);
-                    // if (!Directory.Exists(imagesFolderPath))
-                    // {
-                    //     Directory.CreateDirectory(imagesFolderPath);
-                    // }
-                    
-                    // Create necessary folders for the system
+                    // Create the necessary folders for the system
                     CreateSystemFolders(selectedSystem.SystemName, selectedSystem.SystemFolder, selectedSystem.SystemImageFolder);
 
                     MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\nPut cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nIf you do not want to use these Default Paths, you can Edit this System to use Custom Paths.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);

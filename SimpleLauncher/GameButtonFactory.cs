@@ -556,22 +556,28 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
-            string[] manualExtensions = [".pdf"];
+            string[] manualExtensions = new string[] { ".pdf" };
 
             foreach (var extension in manualExtensions)
             {
                 string manualPath = Path.Combine(manualDirectory, fileName + extension);
                 if (File.Exists(manualPath))
                 {
-                    // Create an instance of OpenPdfFiles window
-                    var pdfViewerWindow = new OpenPdfFiles();
-            
-                    // Load the selected PDF file
-                    pdfViewerWindow.LoadPdf(manualPath);
-            
-                    // Show the window
-                    pdfViewerWindow.Show();
-                    return;
+                    try
+                    {
+                        // Use the default PDF viewer to open the file
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = manualPath,
+                            UseShellExecute = true
+                        });
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to open the manual: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
             }
 
@@ -582,19 +588,28 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
-            string[] walkthroughExtensions = [".pdf"];
+            string[] walkthroughExtensions = new string[] { ".pdf" };
 
             foreach (var extension in walkthroughExtensions)
             {
                 string walkthroughPath = Path.Combine(walkthroughDirectory, fileName + extension);
                 if (File.Exists(walkthroughPath))
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = walkthroughPath,
-                        UseShellExecute = true
-                    });
-                    return;
+                        // Use the default PDF viewer to open the file
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = walkthroughPath,
+                            UseShellExecute = true
+                        });
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to open the walkthrough: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
             }
 
