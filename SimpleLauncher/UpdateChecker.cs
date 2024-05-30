@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
@@ -41,44 +42,11 @@ namespace SimpleLauncher
                 {
                     var content = await response.Content.ReadAsStringAsync();
 
-                    var (latestVersion, releaseUrl) = ParseVersionFromResponse(content);
+                    var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
 
                     if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                     {
-                        ShowUpdateDialog(releaseUrl, CurrentVersion, latestVersion, mainWindow);
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-            }
-        }
-
-        public static async Task CheckForUpdatesAsync2(Window mainWindow)
-        {
-            try
-            {
-                using var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-                var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-
-                    var (latestVersion, releaseUrl) = ParseVersionFromResponse(content);
-
-                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
-                    {
-                        ShowUpdateDialog(releaseUrl, CurrentVersion, latestVersion, mainWindow);
-                    }
-                    else
-                    {
-                        // If no new version is available, show a message box with the current version
-                        MessageBox.Show(mainWindow, $"There is no update available.\n\nThe current version is {CurrentVersion}", "No Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ShowUpdateDialog(assetUrl, CurrentVersion, latestVersion, mainWindow);
                     }
                 }
             }
@@ -95,12 +63,12 @@ namespace SimpleLauncher
             return new Version(latestVersion).CompareTo(new Version(currentVersion)) > 0;
         }
 
-        private static void ShowUpdateDialog(string releaseUrl, string currentVersion, string latestVersion, Window owner)
+        private static async void ShowUpdateDialog(string assetUrl, string currentVersion, string latestVersion, Window owner)
         {
             string message = $"There is a software update available.\n" +
                              $"The current version is {currentVersion}.\n" +
                              $"The update version is {latestVersion}.\n\n" +
-                             "Do you want to download the latest version?";
+                             "Do you want to download and install the latest version automatically?";
 
             MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -108,16 +76,37 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    var psi = new ProcessStartInfo
+                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string tempDirectory = Path.Combine(appDirectory, "temp");
+                    Directory.CreateDirectory(tempDirectory);
+
+                    string tempFilePath = Path.Combine(tempDirectory, "update.zip");
+                    await DownloadUpdateFile(assetUrl, tempFilePath);
+                    ExtractUpdateFile(tempFilePath, tempDirectory);
+
+                    string appExePath = Assembly.GetExecutingAssembly().Location;
+                    string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+
+                    if (!File.Exists(updaterExePath))
                     {
-                        FileName = releaseUrl,
-                        UseShellExecute = true
-                    };
-                    Process.Start(psi);
+                        MessageBox.Show(owner, "Updater.exe not found in the application directory.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // Start the updater process
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = updaterExePath,
+                        Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{Environment.CommandLine}\"",
+                        UseShellExecute = false
+                    });
+
+                    // Close the main application
+                    Application.Current.Shutdown();
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = $"There was an error opening the update link.\n\nException details: {exception}";
+                    string contextMessage = $"There was an error updating the application.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
                     MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
@@ -125,22 +114,67 @@ namespace SimpleLauncher
             }
         }
 
-        private static (string version, string url) ParseVersionFromResponse(string jsonResponse)
+        private static async Task DownloadUpdateFile(string url, string destinationPath)
+        {
+            using var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
+            await response.Content.CopyToAsync(fileStream);
+        }
+
+        private static void ExtractUpdateFile(string zipFilePath, string destinationDirectory)
+        {
+            string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
+            if (!File.Exists(sevenZipPath))
+            {
+                throw new FileNotFoundException("7z.exe not found in the application directory.");
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = sevenZipPath,
+                Arguments = $"x \"{zipFilePath}\" -o\"{destinationDirectory}\" -y",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = Process.Start(psi);
+            process?.WaitForExit();
+
+            if (process != null && process.ExitCode != 0)
+            {
+                throw new InvalidOperationException($"7z.exe exited with code {process.ExitCode}");
+            }
+        }
+
+        private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
         {
             using JsonDocument doc = JsonDocument.Parse(jsonResponse);
             JsonElement root = doc.RootElement;
 
             if (root.TryGetProperty("tag_name", out JsonElement tagNameElement) &&
-                root.TryGetProperty("html_url", out JsonElement htmlUrlElement))
+                root.TryGetProperty("assets", out JsonElement assetsElement))
             {
                 string versionTag = tagNameElement.GetString();
-                string releaseUrl = htmlUrlElement.GetString();
+                string assetUrl = null;
 
-                // This regex matches a sequence of numbers (and periods), optionally prefixed by non-digit characters
+                foreach (var asset in assetsElement.EnumerateArray())
+                {
+                    if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
+                    {
+                        assetUrl = downloadUrlElement.GetString();
+                        break;
+                    }
+                }
+
                 var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
                 if (versionMatch.Success)
                 {
-                    return (versionMatch.Value, releaseUrl);
+                    return (versionMatch.Value, assetUrl);
                 }
 
                 throw new InvalidOperationException("Version number not found in tag.");
@@ -149,7 +183,6 @@ namespace SimpleLauncher
             throw new InvalidOperationException("Version information not found in the response.");
         }
 
-        private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
-
+        private static Regex MyRegex() => new Regex(@"\d+(\.\d+)*(-[a-zA-Z0-9]+)?", RegexOptions.Compiled);
     }
 }

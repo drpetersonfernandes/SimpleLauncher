@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SimpleLauncher
 {
@@ -13,8 +14,6 @@ namespace SimpleLauncher
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
         private readonly ObservableCollection<SearchResult> _searchResults;
-        private readonly ComboBox emulatorComboBox;
-        private readonly ComboBox systemComboBox;
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
@@ -56,7 +55,9 @@ namespace SimpleLauncher
                                 FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
                                 FilePath = file,
                                 Size = Math.Round(new FileInfo(file).Length / 1024.0, 2), // Size in KB with 2 decimal places
-                                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file))
+                                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
+                                SystemName = systemConfig.SystemName, // Associate the SystemName
+                                EmulatorConfig = systemConfig.Emulators.FirstOrDefault() // Associate the first EmulatorConfig
                             })
                             .OrderBy(x => x.FileName)
                             .ToList();
@@ -166,17 +167,38 @@ namespace SimpleLauncher
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
 
-        private async void LaunchGameFromSearchResult(string filePath, string folderName)
+        private async void LaunchGameFromSearchResult(string filePath, string systemName, SystemConfig.Emulator emulatorConfig)
         {
             try
             {
-                await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, _systemConfigs);
+                var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                    config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+                if (systemConfig == null)
+                {
+                    MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Create mock ComboBox objects
+                var mockSystemComboBox = new ComboBox();
+                var mockEmulatorComboBox = new ComboBox();
+
+                // Populate mock ComboBoxes
+                mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+                mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+
+                mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
+
+                // Use GameLauncher to handle the button click
+                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs);
             }
             catch (Exception ex)
             {
-                string formattedException = $"Exception Details: {ex.Message}\n\nFile Path: {filePath}\n\nFolder Name: {folderName}";
+                string formattedException = $"There was an error launching the game from Global Search Window.\n\nException Details: {ex.Message}\n\nFile Path: {filePath}\n\nSystem Name: {systemName}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                MessageBox.Show($"{formattedException}\n\nPlease visit the Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{formattedException}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -186,7 +208,7 @@ namespace SimpleLauncher
             {
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
-                    LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.FolderName);
+                    LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                 }
                 else
                 {
@@ -199,7 +221,7 @@ namespace SimpleLauncher
             }
         }
 
-        private void ResultsDataGrid_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -207,7 +229,7 @@ namespace SimpleLauncher
                 {
                     var contextMenu = new ContextMenu();
                     var launchMenuItem = new MenuItem { Header = "Launch Game" };
-                    launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.FolderName);
+                    launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);
 
                     contextMenu.IsOpen = true;
@@ -219,6 +241,29 @@ namespace SimpleLauncher
             }
         }
 
+        private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+                {
+                    LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_Click(sender, e);
+            }
+        }
+
         public class SearchResult
         {
             public string FileName { get; init; }
@@ -226,6 +271,8 @@ namespace SimpleLauncher
             public string FolderName { get; init; }
             public string FilePath { get; init; }
             public double Size { get; set; } // Size in KB
+            public string SystemName { get; init; } // Add SystemName property
+            public SystemConfig.Emulator EmulatorConfig { get; init; } // Add EmulatorConfig property
         }
     }
 }

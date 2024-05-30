@@ -179,9 +179,9 @@ namespace SimpleLauncher
                 }
             }
             
-            // Validate System Folder and System Image Folder (System Image Folder is valid if empty)
+            // Validate System Folder and System Image Folder
             MarkInvalid(SystemFolderTextBox, IsValidPath(SystemFolderTextBox.Text));
-            MarkInvalid(SystemImageFolderTextBox, string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) || IsValidPath(SystemImageFolderTextBox.Text));
+            MarkInvalid(SystemImageFolderTextBox, IsValidPath(SystemImageFolderTextBox.Text));
 
             // Validate Emulator Location Text Boxes (considered valid if empty)
             MarkInvalid(Emulator1LocationTextBox, string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text));
@@ -569,7 +569,7 @@ namespace SimpleLauncher
             }
             else
             {
-                // Add new system
+                // Add a new system
                 var newSystem = new XElement("SystemConfig",
                     new XElement("SystemName", systemName),
                     new XElement("SystemFolder", systemFolder),

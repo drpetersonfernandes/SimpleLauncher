@@ -20,20 +20,26 @@ namespace SimpleLauncher
 
         private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)
         {
+            ProgressBar.Visibility = Visibility.Visible;
+
             try
             {
                 var globalStats = await CalculateGlobalStats();
 
-                GlobalInfoTextBlock.Text = $"\nTotal Number of Systems: {globalStats.TotalSystems}\n" +
+                GlobalInfoTextBlock.Text = $"Total Number of Systems: {globalStats.TotalSystems}\n" +
                                            $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
                                            $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
                                            $"Total Number of Images: {globalStats.TotalImages:N0}\n" +
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                                           $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024 * 1024):N2} TB\n";
+                                           $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while calculating global stats: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                ProgressBar.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -49,35 +55,16 @@ namespace SimpleLauncher
 
                 foreach (var config in _systemConfigs)
                 {
-                    Console.WriteLine($@"Processing system: {config.SystemName}");
-                    Console.WriteLine($@"System folder: {config.SystemFolder}");
-
-                    // Await the result of GetFilesAsync to get the list of game files
                     var gameFiles = await LoadFiles.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
                     totalGames += gameFiles.Count;
-                    Console.WriteLine($@"Found {gameFiles.Count} games in {config.SystemFolder}");
 
-                    if (!string.IsNullOrEmpty(config.SystemImageFolder))
-                    {
-                        // Remove the leading dot and combine with the base directory to get the correct path
-                        string systemImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, config.SystemImageFolder.TrimStart('.', '\\'));
-                        Console.WriteLine($@"Checking images in {systemImagePath}");
+                    string systemImagePath = config.SystemImageFolder;
+                    systemImagePath = string.IsNullOrEmpty(systemImagePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
 
-                        // Ensure the directory exists before enumerating files
-                        if (Directory.Exists(systemImagePath))
-                        {
-                            var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly).ToList();
-                            totalImages += imageFiles.Count;
-                            Console.WriteLine($@"Found {imageFiles.Count} images in {systemImagePath}");
-                        }
-                        else
-                        {
-                            Console.WriteLine($@"Directory does not exist: {systemImagePath}");
-                        }
-                    }
-                    else
+                    if (Directory.Exists(systemImagePath))
                     {
-                        Console.WriteLine(@"SystemImageFolder is empty or null.");
+                        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly).ToList();
+                        totalImages += imageFiles.Count;
                     }
 
                     foreach (var gameFile in gameFiles)
@@ -85,12 +72,6 @@ namespace SimpleLauncher
                         totalDiskSize += new FileInfo(gameFile).Length;
                     }
                 }
-
-                Console.WriteLine($@"Total Systems: {totalSystems}");
-                Console.WriteLine($@"Total Emulators: {totalEmulators}");
-                Console.WriteLine($@"Total Games: {totalGames}");
-                Console.WriteLine($@"Total Images: {totalImages}");
-                Console.WriteLine($@"Total Disk Size: {totalDiskSize / (1024.0 * 1024):N2} MB");
 
                 return new GlobalStatsData
                 {

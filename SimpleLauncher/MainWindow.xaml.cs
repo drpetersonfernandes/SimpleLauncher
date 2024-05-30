@@ -182,7 +182,7 @@ namespace SimpleLauncher
             }
         }
 
-        // User select a system
+        // User selects a system
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SearchTextBox.Text = "";
@@ -288,14 +288,14 @@ namespace SimpleLauncher
                 errorMessages.AppendLine($"System Folder path is not valid or does not exist: '{systemFolder}'\n\n");
             }
 
-            // Validate the system image folder path, if it's provided. Allow null or empty.
+            // Validate the system image folder path if it's provided. Allow null or empty.
             if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
             {
                 hasErrors = true;
                 errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
             }
 
-            // Validate each emulator's location path, if it's provided. Allow null or empty.
+            // Validate each emulator's location path if it's provided. Allow null or empty.
             foreach (var emulator in selectedConfig.Emulators)
             {
                 if (!string.IsNullOrWhiteSpace(emulator.EmulatorLocation) && !IsValidPath(emulator.EmulatorLocation))
@@ -305,7 +305,7 @@ namespace SimpleLauncher
                 }
             }
             
-            // Validate each emulator's parameters, if it's provided. Allow null or empty.
+            // Validate each emulator's parameters if it's provided. Allow null or empty.
             foreach (var emulator in selectedConfig.Emulators)
             {
                 if (!string.IsNullOrWhiteSpace(emulator.EmulatorParameters) && !IsValidPath2(emulator.EmulatorParameters))
@@ -363,7 +363,7 @@ namespace SimpleLauncher
                 // Extract the path, removing quotes if present.
                 string path = match.Groups[1].Value;
 
-                // Convert relative path to absolutely path using the base directory.
+                // Convert a relative path to absolute path using the base directory.
                 string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
 
                 // Check if the path (either absolute or converted from relative) is valid.
