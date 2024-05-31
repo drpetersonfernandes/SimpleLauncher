@@ -67,11 +67,27 @@ namespace SimpleLauncher
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
+                string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
                 string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorBinaryDownload;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl));
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorBinaryExtractPath;
+
+                // Check if the emulator is already installed
+                if (File.Exists(emulatorLocation))
+                {
+                    MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed at {emulatorLocation}.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    // Mark as downloaded and disable button
+                    _isEmulatorDownloaded = true;
+                    DownloadEmulatorButton.IsEnabled = false;
+
+                    // Update AddSystemButton state
+                    UpdateAddSystemButtonState();
+                    
+                    return;
+                }
 
                 try
                 {
@@ -153,11 +169,27 @@ namespace SimpleLauncher
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
+                string coreLocation = selectedSystem.Emulators.Emulator.EmulatorCoreLocation;
                 string coreDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorCoreDownload;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(coreDownloadUrl));
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorCoreExtractPath;
+
+                // Check if the core is already installed
+                if (File.Exists(coreLocation))
+                {
+                    MessageBox.Show($"Core for {selectedSystem.SystemName} is already installed at {coreLocation}.", "Core Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    // Mark as downloaded and disable button
+                    _isCoreDownloaded = true;
+                    DownloadCoreButton.IsEnabled = false;
+
+                    // Update AddSystemButton state
+                    UpdateAddSystemButtonState();
+                    
+                    return;
+                }
 
                 try
                 {

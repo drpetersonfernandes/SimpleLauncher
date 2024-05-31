@@ -55,6 +55,7 @@ namespace SimpleLauncher
         public string EmulatorBinaryDownload { get; set; }
         public bool EmulatorBinaryRename { get; set; }
         public string EmulatorBinaryExtractPath { get; set; }
+        public string EmulatorCoreLocation { get; set; }
         public string EmulatorCoreDownload { get; set; }
         public string EmulatorCoreExtractPath { get; set; }
         public string EmulatorExtrasDownload { get; set; }

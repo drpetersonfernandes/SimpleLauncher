@@ -220,8 +220,8 @@ namespace SimpleLauncher
             // Return true immediately if the parameter string is empty or null.
             if (string.IsNullOrWhiteSpace(parameters)) return true;
 
-            // This pattern looks for paths enclosed in quotes or following a known flag (like -L or -rompath).
-            string pattern = @"(?:-L|-rompath|\s)""([^""]+)""";
+            // This pattern looks for strings that are likely to be paths.
+            string pattern = @"(?:-L\s+""([^""]+)""|-rompath\s+""([^""]+)"")|([a-zA-Z]:\\[^""\s]+|\.\\[^""\s]+|[^""\s]+\\[^""\s]+)";
             var matches = Regex.Matches(parameters, pattern);
 
             // Assume validity until proven otherwise.
@@ -234,7 +234,9 @@ namespace SimpleLauncher
             foreach (Match match in matches)
             {
                 // Extract the path, removing quotes if present.
-                string path = match.Groups[1].Value;
+                string path = match.Groups[1].Success ? match.Groups[1].Value :
+                    match.Groups[2].Success ? match.Groups[2].Value :
+                    match.Groups[3].Value;
 
                 // Convert relative paths to absolute paths using the base directory.
                 string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));

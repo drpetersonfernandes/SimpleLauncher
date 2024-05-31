@@ -60,7 +60,29 @@ namespace SimpleLauncher
 
         private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
         {
-            return new Version(latestVersion).CompareTo(new Version(currentVersion)) > 0;
+            Version current = new Version(Regex.Replace(currentVersion, @"[^\d\.]", ""));
+            Version latest = new Version(Regex.Replace(latestVersion, @"[^\d\.]", ""));
+            int versionComparison = latest.CompareTo(current);
+
+            if (versionComparison > 0) return true;
+
+            if (versionComparison == 0)
+            {
+                // Compare pre-release tags if versions are identical
+                string currentTag = GetPreReleaseTag(currentVersion);
+                string latestTag = GetPreReleaseTag(latestVersion);
+
+                if (string.IsNullOrEmpty(currentTag) && !string.IsNullOrEmpty(latestTag)) return true; // Treat non-tagged as higher than tagged
+                if (!string.IsNullOrEmpty(currentTag) && !string.IsNullOrEmpty(latestTag)) return string.Compare(currentTag, latestTag, StringComparison.OrdinalIgnoreCase) < 0;
+            }
+
+            return false;
+        }
+
+        private static string GetPreReleaseTag(string version)
+        {
+            var match = Regex.Match(version, @"-(\w+)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
         }
 
         private static async void ShowUpdateDialog(string assetUrl, string currentVersion, string latestVersion, Window owner)

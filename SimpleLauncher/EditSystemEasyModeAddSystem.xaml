@@ -13,23 +13,29 @@
         <Label Content="Please choose a system to Add" HorizontalAlignment="Center" />
         <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" SelectionChanged="SystemNameDropdown_SelectionChanged" />
 
-        <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="1st step" VerticalAlignment="Center"/>
-            <Button x:Name="DownloadEmulatorButton" Content="Download Emulator" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadEmulatorButton_Click" IsEnabled="False" />
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="2nd step" VerticalAlignment="Center"/>
-            <Button x:Name="DownloadCoreButton" Content="Download Core" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadCoreButton_Click" IsEnabled="False" />
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="3rd step" VerticalAlignment="Center"/>
-            <Button x:Name="DownloadExtrasButton" Content="Download Extras" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadExtrasButton_Click" IsEnabled="False" />
-        </StackPanel>
+        <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="1st step" VerticalAlignment="Center" Margin="5"/>
+            <Button Grid.Row="0" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="Download Emulator" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadEmulatorButton_Click" IsEnabled="False" Margin="5"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="2nd step" VerticalAlignment="Center" Margin="5"/>
+            <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadCoreButton" Content="Download Core" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Extras" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Width="150" Padding="7" Click="DownloadExtrasButton_Click" IsEnabled="False" Margin="5"/>
+        </Grid>
            
         <Grid>
             <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="29" Margin="10" />

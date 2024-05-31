@@ -697,11 +697,13 @@
     <SystemImageFolder>.\images\Nintendo DS</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>nds</FormatToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>nds</FormatToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -812,22 +814,32 @@
     <SystemImageFolder>.\images\Nintendo GameCube</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>rvz</FormatToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>elf</FormatToLaunch>
+      <FormatToLaunch>iso</FormatToLaunch>
+      <FormatToLaunch>gcm</FormatToLaunch>
+      <FormatToLaunch>dol</FormatToLaunch>
+      <FormatToLaunch>tgc</FormatToLaunch>
+      <FormatToLaunch>wbfs</FormatToLaunch>
+      <FormatToLaunch>ciso</FormatToLaunch>
+      <FormatToLaunch>gcz</FormatToLaunch>
+      <FormatToLaunch>wad</FormatToLaunch>
+      <FormatToLaunch>rvz</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
-      <Emulator>
-        <EmulatorName>Retroarch dolphin</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
       <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
         <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch dolphin</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -875,9 +887,9 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch snes9x</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+        <EmulatorName>ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -888,10 +900,16 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>smc</FormatToLaunch>
+      <FormatToLaunch>sfc</FormatToLaunch>
+      <FormatToLaunch>swc</FormatToLaunch>
+      <FormatToLaunch>fig</FormatToLaunch>
+      <FormatToLaunch>bs</FormatToLaunch>
+      <FormatToLaunch>st</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -913,10 +931,16 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
+      <FormatToLaunch>smc</FormatToLaunch>
       <FormatToLaunch>sfc</FormatToLaunch>
+      <FormatToLaunch>swc</FormatToLaunch>
+      <FormatToLaunch>fig</FormatToLaunch>
+      <FormatToLaunch>bs</FormatToLaunch>
+      <FormatToLaunch>st</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>

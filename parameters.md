@@ -647,18 +647,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
-[//]: # (**Emulator Name:** RMG<br>)
-[//]: # (**Emulator Location:** [RMG Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** simple64<br>)
-[//]: # (**Emulator Location:** [simple64 Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
 ## Nintendo 64DD
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -679,31 +667,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
-[//]: # (**Emulator Name:** Project64<br>)
-[//]: # (**Emulator Location:** [Project64 Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** simple64<br>)
-[//]: # (**Emulator Location:** [simple64 Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** CEN64<br>)
-[//]: # (**Emulator Location:** [CEN64 Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** CEN64<br>)
-[//]: # (**Emulator Location:** [CEN64 Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
 ## Nintendo DS
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** nds, bin<br>
 
@@ -749,10 +717,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fceumm_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-[//]: # (**Emulator Name:** puNES<br>)
-[//]: # (**Emulator Location:** [puNES Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
 
 ## Nintendo Game Boy
 
@@ -803,9 +767,14 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** rvz<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad, rvz<br>
+
+**Emulator Name:** Dolphin<br>
+**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
+**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
+**Emulator Parameters:** <br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -813,11 +782,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-**Emulator Name:** Dolphin<br>
-**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
-**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
-**Emulator Parameters:** <br>
 
 ## Nintendo NES
 
@@ -850,26 +814,26 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Satellaview
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** Retroarch snes9x<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\snes9x_libretro.dll" -f<br>
+**Emulator Name:** ares<br>
+**Emulator Location:** [ares Folder]\ares.exe<br>
+**Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters:** --system "Super Famicom"<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+Command-line options can be found at [ares github](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 
 ## Nintendo SNES
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 
 **Emulator Name:** Retroarch snes9x<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -887,9 +851,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** sfc<br>
+**Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 
 **Emulator Name:** Retroarch snes9x<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
