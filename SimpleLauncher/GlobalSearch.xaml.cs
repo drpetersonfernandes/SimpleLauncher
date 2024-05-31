@@ -13,7 +13,7 @@ namespace SimpleLauncher
     {
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private readonly ObservableCollection<SearchResult> _searchResults;
+        private ObservableCollection<SearchResult> _searchResults;
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
@@ -22,6 +22,7 @@ namespace SimpleLauncher
             _machines = machines;
             _searchResults = new ObservableCollection<SearchResult>();
             ResultsDataGrid.ItemsSource = _searchResults;
+            Closed += GlobalSearch_Closed;
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -273,6 +274,11 @@ namespace SimpleLauncher
             public double Size { get; set; } // Size in KB
             public string SystemName { get; init; } // Add SystemName property
             public SystemConfig.Emulator EmulatorConfig { get; init; } // Add EmulatorConfig property
+        }
+        
+        private void GlobalSearch_Closed(object sender, EventArgs e)
+        {
+            _searchResults = null;
         }
     }
 }

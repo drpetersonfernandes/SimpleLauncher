@@ -24,7 +24,7 @@ namespace SimpleLauncher
             InitializeComponent();
             LoadConfig();
             PopulateSystemDropdown();
-            this.Closed += EditSystemEasyModeAddSystem_Closed; // Subscribe to the Closed event
+            Closed += EditSystemEasyModeAddSystem_Closed; // Subscribe to the Closed event
         }
 
         private void LoadConfig()

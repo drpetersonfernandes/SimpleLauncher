@@ -107,7 +107,7 @@
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
                 <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
-                <EmulatorParameters></EmulatorParameters>
+                <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
                 <EmulatorBinaryDownload>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorBinaryDownload>
@@ -167,7 +167,7 @@
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
                 <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
-                <EmulatorParameters></EmulatorParameters>
+                <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
                 <EmulatorBinaryDownload>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorBinaryDownload>
@@ -237,66 +237,6 @@
                 <EmulatorBinaryExtractPath>.\emulators\BigPEmu\</EmulatorBinaryExtractPath>
                 <EmulatorCoreDownload></EmulatorCoreDownload>
                 <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
-                <EmulatorExtrasDownload></EmulatorExtrasDownload>
-                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Atari Lynx</SystemName>
-        <SystemFolder>.\roms\Atari Lynx</SystemFolder>
-        <SystemImageFolder>.\images\Atari Lynx</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch></FormatToLaunch>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <EmulatorName>Retroarch mednafen_lynx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
-                <EmulatorBinaryRename>false</EmulatorBinaryRename>
-                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
-                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
-                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
-                <EmulatorExtrasDownload></EmulatorExtrasDownload>
-                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Atari ST</SystemName>
-        <SystemFolder>.\roms\Atari ST</SystemFolder>
-        <SystemImageFolder>.\images\Atari ST</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch></FormatToLaunch>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <EmulatorName>Retroarch hatari</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -c ".\emulators\RetroArch\RetroArch-Win64\hatari.cfg" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
-                <EmulatorBinaryRename>false</EmulatorBinaryRename>
-                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
-                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
-                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
                 <EmulatorExtrasDownload></EmulatorExtrasDownload>
                 <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
             </Emulator>

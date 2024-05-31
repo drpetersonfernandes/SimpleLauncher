@@ -37,7 +37,7 @@
         </Grid>
         
         <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-            <Button x:Name="AddSystemButton" Content="Add System in Simple Launcher" HorizontalAlignment="Center"
+            <Button x:Name="AddSystemButton" Content="Include System in Simple Launcher" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Padding="7" Click="AddSystemButton_Click" IsEnabled="False" />
         </StackPanel>
         

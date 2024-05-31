@@ -46,7 +46,7 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 **Emulator Name:** Altirra<br>
 **Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
 **Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters:** /f<br>
 
 ## Atari 7800
 
@@ -82,7 +82,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Name:** Altirra<br>
 **Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
 **Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters:** /f<br>
 
 [//]: # (**Emulator Name:** Atari800<br>)
 [//]: # (**Emulator Location:** [Atari800 Folder]\.exe<br>)
@@ -152,7 +152,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Name:** Retroarch hatari<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -c "[Retroarch Folder]\hatari.cfg" -f<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
