@@ -346,8 +346,8 @@ You need to create a bat file that can directly launch the game. Try launching y
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** bin<br>
 
 **Emulator Name:** Retroarch o2em<br>
 **Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
@@ -435,7 +435,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** rom, mx1, mx2, dsk, cas, ri, col, sg, sc, m3u<br>
+**Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -444,9 +444,12 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
-[//]: # (**Emulator Name:** openMSX<br>)
-[//]: # (**Emulator Location:** [openMSX Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
+**Emulator Name:** Retroarch fmsx<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 ## Microsoft MSX2
 
@@ -454,7 +457,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** rom, mx1, mx2, dsk, cas, ri, col, sg, sc, m3u<br>
+**Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -463,9 +466,12 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
-[//]: # (**Emulator Name:** openMSX<br>)
-[//]: # (**Emulator Location:** [openMSX Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
+**Emulator Name:** Retroarch fmsx<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 ## Microsoft Windows
 

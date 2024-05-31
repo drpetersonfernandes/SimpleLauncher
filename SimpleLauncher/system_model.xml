@@ -345,10 +345,11 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -411,26 +412,26 @@
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
       <FormatToLaunch>rom</FormatToLaunch>
-      <FormatToLaunch>mx1</FormatToLaunch>
+      <FormatToLaunch>ri</FormatToLaunch>
+      <FormatToLaunch>ms1</FormatToLaunch>
       <FormatToLaunch>mx2</FormatToLaunch>
+      <FormatToLaunch>col</FormatToLaunch>
       <FormatToLaunch>dsk</FormatToLaunch>
       <FormatToLaunch>cas</FormatToLaunch>
-      <FormatToLaunch>ri</FormatToLaunch>
-      <FormatToLaunch>col</FormatToLaunch>
       <FormatToLaunch>sg</FormatToLaunch>
       <FormatToLaunch>sc</FormatToLaunch>
       <FormatToLaunch>m3u</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch fmsx</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch fmsx</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -445,26 +446,26 @@
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
       <FormatToLaunch>rom</FormatToLaunch>
-      <FormatToLaunch>mx1</FormatToLaunch>
+      <FormatToLaunch>ri</FormatToLaunch>
+      <FormatToLaunch>ms1</FormatToLaunch>
       <FormatToLaunch>mx2</FormatToLaunch>
+      <FormatToLaunch>col</FormatToLaunch>
       <FormatToLaunch>dsk</FormatToLaunch>
       <FormatToLaunch>cas</FormatToLaunch>
-      <FormatToLaunch>ri</FormatToLaunch>
-      <FormatToLaunch>col</FormatToLaunch>
       <FormatToLaunch>sg</FormatToLaunch>
       <FormatToLaunch>sc</FormatToLaunch>
       <FormatToLaunch>m3u</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch fmsx</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch fmsx</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
