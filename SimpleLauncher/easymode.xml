@@ -1282,6 +1282,12 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>bin</FormatToSearch>
+            <FormatToSearch>img</FormatToSearch>
+            <FormatToSearch>mds</FormatToSearch>
+            <FormatToSearch>mdf</FormatToSearch>
+            <FormatToSearch>pbp</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1313,6 +1319,12 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>bin</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+            <FormatToSearch>mdf</FormatToSearch>
+            <FormatToSearch>cso</FormatToSearch>
+            <FormatToSearch>zso</FormatToSearch>
+            <FormatToSearch>gz</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1321,8 +1333,8 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>PCSX2</EmulatorName>
-                <EmulatorLocation>.\emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
-                <EmulatorParameters></EmulatorParameters>
+                <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
+                <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.7.5844</EmulatorLatestVersion>
                 <EmulatorBinaryDownload>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5844/pcsx2-v1.7.5844-windows-x64-Qt.7z</EmulatorBinaryDownload>
@@ -1343,8 +1355,12 @@
         <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
+            <FormatToSearch>iso</FormatToSearch>
             <FormatToSearch>cso</FormatToSearch>
             <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>pbp</FormatToSearch>
+            <FormatToSearch>elf</FormatToSearch>
+            <FormatToSearch>prx</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1352,17 +1368,17 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Retroarch ppsspp</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\ppsspp_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorName>ppsspp</EmulatorName>
+                <EmulatorLocation>.\emulators\ppsspp\PPSSPPWindows64.exe</EmulatorLocation>
+                <EmulatorParameters></EmulatorParameters>
+                <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.17.1</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://www.ppsspp.org/files/1_17_1/ppsspp_win.zip</EmulatorBinaryDownload>
                 <EmulatorBinaryRename>false</EmulatorBinaryRename>
-                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
-                <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\ppsspp_libretro.dll</EmulatorCoreLocation>
-                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
-                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
+                <EmulatorBinaryExtractPath>.\emulators\ppsspp\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation></EmulatorCoreLocation>
+                <EmulatorCoreDownload></EmulatorCoreDownload>
+                <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
                 <EmulatorExtrasDownload></EmulatorExtrasDownload>
                 <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
             </Emulator>

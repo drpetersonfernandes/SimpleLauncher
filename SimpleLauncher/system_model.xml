@@ -180,10 +180,12 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>lnx</FormatToLaunch>
+      <FormatToLaunch>o</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -285,10 +287,14 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>col</FormatToLaunch>
+      <FormatToLaunch>cv</FormatToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
+      <FormatToLaunch>rom</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -325,6 +331,11 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>ccd</FormatToSearch>
+      <FormatToSearch>nrg</FormatToSearch>
+      <FormatToSearch>mds</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -386,6 +397,7 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1429,6 +1441,12 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>img</FormatToSearch>
+      <FormatToSearch>mds</FormatToSearch>
+      <FormatToSearch>mdf</FormatToSearch>
+      <FormatToSearch>pbp</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1454,6 +1472,12 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>mdf</FormatToSearch>
+      <FormatToSearch>cso</FormatToSearch>
+      <FormatToSearch>zso</FormatToSearch>
+      <FormatToSearch>gz</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1462,8 +1486,8 @@
     <Emulators>
       <Emulator>
         <EmulatorName>PCSX2</EmulatorName>
-        <EmulatorLocation>.\emulators\PCSX2\pcsx2-qtx64-avx2.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
+        <EmulatorParameters>-fullscreen</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1493,8 +1517,12 @@
     <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>iso</FormatToSearch>
       <FormatToSearch>cso</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>pbp</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>prx</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1502,14 +1530,14 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
+        <EmulatorName>PPSSPP</EmulatorName>
+        <EmulatorLocation>.\emulators\ppsspp\PPSSPPWindows64.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen</EmulatorParameters>
+      </Emulator>
+      <Emulator>
         <EmulatorName>Retroarch ppsspp</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\ppsspp_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
-        <EmulatorName>PPSSPP</EmulatorName>
-        <EmulatorLocation>.\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
-        <EmulatorParameters>--fullscreen</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
