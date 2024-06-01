@@ -37,7 +37,10 @@ namespace SimpleLauncher
         {
             if (_config?.Systems != null)
             {
-                SystemNameDropdown.ItemsSource = _config.Systems.Select(system => system.SystemName).ToList();
+                var sortedSystemNames = _config.Systems.Select(system => system.SystemName)
+                    .OrderBy(name => name)
+                    .ToList();
+                SystemNameDropdown.ItemsSource = sortedSystemNames;
             }
         }
 
@@ -456,6 +459,11 @@ namespace SimpleLauncher
                         // Add the new system to the XML document
                         xmlDoc.Root?.Add(newSystemElement);
                     }
+
+                    // Sort the systems alphabetically by SystemName
+                    if (xmlDoc.Root != null)
+                        xmlDoc.Root.ReplaceNodes(xmlDoc.Root.Elements("SystemConfig")
+                            .OrderBy(systemElement => systemElement.Element("SystemName")?.Value));
 
                     // Save the updated XML document
                     xmlDoc.Save(systemXmlPath);

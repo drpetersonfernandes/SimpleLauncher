@@ -47,12 +47,17 @@ namespace SimpleLauncher
             {
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
                 _systemConfigs = SystemConfig.LoadSystemConfigs(path);
-                SystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+
+                // Sort the system names in alphabetical order
+                var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
+
+                SystemComboBox.ItemsSource = sortedSystemNames;
             }
             catch
             {
                 Application.Current.Shutdown();
             }
+
 
             // Apply settings to application from settings.xml
             EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;

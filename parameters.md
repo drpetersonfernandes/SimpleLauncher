@@ -189,10 +189,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
 ## Bandai WonderSwan Color
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -212,10 +208,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
-
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
 
 ## Casio PV-1000
 
@@ -538,14 +530,6 @@ Try launching your batch file outside Simple Launcher. If it works there, it wil
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** Mesen<br>)
-[//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
 ## NEC PC Engine CD
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -604,14 +588,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_supergrafx_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-[//]: # (**Emulator Name:** Mesen<br>)
-[//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
-
-[//]: # (**Emulator Name:** ares<br>)
-[//]: # (**Emulator Location:** [ares Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
 
 ## Nintendo 3DS
 
@@ -767,9 +743,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad, rvz<br>
+**Format To Search In System Folder:** rvz<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Dolphin<br>
 **Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
@@ -894,17 +870,17 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
+**Emulator Name:** Dolphin<br>
+**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
+**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
+**Emulator Parameters:** <br>
+
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-**Emulator Name:** Dolphin<br>
-**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
-**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
-**Emulator Parameters:** <br>
 
 ## Nintendo WiiU
 
@@ -927,6 +903,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
+**Emulator Name:** Dolphin<br>
+**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
+**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
+**Emulator Parameters:** <br>
+
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
@@ -934,16 +915,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
-**Emulator Name:** Dolphin<br>
-**Emulator Location:** [Dolphin Folder]\Dolphin.exe<br>
-**Emulator Location (Example):** C:\emulators\dolphin\Dolphin.exe<br>
-**Emulator Parameters:** <br>
-
 ## Panasonic 3DO
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** iso, bin, chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -952,7 +928,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\opera_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/). Please read core documentation.<br>
 
 ## Philips CD-i
 
@@ -967,7 +943,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\same_cdi_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/). Please read core documentation.<br>
 
 ## ScummVM
 
@@ -999,21 +975,21 @@ Try launching your batch file directly outside of Simple Launcher first. If it w
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, gdi, cue, bin, cdi<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Redream<br>
+**Emulator Location:** [Redream Folder]\redream.exe<br>
+**Emulator Location (Example):** C:\emulators\redream\redream.exe<br>
+**Emulator Parameters:** <br>
 
 **Emulator Name:** Retroarch flycast<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\flycast_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-**Emulator Name:** Redream<br>
-**Emulator Location:** [Redream Folder]\redream.exe<br>
-**Emulator Location (Example):** C:\emulators\redream\redream.exe<br>
-**Emulator Parameters:** <br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/). Please read core documentation.<br>
 
 ## Sega Game Gear
 
@@ -1078,7 +1054,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, bin, cue, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -1087,14 +1063,21 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\picodrive_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Please read core documentation.<br>
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\genesis_plus_gx_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Please read core documentation.<br>
+
+**Emulator Name:** ares<br>
+**Emulator Location:** [ares Folder]\ares.exe<br>
+**Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters:** --system "Mega CD"<br>
+
+Command-line options can be found at [ares github](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 
 ## Sega Master System
 
@@ -1137,7 +1120,7 @@ Before using Simple Launcher, first try running your batch file directly. If it 
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, cue, toc, m3u, ccd<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -1146,7 +1129,7 @@ Before using Simple Launcher, first try running your batch file directly. If it 
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_saturn_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/). Please read core documentation.<br>
 
 ## Sega SC-3000
 
@@ -1203,7 +1186,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -1212,7 +1195,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\neocd_libretro.dll" -f<br>
 
-Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Bios or Other files to run properly. Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Please read core documentation.<br>
 
 ## SNK Neo Geo Pocket
 

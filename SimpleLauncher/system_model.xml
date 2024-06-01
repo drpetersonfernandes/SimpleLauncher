@@ -814,21 +814,11 @@
     <SystemImageFolder>.\images\Nintendo GameCube</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-      <FormatToSearch>7z</FormatToSearch>
+      <FormatToSearch>rvz</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch>elf</FormatToLaunch>
-      <FormatToLaunch>iso</FormatToLaunch>
-      <FormatToLaunch>gcm</FormatToLaunch>
-      <FormatToLaunch>dol</FormatToLaunch>
-      <FormatToLaunch>tgc</FormatToLaunch>
-      <FormatToLaunch>wbfs</FormatToLaunch>
-      <FormatToLaunch>ciso</FormatToLaunch>
-      <FormatToLaunch>gcz</FormatToLaunch>
-      <FormatToLaunch>wad</FormatToLaunch>
-      <FormatToLaunch>rvz</FormatToLaunch>
+      <FormatToLaunch></FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -990,14 +980,14 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch dolphin</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
         <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch dolphin</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1035,14 +1025,14 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch dolphin</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
         <EmulatorParameters></EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch dolphin</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1052,7 +1042,10 @@
     <SystemImageFolder>.\images\Panasonic 3DO</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1114,6 +1107,10 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>gdi</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>cdi</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1175,11 +1172,6 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
-      <Emulator>
-        <EmulatorName>Retroarch blastem</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\blastem_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1209,19 +1201,27 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch />
     <Emulators>
+      <Emulator>
+        <EmulatorName>Retroarch picodrive</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
       <Emulator>
         <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
-        <EmulatorName>Retroarch picodrive</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+        <EmulatorName>ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1272,6 +1272,10 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>toc</FormatToSearch>
+      <FormatToSearch>m3u</FormatToSearch>
+      <FormatToSearch>ccd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1364,6 +1368,7 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>

@@ -162,7 +162,7 @@ namespace SimpleLauncher
             openCover.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                OpenCover(systemName, fileNameWithoutExtension);
+                OpenCover(systemName, fileNameWithoutExtension, systemConfig);
             };
 
             var openTitleSnapshot = new MenuItem { Header = "Title Snapshot" };
@@ -461,27 +461,46 @@ namespace SimpleLauncher
             }
         }
         
-        private void OpenCover(string systemName, string fileName)
+        private void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string coverDirectory = Path.Combine(baseDirectory, "images", systemName);
-            string[] titleExtensions = [".png", ".jpg", ".jpeg"];
+            string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
 
-            foreach (var extension in titleExtensions)
+            // Construct paths for system-specific and global image directories
+            string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+            string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+
+            // Image extensions to look for
+            string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+            // Function to search for the file in a given directory
+            bool TryFindImage(string directory, out string foundPath)
             {
-                string coverPath = Path.Combine(coverDirectory, fileName + extension);
-                if (File.Exists(coverPath))
+                foreach (var extension in imageExtensions)
                 {
-                    var imageViewerWindow = new OpenImageFiles();
-                    imageViewerWindow.LoadImage(coverPath);
-                    imageViewerWindow.Show();
-                    return;
+                    string imagePath = Path.Combine(directory, fileName + extension);
+                    if (File.Exists(imagePath))
+                    {
+                        foundPath = imagePath;
+                        return true;
+                    }
                 }
+                foundPath = null;
+                return false;
             }
 
-            MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Try to find the image in the system-specific directory first
+            if (TryFindImage(systemSpecificDirectory, out string foundImagePath) || TryFindImage(globalDirectory, out foundImagePath))
+            {
+                var imageViewerWindow = new OpenImageFiles();
+                imageViewerWindow.LoadImage(foundImagePath);
+                imageViewerWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
-
         
         private void OpenTitleSnapshot(string systemName, string fileName)
         {
