@@ -376,6 +376,88 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX</SystemName>
+        <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
+        <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>r1</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>OpenMSX</EmulatorName>
+                <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+                <EmulatorParameters></EmulatorParameters>
+                <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>19.1</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://github.com/openMSX/openMSX/releases/download/RELEASE_19_1/openmsx-19.1-windows-vc-x64-bin.zip</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPath>.\emulators\OpenMSX\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation></EmulatorCoreLocation>
+                <EmulatorCoreDownload></EmulatorCoreDownload>
+                <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX2</SystemName>
+        <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
+        <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>r1</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>OpenMSX</EmulatorName>
+                <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+                <EmulatorParameters></EmulatorParameters>
+                <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>19.1</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://github.com/openMSX/openMSX/releases/download/RELEASE_19_1/openmsx-19.1-windows-vc-x64-bin.zip</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPath>.\emulators\OpenMSX\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation></EmulatorCoreLocation>
+                <EmulatorCoreDownload></EmulatorCoreDownload>
+                <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+    
+    <EasyModeSystemConfig>
         <SystemName>Microsoft Xbox 360</SystemName>
         <SystemFolder>.\roms\Microsoft Xbox360</SystemFolder>
         <SystemImageFolder>.\images\Microsoft Xbox360</SystemImageFolder>
@@ -500,6 +582,44 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Nintendo 64DD</SystemName>
+        <SystemFolder>.\roms\Nintendo 64DD</SystemFolder>
+        <SystemImageFolder>.\images\Nintendo 64DD</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>n64</FormatToLaunch>
+            <FormatToLaunch>v64</FormatToLaunch>
+            <FormatToLaunch>z64</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>u1</FormatToLaunch>
+            <FormatToLaunch>ndd</FormatToLaunch>
+            <FormatToLaunch>gb</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll</EmulatorCoreLocation>
+                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Nintendo DS</SystemName>
         <SystemFolder>.\roms\Nintendo DS</SystemFolder>
         <SystemImageFolder>.\images\Nintendo DS</SystemImageFolder>
@@ -524,37 +644,6 @@
                 <EmulatorBinaryRename>false</EmulatorBinaryRename>
                 <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
                 <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll</EmulatorCoreLocation>
-                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
-                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
-                <EmulatorExtrasDownload></EmulatorExtrasDownload>
-                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Nintendo NES</SystemName>
-        <SystemFolder>.\roms\Nintendo NES</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo NES</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch></FormatToLaunch>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <EmulatorName>Retroarch fceumm</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
-                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
-                <EmulatorBinaryRename>false</EmulatorBinaryRename>
-                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
-                <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll</EmulatorCoreLocation>
                 <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
                 <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
                 <EmulatorExtrasDownload></EmulatorExtrasDownload>
@@ -680,6 +769,37 @@
                 <EmulatorCoreLocation></EmulatorCoreLocation>
                 <EmulatorCoreDownload></EmulatorCoreDownload>
                 <EmulatorCoreExtractPath></EmulatorCoreExtractPath>
+                <EmulatorExtrasDownload></EmulatorExtrasDownload>
+                <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo NES</SystemName>
+        <SystemFolder>.\roms\Nintendo NES</SystemFolder>
+        <SystemImageFolder>.\images\Nintendo NES</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch></FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch fceumm</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.17.0</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll</EmulatorCoreLocation>
+                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.17.0/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
                 <EmulatorExtrasDownload></EmulatorExtrasDownload>
                 <EmulatorExtrasExtractPath></EmulatorExtrasExtractPath>
             </Emulator>

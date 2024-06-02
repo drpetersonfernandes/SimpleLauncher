@@ -317,11 +317,16 @@ Core requires a BIOS file to run. Core documentation can be found at [Libretro w
 
 ## Microsoft MSX
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+
+**Emulator Name:** OpenMSX<br>
+**Emulator Location:** [OpenMSX Folder]\openmsx.exe<br>
+**Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
+**Emulator Parameters:** <br>
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -335,29 +340,34 @@ Core requires BIOS or Other Files to run. Core documentation can be found at [Li
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
 
-Core requires BIOS files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Please read core documentation.<br>
+Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Please read core documentation.<br>
 
 ## Microsoft MSX2
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+
+**Emulator Name:** OpenMSX<br>
+**Emulator Location:** [OpenMSX Folder]\openmsx.exe<br>
+**Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
+**Emulator Parameters:** <br>
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\bluemsx_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Please read core documentation.<br>
 
 **Emulator Name:** Retroarch fmsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Please read core documentation.<br>
 
 ## Microsoft Windows
 
@@ -381,11 +391,11 @@ cd /d "J:\Microsoft Windows\Mega Man 11"
 start game.exe
 ```
 
-Try launching your batch file outside Simple Launcher. If it works there, it will work inside Simple Launcher.
+Try launching your batch file outside Simple Launcher. If it works there, it will work inside Simple Launcher.<br>
 
 ## Microsoft Xbox
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
@@ -396,9 +406,12 @@ Try launching your batch file outside Simple Launcher. If it works there, it wil
 **Emulator Location (Example):** C:\emulators\xemu\xemu.exe<br>
 **Emulator Parameters:** -full-screen -dvd_path<br>
 
+This emulator requires BIOS and Special Files to run properly. The list of required files can be found [here](https://xemu.app/docs/required-files/).<br>
+The ISO file needs to be formated in XBOX format, as the original XBOX discs. You can find information about that [here](https://xemu.app/docs/disc-images/).<br>
+
 ## Microsoft Xbox 360
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
@@ -409,9 +422,9 @@ Try launching your batch file outside Simple Launcher. If it works there, it wil
 **Emulator Location (Example):** C:\emulators\xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
 
-## NEC PC Engine / Turbografx-16
+## NEC PC Engine / TurboGrafx-16
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -426,9 +439,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## NEC PC Engine CD
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -437,22 +450,20 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pce_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Please read core documentation.<br>
 
-**Emulator Name:** BizHawk<br>
-**Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
-**Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Name:** ares<br>
+**Emulator Location:** [ares Folder]\ares.exe<br>
+**Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters:** --system "PC Engine CD"<br>
 
-[//]: # (**Emulator Name:** Mesen<br>)
-[//]: # (**Emulator Location:** [Mesen Folder]\.exe<br>)
-[//]: # (**Emulator Parameters:** <br>)
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 
 ## NEC PC-FX
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** chd<br>
+**Format To Search In System Folder:** chd, cue, ccd, toc<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -461,16 +472,16 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pcfx_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). Please read core documentation.<br>
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
-## NEC Supergrafx
+## NEC SuperGrafx
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -505,41 +516,36 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo 64
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Please read core documentation.<br>
 
 ## Nintendo 64DD
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
-**Emulator Name:** BizHawk<br>
-**Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
-**Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Please read core documentation.<br>
 
 ## Nintendo DS
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>

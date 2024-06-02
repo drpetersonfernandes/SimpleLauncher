@@ -420,6 +420,7 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -435,6 +436,11 @@
       <FormatToLaunch>m3u</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
+      <Emulator>
+        <EmulatorName>OpenMSX</EmulatorName>
+        <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
@@ -454,6 +460,7 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -469,6 +476,11 @@
       <FormatToLaunch>m3u</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
+      <Emulator>
+        <EmulatorName>OpenMSX</EmulatorName>
+        <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+        <EmulatorParameters></EmulatorParameters>
+      </Emulator>
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
@@ -570,6 +582,12 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>pce</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>ccd</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>img</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -580,6 +598,11 @@
         <EmulatorName>Retroarch mednafen_pce</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--system "PC Engine CD"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -650,10 +673,17 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>n64</FormatToLaunch>
+      <FormatToLaunch>v64</FormatToLaunch>
+      <FormatToLaunch>z64</FormatToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
+      <FormatToLaunch>u1</FormatToLaunch>
+      <FormatToLaunch>ndd</FormatToLaunch>
+      <FormatToLaunch>gb</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -690,10 +720,17 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>n64</FormatToLaunch>
+      <FormatToLaunch>v64</FormatToLaunch>
+      <FormatToLaunch>z64</FormatToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
+      <FormatToLaunch>u1</FormatToLaunch>
+      <FormatToLaunch>ndd</FormatToLaunch>
+      <FormatToLaunch>gb</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -712,7 +749,7 @@
       <FormatToSearch>zip</FormatToSearch>
       <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
       <FormatToLaunch>nds</FormatToLaunch>
       <FormatToLaunch>bin</FormatToLaunch>
