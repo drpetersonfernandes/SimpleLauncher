@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace SimpleLauncher
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
         private ObservableCollection<SearchResult> _searchResults;
+        private PleaseWaitSearch _pleaseWaitWindow;
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
@@ -27,68 +29,88 @@ namespace SimpleLauncher
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            string searchTerm = SearchTextBox.Text.ToLower();
+            if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                string searchTerm = SearchTextBox.Text.ToLower();
-                _searchResults.Clear();
-                LaunchButton.IsEnabled = false;
+                MessageBox.Show("Please enter a search term.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-                if (string.IsNullOrWhiteSpace(searchTerm))
+            LaunchButton.IsEnabled = false;
+            _searchResults.Clear();
+
+            // Show the PleaseWaitSearch window
+            _pleaseWaitWindow = new PleaseWaitSearch
+            {
+                Owner = this
+            };
+            _pleaseWaitWindow.Show();
+
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += (_, args) => args.Result = PerformSearch(searchTerm);
+            backgroundWorker.RunWorkerCompleted += (_, args) =>
+            {
+                if (args.Error != null)
                 {
-                    MessageBox.Show("Please enter a search term.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                var results = new List<SearchResult>();
-
-                foreach (var systemConfig in _systemConfigs)
-                {
-                    string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
-
-                    if (Directory.Exists(systemFolderPath))
-                    {
-                        var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
-                            .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()))
-                            .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerm))
-                            .Select(file => new SearchResult
-                            {
-                                FileName = Path.GetFileName(file),
-                                FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
-                                FilePath = file,
-                                Size = Math.Round(new FileInfo(file).Length / 1024.0, 2), // Size in KB with 2 decimal places
-                                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
-                                SystemName = systemConfig.SystemName, // Associate the SystemName
-                                EmulatorConfig = systemConfig.Emulators.FirstOrDefault() // Associate the first EmulatorConfig
-                            })
-                            .OrderBy(x => x.FileName)
-                            .ToList();
-
-                        results.AddRange(files);
-                    }
-                }
-
-                if (results.Any())
-                {
-                    foreach (var result in results)
-                    {
-                        _searchResults.Add(result);
-                    }
-                    LaunchButton.IsEnabled = true;
+                    MessageBox.Show($"An error occurred during the search: {args.Error.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    _searchResults.Add(new SearchResult
+                    if (args.Result is List<SearchResult> results && results.Any())
                     {
-                        FileName = "No results found.",
-                        FolderName = "",
-                        Size = 0
-                    });
+                        foreach (var result in results)
+                        {
+                            _searchResults.Add(result);
+                        }
+                        LaunchButton.IsEnabled = true;
+                    }
+                    else
+                    {
+                        _searchResults.Add(new SearchResult
+                        {
+                            FileName = "No results found.",
+                            FolderName = "",
+                            Size = 0
+                        });
+                    }
+                }
+                _pleaseWaitWindow.Close();
+            };
+
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private List<SearchResult> PerformSearch(string searchTerm)
+        {
+            var results = new List<SearchResult>();
+
+            foreach (var systemConfig in _systemConfigs)
+            {
+                string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
+
+                if (Directory.Exists(systemFolderPath))
+                {
+                    var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
+                        .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()))
+                        .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerm))
+                        .Select(file => new SearchResult
+                        {
+                            FileName = Path.GetFileName(file),
+                            FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
+                            FilePath = file,
+                            Size = Math.Round(new FileInfo(file).Length / 1024.0, 2), // Size in KB with 2 decimal places
+                            MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
+                            SystemName = systemConfig.SystemName, // Associate the SystemName
+                            EmulatorConfig = systemConfig.Emulators.FirstOrDefault() // Associate the first EmulatorConfig
+                        })
+                        .OrderBy(x => x.FileName)
+                        .ToList();
+
+                    results.AddRange(files);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred during the search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+            return results;
         }
 
         private string GetMachineDescription(string fileNameWithoutExtension)
@@ -275,7 +297,7 @@ namespace SimpleLauncher
             public string SystemName { get; init; } // Add SystemName property
             public SystemConfig.Emulator EmulatorConfig { get; init; } // Add EmulatorConfig property
         }
-        
+
         private void GlobalSearch_Closed(object sender, EventArgs e)
         {
             _searchResults = null;

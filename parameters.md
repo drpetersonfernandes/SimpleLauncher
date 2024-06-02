@@ -567,36 +567,36 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Family Computer Disk System
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+    **Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** nes, fds, unf, unif<br>
 
 **Emulator Name:** Retroarch mesen<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mesen_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/). Please read core documentation.<br>
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\nestopia_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/). Please read core documentation.<br>
 
 **Emulator Name:** Retroarch fceumm<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fceumm_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Please read core documentation.<br>
 
 ## Nintendo Game Boy
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -611,7 +611,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Game Boy Advance
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -626,7 +626,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Game Boy Color
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -657,22 +657,15 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Special Files to work correctly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Please read core documentation.<br>
 
 ## Nintendo NES
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
-
-**Emulator Name:** Retroarch fceumm<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\fceumm_libretro.dll" -f<br>
-
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 **Emulator Name:** Retroarch mesen<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -687,6 +680,13 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\nestopia_libretro.dll" -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+
+**Emulator Name:** Retroarch fceumm<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\fceumm_libretro.dll" -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
 
 ## Nintendo Satellaview
 
@@ -705,7 +705,7 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 ## Nintendo SNES
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
@@ -725,7 +725,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo SNES MSU1
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
@@ -813,7 +813,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
+This core requires Special Files to work correctly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Please read core documentation.<br>
 
 ## Panasonic 3DO
 
@@ -893,7 +893,7 @@ This core requires Bios or Other files to run properly. Core documentation can b
 
 ## Sega Game Gear
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -908,7 +908,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sega Genesis
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** false<br>
@@ -937,9 +937,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sega Genesis 32X
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
@@ -952,7 +952,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sega Genesis CD
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, bin, cue, iso<br>
 **Extract File Before Launch?** false<br>
@@ -1044,11 +1044,6 @@ This core requires Bios or Other files to run properly. Core documentation can b
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
-**Emulator Name:** MasterGear<br>
-**Emulator Location:** [MasterGear Folder]\MG.exe<br>
-**Emulator Location (Example):** C:\emulators\mastergear\MG.exe<br>
-**Emulator Parameters:** <br>
-
 ## Sega SG-1000
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1060,11 +1055,6 @@ This core requires Bios or Other files to run properly. Core documentation can b
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
-
-**Emulator Name:** MasterGear<br>
-**Emulator Location:** [MasterGear Folder]\MG.exe<br>
-**Emulator Location (Example):** C:\emulators\mastergear\MG.exe<br>
 **Emulator Parameters:** <br>
 
 ## Sinclair ZX Spectrum
@@ -1084,7 +1074,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## SNK Neo Geo CD
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
@@ -1095,11 +1085,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\neocd_libretro.dll" -f<br>
 
-This core requires Bios or Other files to run properly. Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Please read core documentation.<br>
+This core requires BIOS or Other files to run properly. Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Please read core documentation.<br>
 
 ## SNK Neo Geo Pocket
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
@@ -1176,13 +1166,12 @@ This emulator requires a BIOS file to run. Documentation can be found at [Emulat
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-Use the [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) I wrote to generate the BAT files for you.
-
-Try launching your batch file outside Simple Launcher first. If it works there, it should also work inside Simple Launcher.
+Use the [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) I wrote to generate the BAT files for you.<br>
+Try launching your batch file outside Simple Launcher first. If it works there, it should also work inside Simple Launcher.<br>
 
 ## Sony PSP
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** cso, chd, iso, pbp, elf, prx<br>
 **Extract File Before Launch?** false<br>
@@ -1198,5 +1187,4 @@ Try launching your batch file outside Simple Launcher first. If it works there, 
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\ppsspp_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/). Core may require bios files or special configurations to work properly. Please read core documentation.<br>
-
+This core requires Special Files to work properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/). Please read core documentation.<br>

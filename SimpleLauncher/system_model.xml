@@ -774,17 +774,16 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch>fds</FormatToLaunch>
+      <FormatToLaunch>nes</FormatToLaunch>
+      <FormatToLaunch>unif</FormatToLaunch>
+      <FormatToLaunch>unf</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
-      <Emulator>
-        <EmulatorName>Retroarch fceumm</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
       <Emulator>
         <EmulatorName>Retroarch mesen</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
@@ -794,6 +793,11 @@
         <EmulatorName>Retroarch nestopia</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch fceumm</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -896,11 +900,6 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Retroarch fceumm</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
         <EmulatorName>Retroarch mesen</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
@@ -909,6 +908,11 @@
         <EmulatorName>Retroarch nestopia</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch fceumm</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1221,6 +1225,11 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch blastem_libretro</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\blastem_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1255,7 +1264,9 @@
       <FormatToSearch>iso</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch />
+    <FileFormatsToLaunch>
+      <FormatToLaunch></FormatToLaunch>
+    </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Retroarch picodrive</EmulatorName>

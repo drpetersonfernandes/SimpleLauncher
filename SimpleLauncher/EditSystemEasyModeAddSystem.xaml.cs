@@ -471,7 +471,9 @@ namespace SimpleLauncher
                     // Create the necessary folders for the system
                     CreateSystemFolders(selectedSystem.SystemName, selectedSystem.SystemFolder, selectedSystem.SystemImageFolder);
 
-                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\nPut cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nIf you do not want to use these Default Paths, you can Edit this System to use Custom Paths.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\n" +
+                                    $"Put your cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nThe two folders are located inside the 'Simple Launcher' folder.\n\n" +
+                                    $"If you do not wish to use these default paths, you have the option to edit the system settings to use custom paths instead.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
                     AddSystemButton.IsEnabled = false;
 
                 }
