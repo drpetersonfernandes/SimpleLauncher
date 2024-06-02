@@ -59,7 +59,6 @@ namespace Updater
 
                 // Delete the temporary update files and the update.zip file
                 Directory.Delete(updateSourcePath, true);
-                File.Delete(updateZipPath);
 
                 // Notify the user of a successful update
                 MessageBox.Show("Update installed successfully. The application will now restart.", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);

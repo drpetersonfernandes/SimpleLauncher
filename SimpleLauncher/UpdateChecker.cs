@@ -34,6 +34,16 @@ namespace SimpleLauncher
         {
             try
             {
+                // Define the path to the update.zip file
+                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string updateZipPath = Path.Combine(appDirectory, "update.zip");
+
+                // Delete the update.zip file if it exists
+                if (File.Exists(updateZipPath))
+                {
+                    File.Delete(updateZipPath);
+                }
+
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -57,11 +67,21 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
-        
+
         public static async Task CheckForUpdatesAsync2(Window mainWindow)
         {
             try
             {
+                // Define the path to the update.zip file
+                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string updateZipPath = Path.Combine(appDirectory, "update.zip");
+
+                // Delete the update.zip file if it exists
+                if (File.Exists(updateZipPath))
+                {
+                    File.Delete(updateZipPath);
+                }
+
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -76,7 +96,6 @@ namespace SimpleLauncher
                     {
                         ShowUpdateDialog(assetUrl, CurrentVersion, latestVersion, mainWindow);
                     }
-
                     else
                     {
                         // If no new version is available, show a message box with the current version
