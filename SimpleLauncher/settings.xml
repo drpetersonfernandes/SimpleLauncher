@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
   <ThumbnailSize>200</ThumbnailSize>
-  <GamesPerPage>200</GamesPerPage>
+  <GamesPerPage>100</GamesPerPage>
   <ShowGames>ShowAll</ShowGames>
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>

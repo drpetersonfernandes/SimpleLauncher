@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace SimpleLauncher
 {
@@ -16,6 +17,7 @@ namespace SimpleLauncher
         private readonly List<MameConfig> _machines;
         private ObservableCollection<SearchResult> _searchResults;
         private PleaseWaitSearch _pleaseWaitWindow;
+        private DispatcherTimer _closeTimer;
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
@@ -46,6 +48,10 @@ namespace SimpleLauncher
             };
             _pleaseWaitWindow.Show();
 
+            // Start a timer to ensure the window stays open for at least 1 second
+            _closeTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            _closeTimer.Tick += (_, _) => _closeTimer.Stop();
+
             var backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += (_, args) => args.Result = PerformSearch(searchTerm);
             backgroundWorker.RunWorkerCompleted += (_, args) =>
@@ -74,9 +80,19 @@ namespace SimpleLauncher
                         });
                     }
                 }
-                _pleaseWaitWindow.Close();
+
+                // Close the PleaseWaitSearch window after 1 second if the search is already done
+                if (!_closeTimer.IsEnabled)
+                {
+                    _pleaseWaitWindow.Close();
+                }
+                else
+                {
+                    _closeTimer.Tick += (_, _) => _pleaseWaitWindow.Close();
+                }
             };
 
+            _closeTimer.Start();
             backgroundWorker.RunWorkerAsync();
         }
 
@@ -84,6 +100,10 @@ namespace SimpleLauncher
         {
             var results = new List<SearchResult>();
 
+            // Split the search term into individual terms
+            var searchTerms = searchTerm.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Search through system files
             foreach (var systemConfig in _systemConfigs)
             {
                 string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
@@ -92,7 +112,7 @@ namespace SimpleLauncher
                 {
                     var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
                         .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()))
-                        .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerm))
+                        .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms))
                         .Select(file => new SearchResult
                         {
                             FileName = Path.GetFileName(file),
@@ -103,73 +123,57 @@ namespace SimpleLauncher
                             SystemName = systemConfig.SystemName, // Associate the SystemName
                             EmulatorConfig = systemConfig.Emulators.FirstOrDefault() // Associate the first EmulatorConfig
                         })
-                        .OrderBy(x => x.FileName)
                         .ToList();
 
                     results.AddRange(files);
                 }
             }
 
-            return results;
+            // Score and sort the results
+            var scoredResults = ScoreResults(results, searchTerms);
+            return scoredResults;
+        }
+
+        private List<SearchResult> ScoreResults(List<SearchResult> results, string[] searchTerms)
+        {
+            foreach (var result in results)
+            {
+                result.Score = CalculateScore(result.FileName.ToLower(), searchTerms);
+            }
+
+            return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();
+        }
+
+        private int CalculateScore(string text, string[] searchTerms)
+        {
+            int score = 0;
+
+            foreach (var term in searchTerms)
+            {
+                int index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
+                if (index >= 0)
+                {
+                    // Increase score for each matched term
+                    score += 10;
+
+                    // Additional score based on the position of the match (earlier matches score higher)
+                    score += (text.Length - index);
+                }
+            }
+
+            return score;
+        }
+
+        private bool MatchesSearchQuery(string text, string[] searchTerms)
+        {
+            // Ensure at least one search term is matched
+            return searchTerms.Any(text.Contains);
         }
 
         private string GetMachineDescription(string fileNameWithoutExtension)
         {
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             return machine?.Description ?? string.Empty;
-        }
-
-        private bool MatchesSearchQuery(string fileName, string searchQuery)
-        {
-            var terms = searchQuery.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            bool result = false;
-            bool isAnd = false;
-            bool isOr = false;
-            bool isNot = false;
-
-            foreach (var term in terms)
-            {
-                if (term == "and")
-                {
-                    isAnd = true;
-                    continue;
-                }
-                if (term == "or")
-                {
-                    isOr = true;
-                    continue;
-                }
-                if (term == "not")
-                {
-                    isNot = true;
-                    continue;
-                }
-
-                var currentCondition = fileName.Contains(term);
-
-                if (isNot)
-                {
-                    currentCondition = !currentCondition;
-                    isNot = false;
-                }
-
-                if (isAnd)
-                {
-                    result = result && currentCondition;
-                    isAnd = false;
-                }
-                else if (isOr)
-                {
-                    result = result || currentCondition;
-                    isOr = false;
-                }
-                else
-                {
-                    result = currentCondition;
-                }
-            }
-
-            return result;
         }
 
         private string GetFullPath(string path)
@@ -194,6 +198,12 @@ namespace SimpleLauncher
         {
             try
             {
+                if (string.IsNullOrEmpty(systemName) || emulatorConfig == null)
+                {
+                    MessageBox.Show("There is no System or Emulator associated with that file. I cannot launch that file from this window.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 var systemConfig = _systemConfigs.FirstOrDefault(config =>
                     config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
@@ -296,6 +306,7 @@ namespace SimpleLauncher
             public double Size { get; set; } // Size in KB
             public string SystemName { get; init; } // Add SystemName property
             public SystemConfig.Emulator EmulatorConfig { get; init; } // Add EmulatorConfig property
+            public int Score { get; set; } // Add Score property
         }
 
         private void GlobalSearch_Closed(object sender, EventArgs e)
