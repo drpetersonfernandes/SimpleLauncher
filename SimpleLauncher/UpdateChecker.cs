@@ -57,6 +57,40 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
+        
+        public static async Task CheckForUpdatesAsync2(Window mainWindow)
+        {
+            try
+            {
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+                var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+
+                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
+                    {
+                        ShowUpdateDialog(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    }
+
+                    else
+                    {
+                        // If no new version is available, show a message box with the current version
+                        MessageBox.Show(mainWindow, $"There is no update available.\n\nThe current version is {CurrentVersion}", "No Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
+        }
 
         private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
         {
