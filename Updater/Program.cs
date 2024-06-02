@@ -64,7 +64,26 @@ namespace Updater
                 MessageBox.Show("Update installed successfully. The application will now restart.", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Restart the main application
-                Process.Start(appExePath, appArgs);
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = appExePath,
+                    Arguments = appArgs,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
+
+                var process = new Process
+                {
+                    StartInfo = startInfo
+                };
+
+                process.OutputDataReceived += (_, e) => Console.WriteLine(e.Data);
+                process.ErrorDataReceived += (_, e) => Console.WriteLine(e.Data);
+
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
             }
             catch (Exception ex)
             {
