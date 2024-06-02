@@ -7,18 +7,15 @@ namespace Updater
         [STAThread]
         private static void Main(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 4)
             {
-                MessageBox.Show("Invalid arguments. Usage: Updater <updateSourcePath> <updateZipPath>", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath> <appArgs>", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Hardcoded paths for SimpleLauncher.exe
-            var appExePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimpleLauncher.exe");
-            var appArgs = ""; // Add any arguments needed for SimpleLauncher.exe here
-
-            var updateSourcePath = args[0];
-            var updateZipPath = args[1];
+            var appExePath = args[0];
+            var updateSourcePath = args[1];
+            var updateZipPath = args[2];
 
             if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath))
             {
@@ -61,31 +58,22 @@ namespace Updater
 
                 // Delete the temporary update files and the update.zip file
                 Directory.Delete(updateSourcePath, true);
+                var updateFilePath = Path.Combine(appDirectory, "update.zip");
+                File.Delete(updateFilePath);
 
                 // Notify the user of a successful update
                 MessageBox.Show("Update installed successfully. The application will now restart.", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Restart the main application
+                var simpleLauncherExePath = Path.Combine(appDirectory, "SimpleLauncher.exe");
                 var startInfo = new ProcessStartInfo
                 {
-                    FileName = appExePath,
-                    Arguments = appArgs,
+                    FileName = simpleLauncherExePath,
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    WorkingDirectory = appDirectory
                 };
 
-                var process = new Process
-                {
-                    StartInfo = startInfo
-                };
-
-                process.OutputDataReceived += (_, e) => Console.WriteLine(e.Data);
-                process.ErrorDataReceived += (_, e) => Console.WriteLine(e.Data);
-
-                process.Start();
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
+                Process.Start(startInfo);
             }
             catch (Exception ex)
             {

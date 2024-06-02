@@ -21,7 +21,7 @@ namespace SimpleLauncher
             {
                 try
                 {
-                    return Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+                    return NormalizeVersion(Assembly.GetExecutingAssembly().GetName().Version?.ToString());
                 }
                 catch
                 {
@@ -119,30 +119,14 @@ namespace SimpleLauncher
 
             if (versionComparison > 0) return true;
 
-            if (versionComparison == 0)
-            {
-                // Compare pre-release tags if versions are identical
-                string currentTag = GetPreReleaseTag(currentVersion);
-                string latestTag = GetPreReleaseTag(latestVersion);
-
-                if (string.IsNullOrEmpty(currentTag) && !string.IsNullOrEmpty(latestTag)) return true; // Treat non-tagged as higher than tagged
-                if (!string.IsNullOrEmpty(currentTag) && !string.IsNullOrEmpty(latestTag)) return string.Compare(currentTag, latestTag, StringComparison.OrdinalIgnoreCase) < 0;
-            }
-
             return false;
-        }
-
-        private static string GetPreReleaseTag(string version)
-        {
-            var match = Regex.Match(version, @"-(\w+)");
-            return match.Success ? match.Groups[1].Value : string.Empty;
         }
 
         private static async void ShowUpdateDialog(string assetUrl, string currentVersion, string latestVersion, Window owner)
         {
             string message = $"There is a software update available.\n" +
-                             $"The current version is {currentVersion}.\n" +
-                             $"The update version is {latestVersion}.\n\n" +
+                             $"The current version is {currentVersion}\n" +
+                             $"The update version is {latestVersion}\n\n" +
                              "Do you want to download and install the latest version automatically?";
 
             MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -249,7 +233,7 @@ namespace SimpleLauncher
                 var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
                 if (versionMatch.Success)
                 {
-                    return (versionMatch.Value, assetUrl);
+                    return (NormalizeVersion(versionMatch.Value), assetUrl);
                 }
 
                 throw new InvalidOperationException("Version number not found in tag.");
@@ -258,6 +242,21 @@ namespace SimpleLauncher
             throw new InvalidOperationException("Version information not found in the response.");
         }
 
-        private static Regex MyRegex() => new Regex(@"\d+(\.\d+)*(-[a-zA-Z0-9]+)?", RegexOptions.Compiled);
+        private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
+
+        private static string NormalizeVersion(string version)
+        {
+            if (string.IsNullOrEmpty(version)) return "0.0.0.0";
+
+            var versionParts = version.Split('.');
+            while (versionParts.Length < 4)
+            {
+                version += ".0";
+                versionParts = version.Split('.');
+            }
+
+            // Remove any trailing dots (if any)
+            return version.TrimEnd('.');
+        }
     }
 }
