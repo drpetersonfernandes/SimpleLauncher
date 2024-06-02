@@ -7,16 +7,18 @@ namespace Updater
         [STAThread]
         private static void Main(string[] args)
         {
-            if (args.Length < 4)
+            if (args.Length < 3)
             {
-                MessageBox.Show("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath> <appArgs>", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid arguments. Usage: Updater <updateSourcePath> <updateZipPath>", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var appExePath = args[0];
-            var updateSourcePath = args[1];
-            var updateZipPath = args[2];
-            var appArgs = args[3];
+            // Hardcoded paths for SimpleLauncher.exe
+            var appExePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SimpleLauncher.exe");
+            var appArgs = ""; // Add any arguments needed for SimpleLauncher.exe here
+
+            var updateSourcePath = args[0];
+            var updateZipPath = args[1];
 
             if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath))
             {
