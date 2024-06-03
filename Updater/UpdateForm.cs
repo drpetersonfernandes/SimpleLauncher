@@ -82,7 +82,7 @@ namespace Updater
                 // Notify the user of a successful update
                 Log("Update installed successfully. The application will now restart.");
                 MessageBox.Show("Update installed successfully. The application will now restart.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 // Restart the main application
                 var simpleLauncherExePath = Path.Combine(appDirectory, "SimpleLauncher.exe");
                 var startInfo = new ProcessStartInfo
@@ -93,15 +93,15 @@ namespace Updater
                 };
 
                 Process.Start(startInfo);
-                
+
                 // Close the update Window
                 Close();
             }
             catch (Exception ex)
             {
-                Log($"Update failed: {ex.Message}\nPlease update the application manually.");
-                MessageBox.Show("Update failed.\nPlease update the application manually.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+                Log($"Automatic update failed: {ex.Message}\nPlease update manually.");
+                MessageBox.Show("Automatic update failed.\nPlease update manually.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 // Close the update Window
                 Close();
             }
@@ -118,4 +118,3 @@ namespace Updater
         }
     }
 }
-

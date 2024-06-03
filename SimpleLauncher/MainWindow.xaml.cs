@@ -428,26 +428,49 @@ namespace SimpleLauncher
                     allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
                 }
                 
+                // // Search engine
+                // if (!string.IsNullOrWhiteSpace(searchQuery))
+                // {
+                //     bool systemIsMame = selectedConfig.SystemIsMame;
+                //     allFiles = allFiles.Where(file =>
+                //     {
+                //         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                //         // Search in filename
+                //         bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                //
+                //         if (!systemIsMame) // If not a MAME system, return match based on filename only
+                //         {
+                //             return filenameMatch;
+                //         }
+                //
+                //         // For MAME systems, additionally check the description for a match
+                //         var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                //         bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                //         return filenameMatch || descriptionMatch;
+                //
+                //     }).ToList();
+                // }
+                
                 // Search engine
                 if (!string.IsNullOrWhiteSpace(searchQuery))
                 {
                     bool systemIsMame = selectedConfig.SystemIsMame;
+                    var searchKeywords = searchQuery.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     allFiles = allFiles.Where(file =>
                     {
                         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
                         // Search in filename
-                        bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-                
+                        bool filenameMatch = searchKeywords.Any(keyword => fileNameWithoutExtension.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
+
                         if (!systemIsMame) // If not a MAME system, return match based on filename only
                         {
                             return filenameMatch;
                         }
-                
+
                         // For MAME systems, additionally check the description for a match
                         var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                        bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                        bool descriptionMatch = machine != null && searchKeywords.Any(keyword => machine.Description.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0);
                         return filenameMatch || descriptionMatch;
-                
                     }).ToList();
                 }
                 
@@ -647,11 +670,101 @@ namespace SimpleLauncher
             ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
         }
        
+        // private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        // {
+        //     // Pagination reset
+        //     ResetPaginationButtons();
+        //     
+        //     var searchQuery = SearchTextBox.Text.Trim();
+        //
+        //     if (SystemComboBox.SelectedItem == null)
+        //     {
+        //         MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //         return;
+        //     }
+        //
+        //     if (string.IsNullOrEmpty(searchQuery))
+        //     {
+        //         MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //         return;
+        //     }
+        //
+        //     // Show the "Please Wait" window
+        //     var pleaseWaitWindow = new PleaseWaitSearch();
+        //     pleaseWaitWindow.Show();
+        //     
+        //     // Call DeselectLetter to clear any selected letter
+        //     _letterNumberMenu.DeselectLetter();
+        //
+        //     try
+        //     {
+        //         await LoadGameFiles(searchQuery: searchQuery);
+        //     }
+        //     finally
+        //     {
+        //         // Close the "Please Wait" window
+        //         pleaseWaitWindow.Close();
+        //     }
+        // }
+        //
+        // private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        // {
+        //     if (e.Key == Key.Enter)
+        //     {
+        //         // Pagination reset
+        //         ResetPaginationButtons();
+        //         
+        //         var searchQuery = SearchTextBox.Text.Trim();
+        //
+        //         if (SystemComboBox.SelectedItem == null)
+        //         {
+        //             MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //             return;
+        //         }
+        //
+        //         if (string.IsNullOrEmpty(searchQuery))
+        //         {
+        //             MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //             return;
+        //         }
+        //
+        //         // Show the "Please Wait" window
+        //         var pleaseWaitWindow = new PleaseWaitSearch();
+        //         pleaseWaitWindow.Show();
+        //         
+        //         // Call DeselectLetter to clear any selected letter
+        //         _letterNumberMenu.DeselectLetter();
+        //
+        //         try
+        //         {
+        //             await LoadGameFiles(searchQuery: searchQuery);
+        //         }
+        //         finally
+        //         {
+        //             // Close the "Please Wait" window
+        //             pleaseWaitWindow.Close();
+        //         }
+        //     }
+        // }
+        
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            await PerformSearch();
+        }
+
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                await PerformSearch();
+            }
+        }
+
+        private async Task PerformSearch()
         {
             // Pagination reset
             ResetPaginationButtons();
-            
+    
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -669,7 +782,7 @@ namespace SimpleLauncher
             // Show the "Please Wait" window
             var pleaseWaitWindow = new PleaseWaitSearch();
             pleaseWaitWindow.Show();
-            
+    
             // Call DeselectLetter to clear any selected letter
             _letterNumberMenu.DeselectLetter();
 
@@ -681,46 +794,6 @@ namespace SimpleLauncher
             {
                 // Close the "Please Wait" window
                 pleaseWaitWindow.Close();
-            }
-        }
-
-        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                // Pagination reset
-                ResetPaginationButtons();
-                
-                var searchQuery = SearchTextBox.Text.Trim();
-
-                if (SystemComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(searchQuery))
-                {
-                    MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                // Show the "Please Wait" window
-                var pleaseWaitWindow = new PleaseWaitSearch();
-                pleaseWaitWindow.Show();
-                
-                // Call DeselectLetter to clear any selected letter
-                _letterNumberMenu.DeselectLetter();
-
-                try
-                {
-                    await LoadGameFiles(searchQuery: searchQuery);
-                }
-                finally
-                {
-                    // Close the "Please Wait" window
-                    pleaseWaitWindow.Close();
-                }
             }
         }
         

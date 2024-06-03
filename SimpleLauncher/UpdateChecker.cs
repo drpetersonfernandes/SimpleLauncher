@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -122,6 +123,57 @@ namespace SimpleLauncher
             return false;
         }
 
+        // private static async void ShowUpdateDialog(string assetUrl, string currentVersion, string latestVersion, Window owner)
+        // {
+        //     string message = $"There is a software update available.\n" +
+        //                      $"The current version is {currentVersion}\n" +
+        //                      $"The update version is {latestVersion}\n\n" +
+        //                      "Do you want to download and install the latest version automatically?";
+        //
+        //     MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
+        //
+        //     if (result == MessageBoxResult.Yes)
+        //     {
+        //         try
+        //         {
+        //             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        //             string tempDirectory = Path.Combine(appDirectory, "temp");
+        //             Directory.CreateDirectory(tempDirectory);
+        //
+        //             string tempFilePath = Path.Combine(tempDirectory, "update.zip");
+        //             await DownloadUpdateFile(assetUrl, tempFilePath);
+        //             ExtractUpdateFile(tempFilePath, tempDirectory);
+        //
+        //             string appExePath = Assembly.GetExecutingAssembly().Location;
+        //             string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+        //
+        //             if (!File.Exists(updaterExePath))
+        //             {
+        //                 MessageBox.Show(owner, "Updater.exe not found in the application directory.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        //                 return;
+        //             }
+        //
+        //             // Start the updater process
+        //             Process.Start(new ProcessStartInfo
+        //             {
+        //                 FileName = updaterExePath,
+        //                 Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{Environment.CommandLine}\"",
+        //                 UseShellExecute = false
+        //             });
+        //
+        //             // Close the main application
+        //             Application.Current.Shutdown();
+        //         }
+        //         catch (Exception exception)
+        //         {
+        //             string contextMessage = $"There was an error updating the application.\n\nException details: {exception}";
+        //             Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+        //             MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        //             logTask.Wait(TimeSpan.FromSeconds(2));
+        //         }
+        //     }
+        // }
+        
         private static async void ShowUpdateDialog(string assetUrl, string currentVersion, string latestVersion, Window owner)
         {
             string message = $"There is a software update available.\n" +
@@ -143,12 +195,34 @@ namespace SimpleLauncher
                     await DownloadUpdateFile(assetUrl, tempFilePath);
                     ExtractUpdateFile(tempFilePath, tempDirectory);
 
+                    // Copy updater files to the application directory
+                    var updaterFiles = new[]
+                    {
+                        "Updater.deps.json",
+                        "Updater.dll",
+                        "Updater.exe",
+                        "Updater.pdb",
+                        "Updater.runtimeconfig.json"
+                    };
+
+                    foreach (var file in updaterFiles)
+                    {
+                        var sourceFile = Path.Combine(tempDirectory, file);
+                        var destFile = Path.Combine(appDirectory, file);
+                        if (File.Exists(sourceFile))
+                        {
+                            File.Copy(sourceFile, destFile, true);
+                        }
+                    }
+            
+                    Thread.Sleep(2000); // Ensure time for file operations to complete
+
                     string appExePath = Assembly.GetExecutingAssembly().Location;
                     string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
 
                     if (!File.Exists(updaterExePath))
                     {
-                        MessageBox.Show(owner, "Updater.exe not found in the application directory.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(owner, "Updater.exe not found in the application directory.\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -165,13 +239,14 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string contextMessage = $"There was an error updating the application.\n\nException details: {exception}";
+                    string contextMessage = $"There was an error updating the application.\n\nPlease update manually.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
                     MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
+
 
         private static async Task DownloadUpdateFile(string url, string destinationPath)
         {
