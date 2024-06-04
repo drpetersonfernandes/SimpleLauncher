@@ -393,133 +393,151 @@ namespace SimpleLauncher
         }
 
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
-{
-    // Move scroller to top
-    Scroller.ScrollToTop();
-
-    try
-    {
-        GameFileGrid.Children.Clear();
-
-        if (SystemComboBox.SelectedItem == null)
         {
-            AddNoSystemMessage();
-            return;
-        }
-        string selectedSystem = SystemComboBox.SelectedItem.ToString();
-        var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-        if (selectedConfig == null)
-        {
-            string errorMessage = "Error while loading selected system configuration.";
-            Exception exception = new Exception(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
+            // Move scroller to top
+            Scroller.ScrollToTop();
 
-        // Get the SystemFolder from the selected configuration
-        string systemFolderPath = selectedConfig.SystemFolder;
-
-        // Extract the file extensions from the selected system configuration
-        var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-
-        // List of files with that match the system extensions
-        // then sort the list alphabetically 
-        List<string> allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
-
-        if (!string.IsNullOrWhiteSpace(startLetter))
-        {
-            allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
-        }
-
-        // Search engine
-        if (!string.IsNullOrWhiteSpace(searchQuery))
-        {
-            bool systemIsMame = selectedConfig.SystemIsMame;
-            allFiles = allFiles.Where(file =>
+            try
             {
-                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                // Search in filename
-                bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                GameFileGrid.Children.Clear();
 
-                if (!systemIsMame) // If not a MAME system, return match based on filename only
+                if (SystemComboBox.SelectedItem == null)
                 {
-                    return filenameMatch;
+                    AddNoSystemMessage();
+                    return;
+                }
+                string selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+                if (selectedConfig == null)
+                {
+                    string errorMessage = "Error while loading selected system configuration.";
+                    Exception exception = new Exception(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
-                // For MAME systems, additionally check the description for a match
-                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-                return filenameMatch || descriptionMatch;
+                // Get the SystemFolder from the selected configuration
+                string systemFolderPath = selectedConfig.SystemFolder;
 
-            }).ToList();
+                // Extract the file extensions from the selected system configuration
+                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
 
-            // Store the search results
-            _currentSearchResults = allFiles;
+                List<string> allFiles;
+        
+                if (!string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    // Use stored search results if available
+                    if (_currentSearchResults.Any())
+                    {
+                        allFiles = _currentSearchResults;
+                    }
+                    else
+                    {
+                        // List of files with that match the system extensions
+                        // then sort the list alphabetically 
+                        allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+
+                        if (!string.IsNullOrWhiteSpace(startLetter))
+                        {
+                            allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                        }
+
+                        bool systemIsMame = selectedConfig.SystemIsMame;
+                        allFiles = allFiles.Where(file =>
+                        {
+                            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                            // Search in filename
+                            bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                            if (!systemIsMame) // If not a MAME system, return match based on filename only
+                            {
+                                return filenameMatch;
+                            }
+
+                            // For MAME systems, additionally check the description for a match
+                            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                            bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                            return filenameMatch || descriptionMatch;
+
+                        }).ToList();
+
+                        // Store the search results
+                        _currentSearchResults = allFiles;
+                    }
+                }
+                else
+                {
+                    // Reset search results if no search query is provided
+                    _currentSearchResults.Clear();
+            
+                    // List of files with that match the system extensions
+                    // then sort the list alphabetically 
+                    allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+
+                    if (!string.IsNullOrWhiteSpace(startLetter))
+                    {
+                        allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                    }
+                }
+
+                // Sort the collection of files
+                allFiles.Sort();
+
+                // Count the collection of files
+                _totalFiles = allFiles.Count;
+
+                // Calculate the indices of files displayed on the current page
+                int startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
+                int endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
+                if (endIndex > _totalFiles)
+                {
+                    endIndex = _totalFiles;
+                }
+
+                // Pagination related
+                if (_totalFiles > _paginationThreshold)
+                {
+                    // Enable pagination and adjust file list based on the current page
+                    allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
+                    // Update or create pagination controls
+                    InitializePaginationButtons();
+                }
+
+                // Display message if the number of files == 0
+                if (allFiles.Count == 0)
+                {
+                    NoFilesMessage();
+                }
+
+                // Update the UI to reflect the current pagination status and the indices of files being displayed
+                TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
+
+                // Create a new instance of GameButtonFactory
+                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+
+                // Create Button action for each cell
+                foreach (var filePath in allFiles)
+                {
+                    // Adjust the CreateGameButton call.
+                    Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                    GameFileGrid.Children.Add(gameButton);
+                }
+
+                // Apply visibility settings to each button based on _settings.ShowGames
+                ApplyShowGamesSetting();
+
+                // Update the UI to reflect the current pagination status
+                UpdatePaginationButtons();
+
+            }
+            catch (Exception exception)
+            {
+                string errorMessage = $"Error while loading ROM files.\n\nException detail: {exception}";
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        else
-        {
-            // Reset search results if no search query is provided
-            _currentSearchResults.Clear();
-        }
-
-        //Sort the collection of files
-        allFiles.Sort();
-
-        // Count the collection of files
-        _totalFiles = allFiles.Count;
-
-        // Calculate the indices of files displayed on the current page
-        int startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
-        int endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
-        if (endIndex > _totalFiles)
-        {
-            endIndex = _totalFiles;
-        }
-
-        // Pagination related
-        if (_totalFiles > _paginationThreshold)
-        {
-            // Enable pagination and adjust file list based on the current page
-            allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
-            // Update or create pagination controls
-            InitializePaginationButtons();
-        }
-
-        // Display message if the number of files == 0
-        if (allFiles.Count == 0)
-        {
-            NoFilesMessage();
-        }
-
-        // Update the UI to reflect the current pagination status and the indices of files being displayed
-        TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
-
-        // Create a new instance of GameButtonFactory
-        var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
-
-        // Create Button action for each cell
-        foreach (var filePath in allFiles)
-        {
-            // Adjust the CreateGameButton call.
-            Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-            GameFileGrid.Children.Add(gameButton);
-        }
-
-        // Apply visibility settings to each button based on _settings.ShowGames
-        ApplyShowGamesSetting();
-
-        // Update the UI to reflect the current pagination status
-        UpdatePaginationButtons();
-
-    }
-    catch (Exception exception)
-    {
-        string errorMessage = $"Error while loading ROM files.\n\nException detail: {exception}";
-        await LogErrors.LogErrorAsync(exception, errorMessage);
-        MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-}
         
         private void ApplyShowGamesSetting()
         {
