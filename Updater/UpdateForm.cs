@@ -16,7 +16,10 @@ namespace Updater
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            var updateThread = new Thread(UpdateProcess);
+            var updateThread = new Thread(UpdateProcess)
+            {
+                IsBackground = true
+            };
             updateThread.Start();
         }
 
