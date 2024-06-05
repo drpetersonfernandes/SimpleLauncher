@@ -1,40 +1,70 @@
 # Welcome to the SimpleLauncher Wiki!
 
 ## Introduction
-Simple Launcher is an emulator frontend that allows you to play retro games with ease.
+Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 
 ## Installation
-Simply download the application from the [release](https://github.com/drpetersonfernandes/SimpleLauncher/releases) page, and then extract the zip file to your chosen location.
+You need
+to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases),
+then extract the zip file into your chosen folder.
 
-## Usage
+## Basic Usage
 * Click on the 'Edit System' menu item.
-* Configure each system of your choice. You have the option to add, edit or delete systems.
-* Create a folder with the same name as the system you created in the 'images' folder.
-* Place all your cover images for that specific system inside this folder.
-* Now, select the system from the dropdown menu at the top of the application.
-* Select the emulator you wish to use.
-* Select a button at the top of the application.
-* Click on the game you want to launch.
+* Click on the 'Easy Mode' menu item.
+* Follow the steps to install a System.
+* Add ROM files for that system in the indicated folder.
+* Add cover images for that system in the indicated folder.
+* Go back to the Main Window.
+* Select the added system from the dropdown menu.
+* Click on the All Button to show all games for that system.
+* Click on the game you wish to launch.
 
-Note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu.
+## Easy Mode
+This Edit Mode was made for people starting in the world of emulation.<br>
+This mode download and install the most used emulator for a specific System.<br>
+Also create default folders for roms and cover images, located inside 'Simple Launcher' folder.<br>
+The roms for a specific system need to be placed inside .\rom\SystemName.<br>
+The cover images for a specific system need to be placed inside .\images\SystemName.<br>
+The emulator will be installed inside the 'emulators' folder.<br>
 
-## Where to Find Game Covers:
-Please note that we do NOT provide ROMs, ISOs or Game Covers. You can find cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com). However, these sites are not affiliated with Simple Launcher.
+## Expert Mode (Advanced Mode)
+This mode was made for people familiar with the world of emulation.<br>
+You will be able to custom set the variable of each System:
+
+* System Name.
+* System Folder.
+* Image Folder.
+* File Extensions to search inside the System Folder.
+* Need of Extraction, in case the file needs to be extracted before launch.
+* File Extensions to launch after extraction.
+* Emulator name.
+* Emulator path.
+* Emulator launch parameters.
+* Users also can set multiple emulators for each system.
+
+The provided values will be path checked before being added to the frontend database.
+
+## Where to Find ROMs or ISOs:
+We do NOT provide ROMs or ISOs.
+
+## Where to Find Game Covers Images:
+We do NOT provide cover images.<br>
+You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## List of Parameters for Emulators
 We have compiled a list of parameters for each emulator for your convenience. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters) to see the list.
 
 ## Special Settings:
-
 **LaserDisk**
 
-If you want to add LaserDisk games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the game.<br>
+If you want to add LaserDisk games to the Simple Launcher frontend,
+you should create a folder with BAT files that directly call the game.<br>
 
 **Microsoft Windows Games or Applications**
 
-If you want to add your Windows games or applications to the Simple Launcher frontend, you should create a folder with Shortcut (lnk), BAT (bat) or Executable (exe) files that directly call the game or application.<br>
-LNK files are shortcut links. You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
-If you prefer to use BAT files, you can use the following model as an example:
+You should create a folder with LNK (Shortcut), BAT (Batch) or EXE (Executable) files,
+that directly call the Game or Application.<br>
+If you use BAT files, follow the model below:
 
 ```bat
 @echo off
@@ -46,13 +76,13 @@ start game.exe
 
 This RPCS3 emulator loads games extracted from ISO files into a Game Folder.<br>
 To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.  
-Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in Simple Launcher to be treated as games.  
+Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in 'Simple Launcher' to be treated as games.  
 For the Sony Playstation 3 system configuration, you should set the Format To Search In System Folder as batch (.bat).
-I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generate these batch files for you.
+I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generates these batch files for you.
 
 **Sega Model 3**
 
-If you want to add your Sega Model 3 games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the supermodel emulator.<br>
+You should create a folder with BAT files that directly call the supermodel emulator.<br>
 
 BAT file example:
 ```bat
@@ -65,7 +95,7 @@ Before using Simple Launcher, first try running your batch file directly. If it 
 
 **ScummVM Games**
 
-If you want to add your ScummVM games to the Simple Launcher frontend, you should create a folder with BAT files that directly call the game.<br>
+You should create a folder with BAT files that directly call the game.<br>
 
 Bat file model:
 ```bat
@@ -79,10 +109,10 @@ D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD W
 
 ## How the Frontend Works:
 
-- **Configuration:** The program first looks for a file named "system.xml" in its folder, which contains all the settings for the system and emulators. You need to edit this file to match your requirements.
+- **Configuration:** The program first looks for a file named "system.xml" in its folder, which contains all the settings for the system and emulators.
 - **Game Selection:** When you select a system, the application opens the system directory and lists the emulators configured for that specific system. It then displays a grid of games located in the system folder. Each cell in the grid is clickable, and the application will launch the selected emulator with the chosen game.
 - **Game Info:** Each grid cell displays a game cover, its name, a link to a Video about the game, and a link to an Info Page about the game.
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the "images" folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used. You can also use a custom System Image Folder, which should be set in the "system.xml".
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the 'images' folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used.
 
 ## Explaining "system.xml":
 
@@ -96,7 +126,7 @@ This file contains information about various systems and their settings. You can
 - **FormatToLaunch**: If you extract the file to a temporary folder, you should specify here which extensions will be launched from the extracted folder.
 - **EmulatorName**: The name of the emulator. You can accommodate as many emulators as you want for each system.
 - **EmulatorLocation**: The location of the emulator.
-- **EmulatorParameters**: The parameters utilized for each emulator. Not all emulators require parameters.
+- **EmulatorParameters**: The parameters used for each emulator. Not all emulators require parameters.
 
 ```xml
 <SystemConfig>
@@ -121,30 +151,70 @@ This file contains information about various systems and their settings. You can
     </Emulators>
 </SystemConfig>
 ```
-## Additional Features:
 
-- **Edit Systems Menu:** This function allows you to easily edit, add, or delete a System.
-- **Edit Links Menu:** Customize the Video and Info links within the UI.
-- **Control Thumbnail size:** Adjust the size of Cover images in the UI to your preference.
-- **Update Notifications:** Notifications will inform you when a new version is available.
-- **Error Logging:** The application features an error-logging mechanism that sends developers notifications about any occurring errors. This enables us to fix bugs and make improvements over time.
+## Right Click Context Menu
+
+When 'Simple Launcher' generates the buttons for each game, it adds a Context Menu for each button.
+
+- **Launch Game:** It launches the game.
+- **Open Video Link:** Open video link related to that game.
+- **Open Info Link:** Open info page related to that game.
+- **Cover:** Open cover image related to that game. File should be inside .\title_snapshots\SystemName or inside custom folder.
+- **Title Snapshot:** Open title snapshot related to that game. File should be inside .\title_snapshots\SystemName
+- **Gameplay Snapshot:** Open title snapshot related to that game. File should be inside .\gameplay_snapshots\SystemName
+- **Video:** Open local video related to that game. File should be inside .\videos\SystemName
+- **Manual:** Open PDF manual related to that game. File should be inside .\manuals\SystemName
+- **Walkthrough:** Open PDF walkthrough related to that game. File should be inside .\walkthrough\SystemName
+- **Cabinet:** Open cabinet related to that game. File should be inside .\cabinets\SystemName
+- **Flyer:** Open cabinet related to that game. File should be inside .\flyers\SystemName
+- **PCB:** Open PCB related to that game. File should be inside .\pcbs\SystemName
+
+The image files should be in format JPG, JPEG or PNG and will be opened by Simple Launcher Image Viewer Window.<br>
+Video files should be in format MP4, AVI or MKV and will be opened by user's default video player.
+I recommend to use [VLC Player](https://www.videolan.org/vlc/download-windows.html).<br>
+PDF files will be open by user's default PDF viewer.
+
+## Global Search
+
+This search engine will look for filenames in System Folder of every system configured in 'Simple launcher'.<br>
+From within the search results user can launch the game.
+
+## Global Stats
+
+This window will generate a summary report of every system configured in the frontend. It will report:
+
+* Total Number of Systems
+* Total Number of Emulators
+* Total Number of Games
+* Total Number of Cover Images
+* Application Folder
+* Disk Size of all Games
+
+## Additional Features:
+- 
+- **Edit Systems menu:** Easily edit, add, or delete a system.
+- **Automatic installation of most emulators:** We offer automatic installation of emulators that don't require BIOS or copyrighted files to work.
+- **Search Engine:** User can search for games from within the frontend.
+- **Right Click Context Menu:** User can load Cover image, Title snapshot, Gameplay snapshot, Manual, Walkthrough, Cabinet, Flyer or PCB of the selected game.
+- **Edit Links menu:** Customize the Video and Info search engine used within the UI.
+- **Control Thumbnail Size:** Conveniently adjust the size of the cover images in the UI.
+- **Automatic Update:** The application has an automatic update mechanism.
 
 ## Related Utilities:
-
-- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** This program automatically creates BAT files to facilitate launching PS3 games on the RPCS3 emulator.
-- **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** This utility manages the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
-- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** This program helps organize your cover image collection. It attempts to match each image file's filename with the corresponding ROM's filename. Users can select the similarity algorithm for comparing filenames.
+- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
+- **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
+- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
 
 ## Technical Details:
-
-Simple Launcher is written in C# using Windows Presentation Foundation (WPF) and the Microsoft .NET 8 Framework.<br>
-This program is Windows-only. It is expected to be compatible with Windows 7 and subsequent versions. Tests have been carried out on Windows 11.
+The Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 8 Framework.<br>
+This program is Windows-only.
+It has been tested on Windows 11.
 
 ## Support the Project:
-
-Have you enjoyed using the Simple Launcher frontend? Consider [donating](https://www.buymeacoffee.com/purelogiccode) to support the project or just to express your appreciation!
+Did you enjoy using the Simple Launcher frontend?
+Consider [donating](https://www.buymeacoffee.com/purelogiccode) to support the project
+or simply to express your gratitude!
 
 ## Contributors:
-
 - **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
 - **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)
