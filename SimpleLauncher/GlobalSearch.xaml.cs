@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -31,7 +32,7 @@ namespace SimpleLauncher
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            string searchTerm = SearchTextBox.Text.ToLower();
+            string searchTerm = SearchTextBox.Text;
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
                 MessageBox.Show("Please enter a search term.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -100,8 +101,8 @@ namespace SimpleLauncher
         {
             var results = new List<SearchResult>();
 
-            // Split the search term into individual terms
-            var searchTerms = searchTerm.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            // Split the search term into individual terms or quoted phrases
+            var searchTerms = ParseSearchTerms(searchTerm);
 
             // Search through system files
             foreach (var systemConfig in _systemConfigs)
@@ -134,7 +135,7 @@ namespace SimpleLauncher
             return scoredResults;
         }
 
-        private List<SearchResult> ScoreResults(List<SearchResult> results, string[] searchTerms)
+        private List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
         {
             foreach (var result in results)
             {
@@ -144,7 +145,7 @@ namespace SimpleLauncher
             return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();
         }
 
-        private int CalculateScore(string text, string[] searchTerms)
+        private int CalculateScore(string text, List<string> searchTerms)
         {
             int score = 0;
 
@@ -164,10 +165,23 @@ namespace SimpleLauncher
             return score;
         }
 
-        private bool MatchesSearchQuery(string text, string[] searchTerms)
+        private bool MatchesSearchQuery(string text, List<string> searchTerms)
         {
-            // Ensure at least one search term is matched
-            return searchTerms.Any(text.Contains);
+            // Ensure at least one search term or quoted phrase is matched
+            return searchTerms.Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private List<string> ParseSearchTerms(string searchTerm)
+        {
+            var terms = new List<string>();
+            var matches = Regex.Matches(searchTerm, @"[\""].+?[\""]|[^ ]+");
+
+            foreach (Match match in matches)
+            {
+                terms.Add(match.Value.Trim('"').ToLower());
+            }
+
+            return terms;
         }
 
         private string GetMachineDescription(string fileNameWithoutExtension)

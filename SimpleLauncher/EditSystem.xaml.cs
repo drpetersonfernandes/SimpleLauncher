@@ -214,18 +214,14 @@ namespace SimpleLauncher
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
-        // Check paths inside parameters. Allow relative paths.
         private bool IsValidPath2(string parameters)
         {
             // Return true immediately if the parameter string is empty or null.
             if (string.IsNullOrWhiteSpace(parameters)) return true;
 
-            // This pattern looks for strings that are likely to be paths.
-            string pattern = @"(?:-L\s+""([^""]+)""|-rompath\s+""([^""]+)"")|([a-zA-Z]:\\[^""\s]+|\.\\[^""\s]+|[^""\s]+\\[^""\s]+)";
+            // This pattern looks for paths inside double or single quotes, excluding non-path arguments.
+            string pattern = @"(?:-L\s+""([^""]+)""|-rompath\s+""([^""]+)"")|""([^""]+\\[^""]+|[a-zA-Z]:\\[^""]+)""|'([^']+\\[^']+|[a-zA-Z]:\\[^']+)'";
             var matches = Regex.Matches(parameters, pattern);
-
-            // Assume validity until proven otherwise.
-            bool allPathsValid = true;
 
             // Use the application's current directory as the base for relative paths.
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -233,27 +229,27 @@ namespace SimpleLauncher
             // Iterate over all matches to validate each path found.
             foreach (Match match in matches)
             {
-                // Extract the path, removing quotes if present.
+                // Extract the path from the match, considering different groups in the regex.
                 string path = match.Groups[1].Success ? match.Groups[1].Value :
                     match.Groups[2].Success ? match.Groups[2].Value :
-                    match.Groups[3].Value;
+                    match.Groups[3].Success ? match.Groups[3].Value :
+                    match.Groups[4].Value;
 
                 // Convert relative paths to absolute paths using the base directory.
-                string absolutePath = Path.GetFullPath(Path.Combine(basePath, path));
+                string absolutePath = Path.IsPathRooted(path) ? path : Path.GetFullPath(Path.Combine(basePath, path));
 
                 // Check if the path (either absolute or converted from relative) is valid.
                 bool isValid = Directory.Exists(absolutePath) || File.Exists(absolutePath);
 
-                // If any path is invalid, set allPathsValid to false and break out of the loop.
+                // If any path is invalid, return false immediately.
                 if (!isValid)
                 {
-                    allPathsValid = false;
-                    break;
+                    return false;
                 }
             }
 
-            // Return the final validity status.
-            return allPathsValid;
+            // Return true if all paths (if any) are valid.
+            return true;
         }
 
         private void MarkInvalid(TextBox textBox, bool isValid)
@@ -454,7 +450,13 @@ namespace SimpleLauncher
             MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
             MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
-            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+            // if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+            // {
+            //     MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //     return; // Stop execution to prevent saving
+            // }
+            
+            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
             {
                 MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // Stop execution to prevent saving

@@ -8,37 +8,40 @@ Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 ![Screenshot](screenshot5.png)
 
 ## Installation
-You just need to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases), then extract the zip file into your chosen folder.
+You need to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases), then extract the zip file into your chosen folder.
 
-## Usage
+## Basic Usage
 * Click on the 'Edit System' menu item.
-* Configure each system you wish. You can add, edit, or delete systems.
-* Create a folder inside the images folder with the same name of the system you just created.
-* Place all your cover images for that specific system inside that folder.
-* Now, select the system from the dropdown menu on top of the app.
-* Choose the emulator you wish to use.
-* Click on the top button of the application.
+* Click on the 'Easy Mode' menu item.
+* Follow the steps to install a System.
+* Add ROM files for that system in the indicated folder.
+* Add cover images for that system in the indicated folder.
+* Go back to the Main Window.
+* Select the added system from the dropdown menu.
+* Click on the All Button to show all games for that system.
 * Click on the game you wish to launch.
-  
-Please note: You also have the option to use a custom System Image Folder, which can be set using the 'Edit System' menu.
 
-## Where to Find Game Covers:
-We do NOT provide ROMs, ISOs or Game Covers.<br>
-You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com). However, keep in mind that these sites are not affiliated with Simple Launcher.
+## Where to Find ROMs or ISOs:
+We do NOT provide ROMs or ISOs.
 
-## List of Parameters for Emulators
-You can find a list of parameters gathered by us for each emulator [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters).<br>
-Some specific cases, like adding LaserDisk, Windows Games, Sony Playstation 3, Sega Model 3 and ScummVM Games into the frontend, require special settings. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki#special-settings) for more details.
+## Where to Find Game Covers Images:
+We do NOT provide cover images.<br>
+You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
-## Wiki:
-For more detailed explanations of how the frontend works, visit our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
+## Advanced Usage
+'Simple launcher' also offers Expert Mode for advanced users.
+In this mode user can manually Add, Edit or Delete Systems into the frontend.
+Users will be able to custom folders, add multiple emulators for the same System and add custom parameters.<br> 
+You can find more details in our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
 
 ## Additional Features:
-- **Edit Systems menu:** Easily edit, add, or delete a system using this function.
+- **Edit Systems menu:** Easily edit, add, or delete a system.
+- **Automatic installation of most emulators:** We offer automatic installation of emulators that don't require BIOS or copyrighted files to work.
+- **Search Engine:** User can search for games from within the frontend.
+- **Right Click Context Menu:** User can load Cover image, Title snapshot, Gameplay snapshot, Manual, Walkthrough, Cabinet, Flyer or PCB of the selected game. 
 - **Edit Links menu:** Customize the Video and Info search engine used within the UI.
 - **Control Thumbnail Size:** Conveniently adjust the size of the cover images in the UI.
-- **Update Notifications:** Be informed whenever a new version becomes available.
-- **Error Logging:** The application includes an error logging mechanism that informs the developers of any errors that occur, thus enabling us to rectify bugs and enhance the program over time.
+- **Automatic Update:** The application has an automatic update mechanism.
 
 ## Related Utilities:
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
@@ -47,7 +50,8 @@ For more detailed explanations of how the frontend works, visit our [Wiki](https
 
 ## Technical Details:
 The Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 8 Framework.<br>
-This program is Windows-only, with expected compatibility with Windows 7 and later versions. It has been tested on Windows 11.
+This program is Windows-only.
+It has been tested on Windows 11.
 
 ## Support the Project:
 Did you enjoy using the Simple Launcher frontend? Consider [donating](https://www.buymeacoffee.com/purelogiccode) to support the project or simply to express your gratitude!
