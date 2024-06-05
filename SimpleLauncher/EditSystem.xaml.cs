@@ -235,6 +235,13 @@ namespace SimpleLauncher
                     match.Groups[3].Success ? match.Groups[3].Value :
                     match.Groups[4].Value;
 
+                // Check if the path contains more than one '..\' sequence.
+                int doubleDotCount = path.Split(new string[] { @"..\" }, StringSplitOptions.None).Length - 1;
+                if (doubleDotCount > 1)
+                {
+                    continue; // Skip validation for paths with multiple '..\' components.
+                }
+
                 // Convert relative paths to absolute paths using the base directory.
                 string absolutePath = Path.IsPathRooted(path) ? path : Path.GetFullPath(Path.Combine(basePath, path));
 
