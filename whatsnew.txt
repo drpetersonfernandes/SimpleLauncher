@@ -1,0 +1,255 @@
+release2.14.4
+-------------
+
+I have improved the Global Search algorithm. Now it accepts logical operators AND OR.
+Fix a hidden bug found in the [Main] Window search engine.
+Add option for user to select ROM Folder in the [Easy Mode - Add System] Window.
+Improve the algorithm for detection of emulator parameters. It was wrongly picking parameters as invalid. This algorithm is hard to develop due to the variety of possible arguments in the parameter field.
+I remove the parameter validation requirement to save a System in the [Expert Mode] Window.
+Update the emulator version and emulator download links in the easymode.xml.
+I develop a mechanism to detect the version of installed emulators in the [Easy Mode - Add System] Class. The method will install the emulator and core only when there is a new version available, otherwise the method will skip installation.
+
+release2.14.3
+-------------
+
+I have improved the automatic update mechanism and fixed a pagination bug that was preventing the Next and Prev buttons from working properly.
+
+release2.14.2
+-------------
+
+I have fixed the automatic update process
+
+release2.14.1
+-------------
+
+Fixed a small bug in the About window.
+
+release2.14.0
+-------------
+
+Big Update Today!
+Added Easy Mode to Add a System: It will automatically download emulators and extra files and add the new system to 'Simple Launcher'.
+Improved error detection of parameter values.
+Added a Global Search function that will search inside every folder configured in 'Simple Launcher'.
+Added a Global Stats Window that will generate a summary for every system configured in 'Simple Launcher'.
+Added a right-click Context Menu to every generated button. Users can right-click the Game Button to load cover images, title snapshots, gameplay snapshots, videos, manuals, walkthroughs, cabinets, flyers, and PCBs.
+Implemented an auto-update feature for the application when there is a new release. Functionality is still in testing.
+Updated mame.xml to the latest version.
+Improved extraction method: It will now use 7z.exe for any extraction, utilizing a temp folder inside 'Simple Launcher'.
+Fixed all bugs found.
+I have tested the application for the last two days and have not found any bugs. However, please be aware that there may still be bugs due to the many new functionalities introduced. If you find any bugs, please report them here on GitHub or use the Bug Report Window inside 'Simple Launcher'. Any reported bugs will be fixed promptly.
+
+release2.13.0
+-------------
+
+I have implemented an experimental algorithm to check the emulator parameters. It will check the folder location and file location and allow relative paths.
+I have also improved the extraction method that extracts files to a temporary folder in case the system extracts any files.
+Additionally, I have made minor bug fixes.
+
+release2.12.1
+-------------
+
+03/31/2024
+I've improved the error notification system.
+Also fixed a bug with the emulator location check. Thanks to bigroy00 for identifying the bug.
+I've implemented code to use the MAME game description instead of the filename in the Video link and Info link.
+Additionally, I've implemented code to handle missing mame.xml and missing system_model.xml files.
+
+release2.12.0
+-------------
+
+03/25/2024
+I have implemented basic checks for the System Folder, System Image Folder, and Emulator Location. The app will notify the user if the values in these fields are incorrect. Users can use both absolute and relative paths for any of these fields.
+I have also made the exception notifications more user-friendly.
+Additionally, I've devised a smart method for generating the system.xml file. If the system.xml file is present, the app will use it. If not, the app will search for any backup files in the folder and ask the user if they want to restore from that backup. In case no backup is found, the app will create a basic system.xml. This approach prevents users from inadvertently overwriting their custom system.xml and losing their personal configuration.
+
+release2.11.2.23
+----------------
+
+03/20/2024
+I've fixed a bug in the 'Show Games' option. Now it's working properly.
+
+release2.11.1.15
+----------------
+
+03/19/2024
+Improved mechanism to handle games without cover. Users now have more options.
+Enhanced error logging mechanism.
+Implemented handling for the loading of corrupted images into the UI. Users will be notified of corrupted image files. The corrupted image will be replaced with the default image.
+Fixed some bugs.
+Corrected some variable names.
+
+release2.11.0.5
+---------------
+
+03/17/2024
+I've added a Search Engine to the application. Now, users can search for files from within the Selected System based on the ROM filename. If the Selected System is based on MAME, it will also search based on the ROM description of each file.
+Additionally, I've updated the mame.xml to the latest version.
+I've also improved the launch error message. Now, users can see details about the error.
+
+Before updating, please remember to back up your existing system.xml, or it will be overwritten by the default system.xml included in the zip file.
+
+release2.10.0.10
+----------------
+
+03/12/2024
+Fixed the vertical scroll. Now, it will reset to the top position when a user selects a different button.
+The app now retains the window size and state between instances. These values are now saved in settings.xml and loaded back when the user starts the program.
+Users can now use a default.png file from the System Image Folder. If it is not found in that folder, the app will load the default image from the default location, which is inside the image folder of the application folder.
+Users can now see all the parameters associated with the system in the main UI. It is now easy and fast to check if your configuration is correct. If not, you can use the Edit System menu to fix it.
+I have added a numeric value for pagination. Now, users know which files they are viewing on each page.
+Fixed some bugs.
+
+release2.9.0.90
+---------------
+
+03/10/2024
+I've added the option to display all games for the selected system.
+
+I've implemented pagination in the main UI, allowing users to select the number of games to be displayed on each page. This was necessary to prevent loading a very large number of games at once, which could consume a lot of memory and lead to application or system crashes.
+
+Additionally, I've added an option to edit the Video Link and Info Link, where users can enter their favorite search engine.
+
+Also, I've added an option to back up the system.xml from within the Edit System Window, useful for preventing loss of your custom configuration.
+
+Furthermore, I have added the option to use a custom System Image Folder. If the user does not specify an Image Folder, the application will load images from the default location, which is inside the image folder of the application folder.
+
+Some of these changes were suggested by the user bigroy00. Thank you for the support, Roy.
+
+release2.8.2.10
+---------------
+
+03/06/2024
+Bug fix
+Limit Edit System Window size
+Update values in system.xml
+
+release2.8.1.6
+--------------
+
+03/03/2024
+Bug fix.
+I decided to remove the RefreshGameButtons method.
+
+release2.8.0.5
+--------------
+
+03/03/2024
+I have added a new menu item called 'Edit System'. Users can now edit the system.xml file directly within the app. This was done to simplify the process of adding, editing, or deleting systems.
+I have also updated the method for counting files within the System Folder. Now, it will only count files with the System extension definitions.
+Additionally, I have optimized the current code.
+
+release2.7.0.1
+--------------
+
+02/07/2024
+Added intelligent toggling of the GamePadController state for external process execution to prevent User Interface Privacy Isolation (UIPI) exceptions.
+Fixed the implementation of GamePadController in the MainWindow.
+Added support for launching .LNK and .EXE files, useful for users who want to add their Windows games to the frontend.
+Added Name and Email fields to the Bug Report Window.
+Other bug fixes.
+
+release2.6.3.4
+--------------
+
+01/28/2024
+Bug fix
+
+release2.6.2.3
+--------------
+
+01/28/2024
+Add support for loading BAT files or treating them as games in the Emulator Frontend. This is especially useful when using the emulator RPCS3.
+
+release2.6.0.1
+-------------
+
+01/24/2024
+Fix some code.
+Improve error checking for mame.xml, settings.xml and system.xml.
+Add BugReport window.
+
+release2.5.0.0
+--------------
+
+01/21/2024
+Fix code.
+Update libraries.
+Add support to JPG and JPEG image formats as game cover thumbnails.
+Add custom update notification.
+Improved logging mechanism that send log errors to developer for bug fixes and overall improvement over time.
+Update some systems in system.xml.
+
+release2.4
+----------
+
+12/30/2023
+Update the system.xml to include the field SystemIsMAME. If the system is based on MAME, the application will load the ROM descriptions alongside the ROM filenames.
+Add mame.xml database containing ROM filenames and descriptions. This database is loaded into memory during application's runtime.
+Update the UI to display the System Directory and the number of games it contains.
+Update the parameters within the system.xml. Use this as a model to create your own system.xml.
+
+release2.3
+----------
+
+12/26/2023
+Add menu items to allow users to select Thumbnail Size, hide games with no cover, and enable/disable GamePad support.
+Add a settings.xml file to save user preferences.
+Refine code to ensure files are extracted before launching. In case the system are configured to do that.
+Update libraries.
+Fix some code.
+
+release2.2
+----------
+
+11/25/2023
+Update to .net 8.0
+Fix some code
+Update libraries to comply with the new framework
+
+release2.1
+----------
+
+11/02/2023
+fix some code
+fix system.xml
+
+release2.0
+----------
+
+10/29/2023
+Major UI improvements.
+Revise the method for loading game files. The app no longer needs to be inside the games folder.
+Update the process for loading cover image files.
+Rework the system for selecting gaming systems and emulators.
+Implement a system.xml where users can set settings for each system and emulator.
+Introduce 'extract before launch' functionality for systems that require it.
+Implement a click sound feature.
+Incorporate a YouTube button into the UI for each game.
+Include an information link in the UI for each game.
+Implement asynchronous image loading, which has a significant impact on performance.
+Separate different functions into distinct classes to enhance maintenance and facilitate future app improvements.
+
+release1.3
+----------
+
+10/19/2023
+Add Xbox controller support.
+Add support for CSO files.
+Improve and fix code.
+
+release1.2
+----------
+
+09/24/2023
+Fix a lot of code
+Add Utilities menu
+Add Show menu
+Improved UI
+Add support for chd files
+
+release1.1
+----------
+
+08/29/2023
+Initial release
