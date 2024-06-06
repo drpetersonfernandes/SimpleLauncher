@@ -107,51 +107,6 @@ Bat file example:
 D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
 ```
 
-## How the Frontend Works:
-
-- **Configuration:** The program first looks for a file named "system.xml" in its folder, which contains all the settings for the system and emulators.
-- **Game Selection:** When you select a system, the application opens the system directory and lists the emulators configured for that specific system. It then displays a grid of games located in the system folder. Each cell in the grid is clickable, and the application will launch the selected emulator with the chosen game.
-- **Game Info:** Each grid cell displays a game cover, its name, a link to a Video about the game, and a link to an Info Page about the game.
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the 'images' folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used.
-
-## Explaining "system.xml":
-
-This file contains information about various systems and their settings. You can add as many systems and emulators as you desire.
-- **SystemName**: The name of the system.
-- **SystemFolder**: The folder where the ROMs or games are housed.
-- **SystemImageFolder**: The folder containing the cover images correlated with the System. This is optional. If you leave it empty or null, the application will load the images from a folder within the "images" folder, which should share the same name as the system.
-- **SystemIsMAME**: This indicates to the program whether the system is based on MAME. If true, the application will load the ROM descriptions in conjunction with the ROM filenames.
-- **FormatToSearch**: A list of file extensions to be loaded from the SystemFolder. You can include as many as you want.
-- **ExtractFileBeforeLaunch**: This should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temporary folder before loading the extracted file.
-- **FormatToLaunch**: If you extract the file to a temporary folder, you should specify here which extensions will be launched from the extracted folder.
-- **EmulatorName**: The name of the emulator. You can accommodate as many emulators as you want for each system.
-- **EmulatorLocation**: The location of the emulator.
-- **EmulatorParameters**: The parameters used for each emulator. Not all emulators require parameters.
-
-```xml
-<SystemConfig>
-    <SystemName>Atari 2600</SystemName>
-    <SystemFolder>G:\Atari 2600</SystemFolder>
-    <SystemImageFolder>G:\Images\Atari 2600</SystemImageFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-        <FormatToSearch>zip</FormatToSearch>
-        <FormatToSearch>7z</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-        <FormatToLaunch></FormatToLaunch>
-    </FileFormatsToLaunch>
-    <Emulators>
-        <Emulator>
-            <EmulatorName>Retroarch</EmulatorName>
-            <EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-            <EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-        </Emulator>
-    </Emulators>
-</SystemConfig>
-```
-
 ## Right Click Context Menu
 
 When 'Simple Launcher' generates the buttons for each game, it adds a Context Menu for each button.
@@ -190,8 +145,53 @@ This window will generate a summary report of every system configured in the fro
 * Application Folder
 * Disk Size of all Games
 
+## How the Frontend Works:
+
+- **Configuration:** The program first looks for a file named "system.xml" in its folder, which contains all the settings for the system and emulators.
+- **Game Selection:** When you select a system, the application opens the system directory and lists the emulators configured for that specific system. It then displays a grid of games located in the system folder. Each cell in the grid is clickable, and the application will launch the selected emulator with the chosen game.
+- **Game Info:** Each grid cell displays a game cover, its name, a link to a Video about the game, and a link to an Info Page about the game.
+- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the 'images' folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used.
+
+## Explaining "system.xml":
+
+This file contains information about various systems and their settings. You can add as many systems and emulators as you desire.
+- **SystemName**: The name of the system.
+- **SystemFolder**: The folder where the ROMs or games are housed.
+- **SystemImageFolder**: The folder containing the cover images correlated with the System. This is optional. If you leave it empty or null, the application will load the images from a folder within the "images" folder, which should share the same name as the system.
+- **SystemIsMAME**: This indicates to the program whether the system is based on MAME. If true, the application will load the ROM descriptions in conjunction with the ROM filenames.
+- **FormatToSearch**: A list of file extensions to be loaded from the SystemFolder. You can include as many as you want.
+- **ExtractFileBeforeLaunch**: This should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temporary folder before loading the extracted file.
+- **FormatToLaunch**: If you extract the file to a temporary folder, you should specify here which extensions will be launched from the extracted folder.
+- **EmulatorName**: The name of the emulator. You can accommodate as many emulators as you want for each system.
+- **EmulatorLocation**: The location of the emulator.
+- **EmulatorParameters**: The parameters used for each emulator. Not all emulators require parameters.
+
+```xml
+<SystemConfig>
+    <SystemName>Atari 2600</SystemName>
+    <SystemFolder>G:\Atari 2600</SystemFolder>
+    <SystemImageFolder>G:\Images\Atari 2600</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+        <FormatToSearch>zip</FormatToSearch>
+        <FormatToSearch>7z</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+        <FormatToLaunch/>
+    </FileFormatsToLaunch>
+    <Emulators>
+        <Emulator>
+            <EmulatorName>Retroarch</EmulatorName>
+            <EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
+            <EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
+        </Emulator>
+    </Emulators>
+</SystemConfig>
+```
+
 ## Additional Features:
-- 
+
 - **Edit Systems menu:** Easily edit, add, or delete a system.
 - **Automatic installation of most emulators:** We offer automatic installation of emulators that don't require BIOS or copyrighted files to work.
 - **Search Engine:** User can search for games from within the frontend.
@@ -201,6 +201,7 @@ This window will generate a summary report of every system configured in the fro
 - **Automatic Update:** The application has an automatic update mechanism.
 
 ## Related Utilities:
+
 - **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
 - **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.

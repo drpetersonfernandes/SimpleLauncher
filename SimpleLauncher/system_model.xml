@@ -10,7 +10,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -30,7 +30,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -81,13 +81,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Altirra</EmulatorName>
         <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -121,13 +121,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Altirra</EmulatorName>
         <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -141,13 +141,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>BigPEmu</EmulatorName>
         <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -169,7 +169,7 @@
       <Emulator>
         <EmulatorName>BigPEmu</EmulatorName>
         <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -205,7 +205,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -216,7 +216,7 @@
       <Emulator>
         <EmulatorName>Hatari</EmulatorName>
         <EmulatorLocation>.\emulators\Hatari\hatari.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -230,7 +230,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -250,7 +250,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -270,7 +270,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -314,7 +314,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -339,7 +339,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -380,13 +380,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>AquaLite</EmulatorName>
         <EmulatorLocation>.\emulators\AquaLite\AquaLite.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -439,7 +439,7 @@
       <Emulator>
         <EmulatorName>OpenMSX</EmulatorName>
         <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
@@ -479,7 +479,7 @@
       <Emulator>
         <EmulatorName>OpenMSX</EmulatorName>
         <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
@@ -505,13 +505,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Direct Launch</EmulatorName>
-        <EmulatorLocation></EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorLocation/>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -525,7 +525,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -545,13 +545,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Xenia</EmulatorName>
         <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -565,7 +565,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -591,7 +591,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -616,7 +616,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -636,7 +636,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -656,7 +656,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -694,12 +694,12 @@
       <Emulator>
         <EmulatorName>Ares</EmulatorName>
         <EmulatorLocation>.\emulators\Ares\ares.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Simple64</EmulatorName>
         <EmulatorLocation>.\emulators\Simple64\simple64-gui.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
@@ -709,7 +709,7 @@
       <Emulator>
         <EmulatorName>Project64</EmulatorName>
         <EmulatorLocation>.\emulators\Project64\Project64.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -811,7 +811,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -831,7 +831,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -851,7 +851,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -871,13 +871,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
@@ -896,7 +896,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -926,7 +926,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1009,13 +1009,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Ryujinx</EmulatorName>
         <EmulatorLocation>.\emulators\Ryujinx\Ryujinx.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1029,13 +1029,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
@@ -1054,7 +1054,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1074,13 +1074,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
@@ -1102,7 +1102,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1123,7 +1123,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1143,13 +1143,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Direct Launch</EmulatorName>
-        <EmulatorLocation></EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorLocation/>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1167,13 +1167,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Redream</EmulatorName>
         <EmulatorLocation>.\emulators\Redream\redream.exe</EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch flycast</EmulatorName>
@@ -1192,7 +1192,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1212,7 +1212,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1242,7 +1242,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1265,7 +1265,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1295,7 +1295,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1315,13 +1315,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Direct Launch</EmulatorName>
-        <EmulatorLocation></EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorLocation/>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1339,7 +1339,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1411,7 +1411,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1432,7 +1432,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1452,7 +1452,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1472,7 +1472,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1498,7 +1498,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1529,7 +1529,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1549,13 +1549,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Direct Launch</EmulatorName>
-        <EmulatorLocation></EmulatorLocation>
-        <EmulatorParameters></EmulatorParameters>
+        <EmulatorLocation/>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1574,7 +1574,7 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch></FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
