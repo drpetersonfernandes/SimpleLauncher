@@ -22,7 +22,7 @@ namespace SimpleLauncher
         private readonly Button _nextPageButton;
         private readonly Button _prevPageButton;
         private string _currentFilter;
-        private List<string> _currentSearchResults = new List<string>();
+        private List<string> _currentSearchResults = new();
         
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
@@ -197,6 +197,9 @@ namespace SimpleLauncher
             SearchTextBox.Text = "";
             EmulatorComboBox.ItemsSource = null;
             EmulatorComboBox.SelectedIndex = -1;
+            
+            // Reset search results
+            _currentSearchResults.Clear();
 
             if (SystemComboBox.SelectedItem != null)
             {
@@ -393,6 +396,9 @@ namespace SimpleLauncher
         {
             // Move scroller to top
             Scroller.ScrollToTop();
+            
+            // Reset search results
+            _currentSearchResults.Clear();
 
             try
             {
@@ -693,6 +699,9 @@ namespace SimpleLauncher
             // Pagination reset
             ResetPaginationButtons();
             
+            // Reset search results
+            _currentSearchResults.Clear();
+            
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -731,6 +740,9 @@ namespace SimpleLauncher
             {
                 // Pagination reset
                 ResetPaginationButtons();
+                
+                // Reset search results
+                _currentSearchResults.Clear();
                 
                 var searchQuery = SearchTextBox.Text.Trim();
 

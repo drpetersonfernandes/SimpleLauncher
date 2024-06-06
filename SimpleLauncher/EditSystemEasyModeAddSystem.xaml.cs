@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Net.Http;
+using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace SimpleLauncher
 {
@@ -18,7 +21,7 @@ namespace SimpleLauncher
         private bool _isEmulatorDownloaded;
         private bool _isCoreDownloaded;
         private bool _isExtrasDownloaded;
-
+        
         public EditSystemEasyModeAddSystem()
         {
             InitializeComponent();
@@ -64,6 +67,26 @@ namespace SimpleLauncher
                 }
             }
         }
+        
+        private string GetInstalledEmulatorVersion(string emulatorLocation)
+        {
+            string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_emulator.txt");
+            if (File.Exists(versionFilePath))
+            {
+                return File.ReadAllText(versionFilePath).Trim();
+            }
+            return null;
+        }
+        
+        private string GetInstalledCoreVersion(string emulatorLocation)
+        {
+            string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_core.txt");
+            if (File.Exists(versionFilePath))
+            {
+                return File.ReadAllText(versionFilePath).Trim();
+            }
+            return null;
+        }
 
         private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,20 +99,29 @@ namespace SimpleLauncher
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl));
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorBinaryExtractPath;
+                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
+                string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
-                // Check if the emulator is already installed
+                // Check if the emulator is already installed and get the installed version
                 if (File.Exists(emulatorLocation))
                 {
-                    MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed at {emulatorLocation}.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
-                    // Mark as downloaded and disable button
-                    _isEmulatorDownloaded = true;
-                    DownloadEmulatorButton.IsEnabled = false;
+                    string installedVersionString = GetInstalledEmulatorVersion(emulatorLocation);
 
-                    // Update AddSystemButton state
-                    UpdateAddSystemButtonState();
-                    
-                    return;
+                    if (Version.TryParse(installedVersionString, out Version installedVersion) &&
+                        Version.TryParse(latestVersionString, out Version latestVersion) &&
+                        installedVersion.CompareTo(latestVersion) >= 0)
+                    {
+                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Mark as downloaded and disable button
+                        _isEmulatorDownloaded = true;
+                        DownloadEmulatorButton.IsEnabled = false;
+
+                        // Update AddSystemButton state
+                        UpdateAddSystemButtonState();
+
+                        return;
+                    }
                 }
 
                 try
@@ -144,6 +176,13 @@ namespace SimpleLauncher
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
 
+                        // Update the version file if necessary
+                        if (destinationPath2 != null)
+                        {
+                            string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
+                            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                        }
+
                         // Mark as downloaded and disable button
                         _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
@@ -178,20 +217,29 @@ namespace SimpleLauncher
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(coreDownloadUrl));
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorCoreExtractPath;
+                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
+                string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion; // Ensure this is set correctly for core
 
-                // Check if the core is already installed
+                // Check if the core is already installed and get the installed version
                 if (File.Exists(coreLocation))
                 {
-                    MessageBox.Show($"Core for {selectedSystem.SystemName} is already installed at {coreLocation}.", "Core Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
-                    // Mark as downloaded and disable button
-                    _isCoreDownloaded = true;
-                    DownloadCoreButton.IsEnabled = false;
+                    string installedVersionString = GetInstalledCoreVersion(coreLocation);
 
-                    // Update AddSystemButton state
-                    UpdateAddSystemButtonState();
-                    
-                    return;
+                    if (Version.TryParse(installedVersionString, out Version installedVersion) &&
+                        Version.TryParse(latestVersionString, out Version latestVersion) &&
+                        installedVersion.CompareTo(latestVersion) >= 0)
+                    {
+                        MessageBox.Show($"Core for {selectedSystem.SystemName} is already installed and up to date.", "Core Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // Mark as downloaded and disable button
+                        _isCoreDownloaded = true;
+                        DownloadCoreButton.IsEnabled = false;
+
+                        // Update AddSystemButton state
+                        UpdateAddSystemButtonState();
+
+                        return;
+                    }
                 }
 
                 try
@@ -237,6 +285,13 @@ namespace SimpleLauncher
 
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
+
+                        // Update the version file if necessary
+                        if (destinationPath2 != null)
+                        {
+                            string versionFilePath = Path.Combine(destinationPath2, "version_core.txt");
+                            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                        }
 
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
@@ -397,6 +452,19 @@ namespace SimpleLauncher
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
+                // Determine the system folder to use
+                string systemFolder =
+                    // Use the default ROM folder
+                    string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName) :
+                        // Use the value from SystemFolderTextBox
+                        SystemFolderTextBox.Text;
+
+                // Remove the leading dot from the SystemImageFolder for the message
+                string systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
+
+                // Combine with the base directory for the message
+                string fullImageFolderPathForMessage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderForMessage);
+
                 // Path to the system.xml file
                 string systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
@@ -419,8 +487,8 @@ namespace SimpleLauncher
 
                         // Overwrite existing system
                         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-                        existingSystem.SetElementValue("SystemFolder", selectedSystem.SystemFolder);
-                        existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
+                        existingSystem.SetElementValue("SystemFolder", systemFolder);
+                        existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder); // Keep the dot here
                         existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame);
                         existingSystem.Element("FileFormatsToSearch")?.Remove();
                         existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))));
@@ -441,8 +509,8 @@ namespace SimpleLauncher
                         // Create a new XElement for the selected system
                         var newSystemElement = new XElement("SystemConfig",
                             new XElement("SystemName", selectedSystem.SystemName),
-                            new XElement("SystemFolder", selectedSystem.SystemFolder),
-                            new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
+                            new XElement("SystemFolder", systemFolder),
+                            new XElement("SystemImageFolder", selectedSystem.SystemImageFolder), // Keep the dot here
                             new XElement("SystemIsMAME", selectedSystem.SystemIsMame),
                             new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))),
                             new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch),
@@ -469,11 +537,10 @@ namespace SimpleLauncher
                     xmlDoc.Save(systemXmlPath);
 
                     // Create the necessary folders for the system
-                    CreateSystemFolders(selectedSystem.SystemName, selectedSystem.SystemFolder, selectedSystem.SystemImageFolder);
+                    CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
 
-                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{selectedSystem.SystemFolder}'\n\n" +
-                                    $"Put your cover images for this system inside '{selectedSystem.SystemImageFolder}'.\n\nThe two folders are located inside the 'Simple Launcher' folder.\n\n" +
-                                    $"If you do not wish to use these default paths, you have the option to edit the system settings to use custom paths instead.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{systemFolder}'\n\n" +
+                                    $"Put your cover images for this system inside '{fullImageFolderPathForMessage}'.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
                     AddSystemButton.IsEnabled = false;
 
                 }
@@ -557,6 +624,17 @@ namespace SimpleLauncher
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
             e.Handled = true;
         }
-        
+
+        private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            using var dialog = new FolderBrowserDialog();
+            dialog.Description = @"Choose a Folder with ROMs or ISOs for this System";
+            dialog.ShowNewFolderButton = true;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SystemFolderTextBox.Text = dialog.SelectedPath;
+            }
+        }
     }
 }

@@ -42,14 +42,12 @@ namespace SimpleLauncher
             LaunchButton.IsEnabled = false;
             _searchResults.Clear();
 
-            // Show the PleaseWaitSearch window
             _pleaseWaitWindow = new PleaseWaitSearch
             {
                 Owner = this
             };
             _pleaseWaitWindow.Show();
 
-            // Start a timer to ensure the window stays open for at least 1 second
             _closeTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _closeTimer.Tick += (_, _) => _closeTimer.Stop();
 
@@ -82,7 +80,6 @@ namespace SimpleLauncher
                     }
                 }
 
-                // Close the PleaseWaitSearch window after 1 second if the search is already done
                 if (!_closeTimer.IsEnabled)
                 {
                     _pleaseWaitWindow.Close();
@@ -101,10 +98,8 @@ namespace SimpleLauncher
         {
             var results = new List<SearchResult>();
 
-            // Split the search term into individual terms or quoted phrases
             var searchTerms = ParseSearchTerms(searchTerm);
 
-            // Search through system files
             foreach (var systemConfig in _systemConfigs)
             {
                 string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
@@ -119,10 +114,10 @@ namespace SimpleLauncher
                             FileName = Path.GetFileName(file),
                             FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
                             FilePath = file,
-                            Size = Math.Round(new FileInfo(file).Length / 1024.0, 2), // Size in KB with 2 decimal places
+                            Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
                             MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
-                            SystemName = systemConfig.SystemName, // Associate the SystemName
-                            EmulatorConfig = systemConfig.Emulators.FirstOrDefault() // Associate the first EmulatorConfig
+                            SystemName = systemConfig.SystemName,
+                            EmulatorConfig = systemConfig.Emulators.FirstOrDefault()
                         })
                         .ToList();
 
@@ -130,7 +125,6 @@ namespace SimpleLauncher
                 }
             }
 
-            // Score and sort the results
             var scoredResults = ScoreResults(results, searchTerms);
             return scoredResults;
         }
@@ -154,10 +148,7 @@ namespace SimpleLauncher
                 int index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
                 if (index >= 0)
                 {
-                    // Increase score for each matched term
                     score += 10;
-
-                    // Additional score based on the position of the match (earlier matches score higher)
                     score += (text.Length - index);
                 }
             }
@@ -167,8 +158,19 @@ namespace SimpleLauncher
 
         private bool MatchesSearchQuery(string text, List<string> searchTerms)
         {
-            // Ensure at least one search term or quoted phrase is matched
-            return searchTerms.Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+            bool hasAnd = searchTerms.Contains("and");
+            bool hasOr = searchTerms.Contains("or");
+
+            if (hasAnd)
+            {
+                return searchTerms.Where(term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+            }
+            if (hasOr)
+            {
+                return searchTerms.Where(term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
         }
 
         private List<string> ParseSearchTerms(string searchTerm)
@@ -192,19 +194,16 @@ namespace SimpleLauncher
 
         private string GetFullPath(string path)
         {
-            // Remove any leading .\ from the path
             if (path.StartsWith(@".\"))
             {
                 path = path.Substring(2);
             }
 
-            // Check if the path is already absolute
             if (Path.IsPathRooted(path))
             {
                 return path;
             }
 
-            // If not, treat it as relative to the application's base directory
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
 
@@ -227,18 +226,15 @@ namespace SimpleLauncher
                     return;
                 }
 
-                // Create mock ComboBox objects
                 var mockSystemComboBox = new ComboBox();
                 var mockEmulatorComboBox = new ComboBox();
 
-                // Populate mock ComboBoxes
                 mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
                 mockSystemComboBox.SelectedItem = systemConfig.SystemName;
 
                 mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
                 mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                // Use GameLauncher to handle the button click
                 await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs);
             }
             catch (Exception ex)
@@ -317,10 +313,10 @@ namespace SimpleLauncher
             public string MachineName { get; init; }
             public string FolderName { get; init; }
             public string FilePath { get; init; }
-            public double Size { get; set; } // Size in KB
-            public string SystemName { get; init; } // Add SystemName property
-            public SystemConfig.Emulator EmulatorConfig { get; init; } // Add EmulatorConfig property
-            public int Score { get; set; } // Add Score property
+            public double Size { get; set; }
+            public string SystemName { get; init; }
+            public SystemConfig.Emulator EmulatorConfig { get; init; }
+            public int Score { get; set; }
         }
 
         private void GlobalSearch_Closed(object sender, EventArgs e)

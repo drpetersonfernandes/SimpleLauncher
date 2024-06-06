@@ -46,17 +46,17 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME</EmulatorName>
-                <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "..\..\roms\Arcade\"</EmulatorParameters>
-                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.266</EmulatorLatestVersion>
-                <EmulatorBinaryDownload>https://github.com/mamedev/mame/releases/download/mame0266/mame0266b_64bit.exe</EmulatorBinaryDownload>
-                <EmulatorBinaryRename>true</EmulatorBinaryRename>
-                <EmulatorBinaryExtractPath>.\emulators\MAME\</EmulatorBinaryExtractPath>
-                <EmulatorCoreLocation/>
-                <EmulatorCoreDownload/>
-                <EmulatorCoreExtractPath/>
+                <EmulatorName>Retroarch mame</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+                <EmulatorBinaryDownload>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch.7z</EmulatorBinaryDownload>
+                <EmulatorBinaryRename>false</EmulatorBinaryRename>
+                <EmulatorBinaryExtractPath>.\emulators\RetroArch\</EmulatorBinaryExtractPath>
+                <EmulatorCoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll</EmulatorCoreLocation>
+                <EmulatorCoreDownload>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</EmulatorCoreDownload>
+                <EmulatorCoreExtractPath>.\emulators\RetroArch\</EmulatorCoreExtractPath>
                 <EmulatorExtrasDownload/>
                 <EmulatorExtrasExtractPath/>
             </Emulator>

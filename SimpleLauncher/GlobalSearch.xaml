@@ -9,21 +9,27 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Margin="10"
+               Margin="10,10,10,0"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
                Content="This search engine only searches for FileNames within every System configured in 'Simple Launcher'." />
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,10,10">
+        <Label Grid.Row="1"
+               Margin="10,0,10,10"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Content="You can use logical operators AND / OR." />
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,0,10,10">
             <TextBox Name="SearchTextBox" Width="300" Height="26" Margin="0,0,10,0" TextAlignment="Left"
                      VerticalAlignment="Center" KeyDown="SearchTextBox_KeyDown" />
             <Button Content="Search" Click="SearchButton_Click" Padding="5" />
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchButton_Click" IsEnabled="False"
                     Padding="5" Margin="10,0,0,0" />
         </StackPanel>
-        <DataGrid Name="ResultsDataGrid" Grid.Row="2" Margin="10" AutoGenerateColumns="False"
+        <DataGrid Name="ResultsDataGrid" Grid.Row="3" Margin="10,0,10,10" AutoGenerateColumns="False"
                   MouseRightButtonUp="ResultsDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="ResultsDataGrid_MouseDoubleClick" IsReadOnly="True">
             <DataGrid.Columns>
