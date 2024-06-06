@@ -55,8 +55,8 @@ namespace SimpleLauncher
                 if (selectedSystem != null)
                 {
                     DownloadEmulatorButton.IsEnabled = true;
-                    DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.EmulatorCoreDownload);
-                    DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.EmulatorExtrasDownload);
+                    DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
+                    DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
 
                     // Reset download status
                     _isEmulatorDownloaded = false;
@@ -78,27 +78,17 @@ namespace SimpleLauncher
             return null;
         }
         
-        private string GetInstalledCoreVersion(string emulatorLocation)
-        {
-            string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_core.txt");
-            if (File.Exists(versionFilePath))
-            {
-                return File.ReadAllText(versionFilePath).Trim();
-            }
-            return null;
-        }
-
         private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
                 string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-                string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorBinaryDownload;
+                string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl));
-                string destinationPath = selectedSystem.Emulators.Emulator.EmulatorBinaryExtractPath;
+                string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
                 string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
@@ -151,8 +141,8 @@ namespace SimpleLauncher
                         }
                     }
 
-                    // Rename the file to .7z if EmulatorBinaryRename is true
-                    if (selectedSystem.Emulators.Emulator.EmulatorBinaryRename)
+                    // Rename the file to .7z if EmulatorDownloadRename is true
+                    if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
                     {
                         string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
                         File.Move(downloadFilePath, newFilePath);
@@ -205,20 +195,30 @@ namespace SimpleLauncher
                 }
             }
         }
+        
+        private string GetInstalledCoreVersion(string coreLocation)
+        {
+            string versionFilePath = Path.Combine(Path.GetDirectoryName(coreLocation) ?? string.Empty, "version_core.txt");
+            if (File.Exists(versionFilePath))
+            {
+                return File.ReadAllText(versionFilePath).Trim();
+            }
+            return null;
+        }
 
         private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
-                string coreLocation = selectedSystem.Emulators.Emulator.EmulatorCoreLocation;
-                string coreDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorCoreDownload;
+                string coreLocation = selectedSystem.Emulators.Emulator.CoreLocation;
+                string coreDownloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(coreDownloadUrl));
-                string destinationPath = selectedSystem.Emulators.Emulator.EmulatorCoreExtractPath;
-                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
-                string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion; // Ensure this is set correctly for core
+                string destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
+                string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
 
                 // Check if the core is already installed and get the installed version
                 if (File.Exists(coreLocation))
@@ -321,11 +321,11 @@ namespace SimpleLauncher
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
-                string extrasDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorExtrasDownload;
+                string extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(extrasDownloadUrl));
-                string destinationPath = selectedSystem.Emulators.Emulator.EmulatorExtrasExtractPath;
+                string destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
                 try
                 {
