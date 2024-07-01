@@ -122,36 +122,68 @@
             </MenuItem>
             <MenuItem
                 Header="Edit System">
-                <MenuItem Click="EasyMode_Click" Header="Easy Mode" />
-                <MenuItem Click="ExpertMode_Click" Header="Expert Mode" />
+                <MenuItem Click="EasyMode_Click" Header="Easy Mode">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/easy.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="ExpertMode_Click" Header="Expert Mode">
+                    <MenuItem.Icon>
+                        <Image
+                            Source="pack://application:,,,/images/hard.png"
+                            Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Edit Links">
-                <MenuItem Click="EditLinks_Click" Header="Edit Links" />
+            <MenuItem Header="Edit Links">
+                <MenuItem Click="EditLinks_Click" Header="Edit Links">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Global Search">
-                <MenuItem Click="GlobalSearch_Click" Header="Global Search" />
+            <MenuItem Header="Global Search">
+                <MenuItem Click="GlobalSearch_Click" Header="Global Search">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/search.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Global Stats">
-                <MenuItem Click="GlobalStats_Click" Header="Global Stats" />
+            <MenuItem Header="Global Stats">
+                <MenuItem Click="GlobalStats_Click" Header="Global Stats">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Bug Report">
-                <MenuItem Click="BugReport_Click" Header="Bug Report" />
+            <MenuItem Header="Bug Report">
+                <MenuItem Click="BugReport_Click" Header="Bug Report">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/bug.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Donate">
-                <MenuItem Click="Donate_Click" Header="Donate" />
+            <MenuItem Header="Donate">
+                <MenuItem Click="Donate_Click" Header="Donate">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/donate.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="About">
-                <MenuItem Click="About_Click" Header="About" />
+            <MenuItem Header="About">
+                <MenuItem Click="About_Click" Header="About">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem
-                Header="Exit">
-                <MenuItem Click="Exit_Click" Header="Exit" />
+            <MenuItem Header="Exit">
+                <MenuItem Click="Exit_Click" Header="Exit">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 

@@ -153,6 +153,24 @@
     <None Remove="images\wait.gif" />
     <None Remove="images\clickheretogethelp.png" />
     <Resource Include="images\clickheretogethelp.png" />
+    <None Remove="images\easy.png" />
+    <Resource Include="images\easy.png" />
+    <None Remove="images\hard.png" />
+    <Resource Include="images\hard.png" />
+    <None Remove="images\links.png" />
+    <Resource Include="images\links.png" />
+    <None Remove="images\search.png" />
+    <Resource Include="images\search.png" />
+    <None Remove="images\stats.png" />
+    <Resource Include="images\stats.png" />
+    <None Remove="images\bug.png" />
+    <Resource Include="images\bug.png" />
+    <None Remove="images\donate.png" />
+    <Resource Include="images\donate.png" />
+    <None Remove="images\about.png" />
+    <Resource Include="images\about.png" />
+    <None Remove="images\exit.png" />
+    <Resource Include="images\exit.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">
