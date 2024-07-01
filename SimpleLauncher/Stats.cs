@@ -52,7 +52,7 @@ public static class Stats
         }
         catch (Exception ex2)
         {
-            await LogErrors.LogErrorAsync(ex2, $"There was an unexpected error in Stats.CallApiAsync.\n\nException details: {ex2}");
+            await LogErrors.LogErrorAsync(ex2, $"There was an unexpected error in Stats.CallApiAsync method.\n\nException details: {ex2}");
         }
     }
     

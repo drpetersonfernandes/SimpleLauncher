@@ -1,8 +1,23 @@
 # List of Parameters to use in the "system.xml"
 
+## Amstrad CPC
+
+**System Folder:** [ROM Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Retroarch caprice32<br>
+**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
+**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters:** -L "[Retroarch Folder]\cores\cap32_libretro.dll" -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Please read core documentation.<br>
+
 ## Amstrad CPC GX4000
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder:** [ROM Folder]<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>

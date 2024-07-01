@@ -126,26 +126,33 @@
                 <MenuItem Click="ExpertMode_Click" Header="Expert Mode" />
             </MenuItem>
             <MenuItem
-                Click="EditLinks_Click"
-                Header="Edit Links" />
+                Header="Edit Links">
+                <MenuItem Click="EditLinks_Click" Header="Edit Links" />
+            </MenuItem>
             <MenuItem
-                Click="GlobalSearch_Click"
-                Header="Global Search" />
+                Header="Global Search">
+                <MenuItem Click="GlobalSearch_Click" Header="Global Search" />
+            </MenuItem>
             <MenuItem
-                Click="GlobalStats_Click"
-                Header="Global Stats" />
+                Header="Global Stats">
+                <MenuItem Click="GlobalStats_Click" Header="Global Stats" />
+            </MenuItem>
             <MenuItem
-                Click="BugReport_Click"
-                Header="Bug Report" />
+                Header="Bug Report">
+                <MenuItem Click="BugReport_Click" Header="Bug Report" />
+            </MenuItem>
             <MenuItem
-                Click="Donate_Click"
-                Header="Donate" />
+                Header="Donate">
+                <MenuItem Click="Donate_Click" Header="Donate" />
+            </MenuItem>
             <MenuItem
-                Click="About_Click"
-                Header="About" />
+                Header="About">
+                <MenuItem Click="About_Click" Header="About" />
+            </MenuItem>
             <MenuItem
-                Click="Exit_Click"
-                Header="Exit" />
+                Header="Exit">
+                <MenuItem Click="Exit_Click" Header="Exit" />
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1">

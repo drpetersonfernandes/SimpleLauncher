@@ -1,3 +1,12 @@
+release2.14.5
+-------------
+
+I have update emulator versions inside EasyMode Window.
+I have added the Amstrad CPC into the EasyMode installation Window.
+Update mame.xml to the latest release.
+Update system_model.xml to include Amstrad CPC.
+Improve the Update Class.
+
 release2.14.4
 -------------
 
@@ -12,7 +21,7 @@ I develop a mechanism to detect the version of installed emulators in the [Easy 
 release2.14.3
 -------------
 
-I have improved the automatic update mechanism and fixed a pagination bug that was preventing the Next and Prev buttons from working properly.
+I have improved the automatic update mechanism and fixed a pagination bug preventing the Next and Prev buttons from working properly.
 
 release2.14.2
 -------------
@@ -28,20 +37,21 @@ release2.14.0
 -------------
 
 Big Update Today!
-Added Easy Mode to Add a System: It will automatically download emulators and extra files and add the new system to 'Simple Launcher'.
+Added Easy Mode to Add a System: It will automatically download emulators and extra files and add the new system to 'Simple Launcher.'
 Improved error detection of parameter values.
-Added a Global Search function that will search inside every folder configured in 'Simple Launcher'.
-Added a Global Stats Window that will generate a summary for every system configured in 'Simple Launcher'.
-Added a right-click Context Menu to every generated button. Users can right-click the Game Button to load cover images, title snapshots, gameplay snapshots, videos, manuals, walkthroughs, cabinets, flyers, and PCBs.
+Added a Global Search function that will search inside every folder configured in 'Simple Launcher.'
+Added a Global Stats Window that will generate a summary for every system configured in 'Simple Launcher.'
+Add a right-click Context Menu to every generated button. Users can right-click the Game Button to load cover images, title snapshots, gameplay snapshots, videos, manuals, walkthroughs, cabinets, flyers, and PCBs.
 Implemented an auto-update feature for the application when there is a new release. Functionality is still in testing.
 Updated mame.xml to the latest version.
-Improved extraction method: It will now use 7z.exe for any extraction, utilizing a temp folder inside 'Simple Launcher'.
+Improved extraction method: It will now use 7z.exe for any extraction, using a temp folder inside 'Simple Launcher.'
 Fixed all bugs found.
-I have tested the application for the last two days and have not found any bugs. However, please be aware that there may still be bugs due to the many new functionalities introduced. If you find any bugs, please report them here on GitHub or use the Bug Report Window inside 'Simple Launcher'. Any reported bugs will be fixed promptly.
+I have tested the application for the last two days and have not found any bugs. However, please be aware that there may still be bugs due to the many new functionalities introduced. If you find any bugs, please report them here on GitHub or use the Bug Report Window inside 'Simple Launcher.' Any reported bugs will be fixed promptly.
 
 release2.13.0
 -------------
 
+05/17/2024
 I have implemented an experimental algorithm to check the emulator parameters. It will check the folder location and file location and allow relative paths.
 I have also improved the extraction method that extracts files to a temporary folder in case the system extracts any files.
 Additionally, I have made minor bug fixes.
@@ -77,7 +87,7 @@ Improved mechanism to handle games without cover. Users now have more options.
 Enhanced error logging mechanism.
 Implemented handling for the loading of corrupted images into the UI. Users will be notified of corrupted image files. The corrupted image will be replaced with the default image.
 Fixed some bugs.
-Corrected some variable names.
+Correct some variable names.
 
 release2.11.0.5
 ---------------
@@ -105,15 +115,10 @@ release2.9.0.90
 
 03/10/2024
 I've added the option to display all games for the selected system.
-
-I've implemented pagination in the main UI, allowing users to select the number of games to be displayed on each page. This was necessary to prevent loading a very large number of games at once, which could consume a lot of memory and lead to application or system crashes.
-
+I've implemented pagination in the main UI, allowing users to select the number of games to be displayed on each page. This was necessary to prevent loading a huge number of games at once, which could consume a lot of memory and lead to application or system crashes.
 Additionally, I've added an option to edit the Video Link and Info Link, where users can enter their favorite search engine.
-
 Also, I've added an option to back up the system.xml from within the Edit System Window, useful for preventing loss of your custom configuration.
-
 Furthermore, I have added the option to use a custom System Image Folder. If the user does not specify an Image Folder, the application will load images from the default location, which is inside the image folder of the application folder.
-
 Some of these changes were suggested by the user bigroy00. Thank you for the support, Roy.
 
 release2.8.2.10
@@ -135,7 +140,7 @@ release2.8.0.5
 --------------
 
 03/03/2024
-I have added a new menu item called 'Edit System'. Users can now edit the system.xml file directly within the app. This was done to simplify the process of adding, editing, or deleting systems.
+I have added a new menu item called 'Edit System.' Users can now edit the system.xml file directly within the app. This was done to simplify the process of adding, editing, or deleting systems.
 I have also updated the method for counting files within the System Folder. Now, it will only count files with the System extension definitions.
 Additionally, I have optimized the current code.
 
@@ -159,7 +164,7 @@ release2.6.2.3
 --------------
 
 01/28/2024
-Add support for loading BAT files or treating them as games in the Emulator Frontend. This is especially useful when using the emulator RPCS3.
+Adds support for loading BAT files or treating them as games in the Emulator Frontend. This is especially useful when using the emulator RPCS3.
 
 release2.6.0.1
 -------------
@@ -177,7 +182,7 @@ Fix code.
 Update libraries.
 Add support to JPG and JPEG image formats as game cover thumbnails.
 Add custom update notification.
-Improved logging mechanism that send log errors to developer for bug fixes and overall improvement over time.
+Improved logging mechanism that sends log errors to the developer for bug fixes and overall improvement over time.
 Update some systems in system.xml.
 
 release2.4
@@ -195,7 +200,7 @@ release2.3
 12/26/2023
 Add menu items to allow users to select Thumbnail Size, hide games with no cover, and enable/disable GamePad support.
 Add a settings.xml file to save user preferences.
-Refine code to ensure files are extracted before launching. In case the system are configured to do that.
+Refine code to ensure files are extracted before launching. In cases that the system is configured to do that.
 Update libraries.
 Fix some code.
 
@@ -219,7 +224,7 @@ release2.0
 
 10/29/2023
 Major UI improvements.
-Revise the method for loading game files. The app no longer needs to be inside the games folder.
+Revise the method for loading game files. The app no longer needs to be inside the game's folder.
 Update the process for loading cover image files.
 Rework the system for selecting gaming systems and emulators.
 Implement a system.xml where users can set settings for each system and emulator.
@@ -234,7 +239,7 @@ release1.3
 ----------
 
 10/19/2023
-Add Xbox controller support.
+Added Xbox controller support.
 Add support for CSO files.
 Improve and fix code.
 

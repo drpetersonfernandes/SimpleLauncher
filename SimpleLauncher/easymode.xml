@@ -2,6 +2,42 @@
 <EasyMode>
 
     <EasyModeSystemConfig>
+        <SystemName>Amstrad CPC</SystemName>
+        <SystemFolder>.\roms\Amstrad CPC</SystemFolder>
+        <SystemImageFolder>.\images\Amstrad CPC</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch caprice32</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch.7z</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+                <CoreDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</CoreDownloadLink>
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestversion/>
+                <ExtrasDownloadLink/>
+                <ExtrasDownloadExtractPath/>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Amstrad CPC GX4000</SystemName>
         <SystemFolder>.\roms\Amstrad CPC GX4000</SystemFolder>
         <SystemImageFolder>.\images\Amstrad CPC GX4000</SystemImageFolder>
@@ -19,8 +55,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.266</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0266/mame0266b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.267</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0267/mame0267b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -381,8 +417,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.266</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0266/mame0266b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.267</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0267/mame0267b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -949,8 +985,8 @@
                 <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>138</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v138/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>139</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v139/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1070,8 +1106,8 @@
                 <EmulatorLocation>.\emulators\Ryujinx\publish\Ryujinx.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://ryujinx.org/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.1.1330</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/Ryujinx/release-channel-master/releases/download/1.1.1330/ryujinx-1.1.1330-win_x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.1.1340</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/Ryujinx/release-channel-master/releases/download/1.1.1340/ryujinx-1.1.1340-win_x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Ryujinx\</EmulatorDownloadExtractPath>
 
@@ -1142,8 +1178,8 @@
                 <EmulatorLocation>.\emulators\Cemu\Cemu_2.0-85\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.0-85</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.0-85/cemu-2.0-85-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.0-88</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.0-88/cemu-2.0-88-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
 
@@ -1364,8 +1400,8 @@
                 <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>138</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v138/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>139</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v139/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1634,8 +1670,8 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>Latest Preview Build 05/27/2024</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>Latest Preview Build 07/01/2024</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/preview/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
@@ -1676,8 +1712,8 @@
                 <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.7.5865</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5865/pcsx2-v1.7.5865-windows-x64-Qt.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.7.5949</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5949/pcsx2-v1.7.5949-windows-x64-Qt.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\PCSX2\</EmulatorDownloadExtractPath>
 

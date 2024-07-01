@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SystemConfigs>
   <SystemConfig>
+    <SystemName>Amstrad CPC</SystemName>
+    <SystemFolder>.\roms\Amstrad CPC</SystemFolder>
+    <SystemImageFolder>.\images\Amstrad CPC</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch/>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Retroarch caprice32</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
     <SystemName>Amstrad CPC GX4000</SystemName>
     <SystemFolder>.\roms\Amstrad CPC GX4000</SystemFolder>
     <SystemImageFolder>.\images\Amstrad CPC GX4000</SystemImageFolder>
