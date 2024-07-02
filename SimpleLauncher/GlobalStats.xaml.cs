@@ -1,3 +1,5 @@
+using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +34,8 @@ namespace SimpleLauncher
                                            $"Total Number of Images: {globalStats.TotalImages:N0}\n" +
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                                            $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
+
+                UpdatePieChart(globalStats);
             }
             catch (Exception ex)
             {
@@ -82,6 +86,26 @@ namespace SimpleLauncher
                     TotalDiskSize = totalDiskSize
                 };
             });
+        }
+
+        private void UpdatePieChart(GlobalStatsData globalStats)
+        {
+            var model = new PlotModel { Title = "Games vs Images" };
+
+            var pieSeries = new PieSeries
+            {
+                StrokeThickness = 1.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSeries.Slices.Add(new PieSlice("Games", globalStats.TotalGames) { IsExploded = true });
+            pieSeries.Slices.Add(new PieSlice("Images", globalStats.TotalImages));
+
+            model.Series.Add(pieSeries);
+
+            PlotView.Model = model;
         }
 
         private class GlobalStatsData

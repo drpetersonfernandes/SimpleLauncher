@@ -3,12 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="Global Stats" Height="350" Width="500">
+        Title="Global Stats" Height="500" Width="600">
     <Grid>
         <StackPanel>
-            <Label Margin="10" Content="This Window generates Global Statistics about your configuration" />
-            <TextBlock Margin="10" Name="GlobalInfoTextBlock" TextWrapping="Wrap"/>
+            <Label Margin="10" Content="Global Statistics" FontSize="16" FontWeight="Bold" />
+            <TextBlock Margin="10" Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
+            <oxy:PlotView Name="PlotView" Height="200" Margin="10" />
             <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="Processing, please wait..." HorizontalAlignment="Center" Margin="20" />
