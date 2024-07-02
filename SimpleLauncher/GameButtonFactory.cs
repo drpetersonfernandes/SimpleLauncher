@@ -178,6 +178,13 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
             };
+            
+            var openCart = new MenuItem { Header = "Cart" };
+            openCart.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenCart(systemName, fileNameWithoutExtension);
+            };
           
             var openVideo = new MenuItem { Header = "Video" };
             openVideo.Click += (_, _) =>
@@ -227,6 +234,7 @@ namespace SimpleLauncher
             contextMenu.Items.Add(openCover);
             contextMenu.Items.Add(openTitleSnapshot);
             contextMenu.Items.Add(openGameplaySnapshot);
+            contextMenu.Items.Add(openCart);
             contextMenu.Items.Add(openVideo);
             contextMenu.Items.Add(openManual);
             contextMenu.Items.Add(openWalkthrough);
@@ -546,6 +554,29 @@ namespace SimpleLauncher
             }
 
             MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void OpenCart(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
+            string[] cartExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in cartExtensions)
+            {
+                string cartPath = Path.Combine(cartDirectory, fileName + extension);
+                if (File.Exists(cartPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = cartPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no cart associated with this file or button.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
         private void PlayVideo(string systemName, string fileName)
