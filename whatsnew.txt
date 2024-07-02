@@ -6,6 +6,7 @@ I have added the Amstrad CPC into the EasyMode installation Window.
 Update mame.xml to the latest release.
 Update system_model.xml to include Amstrad CPC.
 Improve the Update Class.
+I have added Cart Context Menu. 
 
 release2.14.4
 -------------
