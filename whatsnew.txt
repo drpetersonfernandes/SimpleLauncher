@@ -1,12 +1,14 @@
 release2.14.5
 -------------
 
-I have update emulator versions inside EasyMode Window.
-I have added the Amstrad CPC into the EasyMode installation Window.
-Update mame.xml to the latest release.
-Update system_model.xml to include Amstrad CPC.
-Improve the Update Class.
-I have added Cart Context Menu. 
+The emulator versions of every emulator inside EasyMode have been updated.
+Amstrad CPC has been added to EasyMode.
+The mame.xml has been updated to the latest release.
+The system_model.xml now includes Amstrad CPC.
+The Update Class has been improved.
+A Cart Context Menu has been added. Users can now load game Cart images.
+The Global Search Window has been improved. It now includes the field System Name.
+The Right Click Context Menu for the Global Search results has been improved.
 
 release2.14.4
 -------------

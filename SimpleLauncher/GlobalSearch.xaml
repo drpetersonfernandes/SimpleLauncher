@@ -36,7 +36,8 @@
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}"
                                     Width="*" />
-                <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="180" />
+                <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="170" />
+                <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="170" />
                 <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size, StringFormat=N2}" Width="100" />
             </DataGrid.Columns>
         </DataGrid>

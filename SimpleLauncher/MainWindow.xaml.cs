@@ -944,7 +944,7 @@ namespace SimpleLauncher
         
         private void GlobalSearch_Click(object sender, RoutedEventArgs e)
         {
-            var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines);
+            var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _settings);
             globalSearchWindow.Show();
         }
         

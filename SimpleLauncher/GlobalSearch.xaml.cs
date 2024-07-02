@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,15 +17,17 @@ namespace SimpleLauncher
     {
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
+        private readonly AppSettings _settings;
         private ObservableCollection<SearchResult> _searchResults;
         private PleaseWaitSearch _pleaseWaitWindow;
         private DispatcherTimer _closeTimer;
 
-        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines)
+        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
         {
             InitializeComponent();
             _systemConfigs = systemConfigs;
             _machines = machines;
+            _settings = settings;
             _searchResults = new ObservableCollection<SearchResult>();
             ResultsDataGrid.ItemsSource = _searchResults;
             Closed += GlobalSearch_Closed;
@@ -264,6 +267,26 @@ namespace SimpleLauncher
             }
         }
 
+        // private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        // {
+        //     try
+        //     {
+        //         if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+        //         {
+        //             var contextMenu = new ContextMenu();
+        //             var launchMenuItem = new MenuItem { Header = "Launch Game" };
+        //             launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+        //             contextMenu.Items.Add(launchMenuItem);
+        //
+        //             contextMenu.IsOpen = true;
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        //     }
+        // }
+        
         private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -271,9 +294,23 @@ namespace SimpleLauncher
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
                     var contextMenu = new ContextMenu();
+            
                     var launchMenuItem = new MenuItem { Header = "Launch Game" };
                     launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);
+
+                    AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedResult.SystemName, selectedResult.FilePath));
 
                     contextMenu.IsOpen = true;
                 }
@@ -282,6 +319,321 @@ namespace SimpleLauncher
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void AddMenuItem(ContextMenu contextMenu, string header, Action action)
+        {
+            var menuItem = new MenuItem { Header = header };
+            menuItem.Click += (_, _) => action();
+            contextMenu.Items.Add(menuItem);
+        }
+
+        private void OpenVideoLink(string systemName, string fileName)
+        {
+            string searchTerm = $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+            string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"There was a problem opening the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+
+        private void OpenInfoLink(string systemName, string fileName)
+        {
+            string searchTerm = $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+            string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"There was a problem opening the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OpenCover(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+    
+            if (systemConfig == null)
+            {
+                MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
+
+            string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+            string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+            string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+            bool TryFindImage(string directory, out string foundPath)
+            {
+                foreach (var extension in imageExtensions)
+                {
+                    string imagePath = Path.Combine(directory, fileName + extension);
+                    if (File.Exists(imagePath))
+                    {
+                        foundPath = imagePath;
+                        return true;
+                    }
+                }
+                foundPath = null;
+                return false;
+            }
+
+            if (TryFindImage(systemSpecificDirectory, out string foundImagePath) || TryFindImage(globalDirectory, out foundImagePath))
+            {
+                var imageViewerWindow = new OpenImageFiles();
+                imageViewerWindow.LoadImage(foundImagePath);
+                imageViewerWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void OpenTitleSnapshot(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
+            string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in titleSnapshotExtensions)
+            {
+                string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
+                if (File.Exists(titleSnapshotPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = titleSnapshotPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no title snapshot associated with this file or button.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenGameplaySnapshot(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
+            string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in gameplaySnapshotExtensions)
+            {
+                string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
+                if (File.Exists(gameplaySnapshotPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = gameplaySnapshotPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenCart(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
+            string[] cartExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in cartExtensions)
+            {
+                string cartPath = Path.Combine(cartDirectory, fileName + extension);
+                if (File.Exists(cartPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = cartPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no cart associated with this file or button.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void PlayVideo(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
+            string[] videoExtensions = [".mp4", ".avi", ".mkv"];
+
+            foreach (var extension in videoExtensions)
+            {
+                string videoPath = Path.Combine(videoDirectory, fileName + extension);
+                if (File.Exists(videoPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = videoPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no video associated with this file or button.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenManual(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
+            string[] manualExtensions = new string[] { ".pdf" };
+
+            foreach (var extension in manualExtensions)
+            {
+                string manualPath = Path.Combine(manualDirectory, fileName + extension);
+                if (File.Exists(manualPath))
+                {
+                    try
+                    {
+                        // Use the default PDF viewer to open the file
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = manualPath,
+                            UseShellExecute = true
+                        });
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to open the manual: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
+
+            MessageBox.Show("There is no manual associated with this file or button.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenWalkthrough(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
+            string[] walkthroughExtensions = new string[] { ".pdf" };
+
+            foreach (var extension in walkthroughExtensions)
+            {
+                string walkthroughPath = Path.Combine(walkthroughDirectory, fileName + extension);
+                if (File.Exists(walkthroughPath))
+                {
+                    try
+                    {
+                        // Use the default PDF viewer to open the file
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = walkthroughPath,
+                            UseShellExecute = true
+                        });
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to open the walkthrough: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
+
+            MessageBox.Show("There is no walkthrough associated with this file or button.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenCabinet(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
+            string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in cabinetExtensions)
+            {
+                string cabinetPath = Path.Combine(cabinetDirectory, fileName + extension);
+                if (File.Exists(cabinetPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = cabinetPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no cabinet associated with this file or button.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenFlyer(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
+            string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in flyerExtensions)
+            {
+                string flyerPath = Path.Combine(flyerDirectory, fileName + extension);
+                if (File.Exists(flyerPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = flyerPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no flyer associated with this file or button.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void OpenPcb(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
+            string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
+
+            foreach (var extension in pcbExtensions)
+            {
+                string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
+                if (File.Exists(pcbPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = pcbPath,
+                        UseShellExecute = true
+                    });
+                    return;
+                }
+            }
+
+            MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
