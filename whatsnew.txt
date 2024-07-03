@@ -1,4 +1,4 @@
-release2.14.5
+release2.15
 -------------
 
 The emulator versions of every emulator inside EasyMode have been updated.
