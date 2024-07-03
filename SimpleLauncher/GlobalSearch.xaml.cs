@@ -283,7 +283,7 @@ namespace SimpleLauncher
 
                     var launchMenuItem = new MenuItem
                     {
-                        Header = "Launch Game"
+                        Header = "Launch Selected Game"
                     };
                     launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);

@@ -39,6 +39,7 @@ namespace SimpleLauncher
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            string fileNameWithExtension = Path.GetFileName(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
             
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
@@ -157,7 +158,7 @@ namespace SimpleLauncher
             addToFavorites.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                AddToFavorites(systemName, fileNameWithoutExtension);
+                AddToFavorites(systemName, fileNameWithExtension);
             };
             
             var openVideoLink = new MenuItem { Header = "Open Video Link" };
@@ -440,7 +441,7 @@ namespace SimpleLauncher
             return infoIcon;
         }
         
-        private void AddToFavorites(string systemName, string fileNameWithoutExtension)
+        private void AddToFavorites(string systemName, string fileNameWithExtension)
         {
             try
             {
@@ -448,23 +449,23 @@ namespace SimpleLauncher
                 FavoritesConfig favorites = _favoritesManager.LoadFavorites();
 
                 // Add the new favorite if it doesn't already exist
-                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase)
+                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                      && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
                 {
                     favorites.FavoriteList.Add(new Favorite
                     {
-                        FileName = fileNameWithoutExtension,
+                        FileName = fileNameWithExtension, // Use the file name with an extension
                         SystemName = systemName
                     });
 
                     // Save the updated favorites list
                     _favoritesManager.SaveFavorites(favorites);
 
-                    MessageBox.Show($"{fileNameWithoutExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show($"{fileNameWithoutExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{fileNameWithExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)

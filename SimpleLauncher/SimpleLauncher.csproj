@@ -174,6 +174,10 @@
     <Resource Include="images\about.png" />
     <None Remove="images\exit.png" />
     <Resource Include="images\exit.png" />
+    <None Remove="images\heart.png" />
+    <Resource Include="images\heart.png" />
+    <None Remove="images\launch.png" />
+    <Resource Include="images\launch.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">

@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
@@ -46,6 +48,72 @@ namespace SimpleLauncher
                 MessageBox.Show("Please select a favorite to remove.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+        
+        private async void LaunchGame_Click(object sender, RoutedEventArgs e)
+        {
+            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+            {
+                await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+            }
+            else
+            {
+                MessageBox.Show("Please select a game to launch.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private async Task LaunchGameFromFavorite(string fileName, string systemName)
+        {
+            try
+            {
+                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                if (systemConfig == null)
+                {
+                    MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
+                if (emulatorConfig == null)
+                {
+                    MessageBox.Show("No emulator configuration found for the selected system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                string fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+
+                var mockSystemComboBox = new ComboBox();
+                var mockEmulatorComboBox = new ComboBox();
+
+                mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+                mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+
+                mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
+
+                await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs);
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"There was an error launching the game from Favorites.\n\nException Details: {ex.Message}\n\nFile Path: {fileName}\n\nSystem Name: {systemName}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+                MessageBox.Show($"{formattedException}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private string GetFullPath(string path)
+        {
+            if (path.StartsWith(@".\"))
+            {
+                path = path.Substring(2);
+            }
+
+            if (Path.IsPathRooted(path))
+            {
+                return path;
+            }
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+        }
 
         private void FavoritesDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -53,34 +121,47 @@ namespace SimpleLauncher
             {
                 var contextMenu = new ContextMenu();
 
-                AddMenuItem(contextMenu, "Remove from Favorites", () => RemoveFromFavorites(selectedFavorite));
-                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedFavorite.SystemName, selectedFavorite.FileName));
-                AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedFavorite.SystemName, selectedFavorite.FileName));
+                AddMenuItem(contextMenu, "Launch Selected Game", () => _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName), "pack://application:,,,/Images/launch.png");
+                AddMenuItem(contextMenu, "Remove from Favorites", () => RemoveFromFavorites(selectedFavorite), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
 
                 contextMenu.IsOpen = true;
             }
         }
 
-        private void AddMenuItem(ContextMenu contextMenu, string header, Action action)
+        private void AddMenuItem(ContextMenu contextMenu, string header, Action action, string iconPath = null)
         {
             var menuItem = new MenuItem
             {
                 Header = header
             };
+
+            if (!string.IsNullOrEmpty(iconPath))
+            {
+                var icon = new Image
+                {
+                    Source = new BitmapImage(new Uri(iconPath, UriKind.RelativeOrAbsolute)),
+                    Width = 16,
+                    Height = 16
+                };
+                menuItem.Icon = icon;
+            }
+
             menuItem.Click += (_, _) => action();
             contextMenu.Items.Add(menuItem);
         }
-
+        
         private void RemoveFromFavorites(Favorite selectedFavorite)
         {
             _favoriteList.Remove(selectedFavorite);
