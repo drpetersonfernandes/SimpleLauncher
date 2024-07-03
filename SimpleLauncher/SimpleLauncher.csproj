@@ -140,6 +140,9 @@
     <None Remove="title_snapshots\**" />
     <None Remove="videos\**" />
     <None Remove="walkthrough\**" />
+    <None Update="favorites.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

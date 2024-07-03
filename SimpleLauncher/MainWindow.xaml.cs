@@ -953,6 +953,12 @@ namespace SimpleLauncher
             var globalStatsWindow = new GlobalStats(_systemConfigs);
             globalStatsWindow.Show();
         }
+        
+        private void Favorites_Click(object sender, RoutedEventArgs e)
+        {
+            var favoritesWindow = new Favorites();
+            favoritesWindow.Show();
+        }
 
         #endregion
 
