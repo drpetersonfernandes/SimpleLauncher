@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -8,7 +9,9 @@ namespace SimpleLauncher
     public class FavoritesConfig
     {
         [XmlElement("Favorite")]
-        public List<Favorite> FavoriteList { get; set; } = new List<Favorite>();
+        public ObservableCollection<Favorite> FavoriteList { get; set; } = new ObservableCollection<Favorite>();
+
+        public static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.xml");
     }
 
     public class Favorite
@@ -17,26 +20,26 @@ namespace SimpleLauncher
         public string SystemName { get; set; }
     }
 
-    public class FavoritesManager(
-        string filePath)
+    public class FavoritesManager
     {
+        private readonly string _filePath = FavoritesConfig.FilePath;
 
         public FavoritesConfig LoadFavorites()
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(_filePath))
             {
                 return new FavoritesConfig();
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(FavoritesConfig));
-            using StreamReader reader = new StreamReader(filePath);
+            using StreamReader reader = new StreamReader(_filePath);
             return (FavoritesConfig)serializer.Deserialize(reader);
         }
 
         public void SaveFavorites(FavoritesConfig favorites)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FavoritesConfig));
-            using StreamWriter writer = new StreamWriter(filePath);
+            using StreamWriter writer = new StreamWriter(_filePath);
             serializer.Serialize(writer, favorites);
         }
     }

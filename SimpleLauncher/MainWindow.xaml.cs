@@ -317,16 +317,6 @@ namespace SimpleLauncher
                 }
             }
             
-            // // Validate each emulator's parameters if it's provided. Allow null or empty.
-            // foreach (var emulator in selectedConfig.Emulators)
-            // {
-            //     if (!string.IsNullOrWhiteSpace(emulator.EmulatorParameters) && !IsValidPath2(emulator.EmulatorParameters))
-            //     {
-            //         hasErrors = true;
-            //         errorMessages.AppendLine($"Emulator parameters is not valid for {emulator.EmulatorName}: '{emulator.EmulatorParameters}'\n\n");
-            //     }
-            // }
-
             // Display all error messages if there are any errors
             if (hasErrors)
             {
@@ -353,45 +343,6 @@ namespace SimpleLauncher
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
-        // // Check paths inside parameters. Allow relative paths.
-        // private bool IsValidPath2(string parameters)
-        // {
-        //     // Return true immediately if the parameter string is empty or null.
-        //     if (string.IsNullOrWhiteSpace(parameters)) return true;
-        //
-        //     // This pattern looks for paths inside double or single quotes, excluding non-path arguments.
-        //     string pattern = @"(?:-L\s+""([^""]+)""|-rompath\s+""([^""]+)"")|""([^""]+\\[^""]+|[a-zA-Z]:\\[^""]+)""|'([^']+\\[^']+|[a-zA-Z]:\\[^']+)'";
-        //     var matches = Regex.Matches(parameters, pattern);
-        //
-        //     // Use the application's current directory as the base for relative paths.
-        //     string basePath = AppDomain.CurrentDomain.BaseDirectory;
-        //
-        //     // Iterate over all matches to validate each path found.
-        //     foreach (Match match in matches)
-        //     {
-        //         // Extract the path from the match, considering different groups in the regex.
-        //         string path = match.Groups[1].Success ? match.Groups[1].Value :
-        //             match.Groups[2].Success ? match.Groups[2].Value :
-        //             match.Groups[3].Success ? match.Groups[3].Value :
-        //             match.Groups[4].Value;
-        //
-        //         // Convert relative paths to absolute paths using the base directory.
-        //         string absolutePath = Path.IsPathRooted(path) ? path : Path.GetFullPath(Path.Combine(basePath, path));
-        //
-        //         // Check if the path (either absolute or converted from relative) is valid.
-        //         bool isValid = Directory.Exists(absolutePath) || File.Exists(absolutePath);
-        //
-        //         // If any path is invalid, return false immediately.
-        //         if (!isValid)
-        //         {
-        //             return false;
-        //         }
-        //     }
-        //
-        //     // Return true if all paths (if any) are valid.
-        //     return true;
-        // }
-
         private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
         {
             // Move scroller to top
@@ -956,7 +907,7 @@ namespace SimpleLauncher
         
         private void Favorites_Click(object sender, RoutedEventArgs e)
         {
-            var favoritesWindow = new Favorites();
+            var favoritesWindow = new Favorites(_settings, _systemConfigs);
             favoritesWindow.Show();
         }
 

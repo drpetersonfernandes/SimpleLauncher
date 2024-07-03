@@ -141,7 +141,7 @@
     <None Remove="videos\**" />
     <None Remove="walkthrough\**" />
     <None Update="favorites.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

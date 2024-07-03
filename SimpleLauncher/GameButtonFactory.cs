@@ -11,21 +11,30 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameButtonFactory(
-        ComboBox emulatorComboBox,
-        ComboBox systemComboBox,
-        List<SystemConfig> systemConfigs,
-        List<MameConfig> machines,
-        AppSettings settings)
+    internal class GameButtonFactory
     {
         private const string DefaultImagePath = "default.png";
-        public int ImageHeight { get; set; } = settings.ThumbnailSize; // Initialize ImageHeight
-        private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly ComboBox _emulatorComboBox;
+        private readonly ComboBox _systemComboBox;
+        private readonly List<SystemConfig> _systemConfigs;
+        private readonly List<MameConfig> _machines;
+        private readonly AppSettings _settings;
+        public int ImageHeight { get; set; }
 
-        // List to hold MAME descriptions from mame.xml
-        private ComboBox EmulatorComboBox { get; set; } = emulatorComboBox;
-        private ComboBox SystemComboBox { get; set; } = systemComboBox;
-        private List<SystemConfig> SystemConfigs { get; set; } = systemConfigs;
+        private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly FavoritesManager _favoritesManager;
+
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
+        {
+            _emulatorComboBox = emulatorComboBox;
+            _systemComboBox = systemComboBox;
+            _systemConfigs = systemConfigs;
+            this._machines = machines;
+            this._settings = settings;
+            ImageHeight = settings.ThumbnailSize; // Initialize ImageHeight
+
+            _favoritesManager = new FavoritesManager();
+        }
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
         {
@@ -50,7 +59,7 @@ namespace SimpleLauncher
 
             if (systemConfig.SystemIsMame)
             {
-                var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                 if (machine != null)
                 {
                     // Check if the machine's description is not null or empty; otherwise, keep using fileNameWithoutExtension
@@ -69,8 +78,8 @@ namespace SimpleLauncher
                     textBlock.Inlines.Add(descriptionTextBlock);
                 }
             }
-            var youtubeIcon = CreateYoutubeIcon(searchTerm, systemName, settings.VideoUrl);
-            var infoIcon = CreateInfoIcon(searchTerm, systemName, settings.InfoUrl);
+            var youtubeIcon = CreateYoutubeIcon(searchTerm, systemName, _settings.VideoUrl);
+            var infoIcon = CreateInfoIcon(searchTerm, systemName, _settings.InfoUrl);
 
             var grid = new Grid
             {
@@ -131,7 +140,7 @@ namespace SimpleLauncher
             button.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs);
             };
             
             // Context menu
@@ -141,7 +150,14 @@ namespace SimpleLauncher
             launchMenuItem.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, EmulatorComboBox, SystemComboBox, SystemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs);
+            };
+            
+            var addToFavorites = new MenuItem { Header = "Add To Favorites" };
+            addToFavorites.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                AddToFavorites(systemName, fileNameWithoutExtension);
             };
             
             var openVideoLink = new MenuItem { Header = "Open Video Link" };
@@ -229,6 +245,7 @@ namespace SimpleLauncher
             };
             
             contextMenu.Items.Add(launchMenuItem);
+            contextMenu.Items.Add(addToFavorites);
             contextMenu.Items.Add(openVideoLink);
             contextMenu.Items.Add(openInfoLink);
             contextMenu.Items.Add(openCover);
@@ -423,10 +440,43 @@ namespace SimpleLauncher
             return infoIcon;
         }
         
+        private void AddToFavorites(string systemName, string fileNameWithoutExtension)
+        {
+            try
+            {
+                // Load existing favorites
+                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+                // Add the new favorite if it doesn't already exist
+                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase)
+                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    favorites.FavoriteList.Add(new Favorite
+                    {
+                        FileName = fileNameWithoutExtension,
+                        SystemName = systemName
+                    });
+
+                    // Save the updated favorites list
+                    _favoritesManager.SaveFavorites(favorites);
+
+                    MessageBox.Show($"{fileNameWithoutExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"{fileNameWithoutExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding to favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
         private void OpenVideoLink(string systemName, string fileNameWithoutExtension)
         {
             string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-            string searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
+            string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
             {
@@ -449,7 +499,7 @@ namespace SimpleLauncher
         private void OpenInfoLink(string systemName, string fileNameWithoutExtension)
         {
             string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-            string searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
+            string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
             {

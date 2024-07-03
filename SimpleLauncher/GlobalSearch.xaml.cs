@@ -21,6 +21,7 @@ namespace SimpleLauncher
         private ObservableCollection<SearchResult> _searchResults;
         private PleaseWaitSearch _pleaseWaitWindow;
         private DispatcherTimer _closeTimer;
+        private readonly FavoritesManager _favoritesManager;
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
         {
@@ -31,6 +32,8 @@ namespace SimpleLauncher
             _searchResults = new ObservableCollection<SearchResult>();
             ResultsDataGrid.ItemsSource = _searchResults;
             Closed += GlobalSearch_Closed;
+            _favoritesManager = new FavoritesManager();
+
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -285,6 +288,7 @@ namespace SimpleLauncher
                     launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);
 
+                    AddMenuItem(contextMenu, "Add To Favorites", () => AddToFavorites(selectedResult.SystemName, selectedResult.FileName));
                     AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName));
                     AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName));
                     AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedResult.SystemName, selectedResult.FileName));
@@ -315,6 +319,39 @@ namespace SimpleLauncher
             };
             menuItem.Click += (_, _) => action();
             contextMenu.Items.Add(menuItem);
+        }
+        
+        private void AddToFavorites(string systemName, string fileNameWithoutExtension)
+        {
+            try
+            {
+                // Load existing favorites
+                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+                // Add the new favorite if it doesn't already exist
+                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase)
+                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    favorites.FavoriteList.Add(new Favorite
+                    {
+                        FileName = fileNameWithoutExtension,
+                        SystemName = systemName
+                    });
+
+                    // Save the updated favorites list
+                    _favoritesManager.SaveFavorites(favorites);
+
+                    MessageBox.Show($"{fileNameWithoutExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"{fileNameWithoutExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding to favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void OpenVideoLink(string systemName, string fileName)
