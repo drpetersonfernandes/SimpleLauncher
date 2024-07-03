@@ -521,11 +521,9 @@ namespace SimpleLauncher
                 string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
                 if (File.Exists(titleSnapshotPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = titleSnapshotPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(titleSnapshotPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -544,11 +542,9 @@ namespace SimpleLauncher
                 string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
                 if (File.Exists(gameplaySnapshotPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = gameplaySnapshotPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(gameplaySnapshotPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -567,11 +563,9 @@ namespace SimpleLauncher
                 string cartPath = Path.Combine(cartDirectory, fileName + extension);
                 if (File.Exists(cartPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = cartPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(cartPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -606,7 +600,7 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
-            string[] manualExtensions = new string[] { ".pdf" };
+            string[] manualExtensions = [".pdf"];
 
             foreach (var extension in manualExtensions)
             {
@@ -638,7 +632,7 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
-            string[] walkthroughExtensions = new string[] { ".pdf" };
+            string[] walkthroughExtensions = [".pdf"];
 
             foreach (var extension in walkthroughExtensions)
             {
@@ -677,11 +671,9 @@ namespace SimpleLauncher
                 string cabinetPath = Path.Combine(cabinetDirectory, fileName + extension);
                 if (File.Exists(cabinetPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = cabinetPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(cabinetPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -700,11 +692,9 @@ namespace SimpleLauncher
                 string flyerPath = Path.Combine(flyerDirectory, fileName + extension);
                 if (File.Exists(flyerPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = flyerPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(flyerPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -723,11 +713,9 @@ namespace SimpleLauncher
                 string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
                 if (File.Exists(pcbPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = pcbPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(pcbPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }

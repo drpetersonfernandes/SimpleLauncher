@@ -913,8 +913,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>5.0-21460</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/b4/33/dolphin-master-5.0-21460-x64.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/74/73/dolphin-master-2407-3-x64.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1142,8 +1142,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>5.0-21460</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/b4/33/dolphin-master-5.0-21460-x64.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/74/73/dolphin-master-2407-3-x64.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1213,8 +1213,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>5.0-21460</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/b4/33/dolphin-master-5.0-21460-x64.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://dl.dolphin-emu.org/builds/74/73/dolphin-master-2407-3-x64.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 

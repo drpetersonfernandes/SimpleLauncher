@@ -51,7 +51,10 @@ namespace SimpleLauncher
             };
             _pleaseWaitWindow.Show();
 
-            _closeTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            _closeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             _closeTimer.Tick += (_, _) => _closeTimer.Stop();
 
             var backgroundWorker = new BackgroundWorker();
@@ -267,26 +270,6 @@ namespace SimpleLauncher
             }
         }
 
-        // private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        // {
-        //     try
-        //     {
-        //         if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
-        //         {
-        //             var contextMenu = new ContextMenu();
-        //             var launchMenuItem = new MenuItem { Header = "Launch Game" };
-        //             launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
-        //             contextMenu.Items.Add(launchMenuItem);
-        //
-        //             contextMenu.IsOpen = true;
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //     }
-        // }
-        
         private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
@@ -294,23 +277,26 @@ namespace SimpleLauncher
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
                     var contextMenu = new ContextMenu();
-            
-                    var launchMenuItem = new MenuItem { Header = "Launch Game" };
+
+                    var launchMenuItem = new MenuItem
+                    {
+                        Header = "Launch Game"
+                    };
                     launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);
 
-                    AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedResult.SystemName, selectedResult.FilePath));
-                    AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedResult.SystemName, selectedResult.FilePath));
+                    AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedResult.SystemName, selectedResult.FileName));
 
                     contextMenu.IsOpen = true;
                 }
@@ -323,7 +309,10 @@ namespace SimpleLauncher
 
         private void AddMenuItem(ContextMenu contextMenu, string header, Action action)
         {
-            var menuItem = new MenuItem { Header = header };
+            var menuItem = new MenuItem
+            {
+                Header = header
+            };
             menuItem.Click += (_, _) => action();
             contextMenu.Items.Add(menuItem);
         }
@@ -346,7 +335,6 @@ namespace SimpleLauncher
                 MessageBox.Show($"There was a problem opening the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
 
         private void OpenInfoLink(string systemName, string fileName)
         {
@@ -371,24 +359,31 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-    
             if (systemConfig == null)
             {
                 MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
+    
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+    
+            // Specific image path
             string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-
             string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+
+            // Global image path
             string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+
+            // Image extensions to look for
             string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
+            // Search for the image file
             bool TryFindImage(string directory, out string foundPath)
             {
                 foreach (var extension in imageExtensions)
                 {
-                    string imagePath = Path.Combine(directory, fileName + extension);
+                    string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
                     if (File.Exists(imagePath))
                     {
                         foundPath = imagePath;
@@ -399,7 +394,15 @@ namespace SimpleLauncher
                 return false;
             }
 
-            if (TryFindImage(systemSpecificDirectory, out string foundImagePath) || TryFindImage(globalDirectory, out foundImagePath))
+            // First try to find the image in the specific directory
+            if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+            {
+                var imageViewerWindow = new OpenImageFiles();
+                imageViewerWindow.LoadImage(foundImagePath);
+                imageViewerWindow.Show();
+            }
+            // If not found, try the global directory
+            else if (TryFindImage(globalDirectory, out foundImagePath))
             {
                 var imageViewerWindow = new OpenImageFiles();
                 imageViewerWindow.LoadImage(foundImagePath);
@@ -416,17 +419,18 @@ namespace SimpleLauncher
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
             string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
+            
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
             foreach (var extension in titleSnapshotExtensions)
             {
-                string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
+                string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(titleSnapshotPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = titleSnapshotPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(titleSnapshotPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -439,17 +443,18 @@ namespace SimpleLauncher
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
             string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
+            
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
             foreach (var extension in gameplaySnapshotExtensions)
             {
-                string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
+                string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(gameplaySnapshotPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = gameplaySnapshotPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(gameplaySnapshotPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -463,16 +468,17 @@ namespace SimpleLauncher
             string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
             string[] cartExtensions = [".png", ".jpg", ".jpeg"];
 
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            
             foreach (var extension in cartExtensions)
             {
-                string cartPath = Path.Combine(cartDirectory, fileName + extension);
+                string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cartPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = cartPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(cartPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -485,10 +491,13 @@ namespace SimpleLauncher
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
             string[] videoExtensions = [".mp4", ".avi", ".mkv"];
+            
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
             foreach (var extension in videoExtensions)
             {
-                string videoPath = Path.Combine(videoDirectory, fileName + extension);
+                string videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(videoPath))
                 {
                     Process.Start(new ProcessStartInfo
@@ -507,11 +516,14 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
-            string[] manualExtensions = new string[] { ".pdf" };
+            string[] manualExtensions = [".pdf"];
+            
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
             foreach (var extension in manualExtensions)
             {
-                string manualPath = Path.Combine(manualDirectory, fileName + extension);
+                string manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(manualPath))
                 {
                     try
@@ -539,11 +551,14 @@ namespace SimpleLauncher
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
-            string[] walkthroughExtensions = new string[] { ".pdf" };
+            string[] walkthroughExtensions = [".pdf"];
 
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            
             foreach (var extension in walkthroughExtensions)
             {
-                string walkthroughPath = Path.Combine(walkthroughDirectory, fileName + extension);
+                string walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(walkthroughPath))
                 {
                     try
@@ -573,16 +588,17 @@ namespace SimpleLauncher
             string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
             string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
 
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            
             foreach (var extension in cabinetExtensions)
             {
-                string cabinetPath = Path.Combine(cabinetDirectory, fileName + extension);
+                string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cabinetPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = cabinetPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(cabinetPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -596,16 +612,17 @@ namespace SimpleLauncher
             string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
             string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            
             foreach (var extension in flyerExtensions)
             {
-                string flyerPath = Path.Combine(flyerDirectory, fileName + extension);
+                string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(flyerPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = flyerPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(flyerPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }
@@ -619,16 +636,17 @@ namespace SimpleLauncher
             string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
             string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
 
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            
             foreach (var extension in pcbExtensions)
             {
-                string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
+                string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(pcbPath))
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = pcbPath,
-                        UseShellExecute = true
-                    });
+                    var imageViewerWindow = new OpenImageFiles();
+                    imageViewerWindow.LoadImage(pcbPath);
+                    imageViewerWindow.Show();
                     return;
                 }
             }

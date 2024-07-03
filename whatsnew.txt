@@ -8,8 +8,9 @@ The system_model.xml now includes Amstrad CPC.
 The Update Class has been improved.
 A Cart Context Menu has been added. Users can now load game Cart images.
 The Global Search Window has been improved. It now includes the field System Name.
-The Right Click Context Menu for the Global Search results has been improved.
-I have improved the Global Stats Window. It now includes a pie with the relation between total number of games and total number of cover images. 
+The Right Click Context Menu for the Global Search results has been improved with more options.
+I have improved the Global Stats Window. It now includes a pie with the relation between total number of games and total number of cover images.
+Fix default image viewer for Title Snapshot, Gameplay Snapshot, Cart, Cabinet, Flyer and PCB.
 
 release2.14.4
 -------------
