@@ -21,7 +21,9 @@
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
         <DataGrid Name="FavoritesDataGrid" Grid.Row="2" Margin="10"
-                  AutoGenerateColumns="False" IsReadOnly="True" MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp">
+                  AutoGenerateColumns="False" IsReadOnly="True" 
+                  MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
+                  MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />

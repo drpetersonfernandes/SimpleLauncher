@@ -30,11 +30,10 @@ namespace SimpleLauncher
             _systemConfigs = systemConfigs;
             _machines = machines;
             _settings = settings;
-            _searchResults = new ObservableCollection<SearchResult>();
+            _searchResults = [];
             ResultsDataGrid.ItemsSource = _searchResults;
             Closed += GlobalSearch_Closed;
             _favoritesManager = new FavoritesManager();
-
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -376,8 +375,8 @@ namespace SimpleLauncher
                     contextMenu.Items.Add(launchMenuItem);
 
                     AddMenuItem(contextMenu, "Add To Favorites", addToFavoritesIcon, () => AddToFavorites(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Open Video Link", openVideoLinkIcon, () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Open Info Link", openInfoLinkIcon, () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Open Video Link", openVideoLinkIcon, () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName, selectedResult.MachineName));
+                    AddMenuItem(contextMenu, "Open Info Link", openInfoLinkIcon, () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName, selectedResult.MachineName));
                     AddMenuItem(contextMenu, "Cover", coverIcon, () => OpenCover(selectedResult.SystemName, selectedResult.FileName));
                     AddMenuItem(contextMenu, "Title Snapshot", titleSnapshotIcon, () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName));
                     AddMenuItem(contextMenu, "Gameplay Snapshot", gameplaySnapshotIcon, () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName));
@@ -442,9 +441,12 @@ namespace SimpleLauncher
             }
         }
 
-        private void OpenVideoLink(string systemName, string fileName)
+        private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
         {
-            string searchTerm = $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+            var searchTerm =
+                // Check if machineDescription is provided and not empty
+                !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+
             string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
@@ -461,9 +463,12 @@ namespace SimpleLauncher
             }
         }
 
-        private void OpenInfoLink(string systemName, string fileName)
+        private void OpenInfoLink(string systemName, string fileName, string machineDescription = null)
         {
-            string searchTerm = $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+            var searchTerm =
+                // Check if machineDescription is provided and not empty
+                !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+
             string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
@@ -715,7 +720,7 @@ namespace SimpleLauncher
 
             // Remove the original file extension
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            
+
             foreach (var extension in cabinetExtensions)
             {
                 string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
@@ -763,7 +768,7 @@ namespace SimpleLauncher
 
             // Remove the original file extension
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            
+
             foreach (var extension in pcbExtensions)
             {
                 string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);

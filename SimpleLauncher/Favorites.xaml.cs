@@ -139,8 +139,8 @@ namespace SimpleLauncher
 
                 AddMenuItem(contextMenu, "Launch Selected Game", () => _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName), "pack://application:,,,/images/launch.png");
                 AddMenuItem(contextMenu, "Remove from Favorites", () => RemoveFromFavorites(selectedFavorite), "pack://application:,,,/images/brokenheart.png");
-                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/video.png");
-                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/info.png");
+                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName, selectedFavorite.MachineDescription), "pack://application:,,,/images/video.png");
+                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName, selectedFavorite.MachineDescription), "pack://application:,,,/images/info.png");
                 AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/cover.png");
                 AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/snapshot.png");
                 AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/snapshot.png");
@@ -185,9 +185,12 @@ namespace SimpleLauncher
             MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void OpenVideoLink(string systemName, string fileName)
+        private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
         {
-            string searchTerm = $"{fileName} {systemName}";
+            var searchTerm =
+                // Check if machineDescription is provided and not empty
+                !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+
             string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
@@ -204,9 +207,12 @@ namespace SimpleLauncher
             }
         }
 
-        private void OpenInfoLink(string systemName, string fileName)
+        private void OpenInfoLink(string systemName, string fileName, string machineDescription = null)
         {
-            string searchTerm = $"{fileName} {systemName}";
+            var searchTerm =
+                // Check if machineDescription is provided and not empty
+                !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
+
             string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
 
             try
@@ -521,5 +527,21 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        
+        private async void FavoritesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+                {
+                    await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
     }
 }
