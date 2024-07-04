@@ -158,8 +158,8 @@
     <Resource Include="images\clickheretogethelp.png" />
     <None Remove="images\easy.png" />
     <Resource Include="images\easy.png" />
-    <None Remove="images\hard.png" />
-    <Resource Include="images\hard.png" />
+    <None Remove="images\expert.png" />
+    <Resource Include="images\expert.png" />
     <None Remove="images\links.png" />
     <Resource Include="images\links.png" />
     <None Remove="images\search.png" />
@@ -184,6 +184,24 @@
     <Resource Include="images\pdf.png" />
     <None Remove="images\video.png" />
     <Resource Include="images\video.png" />
+    <None Remove="images\cabinet.png" />
+    <Resource Include="images\cabinet.png" />
+    <None Remove="images\cart.png" />
+    <Resource Include="images\cart.png" />
+    <None Remove="images\flyer.png" />
+    <Resource Include="images\flyer.png" />
+    <None Remove="images\manual.png" />
+    <Resource Include="images\manual.png" />
+    <None Remove="images\pcb.png" />
+    <Resource Include="images\pcb.png" />
+    <None Remove="images\snapshot.png" />
+    <Resource Include="images\snapshot.png" />
+    <None Remove="images\walkthrough.png" />
+    <Resource Include="images\walkthrough.png" />
+    <None Remove="images\cover.png" />
+    <Resource Include="images\cover.png" />
+    <None Remove="images\brokenheart.png" />
+    <Resource Include="images\brokenheart.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">

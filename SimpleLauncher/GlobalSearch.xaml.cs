@@ -308,61 +308,61 @@ namespace SimpleLauncher
                     };
                     var coverIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
                         Width = 16,
                         Height = 16
                     };
                     var titleSnapshotIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
                         Width = 16,
                         Height = 16
                     };
                     var gameplaySnapshotIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
                         Width = 16,
                         Height = 16
                     };
                     var cartIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
                         Width = 16,
                         Height = 16
                     };
                     var videoIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
                         Width = 16,
                         Height = 16
                     };
                     var manualIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
                         Width = 16,
                         Height = 16
                     };
                     var walkthroughIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
                         Width = 16,
                         Height = 16
                     };
                     var cabinetIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
                         Width = 16,
                         Height = 16
                     };
                     var flyerIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
                         Width = 16,
                         Height = 16
                     };
                     var pcbIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
                         Width = 16,
                         Height = 16
                     };

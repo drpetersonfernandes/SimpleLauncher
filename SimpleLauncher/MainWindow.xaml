@@ -131,7 +131,7 @@
                 <MenuItem Click="ExpertMode_Click" Header="Expert Mode">
                     <MenuItem.Icon>
                         <Image
-                            Source="pack://application:,,,/images/hard.png"
+                            Source="pack://application:,,,/images/expert.png"
                             Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>

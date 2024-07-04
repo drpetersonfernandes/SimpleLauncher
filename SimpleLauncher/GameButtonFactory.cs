@@ -222,7 +222,7 @@ namespace SimpleLauncher
             // Open Cover Context Menu
             var openCoverIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
                 Width = 16,
                 Height = 16
             };            
@@ -240,7 +240,7 @@ namespace SimpleLauncher
             // Open Title Snapshot Context Menu
             var openTitleSnapshotIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
                 Width = 16,
                 Height = 16
             };
@@ -258,7 +258,7 @@ namespace SimpleLauncher
             // Open Gameplay Snapshot Context Menu
             var openGameplaySnapshotIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
                 Width = 16,
                 Height = 16
             };
@@ -276,7 +276,7 @@ namespace SimpleLauncher
             // Open Cart Context Menu
             var openCartIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
                 Width = 16,
                 Height = 16
             };
@@ -312,7 +312,7 @@ namespace SimpleLauncher
             // Open Manual Context Menu
             var openManualIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
                 Width = 16,
                 Height = 16
             };
@@ -330,7 +330,7 @@ namespace SimpleLauncher
             // Open Walkthrough Context Menu
             var openWalkthroughIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
                 Width = 16,
                 Height = 16
             };
@@ -348,7 +348,7 @@ namespace SimpleLauncher
             // Open Cabinet Context Menu
             var openCabinetIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
                 Width = 16,
                 Height = 16
             };
@@ -366,7 +366,7 @@ namespace SimpleLauncher
             // Open Flyer Context Menu
             var openFlyerIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
                 Width = 16,
                 Height = 16
             };
@@ -384,7 +384,7 @@ namespace SimpleLauncher
             // Open PCB Context Menu
             var openPcbIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
                 Width = 16,
                 Height = 16
             };
