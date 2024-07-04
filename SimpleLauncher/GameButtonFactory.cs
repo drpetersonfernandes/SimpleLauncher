@@ -31,8 +31,7 @@ namespace SimpleLauncher
             _systemConfigs = systemConfigs;
             _machines = machines;
             _settings = settings;
-            ImageHeight = settings.ThumbnailSize; // Initialize ImageHeight
-
+            ImageHeight = settings.ThumbnailSize;
             _favoritesManager = new FavoritesManager();
         }
 
@@ -630,8 +629,15 @@ namespace SimpleLauncher
         
         private void OpenVideoLink(string systemName, string fileNameWithoutExtension)
         {
-            string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-            string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
+            // Attempt to find a matching machine description
+            string searchTerm = fileNameWithoutExtension;
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
+            {
+                searchTerm = machine.Description;
+            }
+
+            string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
             try
             {
@@ -653,8 +659,15 @@ namespace SimpleLauncher
 
         private void OpenInfoLink(string systemName, string fileNameWithoutExtension)
         {
-            string searchTerm = $"{fileNameWithoutExtension} {systemName}";
-            string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
+            // Attempt to find a matching machine description
+            string searchTerm = fileNameWithoutExtension;
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
+            {
+                searchTerm = machine.Description;
+            }
+
+            string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
             try
             {
