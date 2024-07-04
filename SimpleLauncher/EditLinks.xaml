@@ -46,7 +46,7 @@
             Height="22"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Source="pack://application:,,,/images/searchyoutube.png" />
+            Source="pack://application:,,,/images/video.png" />
         <TextBox
             Margin="10"
             x:Name="VideoLinkTextBox"

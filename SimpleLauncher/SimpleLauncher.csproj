@@ -178,6 +178,12 @@
     <Resource Include="images\heart.png" />
     <None Remove="images\launch.png" />
     <Resource Include="images\launch.png" />
+    <None Remove="images\image.png" />
+    <Resource Include="images\image.png" />
+    <None Remove="images\pdf.png" />
+    <Resource Include="images\pdf.png" />
+    <None Remove="images\video.png" />
+    <Resource Include="images\video.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml">
@@ -196,9 +202,6 @@
     <AdditionalFiles Include="audio\click.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\searchyoutube.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\info.png" />

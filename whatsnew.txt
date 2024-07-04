@@ -1,17 +1,18 @@
 release2.15
 -------------
 
-The emulator versions of every emulator inside EasyMode have been updated.
+The emulator versions in every emulator within EasyMode have been updated.
 Amstrad CPC has been added to EasyMode.
 The mame.xml has been updated to the latest release.
-The system_model.xml now includes Amstrad CPC.
-The Update Class has been improved.
-A Cart Context Menu has been added. Users can now load game Cart images.
-The Global Search Window has been improved. It now includes the field System Name.
-The Right Click Context Menu for the Global Search results has been improved with more options.
-I have improved the Global Stats Window. It now includes a pie with the relation between total number of games and total number of cover images.
-Fix default image viewer for Title Snapshot, Gameplay Snapshot, Cart, Cabinet, Flyer and PCB.
-I have implemented the Favorite's function. Users can now save a list of favorite games that will be loaded in the Favorite's Window.
+The system_model.xml now includes the Amstrad CPC.
+The Update Class has been enhanced.
+A Cart Context Menu has been introduced. Users can now load game cart images.
+The Global Search Window has been improved, now including the System Name field.
+The Right-Click Context Menu for the Global Search results has been enhanced with additional options.
+I have improved the Global Stats Window. It now displays a pie chart representing the relation between the total number of games and the total number of cover images.
+The default image viewer for Title Snapshot, Gameplay Snapshot, Cart, Cabinet, Flyer, and PCB has been fixed.
+I have implemented the Favorite function. Users can now save a list of favorite games that will be displayed in the Favorite Window.
+Icons have been added to the Right-Click Context Menu items.
 
 release2.14.4
 -------------
@@ -236,8 +237,8 @@ Rework the system for selecting gaming systems and emulators.
 Implement a system.xml where users can set settings for each system and emulator.
 Introduce 'extract before launch' functionality for systems that require it.
 Implement a click sound feature.
-Incorporate a YouTube button into the UI for each game.
-Include an information link in the UI for each game.
+Incorporate a Video button into the UI for each game.
+Include an Info link into the UI for each game.
 Implement asynchronous image loading, which has a significant impact on performance.
 Separate different functions into distinct classes to enhance maintenance and facilitate future app improvements.
 

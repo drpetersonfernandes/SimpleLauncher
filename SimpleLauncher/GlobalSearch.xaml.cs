@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace SimpleLauncher
@@ -281,26 +282,112 @@ namespace SimpleLauncher
                 {
                     var contextMenu = new ContextMenu();
 
+                    var launchMenuItemIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/launch.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var addToFavoritesIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var openVideoLinkIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var openInfoLinkIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var coverIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var titleSnapshotIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var gameplaySnapshotIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var cartIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var videoIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var manualIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var walkthroughIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/pdf.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var cabinetIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var flyerIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var pcbIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/image.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+
                     var launchMenuItem = new MenuItem
                     {
-                        Header = "Launch Selected Game"
+                        Header = "Launch Selected Game",
+                        Icon = launchMenuItemIcon
                     };
                     launchMenuItem.Click += (_, _) => LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                     contextMenu.Items.Add(launchMenuItem);
 
-                    AddMenuItem(contextMenu, "Add To Favorites", () => AddToFavorites(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedResult.SystemName, selectedResult.FileName));
-                    AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Add To Favorites", addToFavoritesIcon, () => AddToFavorites(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Open Video Link", openVideoLinkIcon, () => OpenVideoLink(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Open Info Link", openInfoLinkIcon, () => OpenInfoLink(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cover", coverIcon, () => OpenCover(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Title Snapshot", titleSnapshotIcon, () => OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Gameplay Snapshot", gameplaySnapshotIcon, () => OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cart", cartIcon, () => OpenCart(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Video", videoIcon, () => PlayVideo(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Manual", manualIcon, () => OpenManual(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Walkthrough", walkthroughIcon, () => OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Cabinet", cabinetIcon, () => OpenCabinet(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "Flyer", flyerIcon, () => OpenFlyer(selectedResult.SystemName, selectedResult.FileName));
+                    AddMenuItem(contextMenu, "PCB", pcbIcon, () => OpenPcb(selectedResult.SystemName, selectedResult.FileName));
 
                     contextMenu.IsOpen = true;
                 }
@@ -311,11 +398,12 @@ namespace SimpleLauncher
             }
         }
 
-        private void AddMenuItem(ContextMenu contextMenu, string header, Action action)
+        private void AddMenuItem(ContextMenu contextMenu, string header, Image icon, Action action)
         {
             var menuItem = new MenuItem
             {
-                Header = header
+                Header = header,
+                Icon = icon
             };
             menuItem.Click += (_, _) => action();
             contextMenu.Items.Add(menuItem);

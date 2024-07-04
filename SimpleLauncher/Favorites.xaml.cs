@@ -121,20 +121,20 @@ namespace SimpleLauncher
             {
                 var contextMenu = new ContextMenu();
 
-                AddMenuItem(contextMenu, "Launch Selected Game", () => _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName), "pack://application:,,,/Images/launch.png");
-                AddMenuItem(contextMenu, "Remove from Favorites", () => RemoveFromFavorites(selectedFavorite), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
-                AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/Images/heart.png");
+                AddMenuItem(contextMenu, "Launch Selected Game", () => _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName), "pack://application:,,,/images/launch.png");
+                AddMenuItem(contextMenu, "Remove from Favorites", () => RemoveFromFavorites(selectedFavorite), "pack://application:,,,/images/heart.png");
+                AddMenuItem(contextMenu, "Open Video Link", () => OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/video.png");
+                AddMenuItem(contextMenu, "Open Info Link", () => OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/info.png");
+                AddMenuItem(contextMenu, "Cover", () => OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "Title Snapshot", () => OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "Gameplay Snapshot", () => OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "Cart", () => OpenCart(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "Video", () => PlayVideo(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/video.png");
+                AddMenuItem(contextMenu, "Manual", () => OpenManual(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/pdf.png");
+                AddMenuItem(contextMenu, "Walkthrough", () => OpenWalkthrough(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/pdf.png");
+                AddMenuItem(contextMenu, "Cabinet", () => OpenCabinet(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "Flyer", () => OpenFlyer(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
+                AddMenuItem(contextMenu, "PCB", () => OpenPcb(selectedFavorite.SystemName, selectedFavorite.FileName), "pack://application:,,,/images/image.png");
 
                 contextMenu.IsOpen = true;
             }
