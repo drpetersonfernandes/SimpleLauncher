@@ -766,7 +766,7 @@ namespace SimpleLauncher
             {
                 var psi = new ProcessStartInfo
                 {
-                    FileName = "https://www.buymeacoffee.com/purelogiccode",
+                    FileName = "https://purelogiccode.com/Donate",
                     UseShellExecute = true
                 };
                 Process.Start(psi);
@@ -907,7 +907,7 @@ namespace SimpleLauncher
         
         private void Favorites_Click(object sender, RoutedEventArgs e)
         {
-            var favoritesWindow = new Favorites(_settings, _systemConfigs);
+            var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines);
             favoritesWindow.Show();
         }
 

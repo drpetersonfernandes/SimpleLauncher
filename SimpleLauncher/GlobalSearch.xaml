@@ -16,7 +16,7 @@
                Margin="10,10,10,0"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
-               Content="This search engine only searches for FileNames within every System configured in 'Simple Launcher'." />
+               Content="This search engine only searches for Filenames within every System configured in 'Simple Launcher'." />
         <Label Grid.Row="1"
                Margin="10,0,10,10"
                VerticalAlignment="Center"
@@ -38,7 +38,6 @@
                                     Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="170" />
                 <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="170" />
-                <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size, StringFormat=N2}" Width="100" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

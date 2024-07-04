@@ -18,20 +18,36 @@ namespace SimpleLauncher
         private ObservableCollection<Favorite> _favoriteList;
         private readonly AppSettings _settings;
         private readonly List<SystemConfig> _systemConfigs;
+        private readonly List<MameConfig> _machines;
 
-        public Favorites(AppSettings settings, List<SystemConfig> systemConfigs)
+        public Favorites(AppSettings settings, List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
             InitializeComponent();
             _favoritesManager = new FavoritesManager();
             _settings = settings;
             _systemConfigs = systemConfigs;
+            _machines = machines;
             LoadFavorites();
         }
 
         private void LoadFavorites()
         {
             var favoritesConfig = _favoritesManager.LoadFavorites();
-            _favoriteList = favoritesConfig.FavoriteList;
+            _favoriteList = [];
+
+            foreach (var favorite in favoritesConfig.FavoriteList)
+            {
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName), StringComparison.OrdinalIgnoreCase));
+                var machineDescription = machine?.Description ?? string.Empty;
+
+                _favoriteList.Add(new Favorite
+                {
+                    FileName = favorite.FileName,
+                    SystemName = favorite.SystemName,
+                    MachineDescription = machineDescription
+                });
+            }
+
             FavoritesDataGrid.ItemsSource = _favoriteList;
         }
 

@@ -18,6 +18,7 @@ namespace SimpleLauncher
     {
         public string FileName { get; set; }
         public string SystemName { get; set; }
+        public string MachineDescription { get; set; }
     }
 
     public class FavoritesManager

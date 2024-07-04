@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Favorites" Height="450" Width="800">
+        Title="Favorites" Height="600" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,6 +24,7 @@
                   AutoGenerateColumns="False" IsReadOnly="True" MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
+                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
             </DataGrid.Columns>
         </DataGrid>
