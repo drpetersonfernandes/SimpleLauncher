@@ -1,17 +1,17 @@
 release2.15
 -------------
 
-The emulator versions in every emulator within EasyMode have been updated.
+The emulator versions for every emulator within EasyMode have been updated.
 Amstrad CPC has been added to EasyMode.
-The mame.xml has been updated to the latest release.
-The system_model.xml now includes the Amstrad CPC.
+The mame.xml file has been updated to the latest release.
+The system_model.xml file now includes the Amstrad CPC.
 The Update Class has been enhanced.
-A Cart Context Menu has been introduced. Users can now load game cart images.
-The Global Search Window has been improved, now including the System Name field.
+A Cart Context Menu has been introduced, allowing users to load game cart images.
+The Global Search Window has been improved to include the System Name field.
 The Right-Click Context Menu for the Global Search results has been enhanced with additional options.
-I have improved the Global Stats Window. It now displays a pie chart representing the relation between the total number of games and the total number of cover images.
+The Global Stats Window has been improved to display a pie chart representing the relation between the total number of games and the total number of cover images.
 The default image viewer for Title Snapshot, Gameplay Snapshot, Cart, Cabinet, Flyer, and PCB has been fixed.
-I have implemented the Favorite function. Users can now save a list of favorite games that will be displayed in the Favorite Window.
+A Favorite function has been implemented, allowing users to save a list of favorite games that will be displayed in the Favorite Window.
 Icons have been added to the Right-Click Context Menu items.
 
 release2.14.4

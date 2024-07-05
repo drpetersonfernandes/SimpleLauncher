@@ -560,7 +560,7 @@ namespace SimpleLauncher
             string imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
 
             // List of additional folders to create
-            string[] additionalFolders = ["title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs"
+            string[] additionalFolders = ["title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"
             ];
 
             try
