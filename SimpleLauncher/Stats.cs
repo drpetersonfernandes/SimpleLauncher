@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -14,8 +15,9 @@ public static class Stats
     static Stats()
     {
         LoadConfiguration();
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
     }
-    
+
     private static void LoadConfiguration()
     {
         string configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
@@ -25,7 +27,7 @@ public static class Stats
             _apiKey = config["ApiKey"]?.ToString();
         }
     }
-    
+
     public static async Task CallApiAsync()
     {
         using var client = new HttpClient();
@@ -55,5 +57,4 @@ public static class Stats
             await LogErrors.LogErrorAsync(ex2, $"There was an unexpected error in Stats.CallApiAsync method.\n\nException details: {ex2}");
         }
     }
-    
 }
