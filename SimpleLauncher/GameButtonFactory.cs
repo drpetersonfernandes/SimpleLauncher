@@ -20,11 +20,11 @@ namespace SimpleLauncher
         private readonly List<MameConfig> _machines;
         private readonly AppSettings _settings;
         public int ImageHeight { get; set; }
-
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly FavoritesManager _favoritesManager;
+        private readonly FavoritesConfig _favoritesConfig;
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings, FavoritesConfig favoritesConfig)
         {
             _emulatorComboBox = emulatorComboBox;
             _systemComboBox = systemComboBox;
@@ -33,6 +33,7 @@ namespace SimpleLauncher
             _settings = settings;
             ImageHeight = settings.ThumbnailSize;
             _favoritesManager = new FavoritesManager();
+            _favoritesConfig = favoritesConfig;
         }
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -43,6 +44,10 @@ namespace SimpleLauncher
             
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
+            
+            // Check if the game is a favorite
+            var isFavorite = _favoritesConfig.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             
             // Default search term for Video link and Info link
             string searchTerm = fileNameWithoutExtension;
@@ -120,6 +125,20 @@ namespace SimpleLauncher
             };
 
             await LoadImageAsync(image, button, imagePath, DefaultImagePath);
+            
+            if (isFavorite)
+            {
+                var starImage = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+                    Width = 22,
+                    Height = 22,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(5)
+                };
+                grid.Children.Add(starImage);
+            }
             
             button.PreviewMouseLeftButtonDown += (_, args) =>
             {

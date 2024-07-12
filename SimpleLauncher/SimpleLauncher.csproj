@@ -205,6 +205,8 @@
     <Resource Include="images\cover.png" />
     <None Remove="images\brokenheart.png" />
     <Resource Include="images\brokenheart.png" />
+    <None Remove="images\star.png" />
+    <Resource Include="images\star.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

@@ -31,10 +31,15 @@ namespace SimpleLauncher
         private readonly GameButtonFactory _gameButtonFactory;
         private readonly AppSettings _settings;
         private readonly List<MameConfig> _machines;
-        
+        private FavoritesConfig _favoritesConfig;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // Initialize favorite's manager and load favorites
+            var favoritesManager = new FavoritesManager();
+            _favoritesConfig = favoritesManager.LoadFavorites();
             
             // Load settings.xml
             _settings = new AppSettings();
@@ -114,7 +119,7 @@ namespace SimpleLauncher
             _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
             // Initialize _gameButtonFactory with settings
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig);
 
             // Check if a system is already selected, otherwise show the message
             if (SystemComboBox.SelectedItem == null)
@@ -468,7 +473,7 @@ namespace SimpleLauncher
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
 
                 // Create a new instance of GameButtonFactory
-                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings);
+                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig);
 
                 // Create Button action for each cell
                 foreach (var filePath in allFiles)

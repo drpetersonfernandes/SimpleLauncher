@@ -28,6 +28,28 @@ namespace SimpleLauncher
             _systemConfigs = systemConfigs;
             _machines = machines;
             LoadFavorites();
+            Closing += EditLinks_Closing; // attach event handler
+        }
+        
+        private void EditLinks_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Prepare the process start info
+            var processModule = Process.GetCurrentProcess().MainModule;
+            if (processModule != null)
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = processModule.FileName,
+                    UseShellExecute = true
+                };
+
+                // Start the new application instance
+                Process.Start(startInfo);
+
+                // Shutdown the current application instance
+                Application.Current.Shutdown();
+                Environment.Exit(0);
+            }
         }
 
         private void LoadFavorites()
