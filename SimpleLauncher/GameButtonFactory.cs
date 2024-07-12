@@ -21,10 +21,11 @@ namespace SimpleLauncher
         private readonly AppSettings _settings;
         public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private readonly FavoritesManager _favoritesManager;
-        private readonly FavoritesConfig _favoritesConfig;
+        private FavoritesManager _favoritesManager;
+        private FavoritesConfig _favoritesConfig;
+        private WrapPanel _gameFileGrid;
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings, FavoritesConfig favoritesConfig)
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid)
         {
             _emulatorComboBox = emulatorComboBox;
             _systemComboBox = systemComboBox;
@@ -34,6 +35,7 @@ namespace SimpleLauncher
             ImageHeight = settings.ThumbnailSize;
             _favoritesManager = new FavoritesManager();
             _favoritesConfig = favoritesConfig;
+            _gameFileGrid = gameFileGrid;
         }
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -41,14 +43,14 @@ namespace SimpleLauncher
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             string fileNameWithExtension = Path.GetFileName(filePath);
             fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
-            
+
             string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
             bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
-            
+
             // Check if the game is a favorite
             var isFavorite = _favoritesConfig.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            
+
             // Default search term for Video link and Info link
             string searchTerm = fileNameWithoutExtension;
 
@@ -117,7 +119,7 @@ namespace SimpleLauncher
                 Margin = new Thickness(0),
                 Padding = new Thickness(0)
             };
-            
+
             var image = new Image
             {
                 Height = ImageHeight,
@@ -125,7 +127,7 @@ namespace SimpleLauncher
             };
 
             await LoadImageAsync(image, button, imagePath, DefaultImagePath);
-            
+
             if (isFavorite)
             {
                 var starImage = new Image
@@ -139,7 +141,7 @@ namespace SimpleLauncher
                 };
                 grid.Children.Add(starImage);
             }
-            
+
             button.PreviewMouseLeftButtonDown += (_, args) =>
             {
                 if (args.OriginalSource is Image img && (img.Name == "videoIcon" || img.Name == "infoIcon"))
@@ -155,16 +157,16 @@ namespace SimpleLauncher
             {
                 button.Tag = "DefaultImage";
             }
-            
+
             button.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs);
             };
-            
+
             // Context menu
             var contextMenu = new ContextMenu();
-            
+
             // Launch Game Context Menu
             var launchMenuItemIcon = new Image
             {
@@ -207,7 +209,7 @@ namespace SimpleLauncher
                 Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
                 Width = 16,
                 Height = 16
-            };            
+            };
             var openVideoLink = new MenuItem
             {
                 Header = "Open Video Link",
@@ -218,14 +220,14 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenVideoLink(systemName, fileNameWithoutExtension);
             };
-            
+
             // Open Info Link Context Menu
             var openInfoLinkIcon = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
                 Width = 16,
                 Height = 16
-            };            
+            };
             var openInfoLink = new MenuItem
             {
                 Header = "Open Info Link",
@@ -236,14 +238,14 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenInfoLink(systemName, fileNameWithoutExtension);
             };
-            
+
             // Open Cover Context Menu
             var openCoverIcon = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
                 Width = 16,
                 Height = 16
-            };            
+            };
             var openCover = new MenuItem
             {
                 Header = "Cover",
@@ -290,7 +292,7 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
             };
-            
+
             // Open Cart Context Menu
             var openCartIcon = new Image
             {
@@ -308,7 +310,7 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenCart(systemName, fileNameWithoutExtension);
             };
-            
+
             // Open Video Context Menu
             var openVideoIcon = new Image
             {
@@ -380,7 +382,7 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenCabinet(systemName, fileNameWithoutExtension);
             };
- 
+
             // Open Flyer Context Menu
             var openFlyerIcon = new Image
             {
@@ -416,7 +418,7 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenPcb(systemName, fileNameWithoutExtension);
             };
-            
+
             contextMenu.Items.Add(launchMenuItem);
             contextMenu.Items.Add(addToFavorites);
             contextMenu.Items.Add(openVideoLink);
@@ -444,7 +446,7 @@ namespace SimpleLauncher
                 : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder);
 
             // Extensions to check
-            string[] extensions = new string[] {".png", ".jpg", ".jpeg"};
+            string[] extensions = [".png", ".jpg", ".jpeg"];
 
             // Check each extension for a valid image file
             foreach (var ext in extensions)
@@ -612,7 +614,7 @@ namespace SimpleLauncher
             };
             return infoIcon;
         }
-        
+
         private void AddToFavorites(string systemName, string fileNameWithExtension)
         {
             try
@@ -633,6 +635,25 @@ namespace SimpleLauncher
                     // Save the updated favorites list
                     _favoritesManager.SaveFavorites(favorites);
 
+                    // Update the button's content to add the favorite icon dynamically
+                    var button = _gameFileGrid.Children.OfType<Button>()
+                        .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+
+                    if (button != null)
+                    {
+                        var grid = (Grid)button.Content;
+                        var starImage = new Image
+                        {
+                            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+                            Width = 22,
+                            Height = 22,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Margin = new Thickness(5)
+                        };
+                        grid.Children.Add(starImage);
+                    }
+
                     MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
@@ -645,7 +666,7 @@ namespace SimpleLauncher
                 MessageBox.Show($"An error occurred while adding to favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
         private void OpenVideoLink(string systemName, string fileNameWithoutExtension)
         {
             // Attempt to find a matching machine description
@@ -705,7 +726,7 @@ namespace SimpleLauncher
                 throw;
             }
         }
-        
+
         private void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -746,7 +767,7 @@ namespace SimpleLauncher
                 MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-        
+
         private void OpenTitleSnapshot(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -767,7 +788,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no title snapshot associated with this file or button.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void OpenGameplaySnapshot(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -788,7 +809,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void OpenCart(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -809,7 +830,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no cart associated with this file or button.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void PlayVideo(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -832,7 +853,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no video associated with this file or button.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void OpenManual(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -896,7 +917,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no walkthrough associated with this file or button.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void OpenCabinet(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -938,7 +959,7 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no flyer associated with this file or button.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
         private void OpenPcb(string systemName, string fileName)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -959,6 +980,6 @@ namespace SimpleLauncher
 
             MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        
+
     }
 }

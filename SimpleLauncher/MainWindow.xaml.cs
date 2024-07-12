@@ -27,8 +27,8 @@ namespace SimpleLauncher
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
         private readonly LetterNumberMenu _letterNumberMenu;
-        private readonly WrapPanel _gameFileGrid;
-        private readonly GameButtonFactory _gameButtonFactory;
+        private WrapPanel _gameFileGrid;
+        private GameButtonFactory _gameButtonFactory;
         private readonly AppSettings _settings;
         private readonly List<MameConfig> _machines;
         private FavoritesConfig _favoritesConfig;
@@ -119,7 +119,8 @@ namespace SimpleLauncher
             _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
             // Initialize _gameButtonFactory with settings
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig);
+            _favoritesConfig = favoritesManager.LoadFavorites();
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
             // Check if a system is already selected, otherwise show the message
             if (SystemComboBox.SelectedItem == null)
@@ -473,7 +474,8 @@ namespace SimpleLauncher
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
 
                 // Create a new instance of GameButtonFactory
-                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig);
+                _favoritesConfig = favoritesManager.LoadFavorites();
+                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
                 // Create Button action for each cell
                 foreach (var filePath in allFiles)
