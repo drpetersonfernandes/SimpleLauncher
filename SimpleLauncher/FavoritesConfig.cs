@@ -29,7 +29,9 @@ namespace SimpleLauncher
         {
             if (!File.Exists(_filePath))
             {
-                return new FavoritesConfig();
+                FavoritesConfig defaultConfig = new FavoritesConfig();
+                SaveFavorites(defaultConfig);
+                return defaultConfig;
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(FavoritesConfig));

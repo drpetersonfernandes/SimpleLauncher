@@ -141,7 +141,7 @@
     <None Remove="videos\**" />
     <None Remove="walkthrough\**" />
     <None Update="favorites.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="whatsnew.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -207,9 +207,7 @@
     <Resource Include="images\brokenheart.png" />
   </ItemGroup>
     <ItemGroup>
-    <Content Include="settings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="settings.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

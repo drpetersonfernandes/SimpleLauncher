@@ -24,7 +24,12 @@ namespace SimpleLauncher
         public double MainWindowHeight { get; set; }
         public string MainWindowState { get; set; }
 
-        public AppSettings(string filePath)
+        // Filepath
+        private const string DefaultSettingsFilePath = "settings.xml";
+
+        public AppSettings() : this(DefaultSettingsFilePath) { }
+
+        private AppSettings(string filePath)
         {
             _filePath = filePath;
             Load();
@@ -80,9 +85,9 @@ namespace SimpleLauncher
                 string mainWindowWidthValue = settings.Element("MainWindowWidth")?.Value;
                 bool parseSuccess = double.TryParse(mainWindowWidthValue, NumberStyles.Any,
                     CultureInfo.InvariantCulture, out var mainWindowWidth);
-                if (!parseSuccess || mainWindowWidth < 890)
+                if (!parseSuccess || mainWindowWidth < 900)
                 {
-                    mainWindowWidth = 890;
+                    mainWindowWidth = 900;
                 }
                 MainWindowWidth = mainWindowWidth;
                 
@@ -124,12 +129,12 @@ namespace SimpleLauncher
         private void SetDefaultsAndSave()
         {
             ThumbnailSize = 200;
-            GamesPerPage = 200;
+            GamesPerPage = 100;
             ShowGames = "ShowAll";
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
             InfoUrl = "https://www.igdb.com/search?q=";
-            MainWindowWidth = 890;
+            MainWindowWidth = 900;
             MainWindowHeight = 500;
             MainWindowState = "Normal";
             Save();

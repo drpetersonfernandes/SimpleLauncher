@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <ThumbnailSize>200</ThumbnailSize>
+  <GamesPerPage>100</GamesPerPage>
+  <ShowGames>ShowAll</ShowGames>
+  <EnableGamePadNavigation>false</EnableGamePadNavigation>
+  <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
+  <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
+  <MainWindowWidth>900</MainWindowWidth>
+  <MainWindowHeight>500</MainWindowHeight>
+  <MainWindowState>Normal</MainWindowState>
+</Settings>
