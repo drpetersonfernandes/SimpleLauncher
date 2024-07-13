@@ -32,10 +32,21 @@
         <DataGrid Name="ResultsDataGrid" Grid.Row="3" Margin="10,0,10,10" AutoGenerateColumns="False"
                   MouseRightButtonUp="ResultsDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="ResultsDataGrid_MouseDoubleClick" IsReadOnly="True">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ToolTipService.ShowDuration" Value="60000" />
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <ToolTip>
+                                <Image Source="{Binding CoverImage}" Width="200" Height="300"/>
+                            </ToolTip>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
-                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}"
-                                    Width="*" />
+                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="170" />
                 <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="170" />
             </DataGrid.Columns>

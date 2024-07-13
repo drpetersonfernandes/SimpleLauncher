@@ -21,9 +21,21 @@
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
         <DataGrid Name="FavoritesDataGrid" Grid.Row="2" Margin="10"
-                  AutoGenerateColumns="False" IsReadOnly="True" 
+                  AutoGenerateColumns="False" IsReadOnly="True"
                   MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ToolTipService.ShowDuration" Value="60000" />
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <ToolTip>
+                                <Image Source="{Binding CoverImage}" Width="200" Height="300"/>
+                            </ToolTip>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />

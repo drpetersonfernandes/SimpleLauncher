@@ -55,22 +55,81 @@ namespace SimpleLauncher
         private void LoadFavorites()
         {
             var favoritesConfig = _favoritesManager.LoadFavorites();
-            _favoriteList = [];
+            _favoriteList =
+            [
+            ];
 
             foreach (var favorite in favoritesConfig.FavoriteList)
             {
                 var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
 
-                _favoriteList.Add(new Favorite
+                var favoriteItem = new Favorite
                 {
                     FileName = favorite.FileName,
                     SystemName = favorite.SystemName,
-                    MachineDescription = machineDescription
-                });
+                    MachineDescription = machineDescription,
+                    CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName) // Set cover image path
+                };
+
+                _favoriteList.Add(favoriteItem);
             }
 
             FavoritesDataGrid.ItemsSource = _favoriteList;
+        }
+
+        private string GetCoverImagePath(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
+            {
+                return Path.Combine(baseDirectory, "images", "default.png");
+            }
+
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            // Specific image path
+            string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
+            string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+
+            // Global image path
+            string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+
+            // Image extensions to look for
+            string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+            // Search for the image file
+            bool TryFindImage(string directory, out string foundPath)
+            {
+                foreach (var extension in imageExtensions)
+                {
+                    string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                    if (File.Exists(imagePath))
+                    {
+                        foundPath = imagePath;
+                        return true;
+                    }
+                }
+                foundPath = null;
+                return false;
+            }
+
+            // First try to find the image in the specific directory
+            if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+            {
+                return foundImagePath;
+            }
+            // If not found, try the global directory
+            else if (TryFindImage(globalDirectory, out foundImagePath))
+            {
+                return foundImagePath;
+            }
+            else
+            {
+                return Path.Combine(baseDirectory, "images", "default.png");
+            }
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -564,6 +623,5 @@ namespace SimpleLauncher
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
     }
 }

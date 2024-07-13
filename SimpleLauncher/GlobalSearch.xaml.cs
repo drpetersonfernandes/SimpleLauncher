@@ -126,7 +126,8 @@ namespace SimpleLauncher
                             Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
                             MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
                             SystemName = systemConfig.SystemName,
-                            EmulatorConfig = systemConfig.Emulators.FirstOrDefault()
+                            EmulatorConfig = systemConfig.Emulators.FirstOrDefault(),
+                            CoverImage = GetCoverImagePath(systemConfig.SystemName, Path.GetFileName(file)) // Set cover image path
                         })
                         .ToList();
 
@@ -136,6 +137,60 @@ namespace SimpleLauncher
 
             var scoredResults = ScoreResults(results, searchTerms);
             return scoredResults;
+        }
+        
+        private string GetCoverImagePath(string systemName, string fileName)
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
+            {
+                return Path.Combine(baseDirectory, "images", "default.png");
+            }
+
+            // Remove the original file extension
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            // Specific image path
+            string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
+            string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+
+            // Global image path
+            string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+
+            // Image extensions to look for
+            string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+            // Search for the image file
+            bool TryFindImage(string directory, out string foundPath)
+            {
+                foreach (var extension in imageExtensions)
+                {
+                    string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                    if (File.Exists(imagePath))
+                    {
+                        foundPath = imagePath;
+                        return true;
+                    }
+                }
+                foundPath = null;
+                return false;
+            }
+
+            // First try to find the image in the specific directory
+            if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+            {
+                return foundImagePath;
+            }
+            // If not found, try the global directory
+            else if (TryFindImage(globalDirectory, out foundImagePath))
+            {
+                return foundImagePath;
+            }
+            else
+            {
+                return Path.Combine(baseDirectory, "images", "default.png");
+            }
         }
 
         private List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
@@ -817,6 +872,7 @@ namespace SimpleLauncher
             public string SystemName { get; init; }
             public SystemConfig.Emulator EmulatorConfig { get; init; }
             public int Score { get; set; }
+            public string CoverImage { get; set; } // Add this property
         }
 
         private void GlobalSearch_Closed(object sender, EventArgs e)
