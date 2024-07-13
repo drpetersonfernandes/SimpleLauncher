@@ -1,3 +1,11 @@
+release2.15.1
+-------------
+
+I have added a heart icon to each game in the favorite's list. This enables users to identify their favorites easily.
+I've also implemented a preview window which appears when users hover over a list item in the Favorites Window or the Global Search Window. 
+Additionally, I have enhanced the logic for generating the favorites.xml file in case it's missing.
+I have also improved the logic for creating the settings.xml file when it's not found.
+
 release2.15
 -------------
 
