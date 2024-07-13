@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-// using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,19 +26,20 @@ namespace SimpleLauncher
         // Instance variables
         private readonly List<SystemConfig> _systemConfigs;
         private readonly LetterNumberMenu _letterNumberMenu;
-        private WrapPanel _gameFileGrid;
+        private readonly WrapPanel _gameFileGrid;
         private GameButtonFactory _gameButtonFactory;
         private readonly AppSettings _settings;
         private readonly List<MameConfig> _machines;
         private FavoritesConfig _favoritesConfig;
+        private readonly FavoritesManager _favoritesManager;
 
         public MainWindow()
         {
             InitializeComponent();
 
             // Initialize favorite's manager and load favorites
-            var favoritesManager = new FavoritesManager();
-            _favoritesConfig = favoritesManager.LoadFavorites();
+            _favoritesManager = new FavoritesManager();
+            _favoritesConfig = _favoritesManager.LoadFavorites();
             
             // Load settings.xml
             _settings = new AppSettings();
@@ -119,7 +119,6 @@ namespace SimpleLauncher
             _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
             // Initialize _gameButtonFactory with settings
-            _favoritesConfig = favoritesManager.LoadFavorites();
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
             // Check if a system is already selected, otherwise show the message
@@ -473,15 +472,17 @@ namespace SimpleLauncher
                 // Update the UI to reflect the current pagination status and the indices of files being displayed
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
 
-                // Create a new instance of GameButtonFactory
-                _favoritesConfig = favoritesManager.LoadFavorites();
-                var factory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
+                // Reload the FavoritesConfig
+                _favoritesConfig = _favoritesManager.LoadFavorites();
+                
+                // Create a new instance of GameButtonFactory with updated FavoritesConfig
+                _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
                 // Create Button action for each cell
                 foreach (var filePath in allFiles)
                 {
                     // Adjust the CreateGameButton call.
-                    Button gameButton = await factory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                    Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
                     GameFileGrid.Children.Add(gameButton);
                 }
 

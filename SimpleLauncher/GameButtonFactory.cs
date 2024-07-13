@@ -21,9 +21,9 @@ namespace SimpleLauncher
         private readonly AppSettings _settings;
         public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private FavoritesManager _favoritesManager;
-        private FavoritesConfig _favoritesConfig;
-        private WrapPanel _gameFileGrid;
+        private readonly FavoritesManager _favoritesManager;
+        private readonly FavoritesConfig _favoritesConfig;
+        private readonly WrapPanel _gameFileGrid;
 
         public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid)
         {
@@ -130,16 +130,16 @@ namespace SimpleLauncher
 
             if (isFavorite)
             {
-                var starImage = new Image
+                var heartImage = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+                    Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
                     Width = 22,
                     Height = 22,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Top,
                     Margin = new Thickness(5)
                 };
-                grid.Children.Add(starImage);
+                grid.Children.Add(heartImage);
             }
 
             button.PreviewMouseLeftButtonDown += (_, args) =>
@@ -642,16 +642,16 @@ namespace SimpleLauncher
                     if (button != null)
                     {
                         var grid = (Grid)button.Content;
-                        var starImage = new Image
+                        var heartImage = new Image
                         {
-                            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+                            Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
                             Width = 22,
                             Height = 22,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                             Margin = new Thickness(5)
                         };
-                        grid.Children.Add(starImage);
+                        grid.Children.Add(heartImage);
                     }
 
                     MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
