@@ -160,7 +160,7 @@
             <MenuItem Header="Favorites">
                 <MenuItem Click="Favorites_Click" Header="Favorites">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/heart.png" Width="16" Height="16"/>
+                        <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
