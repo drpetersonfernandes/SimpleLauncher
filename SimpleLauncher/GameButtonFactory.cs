@@ -644,7 +644,7 @@ namespace SimpleLauncher
                         var grid = (Grid)button.Content;
                         var startImage = new Image
                         {
-                            Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+                            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
                             Width = 22,
                             Height = 22,
                             HorizontalAlignment = HorizontalAlignment.Left,

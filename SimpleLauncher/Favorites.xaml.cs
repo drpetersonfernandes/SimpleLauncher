@@ -138,7 +138,7 @@ namespace SimpleLauncher
             {
                 _favoriteList.Remove(selectedFavorite);
                 _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-                MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                // MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -263,7 +263,7 @@ namespace SimpleLauncher
         {
             _favoriteList.Remove(selectedFavorite);
             _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-            MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            // MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
