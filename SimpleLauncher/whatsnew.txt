@@ -1,14 +1,17 @@
 release2.15.1
 -------------
 
-I have added a heart icon to each game in the favorite's list. This enables users to identify their favorites easily.
-I've also implemented a preview window which appears when users hover over a list item in the Favorites Window or the Global Search Window. 
-Additionally, I have enhanced the logic for generating the favorites.xml file in case it's missing.
-I have also improved the logic for creating the settings.xml file when it's not found.
+07/14/2024
+I've added a star icon to each game in the favorite list, enabling users to easily identify their favorites.
+Also, I implemented a preview window that appears when users hover over a list item in either the Favorites Window or the Global Search Window.
+In addition, the logic for generating the `favorites.xml` file has been enhanced to handle situations when it's missing.
+The logic for creating the `settings.xml` file has also been improved when the file isn't found.
+Lastly, I've removed the Video and Info link from the generated buttons. However, users can still access this functionality through the right-click context menu.
 
 release2.15
 -------------
 
+07/04/2024
 The emulator versions for every emulator within EasyMode have been updated.
 Amstrad CPC has been added to EasyMode.
 The mame.xml file has been updated to the latest release.
@@ -25,6 +28,7 @@ Icons have been added to the Right-Click Context Menu items.
 release2.14.4
 -------------
 
+06/06/2024
 I have improved the Global Search algorithm. Now it accepts logical operators AND OR.
 Fix a hidden bug found in the [Main] Window search engine.
 Add option for user to select ROM Folder in the [Easy Mode - Add System] Window.
@@ -36,21 +40,25 @@ I develop a mechanism to detect the version of installed emulators in the [Easy 
 release2.14.3
 -------------
 
+06/04/2024
 I have improved the automatic update mechanism and fixed a pagination bug preventing the Next and Prev buttons from working properly.
 
 release2.14.2
 -------------
 
+06/02/2024
 I have fixed the automatic update process
 
 release2.14.1
 -------------
 
+06/02/2024
 Fixed a small bug in the About window.
 
 release2.14.0
 -------------
 
+06/02/2024
 Big Update Today!
 Added Easy Mode to Add a System: It will automatically download emulators and extra files and add the new system to 'Simple Launcher.'
 Improved error detection of parameter values.
