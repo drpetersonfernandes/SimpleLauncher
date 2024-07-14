@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace SimpleLauncher
 {
@@ -36,6 +37,10 @@ namespace SimpleLauncher
         public MainWindow()
         {
             InitializeComponent();
+            
+            // Get Application Version
+            DataContext = this;
+            ApplicationVersionLabel.Content = ApplicationVersion;
 
             // Initialize favorite's manager and load favorites
             _favoritesManager = new FavoritesManager();
@@ -193,6 +198,16 @@ namespace SimpleLauncher
                 // Shutdown current application instance
                 Application.Current.Shutdown();
                 Environment.Exit(0);
+            }
+        }
+        
+        // Get Application Version
+        private static string ApplicationVersion
+        {
+            get
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                return "Version: " + (version?.ToString() ?? "Unknown");
             }
         }
 

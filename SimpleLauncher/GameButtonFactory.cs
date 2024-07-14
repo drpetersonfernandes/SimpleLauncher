@@ -116,8 +116,8 @@ namespace SimpleLauncher
                 MaxHeight = ImageHeight + 50,
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0),
-                Padding = new Thickness(0)
+                Margin = new Thickness(5),
+                Padding = new Thickness(5)
             };
 
             var image = new Image

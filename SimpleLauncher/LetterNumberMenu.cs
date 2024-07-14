@@ -63,7 +63,7 @@ namespace SimpleLauncher
                 _selectedButton.ClearValue(Control.BackgroundProperty);
             }
 
-            button.Background = Brushes.Green;
+            button.Background = Brushes.LightBlue;
             _selectedButton = button;
         }
 
