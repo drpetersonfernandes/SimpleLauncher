@@ -1,15 +1,11 @@
-﻿<Window
-    x:Class="SimpleLauncher.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Simple Launcher"
-    MinWidth="900"
-    MinHeight="500"
-    Closing="MainWindow_Closing"
-    mc:Ignorable="d">
-
+﻿<controls:MetroWindow     x:Class="SimpleLauncher.MainWindow"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                          Title="Simple Launcher"
+                          MinWidth="900"
+                          MinHeight="500"
+                          Closing="MainWindow_Closing" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -119,6 +115,37 @@
                     x:Name="EnableGamePadNavigation"
                     Click="EnableGamePadNavigation_Click"
                     Header="Enable GamePad Navigation" />
+            </MenuItem>
+            <MenuItem Header="Theme">
+                <MenuItem Header="Base Theme">
+                    <MenuItem x:Name="LightTheme" Header="Light" Click="ChangeBaseTheme_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="DarkTheme" Header="Dark" Click="ChangeBaseTheme_Click" IsCheckable="True"/>
+                </MenuItem>
+                <MenuItem Header="Accent Colors">
+                    <MenuItem x:Name="RedAccent" Header="Red" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="GreenAccent" Header="Green" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="BlueAccent" Header="Blue" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="PurpleAccent" Header="Purple" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="OrangeAccent" Header="Orange" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="LimeAccent" Header="Lime" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="EmeraldAccent" Header="Emerald" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="TealAccent" Header="Teal" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="CyanAccent" Header="Cyan" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="CobaltAccent" Header="Cobalt" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="IndigoAccent" Header="Indigo" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="VioletAccent" Header="Violet" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="PinkAccent" Header="Pink" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="MagentaAccent" Header="Magenta" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="CrimsonAccent" Header="Crimson" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="AmberAccent" Header="Amber" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="YellowAccent" Header="Yellow" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="BrownAccent" Header="Brown" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="OliveAccent" Header="Olive" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="SteelAccent" Header="Steel" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="MauveAccent" Header="Mauve" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="TaupeAccent" Header="Taupe" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                    <MenuItem x:Name="SiennaAccent" Header="Sienna" Click="ChangeAccentColor_Click" IsCheckable="True"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem
                 Header="Edit System">
@@ -278,4 +305,4 @@
         </Grid>
 
     </Grid>
-</Window>
+</controls:MetroWindow>

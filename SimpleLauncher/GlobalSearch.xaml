@@ -1,10 +1,10 @@
-<Window x:Class="SimpleLauncher.GlobalSearch"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        mc:Ignorable="d"
-        Title="Global Search" Height="600" Width="1200">
+<controls:MetroWindow x:Class="SimpleLauncher.GlobalSearch"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Global Search"
+                      Width="1200"
+                      Height="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -52,4 +52,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-</Window>
+</controls:MetroWindow>

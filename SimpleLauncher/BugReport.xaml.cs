@@ -16,8 +16,15 @@ namespace SimpleLauncher
         public BugReport()
         {
             InitializeComponent();
-            DataContext = this; // Set the data context for data binding
-            LoadConfiguration(); // Load the API key
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
+            
+            // Set the data context for data binding
+            DataContext = this; 
+            
+            // Load the API key
+            LoadConfiguration(); 
         }
         
         private void LoadConfiguration()

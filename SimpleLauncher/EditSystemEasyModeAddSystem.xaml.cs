@@ -17,7 +17,6 @@ namespace SimpleLauncher
     public partial class EditSystemEasyModeAddSystem
     {
         private EasyModeConfig _config;
-
         private bool _isEmulatorDownloaded;
         private bool _isCoreDownloaded;
         private bool _isExtrasDownloaded;
@@ -25,9 +24,15 @@ namespace SimpleLauncher
         public EditSystemEasyModeAddSystem()
         {
             InitializeComponent();
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
+            
             LoadConfig();
             PopulateSystemDropdown();
-            Closed += EditSystemEasyModeAddSystem_Closed; // Subscribe to the Closed event
+            
+            // Subscribe to the Closed event
+            Closed += EditSystemEasyModeAddSystem_Closed; 
         }
 
         private void LoadConfig()

@@ -16,22 +16,29 @@ namespace SimpleLauncher
     {
         private readonly FavoritesManager _favoritesManager;
         private ObservableCollection<Favorite> _favoriteList;
-        private readonly AppSettings _settings;
+        private readonly SettingsConfig _settings;
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
 
-        public Favorites(AppSettings settings, List<SystemConfig> systemConfigs, List<MameConfig> machines)
+        public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines)
         {
             InitializeComponent();
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
+            
             _favoritesManager = new FavoritesManager();
             _settings = settings;
             _systemConfigs = systemConfigs;
             _machines = machines;
             LoadFavorites();
-            Closing += EditLinks_Closing; // attach event handler
+            
+            // Attach event handler
+            Closing += Favorites_Closing; 
+
         }
         
-        private void EditLinks_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Prepare the process start info
             var processModule = Process.GetCurrentProcess().MainModule;

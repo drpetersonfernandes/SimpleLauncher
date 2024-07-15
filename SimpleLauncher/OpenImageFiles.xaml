@@ -1,11 +1,11 @@
-<Window x:Class="SimpleLauncher.OpenImageFiles"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        mc:Ignorable="d"
-        Title="Image Viewer" Height="600" Width="700">
+<controls:MetroWindow x:Class="SimpleLauncher.OpenImageFiles"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Image Viewer"
+                      Width="700"
+                      Height="600">
     <Grid>
         <Image Name="ImageViewer" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
-</Window>
+</controls:MetroWindow>

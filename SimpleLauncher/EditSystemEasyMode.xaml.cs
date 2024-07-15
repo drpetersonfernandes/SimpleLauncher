@@ -7,6 +7,9 @@ namespace SimpleLauncher
         public EditSystemEasyMode()
         {
             InitializeComponent();
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
         }
 
         private void AddSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -51,7 +52,7 @@ namespace SimpleLauncher
             allButton.Click += (_, _) =>
             {
                 UpdateSelectedButton(allButton);
-                OnLetterSelected?.Invoke(null); // Or use "All" or another identifier
+                OnLetterSelected?.Invoke(null);
             };
             LetterPanel.Children.Add(allButton);
         }
@@ -63,7 +64,7 @@ namespace SimpleLauncher
                 _selectedButton.ClearValue(Control.BackgroundProperty);
             }
 
-            button.Background = Brushes.LightBlue;
+            button.Background = (Brush)Application.Current.Resources["AccentColorBrush"];
             _selectedButton = button;
         }
 

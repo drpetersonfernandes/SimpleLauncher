@@ -1,10 +1,24 @@
-<Window x:Class="SimpleLauncher.Favorites"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        mc:Ignorable="d"
-        Title="Favorites" Height="600" Width="1000">
+<controls:MetroWindow x:Class="SimpleLauncher.Favorites"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Favorites"
+                      Width="1000"
+                      Height="600">
+    <controls:MetroWindow.Resources>
+        <Style TargetType="DataGridRow">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ToolTipService.ShowDuration" Value="60000" />
+            <Setter Property="ToolTip">
+                <Setter.Value>
+                    <ToolTip>
+                        <Image Source="{Binding CoverImage}" Width="200" Height="300"/>
+                    </ToolTip>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </controls:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,18 +38,6 @@
                   AutoGenerateColumns="False" IsReadOnly="True"
                   MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="ToolTipService.ShowDuration" Value="60000" />
-                    <Setter Property="ToolTip">
-                        <Setter.Value>
-                            <ToolTip>
-                                <Image Source="{Binding CoverImage}" Width="200" Height="300"/>
-                            </ToolTip>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
@@ -43,4 +45,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-</Window>
+</controls:MetroWindow>

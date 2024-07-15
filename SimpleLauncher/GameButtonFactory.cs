@@ -18,14 +18,14 @@ namespace SimpleLauncher
         private readonly ComboBox _systemComboBox;
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private readonly AppSettings _settings;
+        private readonly SettingsConfig _settings;
         public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly FavoritesManager _favoritesManager;
         private readonly FavoritesConfig _favoritesConfig;
         private readonly WrapPanel _gameFileGrid;
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid)
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid)
         {
             _emulatorComboBox = emulatorComboBox;
             _systemComboBox = systemComboBox;
@@ -117,7 +117,7 @@ namespace SimpleLauncher
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5),
-                Padding = new Thickness(5)
+                Padding = new Thickness(10)
             };
 
             var image = new Image

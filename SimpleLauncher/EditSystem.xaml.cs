@@ -26,9 +26,15 @@ namespace SimpleLauncher
             InitializeComponent();
             LoadXml();
             PopulateSystemNamesDropdown();
-            this.Closing += EditSystem_Closing; // attach event handler
+            
+            // Attach event handler
+            this.Closing += EditSystem_Closing; 
+            
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
         }
 
         private void LoadXml()

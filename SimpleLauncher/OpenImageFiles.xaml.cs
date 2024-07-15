@@ -9,6 +9,9 @@ namespace SimpleLauncher
         public OpenImageFiles()
         {
             InitializeComponent();
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
         }
 
         public void LoadImage(string imagePath)

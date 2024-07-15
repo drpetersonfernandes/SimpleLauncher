@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Reflection;
+using ControlzEx.Theming;
 
 namespace SimpleLauncher
 {
@@ -29,7 +30,7 @@ namespace SimpleLauncher
         private readonly LetterNumberMenu _letterNumberMenu;
         private readonly WrapPanel _gameFileGrid;
         private GameButtonFactory _gameButtonFactory;
-        private readonly AppSettings _settings;
+        private readonly SettingsConfig _settings;
         private readonly List<MameConfig> _machines;
         private FavoritesConfig _favoritesConfig;
         private readonly FavoritesManager _favoritesManager;
@@ -38,6 +39,13 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
+            // Load settings.xml
+            _settings = new SettingsConfig();
+            
+            // Set the initial theme
+            App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
+            SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+            
             // Get Application Version
             DataContext = this;
             ApplicationVersionLabel.Content = ApplicationVersion;
@@ -45,9 +53,6 @@ namespace SimpleLauncher
             // Initialize favorite's manager and load favorites
             _favoritesManager = new FavoritesManager();
             _favoritesConfig = _favoritesManager.LoadFavorites();
-            
-            // Load settings.xml
-            _settings = new AppSettings();
             
             // Load mame.xml
             string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
@@ -150,21 +155,43 @@ namespace SimpleLauncher
             ExtractCompressedFile.Instance2.Cleanup();
         }
 
-        // Save state and size of Main Window to settings.xml
-        private void SaveWindowState()
+        // Save Application Settings
+        private void SaveApplicationSettings()
         {
             _settings.MainWindowWidth = this.Width;
             _settings.MainWindowHeight = this.Height;
             _settings.MainWindowState = this.WindowState.ToString();
+
+            // Set other settings from the application's current state
+            _settings.ThumbnailSize = _gameButtonFactory.ImageHeight; // Assuming ImageHeight is used for ThumbnailSize
+            _settings.GamesPerPage = _filesPerPage;
+            _settings.ShowGames = _settings.ShowGames;
+            
+            // _settings.EnableGamePadNavigation = EnableGamePadNavigation.IsChecked.HasValue && EnableGamePadNavigation.IsChecked.Value;
+            // _settings.VideoUrl = <get current value from EditLinks window if necessary>
+            // _settings.InfoUrl = <get current value from EditLinks window if necessary>
+
+            // Save theme settings
+            var detectedTheme = ThemeManager.Current.DetectTheme(this);
+            if (detectedTheme != null)
+            {
+                _settings.BaseTheme = detectedTheme.BaseColorScheme;
+                _settings.AccentColor = detectedTheme.ColorScheme;
+            }
+
             _settings.Save();
         }
 
-        // Load state and size of MainWindow from settings.xml
+        // Load state and size of MainWindow and also the theme from settings.xml
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Width = _settings.MainWindowWidth;
             this.Height = _settings.MainWindowHeight;
             this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+
+            // Apply saved theme settings
+            App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
+            SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         }
 
         // Dispose gamepad resources and Save MainWindow state and size to setting.xml before close.
@@ -172,15 +199,15 @@ namespace SimpleLauncher
         {
             GamePadController.Instance2.Stop();
             GamePadController.Instance2.Dispose();
-            SaveWindowState();
+            SaveApplicationSettings();
         }
 
         // Restart Application
         // Used in cases that need to reload system.xml or update the pagination settings or update the video and info links 
         private void MainWindow_Restart()
         {
-            // Explicitly save the MainWindow state and size before restarting
-            SaveWindowState();
+            // Save Application Settings
+            SaveApplicationSettings();
 
             // Prepare the process start info
             var processModule = Process.GetCurrentProcess().MainModule;
@@ -755,7 +782,8 @@ namespace SimpleLauncher
         
         private void EasyMode_Click(object sender, RoutedEventArgs e)
         {
-            SaveWindowState();
+            // Save Application Settings
+            SaveApplicationSettings();
                 
             EditSystemEasyMode editSystemEasyModeWindow = new();
             editSystemEasyModeWindow.ShowDialog();
@@ -763,7 +791,8 @@ namespace SimpleLauncher
 
         private void ExpertMode_Click(object sender, RoutedEventArgs e)
         {
-            SaveWindowState();
+            // Save Application Settings
+            SaveApplicationSettings();
                 
             EditSystem editSystemWindow = new();
             editSystemWindow.ShowDialog();
@@ -771,10 +800,10 @@ namespace SimpleLauncher
         
         private void EditLinks_Click(object sender, RoutedEventArgs e)
         {
-            // Save MainWindow state and size before call the EditLinks Window
-            SaveWindowState();
+            // Save Application Settings
+            SaveApplicationSettings();
                 
-            EditLinks editLinksWindow = new();
+            EditLinks editLinksWindow = new(_settings);
             editLinksWindow.ShowDialog();
         }
         private void BugReport_Click(object sender, RoutedEventArgs e)
@@ -910,6 +939,9 @@ namespace SimpleLauncher
                     _settings.Save(); // Save the settings
                     UpdateMenuCheckMarks2(newPage);
                     
+                    // Save Application Settings
+                    SaveApplicationSettings();
+                    
                     // Restart Application
                     MainWindow_Restart();
                 }
@@ -930,10 +962,163 @@ namespace SimpleLauncher
         
         private void Favorites_Click(object sender, RoutedEventArgs e)
         {
+            // Save Application Settings
+            SaveApplicationSettings();
+            
             var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines);
             favoritesWindow.Show();
         }
 
+        #endregion
+        
+        #region Theme Options
+        
+        private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                string baseTheme = menuItem.Header.ToString();
+                string currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
+                App.ChangeTheme(baseTheme, currentAccent);
+
+                UncheckBaseThemes();
+                menuItem.IsChecked = true;
+            }
+        }
+
+        private void ChangeAccentColor_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                string accentColor = menuItem.Header.ToString();
+                string currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
+                App.ChangeTheme(currentBaseTheme, accentColor);
+
+                UncheckAccentColors();
+                menuItem.IsChecked = true;
+            }
+        }
+
+        private void UncheckBaseThemes()
+        {
+            LightTheme.IsChecked = false;
+            DarkTheme.IsChecked = false;
+        }
+
+        private void UncheckAccentColors()
+        {
+            RedAccent.IsChecked = false;
+            GreenAccent.IsChecked = false;
+            BlueAccent.IsChecked = false;
+            PurpleAccent.IsChecked = false;
+            OrangeAccent.IsChecked = false;
+            LimeAccent.IsChecked = false;
+            EmeraldAccent.IsChecked = false;
+            TealAccent.IsChecked = false;
+            CyanAccent.IsChecked = false;
+            CobaltAccent.IsChecked = false;
+            IndigoAccent.IsChecked = false;
+            VioletAccent.IsChecked = false;
+            PinkAccent.IsChecked = false;
+            MagentaAccent.IsChecked = false;
+            CrimsonAccent.IsChecked = false;
+            AmberAccent.IsChecked = false;
+            YellowAccent.IsChecked = false;
+            BrownAccent.IsChecked = false;
+            OliveAccent.IsChecked = false;
+            SteelAccent.IsChecked = false;
+            MauveAccent.IsChecked = false;
+            TaupeAccent.IsChecked = false;
+            SiennaAccent.IsChecked = false;
+            // Uncheck other accent color menu items as needed
+        }
+
+        private void SetCheckedTheme(string baseTheme, string accentColor)
+        {
+            switch (baseTheme)
+            {
+                case "Light":
+                    LightTheme.IsChecked = true;
+                    break;
+                case "Dark":
+                    DarkTheme.IsChecked = true;
+                    break;
+            }
+
+            switch (accentColor)
+            {
+                case "Red":
+                    RedAccent.IsChecked = true;
+                    break;
+                case "Green":
+                    GreenAccent.IsChecked = true;
+                    break;
+                case "Blue":
+                    BlueAccent.IsChecked = true;
+                    break;
+                case "Purple":
+                    PurpleAccent.IsChecked = true;
+                    break;
+                case "Orange":
+                    OrangeAccent.IsChecked = true;
+                    break;
+                case "Lime":
+                    LimeAccent.IsChecked = true;
+                    break;
+                case "Emerald":
+                    EmeraldAccent.IsChecked = true;
+                    break;
+                case "Teal":
+                    TealAccent.IsChecked = true;
+                    break;
+                case "Cyan":
+                    CyanAccent.IsChecked = true;
+                    break;
+                case "Cobalt":
+                    CobaltAccent.IsChecked = true;
+                    break;
+                case "Indigo":
+                    IndigoAccent.IsChecked = true;
+                    break;
+                case "Violet":
+                    VioletAccent.IsChecked = true;
+                    break;
+                case "Pink":
+                    PinkAccent.IsChecked = true;
+                    break;
+                case "Magenta":
+                    MagentaAccent.IsChecked = true;
+                    break;
+                case "Crimson":
+                    CrimsonAccent.IsChecked = true;
+                    break;
+                case "Amber":
+                    AmberAccent.IsChecked = true;
+                    break;
+                case "Yellow":
+                    YellowAccent.IsChecked = true;
+                    break;
+                case "Brown":
+                    BrownAccent.IsChecked = true;
+                    break;
+                case "Olive":
+                    OliveAccent.IsChecked = true;
+                    break;
+                case "Steel":
+                    SteelAccent.IsChecked = true;
+                    break;
+                case "Mauve":
+                    MauveAccent.IsChecked = true;
+                    break;
+                case "Taupe":
+                    TaupeAccent.IsChecked = true;
+                    break;
+                case "Sienna":
+                    SiennaAccent.IsChecked = true;
+                    break;
+                // Check other accent colors as needed
+            }
+        }
         #endregion
 
     }

@@ -1,16 +1,12 @@
-﻿<Window
-    x:Class="SimpleLauncher.BugReport"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Bug Report"
-    Width="400"
-    Height="410"
-    ResizeMode="NoResize"
-    WindowStartupLocation="CenterOwner"
-    mc:Ignorable="d">
-
+﻿<controls:MetroWindow     x:Class="SimpleLauncher.BugReport"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                          Title="Bug Report"
+                          Width="400"
+                          Height="450"
+                          ResizeMode="NoResize"
+                          WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -59,4 +55,4 @@
                 Content="Close" />
         </StackPanel>
     </Grid>
-</Window>
+</controls:MetroWindow>

@@ -1,14 +1,10 @@
-﻿<Window
-    x:Class="SimpleLauncher.EditSystemEasyMode"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Edit System - Easy Mode"
-    Width="350"
-    Height="280"
-    mc:Ignorable="d">
-
+﻿<controls:MetroWindow     x:Class="SimpleLauncher.EditSystemEasyMode"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                          Title="Edit System - Easy Mode"
+                          Width="350"
+                          Height="280">
     <StackPanel Orientation="Vertical">
         
         <Label
@@ -42,5 +38,4 @@
             Content="Delete Existing System" />
         
     </StackPanel>
-
-</Window>
+</controls:MetroWindow>

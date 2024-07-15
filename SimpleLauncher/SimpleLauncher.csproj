@@ -146,6 +146,7 @@
     <None Update="whatsnew.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Remove="settings_model.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -228,6 +229,7 @@
     <Resource Include="images\info.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OxyPlot.Core" Version="2.1.2" />

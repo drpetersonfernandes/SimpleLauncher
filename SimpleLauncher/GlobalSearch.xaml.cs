@@ -18,13 +18,13 @@ namespace SimpleLauncher
     {
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private readonly AppSettings _settings;
+        private readonly SettingsConfig _settings;
         private ObservableCollection<SearchResult> _searchResults;
         private PleaseWaitSearch _pleaseWaitWindow;
         private DispatcherTimer _closeTimer;
         private readonly FavoritesManager _favoritesManager;
 
-        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, AppSettings settings)
+        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings)
         {
             InitializeComponent();
             _systemConfigs = systemConfigs;
@@ -34,6 +34,9 @@ namespace SimpleLauncher
             ResultsDataGrid.ItemsSource = _searchResults;
             Closed += GlobalSearch_Closed;
             _favoritesManager = new FavoritesManager();
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)

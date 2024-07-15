@@ -10,7 +10,14 @@ namespace SimpleLauncher
         public About()
         {
             InitializeComponent();
-            DataContext = this; // Set the data context for data binding
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
+            
+            // Set the data context for data binding
+            DataContext = this;
+            
+            // Set the AppVersionTextBlock 
             AppVersionTextBlock.Text = ApplicationVersion;
         }
 

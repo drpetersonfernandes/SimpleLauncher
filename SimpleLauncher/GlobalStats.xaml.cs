@@ -18,6 +18,9 @@ namespace SimpleLauncher
             InitializeComponent();
             _systemConfigs = systemConfigs;
             Loaded += GlobalStats_Loaded;
+            
+            // Apply the theme to this window
+            App.ApplyThemeToWindow(this);
         }
 
         private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)

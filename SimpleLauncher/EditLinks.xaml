@@ -1,17 +1,13 @@
-<Window
-    x:Class="SimpleLauncher.EditLinks"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Edit Links"
-    Width="600"
-    MinWidth="600"
-    Height="270"
-    ResizeMode="NoResize"
-    WindowStartupLocation="CenterOwner"
-    mc:Ignorable="d">
-
+<controls:MetroWindow x:Class="SimpleLauncher.EditLinks"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Edit Links"
+                      Width="600"
+                      MinWidth="600"
+                      Height="270"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -101,4 +97,4 @@
         </Grid>
 
     </Grid>
-</Window>
+</controls:MetroWindow>
