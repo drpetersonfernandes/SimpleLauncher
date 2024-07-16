@@ -17,8 +17,8 @@
     <PackageIcon>icon2.png</PackageIcon>
     <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.15.1</AssemblyVersion>
-    <FileVersion>2.15.1</FileVersion>
+    <AssemblyVersion>2.16</AssemblyVersion>
+    <FileVersion>2.16</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
@@ -208,6 +208,14 @@
     <Resource Include="images\brokenheart.png" />
     <None Remove="images\star.png" />
     <Resource Include="images\star.png" />
+    <None Remove="images\help-desk.png" />
+    <Resource Include="images\help-desk.png" />
+    <None Remove="images\theme.png" />
+    <Resource Include="images\theme.png" />
+    <None Remove="images\setnumber.png" />
+    <Resource Include="images\setnumber.png" />
+    <None Remove="images\show.png" />
+    <Resource Include="images\show.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

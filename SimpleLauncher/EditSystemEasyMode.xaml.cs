@@ -4,10 +4,14 @@ namespace SimpleLauncher
 {
     public partial class EditSystemEasyMode
     {
-        public EditSystemEasyMode()
+        private readonly SettingsConfig _settings;
+
+        public EditSystemEasyMode(SettingsConfig settings)
         {
             InitializeComponent();
             
+            _settings = settings;
+
             // Apply the theme to this window
             App.ApplyThemeToWindow(this);
         }
@@ -21,14 +25,14 @@ namespace SimpleLauncher
 
         private void EditSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            EditSystem editSystem = new();
+            EditSystem editSystem = new(_settings);
             Close();
             editSystem.ShowDialog();
         }
 
         private void DeleteSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
-            EditSystem editSystem = new();
+            EditSystem editSystem = new(_settings);
             Close();
             editSystem.ShowDialog();
         }

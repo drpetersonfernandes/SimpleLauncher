@@ -630,5 +630,16 @@ namespace SimpleLauncher
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        
+        private void FavoritesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+            {
+                var imagePath = selectedFavorite.CoverImage;
+                PreviewImage.Source = File.Exists(imagePath) ? new BitmapImage(new Uri(imagePath, UriKind.Absolute)) :
+                    // Set a default image if the selected image doesn't exist
+                    new BitmapImage(new Uri("pack://application:,,,/images/default.png"));
+            }
+        }
     }
 }

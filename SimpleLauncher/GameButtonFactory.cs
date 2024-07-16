@@ -117,7 +117,7 @@ namespace SimpleLauncher
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5),
-                Padding = new Thickness(10)
+                Padding = new Thickness(0,10,10,10)
             };
 
             var image = new Image
@@ -201,6 +201,24 @@ namespace SimpleLauncher
             {
                 PlayClick.PlayClickSound();
                 AddToFavorites(systemName, fileNameWithExtension);
+            };
+            
+            // Remove From Favorites Context Menu
+            var removeFromFavoritesIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/brokenheart.png")),
+                Width = 16,
+                Height = 16
+            };
+            var removeFromFavorites = new MenuItem
+            {
+                Header = "Remove From Favorites",
+                Icon = removeFromFavoritesIcon
+            };
+            removeFromFavorites.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RemoveFromFavorites(systemName, fileNameWithExtension);
             };
 
             // Open Video Link Context Menu
@@ -421,6 +439,7 @@ namespace SimpleLauncher
 
             contextMenu.Items.Add(launchMenuItem);
             contextMenu.Items.Add(addToFavorites);
+            contextMenu.Items.Add(removeFromFavorites);
             contextMenu.Items.Add(openVideoLink);
             contextMenu.Items.Add(openInfoLink);
             contextMenu.Items.Add(openCover);
@@ -664,6 +683,51 @@ namespace SimpleLauncher
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while adding to favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private void RemoveFromFavorites(string systemName, string fileNameWithExtension)
+        {
+            try
+            {
+                // Load existing favorites
+                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+                // Find the favorite to remove
+                var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+                if (favoriteToRemove != null)
+                {
+                    favorites.FavoriteList.Remove(favoriteToRemove);
+
+                    // Save the updated favorites list
+                    _favoritesManager.SaveFavorites(favorites);
+
+                    // Update the button's content to remove the favorite icon dynamically
+                    var button = _gameFileGrid.Children.OfType<Button>()
+                        .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+
+                    if (button != null)
+                    {
+                        var grid = (Grid)button.Content;
+                        var favoriteIcon = grid.Children.OfType<Image>().FirstOrDefault(img => img.Source.ToString().Contains("star.png"));
+                        if (favoriteIcon != null)
+                        {
+                            grid.Children.Remove(favoriteIcon);
+                        }
+                    }
+
+                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"{fileNameWithExtension} is not in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while removing from favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

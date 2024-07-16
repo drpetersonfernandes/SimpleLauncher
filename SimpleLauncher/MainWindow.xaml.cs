@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Reflection;
 using ControlzEx.Theming;
 
 namespace SimpleLauncher
@@ -74,7 +74,6 @@ namespace SimpleLauncher
                 Application.Current.Shutdown();
             }
 
-
             // Apply settings to application from settings.xml
             EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
             UpdateMenuCheckMarks(_settings.ThumbnailSize);
@@ -83,7 +82,7 @@ namespace SimpleLauncher
             _filesPerPage = _settings.GamesPerPage;
             _paginationThreshold = _settings.GamesPerPage;
 
-            // Initialize the GamePadController.cs
+            // Initialize the GamePadController
             // Setting the error logger for GamePad
             GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
 
@@ -160,16 +159,15 @@ namespace SimpleLauncher
         {
             _settings.MainWindowWidth = this.Width;
             _settings.MainWindowHeight = this.Height;
+            _settings.MainWindowTop = this.Top;
+            _settings.MainWindowLeft = this.Left;
             _settings.MainWindowState = this.WindowState.ToString();
 
             // Set other settings from the application's current state
             _settings.ThumbnailSize = _gameButtonFactory.ImageHeight; // Assuming ImageHeight is used for ThumbnailSize
             _settings.GamesPerPage = _filesPerPage;
-            _settings.ShowGames = _settings.ShowGames;
-            
-            // _settings.EnableGamePadNavigation = EnableGamePadNavigation.IsChecked.HasValue && EnableGamePadNavigation.IsChecked.Value;
-            // _settings.VideoUrl = <get current value from EditLinks window if necessary>
-            // _settings.InfoUrl = <get current value from EditLinks window if necessary>
+            _settings.ShowGames = _settings.ShowGames; // This assumes the setting is already updated correctly
+            _settings.EnableGamePadNavigation = EnableGamePadNavigation.IsChecked;
 
             // Save theme settings
             var detectedTheme = ThemeManager.Current.DetectTheme(this);
@@ -187,6 +185,8 @@ namespace SimpleLauncher
         {
             this.Width = _settings.MainWindowWidth;
             this.Height = _settings.MainWindowHeight;
+            this.Top = _settings.MainWindowTop;
+            this.Left = _settings.MainWindowLeft;
             this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
 
             // Apply saved theme settings
@@ -785,7 +785,7 @@ namespace SimpleLauncher
             // Save Application Settings
             SaveApplicationSettings();
                 
-            EditSystemEasyMode editSystemEasyModeWindow = new();
+            EditSystemEasyMode editSystemEasyModeWindow = new(_settings);
             editSystemEasyModeWindow.ShowDialog();
         }
 
@@ -794,7 +794,7 @@ namespace SimpleLauncher
             // Save Application Settings
             SaveApplicationSettings();
                 
-            EditSystem editSystemWindow = new();
+            EditSystem editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
         }
         
@@ -890,7 +890,6 @@ namespace SimpleLauncher
         
         private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
         {
-            // Event handler logic to use the singleton instance
             if (sender is MenuItem menuItem)
             {
                 menuItem.IsChecked = !menuItem.IsChecked;

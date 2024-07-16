@@ -3,20 +3,13 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Favorites"
-                      Width="1000"
-                      Height="600">
+                      Width="1300"
+                      Height="700">
     <controls:MetroWindow.Resources>
         <Style TargetType="DataGridRow">
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="ToolTipService.ShowDuration" Value="60000" />
-            <Setter Property="ToolTip">
-                <Setter.Value>
-                    <ToolTip>
-                        <Image Source="{Binding CoverImage}" Width="200" Height="300"/>
-                    </ToolTip>
-                </Setter.Value>
-            </Setter>
         </Style>
     </controls:MetroWindow.Resources>
     <Grid>
@@ -25,24 +18,35 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" 
                Margin="10"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
                Content="List of Favorite Games" />
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
             <Button Name="RemoveButton" Content="Remove from Favorites" Click="RemoveButton_Click" Padding="5" Margin="0,0,10,0"/>
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
-        <DataGrid Name="FavoritesDataGrid" Grid.Row="2" Margin="10"
+        <DataGrid Name="FavoritesDataGrid" Grid.Row="2" Grid.Column="0" Margin="10"
                   AutoGenerateColumns="False" IsReadOnly="True"
                   MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
-                  MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick">
+                  MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick"
+                  SelectionChanged="FavoritesDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10">
+            <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
+                <Image Name="PreviewImage" Width="250" Height="250" Stretch="Uniform"/>
+            </Border>
+        </StackPanel>
     </Grid>
 </controls:MetroWindow>

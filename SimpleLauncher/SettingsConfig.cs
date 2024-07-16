@@ -10,9 +10,9 @@ namespace SimpleLauncher
     public class SettingsConfig
     {
         private readonly string _filePath;
-        private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
-        private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
-        private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
+        private readonly HashSet<int> _validThumbnailSizes = new HashSet<int> { 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600 };
+        private readonly HashSet<int> _validGamesPerPage = new HashSet<int> { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+        private readonly HashSet<string> _validShowGames = new HashSet<string> { "ShowAll", "ShowWithCover", "ShowWithoutCover" };
 
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
@@ -22,6 +22,8 @@ namespace SimpleLauncher
         public string InfoUrl { get; set; }
         public double MainWindowWidth { get; set; }
         public double MainWindowHeight { get; set; }
+        public double MainWindowTop { get; set; }
+        public double MainWindowLeft { get; set; }
         public string MainWindowState { get; set; }
         public string BaseTheme { get; set; }
         public string AccentColor { get; set; }
@@ -56,9 +58,14 @@ namespace SimpleLauncher
                 InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
                 MainWindowWidth = ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
                 MainWindowHeight = ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
+                MainWindowTop = ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
+                MainWindowLeft = ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
                 MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
                 BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
                 AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
+
+                // Ensure all values are saved if they were missing
+                Save();
             }
             catch (Exception exception)
             {
@@ -93,7 +100,7 @@ namespace SimpleLauncher
 
         private double ValidateDimension(string value, double defaultValue)
         {
-            if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsed) && parsed >= defaultValue)
+            if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsed))
             {
                 return parsed;
             }
@@ -119,6 +126,8 @@ namespace SimpleLauncher
             InfoUrl = "https://www.igdb.com/search?q=";
             MainWindowWidth = 900;
             MainWindowHeight = 500;
+            MainWindowTop = 0;
+            MainWindowLeft = 0;
             MainWindowState = "Normal";
             BaseTheme = "Light";
             AccentColor = "Blue";
@@ -136,6 +145,8 @@ namespace SimpleLauncher
                 new XElement("InfoUrl", InfoUrl),
                 new XElement("MainWindowWidth", MainWindowWidth),
                 new XElement("MainWindowHeight", MainWindowHeight),
+                new XElement("MainWindowTop", MainWindowTop),
+                new XElement("MainWindowLeft", MainWindowLeft),
                 new XElement("MainWindowState", MainWindowState),
                 new XElement("BaseTheme", BaseTheme),
                 new XElement("AccentColor", AccentColor)

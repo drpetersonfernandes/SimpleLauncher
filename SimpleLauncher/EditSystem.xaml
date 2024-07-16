@@ -93,10 +93,10 @@
                 VerticalAlignment="Top">
                 <Image
                     Grid.Column="3"
-                    Source="images/clickheretogethelp.png"
-                    Margin="10"
-                    Width="100"
-                    Height="55"
+                    Source="images/help-desk.png"
+                    Margin="10,10,30,10"
+                    Width="60"
+                    Height="60"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
             </Button>
@@ -163,7 +163,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
+                    Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
 
                 <!-- System Folder -->
@@ -187,7 +187,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
+                    Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
                 <Button
                     Margin="0,0,10,10"
@@ -209,17 +209,14 @@
                     x:Name="SystemImageFolderTextBox"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="SystemImageFolderTextBox_GotFocus"
-                    LostFocus="SystemImageFolderTextBox_LostFocus" />
+                    Background="Transparent" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="SystemImageFolderPlaceholderTextBox"
                     Grid.Row="2"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
-                    Text="required" />
+                    Foreground="{DynamicResource MahApps.Brushes.TextPlaceholder}" />
                 <Button
                     Margin="0,0,10,10"
                     Grid.Row="2"
@@ -265,7 +262,7 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
+                    Style="{StaticResource PlaceholderTextStyle}"
                     Text="Hint: zip, 7z, iso, chd" />
                 <Label
                     Margin="0,0,10,10"
@@ -311,7 +308,7 @@
                     Grid.Row="6"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
+                    Style="{StaticResource PlaceholderTextStyle}"
                     Text="Hint: bin, rom, md, sms, nes, sfc, smc" />
                 <Label
                     Margin="0,0,10,10"
@@ -341,7 +338,7 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="LightGray"
+                    Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
                 <Label
                     Margin="10,0,10,10"
@@ -381,8 +378,7 @@
                     Click="HelpLink_Click"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
-                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" />
+                    <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Button>
 
                 <!-- Emulator 2 -->
@@ -435,8 +431,7 @@
                     Click="HelpLink_Click"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
-                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" />
+                    <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Button>
 
                 <!-- Emulator 3 -->
@@ -509,8 +504,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Visibility="Collapsed">
-                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" />
+                    <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Button>
 
                 <!-- Emulator 4 -->
@@ -583,8 +577,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Visibility="Collapsed">
-                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" />
+                    <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Button>
 
                 <!-- Emulator 5 -->
@@ -657,8 +650,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Visibility="Collapsed">
-                    <Image Source="images/help.png" Width="30" Height="21" HorizontalAlignment="Left"
-                           VerticalAlignment="Top" />
+                    <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Button>
 
             </Grid>

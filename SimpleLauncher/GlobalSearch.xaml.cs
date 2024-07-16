@@ -875,7 +875,23 @@ namespace SimpleLauncher
             public string SystemName { get; init; }
             public SystemConfig.Emulator EmulatorConfig { get; init; }
             public int Score { get; set; }
-            public string CoverImage { get; set; } // Add this property
+            public string CoverImage { get; init; }
+        }
+        
+        private void ResultsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(selectedResult.CoverImage, UriKind.Absolute);
+                bitmap.EndInit();
+                PreviewImage.Source = bitmap;
+            }
+            else
+            {
+                PreviewImage.Source = null;
+            }
         }
 
         private void GlobalSearch_Closed(object sender, EventArgs e)

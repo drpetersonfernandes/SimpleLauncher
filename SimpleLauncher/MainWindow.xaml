@@ -17,6 +17,10 @@
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Options">
                 <MenuItem Header="Set Thumbnail Size">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/image.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem
                         x:Name="Size100"
                         Click="ThumbnailSize_Click"
@@ -63,6 +67,10 @@
                         Header="600 pixels" />
                 </MenuItem>
                 <MenuItem Header="Set the Number of Games Per Page">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/setnumber.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem
                         x:Name="Page100"
                         Click="GamesPerPage_Click"
@@ -105,6 +113,10 @@
                         Header="1000 games" />
                 </MenuItem>
                 <MenuItem Header="Show Games" x:Name="ShowGamesMenu">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/show.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="ShowAll" Header="Show All Games" Click="ShowAllGames_Click" IsCheckable="True" />
                     <MenuItem x:Name="ShowWithCover" Header="Show Only Games With Cover"
                               Click="ShowGamesWithCover_Click" IsCheckable="True" />
@@ -118,10 +130,18 @@
             </MenuItem>
             <MenuItem Header="Theme">
                 <MenuItem Header="Base Theme">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/theme.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="LightTheme" Header="Light" Click="ChangeBaseTheme_Click" IsCheckable="True"/>
                     <MenuItem x:Name="DarkTheme" Header="Dark" Click="ChangeBaseTheme_Click" IsCheckable="True"/>
                 </MenuItem>
                 <MenuItem Header="Accent Colors">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/theme.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="RedAccent" Header="Red" Click="ChangeAccentColor_Click" IsCheckable="True"/>
                     <MenuItem x:Name="GreenAccent" Header="Green" Click="ChangeAccentColor_Click" IsCheckable="True"/>
                     <MenuItem x:Name="BlueAccent" Header="Blue" Click="ChangeAccentColor_Click" IsCheckable="True"/>
