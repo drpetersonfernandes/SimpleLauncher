@@ -12,8 +12,12 @@ namespace SimpleLauncher
         public string MachineName { get; private init; }
         public string Description { get; private init; }
 
-        public static List<MameConfig> LoadFromXml(string xmlPath)
+        private static readonly string DefaultXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
+
+        public static List<MameConfig> LoadFromXml(string xmlPath = null)
         {
+            xmlPath ??= DefaultXmlPath;
+
             // Check if the mame.xml file exists
             if (!File.Exists(xmlPath))
             {

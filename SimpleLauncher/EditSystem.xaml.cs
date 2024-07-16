@@ -485,11 +485,11 @@ namespace SimpleLauncher
             MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
             MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
-            // if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
-            // {
-            //     MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //     return; // Stop execution to prevent saving
-            // }
+            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+            {
+                MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return; // Stop execution to prevent saving
+            }
             
             if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
             {
@@ -857,7 +857,7 @@ namespace SimpleLauncher
         {
             SystemNamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemNameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             SystemFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
-            // SystemImageFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemImageFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+            SystemImageFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemImageFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToSearchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToSearchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToLaunchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToLaunchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             Emulator1NamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(Emulator1NameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
@@ -897,22 +897,22 @@ namespace SimpleLauncher
             }
         }
         
-        // //SystemImageFolder Placeholder
-        // private void SystemImageFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
-        // {
-        //     SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
-        // }
-        // private void SystemImageFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
-        // {
-        //     if (string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
-        //     {
-        //         SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Visible;
-        //     }
-        //     else if (!string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
-        //     {
-        //         SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
-        //     }
-        // }
+        //SystemImageFolder Placeholder
+        private void SystemImageFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
+        }
+        private void SystemImageFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
+            {
+                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Visible;
+            }
+            else if (!string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
+            {
+                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
+            }
+        }
 
         //FormatToSearch Placeholder
         private void FormatToSearchTextBox_GotFocus(object sender, RoutedEventArgs e)

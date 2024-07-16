@@ -18,28 +18,31 @@ namespace SimpleLauncher
         public bool ExtractFileBeforeLaunch { get; private set; }
         public List<string> FileFormatsToLaunch { get; private set; }
         public List<Emulator> Emulators { get; private set; }
-
+        
         public class Emulator
         {
             public string EmulatorName { get; init; }
             public string EmulatorLocation { get; init; }
             public string EmulatorParameters { get; init; }
         }
+        
+        private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");        
 
-        public static List<SystemConfig> LoadSystemConfigs(string xmlPath)
+        public static List<SystemConfig> LoadSystemConfigs()
         {
-            if (string.IsNullOrEmpty(xmlPath))
+            
+            if (string.IsNullOrEmpty(XmlPath))
             {
-                throw new ArgumentNullException(nameof(xmlPath), @"The path to the XML file cannot be null or empty.");
+                throw new ArgumentNullException(nameof(XmlPath), @"The path to the XML file cannot be null or empty.");
             }
 
             try
             {
                 // Check for the existence of the system.xml
-                if (!File.Exists(xmlPath))
+                if (!File.Exists(XmlPath))
                 {
                     // Search for backup files in the application directory
-                    string directoryPath = Path.GetDirectoryName(xmlPath);
+                    string directoryPath = Path.GetDirectoryName(XmlPath);
                     
                     try
                     {
@@ -54,7 +57,7 @@ namespace SimpleLauncher
                                 if (restoreResult == MessageBoxResult.Yes)
                                 {
                                     // Rename the most recent backup file to system.xml
-                                    File.Copy(mostRecentBackupFile, xmlPath, false); // Does not overwrite the file if it already exists
+                                    File.Copy(mostRecentBackupFile, XmlPath, false); // Does not overwrite the file if it already exists
                                 }
                             }
                             else
@@ -65,7 +68,7 @@ namespace SimpleLauncher
                                 {
                                     // Create an empty system.xml
                                     var emptyDoc = new XDocument(new XElement("Systems"));
-                                    emptyDoc.Save(xmlPath);
+                                    emptyDoc.Save(XmlPath);
                                 }
                                 else
                                 {
@@ -75,7 +78,7 @@ namespace SimpleLauncher
                                         string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
 
                                         // Rename system.model to system.xml
-                                        File.Copy(systemModel, xmlPath, false); // Does not overwrite the file if it already exists
+                                        File.Copy(systemModel, XmlPath, false); // Does not overwrite the file if it already exists
                                     }
                                     catch (Exception)
                                     {
@@ -100,7 +103,7 @@ namespace SimpleLauncher
                     }
                 }
 
-                var doc = XDocument.Load(xmlPath);
+                var doc = XDocument.Load(XmlPath);
                 var systemConfigs = new List<SystemConfig>();
 
                 if (doc.Root != null)

@@ -55,14 +55,14 @@ namespace SimpleLauncher
             _favoritesConfig = _favoritesManager.LoadFavorites();
             
             // Load mame.xml
-            string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
-            _machines = MameConfig.LoadFromXml(xmlPath);
+            // string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
+            _machines = MameConfig.LoadFromXml();
             
             // Load system.xml
             try
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
-                _systemConfigs = SystemConfig.LoadSystemConfigs(path);
+                // string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+                _systemConfigs = SystemConfig.LoadSystemConfigs();
 
                 // Sort the system names in alphabetical order
                 var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();

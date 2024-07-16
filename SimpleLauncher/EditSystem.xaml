@@ -209,14 +209,17 @@
                     x:Name="SystemImageFolderTextBox"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Background="Transparent" />
+                    Background="Transparent"
+                    GotFocus="SystemImageFolderTextBox_GotFocus"
+                    LostFocus="SystemImageFolderTextBox_LostFocus"/>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="SystemImageFolderPlaceholderTextBox"
                     Grid.Row="2"
                     Grid.Column="1"
                     IsHitTestVisible="False"
-                    Foreground="{DynamicResource MahApps.Brushes.TextPlaceholder}" />
+                    Style="{StaticResource PlaceholderTextStyle}"
+                    Text="required" />
                 <Button
                     Margin="0,0,10,10"
                     Grid.Row="2"
