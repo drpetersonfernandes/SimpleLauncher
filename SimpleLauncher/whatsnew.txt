@@ -1,3 +1,15 @@
+release3.0.0
+-------------
+
+07/__/2024
+I have implemented a theme functionality that allows users to personalize the appearance of the application.
+The overall UI of the main window has been improved.
+Icons have been added to some menu items.
+Some images in the Edit window have been changed.
+I have created a context menu in the main UI for 'Remove From Favorites.'
+An image preview functionality in the Favorite and Global Search windows has been implemented.
+The handling of 'mame.xml' and 'system.xml' has been improved.
+
 release2.15.1
 -------------
 
