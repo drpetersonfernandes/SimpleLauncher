@@ -3,8 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Favorites"
-                      Width="1300"
-                      Height="700">
+                      Width="1200"
+                      Height="600">
     <controls:MetroWindow.Resources>
         <Style TargetType="DataGridRow">
             <Setter Property="BorderBrush" Value="Gray"/>

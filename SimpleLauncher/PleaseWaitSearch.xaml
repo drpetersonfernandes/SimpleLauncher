@@ -4,7 +4,7 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Please Wait"
                       Width="300"
-                      Height="130"
+                      Height="140"
                       WindowStartupLocation="CenterScreen"
                       WindowStyle="None"
                       ResizeMode="NoResize"
