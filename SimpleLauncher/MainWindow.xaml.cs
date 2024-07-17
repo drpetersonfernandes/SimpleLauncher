@@ -592,9 +592,6 @@ namespace SimpleLauncher
             // Call DeselectLetter to clear any selected letter
             _letterNumberMenu.DeselectLetter();
     
-            // // Reset search results
-            // _currentSearchResults.Clear();
-    
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -631,11 +628,12 @@ namespace SimpleLauncher
             
             // Reset search results
             _currentSearchResults.Clear();
+            
+            // Clear FileGrid
+            GameFileGrid.Children.Clear();
 
             try
             {
-                GameFileGrid.Children.Clear();
-
                 if (SystemComboBox.SelectedItem == null)
                 {
                     AddNoSystemMessage();
@@ -645,10 +643,10 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    string errorMessage = "Error while loading selected system configuration.";
-                    Exception exception = new Exception(errorMessage);
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // string errorMessage = "Error while loading selected system configuration.";
+                    // Exception exception = new Exception(errorMessage);
+                    // await LogErrors.LogErrorAsync(exception, errorMessage);
+                    // MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -675,7 +673,7 @@ namespace SimpleLauncher
 
                         if (!string.IsNullOrWhiteSpace(startLetter))
                         {
-                            allFiles = FilterFiles(allFiles, startLetter);
+                            allFiles = await FilterFilesAsync(allFiles, startLetter);
                         }
 
                         bool systemIsMame = selectedConfig.SystemIsMame;
@@ -712,7 +710,7 @@ namespace SimpleLauncher
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        allFiles = FilterFiles(allFiles, startLetter);
+                        allFiles = await FilterFilesAsync(allFiles, startLetter);
                     }
                 }
 
@@ -735,6 +733,7 @@ namespace SimpleLauncher
                 {
                     // Enable pagination and adjust file list based on the current page
                     allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
+
                     // Update or create pagination controls
                     InitializePaginationButtons();
                 }
@@ -800,19 +799,22 @@ namespace SimpleLauncher
             });
         }
 
-        private static List<string> FilterFiles(List<string> files, string startLetter)
+        private static async Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
         {
-            if (string.IsNullOrEmpty(startLetter))
-                return files; // If no startLetter is provided, no filtering is required
+            return await Task.Run(() =>
+            {
+                if (string.IsNullOrEmpty(startLetter))
+                    return files; // If no startLetter is provided, no filtering is required
 
-            if (startLetter == "#")
-            {
-                return files.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
-            }
-            else
-            {
-                return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
+                if (startLetter == "#")
+                {
+                    return files.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
+                }
+                else
+                {
+                    return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+            });
         }
         
         #region Menu Items
