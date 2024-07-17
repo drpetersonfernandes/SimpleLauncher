@@ -671,11 +671,11 @@ namespace SimpleLauncher
                     {
                         // List of files with that match the system extensions
                         // then sort the list alphabetically 
-                        allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+                        allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
 
                         if (!string.IsNullOrWhiteSpace(startLetter))
                         {
-                            allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                            allFiles = FilterFiles(allFiles, startLetter);
                         }
 
                         bool systemIsMame = selectedConfig.SystemIsMame;
@@ -708,11 +708,11 @@ namespace SimpleLauncher
             
                     // List of files with that match the system extensions
                     // then sort the list alphabetically 
-                    allFiles = await LoadFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+                    allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        allFiles = LoadFiles.FilterFiles(allFiles, startLetter);
+                        allFiles = FilterFiles(allFiles, startLetter);
                     }
                 }
 
@@ -776,8 +776,44 @@ namespace SimpleLauncher
                 MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
-        
+
+        public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
+        {
+            return await Task.Run(async () =>
+            {
+                try
+                {
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        return [];
+                    }
+                    var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
+                    return foundFiles;
+                }
+                catch (Exception exception)
+                {
+                    string errorMessage = $"There was an error getting the list of files from folder.\n\nException details: {exception}";
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return [];
+                }
+            });
+        }
+
+        private static List<string> FilterFiles(List<string> files, string startLetter)
+        {
+            if (string.IsNullOrEmpty(startLetter))
+                return files; // If no startLetter is provided, no filtering is required
+
+            if (startLetter == "#")
+            {
+                return files.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
+            }
+            else
+            {
+                return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+        }
         
         #region Menu Items
         

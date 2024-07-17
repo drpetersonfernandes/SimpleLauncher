@@ -333,6 +333,7 @@
     <Compile Remove="title_snapshots\**" />
     <Compile Remove="videos\**" />
     <Compile Remove="walkthrough\**" />
+    <Compile Remove="LoadFiles.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="database\**" />

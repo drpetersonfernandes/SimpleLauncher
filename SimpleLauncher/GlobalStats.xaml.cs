@@ -62,7 +62,7 @@ namespace SimpleLauncher
 
                 foreach (var config in _systemConfigs)
                 {
-                    var gameFiles = await LoadFiles.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
+                    var gameFiles = await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
                     totalGames += gameFiles.Count;
 
                     string systemImagePath = config.SystemImageFolder;
