@@ -118,7 +118,7 @@ namespace SimpleLauncher
                 _currentFilter = selectedLetter;
 
                 // Load games
-                await LoadGameFiles(selectedLetter);
+                await LoadGameFilesAsync(selectedLetter);
             };
             
             // Pagination related
@@ -459,11 +459,11 @@ namespace SimpleLauncher
                     _currentPage--;
                     if (_currentSearchResults.Any())
                     {
-                        await LoadGameFiles(searchQuery: SearchTextBox.Text);
+                        await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
                     }
                     else
                     {
-                        await LoadGameFiles(_currentFilter);
+                        await LoadGameFilesAsync(_currentFilter);
                     }
                 }
             }
@@ -486,11 +486,11 @@ namespace SimpleLauncher
                     _currentPage++;
                     if (_currentSearchResults.Any())
                     {
-                        await LoadGameFiles(searchQuery: SearchTextBox.Text);
+                        await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
                     }
                     else
                     {
-                        await LoadGameFiles(_currentFilter);
+                        await LoadGameFilesAsync(_currentFilter);
                     }
                 }
             }
@@ -557,11 +557,6 @@ namespace SimpleLauncher
             Page300.IsChecked = (selectedSize == 300);
             Page400.IsChecked = (selectedSize == 400);
             Page500.IsChecked = (selectedSize == 500);
-            Page600.IsChecked = (selectedSize == 600);
-            Page700.IsChecked = (selectedSize == 700);
-            Page800.IsChecked = (selectedSize == 800);
-            Page900.IsChecked = (selectedSize == 900);
-            Page1000.IsChecked = (selectedSize == 1000);
         }
         
         private void UpdateMenuCheckMarks3(string selectedValue)
@@ -588,10 +583,10 @@ namespace SimpleLauncher
         {
             // Pagination reset
             ResetPaginationButtons();
-            
+    
             // Call DeselectLetter to clear any selected letter
             _letterNumberMenu.DeselectLetter();
-    
+
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -606,31 +601,45 @@ namespace SimpleLauncher
                 return;
             }
 
-            // Show the "Please Wait" window
             var pleaseWaitWindow = new PleaseWaitSearch();
-            pleaseWaitWindow.Show();
+            await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
             try
             {
-                await LoadGameFiles(searchQuery: searchQuery);
+                await LoadGameFilesAsync(searchQuery);
             }
             finally
             {
-                // Close the "Please Wait" window
-                pleaseWaitWindow.Close();
+                await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
             }
         }
-        
-        private async Task LoadGameFiles(string startLetter = null, string searchQuery = null)
+
+        private Task ShowPleaseWaitWindowAsync(Window window)
+        {
+            return Task.Run(() =>
+            {
+                window.Dispatcher.Invoke(window.Show);
+            });
+        }
+
+        private Task ClosePleaseWaitWindowAsync(Window window)
+        {
+            return Task.Run(() =>
+            {
+                window.Dispatcher.Invoke(window.Close);
+            });
+        }
+
+        private async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
         {
             // Move scroller to top
-            Scroller.ScrollToTop();
-            
+            Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
+
             // Reset search results
             _currentSearchResults.Clear();
-            
+    
             // Clear FileGrid
-            GameFileGrid.Children.Clear();
+            GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
 
             try
             {
@@ -643,10 +652,10 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    // string errorMessage = "Error while loading selected system configuration.";
-                    // Exception exception = new Exception(errorMessage);
-                    // await LogErrors.LogErrorAsync(exception, errorMessage);
-                    // MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string errorMessage = "Error while loading selected system configuration.";
+                    Exception exception = new Exception(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -657,7 +666,7 @@ namespace SimpleLauncher
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
 
                 List<string> allFiles;
-        
+
                 if (!string.IsNullOrWhiteSpace(searchQuery))
                 {
                     // Use stored search results if available
@@ -703,7 +712,7 @@ namespace SimpleLauncher
                 {
                     // Reset search results if no search query is provided
                     _currentSearchResults.Clear();
-            
+    
                     // List of files with that match the system extensions
                     // then sort the list alphabetically 
                     allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
@@ -745,11 +754,13 @@ namespace SimpleLauncher
                 }
 
                 // Update the UI to reflect the current pagination status and the indices of files being displayed
-                TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total";
+                TotalFilesLabel.Dispatcher.Invoke(() => 
+                    TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total"
+                );
 
                 // Reload the FavoritesConfig
                 _favoritesConfig = _favoritesManager.LoadFavorites();
-                
+        
                 // Create a new instance of GameButtonFactory with updated FavoritesConfig
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
@@ -758,7 +769,7 @@ namespace SimpleLauncher
                 {
                     // Adjust the CreateGameButton call.
                     Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-                    GameFileGrid.Children.Add(gameButton);
+                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
 
                 // Apply visibility settings to each button based on _settings.ShowGames
@@ -784,7 +795,7 @@ namespace SimpleLauncher
                 {
                     if (!Directory.Exists(directoryPath))
                     {
-                        return [];
+                        return new List<string>();
                     }
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
                     return foundFiles;
@@ -794,7 +805,7 @@ namespace SimpleLauncher
                     string errorMessage = $"There was an error getting the list of files from folder.\n\nException details: {exception}";
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                     MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return [];
+                    return new List<string>();
                 }
             });
         }

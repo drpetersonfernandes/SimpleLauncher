@@ -91,26 +91,6 @@
                         x:Name="Page500"
                         Click="GamesPerPage_Click"
                         Header="500 games" />
-                    <MenuItem
-                        x:Name="Page600"
-                        Click="GamesPerPage_Click"
-                        Header="600 games" />
-                    <MenuItem
-                        x:Name="Page700"
-                        Click="GamesPerPage_Click"
-                        Header="700 games" />
-                    <MenuItem
-                        x:Name="Page800"
-                        Click="GamesPerPage_Click"
-                        Header="800 games" />
-                    <MenuItem
-                        x:Name="Page900"
-                        Click="GamesPerPage_Click"
-                        Header="900 games" />
-                    <MenuItem
-                        x:Name="Page1000"
-                        Click="GamesPerPage_Click"
-                        Header="1000 games" />
                 </MenuItem>
                 <MenuItem Header="Show Games" x:Name="ShowGamesMenu">
                     <MenuItem.Icon>
