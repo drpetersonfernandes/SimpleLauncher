@@ -47,34 +47,5 @@ namespace SimpleLauncher
             }
         }
 
-        public static int CountFiles(string folderPath, List<string> fileExtensions)
-        {
-            if (!Directory.Exists(folderPath))
-            {
-                return 0;
-            }
-
-            try
-            {
-                int fileCount = 0;
-
-                foreach (string extension in fileExtensions)
-                {
-                    string searchPattern = $"*.{extension}";
-                    fileCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
-                }
-
-                return fileCount;
-            }
-            catch (Exception ex)
-            {
-                string contextMessage = $"An error occurred while counting files.\n\nException details: {ex}";
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-                return 0;
-            }
-        }
-
     }
 }
