@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -138,6 +137,13 @@ namespace SimpleLauncher
 
             if (result == MessageBoxResult.Yes)
             {
+                var logWindow = new UpdateLogWindow();
+                logWindow.Show();
+                logWindow.Log("Starting update process...");
+
+                // Close the main window
+                owner.Close();
+
                 try
                 {
                     string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -145,61 +151,78 @@ namespace SimpleLauncher
                     Directory.CreateDirectory(tempDirectory);
 
                     string tempFilePath = Path.Combine(tempDirectory, "update.zip");
-                    await DownloadUpdateFile(assetUrl, tempFilePath);
-                    ExtractUpdateFile(tempFilePath, tempDirectory);
+                    logWindow.Log("Downloading update file...");
 
-                    // Copy updater files to the application directory
-                    var updaterFiles = new[]
+                    await Task.Run(async () =>
                     {
-                        "Updater.deps.json",
-                        "Updater.dll",
-                        "Updater.exe",
-                        "Updater.pdb",
-                        "Updater.runtimeconfig.json"
-                    };
+                        await DownloadUpdateFile(assetUrl, tempFilePath);
+                        logWindow.Log("Extracting update file...");
+                        ExtractUpdateFile(tempFilePath, tempDirectory);
 
-                    foreach (var file in updaterFiles)
-                    {
-                        var sourceFile = Path.Combine(tempDirectory, file);
-                        var destFile = Path.Combine(appDirectory, file);
-                        if (File.Exists(sourceFile))
+                        var updaterFiles = new[]
                         {
-                            File.Copy(sourceFile, destFile, true);
+                            "Updater.deps.json",
+                            "Updater.dll",
+                            "Updater.exe",
+                            "Updater.pdb",
+                            "Updater.runtimeconfig.json"
+                        };
+                        
+                        logWindow.Log("Updating the updater app...");
+
+                        foreach (var file in updaterFiles)
+                        {
+                            var sourceFile = Path.Combine(tempDirectory, file);
+                            var destFile = Path.Combine(appDirectory, file);
+                            if (File.Exists(sourceFile))
+                            {
+                                File.Copy(sourceFile, destFile, true);
+                                logWindow.Log($"Copied {file}");
+                            }
                         }
-                    }
-            
-                    Thread.Sleep(2000); // Ensure time for file operations to complete
 
-                    string appExePath = Assembly.GetExecutingAssembly().Location;
-                    string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+                        await Task.Delay(2000);
 
-                    if (!File.Exists(updaterExePath))
-                    {
-                        MessageBox.Show(owner, "Updater.exe not found in the application directory.\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                        string appExePath = Assembly.GetExecutingAssembly().Location;
+                        string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
 
-                    // Start the updater process
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = updaterExePath,
-                        Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{Environment.CommandLine}\"",
-                        UseShellExecute = false
+                        if (!File.Exists(updaterExePath))
+                        {
+                            logWindow.Log("Updater.exe not found in the application directory. Please update manually.");
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                logWindow.Close();
+                            });
+                            return;
+                        }
+
+                        logWindow.Log("Starting updater process...");
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = updaterExePath,
+                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{Environment.CommandLine}\"",
+                            UseShellExecute = false
+                        });
+
+                        logWindow.Log("Closing application for update...");
+                        Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
                     });
-
-                    // Close the main application
-                    Application.Current.Shutdown();
                 }
                 catch (Exception exception)
                 {
                     string contextMessage = $"There was an error updating the application.\n\nPlease update manually.\n\nException details: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        logWindow.Log($"Error: {exception.Message}");
+                        logWindow.Close();
+                    });
+                    await logTask;
                 }
             }
         }
-
 
         private static async Task DownloadUpdateFile(string url, string destinationPath)
         {

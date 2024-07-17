@@ -1,0 +1,14 @@
+<controls:MetroWindow x:Class="SimpleLauncher.UpdateLogWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Updating"
+                      Width="250"
+                      Height="400"
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="LogTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</controls:MetroWindow>
