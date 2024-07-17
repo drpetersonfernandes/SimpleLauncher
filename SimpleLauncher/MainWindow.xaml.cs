@@ -697,12 +697,28 @@ namespace SimpleLauncher
        
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            await ExecuteSearch();
+        }
+
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                await ExecuteSearch();
+            }
+        }
+
+        private async Task ExecuteSearch()
+        {
             // Pagination reset
             ResetPaginationButtons();
             
+            // Call DeselectLetter to clear any selected letter
+            _letterNumberMenu.DeselectLetter();
+    
             // Reset search results
             _currentSearchResults.Clear();
-            
+    
             var searchQuery = SearchTextBox.Text.Trim();
 
             if (SystemComboBox.SelectedItem == null)
@@ -720,9 +736,6 @@ namespace SimpleLauncher
             // Show the "Please Wait" window
             var pleaseWaitWindow = new PleaseWaitSearch();
             pleaseWaitWindow.Show();
-            
-            // Call DeselectLetter to clear any selected letter
-            _letterNumberMenu.DeselectLetter();
 
             try
             {
@@ -732,49 +745,6 @@ namespace SimpleLauncher
             {
                 // Close the "Please Wait" window
                 pleaseWaitWindow.Close();
-            }
-        }
-
-        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                // Pagination reset
-                ResetPaginationButtons();
-                
-                // Reset search results
-                _currentSearchResults.Clear();
-                
-                var searchQuery = SearchTextBox.Text.Trim();
-
-                if (SystemComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(searchQuery))
-                {
-                    MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                // Show the "Please Wait" window
-                var pleaseWaitWindow = new PleaseWaitSearch();
-                pleaseWaitWindow.Show();
-                
-                // Call DeselectLetter to clear any selected letter
-                _letterNumberMenu.DeselectLetter();
-
-                try
-                {
-                    await LoadGameFiles(searchQuery: searchQuery);
-                }
-                finally
-                {
-                    // Close the "Please Wait" window
-                    pleaseWaitWindow.Close();
-                }
             }
         }
         
