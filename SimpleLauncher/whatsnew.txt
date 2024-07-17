@@ -1,7 +1,7 @@
 release3.0.0
 -------------
 
-07/__/2024
+07/16/2024
 I've implemented a theme functionality that enables users to personalize the application's appearance.
 The user interface of the main window has been enhanced.
 I've added icons to some menu items.

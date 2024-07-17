@@ -1115,7 +1115,6 @@ namespace SimpleLauncher
                 case "Sienna":
                     SiennaAccent.IsChecked = true;
                     break;
-                // Check other accent colors as needed
             }
         }
         #endregion

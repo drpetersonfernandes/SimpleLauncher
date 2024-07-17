@@ -35,7 +35,6 @@ namespace SimpleLauncher
             
             // Attach event handler
             Closing += Favorites_Closing; 
-
         }
         
         private void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -135,6 +134,7 @@ namespace SimpleLauncher
             }
             else
             {
+                // If not found, use default image
                 return Path.Combine(baseDirectory, "images", "default.png");
             }
         }
@@ -145,7 +145,6 @@ namespace SimpleLauncher
             {
                 _favoriteList.Remove(selectedFavorite);
                 _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-                // MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -270,7 +269,6 @@ namespace SimpleLauncher
         {
             _favoriteList.Remove(selectedFavorite);
             _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-            // MessageBox.Show($"{selectedFavorite.FileName} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
