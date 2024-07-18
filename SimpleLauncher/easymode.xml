@@ -271,8 +271,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.14</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v114.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.15</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v115.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -309,8 +309,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.14</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v114.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.15</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v115.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -1670,8 +1670,8 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>Latest Preview Build 07/01/2024</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/preview/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>Latest Rolling Release 07/14/2024</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
@@ -1712,8 +1712,8 @@
                 <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.7.5949</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v1.7.5949/pcsx2-v1.7.5949-windows-x64-Qt.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.0.2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v2.0.2/pcsx2-v2.0.2-windows-x64-Qt.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\PCSX2\</EmulatorDownloadExtractPath>
 
