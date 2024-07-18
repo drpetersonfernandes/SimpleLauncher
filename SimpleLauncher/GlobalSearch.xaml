@@ -20,7 +20,7 @@
                Margin="10,10,10,0"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
-               Content="This search engine only searches for Filenames within every System configured in 'Simple Launcher'." />
+               Content="This search engine searches for filenames and machine descriptions within every System configured in 'Simple Launcher'." />
         <Label Grid.Row="1" Grid.Column="0"
                Margin="10,0,10,10"
                VerticalAlignment="Center"

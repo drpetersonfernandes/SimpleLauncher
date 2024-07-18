@@ -112,6 +112,13 @@ namespace SimpleLauncher
 
             var searchTerms = ParseSearchTerms(searchTerm);
 
+            // Search in machine descriptions first
+            var machinesWithMatchingDescriptions = _machines
+                .Where(m => MatchesSearchQuery(m.Description.ToLower(), searchTerms))
+                .Select(m => m.MachineName)
+                .ToList();
+
+            // Search in filenames within all systems
             foreach (var systemConfig in _systemConfigs)
             {
                 string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
@@ -120,7 +127,8 @@ namespace SimpleLauncher
                 {
                     var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
                         .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()))
-                        .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms))
+                        .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms) ||
+                                       (systemConfig.SystemIsMame && machinesWithMatchingDescriptions.Any(machineName => Path.GetFileNameWithoutExtension(file).Equals(machineName, StringComparison.OrdinalIgnoreCase))))
                         .Select(file => new SearchResult
                         {
                             FileName = Path.GetFileName(file),
