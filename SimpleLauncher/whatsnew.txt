@@ -1,15 +1,13 @@
-release3.0.1
+release3.1.0
 -------------
 
-07/__/2024
-I have implemented a check for the file before launching a favorite game.
+07/18/2024
+I have implemented a file check before launching a favorite game.
 Fix the freezing issue of the [Please Wait] window during a search in the [Main] window.
 I have capped the number of games per page at 500.
 I have included a second log window in the update process.
-I have enhanced the global search functionality to search also inside the machine description of MAME files.
+I have enhanced the global search functionality to also search inside the machine description of MAME files.
 Fix some random code.
-
-07/17/2024
 
 release3.0.0
 -------------
