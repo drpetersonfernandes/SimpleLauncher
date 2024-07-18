@@ -183,6 +183,13 @@ namespace SimpleLauncher
                 }
 
                 string fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+                
+                // Check if the file exists
+                if (!File.Exists(fullPath))
+                {
+                    MessageBox.Show("The game file does not exist!\n\nPlease check the file path or delete the favorite.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 
                 var mockSystemComboBox = new ComboBox();
                 var mockEmulatorComboBox = new ComboBox();
@@ -637,6 +644,27 @@ namespace SimpleLauncher
                 PreviewImage.Source = File.Exists(imagePath) ? new BitmapImage(new Uri(imagePath, UriKind.Absolute)) :
                     // Set a default image if the selected image doesn't exist
                     new BitmapImage(new Uri("pack://application:,,,/images/default.png"));
+            }
+        }
+        
+        private void FavoritesDataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                RemoveSelectedFavorite();
+            }
+        }
+        
+        private void RemoveSelectedFavorite()
+        {
+            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+            {
+                _favoriteList.Remove(selectedFavorite);
+                _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+            }
+            else
+            {
+                MessageBox.Show("Please select a favorite to remove.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

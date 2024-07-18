@@ -5,13 +5,6 @@
                       Title="Favorites"
                       Width="1200"
                       Height="600">
-    <controls:MetroWindow.Resources>
-        <Style TargetType="DataGridRow">
-            <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="ToolTipService.ShowDuration" Value="60000" />
-        </Style>
-    </controls:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -31,11 +24,16 @@
             <Button Name="RemoveButton" Content="Remove from Favorites" Click="RemoveButton_Click" Padding="5" Margin="0,0,10,0"/>
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
-        <DataGrid Name="FavoritesDataGrid" Grid.Row="2" Grid.Column="0" Margin="10"
-                  AutoGenerateColumns="False" IsReadOnly="True"
+        <DataGrid Name="FavoritesDataGrid"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  Margin="10"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
                   MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick"
-                  SelectionChanged="FavoritesDataGrid_SelectionChanged">
+                  SelectionChanged="FavoritesDataGrid_SelectionChanged"
+                  KeyDown="FavoritesDataGrid_KeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />

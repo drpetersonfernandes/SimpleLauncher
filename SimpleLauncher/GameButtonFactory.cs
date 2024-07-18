@@ -117,7 +117,7 @@ namespace SimpleLauncher
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 VerticalContentAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5),
-                Padding = new Thickness(0,10,10,10)
+                Padding = new Thickness(0,10,0,0)
             };
 
             var image = new Image
@@ -673,7 +673,7 @@ namespace SimpleLauncher
                         grid.Children.Add(startImage);
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -718,7 +718,7 @@ namespace SimpleLauncher
                         }
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {

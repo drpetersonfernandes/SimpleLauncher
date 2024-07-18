@@ -583,6 +583,9 @@ namespace SimpleLauncher
         {
             // Pagination reset
             ResetPaginationButtons();
+            
+            // Reset search results
+            _currentSearchResults.Clear();
     
             // Call DeselectLetter to clear any selected letter
             _letterNumberMenu.DeselectLetter();
@@ -604,12 +607,20 @@ namespace SimpleLauncher
             var pleaseWaitWindow = new PleaseWaitSearch();
             await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
+            var startTime = DateTime.Now;
+
             try
             {
-                await LoadGameFilesAsync(searchQuery);
+                await LoadGameFilesAsync(null, searchQuery);
             }
             finally
             {
+                var elapsed = DateTime.Now - startTime;
+                var remainingTime = TimeSpan.FromSeconds(1) - elapsed;
+                if (remainingTime > TimeSpan.Zero)
+                {
+                    await Task.Delay(remainingTime);
+                }
                 await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
             }
         }
@@ -635,9 +646,6 @@ namespace SimpleLauncher
             // Move scroller to top
             Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
 
-            // Reset search results
-            _currentSearchResults.Clear();
-    
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
 
@@ -648,6 +656,7 @@ namespace SimpleLauncher
                     AddNoSystemMessage();
                     return;
                 }
+        
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
@@ -686,7 +695,8 @@ namespace SimpleLauncher
                         }
 
                         bool systemIsMame = selectedConfig.SystemIsMame;
-                        allFiles = allFiles.Where(file =>
+
+                        allFiles = await Task.Run(() => allFiles.Where(file =>
                         {
                             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
                             // Search in filename
@@ -700,9 +710,10 @@ namespace SimpleLauncher
                             // For MAME systems, additionally check the description for a match
                             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                             bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+
                             return filenameMatch || descriptionMatch;
 
-                        }).ToList();
+                        }).ToList());
 
                         // Store the search results
                         _currentSearchResults = allFiles;
@@ -760,7 +771,7 @@ namespace SimpleLauncher
 
                 // Reload the FavoritesConfig
                 _favoritesConfig = _favoritesManager.LoadFavorites();
-        
+    
                 // Create a new instance of GameButtonFactory with updated FavoritesConfig
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
 
