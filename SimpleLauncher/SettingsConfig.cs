@@ -11,7 +11,7 @@ namespace SimpleLauncher
     {
         private readonly string _filePath;
         private readonly HashSet<int> _validThumbnailSizes = new HashSet<int> { 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600 };
-        private readonly HashSet<int> _validGamesPerPage = new HashSet<int> { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+        private readonly HashSet<int> _validGamesPerPage = new HashSet<int> { 100, 200, 300, 400, 500 };
         private readonly HashSet<string> _validShowGames = new HashSet<string> { "ShowAll", "ShowWithCover", "ShowWithoutCover" };
 
         public int ThumbnailSize { get; set; }

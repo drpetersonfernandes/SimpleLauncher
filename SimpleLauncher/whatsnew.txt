@@ -1,3 +1,15 @@
+release3.0.1
+-------------
+
+07/__/2024
+Fix some random code.
+I have implemented a file check before launching a favorite game.
+Fix freezing of the [Please Wait] window during search in the [Main] window.
+I have limited the number of games per page to 500.
+I have implemented a second log window in the update process.   
+
+07/17/2024
+
 release3.0.0
 -------------
 
