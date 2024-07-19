@@ -77,7 +77,7 @@ start game.exe
 This RPCS3 emulator loads games extracted from ISO files into a Game Folder.<br>
 To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.  
 Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in 'Simple Launcher' to be treated as games.  
-For the Sony Playstation 3 system configuration, you should set the Format To Search In System Folder as batch (.bat).
+For the Sony Playstation 3 system configuration, you should set the Format To Search in System Folder as batch (.bat).
 I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generates these batch files for you.
 
 **Sega Model 3**
@@ -91,7 +91,7 @@ Supermodel.exe "D:\Sega Model3\bass.zip" -fullscreen -show-fps
 ```
 
 Adjust the batch file as per your needs. You need a separate batch file for each game (or ROM) you own. Name each batch file with the same name as the game (or ROM).<br>
-Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within Simple Launcher.
+Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within 'Simple Launcher'.
 
 **ScummVM Games**
 

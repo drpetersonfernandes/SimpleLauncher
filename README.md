@@ -54,7 +54,8 @@ This program is Windows-only.
 It has been tested on Windows 11.
 
 ## Support the Project:
-Did you enjoy using the Simple Launcher frontend? Consider [donating](https://www.buymeacoffee.com/purelogiccode) to support the project or simply to express your gratitude!
+Did you enjoy using the Simple Launcher frontend?
+Consider [donating](https://purelogiccode.com/donate) to support the project or simply to express your gratitude!
 
 ## Contributors:
 - **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
