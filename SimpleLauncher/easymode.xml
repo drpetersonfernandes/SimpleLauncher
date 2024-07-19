@@ -472,6 +472,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Microsoft DOS</SystemName>
+        <SystemFolder>.\roms\Microsoft DOS</SystemFolder>
+        <SystemImageFolder>.\images\Microsoft DOS</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch dosbox_pure</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\dosbox_pure_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.retroarch.com/?page=platforms</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch.7z</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\dosbox_pure_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+                <CoreDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</CoreDownloadLink>
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestversion/>
+                <ExtrasDownloadLink/>
+                <ExtrasDownloadExtractPath/>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Microsoft MSX</SystemName>
         <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
         <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>
