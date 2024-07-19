@@ -368,7 +368,6 @@ Compress the game folder to a ZIP file, then put it inside the System Folder.
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dosbox/).
 Please read core documentation.<br>
-Compress the game folder to ZIP, then put it inside the System Folder.
 Compress the game folder to a ZIP file, then put it inside the System Folder.
 
 ## Microsoft MSX
