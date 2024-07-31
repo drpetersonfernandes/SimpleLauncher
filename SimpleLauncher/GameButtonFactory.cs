@@ -61,6 +61,7 @@ namespace SimpleLauncher
                 TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
+                FontSize = 12,
                 ToolTip = fileNameWithoutExtension
             };
 
@@ -79,6 +80,7 @@ namespace SimpleLauncher
                         TextAlignment = TextAlignment.Center,
                         FontWeight = FontWeights.Bold,
                         TextTrimming = TextTrimming.CharacterEllipsis,
+                        FontSize = 12,
                         ToolTip = machine.Description
                     };
                     textBlock.Inlines.Add(new LineBreak());

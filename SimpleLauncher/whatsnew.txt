@@ -1,3 +1,9 @@
+release3.1.1
+-------------
+
+08/__/2024
+I have made the filename and file description of the game a little bigger in the [Main] Window.
+
 release3.1.0
 -------------
 
