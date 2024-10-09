@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Net.Http;
 using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
@@ -20,6 +21,8 @@ namespace SimpleLauncher
         private bool _isEmulatorDownloaded;
         private bool _isCoreDownloaded;
         private bool _isExtrasDownloaded;
+        private CancellationTokenSource _cancellationTokenSource;
+        private readonly HttpClient _httpClient = new HttpClient();
         
         public EditSystemEasyModeAddSystem()
         {
@@ -124,27 +127,13 @@ namespace SimpleLauncher
                     // Display progress bar
                     DownloadProgressBar.Visibility = Visibility.Visible;
                     DownloadProgressBar.Value = 0;
+                    StopDownloadButton.IsEnabled = true;
+                    
+                    // Initialize cancellation token source
+                    _cancellationTokenSource = new CancellationTokenSource();
 
                     // Download the file
-                    using (HttpClient client = new HttpClient())
-                    using (HttpResponseMessage response = await client.GetAsync(emulatorDownloadUrl, HttpCompletionOption.ResponseHeadersRead))
-                    await using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
-                    await using (Stream streamToWriteTo = File.Open(downloadFilePath, FileMode.Create))
-                    {
-                        byte[] buffer = new byte[8192];
-                        int bytesRead;
-                        long totalBytesRead = 0;
-                        long totalBytes = response.Content.Headers.ContentLength ?? -1;
-                        while ((bytesRead = await streamToReadFrom.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await streamToWriteTo.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesRead += bytesRead;
-                            if (totalBytes != -1)
-                            {
-                                DownloadProgressBar.Value = (double)totalBytesRead / totalBytes * 100;
-                            }
-                        }
-                    }
+                    await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
                     // Rename the file to .7z if EmulatorDownloadRename is true
                     if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
@@ -186,6 +175,10 @@ namespace SimpleLauncher
                         UpdateAddSystemButtonState();
                     }
                 }
+                catch (TaskCanceledException)
+                {
+                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 catch (Exception ex)
                 {
                     MessageBoxResult result = MessageBox.Show($"Error downloading emulator: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -197,6 +190,10 @@ namespace SimpleLauncher
                             UseShellExecute = true
                         });
                     }
+                }
+                finally
+                {
+                    StopDownloadButton.IsEnabled = false;
                 }
             }
         }
@@ -252,27 +249,13 @@ namespace SimpleLauncher
                     // Display progress bar
                     DownloadProgressBar.Visibility = Visibility.Visible;
                     DownloadProgressBar.Value = 0;
+                    StopDownloadButton.IsEnabled = true;
+                    
+                    // Initialize cancellation token source
+                    _cancellationTokenSource = new CancellationTokenSource();
 
                     // Download the file
-                    using (HttpClient client = new HttpClient())
-                    using (HttpResponseMessage response = await client.GetAsync(coreDownloadUrl, HttpCompletionOption.ResponseHeadersRead))
-                    await using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
-                    await using (Stream streamToWriteTo = File.Open(downloadFilePath, FileMode.Create))
-                    {
-                        byte[] buffer = new byte[8192];
-                        int bytesRead;
-                        long totalBytesRead = 0;
-                        long totalBytes = response.Content.Headers.ContentLength ?? -1;
-                        while ((bytesRead = await streamToReadFrom.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await streamToWriteTo.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesRead += bytesRead;
-                            if (totalBytes != -1)
-                            {
-                                DownloadProgressBar.Value = (double)totalBytesRead / totalBytes * 100;
-                            }
-                        }
-                    }
+                    await DownloadWithProgressAsync(coreDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
                     // Show the PleaseWaitExtraction window
                     PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
@@ -306,6 +289,10 @@ namespace SimpleLauncher
                         UpdateAddSystemButtonState();
                     }
                 }
+                catch (TaskCanceledException)
+                {
+                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 catch (Exception ex)
                 {
                     MessageBoxResult result = MessageBox.Show($"Error downloading core: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -317,6 +304,10 @@ namespace SimpleLauncher
                             UseShellExecute = true
                         });
                     }
+                }
+                finally
+                {
+                    StopDownloadButton.IsEnabled = false;
                 }
             }
         }
@@ -337,27 +328,13 @@ namespace SimpleLauncher
                     // Display progress bar
                     DownloadProgressBar.Visibility = Visibility.Visible;
                     DownloadProgressBar.Value = 0;
+                    StopDownloadButton.IsEnabled = true;
+                    
+                    // Initialize cancellation token source
+                    _cancellationTokenSource = new CancellationTokenSource();
 
                     // Download the file
-                    using (HttpClient client = new HttpClient())
-                    using (HttpResponseMessage response = await client.GetAsync(extrasDownloadUrl, HttpCompletionOption.ResponseHeadersRead))
-                    await using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
-                    await using (Stream streamToWriteTo = File.Open(downloadFilePath, FileMode.Create))
-                    {
-                        byte[] buffer = new byte[8192];
-                        int bytesRead;
-                        long totalBytesRead = 0;
-                        long totalBytes = response.Content.Headers.ContentLength ?? -1;
-                        while ((bytesRead = await streamToReadFrom.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await streamToWriteTo.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesRead += bytesRead;
-                            if (totalBytes != -1)
-                            {
-                                DownloadProgressBar.Value = (double)totalBytesRead / totalBytes * 100;
-                            }
-                        }
-                    }
+                    await DownloadWithProgressAsync(extrasDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
                     // Show the PleaseWaitExtraction window
                     PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
@@ -384,6 +361,10 @@ namespace SimpleLauncher
                         UpdateAddSystemButtonState();
                     }
                 }
+                catch (TaskCanceledException)
+                {
+                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 catch (Exception ex)
                 {
                     MessageBoxResult result = MessageBox.Show($"Error downloading extras: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -395,6 +376,62 @@ namespace SimpleLauncher
                             UseShellExecute = true
                         });
                     }
+                }
+                finally
+                {
+                    StopDownloadButton.IsEnabled = false;
+                }
+            }
+        }
+        
+        private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using var response = await _httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                long? totalBytes = response.Content.Headers.ContentLength;
+                await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
+                await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                var buffer = new byte[8192];
+                long totalBytesRead = 0;
+                int bytesRead;
+
+                while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+                {
+                    await fileStream.WriteAsync(buffer, 0, bytesRead, cancellationToken);
+                    totalBytesRead += bytesRead;
+
+                    if (totalBytes.HasValue)
+                    {
+                        DownloadProgressBar.Value = (double)totalBytesRead / totalBytes.Value * 100;
+                    }
+                }
+
+                // Check if the file was fully downloaded
+                if (totalBytes != null && totalBytesRead != totalBytes.Value)
+                {
+                    throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Network error: {ex.Message}", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new Exception($"File read/write error: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new TaskCanceledException("Download was canceled by the user.");
+                }
+                else
+                {
+                    throw new TaskCanceledException("Download timed out or was canceled unexpectedly.");
                 }
             }
         }
@@ -444,6 +481,15 @@ namespace SimpleLauncher
                 MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return false;
+            }
+        }
+        
+        private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel(); // Cancel the ongoing download
+                StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
             }
         }
 
