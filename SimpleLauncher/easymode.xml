@@ -55,8 +55,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.267</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0267/mame0267b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.270</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0270/mame0270b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -417,8 +417,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.267</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0267/mame0267b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.270</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0270/mame0270b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -535,8 +535,8 @@
                 <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>19.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_19_1/openmsx-19.1-windows-vc-x64-bin.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>20.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_20_0/openmsx-20.0-windows-vc-x64-bin.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\OpenMSX\</EmulatorDownloadExtractPath>
 
@@ -581,8 +581,8 @@
                 <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>19.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_19_1/openmsx-19.1-windows-vc-x64-bin.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>20.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_20_0/openmsx-20.0-windows-vc-x64-bin.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\OpenMSX\</EmulatorDownloadExtractPath>
 
@@ -1021,8 +1021,8 @@
                 <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>139</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v139/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>140</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v140/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1131,6 +1131,10 @@
         <FileFormatsToSearch>
             <FormatToSearch>nsp</FormatToSearch>
             <FormatToSearch>xci</FormatToSearch>
+            <FormatToSearch>nso</FormatToSearch>
+            <FormatToSearch>nro</FormatToSearch>
+            <FormatToSearch>nca</FormatToSearch>
+            <FormatToSearch>kip</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1138,14 +1142,14 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Ryujinx</EmulatorName>
-                <EmulatorLocation>.\emulators\Ryujinx\publish\Ryujinx.exe</EmulatorLocation>
+                <EmulatorName>Sudachi</EmulatorName>
+                <EmulatorLocation>.\emulators\Sudachi\sudachi.exe</EmulatorLocation>
                 <EmulatorParameters/>
-                <EmulatorDownloadPage>https://ryujinx.org/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.1.1340</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/Ryujinx/release-channel-master/releases/download/1.1.1340/ryujinx-1.1.1340-win_x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/emuplace/sudachi.emuplace.app/releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.0.11</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/emuplace/sudachi.emuplace.app/releases/download/v1.0.11/sudachi-windows-v1.0.11.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\Ryujinx\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>.\emulators\Sudachi\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1214,8 +1218,8 @@
                 <EmulatorLocation>.\emulators\Cemu\Cemu_2.0-85\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.0-88</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.0-88/cemu-2.0-88-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.2/cemu-2.2-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
 
@@ -1436,8 +1440,8 @@
                 <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>139</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v139/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>140</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v140/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1514,8 +1518,8 @@
                 <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.9.1/BizHawk-2.9.1-win-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.10-rc1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc1/BizHawk-2.10-rc1-win-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
@@ -1556,8 +1560,8 @@
                 <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.9.1/BizHawk-2.9.1-win-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.10-rc1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc1/BizHawk-2.10-rc1-win-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
@@ -1706,7 +1710,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>Latest Rolling Release 07/14/2024</EmulatorLatestVersion>
+                <EmulatorLatestVersion>Latest Rolling Release 10/04/2024</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>

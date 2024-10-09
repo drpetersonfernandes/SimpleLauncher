@@ -1,8 +1,10 @@
-release3.1.1
+release3.
 -------------
 
-08/__/2024
+10/__/2024
 I have made the filename and file description of the game a little bigger in the [Main] Window.
+Updated the emulator download links to the latest version.
+The mame.xml file has been updated to the latest release.
 
 release3.1.0
 -------------
