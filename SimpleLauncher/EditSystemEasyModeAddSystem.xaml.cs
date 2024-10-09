@@ -318,9 +318,10 @@ namespace SimpleLauncher
             if (selectedSystem != null)
             {
                 string extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-                string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
-                Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
-                string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(extrasDownloadUrl));
+                // string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
+                string extrasFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
+                Directory.CreateDirectory(extrasFolderPath); // Ensure the extras folder exists
+                string downloadFilePath = Path.Combine(extrasFolderPath, Path.GetFileName(extrasDownloadUrl));
                 string destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
                 try

@@ -548,6 +548,8 @@ namespace SimpleLauncher
                 MessageBox.Show("No valid default image found!\nShould be inside the images folder.\nPlease reinstall the application.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 // Shutdown current application instance
+                GamePadController.Instance2.Stop();
+                GamePadController.Instance2.Dispose();
                 Application.Current.Shutdown();
                 Environment.Exit(0);
             }

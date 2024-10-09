@@ -4,7 +4,7 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Add New System"
                       Width="550"
-                      Height="620">
+                      Height="640">
     <StackPanel Orientation="Vertical" Margin="10">
         <Label Content="Please choose a system to Add" HorizontalAlignment="Center" />
         <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" SelectionChanged="SystemNameDropdown_SelectionChanged" />
@@ -43,9 +43,9 @@
             <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton" Content="Download Core" HorizontalAlignment="Center"
                     VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5"/>
 
-            <Label Grid.Row="3" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" Visibility="Collapsed"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" />
             <Button Grid.Row="3" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Extras" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadExtrasButton_Click" IsEnabled="False" Margin="5" Visibility="Collapsed"/>
+                    VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadExtrasButton_Click" IsEnabled="False" Margin="5" />
         </Grid>
            
         <Grid Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center">

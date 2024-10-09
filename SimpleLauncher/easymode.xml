@@ -29,10 +29,10 @@
                 <CoreDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ExtrasLocation/>
-                <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasLocation>.\images\Amstrad CPC</ExtrasLocation>
+                <ExtrasLatestversion>1.0.0</ExtrasLatestversion>
+                <ExtrasDownloadLink>https://purelogiccode.com/simplelauncher/extras/amstradcpc.7z</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Amstrad CPC</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
