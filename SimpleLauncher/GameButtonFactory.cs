@@ -545,7 +545,7 @@ namespace SimpleLauncher
             else
             {
                 // If even the global default image is not found, handle accordingly
-                MessageBox.Show("No valid default image found.\n\nPlease reinstall the Simple Launcher.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No valid default image found!\nShould be inside the images folder.\nPlease reinstall the application.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 // Shutdown current application instance
                 Application.Current.Shutdown();
