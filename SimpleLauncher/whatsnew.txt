@@ -6,6 +6,7 @@ I have made the filename and file description of the game a little bigger in the
 Updated the emulator download links to the latest version.
 The mame.xml file has been updated to the latest release.
 Improved error handling in case the download process failed in the Easy Add System Window. I have also added a Stop Download button to the user.
+Better error handling in case default.png file is missing.
 
 release3.1.0
 -------------
