@@ -980,6 +980,9 @@ namespace SimpleLauncher
                     _settings.ThumbnailSize = newSize; // Update the settings
                     _settings.Save(); // Save the settings
                     UpdateMenuCheckMarks(newSize);
+                    
+                    // Inform user
+                    MessageBox.Show("The thumbnail size is set.\n\nReload the list of games to see the new size.", "Thumbnail size is set", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
