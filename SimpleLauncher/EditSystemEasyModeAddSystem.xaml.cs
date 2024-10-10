@@ -20,7 +20,6 @@ namespace SimpleLauncher
         private EasyModeConfig _config;
         private bool _isEmulatorDownloaded;
         private bool _isCoreDownloaded;
-        private bool _isExtrasDownloaded;
         private CancellationTokenSource _cancellationTokenSource;
         private readonly HttpClient _httpClient = new HttpClient();
         
@@ -69,7 +68,6 @@ namespace SimpleLauncher
                     // Reset download status
                     _isEmulatorDownloaded = false;
                     _isCoreDownloaded = !DownloadCoreButton.IsEnabled; // Assume downloaded if no download needed
-                    _isExtrasDownloaded = !DownloadExtrasButton.IsEnabled; // Assume downloaded if no download needed
 
                     UpdateAddSystemButtonState();
                 }
@@ -355,7 +353,6 @@ namespace SimpleLauncher
                         File.Delete(downloadFilePath);
 
                         // Mark as downloaded and disable button
-                        _isExtrasDownloaded = true;
                         DownloadExtrasButton.IsEnabled = false;
 
                         // Update AddSystemButton state
@@ -368,15 +365,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxResult result = MessageBox.Show($"Error downloading extras: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadPage,
-                            UseShellExecute = true
-                        });
-                    }
+                    MessageBox.Show($"Error downloading extras: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
@@ -496,7 +485,7 @@ namespace SimpleLauncher
 
         private void UpdateAddSystemButtonState()
         {
-            AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded && _isExtrasDownloaded;
+            AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
         }
 
         private void AddSystemButton_Click(object sender, RoutedEventArgs e)

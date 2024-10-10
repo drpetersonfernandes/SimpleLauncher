@@ -31,7 +31,7 @@
 
                 <ExtrasLocation>.\images\Amstrad CPC</ExtrasLocation>
                 <ExtrasLatestversion>1.0.0</ExtrasLatestversion>
-                <ExtrasDownloadLink>https://purelogiccode.com/simplelauncher/extras/amstradcpc.7z</ExtrasDownloadLink>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Amstrad CPC</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
