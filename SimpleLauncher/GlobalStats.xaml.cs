@@ -1,5 +1,4 @@
-using OxyPlot;
-using OxyPlot.Series;
+// Ensure you have this namespace for MetroWindow
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ using System.Windows;
 
 namespace SimpleLauncher
 {
-    public partial class GlobalStats
+    public partial class GlobalStats // Inheriting from MetroWindow
     {
         private readonly List<SystemConfig> _systemConfigs;
 
@@ -38,7 +37,7 @@ namespace SimpleLauncher
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                                            $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                UpdatePieChart(globalStats);
+                await PopulateSystemStatsTable(); // Ensure it's awaited
             }
             catch (Exception ex)
             {
@@ -48,6 +47,45 @@ namespace SimpleLauncher
             {
                 ProgressBar.Visibility = Visibility.Collapsed;
             }
+        }
+        
+        private async Task PopulateSystemStatsTable()
+        {
+            var systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
+
+            foreach (var config in _systemConfigs)
+            {
+                // Asynchronous file count
+                int numberOfFiles = (await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList())).Count;
+
+                string systemImagePath = config.SystemImageFolder;
+                systemImagePath = string.IsNullOrEmpty(systemImagePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
+
+                int numberOfImages = 0;
+                if (Directory.Exists(systemImagePath))
+                {
+                    numberOfImages = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly).Count();
+                }
+
+                // Add to systemStats list
+                systemStats.Add(new SystemStatsData
+                {
+                    SystemName = config.SystemName,
+                    NumberOfFiles = numberOfFiles,
+                    NumberOfImages = numberOfImages
+                });
+            }
+
+            // Bind the data to the DataGrid
+            SystemStatsDataGrid.ItemsSource = systemStats;
+        }
+
+        // Class for binding data to DataGrid
+        public class SystemStatsData
+        {
+            public string SystemName { get; set; }
+            public int NumberOfFiles { get; set; }
+            public int NumberOfImages { get; set; }
         }
 
         private async Task<GlobalStatsData> CalculateGlobalStats()
@@ -89,26 +127,6 @@ namespace SimpleLauncher
                     TotalDiskSize = totalDiskSize
                 };
             });
-        }
-
-        private void UpdatePieChart(GlobalStatsData globalStats)
-        {
-            var model = new PlotModel { Title = "Games vs Images" };
-
-            var pieSeries = new PieSeries
-            {
-                StrokeThickness = 1.0,
-                InsideLabelPosition = 0.8,
-                AngleSpan = 360,
-                StartAngle = 0
-            };
-
-            pieSeries.Slices.Add(new PieSlice("Games", globalStats.TotalGames) { IsExploded = true });
-            pieSeries.Slices.Add(new PieSlice("Images", globalStats.TotalImages));
-
-            model.Series.Add(pieSeries);
-
-            PlotView.Model = model;
         }
 
         private class GlobalStatsData
