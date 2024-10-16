@@ -332,8 +332,7 @@ namespace SimpleLauncher
             var systemInfoTextBlock = new TextBlock
             {
                 Text = $"\nSystem Folder: {systemFolder}\n" +
-                       $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}\n\n" +
-                       $"System Image Folder: {selectedConfig.SystemImageFolder}\n" +
+                       $"System Image Folder: {selectedConfig.SystemImageFolder ?? "[Using default image folder]"}\n" +
                        $"System is MAME? {selectedConfig.SystemIsMame}\n" +
                        $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
                        $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
@@ -342,6 +341,48 @@ namespace SimpleLauncher
                 TextWrapping = TextWrapping.Wrap
             };
             verticalStackPanel.Children.Add(systemInfoTextBlock);
+
+            // Add the number of games in the system folder
+            var gameCountTextBlock = new TextBlock
+            {
+                Text = $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}",
+                Padding = new Thickness(0),
+                TextWrapping = TextWrapping.Wrap
+            };
+            verticalStackPanel.Children.Add(gameCountTextBlock);
+
+            // Determine the image folder to search
+            string imageFolderPath = selectedConfig.SystemImageFolder;
+            if (string.IsNullOrWhiteSpace(imageFolderPath))
+            {
+                // Use default image folder if SystemImageFolder is not set
+                imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
+            }
+
+            // Add the number of images in the system's image folder
+            if (Directory.Exists(imageFolderPath))
+            {
+                var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" }; // Add image extensions
+                int imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
+
+                var imageCountTextBlock = new TextBlock
+                {
+                    Text = $"Number of images in the System Image Folder: {imageCount}",
+                    Padding = new Thickness(0),
+                    TextWrapping = TextWrapping.Wrap
+                };
+                verticalStackPanel.Children.Add(imageCountTextBlock);
+            }
+            else
+            {
+                var noImageFolderTextBlock = new TextBlock
+                {
+                    Text = "System Image Folder does not exist or is not specified.",
+                    Padding = new Thickness(0),
+                    TextWrapping = TextWrapping.Wrap
+                };
+                verticalStackPanel.Children.Add(noImageFolderTextBlock);
+            }
 
             // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
             foreach (var emulator in selectedConfig.Emulators)
@@ -356,10 +397,10 @@ namespace SimpleLauncher
                 };
                 verticalStackPanel.Children.Add(emulatorInfoTextBlock);
             }
-    
+
             // Add the vertical StackPanel to the horizontal WrapPanel
             GameFileGrid.Children.Add(verticalStackPanel);
-    
+
             // Validate the System
             ValidateSystemConfiguration(systemFolder, selectedConfig);
         }

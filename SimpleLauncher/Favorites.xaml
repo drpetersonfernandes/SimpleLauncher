@@ -19,17 +19,22 @@
                Margin="10"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
-               Content="List of Favorite Games" />
+               Content="List of Favorites" />
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
             <Button Name="RemoveButton" Content="Remove from Favorites" Click="RemoveButton_Click" Padding="5" Margin="0,0,10,0"/>
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
         <DataGrid Name="FavoritesDataGrid"
+                  CanUserAddRows="False"
+                  GridLinesVisibility="All"
+                  BorderThickness="1"
+                  BorderBrush="Gray"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ScrollViewer.CanContentScroll="True"
                   Grid.Row="2"
                   Grid.Column="0"
                   Margin="10"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
                   MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
                   MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick"
                   SelectionChanged="FavoritesDataGrid_SelectionChanged"
