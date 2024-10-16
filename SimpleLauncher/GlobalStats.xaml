@@ -5,18 +5,26 @@
                       Title="Global Stats"
                       Width="800"
                       Height="700">
-    <StackPanel>
-        <Label Margin="10" Content="Global Statistics" FontSize="16" FontWeight="Bold" />
-        <TextBlock Margin="10" x:Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Processing, please wait..." HorizontalAlignment="Center" Margin="20" />
-                <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
-            </StackPanel>
-        </Border>
+        <TextBlock Grid.Row="0" Margin="10,20,10,10" x:Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Height="450" Margin="10">
+        <Grid Grid.Row="1">
+            <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Processing, please wait..." HorizontalAlignment="Center" Margin="20" />
+                    <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10">
             <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ScrollViewer.CanContentScroll="True">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
@@ -40,5 +48,5 @@
             </DataGrid>
         </ScrollViewer>
 
-    </StackPanel>
+    </Grid>
 </controls:MetroWindow>
