@@ -84,8 +84,11 @@ namespace SimpleLauncher
         public class SystemStatsData
         {
             public string SystemName { get; set; }
-            public int NumberOfFiles { get; set; }
-            public int NumberOfImages { get; set; }
+            public int NumberOfFiles { get; init; }
+            public int NumberOfImages { get; init; }
+            
+            // This property checks if the number of files and images are equal
+            public bool AreFilesAndImagesEqual => NumberOfFiles == NumberOfImages;
         }
 
         private async Task<GlobalStatsData> CalculateGlobalStats()

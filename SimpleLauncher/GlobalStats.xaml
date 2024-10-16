@@ -3,16 +3,35 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Global Stats"
-                      Width="900"
-                      Height="800">
+                      Width="800"
+                      Height="700">
     <StackPanel>
         <Label Margin="10" Content="Global Statistics" FontSize="16" FontWeight="Bold" />
         <TextBlock Margin="10" x:Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
 
-        <!-- ScrollViewer wrapping DataGrid -->
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Height="500" Margin="10">
-            <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray">
-                <!-- Define columns -->
+        <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Processing, please wait..." HorizontalAlignment="Center" Margin="20" />
+                <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Height="450" Margin="10">
+            <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ScrollViewer.CanContentScroll="True">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <!-- Trigger when NumberOfFiles and NumberOfImages match -->
+                            <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="True">
+                                <Setter Property="Background" Value="LightGreen" />
+                            </DataTrigger>
+                            <!-- Trigger when NumberOfFiles and NumberOfImages do not match -->
+                            <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="False">
+                                <Setter Property="Background" Value="LightCoral" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
                     <DataGridTextColumn Header="Number of ROMs or ISOs" Binding="{Binding NumberOfFiles}" Width="Auto" />
@@ -21,11 +40,5 @@
             </DataGrid>
         </ScrollViewer>
 
-        <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Processing, please wait..." HorizontalAlignment="Center" Margin="20" />
-                <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
-            </StackPanel>
-        </Border>
     </StackPanel>
 </controls:MetroWindow>
