@@ -29,8 +29,8 @@
                 <CoreDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ExtrasLocation>.\images\Amstrad CPC</ExtrasLocation>
-                <ExtrasLatestversion>1.0.0</ExtrasLatestversion>
+                <ExtrasLocation/>
+                <ExtrasLatestversion/>
                 <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Amstrad CPC</ExtrasDownloadExtractPath>
             </Emulator>
@@ -67,8 +67,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpcgx4000.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Amstrad CPC GX4000</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -103,8 +103,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/arcade.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Arcade</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -136,11 +136,11 @@
                 <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://buildbot.libretro.com/stable/1.19.1/windows/x86_64/RetroArch_cores.7z</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
-                
+
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari2600.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari 2600</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -175,8 +175,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari5200.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari 5200</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -211,8 +211,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari7800.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari 7800</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -247,8 +247,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari 8-Bit</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -283,8 +283,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguar.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari Jaguar</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -321,8 +321,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguarcd.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari Jaguar CD</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -357,8 +357,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswan.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Bandai WonderSwan</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -393,8 +393,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswancolor.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Bandai WonderSwan Color</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -429,8 +429,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/casiopv1000.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Casio PV-1000</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -465,8 +465,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Commodore 64</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -501,8 +501,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft DOS</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -547,8 +547,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft MSX</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -593,8 +593,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx2.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft MSX2</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -629,8 +629,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox 360</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -665,8 +665,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcengine.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\NEC PC Engine</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -701,8 +701,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necsupergrafx.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\NEC SuperGrafx</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -737,8 +737,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo 64</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -780,8 +780,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo 64DD</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -818,8 +818,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo DS</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -854,8 +854,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -890,8 +890,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Advance</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -926,8 +926,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Color</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -961,8 +961,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo GameCube</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -997,8 +997,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo NES</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1033,8 +1033,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Satellaview</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1075,8 +1075,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo SNES</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1117,8 +1117,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo SNES MSU1</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1158,8 +1158,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendoswitch.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Switch</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1194,8 +1194,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Wii</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1230,8 +1230,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo WiiU</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1265,8 +1265,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo WiiWare</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1305,8 +1305,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segadreamcast.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Dreamcast</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1341,8 +1341,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagamegear.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Game Gear</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1377,8 +1377,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Genesis</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1413,8 +1413,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis32x.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Genesis 32X</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1452,8 +1452,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesiscd.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Genesis CD</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1488,8 +1488,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamastersystem.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Master System</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1530,8 +1530,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasc3000.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega SC-3000</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1572,8 +1572,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasg1000.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega SG-1000</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1608,8 +1608,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sinclairzxspectrum.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sinclair ZX Spectrum</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1644,8 +1644,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocket.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\SNK Neo Geo Pocket</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1680,8 +1680,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocketcolor.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\SNK Neo Geo Pocket Color</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1722,8 +1722,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony Playstation 1</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1764,8 +1764,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony Playstation 2</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1805,8 +1805,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestversion/>
-                <ExtrasDownloadLink/>
-                <ExtrasDownloadExtractPath/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonypsp.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony PSP</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
