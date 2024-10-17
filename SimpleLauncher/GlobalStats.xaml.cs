@@ -64,7 +64,12 @@ namespace SimpleLauncher
                 int numberOfImages = 0;
                 if (Directory.Exists(systemImagePath))
                 {
-                    numberOfImages = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly).Count();
+                    // Only count .png, .jpg, .jpeg files
+                    numberOfImages = Directory
+                        .EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                        .Count(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                                       file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                                       file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase));
                 }
 
                 // Add to systemStats list
@@ -111,7 +116,12 @@ namespace SimpleLauncher
 
                     if (Directory.Exists(systemImagePath))
                     {
-                        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly).ToList();
+                        // Only count .png, .jpg, .jpeg files
+                        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                            .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                                           file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                                           file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+                            .ToList();
                         totalImages += imageFiles.Count;
                     }
 

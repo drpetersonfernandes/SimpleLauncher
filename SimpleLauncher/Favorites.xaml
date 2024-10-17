@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3.5*" />
+            <ColumnDefinition Width="4.5*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" 
@@ -48,7 +48,9 @@
         <StackPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10">
             <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
             <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
-                <Image Name="PreviewImage" Width="250" Height="250" Stretch="Uniform"/>
+                <Grid>
+                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
             </Border>
         </StackPanel>
     </Grid>
