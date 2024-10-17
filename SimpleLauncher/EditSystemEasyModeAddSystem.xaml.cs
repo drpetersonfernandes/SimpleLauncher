@@ -179,6 +179,8 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
+                    string formattedException = $"Error downloading emulator.\n\nException Details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                     MessageBoxResult result = MessageBox.Show($"Error downloading emulator: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -293,6 +295,8 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
+                    string formattedException = $"Error downloading core.\n\nException Details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                     MessageBoxResult result = MessageBox.Show($"Error downloading core: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -365,6 +369,8 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
+                    string formattedException = $"Error downloading extras.\n\nException Details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                     MessageBox.Show($"Error downloading extras: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
@@ -407,20 +413,28 @@ namespace SimpleLauncher
             }
             catch (HttpRequestException ex)
             {
+                string formattedException = $"Network error.\n\nException Details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
                 throw new Exception($"Network error: {ex.Message}", ex);
             }
             catch (IOException ex)
             {
+                string formattedException = $"File read/write error.\n\nException Details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
                 throw new Exception($"File read/write error: {ex.Message}", ex);
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException ex)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
+                    string formattedException = $"Download was canceled by the user.\n\nException Details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                     throw new TaskCanceledException("Download was canceled by the user.");
                 }
                 else
                 {
+                    string formattedException = $"Download timed out or was canceled unexpectedly.\n\nException Details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                     throw new TaskCanceledException("Download timed out or was canceled unexpectedly.");
                 }
             }
@@ -468,6 +482,8 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
+                string formattedException = $"Error extracting file.\n\nException Details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
                 MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return false;
@@ -587,6 +603,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
+                    string formattedException = $"Error adding system.\n\nException detail: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    
                     MessageBox.Show($"Error adding system: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
