@@ -1,12 +1,12 @@
-﻿<controls:MetroWindow     x:Class="SimpleLauncher.BugReport"
-                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                          xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                          Title="Bug Report"
-                          Width="400"
-                          Height="450"
-                          ResizeMode="NoResize"
-                          WindowStartupLocation="CenterOwner">
+﻿<controls:MetroWindow x:Class="SimpleLauncher.BugReport"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Bug Report"
+                      Width="400"
+                      Height="450"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,12 +22,12 @@
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,10" Orientation="Horizontal">
             <TextBlock Text="Name (optional)" Width="95" />
-            <TextBox Name="NameTextBox" Width="270"/>
+            <TextBox Name="NameTextBox" Width="270" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,20" Orientation="Horizontal">
             <TextBlock Text="Email (optional)" Width="95" />
-            <TextBox Name="EmailTextBox" Width="270"/>
+            <TextBox Name="EmailTextBox" Width="270" />
         </StackPanel>
 
         <TextBox

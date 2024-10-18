@@ -26,8 +26,10 @@
             Grid.Row="0"
             Grid.ColumnSpan="3"
             Margin="10,20,10,10"
-            VerticalAlignment="Center">You can define custom URL to use in the Video Button and Info Button.</Label>
-        
+            VerticalAlignment="Center">
+            You can define custom URL to use in the Video Button and Info Button.
+        </Label>
+
         <!-- Video Link -->
         <Label
             Margin="10"
@@ -71,29 +73,29 @@
             Grid.Row="2"
             Grid.Column="2" />
 
-    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
-       <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-       </Grid.ColumnDefinitions>
-    
-        <!-- Save Button -->
-       <Button
-           Grid.Column="0"
-            Margin="10"
-            Padding="10"
-            HorizontalAlignment="Right"
-            Click="SaveLinksButton_Click"
-            Content="Save or Update Links" />
-        
-        <!-- Revert Button -->
-        <Button
-            Grid.Column="1"
-            Margin="10"
-            Padding="10"
-            HorizontalAlignment="Left"
-            Click="RevertLinksButton_Click"
-            Content="Revert to Default Values" />
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Save Button -->
+            <Button
+                Grid.Column="0"
+                Margin="10"
+                Padding="10"
+                HorizontalAlignment="Right"
+                Click="SaveLinksButton_Click"
+                Content="Save or Update Links" />
+
+            <!-- Revert Button -->
+            <Button
+                Grid.Column="1"
+                Margin="10"
+                Padding="10"
+                HorizontalAlignment="Left"
+                Click="RevertLinksButton_Click"
+                Content="Revert to Default Values" />
         </Grid>
 
     </Grid>

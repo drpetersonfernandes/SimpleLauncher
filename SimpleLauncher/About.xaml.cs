@@ -11,7 +11,6 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
-            // Apply the theme to this window
             App.ApplyThemeToWindow(this);
             
             // Set the data context for data binding

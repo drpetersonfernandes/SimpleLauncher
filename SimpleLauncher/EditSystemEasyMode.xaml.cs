@@ -12,7 +12,6 @@ namespace SimpleLauncher
             
             _settings = settings;
 
-            // Apply the theme to this window
             App.ApplyThemeToWindow(this);
         }
 

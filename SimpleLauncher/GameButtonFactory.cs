@@ -517,7 +517,7 @@ namespace SimpleLauncher
                 // If an exception occurs (e.g., the image is corrupt), load a default image
                 // This uses the dispatcher to ensure UI elements are accessed on the UI thread
                 imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, defaultImagePath));
-                MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\n\nThis image is corrupted!\n\nA default image will be displayed instead.", "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\n\nThis image may be corrupted.\n\nThe default image will be displayed instead.", "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -538,14 +538,14 @@ namespace SimpleLauncher
                 bitmapImage.UriSource = new Uri(fallbackImagePath, UriKind.Absolute);
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
-                bitmapImage.Freeze(); // Important for multithreaded access
+                bitmapImage.Freeze();
                 imageControl.Source = bitmapImage; // Assign the fallback image
                 button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
             }
             else
             {
                 // If even the global default image is not found, handle accordingly
-                MessageBox.Show("No valid default image found!\nShould be inside the images folder.\nPlease reinstall the application.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No default.png file found in the images folder.\n\nPlease reinstall Simple Launcher.", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 // Shutdown current application instance
                 GamePadController.Instance2.Stop();
@@ -681,7 +681,7 @@ namespace SimpleLauncher
                         grid.Children.Add(startImage);
                     }
 
-                    // MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -695,7 +695,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"An error occurred while adding this game to the favorites\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while adding this game to the favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -708,7 +708,7 @@ namespace SimpleLauncher
 
                 // Find the favorite to remove
                 var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (favoriteToRemove != null)
                 {
@@ -731,7 +731,7 @@ namespace SimpleLauncher
                         }
                     }
 
-                    // MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -846,7 +846,7 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("There is no cover associated with this file.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("There is no cover file associated with this game.", "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -867,7 +867,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no title snapshot associated with this file.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no title snapshot file associated with this game.", "Title Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -887,7 +887,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no gameplay snapshot associated with this file.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no gameplay snapshot file associated with this game.", "Gameplay Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCart(string systemName, string fileName)
@@ -907,7 +907,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no cart associated with this file.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cart file associated with this game.", "Cart not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void PlayVideo(string systemName, string fileName)
@@ -929,7 +929,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no video associated with this file.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no video file associated with this game.", "Video not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenManual(string systemName, string fileName)
@@ -1001,7 +1001,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no walkthrough associated with this file.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no walkthrough file associated with this game.", "Walkthrough not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCabinet(string systemName, string fileName)
@@ -1022,7 +1022,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no cabinet associated with this file.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cabinet file associated with this game.", "Cabinet not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenFlyer(string systemName, string fileName)
@@ -1042,7 +1042,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no flyer associated with this file.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no flyer file associated with this game.", "Flyer not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenPcb(string systemName, string fileName)
@@ -1062,7 +1062,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-            MessageBox.Show("There is no PCB associated with this file.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no PCB file associated with this game.", "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

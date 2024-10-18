@@ -27,7 +27,6 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
-            // Apply the theme to this window
             App.ApplyThemeToWindow(this);
             
             LoadConfig();
@@ -353,7 +352,7 @@ namespace SimpleLauncher
 
                     if (extractionSuccess)
                     {
-                        MessageBox.Show($"Extras for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"Image pack for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // Clean up the downloaded file only if extraction is successful
                         File.Delete(downloadFilePath);
@@ -371,10 +370,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading extras.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Error downloading the image pack.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
-                    MessageBox.Show($"Error downloading the Image Pack.\n\nThe error was reported to the developer that will fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error downloading the image pack.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
@@ -420,7 +419,6 @@ namespace SimpleLauncher
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show("There was an network error.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                // throw new Exception($"Network error: {ex.Message}", ex);
             }
             catch (IOException ex)
             {
@@ -428,7 +426,6 @@ namespace SimpleLauncher
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 MessageBox.Show("There was an file read/write error.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                // throw new Exception($"File read/write error: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
@@ -436,8 +433,6 @@ namespace SimpleLauncher
                 {
                     string formattedException = $"Download was canceled by the user.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    
-                    // throw new TaskCanceledException("Download was canceled by the user.");
                 }
                 else
                 {
@@ -445,7 +440,6 @@ namespace SimpleLauncher
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    // throw new TaskCanceledException("Download timed out or was canceled unexpectedly.");
                 }
             }
         }
@@ -461,7 +455,7 @@ namespace SimpleLauncher
                     Exception exception = new(formattedException);
                     await LogErrors.LogErrorAsync(exception, formattedException);
                     
-                    MessageBox.Show("7z.exe was not found in the application folder.\n\nPlease reinstall the application.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("7z.exe was not found in the application folder.\n\nPlease reinstall Simple Launcher.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
 
@@ -486,17 +480,21 @@ namespace SimpleLauncher
 
                 if (process.ExitCode != 0)
                 {
-                    MessageBox.Show($"Error extracting file: {error}\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"Error extracting the file: {filePath}\n\nError message: {error}";
+                    Exception ex = new(formattedException);
+                    await LogErrors.LogErrorAsync(ex, formattedException);
+                    
+                    MessageBox.Show($"Error extracting the file: {filePath}\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
                 return true;
             }
             catch (Exception ex)
             {
-                string formattedException = $"Error extracting file.\n\nException Details: {ex.Message}";
+                string formattedException = $"Error extracting the file: {filePath}\n\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"Error extracting the file.\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error extracting the file: {filePath}\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -547,7 +545,7 @@ namespace SimpleLauncher
                     if (existingSystem != null)
                     {
                         // Ask user if they want to overwrite the existing system
-                        MessageBoxResult result = MessageBox.Show($"The system {selectedSystem.SystemName} already exists. Do you want to overwrite it?", "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult result = MessageBox.Show($"The system {selectedSystem.SystemName} already exists.\n\nDo you want to overwrite it?", "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.No)
                         {
                             return;
@@ -665,7 +663,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"The application failed to create the necessary folders for the newly added system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"The application failed to create the necessary folders for this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }

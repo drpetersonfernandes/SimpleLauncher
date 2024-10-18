@@ -7,12 +7,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Placeholder text color for light and dark themes -->
-            <SolidColorBrush x:Key="PlaceholderTextBrushLight" Color="Gray"/>
-            <SolidColorBrush x:Key="PlaceholderTextBrushDark" Color="LightGray"/>
+            <SolidColorBrush x:Key="PlaceholderTextBrushLight" Color="Gray" />
+            <SolidColorBrush x:Key="PlaceholderTextBrushDark" Color="LightGray" />
 
             <!-- Style for placeholder text -->
             <Style x:Key="PlaceholderTextStyle" TargetType="TextBox">

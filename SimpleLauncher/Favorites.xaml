@@ -15,13 +15,14 @@
             <ColumnDefinition Width="4.5*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" 
+        <Label Grid.Row="0" Grid.Column="0"
                Margin="10"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
                Content="List of Favorites" />
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-            <Button Name="RemoveButton" Content="Remove from Favorites" Click="RemoveButton_Click" Padding="5" Margin="0,0,10,0"/>
+            <Button Name="RemoveButton" Content="Remove from Favorites" Click="RemoveButton_Click" Padding="5"
+                    Margin="0,0,10,0" />
             <Button Name="LaunchButton" Content="Launch Selected Game" Click="LaunchGame_Click" Padding="5" />
         </StackPanel>
         <DataGrid Name="FavoritesDataGrid"
@@ -41,15 +42,17 @@
                   KeyDown="FavoritesDataGrid_KeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
-                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
+                <DataGridTextColumn Header="Machine Description (for MAME files)"
+                                    Binding="{Binding MachineDescription}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10">
-            <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
             <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                 <Grid>
-                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
                 </Grid>
             </Border>
         </StackPanel>

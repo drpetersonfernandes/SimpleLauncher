@@ -17,6 +17,9 @@ namespace SimpleLauncher
 
         public string ExtractArchiveToTemp(string archivePath)
         {
+            // Get filename
+            string archiveName = Path.GetFileNameWithoutExtension(archivePath);
+            
             // Use the application's directory for the temporary directory
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string tempDirectory = Path.Combine(appDirectory, "temp", Path.GetRandomFileName());
@@ -52,11 +55,11 @@ namespace SimpleLauncher
             if (process.ExitCode != 0)
             {
                 string errorMessage = $"7z.exe process failed with exit code {process.ExitCode}\nOutput: {output}\nError: {error}";
-                Exception exception = new(errorMessage);
-                Task logTask = LogErrors.LogErrorAsync(exception, errorMessage);
+                Exception ex = new(errorMessage);
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("Extraction of the compressed file failed.\n\nThe file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             return tempDirectory;

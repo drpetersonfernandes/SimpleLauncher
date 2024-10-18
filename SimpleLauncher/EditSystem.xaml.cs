@@ -35,7 +35,6 @@ namespace SimpleLauncher
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
             
-            // Apply the theme to this window
             App.ApplyThemeToWindow(this);
         }
 
@@ -306,6 +305,7 @@ namespace SimpleLauncher
             {
                 string foldername = dialog.SelectedPath;
                 SystemFolderTextBox.Text = foldername;
+
                 // Adjust the visibility of the placeholder based on the newly loaded data
                 AdjustPlaceholderVisibility();
                 MarkValid(SystemFolderTextBox);
@@ -321,6 +321,7 @@ namespace SimpleLauncher
             {
                 string foldername = dialog.SelectedPath;
                 SystemImageFolderTextBox.Text = foldername;
+
                 // Adjust the visibility of the placeholder based on the newly loaded data
                 AdjustPlaceholderVisibility();
                 MarkValid(SystemImageFolderTextBox);
@@ -667,10 +668,10 @@ namespace SimpleLauncher
                         }
                     }
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException detail: {exception}";
-                    Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                    string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException detail: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
                     MessageBox.Show($"The application failed to create the '{folderName}' folder for this system.\n\nProbably the application does not have enough privileges.\n\nTry to run the application with administrative privileges.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -718,6 +719,7 @@ namespace SimpleLauncher
                     PopulateSystemNamesDropdown();
                     ClearFields();
                     AdjustPlaceholderVisibility();
+                    
                     MessageBox.Show($"System '{selectedSystemName}' has been deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -831,7 +833,7 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!\n\nTry to reinstall the application to fix the issue.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!\n\nTry to reinstall Simple Launcher to fix the issue.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
 

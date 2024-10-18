@@ -16,8 +16,7 @@ namespace SimpleLauncher
         public BugReport()
         {
             InitializeComponent();
-            
-            // Apply the theme to this window
+
             App.ApplyThemeToWindow(this);
             
             // Set the data context for data binding
@@ -42,7 +41,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("File appsettings.json is missing. The application will not be able to send the Bug Report.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("File appsettings.json is missing.\n\nThe application will not be able to send the Bug Report.\n\nPlease reinstall Simple Launcher.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -83,12 +82,12 @@ namespace SimpleLauncher
 
             // Prepare the POST data
             var formData = new MultipartFormDataContent
-    {
-        { new StringContent("contact@purelogiccode.com"), "recipient" },
-        { new StringContent("Bug Report from SimpleLauncher"), "subject" },
-        { new StringContent("SimpleLauncher User"), "name" },
-        { new StringContent(messageWithVersion), "message" }
-    };
+            {
+                { new StringContent("contact@purelogiccode.com"), "recipient" },
+                { new StringContent("Bug Report from SimpleLauncher"), "subject" },
+                { new StringContent("SimpleLauncher User"), "name" },
+                { new StringContent(messageWithVersion), "message" }
+            };
 
             // Set the API Key from the loaded configuration
             HttpClient.DefaultRequestHeaders.Remove("X-API-KEY");
@@ -100,10 +99,9 @@ namespace SimpleLauncher
             {
                 string formattedException = $"API Key is not properly loaded from appsettings.json in the Bug Report Window.";
                 Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                await LogErrors.LogErrorAsync(exception, formattedException);
                 
-                MessageBox.Show("There was an error in the API Key of this form. The developer was informed and will fix it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error in the API Key of this form.\n\nThe developer was informed and will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -124,13 +122,14 @@ namespace SimpleLauncher
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                     
-                    MessageBox.Show("An error occurred while sending the bug report. The bug was reported to the developer that will fix the issue very soon.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("An error occurred while sending the bug report.\n\nThe bug was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\nException detail: {ex.Message}");
-                MessageBox.Show($"An error occurred while sending the bug report. The bug was reported to the developer that will fix the issue very soon.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                MessageBox.Show($"An error occurred while sending the bug report.\n\nThe bug was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
