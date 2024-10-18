@@ -37,7 +37,12 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("Configuration file missing. The application may not function correctly.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                string formattedException = $"File appsettings.json is missing in the Bug Report Window.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("File appsettings.json is missing. The application will not be able to send the Bug Report.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -93,7 +98,12 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("API Key is not configured. Please check your configuration.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"API Key is not properly loaded from appsettings.json in the Bug Report Window.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("There was an error in the API Key of this form. The developer was informed and will fix it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -113,13 +123,14 @@ namespace SimpleLauncher
                     string errorMessage = "An error occurred while sending the bug report.";
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                    MessageBox.Show("An error occurred while sending the bug report. The bug was reported to the developer that will fix the issue very soon.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                await LogErrors.LogErrorAsync(ex, $"Error sending bug report from Bug Report Window.\n\nException detail: {ex}");
-                MessageBox.Show($"An error occurred while sending the bug report: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\nException detail: {ex.Message}");
+                MessageBox.Show($"An error occurred while sending the bug report. The bug was reported to the developer that will fix the issue very soon.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

@@ -80,7 +80,6 @@ namespace SimpleLauncher
 
                 _favoriteList.Add(favoriteItem);
             }
-
             FavoritesDataGrid.ItemsSource = _favoriteList;
         }
 
@@ -171,14 +170,23 @@ namespace SimpleLauncher
                 var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
                 if (systemConfig == null)
                 {
-                    MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    string formattedException = $"There was an error in the Favorites window.\n\nSystem configuration was not found for the selected favorite";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                   
+                    MessageBox.Show("There was an error loading the system configuration for this file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
                 if (emulatorConfig == null)
                 {
-                    MessageBox.Show("No emulator configuration found for the selected system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"There was an error in the Favorites window.\n\nNo emulator configuration found for the selected favorite";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                    
+                    MessageBox.Show("No emulator configuration found for the selected favorite.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -187,6 +195,10 @@ namespace SimpleLauncher
                 // Check if the file exists
                 if (!File.Exists(fullPath))
                 {
+                    string formattedException = $"There was an error in the Favorites window.\n\nThe favorite file does not exist.";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                    
                     MessageBox.Show("The game file does not exist!\n\nPlease check the file path or delete the favorite.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
@@ -206,7 +218,8 @@ namespace SimpleLauncher
             {
                 string formattedException = $"There was an error launching the game from Favorites.\n\nException Details: {ex.Message}\n\nFile Path: {fileName}\n\nSystem Name: {systemName}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                MessageBox.Show($"{formattedException}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                MessageBox.Show($"There was an error launching the game from Favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -296,7 +309,12 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"There was a problem opening the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                string formattedException = $"There was a problem opening the Video Link.\n\nException details: {exception.Message}.";
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was a problem opening the Video Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -318,7 +336,11 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"There was a problem opening the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was a problem opening the Info Link.\n\nException details: {exception.Message}.";
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was a problem opening the Info Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -328,7 +350,12 @@ namespace SimpleLauncher
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
-                MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was a problem getting the system configuration for the selected favorite.\n\nThe error happens using the OpenCover method.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show("There was an error trying to open the cover image.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -377,7 +404,7 @@ namespace SimpleLauncher
             }
             else
             {
-                MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("There is no cover associated with this file.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -402,7 +429,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no title snapshot associated with this file or button.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no title snapshot associated with this file.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -426,7 +453,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no gameplay snapshot associated with this file.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCart(string systemName, string fileName)
@@ -450,7 +477,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no cart associated with this file or button.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cart associated with this file.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void PlayVideo(string systemName, string fileName)
@@ -476,7 +503,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no video associated with this file or button.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no video associated with this file.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenManual(string systemName, string fileName)
@@ -505,13 +532,17 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Failed to open the manual: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string formattedException = $"Failed to open the manual in the Favorite window\n\nException details: {ex.Message}";
+                        Exception exception = new(formattedException);
+                        Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        
+                        MessageBox.Show($"Failed to open the manual.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
             }
-
-            MessageBox.Show("There is no manual associated with this file or button.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no manual associated with this file.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenWalkthrough(string systemName, string fileName)
@@ -540,13 +571,18 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Failed to open the walkthrough: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string formattedException = $"Failed to open the walkthrough file in the Favorite window\n\nException details: {ex.Message}";
+                        Exception exception = new(formattedException);
+                        Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        
+                        MessageBox.Show($"Failed to open the walkthrough file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
             }
 
-            MessageBox.Show("There is no walkthrough associated with this file or button.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no walkthrough associated with this file.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCabinet(string systemName, string fileName)
@@ -570,7 +606,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no cabinet associated with this file or button.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cabinet associated with this file.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenFlyer(string systemName, string fileName)
@@ -594,7 +630,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no flyer associated with this file or button.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no flyer associated with this file.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenPcb(string systemName, string fileName)
@@ -618,7 +654,7 @@ namespace SimpleLauncher
                 }
             }
 
-            MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no PCB associated with this file.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
         private async void FavoritesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -632,7 +668,10 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was an error trying to launch a favorite using the MouseDoubleClick method.\n\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+                
+                MessageBox.Show($"There was an error trying to launch this favorite.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         

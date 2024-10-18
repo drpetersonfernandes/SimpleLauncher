@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -69,7 +70,13 @@ namespace SimpleLauncher
             {
                 if (args.Error != null)
                 {
-                    MessageBox.Show($"An error occurred during the search: {args.Error.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    string formattedException = $"That was an error using the global search.\n\nException details: {args.Error.Message}";
+                    Exception exception = new(formattedException);
+                    Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+
+                    MessageBox.Show($"There was an error using the global search.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -288,7 +295,11 @@ namespace SimpleLauncher
             {
                 if (string.IsNullOrEmpty(systemName) || emulatorConfig == null)
                 {
-                    MessageBox.Show("There is no System or Emulator associated with that file. I cannot launch that file from this window.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\nThere is no System or Emulator associated with the file.";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                                        
+                    MessageBox.Show("There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -297,7 +308,11 @@ namespace SimpleLauncher
 
                 if (systemConfig == null)
                 {
-                    MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\nSystem configuration not found for the selected file.";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                    
+                    MessageBox.Show("There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -316,7 +331,8 @@ namespace SimpleLauncher
             {
                 string formattedException = $"There was an error launching the game from Global Search Window.\n\nException Details: {ex.Message}\n\nFile Path: {filePath}\n\nSystem Name: {systemName}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                MessageBox.Show($"{formattedException}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                MessageBox.Show($"There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -335,7 +351,12 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"That was an error launching a game from the global search window.\n\nException details: {ex.Message}";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show($"There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue. ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -459,7 +480,12 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"That was an error in the right click context menu in the global search window.\n\nException details: {ex.Message}";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was an error in the right click context menu.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -503,10 +529,178 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while adding to favorites: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"An error occurred while adding to favorites in the global search window.\n\nException details: {ex.Message}";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"An error occurred while adding to favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
         {
             var searchTerm =

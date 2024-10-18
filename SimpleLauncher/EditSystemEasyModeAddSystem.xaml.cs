@@ -181,7 +181,8 @@ namespace SimpleLauncher
                 {
                     string formattedException = $"Error downloading emulator.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    MessageBoxResult result = MessageBox.Show($"Error downloading emulator: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    
+                    MessageBoxResult result = MessageBox.Show($"Error downloading emulator.\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -295,9 +296,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading core.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Error downloading the core.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    MessageBoxResult result = MessageBox.Show($"Error downloading core: {ex.Message}\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    
+                    MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -371,7 +373,8 @@ namespace SimpleLauncher
                 {
                     string formattedException = $"Error downloading extras.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    MessageBox.Show($"Error downloading extras: {ex.Message}", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    MessageBox.Show($"Error downloading the Image Pack.\n\nThe error was reported to the developer that will fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
@@ -413,15 +416,19 @@ namespace SimpleLauncher
             }
             catch (HttpRequestException ex)
             {
-                string formattedException = $"Network error.\n\nException Details: {ex.Message}";
+                string formattedException = $"Network error in the Easy Mode Add System window.\n\nException Details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                throw new Exception($"Network error: {ex.Message}", ex);
+                
+                MessageBox.Show("There was an network error.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // throw new Exception($"Network error: {ex.Message}", ex);
             }
             catch (IOException ex)
             {
-                string formattedException = $"File read/write error.\n\nException Details: {ex.Message}";
+                string formattedException = $"File read/write error in the Easy Mode Add System window.\n\nException Details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                throw new Exception($"File read/write error: {ex.Message}", ex);
+
+                MessageBox.Show("There was an file read/write error.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // throw new Exception($"File read/write error: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
@@ -429,13 +436,16 @@ namespace SimpleLauncher
                 {
                     string formattedException = $"Download was canceled by the user.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    throw new TaskCanceledException("Download was canceled by the user.");
+                    
+                    // throw new TaskCanceledException("Download was canceled by the user.");
                 }
                 else
                 {
                     string formattedException = $"Download timed out or was canceled unexpectedly.\n\nException Details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    throw new TaskCanceledException("Download timed out or was canceled unexpectedly.");
+                    
+                    MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // throw new TaskCanceledException("Download timed out or was canceled unexpectedly.");
                 }
             }
         }
@@ -447,8 +457,11 @@ namespace SimpleLauncher
                 string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
                 if (!File.Exists(sevenZipPath))
                 {
-                    MessageBox.Show("7z.exe not found. Please ensure 7-Zip is installed and 7z.exe is available.",
-                        "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"7z.exe was not found in the application folder.";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                    
+                    MessageBox.Show("7z.exe was not found in the application folder.\n\nPlease reinstall the application.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
 
@@ -473,19 +486,17 @@ namespace SimpleLauncher
 
                 if (process.ExitCode != 0)
                 {
-                    MessageBox.Show($"Error extracting file: {error}", "Extraction Error", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    MessageBox.Show($"Error extracting file: {error}\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
-
                 return true;
             }
             catch (Exception ex)
             {
                 string formattedException = $"Error extracting file.\n\nException Details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                MessageBox.Show($"Error extracting file: {ex.Message}", "Extraction Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+
+                MessageBox.Show($"Error extracting the file.\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -596,8 +607,8 @@ namespace SimpleLauncher
                     // Create the necessary folders for the system
                     CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
 
-                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut your ROMs for this system inside '{systemFolder}'\n\n" +
-                                    $"Put your cover images for this system inside '{fullImageFolderPathForMessage}'.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\nPut ROMs or ISOs for this system inside '{systemFolder}'\n\n" +
+                                    $"Put cover images for this system inside '{fullImageFolderPathForMessage}'.", "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
                     AddSystemButton.IsEnabled = false;
 
                 }
@@ -607,7 +618,7 @@ namespace SimpleLauncher
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
-                    MessageBox.Show($"Error adding system: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"There was an error adding this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -650,9 +661,11 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string formattedException = $"The Simple Launcher failed to create the necessary folders for the newly added system.\n\nException detail: {exception}";
+                string formattedException = $"The application failed to create the necessary folders for the newly added system.\n\nException detail: {exception}";
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"The application failed to create the necessary folders for the newly added system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }

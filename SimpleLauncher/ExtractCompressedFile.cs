@@ -54,14 +54,11 @@ namespace SimpleLauncher
                 string errorMessage = $"7z.exe process failed with exit code {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception exception = new(errorMessage);
                 Task logTask = LogErrors.LogErrorAsync(exception, errorMessage);
-                logTask.Wait(TimeSpan.FromSeconds(1));
+                logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                string errorMessage2 = "Extraction of the compressed file failed! Maybe the file is corrupted.";
-                MessageBox.Show(errorMessage2, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                
+                MessageBox.Show("Extraction of the compressed file failed.\n\nThe file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
-
             return tempDirectory;
         }
 

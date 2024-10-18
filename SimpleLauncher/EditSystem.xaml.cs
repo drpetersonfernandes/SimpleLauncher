@@ -672,6 +672,8 @@ namespace SimpleLauncher
                     string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException detail: {exception}";
                     Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
+                    
+                    MessageBox.Show($"The application failed to create the '{folderName}' folder for this system.\n\nProbably the application does not have enough privileges.\n\nTry to run the application with administrative privileges.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     throw;
                 }
             }
@@ -829,7 +831,7 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!\n\nTry to reinstall the application to fix the issue.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
 
