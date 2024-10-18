@@ -36,7 +36,16 @@ namespace SimpleLauncher
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                                            $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                await PopulateSystemStatsTable();
+                var systemStats = await PopulateSystemStatsTable();
+
+                ProgressBar.Visibility = Visibility.Collapsed;
+                
+                // Ask the user if they want to save a report
+                var result = MessageBox.Show("Would you like to save a report with the results?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveReport(globalStats, systemStats);
+                }
             }
             catch (Exception ex)
             {
@@ -45,13 +54,9 @@ namespace SimpleLauncher
 
                 MessageBox.Show($"An error occurred while calculating global stats.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                ProgressBar.Visibility = Visibility.Collapsed;
-            }
         }
         
-        private async Task PopulateSystemStatsTable()
+        private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
         {
             var systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
 
@@ -85,12 +90,14 @@ namespace SimpleLauncher
 
             // Bind the data to the DataGrid
             SystemStatsDataGrid.ItemsSource = systemStats;
+
+            return systemStats; // Return the system stats to be included in the report
         }
 
         // Class for binding data to DataGrid
         public class SystemStatsData
         {
-            public string SystemName { get; set; }
+            public string SystemName { get; init; }
             public int NumberOfFiles { get; init; }
             public int NumberOfImages { get; init; }
             
@@ -152,5 +159,62 @@ namespace SimpleLauncher
             public int TotalImages { get; init; }
             public long TotalDiskSize { get; init; }
         }
+        
+        private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+        {
+            // Create a SaveFileDialog to allow the user to select the location
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = "GlobalStatsReport", // Default file name
+                DefaultExt = ".txt", // Default file extension
+                Filter = "Text documents (.txt)|*.txt" // Filter files by extension
+            };
+
+            // Show save file dialog box
+            bool? result = saveFileDialog.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save the report to the specified path
+                string filePath = saveFileDialog.FileName;
+                try
+                {
+                    File.WriteAllText(filePath, GenerateReportText(globalStats, systemStats));
+                    MessageBox.Show("Report saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to save the report: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private string GenerateReportText(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+        {
+            // Global statistics
+            var report = $"Global Stats Report\n" +
+                         $"-------------------\n" +
+                         $"Total Number of Systems: {globalStats.TotalSystems}\n" +
+                         $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
+                         $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
+                         $"Total Number of Images: {globalStats.TotalImages:N0}\n" +
+                         $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
+                         $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n";
+
+            // System-specific statistics
+            report += "System-Specific Stats\n";
+            report += "---------------------\n";
+            foreach (var system in systemStats)
+            {
+                report += $"System Name: {system.SystemName}\n" +
+                          $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" +
+                          $"Number of Cover Images: {system.NumberOfImages}\n";
+                        //$"Match: {(system.AreFilesAndImagesEqual ? "Yes" : "No")}\n\n";
+            }
+
+            return report;
+        }
+
     }
 }

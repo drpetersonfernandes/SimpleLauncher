@@ -11,6 +11,7 @@ Implemented cover image downloads for some systems.
 Enhanced the Global Stats class and XAML. Now, it presents a summary of each system. The row will be colored red if any cover image is missing for that system.
 Implemented a tray icon for the application.
 Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly handled for the developer.
+Add an option to save the report of the Global Stats Window.
 
 release3.1.0
 -------------
