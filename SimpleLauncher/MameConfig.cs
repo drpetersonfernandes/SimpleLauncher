@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -21,7 +22,12 @@ namespace SimpleLauncher
             // Check if the mame.xml file exists
             if (!File.Exists(xmlPath))
             {
-                MessageBox.Show("The file mame.xml could not be found.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"The file mame.xml could not be found in the application folder.";
+                Exception exception = new(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("The file mame.xml could not be found in the application folder.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Shutdown the application and exit
                 Application.Current.Shutdown();
@@ -40,9 +46,14 @@ namespace SimpleLauncher
                         Description = m.Element("Description")?.Value
                     }).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("I could not load the file mame.xml or it is corrupted.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"The file mame.xml could not be loaded or it is corrupted.\n\nException details: {ex.Message}";
+                Exception exception = new(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("The application could not load the file mame.xml or it is corrupted.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Shutdown current application instance
                 Application.Current.Shutdown();

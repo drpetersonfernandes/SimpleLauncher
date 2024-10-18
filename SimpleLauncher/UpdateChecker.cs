@@ -60,11 +60,11 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                string contextMessage = $"Error checking for updates.\n\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
+
             }
         }
 
@@ -103,15 +103,12 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                // Method cannot check if there is a new version.
-                // There is a problem with user internet access, or there is a problem in the GitHub server. 
-                MessageBox.Show(mainWindow, $"There is a problem checking for updates.\n\nMaybe there is a problem with your internet connection or there is a problem in the GitHub server.", "There is a problem!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
-                string contextMessage = $"Error checking for updates.\n\nException details: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                string contextMessage = $"Error checking for updates.\n\nException details: {ex}";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
+                
+                MessageBox.Show(mainWindow, $"There was an error checking for updates.\n\nMaybe there is a problem with your internet access or the GitHub server is offline.", "Error checking for updates", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -191,7 +188,7 @@ namespace SimpleLauncher
                             logWindow.Log("Updater.exe not found in the application directory. Please update manually.");
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\n\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 logWindow.Close();
                             });
                             return;
@@ -209,17 +206,18 @@ namespace SimpleLauncher
                         Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
                     });
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    string contextMessage = $"There was an error updating the application.\n\nPlease update manually.\n\nException details: {exception}";
-                    Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                    string contextMessage = $"There was an error updating the application.\n\nException details: {ex}";
+                    await LogErrors.LogErrorAsync(ex, contextMessage);
+                    
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logWindow.Log($"Error: {exception.Message}");
+                        MessageBox.Show("There was an error updating the application.\n\nPlease update it manually.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        logWindow.Log($"There was an error updating the application. Please update it manually");
                         logWindow.Close();
                     });
-                    await logTask;
+
                 }
             }
         }
@@ -239,7 +237,12 @@ namespace SimpleLauncher
             string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
             if (!File.Exists(sevenZipPath))
             {
-                throw new FileNotFoundException("7z.exe not found in the application directory.");
+                string formattedException = $"7z.exe not found in the application directory.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("7z.exe not found in the application directory.\n\nPlease reinstall Simple Launcher.","7z.exe not found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             var psi = new ProcessStartInfo
@@ -257,7 +260,12 @@ namespace SimpleLauncher
 
             if (process != null && process.ExitCode != 0)
             {
-                throw new InvalidOperationException($"7z.exe exited with code {process.ExitCode}");
+                string formattedException = $"7z.exe exited with code {process.ExitCode}.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the file is corrupted.", "Error extracting the file", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -271,7 +279,6 @@ namespace SimpleLauncher
             {
                 string versionTag = tagNameElement.GetString();
                 string assetUrl = null;
-
                 foreach (var asset in assetsElement.EnumerateArray())
                 {
                     if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
@@ -287,10 +294,22 @@ namespace SimpleLauncher
                     return (NormalizeVersion(versionMatch.Value), assetUrl);
                 }
 
-                throw new InvalidOperationException("Version number not found in tag.");
+                LogErrorAsync(
+                    $"There was an error parsing the application version from the UpdateChecker class.\n\nVersion number was not found in the tag.");
+            }
+            else
+            {
+                LogErrorAsync(
+                    $"There was an error parsing the application version from the UpdateChecker class.\n\nVersion information not found in the response.");
             }
 
-            throw new InvalidOperationException("Version information not found in the response.");
+            return (null, null);
+        }
+
+        private static void LogErrorAsync(string message)
+        {
+            Exception exception = new(message);
+            _ = LogErrors.LogErrorAsync(exception, message);
         }
 
         private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);

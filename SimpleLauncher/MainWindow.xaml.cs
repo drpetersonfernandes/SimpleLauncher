@@ -393,10 +393,11 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"An error occurred while counting files.\n\nException details: {ex}";
+                string contextMessage = $"An error occurred while counting files in the Main window.\n\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                MessageBox.Show($"An error occurred while counting files: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"An error occurred while counting files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
         }
@@ -447,7 +448,7 @@ namespace SimpleLauncher
             // Add the number of images in the system's image folder
             if (Directory.Exists(imageFolderPath))
             {
-                var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" }; // Add image extensions
+                var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" };
                 int imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
 
                 var imageCountTextBlock = new TextBlock
@@ -522,7 +523,7 @@ namespace SimpleLauncher
             // Display all error messages if there are any errors
             if (hasErrors)
             {
-                string extraline = "Click the 'Edit System' button in the menu to fix it.";
+                string extraline = "Edit System to fix it.";
                 MessageBox.Show(errorMessages + extraline,"Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -595,9 +596,10 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = $"Previous page button error.\n\nException detail: {exception}";
+                string errorMessage = $"Previous page button error in the Main window.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
-                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBox.Show("There was an error in the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -622,9 +624,10 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = $"Next page button error.\n\nException detail: {exception}";
+                string errorMessage = $"Next page button error in the Main window.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
-                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBox.Show("There was an error with the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -787,10 +790,11 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    string errorMessage = "Error while loading selected system configuration.";
+                    string errorMessage = "Error while loading the selected system configuration in the Main window, in the method LoadGameFilesAsync.";
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    MessageBox.Show("There was an error while loading the system configuration.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -918,9 +922,10 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string errorMessage = $"Error while loading ROM files.\n\nException detail: {exception}";
+                string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main Window.\n\nException detail: {exception}";
                 await LogErrors.LogErrorAsync(exception, errorMessage);
-                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                MessageBox.Show("There was an error while loading the game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -939,9 +944,10 @@ namespace SimpleLauncher
                 }
                 catch (Exception exception)
                 {
-                    string errorMessage = $"There was an error getting the list of files from folder.\n\nException details: {exception}";
+                    string errorMessage = $"There was an error using the method GetFilesAsync in the Main Window.\n\nException details: {exception}";
                     await LogErrors.LogErrorAsync(exception, errorMessage);
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    MessageBox.Show("There was an error finding the files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return new List<string>();
                 }
             });
@@ -1012,10 +1018,11 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                string contextMessage = $"Unable to open the donation link.\n\nException details: {exception}";
+                string contextMessage = $"Unable to open the donation link from the Menu.\n\nException details: {exception}";
                 Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-                MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("There was an error opening the donation link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

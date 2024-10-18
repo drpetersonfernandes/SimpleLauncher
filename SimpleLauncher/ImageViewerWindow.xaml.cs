@@ -1,12 +1,13 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    public partial class OpenImageFiles
+    public partial class ImageViewerWindow
     {
-        public OpenImageFiles()
+        public ImageViewerWindow()
         {
             InitializeComponent();
             
@@ -29,7 +30,12 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"Failed to load the image in the ImageViewerWindow.\n\nException details: {ex.Message}";
+                Exception exception = new(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"Failed to load the image.\n\nThe image might be corrupted or was inaccessible.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

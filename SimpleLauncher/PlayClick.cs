@@ -23,8 +23,9 @@ public static class PlayClick
         {
             string contextMessage = $"Error playing the click sound.\n\nException details: {ex}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            MessageBox.Show("Error playing the click sound.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

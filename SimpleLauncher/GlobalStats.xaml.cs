@@ -1,4 +1,3 @@
-// Ensure you have this namespace for MetroWindow
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Windows;
 
 namespace SimpleLauncher
 {
-    public partial class GlobalStats // Inheriting from MetroWindow
+    public partial class GlobalStats
     {
         private readonly List<SystemConfig> _systemConfigs;
 
@@ -37,11 +36,14 @@ namespace SimpleLauncher
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                                            $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                await PopulateSystemStatsTable(); // Ensure it's awaited
+                await PopulateSystemStatsTable();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while calculating global stats: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"An error occurred while calculating global stats.\n\nException detail: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+
+                MessageBox.Show($"An error occurred while calculating global stats.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

@@ -538,169 +538,6 @@ namespace SimpleLauncher
             }
         }
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
         {
             var searchTerm =
@@ -719,7 +556,11 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"There was a problem opening the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was a problem opening the Video Link in the global search window.\n\nException details: {exception.Message}";
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was a problem opening the Video Link.\n\nThe problem was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -741,7 +582,11 @@ namespace SimpleLauncher
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"There was a problem opening the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was a problem opening the Info Link in the global search window.\n\nException details: {exception.Message}";
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was a problem opening the Info Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -751,7 +596,12 @@ namespace SimpleLauncher
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
-                MessageBox.Show("System configuration not found for the selected file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"System configuration not found for the selected file in the global search window, when using the OpenCover method.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("There was a problem opening the Cover Image for this file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
     
@@ -787,20 +637,20 @@ namespace SimpleLauncher
             // First try to find the image in the specific directory
             if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
             {
-                var imageViewerWindow = new OpenImageFiles();
+                var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(foundImagePath);
                 imageViewerWindow.Show();
             }
             // If not found, try the global directory
             else if (TryFindImage(globalDirectory, out foundImagePath))
             {
-                var imageViewerWindow = new OpenImageFiles();
+                var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(foundImagePath);
                 imageViewerWindow.Show();
             }
             else
             {
-                MessageBox.Show("There is no cover associated with this file or button.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("There is no cover associated with this file.", "Cover Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -818,14 +668,14 @@ namespace SimpleLauncher
                 string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(titleSnapshotPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(titleSnapshotPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
 
-            MessageBox.Show("There is no title snapshot associated with this file or button.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no title snapshot associated with this file.", "Title Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -842,14 +692,13 @@ namespace SimpleLauncher
                 string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(gameplaySnapshotPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(gameplaySnapshotPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
-
-            MessageBox.Show("There is no gameplay snapshot associated with this file or button.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no gameplay snapshot associated with this file.", "Gameplay Snapshot Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCart(string systemName, string fileName)
@@ -866,14 +715,13 @@ namespace SimpleLauncher
                 string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cartPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cartPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
-
-            MessageBox.Show("There is no cart associated with this file or button.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cart associated with this file.", "Cart Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void PlayVideo(string systemName, string fileName)
@@ -898,8 +746,7 @@ namespace SimpleLauncher
                     return;
                 }
             }
-
-            MessageBox.Show("There is no video associated with this file or button.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no video associated with this file.", "Video Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenManual(string systemName, string fileName)
@@ -928,13 +775,16 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Failed to open the manual: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string formattedException = $"Failed to open the manual in the global search window.\n\nException detail: {ex.Message}";
+                        Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        
+                        MessageBox.Show($"Failed to open the manual for this file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
             }
-
-            MessageBox.Show("There is no manual associated with this file or button.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no manual associated with this file.", "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenWalkthrough(string systemName, string fileName)
@@ -963,13 +813,16 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Failed to open the walkthrough: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string formattedException = $"Failed to open the walkthrough file in the global search window.\n\nException detail: {ex.Message}";
+                        Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        
+                        MessageBox.Show($"Failed to open the walkthrough file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
             }
-
-            MessageBox.Show("There is no walkthrough associated with this file or button.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no walkthrough associated with this file.", "Walkthrough Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenCabinet(string systemName, string fileName)
@@ -986,14 +839,13 @@ namespace SimpleLauncher
                 string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cabinetPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cabinetPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
-
-            MessageBox.Show("There is no cabinet associated with this file or button.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cabinet file associated with this file.", "Cabinet Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenFlyer(string systemName, string fileName)
@@ -1010,14 +862,13 @@ namespace SimpleLauncher
                 string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(flyerPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(flyerPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
-
-            MessageBox.Show("There is no flyer associated with this file or button.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no flyer file associated with this file.", "Flyer Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void OpenPcb(string systemName, string fileName)
@@ -1034,14 +885,13 @@ namespace SimpleLauncher
                 string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(pcbPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(pcbPath);
                     imageViewerWindow.Show();
                     return;
                 }
             }
-
-            MessageBox.Show("There is no PCB associated with this file or button.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no PCB file associated with this file.", "PCB Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1055,7 +905,11 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"There was an error while using the method MouseDoubleClick in the global search window.\n\nException detail: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show($"The application could not launch this game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

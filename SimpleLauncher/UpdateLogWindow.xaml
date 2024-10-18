@@ -8,7 +8,7 @@
                       WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize">
     <Grid>
-        <TextBox x:Name="LogTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                 IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="LogTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
     </Grid>
 </controls:MetroWindow>

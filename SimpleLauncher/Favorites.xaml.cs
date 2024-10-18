@@ -391,14 +391,14 @@ namespace SimpleLauncher
             // First try to find the image in the specific directory
             if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
             {
-                var imageViewerWindow = new OpenImageFiles();
+                var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(foundImagePath);
                 imageViewerWindow.Show();
             }
             // If not found, try the global directory
             else if (TryFindImage(globalDirectory, out foundImagePath))
             {
-                var imageViewerWindow = new OpenImageFiles();
+                var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(foundImagePath);
                 imageViewerWindow.Show();
             }
@@ -422,7 +422,7 @@ namespace SimpleLauncher
                 string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(titleSnapshotPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(titleSnapshotPath);
                     imageViewerWindow.Show();
                     return;
@@ -446,7 +446,7 @@ namespace SimpleLauncher
                 string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(gameplaySnapshotPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(gameplaySnapshotPath);
                     imageViewerWindow.Show();
                     return;
@@ -470,7 +470,7 @@ namespace SimpleLauncher
                 string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cartPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cartPath);
                     imageViewerWindow.Show();
                     return;
@@ -599,7 +599,7 @@ namespace SimpleLauncher
                 string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(cabinetPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cabinetPath);
                     imageViewerWindow.Show();
                     return;
@@ -623,7 +623,7 @@ namespace SimpleLauncher
                 string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(flyerPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(flyerPath);
                     imageViewerWindow.Show();
                     return;
@@ -647,7 +647,7 @@ namespace SimpleLauncher
                 string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
                 if (File.Exists(pcbPath))
                 {
-                    var imageViewerWindow = new OpenImageFiles();
+                    var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(pcbPath);
                     imageViewerWindow.Show();
                     return;

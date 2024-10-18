@@ -2,14 +2,15 @@ release3.2.0
 -------------
 
 10/__/2024
-I have made the filenames and file descriptions of the game a little bigger in each and every button created in the [Main] Window.
+I have made the filenames and file descriptions on each button in the [Main] Window a little bigger.
 Updated the emulator download links to the latest versions.
 The 'mame.xml' file has been updated to the latest release.
-Improved error handling in case the download process fails in the [Easy Add System] Window. I have also added a Stop Download button for the user.
-Better error handling in case the 'default.png' file is missing. It will now display a message to the user and also shutdown the application.
-I have implemented cover image downloads for some systems.
-I have improved the Global Stats class and XAML. It will now present a summary of each and every system. The row will also be colored red if there is any missing cover image for that system.
-I have implemented a tray icon for the application.
+Improved error handling in the [Easy Add System] Window in case the download process fails. Added a Stop Download button for the user.
+Enhanced error handling for missing 'default.png' files. Now, a message will be displayed to the user, and the application will shut down.
+Implemented cover image downloads for some systems.
+Enhanced the Global Stats class and XAML. Now, it presents a summary of each system. The row will be colored red if any cover image is missing for that system.
+Implemented a tray icon for the application.
+Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly handled for the developer.
 
 release3.1.0
 -------------

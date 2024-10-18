@@ -37,24 +37,25 @@ public static class Stats
         }
         else
         {
-            string errorMessage = "API Key is missing.";
+            string errorMessage = "API Key is missing in the CallApiAsync method.";
             Exception exception = new Exception(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
+
             return;
         }
 
         try
         {
             HttpResponseMessage response = await client.GetAsync(ApiUrl);
-            response.EnsureSuccessStatusCode(); // Throws HttpRequestException if not successful
+            response.EnsureSuccessStatusCode();
         }
         catch (HttpRequestException ex)
         {
             await LogErrors.LogErrorAsync(ex, $"There was an error communicating with the stats API.\n\nException details: {ex}");
         }
-        catch (Exception ex2)
+        catch (Exception ex)
         {
-            await LogErrors.LogErrorAsync(ex2, $"There was an unexpected error in Stats.CallApiAsync method.\n\nException details: {ex2}");
+            await LogErrors.LogErrorAsync(ex, $"There was an unexpected error in CallApiAsync method.\n\nException details: {ex}");
         }
     }
 }

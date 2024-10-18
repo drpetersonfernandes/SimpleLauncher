@@ -10,9 +10,9 @@ namespace SimpleLauncher
     public class SettingsConfig
     {
         private readonly string _filePath;
-        private readonly HashSet<int> _validThumbnailSizes = new HashSet<int> { 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600 };
-        private readonly HashSet<int> _validGamesPerPage = new HashSet<int> { 100, 200, 300, 400, 500 };
-        private readonly HashSet<string> _validShowGames = new HashSet<string> { "ShowAll", "ShowWithCover", "ShowWithoutCover" };
+        private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
+        private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500];
+        private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
 
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
@@ -67,10 +67,12 @@ namespace SimpleLauncher
                 // Ensure all values are saved if they were missing
                 Save();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
                 SetDefaultsAndSave();
-                Task logTask = LogErrors.LogErrorAsync(exception, "Error in loading or parsing setting.xml.");
+
+                string contextMessage = $"Error in loading or parsing setting.xml from SettingsConfig class.\n\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
