@@ -690,9 +690,8 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while adding a game to the favorites.\n\nException details: {ex.Message}";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                string formattedException = $"An error occurred while adding a game to the favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"An error occurred while adding this game to the favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -740,9 +739,8 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while removing a game from favorites.\n\nException details: {ex.Message}";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                string formattedException = $"An error occurred while removing a game from favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"An error occurred while removing this game from favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -769,10 +767,10 @@ namespace SimpleLauncher
                     UseShellExecute = true
                 });
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string contextMessage = $"There was a problem opening the Video Link.\n\nException details: {exception.Message}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                string contextMessage = $"There was a problem opening the Video Link.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"There was a problem opening the Video Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -799,10 +797,10 @@ namespace SimpleLauncher
                     UseShellExecute = true
                 });
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string contextMessage = $"There was a problem opening the Info Link.\n\nException details: {exception.Message}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                string contextMessage = $"There was a problem opening the Info Link.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"There was a problem opening the Info Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -955,7 +953,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string contextMessage = $"There was a problem opening the manual.\n\nException details: {ex.Message}";
+                        string contextMessage = $"There was a problem opening the manual.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
@@ -991,7 +989,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string contextMessage = $"There was a problem opening the walkthrough.\n\nException details: {ex.Message}";
+                        string contextMessage = $"There was a problem opening the walkthrough.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         

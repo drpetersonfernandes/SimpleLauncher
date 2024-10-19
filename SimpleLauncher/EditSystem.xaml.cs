@@ -670,7 +670,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException detail: {ex.Message}";
+                    string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     

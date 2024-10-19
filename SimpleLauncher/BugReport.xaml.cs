@@ -127,7 +127,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\nException detail: {ex.Message}");
+                await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
                 
                 MessageBox.Show($"An error occurred while sending the bug report.\n\nThe bug was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

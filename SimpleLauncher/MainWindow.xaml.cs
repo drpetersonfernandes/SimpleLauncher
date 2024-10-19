@@ -82,9 +82,17 @@ namespace SimpleLauncher
 
                 SystemComboBox.ItemsSource = sortedSystemNames;
             }
-            catch
+            catch (Exception ex)
             {
+                string contextMessage = $"system.xml was not found in the application folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("The file system.xml is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Shutdown current application instance
                 Application.Current.Shutdown();
+                Environment.Exit(0);
             }
 
             // Apply settings to application from settings.xml
@@ -393,7 +401,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"An error occurred while counting files in the Main window.\n\nException details: {ex.Message}";
+                string contextMessage = $"An error occurred while counting files in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -594,10 +602,10 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string errorMessage = $"Previous page button error in the Main window.\n\nException detail: {exception}";
-                await LogErrors.LogErrorAsync(exception, errorMessage);
+                string errorMessage = $"Previous page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 MessageBox.Show("There was an error in the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
@@ -622,10 +630,10 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string errorMessage = $"Next page button error in the Main window.\n\nException detail: {exception}";
-                await LogErrors.LogErrorAsync(exception, errorMessage);
+                string errorMessage = $"Next page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 MessageBox.Show("There was an error with the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
@@ -922,7 +930,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\nException detail: {ex}";
+                string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
                 MessageBox.Show("There was an error while creating the game buttons.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -944,7 +952,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException details: {ex}";
+                    string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, errorMessage);
 
                     MessageBox.Show("There was an error finding the files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1018,7 +1026,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Unable to open the Donation Link from the menu.\n\nException details: {ex}";
+                string contextMessage = $"Unable to open the Donation Link from the menu.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 

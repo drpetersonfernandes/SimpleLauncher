@@ -93,7 +93,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string errorDetails = $"Error launching the lnk file\n\nException details: {ex.Message}\n\nShortcut: {psi.FileName}";
+                        string errorDetails = $"Error launching the lnk file.\n\nShortcut: {psi.FileName}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         await LogErrors.LogErrorAsync(ex, errorDetails);
                         
                         MessageBox.Show("The was an error launching the lnk file.\n\nTry to run the lnk file outside Simple Launcher to see if it is working properly.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -133,7 +133,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string errorDetails = $"There was an error launching the exe file.\n\nException details: {ex.Message}\n\nProgram: {psi.FileName}\n";
+                        string errorDetails = $"There was an error launching the exe file.\n\nProgram: {psi.FileName}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         await LogErrors.LogErrorAsync(ex, errorDetails);
                         
                         MessageBox.Show("There was an error launching the exe file.\n\nTry to launch the exe file outside Simple Launcher to see if it is working.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -267,7 +267,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"The emulator could not open this game.\n\nException Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
+                string formattedException = $"The emulator could not open this game.\n\nEmulator: {psi.FileName}\nParameters: {psi.Arguments}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

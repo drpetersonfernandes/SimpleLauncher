@@ -80,8 +80,12 @@ namespace SimpleLauncher
                                         // Rename system.model to system.xml
                                         File.Copy(systemModel, XmlPath, false); // Does not overwrite the file if it already exists
                                     }
-                                    catch (Exception)
+                                    catch (Exception ex)
                                     {
+                                        string contextMessage = $"system_model.xml was not found in the application folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                                        logTask.Wait(TimeSpan.FromSeconds(2));
+                                        
                                         MessageBox.Show("The file system_model.xml is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                                         // Shutdown the application and exit
@@ -94,7 +98,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string contextMessage = $"The file system.xml is corrupted or could not be open.\n\nException details: {ex.Message}";
+                        string contextMessage = $"The file system.xml is corrupted or could not be open.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
@@ -174,7 +178,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Error loading system configurations from system.xml.\n\nException details: {ex}";
+                string contextMessage = $"Error loading system configurations from system.xml.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 

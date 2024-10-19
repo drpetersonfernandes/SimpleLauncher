@@ -29,7 +29,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Failed to load the image in the Image Viewer window.\n\nException details: {ex.Message}";
+                string contextMessage = $"Failed to load the image in the Image Viewer window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 

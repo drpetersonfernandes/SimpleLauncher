@@ -62,7 +62,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Error checking for updates.\n\nException details: {ex.Message}";
+                string contextMessage = $"Error checking for updates.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
@@ -104,7 +104,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Error checking for updates.\n\nException details: {ex}";
+                string contextMessage = $"Error checking for updates.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
                 
                 MessageBox.Show(mainWindow, $"There was an error checking for updates.\n\nMaybe there is a problem with your internet access or the GitHub server is offline.", "Error checking for updates", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -207,7 +207,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string contextMessage = $"There was an error updating the application.\n\nException details: {ex}";
+                    string contextMessage = $"There was an error updating the application.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, contextMessage);
                     
                     Application.Current.Dispatcher.Invoke(() =>

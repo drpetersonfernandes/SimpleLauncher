@@ -51,11 +51,11 @@ public static class Stats
         }
         catch (HttpRequestException ex)
         {
-            await LogErrors.LogErrorAsync(ex, $"There was an error communicating with the stats API.\n\nException details: {ex}");
+            await LogErrors.LogErrorAsync(ex, $"There was an error communicating with the stats API.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
         }
         catch (Exception ex)
         {
-            await LogErrors.LogErrorAsync(ex, $"There was an unexpected error in CallApiAsync method.\n\nException details: {ex}");
+            await LogErrors.LogErrorAsync(ex, $"There was an unexpected error in CallApiAsync method.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
         }
     }
 }

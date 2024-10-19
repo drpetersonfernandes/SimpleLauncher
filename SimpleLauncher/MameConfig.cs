@@ -48,7 +48,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\nException details: {ex.Message}";
+                string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 

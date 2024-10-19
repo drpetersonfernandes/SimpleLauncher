@@ -215,7 +215,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was an error launching the game from Favorites.\n\nException Details: {ex.Message}\n\nFile Path: {fileName}\n\nSystem Name: {systemName}";
+                string formattedException = $"There was an error launching the game from Favorites.\n\nFile Path: {fileName}\nSystem Name: {systemName}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show($"There was an error launching the game from Favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -306,11 +306,11 @@ namespace SimpleLauncher
                     UseShellExecute = true
                 });
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
                 
-                string formattedException = $"There was a problem opening the Video Link.\n\nException details: {exception.Message}.";
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                string formattedException = $"There was a problem opening the Video Link.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"There was a problem opening the Video Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -333,10 +333,10 @@ namespace SimpleLauncher
                     UseShellExecute = true
                 });
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string formattedException = $"There was a problem opening the Info Link.\n\nException details: {exception.Message}.";
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                string formattedException = $"There was a problem opening the Info Link.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"There was a problem opening the Info Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -530,7 +530,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string formattedException = $"Failed to open the manual in the Favorites window\n\nException details: {ex.Message}";
+                        string formattedException = $"Failed to open the manual in the Favorites window\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Exception exception = new(formattedException);
                         Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                         logTask.Wait(TimeSpan.FromSeconds(2));
@@ -569,9 +569,8 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string formattedException = $"Failed to open the walkthrough file in the Favorites window\n\nException details: {ex.Message}";
-                        Exception exception = new(formattedException);
-                        Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                        string formattedException = $"Failed to open the walkthrough file in the Favorites window\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                        Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
                         MessageBox.Show($"Failed to open the walkthrough file.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -664,7 +663,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was an error trying to launch a favorite using the MouseDoubleClick method.\n\nException details: {ex.Message}";
+                string formattedException = $"There was an error trying to launch a favorite using the MouseDoubleClick method.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show($"There was an error trying to launch this favorite.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -329,7 +329,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was an error launching the game from the Global Search window.\n\nException Details: {ex.Message}\n\nFile Path: {filePath}\n\nSystem Name: {systemName}";
+                string formattedException = $"There was an error launching the game from the Global Search window.\n\nFile Path: {filePath}\nSystem Name: {systemName}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show($"There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -351,7 +351,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"That was an error launching a game from the Global Search window.\n\nException details: {ex.Message}";
+                string formattedException = $"That was an error launching a game from the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
@@ -479,7 +479,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"That was an error in the right click context menu in the global search window.\n\nException details: {ex.Message}";
+                string formattedException = $"That was an error in the right click context menu in the global search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -527,7 +527,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while adding game to favorites in the Global Search window.\n\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while adding game to favorites in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -553,7 +553,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was a problem opening the Video Link in the Global Search window.\n\nException details: {ex.Message}";
+                string formattedException = $"There was a problem opening the Video Link in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -579,7 +579,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was a problem opening the Info Link in the Global Search window.\n\nException details: {ex.Message}";
+                string formattedException = $"There was a problem opening the Info Link in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -772,7 +772,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string formattedException = $"Failed to open the manual in the Global Search window.\n\nException detail: {ex.Message}";
+                        string formattedException = $"Failed to open the manual in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
@@ -810,7 +810,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string formattedException = $"Failed to open the walkthrough file in the Global Search window.\n\nException detail: {ex.Message}";
+                        string formattedException = $"Failed to open the walkthrough file in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
@@ -902,7 +902,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was an error while using the method MouseDoubleClick in the Global Search window.\n\nException detail: {ex.Message}";
+                string formattedException = $"There was an error while using the method MouseDoubleClick in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 

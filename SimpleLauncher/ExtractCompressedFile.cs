@@ -75,10 +75,10 @@ namespace SimpleLauncher
                     {
                         Directory.Delete(dir, true);
                     }
-                    catch (Exception exception)
+                    catch (Exception ex)
                     {
-                        string contextMessage = $"Error occurred while cleaning up temp directories.\n\nException detail: {exception}";
-                        Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                        string contextMessage = $"Error occurred while cleaning up temp directories.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                        Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                     }
                 }

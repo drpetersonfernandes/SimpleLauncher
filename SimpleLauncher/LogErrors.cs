@@ -83,7 +83,7 @@ namespace SimpleLauncher
                 HttpResponseMessage response = await HttpClient.SendAsync(request);
                 return response.IsSuccessStatusCode;
             }
-            catch
+            catch (Exception)
             {
                 return false;
             }

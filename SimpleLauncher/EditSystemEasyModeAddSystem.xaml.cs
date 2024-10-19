@@ -178,7 +178,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading emulator.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Error downloading emulator.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     MessageBoxResult result = MessageBox.Show($"Error downloading emulator.\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -295,7 +295,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading the core.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Error downloading the core.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -370,7 +370,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading the image pack.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Error downloading the image pack.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     MessageBox.Show($"Error downloading the image pack.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -415,14 +415,14 @@ namespace SimpleLauncher
             }
             catch (HttpRequestException ex)
             {
-                string formattedException = $"Network error in the Easy Mode Add System window.\n\nException Details: {ex.Message}";
+                string formattedException = $"Network error in the Easy Mode Add System window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show("There was an network error.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (IOException ex)
             {
-                string formattedException = $"File read/write error in the Easy Mode Add System window.\n\nException Details: {ex.Message}";
+                string formattedException = $"File read/write error in the Easy Mode Add System window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 MessageBox.Show("There was an file read/write error.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -431,7 +431,7 @@ namespace SimpleLauncher
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    string formattedException = $"Download was canceled by the user.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Download was canceled by the user.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                 }
                 else
@@ -491,7 +491,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"Error extracting the file: {filePath}\n\nException details: {ex.Message}";
+                string formattedException = $"Error extracting the file: {filePath}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 MessageBox.Show($"Error extracting the file: {filePath}\n\nThe file might be corrupted.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -612,7 +612,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error adding system.\n\nException detail: {ex.Message}";
+                    string formattedException = $"Error adding system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
@@ -657,10 +657,10 @@ namespace SimpleLauncher
                     }
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string formattedException = $"The application failed to create the necessary folders for the newly added system.\n\nException detail: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                string formattedException = $"The application failed to create the necessary folders for the newly added system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"The application failed to create the necessary folders for this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

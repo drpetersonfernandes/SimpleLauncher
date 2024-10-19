@@ -71,7 +71,7 @@ namespace SimpleLauncher
             {
                 SetDefaultsAndSave();
 
-                string contextMessage = $"Error in loading or parsing setting.xml from SettingsConfig class.\n\nException details: {ex.Message}";
+                string contextMessage = $"Error loading or parsing setting.xml from SettingsConfig class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }

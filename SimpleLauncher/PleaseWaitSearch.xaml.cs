@@ -6,7 +6,6 @@ public partial class PleaseWaitSearch
     {
         InitializeComponent();
         
-        // Apply the theme to this window
         App.ApplyThemeToWindow(this);
     }
 }

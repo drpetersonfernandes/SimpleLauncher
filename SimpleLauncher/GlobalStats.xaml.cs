@@ -49,7 +49,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while calculating Global Statistics.\n\nException detail: {ex.Message}";
+                string formattedException = $"An error occurred while calculating Global Statistics.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -185,7 +185,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Failed to save the report in the Global Stats window.\n\nException detail: {ex.Message}";
+                    string formattedException = $"Failed to save the report in the Global Stats window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
