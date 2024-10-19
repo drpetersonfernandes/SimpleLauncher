@@ -38,8 +38,8 @@ public static class Stats
         else
         {
             string errorMessage = "API Key is missing in the CallApiAsync method.";
-            Exception exception = new Exception(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
+            Exception ex = new Exception(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
 
             return;
         }

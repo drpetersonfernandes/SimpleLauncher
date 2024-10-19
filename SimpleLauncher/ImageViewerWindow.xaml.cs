@@ -11,7 +11,6 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
-            // Apply the theme to this window
             App.ApplyThemeToWindow(this);
         }
 
@@ -30,12 +29,11 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Failed to load the image in the ImageViewerWindow.\n\nException details: {ex.Message}";
-                Exception exception = new(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                string contextMessage = $"Failed to load the image in the Image Viewer window.\n\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"Failed to load the image.\n\nThe image might be corrupted or was inaccessible.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to load the image in the Image Viewer window.\n\nThe image may be corrupted or inaccessible.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

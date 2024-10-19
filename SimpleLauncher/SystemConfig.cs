@@ -63,7 +63,7 @@ namespace SimpleLauncher
                             else
                             {
                                 // Ask the user whether to create an empty system.xml or use a prefilled system_model.xml
-                                MessageBoxResult createNewFileResult = MessageBox.Show("The file system.xml is missing.\n\nWould you like to create an empty system.xml or use a prefilled system.xml?\n\nClick Yes to create an empty system.xml.\nClick No to use the prefilled system.xml.", "Create System.xml", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                MessageBoxResult createNewFileResult = MessageBox.Show("The file system.xml is missing.\n\nWould you like to create an empty system.xml or use a prefilled system.xml?\n\nClick Yes to create an empty system.xml.\nClick No to use the prefilled system.xml.", "Create system.xml file", MessageBoxButton.YesNo, MessageBoxImage.Question);
                                 if (createNewFileResult == MessageBoxResult.Yes)
                                 {
                                     // Create an empty system.xml
@@ -98,7 +98,7 @@ namespace SimpleLauncher
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                        MessageBox.Show($"The system.xml is corrupted or could not be open.\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"system.xml is corrupted or could not be open.\n\nPlease fix it manually or delete it.\n\nIf you choose to delete the application will create a new one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return null;
                     }
                 }
@@ -178,7 +178,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show($"The system.xml is corrupted or could not be open.\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it the application will create one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"system.xml is corrupted or could not be open.\n\nPlease fix it manually or delete it.\n\nIf you choose to delete the application will create a new one for you.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }

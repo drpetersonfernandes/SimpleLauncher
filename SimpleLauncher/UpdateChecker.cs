@@ -64,7 +64,6 @@ namespace SimpleLauncher
             {
                 string contextMessage = $"Error checking for updates.\n\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
-
             }
         }
 
@@ -99,7 +98,7 @@ namespace SimpleLauncher
                     else
                     {
                         // If no new version is available, show a message box with the current version
-                        MessageBox.Show(mainWindow, $"There is no update available.\n\nThe current version is {CurrentVersion}", "No Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(mainWindow, $"There is no update available.\n\nThe current version is {CurrentVersion}", "No update available", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
@@ -185,11 +184,11 @@ namespace SimpleLauncher
 
                         if (!File.Exists(updaterExePath))
                         {
-                            logWindow.Log("Updater.exe not found in the application directory. Please update manually.");
+                            logWindow.Log("Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.");
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\n\nPlease update manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                logWindow.Close();
+                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                // logWindow.Close();
                             });
                             return;
                         }
@@ -214,8 +213,8 @@ namespace SimpleLauncher
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         MessageBox.Show("There was an error updating the application.\n\nPlease update it manually.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logWindow.Log($"There was an error updating the application. Please update it manually");
-                        logWindow.Close();
+                        logWindow.Log($"There was an error updating the application.\n\nPlease update it manually");
+                        // logWindow.Close();
                     });
 
                 }
@@ -238,8 +237,8 @@ namespace SimpleLauncher
             if (!File.Exists(sevenZipPath))
             {
                 string formattedException = $"7z.exe not found in the application directory.";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                Exception ex = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("7z.exe not found in the application directory.\n\nPlease reinstall Simple Launcher.","7z.exe not found", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -261,11 +260,11 @@ namespace SimpleLauncher
             if (process != null && process.ExitCode != 0)
             {
                 string formattedException = $"7z.exe exited with code {process.ExitCode}.";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                Exception ex = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the file is corrupted.", "Error extracting the file", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the compressed file is corrupt.", "Error extracting the file", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

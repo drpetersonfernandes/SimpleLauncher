@@ -237,7 +237,7 @@
 
             <StackPanel x:Name="LetterNumberMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                         Orientation="Horizontal">
-                <!--  Dynamically add letter buttons here or define them manually in XAML  -->
+                <!--  Dynamically add letter buttons  -->
             </StackPanel>
 
             <StackPanel

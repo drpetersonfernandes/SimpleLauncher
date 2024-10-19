@@ -23,10 +23,10 @@ namespace SimpleLauncher
             if (!File.Exists(xmlPath))
             {
                 string contextMessage = $"The file mame.xml could not be found in the application folder.";
-                Exception exception = new(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                Exception ex = new Exception(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-                
+
                 MessageBox.Show("The file mame.xml could not be found in the application folder.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Shutdown the application and exit
@@ -48,9 +48,8 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"The file mame.xml could not be loaded or it is corrupted.\n\nException details: {ex.Message}";
-                Exception exception = new(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("The application could not load the file mame.xml or it is corrupted.\n\nThe application will be Shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

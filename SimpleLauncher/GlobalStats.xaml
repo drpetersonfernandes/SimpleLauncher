@@ -5,7 +5,7 @@
                       Title="Global Stats"
                       Width="1000"
                       Height="600">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,8 +24,11 @@
             </Border>
         </Grid>
 
-        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10">
-            <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray" ScrollViewer.CanContentScroll="True">
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      Margin="10">
+            <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                      GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
+                      ScrollViewer.CanContentScroll="True">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>

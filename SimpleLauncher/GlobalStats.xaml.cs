@@ -49,10 +49,10 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while calculating global stats.\n\nException detail: {ex.Message}";
+                string formattedException = $"An error occurred while calculating Global Statistics.\n\nException detail: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"An error occurred while calculating global stats.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -185,7 +185,11 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Failed to save the report: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string formattedException = $"Failed to save the report in the Global Stats window.\n\nException detail: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    
+                    MessageBox.Show($"Failed to save the report.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -209,12 +213,10 @@ namespace SimpleLauncher
             {
                 report += $"System Name: {system.SystemName}\n" +
                           $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" +
-                          $"Number of Cover Images: {system.NumberOfImages}\n";
-                        //$"Match: {(system.AreFilesAndImagesEqual ? "Yes" : "No")}\n\n";
+                          $"Number of Cover Images: {system.NumberOfImages}\n\n";
             }
 
             return report;
         }
-
     }
 }

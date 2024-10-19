@@ -46,16 +46,18 @@
                   SelectionChanged="ResultsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
-                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}" Width="*" />
+                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}"
+                                    Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="170" />
                 <DataGridTextColumn Header="Folder Name" Binding="{Binding FolderName}" Width="170" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Margin="10">
-            <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
             <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                 <Grid>
-                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
                 </Grid>
             </Border>
         </StackPanel>

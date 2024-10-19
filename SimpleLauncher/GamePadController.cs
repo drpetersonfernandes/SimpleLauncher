@@ -74,9 +74,9 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                ErrorLogger?.Invoke(ex, $"Error in GamePadController Update.\n\nException detail: {ex}");
+                ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\nException detail: {ex}");
 
-                MessageBox.Show("There was an error in the GamePad Controller.\n\nThe error was reported to the developer that will try to fix the issue.\n\nWe only support Xbox controller.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error in the GamePad Controller.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 Instance2.Stop();
             }

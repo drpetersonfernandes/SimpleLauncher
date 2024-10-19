@@ -93,7 +93,7 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string errorDetails = $"Error launching and lnk file\n\nException details: {ex.Message}\n\nShortcut: {psi.FileName}";
+                        string errorDetails = $"Error launching the lnk file\n\nException details: {ex.Message}\n\nShortcut: {psi.FileName}";
                         await LogErrors.LogErrorAsync(ex, errorDetails);
                         
                         MessageBox.Show("The was an error launching the lnk file.\n\nTry to run the lnk file outside Simple Launcher to see if it is working properly.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -159,7 +159,7 @@ namespace SimpleLauncher
 
                     if (systemConfig == null)
                     {
-                        MessageBox.Show("Please select a valid system", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Please select a valid system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -167,7 +167,7 @@ namespace SimpleLauncher
 
                     if (emulatorConfig == null)
                     {
-                        MessageBox.Show("Selected emulator configuration not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Selected emulator configuration not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -247,11 +247,11 @@ namespace SimpleLauncher
 
                     if (process.ExitCode != 0 && process.ExitCode != -1073741819)
                     {
-                        string errorMessage = $"The emulator could not open this file.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
-                        Exception exception = new(errorMessage);
-                        await LogErrors.LogErrorAsync(exception, errorMessage);
+                        string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
+                        Exception ex = new(errorMessage);
+                        await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                        MessageBox.Show($"The emulator could not open this file with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     // If the GamePadController was running, restart it after the psi exits
@@ -262,15 +262,15 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("Please select an emulator first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Please select an emulator first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"The emulator could not open this file.\n\nException Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
+                string formattedException = $"The emulator could not open this game.\n\nException Details: {ex.Message}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
-                MessageBox.Show($"The emulator could not open this file with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -790,11 +790,11 @@ namespace SimpleLauncher
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
                 {
-                    string errorMessage = "Error while loading the selected system configuration in the Main window, in the method LoadGameFilesAsync.";
-                    Exception exception = new Exception(errorMessage);
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    string errorMessage = "Error while loading the selected system configuration in the Main window, using the method LoadGameFilesAsync.";
+                    Exception ex = new Exception(errorMessage);
+                    await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                    MessageBox.Show("There was an error while loading the system configuration.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("There was an error while loading the system configuration for this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -920,12 +920,12 @@ namespace SimpleLauncher
                 UpdatePaginationButtons();
 
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main Window.\n\nException detail: {exception}";
-                await LogErrors.LogErrorAsync(exception, errorMessage);
+                string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\nException detail: {ex}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-                MessageBox.Show("There was an error while loading the game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error while creating the game buttons.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -942,10 +942,10 @@ namespace SimpleLauncher
                     var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
                     return foundFiles;
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    string errorMessage = $"There was an error using the method GetFilesAsync in the Main Window.\n\nException details: {exception}";
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
+                    string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException details: {ex}";
+                    await LogErrors.LogErrorAsync(ex, errorMessage);
 
                     MessageBox.Show("There was an error finding the files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return new List<string>();
@@ -1016,13 +1016,13 @@ namespace SimpleLauncher
                 };
                 Process.Start(psi);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                string contextMessage = $"Unable to open the donation link from the Menu.\n\nException details: {exception}";
-                Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
+                string contextMessage = $"Unable to open the Donation Link from the menu.\n\nException details: {ex}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("There was an error opening the donation link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error opening the Donation Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
