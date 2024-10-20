@@ -34,7 +34,7 @@ namespace SimpleLauncher
             string userLogPath = Path.Combine(baseDirectory, "error_user.log");
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
             version = version ?? "Unknown";
-            string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\n\n{contextMessage}\n";
+            string errorMessage = $"Date: {DateTime.Now}\nVersion: {version}\n\n{contextMessage}\n\n\n";
 
             try
             {

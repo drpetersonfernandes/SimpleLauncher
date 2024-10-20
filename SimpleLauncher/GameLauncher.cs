@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -224,6 +225,7 @@ namespace SimpleLauncher
                     string programLocation = emulatorConfig.EmulatorLocation;
                     string parameters = emulatorConfig.EmulatorParameters;
                     string arguments = $"{parameters} \"{gamePathToLaunch}\"";
+                    
                     // Create ProcessStartInfo
                     psi = new ProcessStartInfo
                     {
@@ -234,25 +236,55 @@ namespace SimpleLauncher
                         RedirectStandardError = true
                     };
 
-                    // Launch the external program
+                    // Initialize the process
                     Process process = new() { StartInfo = psi };
-                    process.Start();
+                    
+                    // Create variables to store the output and error
+                    StringBuilder output = new StringBuilder();
+                    StringBuilder error = new StringBuilder();
 
-                    // Read both output and error streams asynchronously
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    string error = await process.StandardError.ReadToEndAsync();
+                    // Event handlers to capture standard output and error
+                    process.OutputDataReceived += (_, args) => {
+                        if (!string.IsNullOrEmpty(args.Data))
+                        {
+                            output.AppendLine(args.Data);
+                        }
+                    };
+
+                    process.ErrorDataReceived += (_, args) => {
+                        if (!string.IsNullOrEmpty(args.Data))
+                        {
+                            error.AppendLine(args.Data);
+                        }
+                    };
+                    
+                    // Start the process and begin asynchronously reading output and error streams
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
                     // Wait for the process to exit
                     await process.WaitForExitAsync();
+                    
+                    // Ensure to close output/error streams
+                    await process.WaitForExitAsync();
 
-                    //if (process.ExitCode != 0 || process.ExitCode != -1073741819 || !string.IsNullOrEmpty(error))
-                    if (process.ExitCode != 0 || !string.IsNullOrEmpty(error))
+                    // Generic error code
+                    if ((process.ExitCode != 0 || error.Length > 0) && process.ExitCode != -1073741819)
                     {
                         string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                         Exception ex = new(errorMessage);
                         await LogErrors.LogErrorAsync(ex, errorMessage);
 
                         MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
+                    // Access Violation error
+                    if (process.ExitCode == -1073741819)
+                    {
+                        string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                        Exception ex = new(errorMessage);
+                        await LogErrors.LogErrorAsync(ex, errorMessage);
                     }
 
                     // If the GamePadController was running, restart it after the psi exits
