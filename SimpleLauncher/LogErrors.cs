@@ -38,9 +38,12 @@ namespace SimpleLauncher
 
             try
             {
-                // Append the error message to both the general and user-specific logs.
+                // Append the error message to the general log
                 await File.AppendAllTextAsync(errorLogPath, errorMessage);
-                await File.AppendAllTextAsync(userLogPath, errorMessage);
+
+                // Append the error message to the user-specific log
+                string userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
+                await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
                 // Attempt to send the error log content to the API.
                 if (await SendLogToApiAsync(errorMessage))
@@ -51,7 +54,7 @@ namespace SimpleLauncher
             }
             catch (Exception)
             {
-                // Ignore
+                // Ignore any exceptions raised during logging to avoid interrupting the main flow
             }
         }
         
