@@ -238,16 +238,17 @@ namespace SimpleLauncher
                     Process process = new() { StartInfo = psi };
                     process.Start();
 
-                    // Read the output streams
-                    await process.StandardOutput.ReadToEndAsync();
-                    await process.StandardError.ReadToEndAsync();
+                    // Read both output and error streams asynchronously
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
 
                     // Wait for the process to exit
                     await process.WaitForExitAsync();
 
-                    if (process.ExitCode != 0 && process.ExitCode != -1073741819)
+                    //if (process.ExitCode != 0 || process.ExitCode != -1073741819 || !string.IsNullOrEmpty(error))
+                    if (process.ExitCode != 0 || !string.IsNullOrEmpty(error))
                     {
-                        string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\n\nEmulator: {psi.FileName}\n\nParameters: {psi.Arguments}";
+                        string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                         Exception ex = new(errorMessage);
                         await LogErrors.LogErrorAsync(ex, errorMessage);
 
