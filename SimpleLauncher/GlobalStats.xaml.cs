@@ -27,19 +27,21 @@ namespace SimpleLauncher
 
             try
             {
-                var globalStats = await CalculateGlobalStats();
+                // Execute the long-running operations asynchronously
+                var systemStats = await Task.Run(PopulateSystemStatsTable);
+
+                // Update the global stats asynchronously
+                var globalStats = await Task.Run(() => CalculateGlobalStats(systemStats));
 
                 GlobalInfoTextBlock.Text = $"Total Number of Systems: {globalStats.TotalSystems}\n" +
                                            $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
                                            $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
-                                           $"Total Number of Images: {globalStats.TotalImages:N0}\n" +
+                                           $"Total Number of Matched Images: {globalStats.TotalImages:N0}\n" +
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                                            $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                var systemStats = await PopulateSystemStatsTable();
-
                 ProgressBar.Visibility = Visibility.Collapsed;
-                
+        
                 // Ask the user if they want to save a report
                 var result = MessageBox.Show("Would you like to save a report with the results?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
@@ -54,6 +56,11 @@ namespace SimpleLauncher
 
                 MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                // Ensure that ProgressBar is hidden even if an error occurs
+                ProgressBar.Visibility = Visibility.Collapsed;
+            }
         }
         
         private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
@@ -62,37 +69,52 @@ namespace SimpleLauncher
 
             foreach (var config in _systemConfigs)
             {
-                // Asynchronous file count
-                int numberOfFiles = (await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList())).Count;
+                // Asynchronous file count and base filenames of ROMs/ISOs
+                var romFiles = await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
+                var romFileBaseNames = romFiles.Select(Path.GetFileNameWithoutExtension).ToHashSet();
+
+                // Calculate the total disk size for the ROM/ISO files
+                long totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
 
                 string systemImagePath = config.SystemImageFolder;
-                systemImagePath = string.IsNullOrEmpty(systemImagePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
+                systemImagePath = string.IsNullOrEmpty(systemImagePath) 
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) 
+                    : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
 
                 int numberOfImages = 0;
                 if (Directory.Exists(systemImagePath))
                 {
-                    // Only count .png, .jpg, .jpeg files
-                    numberOfImages = Directory
-                        .EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                        .Count(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                    // Get image files with .png, .jpg, .jpeg extensions
+                    var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                        .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
                                        file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                       file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase));
+                                       file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+                        .Select(Path.GetFileNameWithoutExtension)
+                        .ToList();
+
+                    // Count images that have matching base filenames in romFileBaseNames
+                    numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
                 }
 
-                // Add to systemStats list
+                // Add to systemStats list with total disk size
                 systemStats.Add(new SystemStatsData
                 {
                     SystemName = config.SystemName,
-                    NumberOfFiles = numberOfFiles,
-                    NumberOfImages = numberOfImages
+                    NumberOfFiles = romFiles.Count,
+                    NumberOfImages = numberOfImages,
+                    TotalDiskSize = totalDiskSize // Set disk size here
                 });
             }
 
-            // Bind the data to the DataGrid
-            SystemStatsDataGrid.ItemsSource = systemStats;
+            // Bind the data to the DataGrid (on UI thread)
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                SystemStatsDataGrid.ItemsSource = systemStats;
+            });
 
             return systemStats; // Return the system stats to be included in the report
         }
+
 
         // Class for binding data to DataGrid
         public class SystemStatsData
@@ -100,55 +122,28 @@ namespace SimpleLauncher
             public string SystemName { get; init; }
             public int NumberOfFiles { get; init; }
             public int NumberOfImages { get; init; }
-            
+            public long TotalDiskSize { get; init; } // New property to store the disk size
+    
             // This property checks if the number of files and images are equal
             public bool AreFilesAndImagesEqual => NumberOfFiles == NumberOfImages;
         }
 
-        private async Task<GlobalStatsData> CalculateGlobalStats()
+        private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
         {
-            return await Task.Run(async () =>
+            int totalSystems = systemStats.Count;
+            int totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
+            int totalGames = systemStats.Sum(stats => stats.NumberOfFiles);
+            int totalImages = systemStats.Sum(stats => stats.NumberOfImages);
+            long totalDiskSize = systemStats.Sum(stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
+
+            return new GlobalStatsData
             {
-                int totalSystems = _systemConfigs.Count;
-                int totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
-                int totalGames = 0;
-                int totalImages = 0;
-                long totalDiskSize = 0;
-
-                foreach (var config in _systemConfigs)
-                {
-                    var gameFiles = await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
-                    totalGames += gameFiles.Count;
-
-                    string systemImagePath = config.SystemImageFolder;
-                    systemImagePath = string.IsNullOrEmpty(systemImagePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
-
-                    if (Directory.Exists(systemImagePath))
-                    {
-                        // Only count .png, .jpg, .jpeg files
-                        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                            .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                                           file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                           file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
-                            .ToList();
-                        totalImages += imageFiles.Count;
-                    }
-
-                    foreach (var gameFile in gameFiles)
-                    {
-                        totalDiskSize += new FileInfo(gameFile).Length;
-                    }
-                }
-
-                return new GlobalStatsData
-                {
-                    TotalSystems = totalSystems,
-                    TotalEmulators = totalEmulators,
-                    TotalGames = totalGames,
-                    TotalImages = totalImages,
-                    TotalDiskSize = totalDiskSize
-                };
-            });
+                TotalSystems = totalSystems,
+                TotalEmulators = totalEmulators,
+                TotalGames = totalGames,
+                TotalImages = totalImages,
+                TotalDiskSize = totalDiskSize
+            };
         }
 
         private class GlobalStatsData
@@ -202,7 +197,7 @@ namespace SimpleLauncher
                          $"Total Number of Systems: {globalStats.TotalSystems}\n" +
                          $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
                          $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
-                         $"Total Number of Images: {globalStats.TotalImages:N0}\n" +
+                         $"Total Number of Matched Images: {globalStats.TotalImages:N0}\n" +
                          $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                          $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n";
 
@@ -213,7 +208,7 @@ namespace SimpleLauncher
             {
                 report += $"System Name: {system.SystemName}\n" +
                           $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" +
-                          $"Number of Cover Images: {system.NumberOfImages}\n\n";
+                          $"Number of Matched Images: {system.NumberOfImages}\n\n";
             }
 
             return report;
