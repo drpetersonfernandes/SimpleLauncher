@@ -13,4 +13,14 @@
   <MainWindowState>Normal</MainWindowState>
   <BaseTheme>Light</BaseTheme>
   <AccentColor>Blue</AccentColor>
+  <SystemPlayTimes>
+    <SystemPlayTime>
+      <SystemName/>
+      <PlayTime/>
+    </SystemPlayTime>
+    <SystemPlayTime>
+      <SystemName/>
+      <PlayTime/>
+    </SystemPlayTime>
+  </SystemPlayTimes>
 </Settings>

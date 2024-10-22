@@ -12,13 +12,16 @@ namespace SimpleLauncher;
 
 public static class GameLauncher
 {
-    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings)
     {
         bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
         if (wasGamePadControllerRunning)
         {
             GamePadController.Instance2.Stop();
         }
+        
+        // Start tracking the time when the game is launched
+        DateTime startTime = DateTime.Now;
         
         try
         {
@@ -50,6 +53,17 @@ public static class GameLauncher
             {
                 GamePadController.Instance2.Start();
             }
+            
+            // Capture the time when the game exits
+            DateTime endTime = DateTime.Now; 
+            // Calculate the play time
+            TimeSpan playTime = endTime - startTime; 
+            // Get System Name
+            string selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
+            // Update the system play time in settings
+            settings.UpdateSystemPlayTime(selectedSystem, playTime);
+            // Save the updated settings
+            settings.Save(); 
         }
     }
 

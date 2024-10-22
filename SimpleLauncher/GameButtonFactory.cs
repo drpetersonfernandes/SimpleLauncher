@@ -18,7 +18,7 @@ namespace SimpleLauncher
         private readonly ComboBox _systemComboBox;
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private readonly SettingsConfig _settings;
+        private SettingsConfig _settings;
         public int ImageHeight { get; set; }
         private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly FavoritesManager _favoritesManager;
@@ -51,9 +51,6 @@ namespace SimpleLauncher
             var isFavorite = _favoritesConfig.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            // // Default search term for Video link and Info link
-            // string searchTerm = fileNameWithoutExtension;
-
             var textBlock = new TextBlock
             {
                 Text = fileNameWithoutExtension,
@@ -70,9 +67,6 @@ namespace SimpleLauncher
                 var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                 if (machine != null)
                 {
-                    // // Check if the machine's description is not null or empty; otherwise, keep using fileNameWithoutExtension
-                    // searchTerm = !string.IsNullOrWhiteSpace(machine.Description) ? machine.Description : fileNameWithoutExtension;
-
                     var descriptionTextBlock = new TextBlock
                     {
                         Text = machine.Description,
@@ -87,8 +81,6 @@ namespace SimpleLauncher
                     textBlock.Inlines.Add(descriptionTextBlock);
                 }
             }
-            // var videoIcon = CreateVideoIcon(searchTerm, systemName, _settings.VideoUrl);
-            // var infoIcon = CreateInfoIcon(searchTerm, systemName, _settings.InfoUrl);
 
             var grid = new Grid
             {
@@ -107,8 +99,6 @@ namespace SimpleLauncher
             };
 
             grid.Children.Add(stackPanel);
-            // grid.Children.Add(videoIcon);
-            // grid.Children.Add(infoIcon);
 
             var button = new Button
             {
@@ -163,7 +153,7 @@ namespace SimpleLauncher
             button.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings);
             };
 
             // Context menu
@@ -184,7 +174,7 @@ namespace SimpleLauncher
             launchMenuItem.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings);
             };
 
             // Add To Favorites Context Menu
@@ -500,11 +490,9 @@ namespace SimpleLauncher
                 {
                     BitmapImage bi = new BitmapImage();
                     bi.BeginInit();
-                    bi.CacheOption = BitmapCacheOption.OnLoad;
-                    // Ensure the stream stays open until the BitmapImage is loaded
+                    bi.CacheOption = BitmapCacheOption.OnLoad; // Ensure the stream stays open until the BitmapImage is loaded
                     bi.StreamSource = File.OpenRead(imagePath);
-                    bi.EndInit();
-                    // Important for multithreaded access
+                    bi.EndInit(); // Important for multithreaded access
                     bi.Freeze();
                     return bi;
                 });
@@ -554,93 +542,6 @@ namespace SimpleLauncher
                 Environment.Exit(0);
             }
         }
-
-        // private Image CreateVideoIcon(string searchTerm, string systemName, string videoUrl)
-        // {
-        //     var videoIcon = new Image
-        //     {
-        //         Name = "videoIcon",
-        //         Source = new BitmapImage(new Uri("images/video.png", UriKind.RelativeOrAbsolute)),
-        //         Width = 22,
-        //         Height = 22,
-        //         HorizontalAlignment = HorizontalAlignment.Right,
-        //         VerticalAlignment = VerticalAlignment.Top,
-        //         Margin = new Thickness(5, 5, 30, 5),
-        //         Cursor = System.Windows.Input.Cursors.Hand
-        //     };
-        //
-        //     // Set Z-Index to ensure it is on top
-        //     videoIcon.SetValue(Panel.ZIndexProperty, 1);
-        //
-        //     videoIcon.PreviewMouseLeftButtonUp += (_, e) =>
-        //     {
-        //         PlayClick.PlayClickSound();
-        //         string searchTerm2 = $"{searchTerm} {systemName}";
-        //         string searchUrl = $"{videoUrl}{Uri.EscapeDataString(searchTerm2)}";
-        //
-        //         try
-        //         {
-        //             Process.Start(new ProcessStartInfo
-        //             {
-        //                 FileName = searchUrl,
-        //                 UseShellExecute = true
-        //             });
-        //         }
-        //         catch (Exception exception)
-        //         {
-        //             string contextMessage = $"There was a problem open up the Video Link.\n\nException details: {exception}";
-        //             Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-        //             MessageBox.Show($"There was a problem open up the Video Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //             logTask.Wait(TimeSpan.FromSeconds(2));
-        //             throw;
-        //         }
-        //         e.Handled = true; // Stops the click event from propagating to the button's main click event
-        //     };
-        //     return videoIcon;
-        // }
-
-        // private Image CreateInfoIcon(string searchTerm, string systemName, string infoUrl)
-        // {
-        //     var infoIcon = new Image
-        //     {
-        //         Name = "infoIcon",
-        //         Source = new BitmapImage(new Uri("images/info.png", UriKind.RelativeOrAbsolute)),
-        //         Width = 22,
-        //         Height = 22,
-        //         HorizontalAlignment = HorizontalAlignment.Right,
-        //         VerticalAlignment = VerticalAlignment.Top,
-        //         Margin = new Thickness(5, 5, 5, 5),
-        //         Cursor = System.Windows.Input.Cursors.Hand
-        //     };
-        //
-        //     // Set Z-Index to ensure it is on top
-        //     infoIcon.SetValue(Panel.ZIndexProperty, 1);
-        //
-        //     infoIcon.PreviewMouseLeftButtonUp += (_, e) =>
-        //     {
-        //         PlayClick.PlayClickSound();
-        //         string searchTerm2 = $"{searchTerm} {systemName}";
-        //         string searchUrl = $"{infoUrl}{Uri.EscapeDataString(searchTerm2)}";
-        //         try
-        //         {
-        //             Process.Start(new ProcessStartInfo
-        //             {
-        //                 FileName = searchUrl,
-        //                 UseShellExecute = true
-        //             });
-        //         }
-        //         catch (Exception exception)
-        //         {
-        //             string contextMessage = $"There was a problem open up the Info Link.\n\nException details: {exception}";
-        //             Task logTask = LogErrors.LogErrorAsync(exception, contextMessage);
-        //             MessageBox.Show($"There was a problem open up the Info Link.\n\nException details: {exception.Message}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //             logTask.Wait(TimeSpan.FromSeconds(2));
-        //             throw;
-        //         }
-        //         e.Handled = true; // Stops the click event from propagating to the button's main click event
-        //     };
-        //     return infoIcon;
-        // }
 
         private void AddToFavorites(string systemName, string fileNameWithExtension)
         {

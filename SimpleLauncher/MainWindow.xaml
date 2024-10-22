@@ -305,8 +305,11 @@
                     Margin="10,0,0,0"
                     Content="" />
             </StackPanel>
-            <Label x:Name="ApplicationVersionLabel" Grid.Column="1" HorizontalAlignment="Right"
-                   VerticalAlignment="Center" Margin="10,0,0,0" />
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Orientation="Horizontal">
+                <Label x:Name="SelectedSystemLabel" Content="System: " Margin="5,0"/>
+                <Label x:Name="PlayTimeLabel" Content="Playtime: " Margin="5,0"/>
+            </StackPanel>
+            
         </Grid>
 
     </Grid>

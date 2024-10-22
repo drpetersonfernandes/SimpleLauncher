@@ -12,6 +12,9 @@ Enhanced the Global Stats class and XAML. Now, it presents a summary of each sys
 Implemented a tray icon for the application.
 Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly handled for the developer.
 Add the option to save the report generated in the Global Stats window.
+Improved code in the GameLauncher class. Refactoring.
+Improved code in the ExtractCompressedFile class. Prevent "Please Wait" window freeze.
+I have added the function to present the System play time by System. Implement the entire logic to load, save and edit the value into settings.xml. Implement the logic to trigger the Play Time count. Implement the logic to present that info to the user.
 
 release3.1.0
 -------------

@@ -3,10 +3,17 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SimpleLauncher
 {
+    public class SystemPlayTime
+    {
+        public string SystemName { get; set; }
+        public string PlayTime { get; set; }
+    }
+
     public class SettingsConfig
     {
         private readonly string _filePath;
@@ -28,6 +35,9 @@ namespace SimpleLauncher
         public string BaseTheme { get; set; }
         public string AccentColor { get; set; }
 
+        // List to hold multiple SystemPlayTime instances
+        public List<SystemPlayTime> SystemPlayTimes { get; set; }
+
         private const string DefaultSettingsFilePath = "settings.xml";
 
         public SettingsConfig() : this(DefaultSettingsFilePath) { }
@@ -35,6 +45,7 @@ namespace SimpleLauncher
         private SettingsConfig(string filePath)
         {
             _filePath = filePath;
+            SystemPlayTimes = new List<SystemPlayTime>();
             Load();
         }
 
@@ -63,6 +74,21 @@ namespace SimpleLauncher
                 MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
                 BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
                 AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
+
+                // Load multiple SystemPlayTime elements
+                XElement systemPlayTimesElement = settings.Element("SystemPlayTimes");
+                if (systemPlayTimesElement != null)
+                {
+                    foreach (XElement systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                    {
+                        var systemPlayTime = new SystemPlayTime
+                        {
+                            SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
+                            PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
+                        };
+                        SystemPlayTimes.Add(systemPlayTime);
+                    }
+                }
 
                 // Ensure all values are saved if they were missing
                 Save();
@@ -133,11 +159,21 @@ namespace SimpleLauncher
             MainWindowState = "Normal";
             BaseTheme = "Light";
             AccentColor = "Blue";
+            SystemPlayTimes = new List<SystemPlayTime>();
             Save();
         }
 
         public void Save()
         {
+            XElement systemPlayTimesElement = new XElement("SystemPlayTimes");
+            foreach (var systemPlayTime in SystemPlayTimes)
+            {
+                systemPlayTimesElement.Add(new XElement("SystemPlayTime",
+                    new XElement("SystemName", systemPlayTime.SystemName),
+                    new XElement("PlayTime", systemPlayTime.PlayTime)
+                ));
+            }
+
             new XElement("Settings",
                 new XElement("ThumbnailSize", ThumbnailSize),
                 new XElement("GamesPerPage", GamesPerPage),
@@ -151,8 +187,42 @@ namespace SimpleLauncher
                 new XElement("MainWindowLeft", MainWindowLeft),
                 new XElement("MainWindowState", MainWindowState),
                 new XElement("BaseTheme", BaseTheme),
-                new XElement("AccentColor", AccentColor)
+                new XElement("AccentColor", AccentColor),
+                systemPlayTimesElement
             ).Save(_filePath);
+        }
+        
+        public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
+        {
+            // Find the existing system play time or create a new one
+            var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
+
+            if (systemPlayTime == null)
+            {
+                // Add new system play time if the system doesn't exist
+                systemPlayTime = new SystemPlayTime
+                {
+                    SystemName = systemName,
+                    PlayTime = "00:00:00"
+                };
+                SystemPlayTimes.Add(systemPlayTime);
+            }
+
+            // Parse the existing play time and add the new time
+            TimeSpan existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
+            TimeSpan updatedPlayTime = existingPlayTime + playTime;
+
+            // Update the play time in the correct format
+            systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss");
         }
     }
 }
+
+
+
+
+
+
+
+
+

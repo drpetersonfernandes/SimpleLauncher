@@ -19,7 +19,7 @@ namespace SimpleLauncher
     {
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private readonly SettingsConfig _settings;
+        private SettingsConfig _settings;
         private ObservableCollection<SearchResult> _searchResults;
         private PleaseWaitSearch _pleaseWaitWindow;
         private DispatcherTimer _closeTimer;
@@ -325,7 +325,7 @@ namespace SimpleLauncher
                 mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
                 mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs);
+                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings);
             }
             catch (Exception ex)
             {

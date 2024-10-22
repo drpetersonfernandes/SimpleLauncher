@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +18,7 @@ using Orientation = System.Windows.Controls.Orientation;
 
 namespace SimpleLauncher
 {
-    public partial class MainWindow
+    public partial class MainWindow 
     {
         // tray icon
         private NotifyIcon _trayIcon;
@@ -44,7 +43,7 @@ namespace SimpleLauncher
         private readonly List<MameConfig> _machines;
         private FavoritesConfig _favoritesConfig;
         private readonly FavoritesManager _favoritesManager;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -59,10 +58,6 @@ namespace SimpleLauncher
             App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
             SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
             
-            // Get Application Version
-            DataContext = this;
-            ApplicationVersionLabel.Content = ApplicationVersion;
-
             // Initialize favorite's manager and load favorites
             _favoritesManager = new FavoritesManager();
             _favoritesConfig = _favoritesManager.LoadFavorites();
@@ -248,17 +243,7 @@ namespace SimpleLauncher
                 Environment.Exit(0);
             }
         }
-        
-        // Get Application Version
-        private static string ApplicationVersion
-        {
-            get
-            {
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return "Version: " + (version?.ToString() ?? "Unknown");
-            }
-        }
-        
+       
         #region TrayIcon
         
         private void InitializeTrayIcon()
@@ -331,7 +316,6 @@ namespace SimpleLauncher
         
         #endregion
 
-        // User selects a system
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SearchTextBox.Text = "";
@@ -356,6 +340,13 @@ namespace SimpleLauncher
                     {
                         EmulatorComboBox.SelectedIndex = 0;
                     }
+                    
+                    // Update the selected system label
+                    SelectedSystemLabel.Content = $"System: {selectedSystem}";
+                    
+                    // Retrieve the playtime for the selected system
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                    PlayTimeLabel.Content = systemPlayTime != null ? $"Playtime: {systemPlayTime.PlayTime}" : "Playtime: 00:00:00";
 
                     // Display the system info
                     string systemFolderPath = selectedConfig.SystemFolder;
