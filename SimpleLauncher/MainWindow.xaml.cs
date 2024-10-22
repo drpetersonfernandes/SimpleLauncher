@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using ControlzEx.Theming;
-using System.Windows.Forms;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -18,8 +20,39 @@ using Orientation = System.Windows.Controls.Orientation;
 
 namespace SimpleLauncher
 {
-    public partial class MainWindow 
+    public partial class MainWindow : INotifyPropertyChanged
     {
+
+        // Logic to update the System Name and PlayTime in the Statusbar
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _selectedSystem;
+        private string _playTime;
+
+        public string SelectedSystem
+        {
+            get => _selectedSystem;
+            set
+            {
+                _selectedSystem = value;
+                OnPropertyChanged(nameof(SelectedSystem));
+            }
+        }
+
+        public string PlayTime
+        {
+            get => _playTime;
+            set
+            {
+                _playTime = value;
+                OnPropertyChanged(nameof(PlayTime));
+            }
+        }
+        
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
         // tray icon
         private NotifyIcon _trayIcon;
         private ContextMenuStrip _trayMenu;
@@ -47,6 +80,25 @@ namespace SimpleLauncher
         public MainWindow()
         {
             InitializeComponent();
+            
+            // Initialize default values for SelectedSystem and PlayTime
+            if (SystemComboBox.Items.Count > 0)
+            {
+                // Set the first system as the default selected system
+                SystemComboBox.SelectedIndex = 0; // You can change this to set another system if needed
+                SelectedSystem = SystemComboBox.SelectedItem.ToString();
+        
+                // Retrieve the playtime for the default selected system
+                var defaultSystemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == SelectedSystem);
+                PlayTime = defaultSystemPlayTime != null ? defaultSystemPlayTime.PlayTime : "00:00:00";
+            }
+            else
+            {
+                SelectedSystem = "No system selected";
+                PlayTime = "00:00:00";
+            }
+
+            DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
             
             // Tray icon
             InitializeTrayIcon();
@@ -122,7 +174,7 @@ namespace SimpleLauncher
             LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel); // Add the LetterPanel directly
             
             // Create and integrate LetterNumberMenu
-            _letterNumberMenu.OnLetterSelected += async (selectedLetter) =>
+            _letterNumberMenu.OnLetterSelected += async selectedLetter =>
             {
                 // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
@@ -144,7 +196,7 @@ namespace SimpleLauncher
             _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
 
             // Initialize _gameButtonFactory with settings
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
 
             // Check if a system is already selected, otherwise show the message
             if (SystemComboBox.SelectedItem == null)
@@ -156,8 +208,8 @@ namespace SimpleLauncher
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
             
             // Attach the Load and Close event handler.
-            this.Loaded += MainWindow_Loaded;
-            this.Closing += MainWindow_Closing;
+            Loaded += MainWindow_Loaded;
+            Closing += MainWindow_Closing;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             
             // Stats using Async Event Handler
@@ -173,11 +225,11 @@ namespace SimpleLauncher
         // Save Application Settings
         private void SaveApplicationSettings()
         {
-            _settings.MainWindowWidth = this.Width;
-            _settings.MainWindowHeight = this.Height;
-            _settings.MainWindowTop = this.Top;
-            _settings.MainWindowLeft = this.Left;
-            _settings.MainWindowState = this.WindowState.ToString();
+            _settings.MainWindowWidth = Width;
+            _settings.MainWindowHeight = Height;
+            _settings.MainWindowTop = Top;
+            _settings.MainWindowLeft = Left;
+            _settings.MainWindowState = WindowState.ToString();
 
             // Set other settings from the application's current state
             _settings.ThumbnailSize = _gameButtonFactory.ImageHeight; // Assuming ImageHeight is used for ThumbnailSize
@@ -199,11 +251,11 @@ namespace SimpleLauncher
         // Load state and size of MainWindow and also the theme from settings.xml
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Width = _settings.MainWindowWidth;
-            this.Height = _settings.MainWindowHeight;
-            this.Top = _settings.MainWindowTop;
-            this.Left = _settings.MainWindowLeft;
-            this.WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+            Width = _settings.MainWindowWidth;
+            Height = _settings.MainWindowHeight;
+            Top = _settings.MainWindowTop;
+            Left = _settings.MainWindowLeft;
+            WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
 
             // Apply saved theme settings
             App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
@@ -211,7 +263,7 @@ namespace SimpleLauncher
         }
 
         // Dispose gamepad resources and Save MainWindow state and size to setting.xml before close.
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             GamePadController.Instance2.Stop();
             GamePadController.Instance2.Dispose();
@@ -261,7 +313,7 @@ namespace SimpleLauncher
             {
                 _trayIcon = new NotifyIcon
                 {
-                    Icon = new System.Drawing.Icon(iconStream), // Set icon from stream
+                    Icon = new Icon(iconStream), // Set icon from stream
                     ContextMenuStrip = _trayMenu,
                     Text = @"SimpleLauncher",
                     Visible = true
@@ -307,7 +359,7 @@ namespace SimpleLauncher
         }
 
         // Clean up resources when closing the application
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
@@ -341,12 +393,12 @@ namespace SimpleLauncher
                         EmulatorComboBox.SelectedIndex = 0;
                     }
                     
-                    // Update the selected system label
-                    SelectedSystemLabel.Content = $"System: {selectedSystem}";
+                    // Update the selected system property
+                    SelectedSystem = selectedSystem;
                     
                     // Retrieve the playtime for the selected system
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                    PlayTimeLabel.Content = systemPlayTime != null ? $"Playtime: {systemPlayTime.PlayTime}" : "Playtime: 00:00:00";
+                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
                     // Display the system info
                     string systemFolderPath = selectedConfig.SystemFolder;
@@ -396,7 +448,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"An error occurred while counting files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("An error occurred while counting files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
         }
@@ -902,7 +954,7 @@ namespace SimpleLauncher
                 _favoritesConfig = _favoritesManager.LoadFavorites();
     
                 // Create a new instance of GameButtonFactory with updated FavoritesConfig
-                _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid);
+                _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
 
                 // Create Button action for each cell
                 foreach (var filePath in allFiles)
@@ -963,10 +1015,8 @@ namespace SimpleLauncher
                 {
                     return files.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
                 }
-                else
-                {
-                    return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
-                }
+
+                return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
             });
         }
         
@@ -1145,7 +1195,7 @@ namespace SimpleLauncher
         
         private void GlobalSearch_Click(object sender, RoutedEventArgs e)
         {
-            var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _settings);
+            var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _settings, this);
             globalSearchWindow.Show();
         }
         
@@ -1160,7 +1210,7 @@ namespace SimpleLauncher
             // Save Application Settings
             SaveApplicationSettings();
             
-            var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines);
+            var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines, this);
             favoritesWindow.Show();
         }
 

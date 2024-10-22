@@ -24,8 +24,9 @@ namespace SimpleLauncher
         private PleaseWaitSearch _pleaseWaitWindow;
         private DispatcherTimer _closeTimer;
         private readonly FavoritesManager _favoritesManager;
+        private MainWindow _mainWindow;
 
-        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings)
+        public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, MainWindow mainWindow)
         {
             InitializeComponent();
             _systemConfigs = systemConfigs;
@@ -35,6 +36,7 @@ namespace SimpleLauncher
             ResultsDataGrid.ItemsSource = _searchResults;
             Closed += GlobalSearch_Closed;
             _favoritesManager = new FavoritesManager();
+            _mainWindow = mainWindow;
             
             // Apply the theme to this window
             App.ApplyThemeToWindow(this);
@@ -325,7 +327,7 @@ namespace SimpleLauncher
                 mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
                 mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings);
+                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
             }
             catch (Exception ex)
             {

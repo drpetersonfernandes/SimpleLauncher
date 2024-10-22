@@ -19,8 +19,9 @@ namespace SimpleLauncher
         private SettingsConfig _settings;
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
+        private MainWindow _mainWindow;
 
-        public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines)
+        public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
         {
             InitializeComponent();
  
@@ -30,6 +31,7 @@ namespace SimpleLauncher
             _settings = settings;
             _systemConfigs = systemConfigs;
             _machines = machines;
+            _mainWindow = mainWindow;
             LoadFavorites();
             
             // Attach event handler
@@ -211,7 +213,7 @@ namespace SimpleLauncher
                 mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
                 mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings);
+                await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
             }
             catch (Exception ex)
             {

@@ -24,8 +24,9 @@ namespace SimpleLauncher
         private readonly FavoritesManager _favoritesManager;
         private readonly FavoritesConfig _favoritesConfig;
         private readonly WrapPanel _gameFileGrid;
+        private MainWindow _mainWindow;
 
-        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid)
+        public GameButtonFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, WrapPanel gameFileGrid, MainWindow mainWindow)
         {
             _emulatorComboBox = emulatorComboBox;
             _systemComboBox = systemComboBox;
@@ -36,6 +37,7 @@ namespace SimpleLauncher
             _favoritesManager = new FavoritesManager();
             _favoritesConfig = favoritesConfig;
             _gameFileGrid = gameFileGrid;
+            _mainWindow = mainWindow;
         }
 
         public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -153,7 +155,7 @@ namespace SimpleLauncher
             button.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
             };
 
             // Context menu
@@ -174,7 +176,7 @@ namespace SimpleLauncher
             launchMenuItem.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings);
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
             };
 
             // Add To Favorites Context Menu
