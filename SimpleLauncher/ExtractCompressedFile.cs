@@ -126,7 +126,10 @@ namespace SimpleLauncher
             try
             {
                 // Delete temp folder
-                Directory.Delete(_tempFolder, true);
+                if (Directory.Exists(_tempFolder))
+                {
+                    Directory.Delete(_tempFolder, true);
+                }
             }
             catch (Exception ex)
             {
