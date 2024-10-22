@@ -258,11 +258,7 @@ public static class GameLauncher
         // Extract File if Needed
         if (systemConfig.ExtractFileBeforeLaunch)
         {
-            // Open the Please Wait Window
-            var pleaseWaitExtraction = new PleaseWaitExtraction();
-            pleaseWaitExtraction.Show();
-            
-            string tempExtractLocation = ExtractCompressedFile.Instance2.ExtractArchiveToTemp(filePath);
+            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
             string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
             // Only Accept ZIP or 7Z
@@ -292,11 +288,6 @@ public static class GameLauncher
                     return;
                 }
             }
-            
-            // Close the Please Wait Window With a Delay
-            var delayTask = Task.Delay(1500);
-            await delayTask;
-            pleaseWaitExtraction.Close();
             
             if (string.IsNullOrEmpty(gamePathToLaunch)) return;
         }

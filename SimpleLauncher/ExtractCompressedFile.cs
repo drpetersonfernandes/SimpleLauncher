@@ -22,11 +22,15 @@ namespace SimpleLauncher
 
         private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
-        public string ExtractArchiveToTemp(string archivePath)
+        public async Task<string> ExtractArchiveToTempAsync(string archivePath)
         {
+            // Open the Please Wait Window
+            var pleaseWaitExtraction = new PleaseWaitExtraction();
+            pleaseWaitExtraction.Show();
+
             // Get filename
             string archiveName = Path.GetFileNameWithoutExtension(archivePath);
-            
+
             // Combine temp folder with generated temp folders
             string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
             Directory.CreateDirectory(tempDirectory);
@@ -45,27 +49,56 @@ namespace SimpleLauncher
                 CreateNoWindow = true
             };
 
-            using Process process = new();
-            process.StartInfo = processStartInfo;
-            process.Start();
-
-            // Read the output and error streams
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            process.WaitForExit();
-
-            if (process.ExitCode != 0)
+            try
             {
-                string errorMessage = $"Extraction of the compressed file failed.\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}";
-                Exception ex = new(errorMessage);
-                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                // Track the start time
+                var startTime = DateTime.Now;
                 
+                // Run the extraction process in a background thread
+                string result = await Task.Run(() =>
+                {
+                    using Process process = new();
+                    process.StartInfo = processStartInfo;
+                    process.Start();
+
+                    // Read the output and error streams
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+
+                    process.WaitForExit();
+
+                    if (process.ExitCode != 0)
+                    {
+                        string errorMessage = $"Extraction of the compressed file failed.\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}";
+                        throw new Exception(errorMessage);
+                    }
+
+                    return tempDirectory;
+                });
+
+                // Ensure at least 2 seconds have passed since the start
+                var elapsedTime = DateTime.Now - startTime;
+                if (elapsedTime.TotalMilliseconds < 2000)
+                {
+                    await Task.Delay(2000 - (int)elapsedTime.TotalMilliseconds);
+                }
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                string errorMessage = $"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+
                 MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
-            return tempDirectory;
+            finally
+            {
+                // Close the Please Wait Window
+                pleaseWaitExtraction.Close();
+            }
         }
 
         public void Cleanup()
