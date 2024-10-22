@@ -12,6 +12,13 @@ namespace SimpleLauncher
         private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
         public static ExtractCompressedFile Instance2 => Instance.Value;
         private readonly List<string> _tempDirectories = new();
+        
+        // Use the application's directory for the temporary directory
+        private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly string _tempFolder = Path.Combine(AppDirectory, "temp");
+        
+        // Path to the 7z.exe executable
+        private readonly string _sevenZipPath = Path.Combine(AppDirectory, "7z.exe");
 
         private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
@@ -20,21 +27,17 @@ namespace SimpleLauncher
             // Get filename
             string archiveName = Path.GetFileNameWithoutExtension(archivePath);
             
-            // Use the application's directory for the temporary directory
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string tempDirectory = Path.Combine(appDirectory, "temp", Path.GetRandomFileName());
+            // Combine temp folder with generated temp folders
+            string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
             Directory.CreateDirectory(tempDirectory);
 
             // Keep track of the temp directory
             _tempDirectories.Add(tempDirectory);
 
-            // Path to the 7z.exe executable
-            string sevenZipPath = Path.Combine(appDirectory, "7z.exe");
-
             // Start the process to extract the archive
             ProcessStartInfo processStartInfo = new()
             {
-                FileName = sevenZipPath,
+                FileName = _sevenZipPath,
                 Arguments = $"x \"{archivePath}\" -o\"{tempDirectory}\" -y",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -46,7 +49,7 @@ namespace SimpleLauncher
             process.StartInfo = processStartInfo;
             process.Start();
 
-            // Optionally, read the output and error streams
+            // Read the output and error streams
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
 
@@ -54,12 +57,12 @@ namespace SimpleLauncher
 
             if (process.ExitCode != 0)
             {
-                string errorMessage = $"7z.exe process failed with exit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"Extraction of the compressed file failed.\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception ex = new(errorMessage);
                 Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             return tempDirectory;
@@ -73,6 +76,7 @@ namespace SimpleLauncher
                 {
                     try
                     {
+                        // Delete generated temp folders
                         Directory.Delete(dir, true);
                     }
                     catch (Exception ex)
@@ -83,7 +87,20 @@ namespace SimpleLauncher
                     }
                 }
             }
-            _tempDirectories.Clear();  // Clear the list after deleting
+            // Clear the list after deleting
+            _tempDirectories.Clear();
+            
+            try
+            {
+                // Delete temp folder
+                Directory.Delete(_tempFolder, true);
+            }
+            catch (Exception ex)
+            {
+                string contextMessage = $"Error occurred while deleting the temp folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
         }
     }
 }
