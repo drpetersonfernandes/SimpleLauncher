@@ -4,8 +4,7 @@
 Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 
 ## Installation
-You need
-to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases),
+You need to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases),
 then extract the zip file into your chosen folder.
 
 ## Basic Usage
@@ -48,8 +47,8 @@ The provided values will be path checked before being added to the frontend data
 We do NOT provide ROMs or ISOs.
 
 ## Where to Find Game Covers Images:
-We do NOT provide cover images.<br>
-You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+We provide Image Pack for some systems.<br>
+If the Image Pack is not provided, you can download cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## List of Parameters for Emulators
 We have compiled a list of parameters for each emulator for your convenience. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters) to see the list.

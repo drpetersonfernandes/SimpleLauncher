@@ -35,7 +35,7 @@ We do NOT provide ROMs or ISOs.
 
 ## Where to Find Game Covers Images:
 We provide Image Pack for some systems.<br>
-If the Image Pack is not provided you can download cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+If the Image Pack is not provided, you can download cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## Advanced Usage
 'Simple launcher' also offers Expert Mode for advanced users.
