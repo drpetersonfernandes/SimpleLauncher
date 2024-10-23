@@ -1,10 +1,19 @@
 # Simple Launcher
 Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 
+Main Window
 ![Screenshot](screenshot.png)
+
+Right Button Context Menu
 ![Screenshot](screenshot2.png)
+
+Global Search Window
 ![Screenshot](screenshot3.png)
+
+Favorites Window
 ![Screenshot](screenshot4.png)
+
+Edit System Window
 ![Screenshot](screenshot5.png)
 
 ## Installation
@@ -25,8 +34,8 @@ You need to download the application from the [release page](https://github.com/
 We do NOT provide ROMs or ISOs.
 
 ## Where to Find Game Covers Images:
-We do NOT provide cover images.<br>
-You can find cover images on websites such as [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+We provide Image Pack for some systems.<br>
+If the Image Pack is not provided you can download cover images on websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## Advanced Usage
 'Simple launcher' also offers Expert Mode for advanced users.
