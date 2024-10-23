@@ -1,3 +1,12 @@
+release3.2.1
+-------------
+
+10/23/2024
+- Fix error in the GameLauncher class that was generating an InvalidOperationException.
+- Add ImagePacks for Amstrad CPC, Amstrad CPC GX4000, Arcade (MAME), Microsoft MSX, Sony Playstation 1, Sony Playstation 2 and Sony PSP. More will come in the future.
+_ Add a new [WhatsNew] window that can be launched from the About menu.
+_ Add a button in the [GlobalStats] window to allow user to save the generated report.
+
 release3.2.0
 -------------
 

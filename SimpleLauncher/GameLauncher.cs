@@ -46,6 +46,8 @@ public static class GameLauncher
         {
             await LogErrors.LogErrorAsync(ex,
                 $"Generic error in the GameLauncher class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
+            
+            MessageBox.Show("The application could not launch the selected game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -108,26 +110,30 @@ public static class GameLauncher
 
         try
         {
-            process.Start();
+            bool processStarted = process.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.");
+            }
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
 
             if (process.ExitCode != 0 || error.Length > 0)
             {
-                string errorMessage = $"Error launching the bat file.\n\nBAT file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"There was an issue running the batch process.\n\nBatch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the bat file.\n\nTry to run the bat file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an issue running the batch process.\n\nTry to run the batch file outside Simple Launcher to see if it is working properly.\n\nMaybe the batch file has errors.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error launching the batch file.\n\nBAT file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"There was an issue running the batch process.\n\nBatch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
-            MessageBox.Show("There was an error launching the bat file.\n\nTry to run the bat file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an issue running the batch process.\n\nTry to run the batch file outside Simple Launcher to see if it is working.\n\nMaybe the batch file has errors.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -163,26 +169,30 @@ public static class GameLauncher
         
         try
         {
-            process.Start();
+            bool processStarted = process.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.");
+            }
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
            
             if (process.ExitCode != 0 || error.Length > 0)
             {
-                string errorMessage = $"Error launching the lnk file.\n\nLNK file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the lnk file.\n\nTry to run the lnk file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error launching the shortcut file.\n\nTry to run the shortcut file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the lnk file.\n\nLNK file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("The was an error launching the lnk file.\n\nTry to run the lnk file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching the shortcut file.\n\nTry to run the shortcut file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -218,26 +228,30 @@ public static class GameLauncher
 
         try
         {
-            process.Start();
+            bool processStarted = process.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.");
+            }
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
            
             if (process.ExitCode != 0 || error.Length > 0)
             {
-                string errorMessage = $"Error launching the exe file.\n\nEXE file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the exe file.\n\nTry to run the exe file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error launching the executable file.\n\nTry to run the executable file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the exe file.\n\nEXE file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("There was an error launching the exe file.\n\nTry to launch the exe file outside Simple Launcher to see if it is working.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching the executable file.\n\nTry to launch the executable file outside Simple Launcher to see if it is working.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -349,34 +363,38 @@ public static class GameLauncher
 
         try
         {
-            process.Start();
+            bool processStarted = process.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.");
+            }
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
 
             if ((process.ExitCode != 0 || error.Length > 0) && process.ExitCode != -1073741819)
             {
-                string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         
             // Access Violation error
             if (process.ExitCode == -1073741819)
             {
-                string errorMessage = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"There was an access violation error running the emulator.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"The emulator could not open this game.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"The emulator could not open this game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
-            MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
