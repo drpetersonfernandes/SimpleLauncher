@@ -174,7 +174,7 @@ namespace SimpleLauncher
                 }
                 catch (TaskCanceledException)
                 {
-                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -291,7 +291,7 @@ namespace SimpleLauncher
                 }
                 catch (TaskCanceledException)
                 {
-                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Core download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -366,14 +366,14 @@ namespace SimpleLauncher
                 }
                 catch (TaskCanceledException)
                 {
-                    MessageBox.Show("Download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("ImagePack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Error downloading the image pack.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string formattedException = $"Error downloading the ImagePack.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
-                    MessageBox.Show($"Error downloading the image pack.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error downloading the Image Pack.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
