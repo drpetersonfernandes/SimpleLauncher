@@ -194,7 +194,7 @@ namespace SimpleLauncher
         
         public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
         {
-            // Find the existing system play time or create a new one
+            // Find the existing System PlayTime or create a new one
             var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
 
             if (systemPlayTime == null)

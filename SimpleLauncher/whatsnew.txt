@@ -1,20 +1,19 @@
 release3.2.0
 -------------
 
-10/__/2024
-I have made the filenames and file descriptions on each button in the [Main] Window a little bigger.
-Updated the emulator download links to the latest versions.
-The 'mame.xml' file has been updated to the latest release.
-Improved error handling in the [Easy Add System] Window in case the download process fails. Added a Stop Download button for the user.
-Enhanced error handling for missing 'default.png' files. Now, a message will be displayed to the user, and the application will shut down.
-Implemented cover image downloads for some systems.
-Enhanced the Global Stats class and XAML. Now, it presents a summary of each system. The row will be colored red if any cover image is missing for that system.
-Implemented a tray icon for the application.
-Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly handled for the developer.
-Add the option to save the report generated in the Global Stats window.
-Improved code in the GameLauncher class. Refactoring.
-Improved code in the ExtractCompressedFile class. Prevent "Please Wait" window freeze.
-I have added the function to present the System play time by System. Implement the entire logic to load, save and edit the value into settings.xml. Implement the logic to trigger the Play Time count. Implement the logic to present that info to the user.
+10/22/2024
+- Made the filenames and file descriptions on each button in the [Main] window a little bigger.
+- Updated all emulators to the latest versions.
+- Updated the 'mame.xml' file to the latest release.
+- Improved error handling in the [Easy Add System] window in case the download process fails. Added a stop download button.
+- Enhanced error handling for missing 'default.png' files. Now a message will be displayed to the user, and the application will shut down.
+- Enabled download of ImagePack for some systems. More will come in the future. Currently available for Atari 2600, Atari 5200, Atari 7800, Atari Jaguar, Atari Jaguar CD, Bandai WonderSwan, Bandai WonderSwan Color, Casio PV1000, NEC PCEngine, NEC SuperGrafx, Sega Dreamcast, Sega GameGear, Sega Genesis, Sega Genesis 32x, Sega Genesis CD, Sega Master System, Sega SC3000, Sega SG1000, SNK NeoGeo Pocket, and SNK NeoGeo Pocket Color. Available in the [Easy Mode] window.
+- Enhanced the Global Stats class and XAML. Now presents a summary of each system. The row will be colored red if any cover image is missing for that system. Added the option to save the report generated in this window.
+- Implemented a Tray Icon for the application.
+- Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly forwarded to the developer. Improved formatting of the error_user.log.
+- Improved code in the GameLauncher class. Refactored for easy maintenance and future updates.
+- Improved code in the ExtractCompressedFile class to prevent the "Please Wait" window from freezing.
+- Added the function to present the System Play Time for each System. Implement the entire code to load, save, and edit the value in settings.xml. Implemented the logic to trigger the Play Time count. Implemented the logic to present this info to the user.
 
 release3.1.0
 -------------
