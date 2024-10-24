@@ -151,7 +151,7 @@ namespace SimpleLauncher
                 MessageBox.Show("Please select a favorite to remove.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-        
+      
         private async void LaunchGame_Click(object sender, RoutedEventArgs e)
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
@@ -200,7 +200,15 @@ namespace SimpleLauncher
                     Exception exception = new(formattedException);
                     await LogErrors.LogErrorAsync(exception, formattedException);
                     
-                    MessageBox.Show("The game file does not exist!\n\nPlease check the file path or delete the favorite.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    // Remove the favorite from the list since the file no longer exists
+                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
+                    if (favoriteToRemove != null)
+                    {
+                        _favoriteList.Remove(favoriteToRemove);
+                        _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+                    }
+                    
+                    MessageBox.Show("The game file does not exist!\n\nThe favorite has been removed from the list.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 

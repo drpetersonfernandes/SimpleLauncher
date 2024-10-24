@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="About"
-                      Width="470"
+                      Width="450"
                       Height="420"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen" >
