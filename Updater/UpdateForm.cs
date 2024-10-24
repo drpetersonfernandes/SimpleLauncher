@@ -16,28 +16,34 @@ namespace Updater
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            var updateThread = new Thread(UpdateProcess)
+            var updateThread = new Thread(RunUpdateProcess)
             {
                 IsBackground = true
             };
             updateThread.Start();
         }
-
-        private void UpdateProcess()
+        
+        private void RunUpdateProcess()
         {
-            if (_args.Length < 4)
+            UpdateProcess().Wait(); // Run the async method synchronously in the thread
+        }
+
+        private async Task UpdateProcess()
+        {
+            if (_args.Length < 4) // Expecting 4 arguments now: appExePath, updateSourcePath, updateZipPath, assetUrl
             {
-                Log("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath> <appArgs>");
+                Log("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath> <assetUrl>");
                 return;
             }
 
             var appExePath = _args[0];
             var updateSourcePath = _args[1];
             var updateZipPath = _args[2];
+            var assetUrl = _args[3];  // URL is now passed as a parameter
 
-            if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath))
+            if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath) || string.IsNullOrEmpty(assetUrl))
             {
-                Log("Invalid file paths provided.");
+                Log("Invalid file paths or URL provided.");
                 return;
             }
 
@@ -53,6 +59,14 @@ namespace Updater
                 // Wait for the main application to exit
                 Log("Waiting for the main application to exit...");
                 Thread.Sleep(3000);
+        
+                // Check if update.zip exists. If not, download it.
+                if (!File.Exists(updateZipPath))
+                {
+                    Log("update.zip not found. Downloading...");
+            
+                    await DownloadUpdateFile(assetUrl, updateZipPath);  // Use the URL passed as an argument
+                }
 
                 // Check if the updateSourcePath exists. If not, extract updateZipPath
                 if (!Directory.Exists(updateSourcePath))
@@ -94,8 +108,7 @@ namespace Updater
                 // Delete the temporary update files and the update.zip file
                 Log("Deleting temporary update files...");
                 Directory.Delete(updateSourcePath, true);
-                var updateFilePath = Path.Combine(appDirectory, "update.zip");
-                File.Delete(updateFilePath);
+                File.Delete(updateZipPath);
 
                 // Notify the user of a successful update
                 Log("Update installed successfully. The application will now restart.");
@@ -124,7 +137,7 @@ namespace Updater
                 Close();
             }
         }
-        
+
         private void ExtractUpdateFile(string zipFilePath, string destinationDirectory)
         {
             string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
@@ -152,6 +165,26 @@ namespace Updater
             {
                 Log($"7z.exe exited with code {process.ExitCode}. Extraction failed.");
                 MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the compressed file is corrupt.", "Error extracting the file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task DownloadUpdateFile(string url, string destinationPath)  // Make it async
+        {
+            try
+            {
+                using var client = new HttpClient();
+                var response = await client.GetAsync(url);  // Now awaited
+                response.EnsureSuccessStatusCode();
+
+                await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                await response.Content.CopyToAsync(fileStream);  // Now awaited
+
+                Log("update.zip downloaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                Log($"Failed to download update.zip: {ex.Message}");
+                MessageBox.Show("Failed to download update.zip. Please check your internet connection and try again.", "Download Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

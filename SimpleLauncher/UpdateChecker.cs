@@ -188,7 +188,7 @@ namespace SimpleLauncher
                             Application.Current.Dispatcher.Invoke(() =>
                             {
                                 MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                // logWindow.Close();
+                                logWindow.Close();
                             });
                             return;
                         }
@@ -197,7 +197,7 @@ namespace SimpleLauncher
                         Process.Start(new ProcessStartInfo
                         {
                             FileName = updaterExePath,
-                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{Environment.CommandLine}\"",
+                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{assetUrl}\"",  // Pass assetUrl here
                             UseShellExecute = false
                         });
 
@@ -214,7 +214,7 @@ namespace SimpleLauncher
                     {
                         MessageBox.Show("There was an error updating the application.\n\nPlease update it manually.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         logWindow.Log($"There was an error updating the application.\n\nPlease update it manually");
-                        // logWindow.Close();
+                        logWindow.Close();
                     });
 
                 }
