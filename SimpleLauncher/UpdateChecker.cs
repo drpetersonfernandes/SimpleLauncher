@@ -209,9 +209,6 @@ namespace SimpleLauncher
                                 window.Close();  // Close each window manually
                             }
                             
-                            BackgroundTask?.Cancel();
-                            BackgroundThread?.Join();
-                            
                             GC.Collect();       // Force garbage collection
                             GC.WaitForPendingFinalizers();  // Wait for finalizers to complete
 
@@ -229,7 +226,24 @@ namespace SimpleLauncher
                     
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show("There was an error updating the application.\n\nPlease update it manually.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // Ask user if they want to be redirected to the download page
+                        var messageBoxResult = MessageBox.Show(
+                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update manually?",
+                            "Update Error",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Error);
+
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            // Redirect to the download page
+                            string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                            Process.Start(new ProcessStartInfo
+                            {
+                                FileName = downloadPageUrl,
+                                UseShellExecute = true // Open URL in default browser
+                            });
+                        }
+
                         logWindow.Log($"There was an error updating the application.\n\nPlease update it manually");
                         logWindow.Close();
                     });
