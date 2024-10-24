@@ -8,6 +8,7 @@ release3.3.0
 - Fixed an error in the GameLauncher class that was generating an InvalidOperationException.
 - Improved the error logging in the class EditSystemEasyModeAddSystem.
 - Added logic to delete the favorite if the favorite file is not found.
+- Add a new functionality to the Updater.exe. It will extract the update file in case the temp folder is missing. 
 
 release3.2.0
 -------------

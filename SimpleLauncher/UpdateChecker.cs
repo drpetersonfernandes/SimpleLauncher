@@ -143,7 +143,7 @@ namespace SimpleLauncher
                 try
                 {
                     string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string tempDirectory = Path.Combine(appDirectory, "temp");
+                    string tempDirectory = Path.Combine(appDirectory, "temp2");
                     Directory.CreateDirectory(tempDirectory);
 
                     string tempFilePath = Path.Combine(tempDirectory, "update.zip");

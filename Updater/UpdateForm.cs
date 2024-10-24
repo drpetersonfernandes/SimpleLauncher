@@ -54,6 +54,21 @@ namespace Updater
                 Log("Waiting for the main application to exit...");
                 Thread.Sleep(3000);
 
+                // Check if the updateSourcePath exists. If not, extract updateZipPath
+                if (!Directory.Exists(updateSourcePath))
+                {
+                    Log("updateSourcePath not found. Extracting updateZipPath...");
+                    ExtractUpdateFile(updateZipPath, updateSourcePath);
+                }
+
+                // Ensure the updateSourcePath exists after extraction
+                if (!Directory.Exists(updateSourcePath))
+                {
+                    Log("Failed to extract update files. Update process aborted.");
+                    MessageBox.Show("Failed to extract update files. Please update manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Files to be ignored during the update
                 var ignoredFiles = new[]
                 {
@@ -107,6 +122,36 @@ namespace Updater
 
                 // Close the update Window
                 Close();
+            }
+        }
+        
+        private void ExtractUpdateFile(string zipFilePath, string destinationDirectory)
+        {
+            string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
+            if (!File.Exists(sevenZipPath))
+            {
+                Log("7z.exe not found in the application directory.");
+                MessageBox.Show("7z.exe not found in the application directory.\n\nPlease reinstall Simple Launcher.", "7z.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = sevenZipPath,
+                Arguments = $"x \"{zipFilePath}\" -o\"{destinationDirectory}\" -y",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = Process.Start(psi);
+            process?.WaitForExit();
+
+            if (process != null && process.ExitCode != 0)
+            {
+                Log($"7z.exe exited with code {process.ExitCode}. Extraction failed.");
+                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the compressed file is corrupt.", "Error extracting the file", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
