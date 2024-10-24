@@ -5,7 +5,8 @@
                       Title="Edit System"
                       Width="900"
                       Height="700"
-                      MinWidth="900">
+                      MinWidth="900"
+                      WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

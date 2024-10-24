@@ -4,13 +4,15 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Global Stats"
                       Width="1000"
-                      Height="600">
+                      Height="700"
+                      WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Margin="10,20,10,10" x:Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
@@ -50,6 +52,18 @@
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
+        
+        <StackPanel
+            Grid.Row="3"
+            Margin="10,10,10,20"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Width="130"
+                x:Name="DownloadButton"
+                Click="DownloadReport_Click"
+                Content="Download Report" />
+        </StackPanel>
 
     </Grid>
 </controls:MetroWindow>

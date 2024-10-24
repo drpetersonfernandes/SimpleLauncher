@@ -1,11 +1,12 @@
-release3.2.1
+release3.3.0
 -------------
 
-10/23/2024
-- Fix error in the GameLauncher class that was generating an InvalidOperationException.
-- Add ImagePacks for Amstrad CPC, Amstrad CPC GX4000, Arcade (MAME), Microsoft MSX, Sony Playstation 1, Sony Playstation 2 and Sony PSP. More will come in the future.
-_ Add a new [WhatsNew] window that can be launched from the About menu.
-_ Add a button in the [GlobalStats] window to allow user to save the generated report.
+10/24/2024
+- Fix the error in the GameLauncher class that generated an InvalidOperationException.
+- Add ImagePacks for Amstrad CPC, Amstrad CPC GX4000, Arcade (MAME), Commodore 64, Microsoft MSX1, Microsoft MSX2, Sony PlayStation 1, Sony PlayStation 2, and Sony PSP. More will come in the future.
+- Add a new [UpdateHistory] window that can be launched from the [About] window.
+- Improve the error logging in the class EditSystemEasyModeAddSystem.
+- Add a button in the [GlobalStats] window that allows the user to save the generated report.
 
 release3.2.0
 -------------
@@ -18,9 +19,9 @@ release3.2.0
 - Updated all emulators to the latest versions.
 - Updated the 'mame.xml' file to the latest release.
 - Improved error handling in the [Easy Add System] window in case the download process fails. Added a stop download button.
-- Enhanced error handling for missing 'default.png' file. Now a message will be displayed to the user, and the application will shut down.
+- Enhanced error handling for missing the 'default.png' file. Now a message will be displayed to the user, and the application will shut down.
 - Enhanced the Global Stats class and XAML. Now presents a summary of each system. The row will be colored red if any cover image is missing for that system. Added the option to save the report generated in this window.
-- Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly forwarded to the developer. Improved formatting of the 'error_user.log'.
+- Improved error handling throughout the application. Error codes are hidden from the user, and error logs are properly forwarded to the developer. Improved formatting of the error_user.log.
 - Improved code in the GameLauncher class. Refactored for easy maintenance and future updates.
 - Improved code in the ExtractCompressedFile class to prevent the "Please Wait" window from freezing.
 
@@ -34,7 +35,7 @@ Capped the number of games per page at 500.
 Included a second log window in the update process.
 Enhanced the global search functionality to also search within the machine description of MAME files.
 Updated the emulator download links to the latest version.
-Fixed some random code.
+Fixed some random code issues.
 
 release3.0.0
 -------------
@@ -52,14 +53,14 @@ release2.15.1
 -------------
 
 07/14/2024
-I've added a star icon to each game in the favorite list, enabling users to easily identify their favorites.
-Also, I implemented a preview window that appears when users hover over a list item in either the Favorites Window or the Global Search Window.
-In addition, the logic for generating the `favorites.xml` file has been enhanced to handle situations when it's missing.
-The logic for creating the `settings.xml` file has also been improved when the file isn't found.
-Lastly, I've removed the Video and Info link from the generated buttons. However, users can still access this functionality through the right-click context menu.
+I've added a star icon to each game in the favorites' list, enabling users to easily identify their favorites.
+Additionally, I implemented a preview window that appears when users hover over a list item in either the Favorites Window or the Global Search Window.
+Furthermore, the logic for generating the `favorites.xml` file has been enhanced to handle situations when it is missing.
+The logic for creating the `settings.xml` file has also been improved for cases when the file is not found.
+Lastly, I've removed the Video and Info links from the generated buttons. However, users can still access this functionality through the right-click context menu.
 
 release2.15
--------------
+-----------
 
 07/04/2024
 The emulator versions for every emulator within EasyMode have been updated.

@@ -4,7 +4,8 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Favorites"
                       Width="1200"
-                      Height="600">
+                      Height="600"
+                      WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

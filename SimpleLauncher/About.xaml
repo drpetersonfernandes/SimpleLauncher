@@ -3,10 +3,10 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="About"
-                      Width="400"
+                      Width="470"
                       Height="420"
                       ResizeMode="NoResize"
-                      WindowStartupLocation="CenterOwner">
+                      WindowStartupLocation="CenterScreen" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -51,6 +51,11 @@
                 Width="120"
                 Click="CheckForUpdate_Click"
                 Content="Check For Update" />
+            <Button
+                Width="120"
+                Margin="10,0,0,0"
+                Click="UpdateHistory_Click"
+                Content="Update History" />
             <Button
                 Width="120"
                 Margin="10,0,0,0"

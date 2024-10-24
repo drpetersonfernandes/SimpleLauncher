@@ -48,5 +48,11 @@ namespace SimpleLauncher
                 return "Version: " + (version?.ToString() ?? "Unknown");
             }
         }
+
+        private void UpdateHistory_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateHistory updateHistoryWindow = new UpdateHistory();
+            updateHistoryWindow.ShowDialog();
+        }
     }
 }

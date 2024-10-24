@@ -10,6 +10,8 @@ namespace SimpleLauncher
     public partial class GlobalStats
     {
         private readonly List<SystemConfig> _systemConfigs;
+        private GlobalStatsData _globalStats;
+        private List<SystemStatsData> _systemStats;
 
         public GlobalStats(List<SystemConfig> systemConfigs)
         {
@@ -24,21 +26,22 @@ namespace SimpleLauncher
         private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)
         {
             ProgressBar.Visibility = Visibility.Visible;
+            DownloadButton.Visibility = Visibility.Collapsed;
 
             try
             {
                 // Execute the long-running operations asynchronously
-                var systemStats = await Task.Run(PopulateSystemStatsTable);
+                _systemStats = await Task.Run(PopulateSystemStatsTable);
 
                 // Update the global stats asynchronously
-                var globalStats = await Task.Run(() => CalculateGlobalStats(systemStats));
+                _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
 
-                GlobalInfoTextBlock.Text = $"Total Number of Systems: {globalStats.TotalSystems}\n" +
-                                           $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
-                                           $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
-                                           $"Total Number of Matched Images: {globalStats.TotalImages:N0}\n" +
+                GlobalInfoTextBlock.Text = $"Total Number of Systems: {_globalStats.TotalSystems}\n" +
+                                           $"Total Number of Emulators: {_globalStats.TotalEmulators}\n" +
+                                           $"Total Number of Games: {_globalStats.TotalGames:N0}\n" +
+                                           $"Total Number of Matched Images: {_globalStats.TotalImages:N0}\n" +
                                            $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                                           $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
+                                           $"Disk Size of all Games: {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
                 ProgressBar.Visibility = Visibility.Collapsed;
         
@@ -46,8 +49,10 @@ namespace SimpleLauncher
                 var result = MessageBox.Show("Would you like to save a report with the results?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    SaveReport(globalStats, systemStats);
+                    SaveReport(_globalStats, _systemStats);
                 }
+                
+                DownloadButton.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -65,7 +70,7 @@ namespace SimpleLauncher
         
         private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
         {
-            var systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
+            _systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
 
             foreach (var config in _systemConfigs)
             {
@@ -97,7 +102,7 @@ namespace SimpleLauncher
                 }
 
                 // Add to systemStats list with total disk size
-                systemStats.Add(new SystemStatsData
+                _systemStats.Add(new SystemStatsData
                 {
                     SystemName = config.SystemName,
                     NumberOfFiles = romFiles.Count,
@@ -109,10 +114,10 @@ namespace SimpleLauncher
             // Bind the data to the DataGrid (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                SystemStatsDataGrid.ItemsSource = systemStats;
+                SystemStatsDataGrid.ItemsSource = _systemStats;
             });
 
-            return systemStats; // Return the system stats to be included in the report
+            return _systemStats; // Return the system stats to be included in the report
         }
 
 
@@ -212,6 +217,18 @@ namespace SimpleLauncher
             }
 
             return report;
+        }
+
+        private void DownloadReport_Click(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (_globalStats != null && _systemStats != null)
+            {
+                SaveReport(_globalStats, _systemStats);
+            }
+            else
+            {
+                MessageBox.Show("No statistics available to save. Please wait until the data is loaded.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

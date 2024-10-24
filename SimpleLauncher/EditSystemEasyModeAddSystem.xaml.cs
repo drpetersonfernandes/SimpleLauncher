@@ -413,33 +413,40 @@ namespace SimpleLauncher
                     throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
                 }
             }
+            catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                string formattedException = $"The requested file was not available on the server.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+
+                MessageBox.Show("The requested file is not available on the server.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (HttpRequestException ex)
             {
-                string formattedException = $"Network error in the Easy Mode Add System window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"Network error during file download.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
-                MessageBox.Show("There was an network error.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an network error.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (IOException ex)
             {
-                string formattedException = $"File read/write error in the Easy Mode Add System window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"File read/write error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show("There was an file read/write error.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an file read/write error.\n\nMaybe Simple Launcher do not have write privileges in his folder. Try to run Simple Launcher with administrative privileges.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (TaskCanceledException ex)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    string formattedException = $"Download was canceled by the user.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string formattedException = $"Download was canceled by the user.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                 }
                 else
                 {
-                    string formattedException = $"Download timed out or was canceled unexpectedly.\n\nException Details: {ex.Message}";
+                    string formattedException = $"Download timed out or was canceled unexpectedly.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
-                    MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

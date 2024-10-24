@@ -4,7 +4,9 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Edit System - Easy Mode"
                       Width="350"
-                      Height="280">
+                      Height="280"
+                      WindowStartupLocation="CenterScreen">
+    
     <StackPanel Orientation="Vertical">
 
         <Label
