@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace Updater
 {
@@ -6,7 +8,9 @@ namespace Updater
     {
         private readonly string[] _args;
         private delegate void LogDelegate(string message);
-        
+        private const string RepoOwner = "drpetersonfernandes";
+        private const string RepoName = "SimpleLauncher";
+
         public UpdateForm(string[] args)
         {
             InitializeComponent();
@@ -22,7 +26,7 @@ namespace Updater
             };
             updateThread.Start();
         }
-        
+
         private void RunUpdateProcess()
         {
             UpdateProcess().Wait(); // Run the async method synchronously in the thread
@@ -30,20 +34,19 @@ namespace Updater
 
         private async Task UpdateProcess()
         {
-            if (_args.Length < 4) // Expecting 4 arguments now: appExePath, updateSourcePath, updateZipPath, assetUrl
+            if (_args.Length < 3) // Expecting 3 arguments: appExePath, updateSourcePath, updateZipPath
             {
-                Log("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath> <assetUrl>");
+                Log("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath>");
                 return;
             }
 
             var appExePath = _args[0];
             var updateSourcePath = _args[1];
             var updateZipPath = _args[2];
-            var assetUrl = _args[3];  // URL is now passed as a parameter
 
-            if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath) || string.IsNullOrEmpty(assetUrl))
+            if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath))
             {
-                Log("Invalid file paths or URL provided.");
+                Log("Invalid file paths provided.");
                 return;
             }
 
@@ -59,13 +62,25 @@ namespace Updater
                 // Wait for the main application to exit
                 Log("Waiting for the main application to exit...");
                 Thread.Sleep(3000);
+
+                // Fetch the latest release from GitHub
+                var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
         
+                // Log the latest version (if needed)
+                Log($"Latest version: {latestVersion}");
+
+                if (string.IsNullOrEmpty(assetUrl))
+                {
+                    Log("Failed to retrieve download URL for the latest release.");
+                    MessageBox.Show("Failed to retrieve the latest release. Please update manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Check if update.zip exists. If not, download it.
                 if (!File.Exists(updateZipPath))
                 {
                     Log("update.zip not found. Downloading...");
-            
-                    await DownloadUpdateFile(assetUrl, updateZipPath);  // Use the URL passed as an argument
+                    await DownloadUpdateFile(assetUrl, updateZipPath);
                 }
 
                 // Check if the updateSourcePath exists. If not, extract updateZipPath
@@ -96,6 +111,8 @@ namespace Updater
                 // Copy new files to the application directory
                 foreach (var file in Directory.GetFiles(updateSourcePath))
                 {
+                    Log("Copy new files to the application directory.");
+                    
                     var fileName = Path.GetFileName(file);
                     if (!ignoredFiles.Contains(fileName))
                     {
@@ -130,11 +147,84 @@ namespace Updater
             }
             catch (Exception ex)
             {
-                Log($"Automatic update failed: {ex.Message}\nPlease update manually.");
-                MessageBox.Show("Automatic update failed.\nPlease update manually.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log($"Automatic update failed: {ex.Message}");
+    
+                // Prompt the user to be redirected to the download page
+                var result = MessageBox.Show(
+                    "Automatic update failed.\nDo you want to be redirected to the download page to update manually?",
+                    "Update Failed",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
 
-                // Close the update Window
+                // If the user selects Yes, open the download page in the default browser
+                if (result == DialogResult.Yes)
+                {
+                    // URL to the releases' page of the GitHub repository
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // UseShellExecute is required to open the URL in the default browser
+                    });
+                }
+
+                // Close the update window regardless of the user's choice
                 Close();
+            }
+        }
+
+        private async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync()
+        {
+            try
+            {
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+                var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (!response.IsSuccessStatusCode)
+                {
+                    Log($"Failed to fetch the latest release information. Status Code: {response.StatusCode}");
+                    return (string.Empty, string.Empty); // Return empty strings if the request fails
+                }
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                using JsonDocument jsonDoc = JsonDocument.Parse(jsonResponse);
+                var root = jsonDoc.RootElement;
+
+                // Get the version from the "tag_name" field
+                string versionTag = root.TryGetProperty("tag_name", out JsonElement tagNameElement)
+                    ? tagNameElement.GetString() ?? string.Empty  // Handle potential null here
+                    : string.Empty; // Default to empty if tag_name is not found
+
+                // Initialize assetUrl to an empty string to avoid nullability issues
+                string assetUrl = string.Empty;
+
+                if (root.TryGetProperty("assets", out JsonElement assetsElement))
+                {
+                    foreach (var asset in assetsElement.EnumerateArray())
+                    {
+                        if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
+                        {
+                            assetUrl = downloadUrlElement.GetString() ?? string.Empty; // Handle potential null here
+                            break;
+                        }
+                    }
+                }
+
+                // Match the version using the regex and return the version and asset URL
+                var versionMatch = MyRegex().Match(versionTag);
+                if (versionMatch.Success)
+                {
+                    return (NormalizeVersion(versionMatch.Value), assetUrl);
+                }
+
+                Log($"Error parsing the version from the release tag.");
+                return (string.Empty, assetUrl); // Return assetUrl even if version parsing fails
+            }
+            catch (Exception ex)
+            {
+                Log($"Failed to fetch the latest release asset URL: {ex.Message}");
+                return (string.Empty, string.Empty); // Return empty strings in case of an exception
             }
         }
 
@@ -159,6 +249,9 @@ namespace Updater
             };
 
             using var process = Process.Start(psi);
+
+            Log("Extracting the update file...");
+            
             process?.WaitForExit();
 
             if (process != null && process.ExitCode != 0)
@@ -168,16 +261,17 @@ namespace Updater
             }
         }
 
-        private async Task DownloadUpdateFile(string url, string destinationPath)  // Make it async
+        private async Task DownloadUpdateFile(string url, string destinationPath)
         {
+            Log("Trying to download the latest release...");
             try
             {
                 using var client = new HttpClient();
-                var response = await client.GetAsync(url);  // Now awaited
+                var response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
                 await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
-                await response.Content.CopyToAsync(fileStream);  // Now awaited
+                await response.Content.CopyToAsync(fileStream);
 
                 Log("update.zip downloaded successfully.");
             }
@@ -196,6 +290,23 @@ namespace Updater
                 return;
             }
             logTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+        }
+
+        private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
+
+        private static string NormalizeVersion(string version)
+        {
+            if (string.IsNullOrEmpty(version)) return "0.0.0.0";
+
+            var versionParts = version.Split('.');
+            while (versionParts.Length < 4)
+            {
+                version += ".0";
+                versionParts = version.Split('.');
+            }
+
+            // Remove any trailing dots (if any)
+            return version.TrimEnd('.');
         }
     }
 }

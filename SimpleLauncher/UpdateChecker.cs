@@ -197,12 +197,29 @@ namespace SimpleLauncher
                         Process.Start(new ProcessStartInfo
                         {
                             FileName = updaterExePath,
-                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\" \"{assetUrl}\"",  // Pass assetUrl here
+                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\"",
                             UseShellExecute = false
                         });
 
                         logWindow.Log("Closing application for update...");
-                        Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            foreach (Window window in Application.Current.Windows)
+                            {
+                                window.Close();  // Close each window manually
+                            }
+                            
+                            BackgroundTask?.Cancel();
+                            BackgroundThread?.Join();
+                            
+                            GC.Collect();       // Force garbage collection
+                            GC.WaitForPendingFinalizers();  // Wait for finalizers to complete
+
+                            Application.Current.Shutdown();  // Shutdown the application
+                            
+                            // Forcefully kill the process to ensure all threads and handles are released
+                            Process.GetCurrentProcess().Kill();
+                        });
                     });
                 }
                 catch (Exception ex)
