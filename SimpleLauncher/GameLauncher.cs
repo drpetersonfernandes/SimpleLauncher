@@ -142,30 +142,11 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = filePath,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
+            UseShellExecute = true
         };
         
         using var process = new Process();
         process.StartInfo = psi;
-        
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                output.AppendLine(args.Data);
-            }
-        };
-
-        process.ErrorDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                error.AppendLine(args.Data);
-            }
-        };
         
         try
         {
@@ -174,13 +155,11 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
             await process.WaitForExitAsync();
            
-            if (process.ExitCode != 0 || error.Length > 0)
+            if (process.ExitCode != 0)
             {
-                string errorMessage = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
@@ -189,7 +168,7 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             MessageBox.Show("There was an error launching the shortcut file.\n\nTry to run the shortcut file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -201,31 +180,12 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = filePath,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
+            UseShellExecute = true
         };
         
         using var process = new Process();
         process.StartInfo = psi;
         
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                output.AppendLine(args.Data);
-            }
-        };
-
-        process.ErrorDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                error.AppendLine(args.Data);
-            }
-        };
-
         try
         {
             bool processStarted = process.Start();
@@ -233,13 +193,11 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
             await process.WaitForExitAsync();
            
-            if (process.ExitCode != 0 || error.Length > 0)
+            if (process.ExitCode != 0)
             {
-                string errorMessage = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
@@ -248,7 +206,7 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             MessageBox.Show("There was an error launching the executable file.\n\nTry to launch the executable file outside Simple Launcher to see if it is working.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
