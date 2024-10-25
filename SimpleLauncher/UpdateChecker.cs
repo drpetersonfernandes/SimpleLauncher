@@ -194,6 +194,8 @@ namespace SimpleLauncher
                         }
 
                         logWindow.Log("Starting updater process...");
+                        await Task.Delay(2000);
+                        
                         Process.Start(new ProcessStartInfo
                         {
                             FileName = updaterExePath,

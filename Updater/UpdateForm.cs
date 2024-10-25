@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace Updater
 {
@@ -10,11 +11,35 @@ namespace Updater
         private delegate void LogDelegate(string message);
         private const string RepoOwner = "drpetersonfernandes";
         private const string RepoName = "SimpleLauncher";
+        static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string TempDirectory = Path.Combine(AppDirectory, "temp2");
+        private static readonly string UpdateFile = Path.Combine(TempDirectory, "update.zip");
 
         public UpdateForm(string[] args)
         {
             InitializeComponent();
+            EnsureDirectories();
             _args = args ?? throw new ArgumentNullException(nameof(args));
+
+            string applicationVersion = GetApplicationVersion();
+            Log($"Updater version: {applicationVersion}\n\n");
+        }
+
+        private static string GetApplicationVersion()
+        {
+            // Retrieve the version from the executing assembly
+            Version? version = Assembly.GetExecutingAssembly().GetName().Version;
+        
+            // Check if the version is null, and format it as needed
+            return version != null ? version.ToString() : "Version not available";
+        }
+
+        private static void EnsureDirectories()
+        {
+            if (!Directory.Exists(TempDirectory))
+            {
+                Directory.CreateDirectory(TempDirectory);
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -34,24 +59,23 @@ namespace Updater
 
         private async Task UpdateProcess()
         {
-            if (_args.Length < 3) // Expecting 3 arguments: appExePath, updateSourcePath, updateZipPath
+            if (_args.Length < 3) // Expecting 3 arguments: applicationFolder, tempFolder, updateFile
             {
-                Log("Invalid arguments. Usage: Updater <appExePath> <updateSourcePath> <updateZipPath>");
+                Log("Invalid arguments. Usage: Updater <applicationFolder> <tempFolder> <updateFile>");
                 return;
             }
 
-            var appExePath = _args[0];
-            var updateSourcePath = _args[1];
-            var updateZipPath = _args[2];
+            var applicationFolder = _args[0];
+            var tempFolder = _args[1];
+            var updateZipFile = _args[2];
 
-            if (string.IsNullOrEmpty(appExePath) || string.IsNullOrEmpty(updateSourcePath) || string.IsNullOrEmpty(updateZipPath))
+            if (string.IsNullOrEmpty(applicationFolder) || string.IsNullOrEmpty(tempFolder) || string.IsNullOrEmpty(updateZipFile))
             {
                 Log("Invalid file paths provided.");
                 return;
             }
 
-            var appDirectory = Path.GetDirectoryName(appExePath) ?? string.Empty;
-            if (string.IsNullOrEmpty(appDirectory))
+            if (string.IsNullOrEmpty(AppDirectory))
             {
                 Log("Could not determine the application directory.");
                 return;
@@ -67,34 +91,67 @@ namespace Updater
                 var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
         
                 // Log the latest version (if needed)
+                Log("Fetch the latest release from GitHub.");
                 Log($"Latest version: {latestVersion}");
 
                 if (string.IsNullOrEmpty(assetUrl))
                 {
                     Log("Failed to retrieve download URL for the latest release.");
-                    MessageBox.Show("Failed to retrieve the latest release. Please update manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // Ask user if they want to be redirected to the download page
+                    var result = MessageBox.Show(
+                        "Failed to retrieve the latest release. Would you like to be redirected to the download page to update manually?",
+                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Redirect to the download page
+                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = downloadPageUrl,
+                            UseShellExecute = true // Open URL in default browser
+                        });
+                    }
                     return;
                 }
 
-                // Check if update.zip exists. If not, download it.
-                if (!File.Exists(updateZipPath))
+                // Check if UpdateZipFile exists in the TempDirectory. If not, download it.
+                if (!File.Exists(updateZipFile))
                 {
-                    Log("update.zip not found. Downloading...");
-                    await DownloadUpdateFile(assetUrl, updateZipPath);
+                    Log("update.zip not found. The application will download again.");
+                    await DownloadUpdateFile(assetUrl, UpdateFile);
                 }
 
-                // Check if the updateSourcePath exists. If not, extract updateZipPath
-                if (!Directory.Exists(updateSourcePath))
+                // Check if the tempFolder exists. If not, extract UpdateFile
+                if (!Directory.Exists(tempFolder))
                 {
-                    Log("updateSourcePath not found. Extracting updateZipPath...");
-                    ExtractUpdateFile(updateZipPath, updateSourcePath);
+                    Log("tempFolder not found. Extracting update File...");
+                    ExtractUpdateFile(UpdateFile, TempDirectory);
                 }
 
-                // Ensure the updateSourcePath exists after extraction
-                if (!Directory.Exists(updateSourcePath))
+                // Ensure the TempDirectory exists after extraction
+                if (!Directory.Exists(TempDirectory))
                 {
                     Log("Failed to extract update files. Update process aborted.");
-                    MessageBox.Show("Failed to extract update files. Please update manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    
+                    // Ask user if they want to be redirected to the download page
+                    var result = MessageBox.Show(
+                        "Failed to extract update files. Would you like to be redirected to the download page to update manually?",
+                        "Error",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Error);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Redirect to the download page
+                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = downloadPageUrl,
+                            UseShellExecute = true // Open URL in the default browser
+                        });
+                    }
                     return;
                 }
 
@@ -109,35 +166,57 @@ namespace Updater
                 };
 
                 // Copy new files to the application directory
-                foreach (var file in Directory.GetFiles(updateSourcePath))
+                foreach (var file in Directory.GetFiles(TempDirectory))
                 {
                     Log("Copy new files to the application directory.");
                     
                     var fileName = Path.GetFileName(file);
                     if (!ignoredFiles.Contains(fileName))
                     {
-                        var destFile = Path.Combine(appDirectory, fileName);
+                        var destFile = Path.Combine(AppDirectory, fileName);
                         Log($"Copying {fileName}...");
                         File.Copy(file, destFile, true);
                     }
                 }
 
-                // Delete the temporary update files and the update.zip file
+                // Delete the temporary files and folders
                 Log("Deleting temporary update files...");
-                Directory.Delete(updateSourcePath, true);
-                File.Delete(updateZipPath);
+
+                if (File.Exists(updateZipFile))
+                {
+                    File.Delete(updateZipFile);
+                    Log($"Deleted file: {updateZipFile}");
+                }
+
+                if (File.Exists(UpdateFile))
+                {
+                    File.Delete(UpdateFile);
+                    Log($"Deleted file: {UpdateFile}");
+                }
+
+                if (Directory.Exists(tempFolder))
+                {
+                    Directory.Delete(tempFolder, true);
+                    Log($"Deleted folder: {tempFolder}");
+                }
+
+                if (Directory.Exists(TempDirectory))
+                {
+                    Directory.Delete(TempDirectory, true);
+                    Log($"Deleted folder: {TempDirectory}");
+                }
 
                 // Notify the user of a successful update
                 Log("Update installed successfully. The application will now restart.");
                 MessageBox.Show("Update installed successfully. The application will now restart.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Restart the main application
-                var simpleLauncherExePath = Path.Combine(appDirectory, "SimpleLauncher.exe");
+                var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = simpleLauncherExePath,
                     UseShellExecute = false,
-                    WorkingDirectory = appDirectory
+                    WorkingDirectory = AppDirectory
                 };
 
                 Process.Start(startInfo);
@@ -218,7 +297,7 @@ namespace Updater
                     return (NormalizeVersion(versionMatch.Value), assetUrl);
                 }
 
-                Log($"Error parsing the version from the release tag.");
+                Log("Error parsing the version from the release tag.");
                 return (string.Empty, assetUrl); // Return assetUrl even if version parsing fails
             }
             catch (Exception ex)
@@ -234,9 +313,28 @@ namespace Updater
             if (!File.Exists(sevenZipPath))
             {
                 Log("7z.exe not found in the application directory.");
-                MessageBox.Show("7z.exe not found in the application directory.\n\nPlease reinstall Simple Launcher.", "7z.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "7z.exe not found in the application directory.\n\nWould you like to be redirected to the download page to download it manually?",
+                    "7z.exe not found",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // Open URL in default browser
+                    });
+                }
+
                 return;
             }
+
 
             var psi = new ProcessStartInfo
             {
@@ -257,8 +355,26 @@ namespace Updater
             if (process != null && process.ExitCode != 0)
             {
                 Log($"7z.exe exited with code {process.ExitCode}. Extraction failed.");
-                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the compressed file is corrupt.", "Error extracting the file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "7z.exe could not extract the compressed file.\n\nWould you like to be redirected to the download page to download it manually?",
+                    "Error extracting the file",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // Open URL in default browser
+                    });
+                }
             }
+
         }
 
         private async Task DownloadUpdateFile(string url, string destinationPath)
@@ -278,8 +394,26 @@ namespace Updater
             catch (Exception ex)
             {
                 Log($"Failed to download update.zip: {ex.Message}");
-                MessageBox.Show("Failed to download update.zip. Please check your internet connection and try again.", "Download Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "Failed to download update.zip. Please check your internet connection and try again.\n\nWould you like to be redirected to the download page to download it manually?",
+                    "Download Failed",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // Open URL in the default browser
+                    });
+                }
             }
+
         }
 
         private void Log(string message)
