@@ -22,7 +22,6 @@ namespace SimpleLauncher
 {
     public partial class MainWindow : INotifyPropertyChanged
     {
-
         // Logic to update the System Name and PlayTime in the Statusbar
         public event PropertyChangedEventHandler PropertyChanged;
         private string _selectedSystem;
@@ -81,22 +80,9 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
-            // Initialize default values for SelectedSystem and PlayTime
-            if (SystemComboBox.Items.Count > 0)
-            {
-                // Set the first system as the default selected system
-                SystemComboBox.SelectedIndex = 0; // You can change this to set another system if needed
-                SelectedSystem = SystemComboBox.SelectedItem.ToString();
-        
-                // Retrieve the playtime for the default selected system
-                var defaultSystemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == SelectedSystem);
-                PlayTime = defaultSystemPlayTime != null ? defaultSystemPlayTime.PlayTime : "00:00:00";
-            }
-            else
-            {
-                SelectedSystem = "No system selected";
-                PlayTime = "00:00:00";
-            }
+            // Default values for SelectedSystem and PlayTime
+            SelectedSystem = "No system selected";
+            PlayTime = "00:00:00";
 
             DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
             
