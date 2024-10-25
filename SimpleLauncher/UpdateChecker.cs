@@ -185,13 +185,34 @@ namespace SimpleLauncher
                         if (!File.Exists(updaterExePath))
                         {
                             logWindow.Log("Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.");
+    
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                MessageBox.Show(logWindow, "Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                // Ask the user if they want to be redirected to the download page
+                                var messageBoxResult = MessageBox.Show(
+                                    "Updater.exe not found in the application directory.\n\nWould you like to be redirected to the download page to download it manually?",
+                                    "Update Error",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Error);
+
+                                if (messageBoxResult == MessageBoxResult.Yes)
+                                {
+                                    // Redirect to the download page
+                                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                                    Process.Start(new ProcessStartInfo
+                                    {
+                                        FileName = downloadPageUrl,
+                                        UseShellExecute = true // Open URL in default browser
+                                    });
+                                }
+
+                                // Close the log window after action is taken
                                 logWindow.Close();
                             });
+
                             return;
                         }
+
 
                         logWindow.Log("Starting updater process...");
                         await Task.Delay(2000);
@@ -273,8 +294,29 @@ namespace SimpleLauncher
                 Exception ex = new(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-                
-                MessageBox.Show("7z.exe not found in the application directory.\n\nPlease reinstall Simple Launcher.","7z.exe not found", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Ask the user if they want to be redirected to the SimpleLauncher release download page
+                var result = MessageBox.Show(
+                    "7z.exe not found in the application directory.\n\nWould you like to be redirected to the SimpleLauncher download page to download the latest version manually?",
+                    "7z.exe not found",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Redirect to the SimpleLauncher GitHub releases page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // Open URL in default browser
+                    });
+                }
+                else
+                {
+                    // Log and show error if the user does not want to download
+                    MessageBox.Show("Please reinstall Simple Launcher to proceed.", "7z.exe Missing", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
 
             var psi = new ProcessStartInfo
@@ -297,7 +339,28 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show("7z.exe could not extract the compressed file.\n\nMaybe the compressed file is corrupt.", "Error extracting the file", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Ask the user if they want to be redirected to the SimpleLauncher release download page
+                var result = MessageBox.Show(
+                    "7z.exe could not extract the compressed file.\n\nWould you like to be redirected to the SimpleLauncher download page to download the latest version manually?",
+                    "Error extracting the file",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Redirect to the SimpleLauncher GitHub releases page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true // Open URL in default browser
+                    });
+                }
+                else
+                {
+                    // Log and show error if the user does not want to download
+                    MessageBox.Show("Please try reinstalling Simple Launcher manually.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

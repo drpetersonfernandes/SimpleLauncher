@@ -330,7 +330,7 @@ public static class GameLauncher
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
 
-            if ((process.ExitCode != 0 || error.Length > 0) && process.ExitCode != -1073741819)
+            if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
                 string errorMessage = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);

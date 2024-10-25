@@ -1,3 +1,9 @@
+release3.3.1
+-------------
+
+10/24/2024
+- Fixed a minor issue in the GameLauncher class that was triggered when MAME output warning messages about the ROM. It will now only consider error messages if the emulator outputs an error code.  
+
 release3.3.0
 -------------
 
