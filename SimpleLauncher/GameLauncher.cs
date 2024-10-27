@@ -38,7 +38,15 @@ public static class GameLauncher
                     await LaunchExecutable(filePath);
                     break;
                 default:
-                    await LaunchUsingEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    string selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
+                    if (selectedSystem.Contains("XBLA"))
+                    {
+                        await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    }
+                    else
+                    {
+                        await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    }
                     break;
             }
         }
@@ -213,7 +221,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchUsingEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
         if (emulatorComboBox.SelectedItem == null)
         {
@@ -256,8 +264,8 @@ public static class GameLauncher
             string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
             string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
-            // Only Accept ZIP or 7Z
-            if (fileExtension == ".ZIP" || fileExtension == ".7Z")
+            // Accept ZIP, 7Z and RAR files
+            if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
                 // Iterate through the formats to launch and find the first file with the specified extension
                 bool fileFound = false;
@@ -275,11 +283,11 @@ public static class GameLauncher
 
                 if (!fileFound)
                 {
-                    string errorMessage = @"Could not find a file with the extension defined in 'Format to Launch After Extraction'.";
+                    string errorMessage = @"Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the temp folder.";
                     Exception exception = new(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                                 
-                    MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction'.\n\nPlease edit the system to fix it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the temp folder.\n\nPlease edit the system to fix it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -354,5 +362,158 @@ public static class GameLauncher
                 
             MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+    
+    private static async Task LaunchXblaGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    {
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            MessageBox.Show("Please select an emulator first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        string selectedSystem = systemComboBox.SelectedItem.ToString();
+    
+        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+
+        if (systemConfig == null)
+        {
+            string errorMessage = $"systemConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+    
+        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+
+        if (emulatorConfig == null)
+        {
+            string errorMessage = $"emulatorConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        string gamePathToLaunch = null;
+
+        // Check if extraction is needed
+        if (systemConfig.ExtractFileBeforeLaunch)
+        {
+            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+            string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+
+            // Accept ZIP, 7Z and RAR files
+            if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
+            {
+                if (!Directory.Exists(tempExtractLocation))
+                {
+                    MessageBox.Show("Extraction failed. Could not find the extracted files inside the temp folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                gamePathToLaunch = await FindXblaGamePath(tempExtractLocation); // Search within the extracted folder
+            }
+        }
+        else
+        {
+            MessageBox.Show("To launch Xbox 360 XBLA games the compressed file need to be extracted first.\n\nPlease 'Edit System' in the 'Expert Mode' and change the 'Extract File Before Launch' to true.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(gamePathToLaunch))
+        {
+            MessageBox.Show("Could not find a game file in the 000D0000 folder inside the temp folder.\n\nPlease check the compressed file to see if you can find the game file inside it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        // Construct the PSI
+        string programLocation = emulatorConfig.EmulatorLocation;
+        string parameters = emulatorConfig.EmulatorParameters;
+        string arguments = $"{parameters} \"{gamePathToLaunch}\"";
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = programLocation,
+            Arguments = arguments,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        };
+
+        using var process = new Process();
+        process.StartInfo = psi;
+        StringBuilder output = new();
+        StringBuilder error = new();
+
+        process.OutputDataReceived += (_, args) =>
+        {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                output.AppendLine(args.Data);
+            }
+        };
+
+        process.ErrorDataReceived += (_, args) =>
+        {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                error.AppendLine(args.Data);
+            }
+        };
+
+        try
+        {
+            bool processStarted = process.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.");
+            }
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
+
+            if (process.ExitCode != 0 && process.ExitCode != -1073741819)
+            {
+                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+
+                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            // Access Violation error
+            if (process.ExitCode == -1073741819)
+            {
+                string errorMessage = $"There was an access violation error running the emulator.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"The emulator could not open this game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file error_user.log inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private static Task<string> FindXblaGamePath(string rootFolderPath)
+    {
+        var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
+        foreach (var directory in directories)
+        {
+            var files = Directory.GetFiles(directory);
+            if (files.Length > 0)
+            {
+                return Task.FromResult(files[0]); // Return the first file found
+            }
+        }
+        return Task.FromResult(string.Empty);
     }
 }
