@@ -61,6 +61,7 @@ namespace SimpleLauncher
 
         private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            EnableFields();
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = true;
             
@@ -319,7 +320,7 @@ namespace SimpleLauncher
             DialogResult result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                string foldername = dialog.SelectedPath;
+                string foldername = dialog.SelectedPath.Trim();
                 SystemImageFolderTextBox.Text = foldername;
 
                 // Adjust the visibility of the placeholder based on the newly loaded data
@@ -418,6 +419,7 @@ namespace SimpleLauncher
 
         private void AddSystemButton_Click(object sender, RoutedEventArgs e)
         {
+            EnableFields();
             ClearFields();
             AdjustPlaceholderVisibility();
 
@@ -425,6 +427,83 @@ namespace SimpleLauncher
             DeleteSystemButton.IsEnabled = false;
             
             MessageBox.Show("You can add a new system now.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void EnableFields()
+        {
+            SystemNamePlaceholderTextBox.IsReadOnly = false;
+            SystemNamePlaceholderTextBox.IsEnabled = true;
+
+            SystemFolderPlaceholderTextBox.IsReadOnly = false;
+            SystemFolderPlaceholderTextBox.IsEnabled = true;
+            
+            SystemImageFolderTextBox.IsReadOnly = false;
+            SystemImageFolderTextBox.IsEnabled = true;
+            
+            SystemIsMameComboBox.IsReadOnly = false;
+            SystemIsMameComboBox.IsEnabled = true;
+            
+            FormatToSearchPlaceholderTextBox.IsReadOnly = false;
+            FormatToSearchPlaceholderTextBox.IsEnabled = true;
+            
+            ExtractFileBeforeLaunchComboBox.IsReadOnly = false;
+            ExtractFileBeforeLaunchComboBox.IsEnabled = true;
+            
+            FormatToLaunchPlaceholderTextBox.IsReadOnly = false;
+            FormatToLaunchPlaceholderTextBox.IsEnabled = true;
+            
+            Emulator1NamePlaceholderTextBox.IsReadOnly = false;
+            Emulator1NamePlaceholderTextBox.IsEnabled = true;
+            
+            Emulator1LocationTextBox.IsReadOnly = false;
+            Emulator1LocationTextBox.IsEnabled = true;
+            
+            Emulator1ParametersTextBox.IsReadOnly = false;
+            Emulator1ParametersTextBox.IsEnabled = true;
+            
+            Emulator2NameTextBox.IsReadOnly = false;
+            Emulator2NameTextBox.IsEnabled = true;
+            
+            Emulator2LocationTextBox.IsReadOnly = false;
+            Emulator2LocationTextBox.IsEnabled = true;
+            
+            Emulator2ParametersTextBox.IsReadOnly = false;
+            Emulator2ParametersTextBox.IsEnabled = true;
+            
+            Emulator3NameTextBox.IsReadOnly = false;
+            Emulator3NameTextBox.IsEnabled = true;
+            
+            Emulator3LocationTextBox.IsReadOnly = false;
+            Emulator3LocationTextBox.IsEnabled = true;
+            
+            Emulator3ParametersTextBox.IsReadOnly = false;
+            Emulator3ParametersTextBox.IsEnabled = true;
+            
+            Emulator4NameTextBox.IsReadOnly = false;
+            Emulator4NameTextBox.IsEnabled = true;
+            
+            Emulator4LocationTextBox.IsReadOnly = false;
+            Emulator4LocationTextBox.IsEnabled = true;
+            
+            Emulator4ParametersTextBox.IsReadOnly = false;
+            Emulator4ParametersTextBox.IsEnabled = true;
+            
+            Emulator5NameTextBox.IsReadOnly = false;
+            Emulator5NameTextBox.IsEnabled = true;
+            
+            Emulator5LocationTextBox.IsReadOnly = false;
+            Emulator5LocationTextBox.IsEnabled = true;
+            
+            Emulator5ParametersTextBox.IsReadOnly = false;
+            Emulator5ParametersTextBox.IsEnabled = true;
+            
+            ChooseSystemFolderButton.IsEnabled = true;
+            ChooseSystemImageFolderButton.IsEnabled = true;
+            ChooseEmulator1LocationButton.IsEnabled = true;
+            ChooseEmulator2LocationButton.IsEnabled = true;
+            ChooseEmulator3LocationButton.IsEnabled = true;
+            ChooseEmulator4LocationButton.IsEnabled = true;
+            ChooseEmulator5LocationButton.IsEnabled = true;
         }
 
         private void ClearFields()
@@ -456,23 +535,39 @@ namespace SimpleLauncher
 
         private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validation. Check folder location and emulator location. Allow empty SystemImageFolder and empty EmulatorLocation. 
-            bool isSystemFolderValid = IsValidPath(SystemFolderTextBox.Text);
-            bool isSystemImageFolderValid = string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) || IsValidPath(SystemImageFolderTextBox.Text);
-            bool isEmulator1LocationValid = string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text);
-            bool isEmulator2LocationValid = string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || IsValidPath(Emulator2LocationTextBox.Text);
-            bool isEmulator3LocationValid = string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text);
-            bool isEmulator4LocationValid = string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text);
-            bool isEmulator5LocationValid = string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text);
             
-            // Validate parameters. Allow empty. 
-            bool isEmulator1ParametersValid = string.IsNullOrWhiteSpace(Emulator1ParametersTextBox.Text) || IsValidPath2(Emulator1ParametersTextBox.Text);
-            bool isEmulator2ParametersValid = string.IsNullOrWhiteSpace(Emulator2ParametersTextBox.Text) || IsValidPath2(Emulator2ParametersTextBox.Text);
-            bool isEmulator3ParametersValid = string.IsNullOrWhiteSpace(Emulator3ParametersTextBox.Text) || IsValidPath2(Emulator3ParametersTextBox.Text);
-            bool isEmulator4ParametersValid = string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text);
-            bool isEmulator5ParametersValid = string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text);
-    
-            // Mark fields based on validation
+            // Trim input values and validate. Check folder location and emulator location.
+            // Allow empty SystemImageFolder and empty EmulatorLocation.
+            string systemFolderText = SystemFolderTextBox.Text.Trim();
+            string systemImageFolderText = SystemImageFolderTextBox.Text.Trim();
+            string emulator1LocationText = Emulator1LocationTextBox.Text.Trim();
+            string emulator2LocationText = Emulator2LocationTextBox.Text.Trim();
+            string emulator3LocationText = Emulator3LocationTextBox.Text.Trim();
+            string emulator4LocationText = Emulator4LocationTextBox.Text.Trim();
+            string emulator5LocationText = Emulator5LocationTextBox.Text.Trim();
+            
+            bool isSystemFolderValid = IsValidPath(systemFolderText);
+            bool isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || IsValidPath(systemImageFolderText);
+            bool isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || IsValidPath(emulator1LocationText);
+            bool isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || IsValidPath(emulator2LocationText);
+            bool isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || IsValidPath(emulator3LocationText);
+            bool isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || IsValidPath(emulator4LocationText);
+            bool isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || IsValidPath(emulator5LocationText);
+            
+            // Trim and validate parameters, allowing empty values.
+            string emulator1ParametersText = Emulator1ParametersTextBox.Text.Trim();
+            string emulator2ParametersText = Emulator2ParametersTextBox.Text.Trim();
+            string emulator3ParametersText = Emulator3ParametersTextBox.Text.Trim();
+            string emulator4ParametersText = Emulator4ParametersTextBox.Text.Trim();
+            string emulator5ParametersText = Emulator5ParametersTextBox.Text.Trim();
+            
+            bool isEmulator1ParametersValid = string.IsNullOrWhiteSpace(emulator1ParametersText) || IsValidPath2(emulator1ParametersText);
+            bool isEmulator2ParametersValid = string.IsNullOrWhiteSpace(emulator2ParametersText) || IsValidPath2(emulator2ParametersText);
+            bool isEmulator3ParametersValid = string.IsNullOrWhiteSpace(emulator3ParametersText) || IsValidPath2(emulator3ParametersText);
+            bool isEmulator4ParametersValid = string.IsNullOrWhiteSpace(emulator4ParametersText) || IsValidPath2(emulator4ParametersText);
+            bool isEmulator5ParametersValid = string.IsNullOrWhiteSpace(emulator5ParametersText) || IsValidPath2(emulator5ParametersText);
+            
+            // Handle validation alerts as needed
             MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
             MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
             MarkInvalid(Emulator1LocationTextBox, isEmulator1LocationValid);
@@ -486,27 +581,28 @@ namespace SimpleLauncher
             MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
             MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
+            // Check validation results before proceeding
             if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
             {
-                MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return; // Stop execution to prevent saving
+                MessageBox.Show("One or more paths or parameters are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             
-            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
-            {
-                MessageBox.Show("One or more paths are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return; // Stop execution to prevent saving
-            }
-            
+            // Validate and trim 'SystemName' input
             var systemName = SystemNameTextBox.Text.Trim();
-            var systemFolder = SystemFolderTextBox.Text;
-            var systemImageFolder = SystemImageFolderTextBox.Text;
+            if (string.IsNullOrEmpty(systemName))
+            {
+                MessageBox.Show("The System Name cannot be empty or contain only spaces.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var systemFolder = systemFolderText.Trim();
+            var systemImageFolder = systemImageFolderText.Trim();
 
             string systemIsMame = SystemIsMameComboBox.SelectedItem == null ? "false" : (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-            
             string extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem == null ? "false" : (ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             
-            var formatToSearchInput = FormatToSearchTextBox.Text;
+            var formatToSearchInput = FormatToSearchTextBox.Text.Trim();
             var formatsToSearch = formatToSearchInput.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
                 .Select(format => format.Trim())
                 .Where(format => !string.IsNullOrEmpty(format))
@@ -514,16 +610,21 @@ namespace SimpleLauncher
             if(string.IsNullOrEmpty(formatToSearchInput))
                 formatsToSearch.Add(string.Empty); // Add an empty string if the input was empty
             
-            var formatToLaunchInput = FormatToLaunchTextBox.Text;
+            var formatToLaunchInput = FormatToLaunchTextBox.Text.Trim();
             var formatsToLaunch = formatToLaunchInput.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
                 .Select(format => format.Trim())
                 .Where(format => !string.IsNullOrEmpty(format))
                 .ToList(); // Convert to list to allow adding
+            if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch == "true")
+            {
+                MessageBox.Show("The 'Format to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if(string.IsNullOrEmpty(formatToLaunchInput))
                 formatsToLaunch.Add(string.Empty); // Add an empty string if the input was empty
             
             // Emulator1 validation
-            var emulator1Name = Emulator1NameTextBox.Text;
+            var emulator1Name = Emulator1NameTextBox.Text.Trim();
             bool hasValidEmulator = !string.IsNullOrEmpty(emulator1Name);
             if (!hasValidEmulator)
             {
@@ -535,7 +636,7 @@ namespace SimpleLauncher
             var emulatorsElement = new XElement("Emulators");
 
             // Add Emulator1 details to XML
-            AddEmulatorToXml(emulatorsElement, Emulator1NameTextBox.Text, Emulator1LocationTextBox.Text, Emulator1ParametersTextBox.Text);
+            AddEmulatorToXml(emulatorsElement, emulator1Name, Emulator1LocationTextBox.Text.Trim(), Emulator1ParametersTextBox.Text.Trim());
 
             // Arrays for emulator names, locations, and parameters TextBoxes
             TextBox[] nameTextBoxes = new[] { Emulator2NameTextBox, Emulator3NameTextBox, Emulator4NameTextBox, Emulator5NameTextBox };
@@ -545,9 +646,9 @@ namespace SimpleLauncher
             // Loop over the emulators 2 through 5 to validate and add their details
             for (int i = 0; i < nameTextBoxes.Length; i++)
             {
-                var emulatorName = nameTextBoxes[i].Text;
-                var emulatorLocation = locationTextBoxes[i].Text;
-                var emulatorParameters = parametersTextBoxes[i].Text;
+                var emulatorName = nameTextBoxes[i].Text.Trim();
+                var emulatorLocation = locationTextBoxes[i].Text.Trim();
+                var emulatorParameters = parametersTextBoxes[i].Text.Trim();
 
                 // Check if any data related to the emulator is provided
                 if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
@@ -599,12 +700,12 @@ namespace SimpleLauncher
             }
             else if (!formatsToSearch.Any())
             {
-                MessageBox.Show("The File Formats To Search is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The 'Format to Search in the Search Folder' is empty or is not valid.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else if (string.IsNullOrEmpty(formatToLaunchInput) && extractFileBeforeLaunch == "true")
             {
-                MessageBox.Show("The File Formats To Launch is required when Extract File Before Launch is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The 'Format to Launch After Extraction' is required when Extract File Before Launch is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             else
@@ -738,7 +839,7 @@ namespace SimpleLauncher
                 Emulator3NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel2.Visibility = Visibility.Collapsed;
                 Emulator3LocationTextBox.Visibility = Visibility.Collapsed;
-                Emulator3LocationButton.Visibility = Visibility.Collapsed;
+                ChooseEmulator3LocationButton.Visibility = Visibility.Collapsed;
                 Emulator3NameLabel3.Visibility = Visibility.Collapsed;
                 Emulator3ParametersTextBox.Visibility = Visibility.Collapsed;
                 Emulator3ParametersHelper.Visibility = Visibility.Collapsed;
@@ -750,7 +851,7 @@ namespace SimpleLauncher
                 Emulator3NameTextBox.Visibility = Visibility.Visible;
                 Emulator3NameLabel2.Visibility = Visibility.Visible;
                 Emulator3LocationTextBox.Visibility = Visibility.Visible;
-                Emulator3LocationButton.Visibility = Visibility.Visible;
+                ChooseEmulator3LocationButton.Visibility = Visibility.Visible;
                 Emulator3NameLabel3.Visibility = Visibility.Visible;
                 Emulator3ParametersTextBox.Visibility = Visibility.Visible;
                 Emulator3ParametersHelper.Visibility = Visibility.Visible;
@@ -766,7 +867,7 @@ namespace SimpleLauncher
                 Emulator4NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel2.Visibility = Visibility.Collapsed;
                 Emulator4LocationTextBox.Visibility = Visibility.Collapsed;
-                Emulator4LocationButton.Visibility = Visibility.Collapsed;
+                ChooseEmulator4LocationButton.Visibility = Visibility.Collapsed;
                 Emulator4NameLabel3.Visibility = Visibility.Collapsed;
                 Emulator4ParametersTextBox.Visibility = Visibility.Collapsed;
                 Emulator4ParametersHelper.Visibility = Visibility.Collapsed;
@@ -778,7 +879,7 @@ namespace SimpleLauncher
                 Emulator4NameTextBox.Visibility = Visibility.Visible;
                 Emulator4NameLabel2.Visibility = Visibility.Visible;
                 Emulator4LocationTextBox.Visibility = Visibility.Visible;
-                Emulator4LocationButton.Visibility = Visibility.Visible;
+                ChooseEmulator4LocationButton.Visibility = Visibility.Visible;
                 Emulator4NameLabel3.Visibility = Visibility.Visible;
                 Emulator4ParametersTextBox.Visibility = Visibility.Visible;
                 Emulator4ParametersHelper.Visibility = Visibility.Visible;
@@ -794,7 +895,7 @@ namespace SimpleLauncher
                 Emulator5NameTextBox.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel2.Visibility = Visibility.Collapsed;
                 Emulator5LocationTextBox.Visibility = Visibility.Collapsed;
-                Emulator5LocationButton.Visibility = Visibility.Collapsed;
+                ChooseEmulator5LocationButton.Visibility = Visibility.Collapsed;
                 Emulator5NameLabel3.Visibility = Visibility.Collapsed;
                 Emulator5ParametersTextBox.Visibility = Visibility.Collapsed;
                 Emulator5ParametersHelper.Visibility = Visibility.Collapsed;
@@ -806,7 +907,7 @@ namespace SimpleLauncher
                 Emulator5NameTextBox.Visibility = Visibility.Visible;
                 Emulator5NameLabel2.Visibility = Visibility.Visible;
                 Emulator5LocationTextBox.Visibility = Visibility.Visible;
-                Emulator5LocationButton.Visibility = Visibility.Visible;
+                ChooseEmulator5LocationButton.Visibility = Visibility.Visible;
                 Emulator5NameLabel3.Visibility = Visibility.Visible;
                 Emulator5ParametersTextBox.Visibility = Visibility.Visible;
                 Emulator5ParametersHelper.Visibility = Visibility.Visible;
@@ -861,7 +962,6 @@ namespace SimpleLauncher
         {
             SystemNamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemNameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             SystemFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
-            SystemImageFolderPlaceholderTextBox.Visibility = string.IsNullOrEmpty(SystemImageFolderTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToSearchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToSearchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             FormatToLaunchPlaceholderTextBox.Visibility = string.IsNullOrEmpty(FormatToLaunchTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
             Emulator1NamePlaceholderTextBox.Visibility = string.IsNullOrEmpty(Emulator1NameTextBox.Text) ? Visibility.Visible : Visibility.Collapsed;
@@ -898,23 +998,6 @@ namespace SimpleLauncher
             else if (!string.IsNullOrEmpty(SystemFolderTextBox.Text))
             {
                 SystemFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
-            }
-        }
-        
-        //SystemImageFolder Placeholder
-        private void SystemImageFolderTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
-        }
-        private void SystemImageFolderTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
-            {
-                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Visible;
-            }
-            else if (!string.IsNullOrEmpty(SystemImageFolderTextBox.Text))
-            {
-                SystemImageFolderPlaceholderTextBox.Visibility = Visibility.Collapsed;
             }
         }
 

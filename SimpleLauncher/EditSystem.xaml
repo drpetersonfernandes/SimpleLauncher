@@ -163,6 +163,8 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
+                    IsEnabled="False"
+                    IsReadOnly="True"
                     IsHitTestVisible="False"
                     Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
@@ -187,16 +189,20 @@
                     x:Name="SystemFolderPlaceholderTextBox"
                     Grid.Row="1"
                     Grid.Column="1"
+                    IsEnabled="False"
+                    IsReadOnly="True"
                     IsHitTestVisible="False"
                     Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
                 <Button
+                    x:Name="ChooseSystemFolderButton"
                     Margin="0,0,10,10"
                     Grid.Row="1"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseSystemFolder"
-                    Content="Set System Folder" />
+                    Content="Set System Folder"
+                    IsEnabled="False" />
 
                 <!-- System Image Folder -->
                 <Label
@@ -207,27 +213,25 @@
                     Content="System Image Folder" />
                 <TextBox
                     Margin="0,0,10,10"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Background="Transparent" />
+                <TextBox
+                    Margin="0,0,10,10"
                     x:Name="SystemImageFolderTextBox"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="SystemImageFolderTextBox_GotFocus"
-                    LostFocus="SystemImageFolderTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,0,10,10"
-                    x:Name="SystemImageFolderPlaceholderTextBox"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="" />
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0,0,10,10"
+                    x:Name="ChooseSystemImageFolderButton"
                     Grid.Row="2"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseSystemImageFolder"
-                    Content="Set System Image Folder" />
+                    Content="Set System Image Folder"
+                    IsEnabled="False" />
 
                 <!-- System Is MAME? -->
                 <Label
@@ -240,7 +244,9 @@
                     Margin="0,0,10,10"
                     x:Name="SystemIsMameComboBox"
                     Grid.Row="3"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    IsEnabled="False">
                     <ComboBoxItem>true</ComboBoxItem>
                     <ComboBoxItem>false</ComboBoxItem>
                 </ComboBox>
@@ -265,6 +271,8 @@
                     x:Name="FormatToSearchPlaceholderTextBox"
                     Grid.Row="4"
                     Grid.Column="1"
+                    IsEnabled="False"
+                    IsReadOnly="True"
                     IsHitTestVisible="False"
                     Style="{StaticResource PlaceholderTextStyle}"
                     Text="Hint: zip, 7z, iso, chd" />
@@ -286,7 +294,9 @@
                     Margin="0,0,10,10"
                     x:Name="ExtractFileBeforeLaunchComboBox"
                     Grid.Row="5"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    IsEnabled="False">
                     <ComboBoxItem>true</ComboBoxItem>
                     <ComboBoxItem>false</ComboBoxItem>
                 </ComboBox>
@@ -311,6 +321,8 @@
                     x:Name="FormatToLaunchPlaceholderTextBox"
                     Grid.Row="6"
                     Grid.Column="1"
+                    IsEnabled="False"
+                    IsReadOnly="True"
                     IsHitTestVisible="False"
                     Style="{StaticResource PlaceholderTextStyle}"
                     Text="Hint: bin, rom, md, sms, nes, sfc, smc" />
@@ -341,6 +353,8 @@
                     x:Name="Emulator1NamePlaceholderTextBox"
                     Grid.Row="7"
                     Grid.Column="1"
+                    IsEnabled="False"
+                    IsReadOnly="True"
                     IsHitTestVisible="False"
                     Style="{StaticResource PlaceholderTextStyle}"
                     Text="required" />
@@ -355,14 +369,17 @@
                     x:Name="Emulator1LocationTextBox"
                     Grid.Row="8"
                     Grid.Column="1"
+                    IsReadOnly="True"
                     HorizontalAlignment="Stretch" />
                 <Button
                     Margin="0,0,10,10"
+                    x:Name="ChooseEmulator1LocationButton"
                     Grid.Row="8"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseEmulator1Location"
-                    Content="Set Emulator 1 Location" />
+                    Content="Set Emulator 1 Location"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="9"
@@ -373,7 +390,9 @@
                     Margin="0,0,10,10"
                     x:Name="Emulator1ParametersTextBox"
                     Grid.Row="9"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0"
                     Grid.Row="9"
@@ -396,7 +415,9 @@
                     Margin="0,0,10,10"
                     x:Name="Emulator2NameTextBox"
                     Grid.Row="10"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="11"
@@ -408,14 +429,17 @@
                     x:Name="Emulator2LocationTextBox"
                     Grid.Row="11"
                     Grid.Column="1"
-                    HorizontalAlignment="Stretch" />
+                    HorizontalAlignment="Stretch"
+                    IsReadOnly="True" />
                 <Button
                     Margin="0,0,10,10"
+                    x:Name="ChooseEmulator2LocationButton"
                     Grid.Row="11"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseEmulator2Location"
-                    Content="Set Emulator 2 Location" />
+                    Content="Set Emulator 2 Location"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="12"
@@ -426,7 +450,9 @@
                     Margin="0,0,10,10"
                     x:Name="Emulator2ParametersTextBox"
                     Grid.Row="12"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0"
                     Grid.Row="12"
@@ -459,7 +485,9 @@
                     x:Name="Emulator3NameTextBox"
                     Grid.Row="13"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="14"
@@ -474,16 +502,19 @@
                     Grid.Row="14"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0,0,10,10"
-                    x:Name="Emulator3LocationButton"
+                    x:Name="ChooseEmulator3LocationButton"
                     Grid.Row="14"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseEmulator3Location"
                     Content="Set Emulator 3 Location"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="15"
@@ -497,7 +528,9 @@
                     x:Name="Emulator3ParametersTextBox"
                     Grid.Row="15"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     x:Name="Emulator3ParametersHelper"
                     Margin="0"
@@ -532,7 +565,9 @@
                     x:Name="Emulator4NameTextBox"
                     Grid.Row="16"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="17"
@@ -547,16 +582,19 @@
                     Grid.Row="17"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0,0,10,10"
-                    x:Name="Emulator4LocationButton"
+                    x:Name="ChooseEmulator4LocationButton"
                     Grid.Row="17"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseEmulator4Location"
                     Content="Set Emulator 4 Location"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="18"
@@ -570,7 +608,9 @@
                     x:Name="Emulator4ParametersTextBox"
                     Grid.Row="18"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     x:Name="Emulator4ParametersHelper"
                     Margin="0"
@@ -605,7 +645,9 @@
                     x:Name="Emulator5NameTextBox"
                     Grid.Row="19"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="20"
@@ -620,16 +662,19 @@
                     Grid.Row="20"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0,0,10,10"
-                    x:Name="Emulator5LocationButton"
+                    x:Name="ChooseEmulator5LocationButton"
                     Grid.Row="20"
                     Grid.Column="2"
                     Width="160"
                     Click="ChooseEmulator5Location"
                     Content="Set Emulator 5 Location"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsEnabled="False" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="21"
@@ -643,7 +688,9 @@
                     x:Name="Emulator5ParametersTextBox"
                     Grid.Row="21"
                     Grid.Column="1"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     x:Name="Emulator5ParametersHelper"
                     Margin="0,0,10,10"
