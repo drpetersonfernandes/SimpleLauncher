@@ -477,6 +477,19 @@ The ISO file needs to be formated in XBOX format, as the original XBOX discs. Yo
 **Emulator Location (Example):** C:\emulators\xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
 
+## Microsoft Xbox 360 XBLA
+
+**System Folder:** [ROM Folder]<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip, 7z, rar<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** bin<br>
+
+**Emulator Name:** Xenia<br>
+**Emulator Location:** [Xenia Folder]\xenia.exe<br>
+**Emulator Location (Example):** C:\emulators\xenia\xenia.exe<br>
+**Emulator Parameters:** <br>
+
 ## NEC PC Engine / TurboGrafx-16
 
 **System Folder:** [ROM Folder]<br>
