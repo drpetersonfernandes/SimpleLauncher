@@ -1,3 +1,14 @@
+release3.3.2
+-------------
+
+10/27/2024
+- I have improved the field validation on the "Edit System" window to trim input values and prevent the input of empty spaces.
+- I have enhanced support for Xbox 360 XBLA games in the Launcher. The frontend will extract the compressed file inside the temp folder, then look inside each extracted folder to find a folder named 000D0000. From within that folder, it will select the first found file and try to launch it with the Xenia emulator. For this to work, the 'System Name' needs to include 'XBLA' in it. Also, the system must be configured to extract the file before launch.
+- I have fixed the download of the 'ares' emulator. This emulator is the default in the 'Easy Mode' window for Nintendo Satellaview and Sega Genesis CD.
+- I have fixed the download of the 'Redream' emulator. This emulator is the default in the 'Easy Mode' window for Sega Dreamcast.
+- I have fixed a bug in the 'Easy Mode' window to prevent the extraction of partially downloaded files.
+- I have added Xbox 360 XBLA into 'easymode.xml' and 'system_model.xml'.
+
 release3.3.1
 -------------
 

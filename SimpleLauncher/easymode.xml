@@ -636,6 +636,44 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Microsoft Xbox 360 XBLA</SystemName>
+        <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
+        <SystemImageFolder>.\images\Microsoft Xbox360 XBLA</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+            <FormatToSearch>rar</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Xenia</EmulatorName>
+                <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\Xenia\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <!--                <ExtrasLocation/>
+                                <ExtrasLatestVersion/>
+                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ExtrasDownloadLink>
+                                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox 360</ExtrasDownloadExtractPath>-->
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>NEC PC Engine</SystemName>
         <SystemFolder>.\roms\NEC PC Engine</SystemFolder>
         <SystemImageFolder>.\images\NEC PC Engine</SystemImageFolder>
@@ -1018,7 +1056,7 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v140\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>140</EmulatorLatestVersion>
@@ -1293,8 +1331,8 @@
                 <EmulatorLocation>.\emulators\Redream\redream.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://redream.io/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.5.0-1127-g6b62eff</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://redream.io/download/redream.x86_64-windows-v1.5.0-1127-g6b62eff.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.5.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://redream.io/download/redream.x86_64-windows-v1.5.0.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Redream\</EmulatorDownloadExtractPath>
 
@@ -1437,7 +1475,7 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v140\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>140</EmulatorLatestVersion>

@@ -742,7 +742,7 @@ namespace SimpleLauncher
             string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             // List of folder names to be created under each system
-            string[] folderNames = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs"];
+            string[] folderNames = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs", "carts"];
 
             foreach (var folderName in folderNames)
             {

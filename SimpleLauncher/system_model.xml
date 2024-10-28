@@ -575,6 +575,30 @@
       </Emulator>
     </Emulators>
   </SystemConfig>
+
+  <SystemConfig>
+    <SystemName>Microsoft Xbox 360 XBLA</SystemName>
+    <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
+    <SystemImageFolder>.\images\Microsoft Xbox 360 XBLA</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
+      <FormatToSearch>rar</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch>bin</FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Xenia</EmulatorName>
+        <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  
   <SystemConfig>
     <SystemName>NEC PC Engine</SystemName>
     <SystemFolder>.\roms\NEC PC Engine</SystemFolder>

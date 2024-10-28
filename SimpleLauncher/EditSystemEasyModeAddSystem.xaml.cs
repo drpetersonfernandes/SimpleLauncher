@@ -22,6 +22,7 @@ namespace SimpleLauncher
         private bool _isCoreDownloaded;
         private CancellationTokenSource _cancellationTokenSource;
         private readonly HttpClient _httpClient = new HttpClient();
+        private bool _isDownloadCompleted;
         
         public EditSystemEasyModeAddSystem()
         {
@@ -85,6 +86,8 @@ namespace SimpleLauncher
         
         private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
+            _isDownloadCompleted = false;
+            
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
@@ -132,48 +135,56 @@ namespace SimpleLauncher
                     // Download the file
                     await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
-                    // Rename the file to .7z if EmulatorDownloadRename is true
-                    if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
+                    // Only proceed with extraction if the download completed successfully
+                    if (_isDownloadCompleted)
                     {
-                        string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
-                        File.Move(downloadFilePath, newFilePath);
-                        downloadFilePath = newFilePath;
-                    }
-
-                    // Show the PleaseWaitExtraction window
-                    PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
-                    pleaseWaitWindow.Show();
-
-                    // Extract the downloaded file
-                    bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
-
-                    // Close the PleaseWaitExtraction window after extraction
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
-                    {
-                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        // Clean up the downloaded file only if extraction is successful
-                        File.Delete(downloadFilePath);
-
-                        // Update the version file if necessary
-                        if (destinationPath2 != null)
+                        // Rename the file to .7z if EmulatorDownloadRename is true
+                        if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
                         {
-                            string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
-                            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                            string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
+                            File.Move(downloadFilePath, newFilePath);
+                            downloadFilePath = newFilePath;
                         }
 
-                        // Mark as downloaded and disable button
-                        _isEmulatorDownloaded = true;
-                        DownloadEmulatorButton.IsEnabled = false;
+                        // Show the PleaseWaitExtraction window
+                        PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+                        pleaseWaitWindow.Show();
+                            
+                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        pleaseWaitWindow.Close();
+                    
+                        if (extractionSuccess)
+                        {
+                            MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        // Update AddSystemButton state
-                        UpdateAddSystemButtonState();
+                            // Clean up the downloaded file only if extraction is successful
+                            File.Delete(downloadFilePath);
+
+                            // Update the version file if necessary
+                            if (destinationPath2 != null)
+                            {
+                                string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
+                                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                            }
+
+                            // Mark as downloaded and disable button
+                            _isEmulatorDownloaded = true;
+                            DownloadEmulatorButton.IsEnabled = false;
+
+                            // Update AddSystemButton state
+                            UpdateAddSystemButtonState();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 catch (TaskCanceledException)
                 {
+                    // Delete a partially downloaded file
+                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+                    
                     MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -210,6 +221,8 @@ namespace SimpleLauncher
 
         private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
+            _isDownloadCompleted = false;
+            
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
@@ -256,41 +269,49 @@ namespace SimpleLauncher
 
                     // Download the file
                     await DownloadWithProgressAsync(coreDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-
-                    // Show the PleaseWaitExtraction window
-                    PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
-                    pleaseWaitWindow.Show();
-
-                    // Extract the downloaded file
-                    bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
-
-                    // Close the PleaseWaitExtraction window after extraction
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
+                    
+                    // Only proceed with extraction if the download completed successfully
+                    if (_isDownloadCompleted)
                     {
-                        MessageBox.Show($"Core for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Show the PleaseWaitExtraction window
+                        PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+                        pleaseWaitWindow.Show();
 
-                        // Clean up the downloaded file only if extraction is successful
-                        File.Delete(downloadFilePath);
+                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        pleaseWaitWindow.Close();
 
-                        // Update the version file if necessary
-                        if (destinationPath2 != null)
+                        if (extractionSuccess)
                         {
-                            string versionFilePath = Path.Combine(destinationPath2, "version_core.txt");
-                            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                            MessageBox.Show($"Core for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            // Clean up the downloaded file only if extraction is successful
+                            File.Delete(downloadFilePath);
+
+                            // Update the version file if necessary
+                            if (destinationPath2 != null)
+                            {
+                                string versionFilePath = Path.Combine(destinationPath2, "version_core.txt");
+                                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                            }
+
+                            // Mark as downloaded and disable button
+                            _isCoreDownloaded = true;
+                            DownloadCoreButton.IsEnabled = false;
+
+                            // Update AddSystemButton state
+                            UpdateAddSystemButtonState();
                         }
-
-                        // Mark as downloaded and disable button
-                        _isCoreDownloaded = true;
-                        DownloadCoreButton.IsEnabled = false;
-
-                        // Update AddSystemButton state
-                        UpdateAddSystemButtonState();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 catch (TaskCanceledException)
                 {
+                    // Delete a partially downloaded file
+                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+
                     MessageBox.Show("Core download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -317,6 +338,9 @@ namespace SimpleLauncher
 
         private async void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
         {
+            // Reset the flag at the start of the download
+            _isDownloadCompleted = false;
+
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
@@ -340,32 +364,40 @@ namespace SimpleLauncher
                     // Download the file
                     await DownloadWithProgressAsync(extrasDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
-                    // Show the PleaseWaitExtraction window
-                    PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
-                    pleaseWaitWindow.Show();
-
-                    // Extract the downloaded file
-                    bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
-
-                    // Close the PleaseWaitExtraction window after extraction
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
+                    // Only proceed with extraction if the download completed successfully
+                    if (_isDownloadCompleted)
                     {
-                        MessageBox.Show($"Image pack for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Show the PleaseWaitExtraction window
+                        PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+                        pleaseWaitWindow.Show();
 
-                        // Clean up the downloaded file only if extraction is successful
-                        File.Delete(downloadFilePath);
+                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        pleaseWaitWindow.Close();
 
-                        // Mark as downloaded and disable button
-                        DownloadExtrasButton.IsEnabled = false;
+                        if (extractionSuccess)
+                        {
+                            MessageBox.Show($"Image pack for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        // Update AddSystemButton state
-                        UpdateAddSystemButtonState();
+                            // Clean up the downloaded file only if extraction is successful
+                            File.Delete(downloadFilePath);
+
+                            // Mark as downloaded and disable button
+                            DownloadExtrasButton.IsEnabled = false;
+
+                            // Update AddSystemButton state
+                            UpdateAddSystemButtonState();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 catch (TaskCanceledException)
                 {
+                    // Delete a partially downloaded file
+                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+
                     MessageBox.Show("ImagePack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -408,8 +440,13 @@ namespace SimpleLauncher
                 }
 
                 // Check if the file was fully downloaded
-                if (totalBytes != null && totalBytesRead != totalBytes.Value)
+                if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
                 {
+                    _isDownloadCompleted = true;
+                }
+                else
+                {
+                    _isDownloadCompleted = false;
                     throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
                 }
             }
@@ -438,11 +475,17 @@ namespace SimpleLauncher
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
+                    // If user canceled, delete the partially downloaded file
+                    if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                    
                     string formattedException = $"Download was canceled by the user.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                 }
                 else
                 {
+                    // If user canceled, delete the partially downloaded file
+                    if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                    
                     string formattedException = $"Download timed out or was canceled unexpectedly.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
@@ -512,6 +555,12 @@ namespace SimpleLauncher
             {
                 _cancellationTokenSource.Cancel(); // Cancel the ongoing download
                 StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
+
+                // Reset completion flag
+                _isDownloadCompleted = false; 
+                
+                // Update Progress Bar 
+                DownloadProgressBar.Value = 0;
             }
         }
 
