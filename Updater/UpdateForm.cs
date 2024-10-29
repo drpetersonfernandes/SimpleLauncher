@@ -237,11 +237,12 @@ namespace Updater
                 Log("Update installed successfully. The application will now restart.");
                 MessageBox.Show("Update installed successfully.\n\nThe application will now restart.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Restart the main application
+                // Restart the main application with the "whatsnew" parameter
                 var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = simpleLauncherExePath,
+                    Arguments = "whatsnew",
                     UseShellExecute = false,
                     WorkingDirectory = AppDirectory
                 };

@@ -76,6 +76,10 @@ namespace SimpleLauncher
         private FavoritesConfig _favoritesConfig;
         private readonly FavoritesManager _favoritesManager;
         
+        // Selected Image folder and Rom folder
+        private string _selectedImageFolder;
+        private string _selectedRomFolder;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -200,6 +204,21 @@ namespace SimpleLauncher
             
             // Stats using Async Event Handler
             Loaded += async (_, _) => await Stats.CallApiAsync();
+            
+            // Check for command-line arguments
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains("whatsnew"))
+            {
+                // Show UpdateHistory after the MainWindow is fully loaded
+                Loaded += (_, _) => OpenUpdateHistory();
+            }
+        }
+        
+        // Open UpdateHistory window
+        private void OpenUpdateHistory()
+        {
+            var updateHistoryWindow = new UpdateHistory();
+            updateHistoryWindow.Show();
         }
 
         // The app will delete generated temp files before close.
@@ -391,6 +410,12 @@ namespace SimpleLauncher
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
                     int gameCount = CountFiles(systemFolderPath, fileExtensions);
                     DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig);
+                    
+                    // Update Image Folder and Rom Folder Variables
+                    _selectedRomFolder = selectedConfig.SystemFolder;
+                    _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) 
+                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) 
+                        : selectedConfig.SystemImageFolder;
                     
                     // Call DeselectLetter to clear any selected letter
                     _letterNumberMenu.DeselectLetter();
@@ -1199,6 +1224,42 @@ namespace SimpleLauncher
             var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines, this);
             favoritesWindow.Show();
         }
+        
+        private void FixSystemImages_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "findromcover", "FindRomCover.exe");
+
+                if (File.Exists(findRomCoverPath))
+                {
+                    // Ensure the image and ROM folder paths are absolute and normalized
+                    string absoluteImageFolder = Path.GetFullPath(Path.IsPathRooted(_selectedImageFolder)
+                        ? _selectedImageFolder
+                        : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedImageFolder));
+                
+                    string absoluteRomFolder = Path.GetFullPath(Path.IsPathRooted(_selectedRomFolder)
+                        ? _selectedRomFolder
+                        : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedRomFolder));
+
+                    // Use the normalized absolute paths as arguments
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = findRomCoverPath,
+                        Arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"",
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("FindRomCover.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while launching FindRomCover: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         #endregion
         
@@ -1351,5 +1412,6 @@ namespace SimpleLauncher
         }
         #endregion
 
+        
     }
 }
