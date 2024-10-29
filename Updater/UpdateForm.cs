@@ -13,7 +13,11 @@ namespace Updater
         private const string RepoName = "SimpleLauncher";
         static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string TempDirectory = Path.Combine(AppDirectory, "temp2");
-        private static readonly string UpdateFile = Path.Combine(TempDirectory, "update.zip");
+        private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
+        
+        string _applicationFolderFromArgs = "";
+        string _tempFolderFromArgs = "";
+        string _updateZipFileFromArgs = "";                
 
         public UpdateForm(string[] args)
         {
@@ -59,22 +63,19 @@ namespace Updater
 
         private async Task UpdateProcess()
         {
-            if (_args.Length < 3) // Expecting 3 arguments: applicationFolder, tempFolder, updateFile
+            if (_args.Length == 3) // Expecting 3 arguments: applicationFolder, tempFolder, updateFile
+            {
+                _applicationFolderFromArgs = _args[0];
+                _tempFolderFromArgs = _args[1];
+                _updateZipFileFromArgs = _args[2];                
+            }
+            else
             {
                 Log("Invalid arguments. Usage: Updater <applicationFolder> <tempFolder> <updateFile>");
-                return;
+                Log("No arguments were provided.");
+                Log("Updater will try to update to the latest version.");
             }
-
-            var applicationFolder = _args[0];
-            var tempFolder = _args[1];
-            var updateZipFile = _args[2];
-
-            if (string.IsNullOrEmpty(applicationFolder) || string.IsNullOrEmpty(tempFolder) || string.IsNullOrEmpty(updateZipFile))
-            {
-                Log("Invalid file paths provided.");
-                return;
-            }
-
+            
             if (string.IsNullOrEmpty(AppDirectory))
             {
                 Log("Could not determine the application directory.");
@@ -88,10 +89,8 @@ namespace Updater
                 Thread.Sleep(3000);
 
                 // Fetch the latest release from GitHub
-                var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
-        
-                // Log the latest version (if needed)
                 Log("Fetch the latest release from GitHub.");
+                var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
                 Log($"Latest version: {latestVersion}");
 
                 if (string.IsNullOrEmpty(assetUrl))
@@ -116,28 +115,29 @@ namespace Updater
                     return;
                 }
 
-                // Check if UpdateZipFile exists in the TempDirectory. If not, download it.
-                if (!File.Exists(updateZipFile))
+                // Check if updateZipFileFromArgs exists. If not, download it.
+                if (!File.Exists(_updateZipFileFromArgs))
                 {
                     Log("update.zip not found. The application will download again.");
                     await DownloadUpdateFile(assetUrl, UpdateFile);
                 }
 
-                // Check if the tempFolder exists. If not, extract UpdateFile
-                if (!Directory.Exists(tempFolder))
+                // Check if the tempFolderFromArgs exists. If not, extract UpdateFile
+                if (!Directory.Exists(_tempFolderFromArgs))
                 {
-                    Log("tempFolder not found. Extracting update File...");
+                    Log("tempFolderFromArgs not found. Extracting update File...");
                     ExtractUpdateFile(UpdateFile, TempDirectory);
                 }
 
                 // Ensure the TempDirectory exists after extraction
+                // Will be _tempFolderFromArgs or TempDirectory that are the same folder
                 if (!Directory.Exists(TempDirectory))
                 {
                     Log("Failed to extract update files. Update process aborted.");
     
                     // Ask user if they want to be redirected to the download page
                     var result = MessageBox.Show(
-                        "Failed to extract update files. Would you like to be redirected to the download page to update manually?",
+                        "Failed to extract update files.\n\nWould you like to be redirected to the download page to update manually?",
                         "Error",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Error);
@@ -178,14 +178,41 @@ namespace Updater
                         File.Copy(file, destFile, true);
                     }
                 }
+                
+                // Copy directories recursively
+                foreach (var directory in Directory.GetDirectories(TempDirectory, "*", SearchOption.AllDirectories))
+                {
+                    // Calculate the relative path of the directory to retain the folder structure
+                    var relativePath = Path.GetRelativePath(TempDirectory, directory);
+                    var destDir = Path.Combine(AppDirectory, relativePath);
+
+                    // Create the destination directory if it doesn't exist
+                    if (!Directory.Exists(destDir))
+                    {
+                        Directory.CreateDirectory(destDir);
+                        Log($"Created directory {destDir}");
+                    }
+
+                    // Copy all files in the current directory
+                    foreach (var file in Directory.GetFiles(directory))
+                    {
+                        var fileName = Path.GetFileName(file);
+                        if (!ignoredFiles.Contains(fileName))
+                        {
+                            var destFile = Path.Combine(destDir, fileName);
+                            Log($"Copying {fileName} to {destDir}...");
+                            File.Copy(file, destFile, true);
+                        }
+                    }
+                }
 
                 // Delete the temporary files and folders
                 Log("Deleting temporary update files...");
 
-                if (File.Exists(updateZipFile))
+                if (File.Exists(_updateZipFileFromArgs))
                 {
-                    File.Delete(updateZipFile);
-                    Log($"Deleted file: {updateZipFile}");
+                    File.Delete(_updateZipFileFromArgs);
+                    Log($"Deleted file: {_updateZipFileFromArgs}");
                 }
 
                 if (File.Exists(UpdateFile))
@@ -194,10 +221,10 @@ namespace Updater
                     Log($"Deleted file: {UpdateFile}");
                 }
 
-                if (Directory.Exists(tempFolder))
+                if (Directory.Exists(_tempFolderFromArgs))
                 {
-                    Directory.Delete(tempFolder, true);
-                    Log($"Deleted folder: {tempFolder}");
+                    Directory.Delete(_tempFolderFromArgs, true);
+                    Log($"Deleted folder: {_tempFolderFromArgs}");
                 }
 
                 if (Directory.Exists(TempDirectory))
@@ -208,7 +235,7 @@ namespace Updater
 
                 // Notify the user of a successful update
                 Log("Update installed successfully. The application will now restart.");
-                MessageBox.Show("Update installed successfully. The application will now restart.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Update installed successfully.\n\nThe application will now restart.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Restart the main application
                 var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
@@ -230,7 +257,7 @@ namespace Updater
     
                 // Prompt the user to be redirected to the download page
                 var result = MessageBox.Show(
-                    "Automatic update failed.\nDo you want to be redirected to the download page to update manually?",
+                    "Automatic update failed.\n\nDo you want to be redirected to the download page to update manually?",
                     "Update Failed",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
@@ -312,7 +339,7 @@ namespace Updater
             string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
             if (!File.Exists(sevenZipPath))
             {
-                Log("7z.exe not found in the application directory.");
+                Log("7z.exe not found in the application folder.");
     
                 // Ask user if they want to be redirected to the download page
                 var result = MessageBox.Show(
@@ -334,7 +361,6 @@ namespace Updater
 
                 return;
             }
-
 
             var psi = new ProcessStartInfo
             {
@@ -374,7 +400,6 @@ namespace Updater
                     });
                 }
             }
-
         }
 
         private async Task DownloadUpdateFile(string url, string destinationPath)
@@ -397,7 +422,7 @@ namespace Updater
     
                 // Ask user if they want to be redirected to the download page
                 var result = MessageBox.Show(
-                    "Failed to download update.zip. Please check your internet connection and try again.\n\nWould you like to be redirected to the download page to download it manually?",
+                    "Failed to download update.zip.\n\nPlease check your internet connection and try again.\n\nWould you like to be redirected to the download page to download it manually?",
                     "Download Failed",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
@@ -413,7 +438,6 @@ namespace Updater
                     });
                 }
             }
-
         }
 
         private void Log(string message)

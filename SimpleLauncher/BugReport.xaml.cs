@@ -41,7 +41,21 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("File appsettings.json is missing.\n\nThe application will not be able to send the Bug Report.\n\nPlease reinstall Simple Launcher.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                // Ask the user if they want to automatically reinstall Simple Launcher
+                var messageBoxResult = MessageBox.Show(
+                    "File appsettings.json is missing.\n\nThe application will not be able to send the Bug Report.\n\nDo you want to automatically reinstall Simple Launcher to fix the problem?",
+                    "Warning",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    Loaded += async (_, _) => await UpdateChecker.ReinstallSimpleLauncherAsync(this);
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall Simple Launcher to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                }
             }
         }
 

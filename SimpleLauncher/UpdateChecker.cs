@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace SimpleLauncher
 {
-    public class UpdateChecker
+    public static class UpdateChecker
     {
         private const string RepoOwner = "drpetersonfernandes";
         private const string RepoName = "SimpleLauncher";
@@ -110,6 +110,43 @@ namespace SimpleLauncher
                 MessageBox.Show(mainWindow, $"There was an error checking for updates.\n\nMaybe there is a problem with your internet access or the GitHub server is offline.", "Error checking for updates", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+        
+        public static async Task ReinstallSimpleLauncherAsync(Window mainWindow)
+        {
+            string baseVersion = "0.0.0.0";
+            try
+            {
+                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string updateZipPath = Path.Combine(appDirectory, "update.zip");
+
+                if (File.Exists(updateZipPath))
+                {
+                    File.Delete(updateZipPath);
+                }
+
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+                var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+
+                    if (IsNewVersionAvailable(baseVersion, latestVersion))
+                    {
+                        ShowUpdateDialog2(assetUrl, mainWindow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string contextMessage = $"Error reinstalling 'Simple Launcher'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
+                
+                MessageBox.Show(mainWindow, $"There was an error reinstalling 'Simple Launcher'.\n\nThe error was reported to the developer that will try to fix the issue.", "Error reinstalling Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
 
         private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
         {
@@ -145,15 +182,15 @@ namespace SimpleLauncher
                     string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
                     string tempDirectory = Path.Combine(appDirectory, "temp2");
                     Directory.CreateDirectory(tempDirectory);
+                    string updateZipPath = Path.Combine(appDirectory, "update.zip");
 
-                    string tempFilePath = Path.Combine(tempDirectory, "update.zip");
                     logWindow.Log("Downloading update file...");
 
                     await Task.Run(async () =>
                     {
-                        await DownloadUpdateFile(assetUrl, tempFilePath);
+                        await DownloadUpdateFile(assetUrl, updateZipPath);
                         logWindow.Log("Extracting update file...");
-                        ExtractUpdateFile(tempFilePath, tempDirectory);
+                        ExtractUpdateFile(updateZipPath, tempDirectory);
 
                         var updaterFiles = new[]
                         {
@@ -220,7 +257,7 @@ namespace SimpleLauncher
                         Process.Start(new ProcessStartInfo
                         {
                             FileName = updaterExePath,
-                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{tempFilePath}\"",
+                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{updateZipPath}\"",
                             UseShellExecute = false
                         });
 
@@ -273,6 +310,147 @@ namespace SimpleLauncher
 
                 }
             }
+        }
+        
+        private static async void ShowUpdateDialog2(string assetUrl, Window owner)
+        {
+                var logWindow = new UpdateLogWindow();
+                logWindow.Show();
+                logWindow.Log("Starting the installation ...");
+
+                // Close the main window
+                owner.Close();
+
+                try
+                {
+                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string tempDirectory = Path.Combine(appDirectory, "temp2");
+                    Directory.CreateDirectory(tempDirectory);
+                    string updateZipPath = Path.Combine(appDirectory, "update.zip");
+
+                    logWindow.Log("Downloading installation file...");
+
+                    await Task.Run(async () =>
+                    {
+                        await DownloadUpdateFile(assetUrl, updateZipPath);
+                        logWindow.Log("Extracting installation file...");
+                        ExtractUpdateFile(updateZipPath, tempDirectory);
+
+                        var updaterFiles = new[]
+                        {
+                            "Updater.deps.json",
+                            "Updater.dll",
+                            "Updater.exe",
+                            "Updater.pdb",
+                            "Updater.runtimeconfig.json"
+                        };
+                        
+                        logWindow.Log("Updating the updater app...");
+
+                        foreach (var file in updaterFiles)
+                        {
+                            var sourceFile = Path.Combine(tempDirectory, file);
+                            var destFile = Path.Combine(appDirectory, file);
+                            if (File.Exists(sourceFile))
+                            {
+                                File.Copy(sourceFile, destFile, true);
+                                logWindow.Log($"Copied {file}");
+                            }
+                        }
+
+                        await Task.Delay(2000);
+
+                        string appExePath = Assembly.GetExecutingAssembly().Location;
+                        string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+
+                        if (!File.Exists(updaterExePath))
+                        {
+                            logWindow.Log("Updater.exe not found in the application directory.\n\nPlease reinstall Simple Launcher manually.");
+    
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                // Ask the user if they want to be redirected to the download page
+                                var messageBoxResult = MessageBox.Show(
+                                    "Updater.exe not found in the application directory.\n\nWould you like to be redirected to the download page to download it manually?",
+                                    "Update Error",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Error);
+
+                                if (messageBoxResult == MessageBoxResult.Yes)
+                                {
+                                    // Redirect to the download page
+                                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                                    Process.Start(new ProcessStartInfo
+                                    {
+                                        FileName = downloadPageUrl,
+                                        UseShellExecute = true // Open URL in default browser
+                                    });
+                                }
+
+                                // Close the log window after action is taken
+                                logWindow.Close();
+                            });
+                            return;
+                        }
+
+                        logWindow.Log("Starting updater process...");
+                        await Task.Delay(2000);
+                        
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = updaterExePath,
+                            Arguments = $"\"{appExePath}\" \"{tempDirectory}\" \"{updateZipPath}\"",
+                            UseShellExecute = false
+                        });
+
+                        logWindow.Log("Closing application for update...");
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            foreach (Window window in Application.Current.Windows)
+                            {
+                                window.Close();  // Close each window manually
+                            }
+                            
+                            // Force garbage collection
+                            GC.Collect();       
+                            // Wait for finalizers to complete
+                            GC.WaitForPendingFinalizers();  
+                            // Shutdown the application
+                            Application.Current.Shutdown();  
+                            // Forcefully kill the process to ensure all threads and handles are released
+                            Process.GetCurrentProcess().Kill();
+                        });
+                    });
+                }
+                catch (Exception ex)
+                {
+                    string contextMessage = $"There was an error updating the application.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, contextMessage);
+                    
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        // Ask user if they want to be redirected to the download page
+                        var messageBoxResult = MessageBox.Show(
+                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update manually?",
+                            "Update Error",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Error);
+
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            // Redirect to the download page
+                            string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                            Process.Start(new ProcessStartInfo
+                            {
+                                FileName = downloadPageUrl,
+                                UseShellExecute = true // Open URL in default browser
+                            });
+                        }
+
+                        logWindow.Log($"There was an error updating the application.\n\nPlease update it manually");
+                        logWindow.Close();
+                    });
+                }
         }
 
         private static async Task DownloadUpdateFile(string url, string destinationPath)
