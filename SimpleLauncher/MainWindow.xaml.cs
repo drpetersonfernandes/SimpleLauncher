@@ -1233,20 +1233,36 @@ namespace SimpleLauncher
 
                 if (File.Exists(findRomCoverPath))
                 {
-                    // Ensure the image and ROM folder paths are absolute and normalized
-                    string absoluteImageFolder = Path.GetFullPath(Path.IsPathRooted(_selectedImageFolder)
-                        ? _selectedImageFolder
-                        : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedImageFolder));
-                
-                    string absoluteRomFolder = Path.GetFullPath(Path.IsPathRooted(_selectedRomFolder)
-                        ? _selectedRomFolder
-                        : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedRomFolder));
+                    string absoluteImageFolder = null;
+                    string absoluteRomFolder = null;
 
-                    // Use the normalized absolute paths as arguments
+                    // Check if _selectedImageFolder and _selectedRomFolder are set
+                    if (!string.IsNullOrEmpty(_selectedImageFolder))
+                    {
+                        absoluteImageFolder = Path.GetFullPath(Path.IsPathRooted(_selectedImageFolder)
+                            ? _selectedImageFolder
+                            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedImageFolder));
+                    }
+
+                    if (!string.IsNullOrEmpty(_selectedRomFolder))
+                    {
+                        absoluteRomFolder = Path.GetFullPath(Path.IsPathRooted(_selectedRomFolder)
+                            ? _selectedRomFolder
+                            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _selectedRomFolder));
+                    }
+
+                    // Determine arguments based on available folders
+                    string arguments = string.Empty;
+                    if (absoluteImageFolder != null && absoluteRomFolder != null)
+                    {
+                        arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+                    }
+
+                    // Start the process with or without arguments
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = findRomCoverPath,
-                        Arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"",
+                        Arguments = arguments,
                         UseShellExecute = true
                     });
                 }
@@ -1260,6 +1276,7 @@ namespace SimpleLauncher
                 MessageBox.Show("An error occurred while launching FindRomCover: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         #endregion
         
