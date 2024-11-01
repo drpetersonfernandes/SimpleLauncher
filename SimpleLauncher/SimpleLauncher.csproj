@@ -210,6 +210,57 @@
     <None Update="tools\ps3batchlaunchercreator\WinRT.Runtime.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\Microsoft.Windows.SDK.NET.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforps3games\WinRT.Runtime.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

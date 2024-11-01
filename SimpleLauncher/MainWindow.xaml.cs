@@ -1286,13 +1286,13 @@ namespace SimpleLauncher
         {
             try
             {
-                string ps3BatchLauncherCreatorPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "ps3batchlaunchercreator", "PS3BatchLauncherCreator.exe");
+                string createbatchfilesforps3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "createbatchfilesforps3games", "PS3BatchLauncherCreator.exe");
 
-                if (File.Exists(ps3BatchLauncherCreatorPath))
+                if (File.Exists(createbatchfilesforps3GamesPath))
                 {
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = ps3BatchLauncherCreatorPath,
+                        FileName = createbatchfilesforps3GamesPath,
                         UseShellExecute = true
                     });
                 }
@@ -1309,12 +1309,52 @@ namespace SimpleLauncher
 
         private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string createbatchfilesforscummvmgamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "createbatchfilesforscummvmgames", "CreateBatchFilesForScummVMGames.exe");
+
+                if (File.Exists(createbatchfilesforscummvmgamesPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = createbatchfilesforscummvmgamesPath,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("CreateBatchFilesForScummVMGames.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while launching CreateBatchFilesForScummVMGames: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string createBatchFilesForWindowsGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "createbatchfilesforwindowsgames", "CreateBatchFilesForWindowsGames.exe");
+
+                if (File.Exists(createBatchFilesForWindowsGamesPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = createBatchFilesForWindowsGamesPath,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("CreateBatchFilesForWindowsGames.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while launching CreateBatchFilesForWindowsGames: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
