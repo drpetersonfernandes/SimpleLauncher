@@ -142,7 +142,12 @@ namespace SimpleLauncher
                         if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
                         {
                             string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
-                            File.Move(downloadFilePath, newFilePath);
+                            
+                            if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
+                            {
+                                File.Move(downloadFilePath, newFilePath);
+                            }
+
                             downloadFilePath = newFilePath;
                         }
 
@@ -183,7 +188,10 @@ namespace SimpleLauncher
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    } 
                     
                     MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -310,7 +318,10 @@ namespace SimpleLauncher
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    } 
 
                     MessageBox.Show("Core download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -396,7 +407,10 @@ namespace SimpleLauncher
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath); 
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    } 
 
                     MessageBox.Show("ImagePack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -476,7 +490,10 @@ namespace SimpleLauncher
                 if (cancellationToken.IsCancellationRequested)
                 {
                     // If user canceled, delete the partially downloaded file
-                    if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                    if (File.Exists(destinationPath))
+                    {
+                        File.Delete(destinationPath);
+                    }
                     
                     string formattedException = $"Download was canceled by the user.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
@@ -484,7 +501,10 @@ namespace SimpleLauncher
                 else
                 {
                     // If user canceled, delete the partially downloaded file
-                    if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                    if (File.Exists(destinationPath))
+                    {
+                        File.Delete(destinationPath);
+                    }
                     
                     string formattedException = $"Download timed out or was canceled unexpectedly.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
@@ -496,6 +516,16 @@ namespace SimpleLauncher
 
         private async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
         {
+            if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
+            {
+                string formattedException = $"The downloaded file appears to be empty or corrupted.";
+                Exception exception = new(formattedException);
+                await LogErrors.LogErrorAsync(exception, formattedException);
+                
+                MessageBox.Show("The downloaded file appears to be empty or corrupted.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            
             try
             {
                 string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
@@ -508,6 +538,9 @@ namespace SimpleLauncher
                     MessageBox.Show("7z.exe was not found in the application folder.\n\nPlease reinstall Simple Launcher.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
+                
+                // Ensure the destination folder exists
+                Directory.CreateDirectory(destinationFolder);
 
                 var processStartInfo = new ProcessStartInfo
                 {
@@ -556,11 +589,12 @@ namespace SimpleLauncher
                 _cancellationTokenSource.Cancel(); // Cancel the ongoing download
                 StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
 
-                // Reset completion flag
+                // Reset completion flag and progress
                 _isDownloadCompleted = false; 
-                
-                // Update Progress Bar 
                 DownloadProgressBar.Value = 0;
+                
+                // Reinitialize the cancellation token source for the next download
+                _cancellationTokenSource = new CancellationTokenSource();
             }
         }
 
