@@ -1277,6 +1277,30 @@ namespace SimpleLauncher
             }
         }
 
+        private void CreatePS3BatchFiles_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string ps3BatchLauncherCreatorPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "ps3batchlaunchercreator", "PS3BatchLauncherCreator.exe");
+
+                if (File.Exists(ps3BatchLauncherCreatorPath))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = ps3BatchLauncherCreatorPath,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("PS3BatchLauncherCreator.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while launching PS3BatchLauncherCreator: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         #endregion
         

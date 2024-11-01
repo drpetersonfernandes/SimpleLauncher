@@ -200,6 +200,11 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="CreatePS3BatchFiles_Click" Header="Create PS3 Batch Files">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Bug Report">
                 <MenuItem Click="BugReport_Click" Header="Bug Report">
