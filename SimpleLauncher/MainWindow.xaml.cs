@@ -1225,7 +1225,7 @@ namespace SimpleLauncher
             favoritesWindow.Show();
         }
         
-        private void FixSystemImages_Click(object sender, RoutedEventArgs e)
+        private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -1277,7 +1277,12 @@ namespace SimpleLauncher
             }
         }
 
-        private void CreatePS3BatchFiles_Click(object sender, RoutedEventArgs e)
+        private void CreateBatchFilesForLaserDiskGames_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -1300,6 +1305,16 @@ namespace SimpleLauncher
             {
                 MessageBox.Show("An error occurred while launching PS3BatchLauncherCreator: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -1453,6 +1468,5 @@ namespace SimpleLauncher
         }
         #endregion
 
-        
     }
 }

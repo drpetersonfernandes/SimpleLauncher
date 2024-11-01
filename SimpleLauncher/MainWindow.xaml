@@ -195,12 +195,27 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem Click="FixSystemImages_Click" Header="Fix System Images">
+                <MenuItem Click="OrganizeSystemImages_Click" Header="Organize System Images">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreatePS3BatchFiles_Click" Header="Create PS3 Batch Files">
+                <MenuItem Click="CreateBatchFilesForLaserDiskGames_Click" Header="Create Batch Files For LaserDisk Games">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="CreateBatchFilesForPS3Games_Click" Header="Create Batch Files For PS3 Games">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="CreateBatchFilesForScummVMGames_Click" Header="Create Batch Files For ScummVM Games">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="CreateBatchFilesForWindowsGames_Click" Header="Create Batch Files For Windows Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
