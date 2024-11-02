@@ -200,11 +200,6 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForLaserDiskGames_Click" Header="Create Batch Files For LaserDisk Games">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click" Header="Create Batch Files For PS3 Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />

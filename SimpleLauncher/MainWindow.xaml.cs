@@ -1286,24 +1286,29 @@ namespace SimpleLauncher
         {
             try
             {
-                string createbatchfilesforps3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "createbatchfilesforps3games", "PS3BatchLauncherCreator.exe");
+                string createBatchFilesForPs3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
 
-                if (File.Exists(createbatchfilesforps3GamesPath))
+                if (File.Exists(createBatchFilesForPs3GamesPath))
                 {
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = createbatchfilesforps3GamesPath,
+                        FileName = createBatchFilesForPs3GamesPath,
                         UseShellExecute = true
                     });
                 }
                 else
                 {
-                    MessageBox.Show("PS3BatchLauncherCreator.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("CreateBatchFilesForPS3Games.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while launching PS3BatchLauncherCreator: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"An error occurred while launching CreateBatchFilesForPS3Games.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("An error occurred while launching CreateBatchFilesForPS3Games.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1328,7 +1333,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"CreateBatchFilesForScummVMGames.exe was not found in the expected path.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching CreateBatchFilesForScummVMGames.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
