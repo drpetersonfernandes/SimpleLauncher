@@ -554,13 +554,12 @@ namespace SimpleLauncher
             }
             catch (IOException ex)
             {
-                string formattedException = $"File read/write error during file download.\nI did not notify the user.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"File read/write error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                // ReSharper disable once GrammarMistakeInComment
-                // MessageBox.Show("There was an file read/write error during file download.\n\n" +
-                //                 "Maybe Simple Launcher do not have write privileges in his folder. Try to run Simple Launcher with administrative privileges.\n\n" +
-                //                 "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an file read/write error during file download.\n\n" +
+                                "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
+                                "Maybe the extraction process will continue without errors.", "Read/Write error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (TaskCanceledException ex)
             {

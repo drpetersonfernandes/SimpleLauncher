@@ -15,9 +15,9 @@ namespace Updater
         private static readonly string TempDirectory = Path.Combine(AppDirectory, "temp2");
         private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
         
-        string _applicationFolderFromArgs = "";
+        string _applicationFolderFromArgs = ""; // I will discard this value in favor of a better and safer implementation of the logic.
         string _tempFolderFromArgs = "";
-        string _updateZipFileFromArgs = "";                
+        string _updateZipFileFromArgs = "";
 
         public UpdateForm(string[] args)
         {
