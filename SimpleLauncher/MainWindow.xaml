@@ -197,7 +197,7 @@
             <MenuItem Header="Tools">
                 <MenuItem Click="OrganizeSystemImages_Click" Header="Organize System Images">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click" Header="Create Batch Files For PS3 Games">

@@ -349,6 +349,8 @@
     <Resource Include="icon\icon.ico" />
     <None Remove="images\tools.png" />
     <Resource Include="images\tools.png" />
+    <None Remove="images\findromcover.png" />
+    <Resource Include="images\findromcover.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

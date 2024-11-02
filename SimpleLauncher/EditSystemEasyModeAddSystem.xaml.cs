@@ -463,6 +463,22 @@ namespace SimpleLauncher
                     _isDownloadCompleted = false;
                     throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
                 }
+
+                // Check if the destination path is locked
+                int retryCount = 0;
+                const int maxRetries = 2;
+                const int delayBetweenRetries = 4000; // 4 seconds
+
+                while (IsFileLocked(destinationPath) && retryCount < maxRetries)
+                {
+                    await Task.Delay(delayBetweenRetries);
+                    retryCount++;
+                }
+
+                if (IsFileLocked(destinationPath))
+                {
+                    throw new IOException("The file is locked and cannot be accessed.");
+                }
             }
             catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
@@ -483,7 +499,9 @@ namespace SimpleLauncher
                 string formattedException = $"File read/write error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show("There was an file read/write error.\n\nMaybe Simple Launcher do not have write privileges in his folder. Try to run Simple Launcher with administrative privileges.\n\nThe error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an file read/write error during file download.\n\n" +
+                                "Maybe Simple Launcher do not have write privileges in his folder. Try to run Simple Launcher with administrative privileges.\n\n" +
+                                "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (TaskCanceledException ex)
             {
@@ -511,6 +529,19 @@ namespace SimpleLauncher
                     
                     MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+        
+        private bool IsFileLocked(string filePath)
+        {
+            try
+            {
+                using FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                return false; // File is not locked
+            }
+            catch (IOException)
+            {
+                return true; // File is locked
             }
         }
 

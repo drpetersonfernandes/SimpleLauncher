@@ -1229,7 +1229,7 @@ namespace SimpleLauncher
         {
             try
             {
-                string findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "findromcover", "FindRomCover.exe");
+                string findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
 
                 if (File.Exists(findRomCoverPath))
                 {
@@ -1268,18 +1268,18 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("FindRomCover.exe was not found in the expected path.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("FindRomCover.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while launching FindRomCover: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string formattedException = $"An error occurred while launching FindRomCover.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("An error occurred while launching FindRomCover.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void CreateBatchFilesForLaserDiskGames_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
