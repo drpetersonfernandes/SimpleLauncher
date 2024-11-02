@@ -1,20 +1,38 @@
-﻿static class Program
+﻿namespace CreateBatchFilesForWindowsGames;
+
+static class Program
 {
+    private static LogForm? _logForm;
+    
     [STAThread]
     static void Main()
     {
-        Console.WriteLine("Welcome to the Batch File Creator for Microsoft Windows Games.");
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        
+        _logForm = new LogForm();
+        _logForm.Show();
+        
+        _logForm.LogMessage("Welcome to the Batch File Creator for Microsoft Windows Games.");
+        _logForm.LogMessage("");
+        _logForm.LogMessage("This program create batch files to launch your Microsoft Windows games.");
+        _logForm.LogMessage("Please follow the instructions.");
+        _logForm.LogMessage("");
         
         MessageBox.Show("This program create batch files to launch your Microsoft Windows games.\n\nPlease follow the instructions.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         while (true)
         {
             // Step 1: Ask user to select the game executable file
-            Console.WriteLine("Select the game executable file:");
+            _logForm.LogMessage("Select the game executable file:");
+            _logForm.LogMessage("");
+            
             string? gameExePath = SelectFile();
 
             if (string.IsNullOrEmpty(gameExePath))
             {
+                _logForm.LogMessage("No file selected. Exiting program.");
+                
                 MessageBox.Show("No file selected. Exiting program.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -27,6 +45,8 @@
             string? batchFilePath = GetBatchFilePath(gameFolderPath);
             if (string.IsNullOrEmpty(batchFilePath))
             {
+                _logForm.LogMessage("No output file selected. Exiting program.");
+                
                 MessageBox.Show("No output file selected. Exiting program.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -39,16 +59,26 @@
                 sw.WriteLine($"start {gameFileName}");
             }
 
+            _logForm.LogMessage($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.");
+
             MessageBox.Show($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Step 4: Ask if the user wants to create another batch file
+            _logForm.LogMessage("");
+            _logForm.LogMessage("Do you want to create another batch file?");
+            _logForm.LogMessage("");
+            
             DialogResult result = MessageBox.Show("Do you want to create another batch file?", "Continue", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
             {
+                _logForm.LogMessage("Batch file creation process completed.");
+                
                 MessageBox.Show("Batch file creation process completed.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 break;
             }
         }
+        
+        Application.Run(); // Keeps the application running for the log form to remain open
     }
 
     private static string? SelectFile()

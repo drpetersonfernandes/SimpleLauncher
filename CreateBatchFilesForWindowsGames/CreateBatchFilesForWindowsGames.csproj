@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>Program</StartupObject>
+    <StartupObject>CreateBatchFilesForWindowsGames.Program</StartupObject>
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <PackageIcon></PackageIcon>
     <RepositoryType>git</RepositoryType>
     <UseWindowsForms>True</UseWindowsForms>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
@@ -16,6 +15,7 @@
     <FileVersion>1.0.0</FileVersion>
     <IsPackable>false</IsPackable>
     <RootNamespace>CreateBatchFilesForWindowsGames</RootNamespace>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,10 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="icon\icon2.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <Compile Update="LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
