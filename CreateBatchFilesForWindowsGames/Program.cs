@@ -4,6 +4,8 @@
     static void Main()
     {
         Console.WriteLine("Welcome to the Batch File Creator for Microsoft Windows Games.");
+        
+        MessageBox.Show("This program create batch files to launch your Microsoft Windows games.\n\nPlease follow the instructions.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         while (true)
         {

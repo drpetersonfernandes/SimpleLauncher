@@ -344,7 +344,23 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var result = MessageBox.Show(
+                    "The emulator could not open the game with the provided parameters.\n\n" +
+                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
+                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "Error",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                        UseShellExecute = true
+                    });
+                }
             }
         
             // Access Violation error
@@ -357,10 +373,26 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string formattedException = $"The emulator could not open this game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
-            MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            var result = MessageBox.Show(
+                "The emulator could not open the game with the provided parameters.\n\n" +
+                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
+                "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                "Would you like to be redirected to the Simple Launcher Wiki?",
+                "Error",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                    UseShellExecute = true
+                });
+            }
         }
     }
     
@@ -483,7 +515,23 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var result = MessageBox.Show(
+                    "The emulator could not open the game with the provided parameters.\n\n" +
+                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
+                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "Error",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                        UseShellExecute = true
+                    });
+                }
             }
             
             // Access Violation error
@@ -496,10 +544,26 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string formattedException = $"The emulator could not open this game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+                
+            var result = MessageBox.Show(
+                "The emulator could not open the game with the provided parameters.\n\n" +
+                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
+                "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                "Would you like to be redirected to the Simple Launcher Wiki?",
+                "Error",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Error);
 
-            MessageBox.Show($"The emulator could not open this game with the provided parameters.\n\nPlease visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                    UseShellExecute = true
+                });
+            }
         }
     }
 

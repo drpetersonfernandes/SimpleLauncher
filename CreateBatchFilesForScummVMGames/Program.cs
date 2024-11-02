@@ -12,6 +12,8 @@ static class Program
         // Attach the console
         AllocConsole();  
 
+        Console.WriteLine("Welcome to the Batch File Creator for ScummVM Games.");
+        
         MessageBox.Show("This program creates batch files to launch your ScummVM games.\n\nPlease follow the instructions.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         Console.WriteLine("Select the ScummVM executable:");
