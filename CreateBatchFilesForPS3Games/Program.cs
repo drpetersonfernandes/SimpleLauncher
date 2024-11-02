@@ -18,7 +18,10 @@ namespace CreateBatchFilesForPS3Games
         
             _logForm = new LogForm();
             _logForm.Show();
-        
+            
+            _logForm.LogMessage("Welcome to the Batch File Creator for PS3 Games.");
+            _logForm.LogMessage("");
+            
             _logForm.LogMessage("This program creates batch files to launch your PS3 games.");
             _logForm.LogMessage("Please follow the instructions.");
             _logForm.LogMessage("");

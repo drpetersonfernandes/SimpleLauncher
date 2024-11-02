@@ -1,4 +1,4 @@
-namespace CreateBatchFilesForPS3Games
+namespace CreateBatchFilesForScummVMGames
 {
     public partial class LogForm : Form
     {
@@ -10,6 +10,8 @@ namespace CreateBatchFilesForPS3Games
         public void LogMessage(string message)
         {
             textBoxLog.AppendText(message + Environment.NewLine);
+            textBoxLog.SelectionStart = textBoxLog.Text.Length;
+            textBoxLog.ScrollToCaret();
         }
     }
 }
