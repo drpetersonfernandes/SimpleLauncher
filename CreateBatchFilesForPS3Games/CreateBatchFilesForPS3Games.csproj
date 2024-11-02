@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <StartupObject>CreateBatchFilesForPS3Games.Program</StartupObject>
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
-    <PackageIcon>icon2.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <RepositoryType>git</RepositoryType>
     <UseWindowsForms>True</UseWindowsForms>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
@@ -22,13 +22,6 @@
     <Resource Include="icon\icon.ico" />
     <None Remove="icon\icon.png" />
     <Resource Include="icon\icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="icon\icon2.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
