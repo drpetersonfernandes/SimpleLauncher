@@ -2,7 +2,16 @@ release3.3.3
 -------------
 
 11/02/2024
-- 
+- I have added a new menu item called Tools. In it, you will find tools related to emulation.
+- Added tool to Create Batch Files for PS3 Games.
+- Added tool to Create Batch Files for ScummVM Games.
+- Added tool to Create Batch Files for Windows Games.
+- Added tool to Organize System Images.
+- I have implemented code to automatically redirect the user to the Simple Launcher Wiki page if the provided parameters for emulator launch fail.
+- I have implemented the automatic launch of the UpdateHistory window after an update so the user can see what is new in the release.
+- I have implemented logic to automatically reinstall Simple Launcher if the required files are missing.
+- I have improved the Updater application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.
+- I have fixed the UpdateHistory window to wrap the text. It is better for the user.
 
 release3.3.2
 -------------
