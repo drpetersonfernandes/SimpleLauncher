@@ -1,7 +1,7 @@
-release3.3.3
--------------
+release3.4
+----------
 
-11/02/2024
+11/03/2024
 - I have added a new menu item called Tools. In it, you will find tools related to emulation.
 - Added tool to Create Batch Files for PS3 Games.
 - Added tool to Create Batch Files for ScummVM Games.
