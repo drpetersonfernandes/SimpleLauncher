@@ -35,6 +35,9 @@ namespace SimpleLauncher
             
             // Subscribe to the Closed event
             Closed += EditSystemEasyModeAddSystem_Closed; 
+            
+            MessageBox.Show("Some antivirus programs may lock or scan newly downloaded files, causing access issues during installation.\n\n" +
+                            "If you get errors try to temporarily disable real-time protection.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void LoadConfig()
