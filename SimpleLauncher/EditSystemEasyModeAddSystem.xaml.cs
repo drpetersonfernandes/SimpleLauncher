@@ -185,7 +185,7 @@ namespace SimpleLauncher
                         else
                         {
                             // Extraction failed - offer redirect option
-                            MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} emulator.\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} emulator.\n\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                             if (result == MessageBoxResult.Yes)
                             {
                                 Process.Start(new ProcessStartInfo
@@ -198,7 +198,7 @@ namespace SimpleLauncher
                     }
                     else
                     {
-                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
                         MessageBoxResult result = MessageBox.Show($"Would you like to be redirected to the download page?", "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
@@ -337,7 +337,7 @@ namespace SimpleLauncher
                         else
                         {
                             // Extraction failed - offer redirect option
-                            MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} core.\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} core.\n\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                             if (result == MessageBoxResult.Yes)
                             {
                                 Process.Start(new ProcessStartInfo
@@ -447,7 +447,7 @@ namespace SimpleLauncher
                         else
                         {
                             // Extraction failed - offer redirect option
-                            MessageBoxResult result = MessageBox.Show($"Extraction failed for the image pack.\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            MessageBoxResult result = MessageBox.Show($"Extraction failed for the image pack.\n\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                             if (result == MessageBoxResult.Yes)
                             {
                                 Process.Start(new ProcessStartInfo
@@ -557,10 +557,10 @@ namespace SimpleLauncher
             }
             catch (IOException ex)
             {
-                string formattedException = $"File read/write error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"File read/write error after file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show("There was an file read/write error during file download.\n\n" +
+                MessageBox.Show("There was an file read/write error after file download.\n\n" +
                                 "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
                                 "Maybe the extraction process will continue without errors.", "Read/Write error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -614,7 +614,22 @@ namespace SimpleLauncher
                     Exception exception = new(formattedException);
                     await LogErrors.LogErrorAsync(exception, formattedException);
                     
-                    MessageBox.Show("7z.exe was not found in the application folder.\n\nPlease reinstall Simple Launcher.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Ask the user if they want to automatically reinstall Simple Launcher
+                    var messageBoxResult = MessageBox.Show(
+                        "7z.exe was not found in the application folder!\n\nSimple Launcher will not be able to extract compressed files.\n\nDo you want to automatically reinstall Simple Launcher to fix the problem?",
+                        "Extraction Error",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        Loaded += async (_, _) => await UpdateChecker.ReinstallSimpleLauncherAsync(this);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please reinstall Simple Launcher to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                    }
+                    
                     return false;
                 }
                 
@@ -645,9 +660,25 @@ namespace SimpleLauncher
                     string formattedException = $"Error extracting the file: {filePath}\n\nError message: {error}";
                     Exception ex = new(formattedException);
                     await LogErrors.LogErrorAsync(ex, formattedException);
-                    
-                    MessageBox.Show($"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
-                                    $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+                    var retryResult = MessageBox.Show(
+                        $"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
+                        $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
+                        $"Do you want to retry extracting the file?", 
+                        "Extraction Error", 
+                        MessageBoxButton.YesNo, 
+                        MessageBoxImage.Error);
+
+                    if (retryResult == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        // Wait for 5 seconds before retrying
+                        await Task.Delay(TimeSpan.FromSeconds(5));
+                        // Retry the extraction
+                        return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
+                    }
+
                     return false;
                 }
                 return true;
@@ -657,8 +688,24 @@ namespace SimpleLauncher
                 string formattedException = $"Error extracting the file: {filePath}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
-                                $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var retryResult = MessageBox.Show(
+                    $"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
+                    $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
+                    $"Do you want to retry extracting the file?", 
+                    "Extraction Error", 
+                    MessageBoxButton.YesNo, 
+                    MessageBoxImage.Error);
+
+                if (retryResult == MessageBoxResult.Yes)
+                {
+                    MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Wait for 5 seconds before retrying
+                    await Task.Delay(TimeSpan.FromSeconds(5));
+                    // Retry the extraction
+                    return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
+                }
+
                 return false;
             }
         }
