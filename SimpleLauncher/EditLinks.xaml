@@ -27,7 +27,7 @@
             Grid.ColumnSpan="3"
             Margin="10,20,10,10"
             VerticalAlignment="Center">
-            You can define custom URL to use in the Video Button and Info Button.
+            You can define custom URL to use in the Video Link Button and Info Link Button.
         </Label>
 
         <!-- Video Link -->
@@ -36,7 +36,7 @@
             Grid.Row="1"
             Grid.Column="0"
             VerticalAlignment="Center"
-            Content="Video Button" />
+            Content="Video Link Button" />
         <Image
             Grid.Row="1"
             Grid.Column="1"
@@ -58,7 +58,7 @@
             Grid.Row="2"
             Grid.Column="0"
             VerticalAlignment="Center"
-            Content="Info Button" />
+            Content="Info Link Button" />
         <Image
             Grid.Row="2"
             Grid.Column="1"

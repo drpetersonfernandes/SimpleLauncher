@@ -16,10 +16,10 @@ namespace SimpleLauncher
     {
         private readonly FavoritesManager _favoritesManager;
         private ObservableCollection<Favorite> _favoriteList;
-        private SettingsConfig _settings;
+        private readonly SettingsConfig _settings;
         private readonly List<SystemConfig> _systemConfigs;
         private readonly List<MameConfig> _machines;
-        private MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow;
 
         public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
         {
@@ -145,6 +145,8 @@ namespace SimpleLauncher
             {
                 _favoriteList.Remove(selectedFavorite);
                 _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+
+                PreviewImage.Source = null;
             }
             else
             {
