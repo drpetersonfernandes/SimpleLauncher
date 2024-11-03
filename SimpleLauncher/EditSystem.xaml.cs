@@ -599,6 +599,11 @@ namespace SimpleLauncher
             var systemFolder = systemFolderText.Trim();
             var systemImageFolder = systemImageFolderText.Trim();
 
+            if (systemImageFolder.Length == 0)
+            {
+                systemImageFolder = $".\\images\\{systemName}";
+            }
+
             string systemIsMame = SystemIsMameComboBox.SelectedItem == null ? "false" : (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem == null ? "false" : (ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             
@@ -765,7 +770,8 @@ namespace SimpleLauncher
                         Directory.CreateDirectory(newFolderPath);
                         if (folderName == "images")
                         {
-                            MessageBox.Show($"I have also created a folder for this System within the '{folderName}' folder at {newFolderPath}.\n\nYou may place the cover images for this System inside this folder.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show($"Simple Launcher created a folder for this System within the '{folderName}' folder at {newFolderPath}. You may place the cover images for this System inside this folder.\n\n" +
+                                            $"I also created folders for \"title_snapshots\", \"gameplay_snapshots\", \"videos\", \"manuals\", \"walkthrough\", \"cabinets\", \"flyers\", \"pcbs\" and \"carts\" inside the Simple Launcher folder.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                 }
