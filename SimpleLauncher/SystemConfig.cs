@@ -31,7 +31,6 @@ namespace SimpleLauncher
 
         public static List<SystemConfig> LoadSystemConfigs()
         {
-            
             if (string.IsNullOrEmpty(XmlPath))
             {
                 throw new ArgumentNullException(nameof(XmlPath), @"The path to the XML file cannot be null or empty.");
