@@ -1273,11 +1273,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Cemu</EmulatorName>
-                <EmulatorLocation>.\emulators\Cemu\Cemu_2.0-85\Cemu.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\Cemu\Cemu_2.3\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.2</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.2/cemu-2.2-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.3/cemu-2.3-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
 
@@ -1777,7 +1777,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>Latest Rolling Release 10/11/2024</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20241011</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
@@ -1819,8 +1819,8 @@
                 <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.0.2</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v2.0.2/pcsx2-v2.0.2-windows-x64-Qt.7z</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.2.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/PCSX2/pcsx2/releases/download/v2.2.0/pcsx2-v2.2.0-windows-x64-Qt.7z</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\PCSX2\</EmulatorDownloadExtractPath>
 
@@ -1833,6 +1833,42 @@
                 <ExtrasLatestVersion/>
                 <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Sony Playstation 2</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony Playstation 3</SystemName>
+        <SystemFolder>.\roms\Sony Playstation 3</SystemFolder>
+        <SystemImageFolder>.\images\Sony Playstation 3</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bat</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>RPCS3</EmulatorName>
+                <EmulatorLocation/>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.0.34</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-d2d76bb560aa64f73ef6fbc6fef783ef42e3cdf3/rpcs3-v0.0.34-17090-d2d76bb5_win64.7z</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RPCS3\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+<!--                <ExtrasLocation/>-->
+<!--                <ExtrasLatestVersion/>-->
+<!--                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ExtrasDownloadLink>-->
+<!--                <ExtrasDownloadExtractPath>.\images\Sony Playstation 3</ExtrasDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1856,14 +1892,14 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>ppsspp</EmulatorName>
-                <EmulatorLocation>.\emulators\ppsspp\PPSSPPWindows64.exe</EmulatorLocation>
+                <EmulatorName>PPSSPP</EmulatorName>
+                <EmulatorLocation>.\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_17_1/ppsspp_win.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_18/ppsspp_win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\ppsspp\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>.\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>

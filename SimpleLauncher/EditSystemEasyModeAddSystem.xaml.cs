@@ -673,8 +673,14 @@ namespace SimpleLauncher
                     {
                         MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                        // Send notification to developer
+                        string formattedException2 = $"User choose to retry the extraction of file: {filePath}";
+                        Exception ex2 = new(formattedException2);
+                        await LogErrors.LogErrorAsync(ex2, formattedException2);
+                        
                         // Wait for 5 seconds before retrying
                         await Task.Delay(TimeSpan.FromSeconds(5));
+                        
                         // Retry the extraction
                         return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
                     }
@@ -699,9 +705,15 @@ namespace SimpleLauncher
                 if (retryResult == MessageBoxResult.Yes)
                 {
                     MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    // Send notification to developer
+                    string formattedException2 = $"User choose to retry the extraction of file: {filePath}";
+                    Exception ex2 = new(formattedException2);
+                    await LogErrors.LogErrorAsync(ex2, formattedException2);
 
                     // Wait for 5 seconds before retrying
                     await Task.Delay(TimeSpan.FromSeconds(5));
+                    
                     // Retry the extraction
                     return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
                 }

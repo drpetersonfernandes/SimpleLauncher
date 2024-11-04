@@ -346,9 +346,9 @@ public static class GameLauncher
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+                    "If you want to debug the error, you can see the 'error_user.log' file inside the Simple Launcher folder.\n\n" +
+                    "Would you like to be redirected to the Simple Launcher Wiki, where you will find a list of parameters for each emulator?",
                     "Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
@@ -378,9 +378,9 @@ public static class GameLauncher
                 
             var result = MessageBox.Show(
                 "The emulator could not open the game with the provided parameters.\n\n" +
-                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
-                "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                "Would you like to be redirected to the Simple Launcher Wiki?",
+                "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+                "If you want to debug the error, you can see the 'error_user.log' file inside the Simple Launcher folder.\n\n" +
+                "Would you like to be redirected to the Simple Launcher Wiki, where you will find a list of parameters for each emulator?",
                 "Error",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Error);
