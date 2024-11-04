@@ -363,12 +363,33 @@ public static class GameLauncher
                 }
             }
         
-            // Access Violation error
+            // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
                 string errorMessage = $"There was an access violation error running the emulator.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                var result = MessageBox.Show(
+                    "There was an memory access violation error running this emulator with this ROM.\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
+                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
+                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
+                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "Error",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                        UseShellExecute = true
+                    });
+                }
             }
         }
         catch (Exception ex)
@@ -517,8 +538,8 @@ public static class GameLauncher
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
                     "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
                     "Would you like to be redirected to the Simple Launcher Wiki?",
                     "Error",
                     MessageBoxButton.YesNo,
@@ -534,12 +555,33 @@ public static class GameLauncher
                 }
             }
             
-            // Access Violation error
+            // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
-                string errorMessage = $"There was an access violation error running the emulator.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"There was an memory access violation error running this emulator with this ROM.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                var result = MessageBox.Show(
+                    "There was an memory access violation error running this emulator with this ROM.\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
+                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
+                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
+                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "Error",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                        UseShellExecute = true
+                    });
+                }
             }
         }
         catch (Exception ex)
@@ -549,8 +591,8 @@ public static class GameLauncher
                 
             var result = MessageBox.Show(
                 "The emulator could not open the game with the provided parameters.\n\n" +
-                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
                 "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
+                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
                 "Would you like to be redirected to the Simple Launcher Wiki?",
                 "Error",
                 MessageBoxButton.YesNo,

@@ -13,7 +13,7 @@
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\cap32_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Please read core documentation.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Please read core documentation.
 
 ## Amstrad CPC GX4000
 
@@ -49,7 +49,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mame_2010/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Atari 2600
 
@@ -66,7 +66,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Stella<br>
 **Emulator Location:** [Stella Folder]\Stella.exe<br>
@@ -103,7 +103,7 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Atari 8-Bit
 
@@ -157,7 +157,8 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_lynx_libretro.dll" -f<br>
 
-Core require BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Please read core documentation.<br>
+Core require a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Please read core documentation.
 
 ## Atari ST
 
@@ -172,14 +173,14 @@ Core require BIOS file to run. Core documentation can be found at [Libretro webs
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -f<br>
 
-Core requires BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Please read core documentation.<br>
+Core requires BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Please read core documentation.
 
 **Emulator Name:** Hatari<br>
 **Emulator Location:** [Hatari Folder]\hatari.exe<br>
 **Emulator Location (Example):** C:\emulators\hatari\hatari.exe<br>
 **Emulator Parameters:** <br>
 
-Emulator requires BIOS file to run. Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari). Please read emulator documentation.<br> 
+Emulator requires a BIOS file to run. Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari). Please read emulator documentation. 
 
 ## Bandai WonderSwan
 
@@ -196,7 +197,7 @@ Emulator requires BIOS file to run. Emulator documentation can be found at [GitH
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
@@ -218,7 +219,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
@@ -251,7 +252,9 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\gearcoleco_libretro.dll" -f<br>
 
-Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/). Please read core documentation.<br>
+Core requires a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/).
+Please read core documentation.
 
 ## Commodore 64
 
@@ -268,7 +271,7 @@ Core requires a BIOS file to run. Core documentation can be found at [Libretro w
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/vice/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Commodore Amiga CD32
 
@@ -283,7 +286,9 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\puae_libretro.dll" -f<br>
 
-Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae). Please read core documentation.<br>
+Core requires a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae).
+Please read core documentation.
 
 ## LaserDisk
 
@@ -297,9 +302,9 @@ Core requires a BIOS file to run. Core documentation can be found at [Libretro w
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-You need to create a bat file that can directly launch the game.
+You need to create a BAT file that can directly launch the game.<br>
 Try launching your batch file directly outside of Simple Launcher first.
-If it works there, it will work inside 'Simple Launcher'.
+If it works there, it will work inside Simple Launcher.
 
 ## Magnavox Odyssey 2
 
@@ -314,7 +319,7 @@ If it works there, it will work inside 'Simple Launcher'.
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\o2em_libretro.dll" -f<br>
 
-Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/). Please read core documentation.<br>
+Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/). Please read core documentation.
 
 ## Mattel Aquarius
 
@@ -342,7 +347,9 @@ Core requires a BIOS file to run. Core documentation can be found at [Libretro w
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\freeintv_libretro.dll" -f<br>
 
-Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/). Please read the documentation.<br >
+Core requires a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/).
+Please read the documentation.
 
 ## Microsoft DOS
 
@@ -388,14 +395,18 @@ Compress the game folder to a ZIP file, then put it inside the System Folder.
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\bluemsx_libretro.dll" -f<br>
 
-Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Please read core documentation.<br>
+Core requires BIOS or Other Files to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
+Please read core documentation.
 
 **Emulator Name:** Retroarch fmsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
 
-Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Please read core documentation.<br>
+Core requires BIOS or Other Files to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
+Please read core documentation.
 
 ## Microsoft MSX2
 
@@ -415,14 +426,18 @@ Core requires BIOS or Other Files to run. Core documentation can be found at [Li
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\bluemsx_libretro.dll" -f<br>
 
-Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Please read core documentation.<br>
+Core requires BIOS or Other Files to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
+Please read core documentation.
 
 **Emulator Name:** Retroarch fmsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
 
-Core requires BIOS or Other Files to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Please read core documentation.<br>
+Core requires BIOS or Other Files to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
+Please read core documentation.
 
 ## Microsoft Windows
 
@@ -436,17 +451,10 @@ Core requires BIOS or Other Files to run. Core documentation can be found at [Li
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-LNK files are shortcut links. You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
+LNK files are shortcut links.
+You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
 
-If you prefer to use BAT files, you can use the following model as an example:
-
-```bat
-@echo off
-cd /d "J:\Microsoft Windows\Mega Man 11"
-start game.exe
-```
-
-Try launching your batch file outside Simple Launcher. If it works there, it will work inside Simple Launcher.<br>
+If you prefer to use BAT files, use the tool available in the Simple Launcher menu to generate BAT files for you.
 
 ## Microsoft Xbox
 
@@ -461,8 +469,10 @@ Try launching your batch file outside Simple Launcher. If it works there, it wil
 **Emulator Location (Example):** C:\emulators\xemu\xemu.exe<br>
 **Emulator Parameters:** -full-screen -dvd_path<br>
 
-This emulator requires BIOS and Special Files to run properly. The list of required files can be found [here](https://xemu.app/docs/required-files/).<br>
-The ISO file needs to be formated in XBOX format, as the original XBOX discs. You can find information about that [here](https://xemu.app/docs/disc-images/).<br>
+This emulator requires BIOS and Special Files to run properly.
+The list of required files can be found [here](https://xemu.app/docs/required-files/).<br>
+The ISO file needs to be formated in XBOX format, as the original XBOX discs.
+You can find information about that [here](https://xemu.app/docs/disc-images/).
 
 ## Microsoft Xbox 360
 
@@ -505,7 +515,7 @@ The ISO file needs to be formated in XBOX format, as the original XBOX discs. Yo
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## NEC PC Engine CD
 
@@ -520,14 +530,16 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pce_libretro.dll" -f<br>
 
-This core requires BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Please read core documentation.<br>
+This core requires a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/).
+Please read core documentation.
 
 **Emulator Name:** ares<br>
 **Emulator Location:** [ares Folder]\ares.exe<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
 **Emulator Parameters:** --system "PC Engine CD"<br>
 
-Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## NEC PC-FX
 
@@ -542,7 +554,9 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pcfx_libretro.dll" -f<br>
 
-This core requires BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). Please read core documentation.<br>
+This core requires a BIOS file.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/).
+Please read core documentation.
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
@@ -564,7 +578,7 @@ This core requires BIOS file. Core documentation can be found at [Libretro websi
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo 3DS
 
@@ -581,7 +595,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/citra/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Citra<br>
 **Emulator Location:** [Citra Folder]\citra-qt.exe<br>
@@ -600,7 +614,8 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Please read core documentation.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
+Please read core documentation.
 
 ## Nintendo 64DD
 
@@ -615,7 +630,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mupen64plus_next_libretro.dll" -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/). Please read core documentation.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
+Please read core documentation.
 
 ## Nintendo DS
 
@@ -632,7 +648,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/melonds/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch desmume<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -641,13 +657,13 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/desmume/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation<br>
+Please read core documentation.
 
 ## Nintendo Family Computer Disk System
 
 **System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
-    **Format To Search In System Folder:** zip, 7z<br>
+**Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** nes, fds, unf, unif<br>
 
@@ -656,21 +672,27 @@ Please read core documentation<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mesen_libretro.dll" -f<br>
 
-This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/). Please read core documentation.<br>
+This core requires a BIOS file.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/).
+Please read core documentation.
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\nestopia_libretro.dll" -f<br>
 
-This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/). Please read core documentation.<br>
+This core requires a BIOS file.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/).
+Please read core documentation.
 
 **Emulator Name:** Retroarch fceumm<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\fceumm_libretro.dll" -f<br>
 
-This core requires a BIOS file. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/). Please read core documentation.<br>
+This core requires a BIOS file.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
+Please read core documentation.
 
 ## Nintendo Game Boy
 
@@ -687,7 +709,7 @@ This core requires a BIOS file. Core documentation can be found at [Libretro web
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo Game Boy Advance
 
@@ -704,7 +726,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mgba/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo Game Boy Color
 
@@ -721,7 +743,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo GameCube
 
@@ -741,7 +763,9 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
-This core requires Special Files to work correctly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Please read core documentation.<br>
+This core requires special files to work correctly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
+Please read core documentation.
 
 ## Nintendo NES
 
@@ -758,7 +782,7 @@ This core requires Special Files to work correctly. Core documentation can be fo
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -767,7 +791,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch fceumm<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -776,7 +800,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo Satellaview
 
@@ -791,7 +815,7 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
 **Emulator Parameters:** --system "Super Famicom"<br>
 
-Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Nintendo SNES
 
@@ -808,7 +832,7 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Snes9x<br>
 **Emulator Location:** [Snes9x Folder]\snes9x-x64.exe<br>
@@ -830,7 +854,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Snes9x<br>
 **Emulator Location:** [Snes9x Folder]\snes9x-x64.exe<br>
@@ -876,7 +900,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Nintendo WiiU
 
@@ -909,7 +933,9 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\dolphin_libretro.dll" -f<br>
 
-This core requires Special Files to work correctly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Please read core documentation.<br>
+This core requires special files to work correctly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
+Please read core documentation.
 
 ## Panasonic 3DO
 
@@ -926,7 +952,7 @@ This core requires Special Files to work correctly. Core documentation can be fo
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/).
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Philips CD-i
 
@@ -943,7 +969,7 @@ Please read core documentation.<br>
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/).
-Please read core documentation.<br>
+Please read core documentation.
 
 ## ScummVM
 
@@ -958,19 +984,7 @@ Please read core documentation.<br>
 **Emulator Parameters:** <br>
 
 Command line parameters can be found [here](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
-
-BAT file model:
-```bat
-[ScummVM Folder]\scummvm.exe -p "[BAT Folder]\[Game Folder]" --auto-detect --fullscreen
-```
-
-BAT file example:
-```bat
-D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
-```
-
-Try launching your batch file directly outside of Simple Launcher first.
-If it works there, it will work inside 'Simple Launcher'.
+Use the tool available in the Simple Launcher menu to generate BAT files for you.
 
 ## Sega Dreamcast
 
@@ -992,7 +1006,7 @@ If it works there, it will work inside 'Simple Launcher'.
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/).
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Sega Game Gear
 
@@ -1009,7 +1023,14 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
+
+**Emulator Name:** MasterGear<br>
+**Emulator Location:** [MasterGear Folder]\MG.exe<br>
+**Emulator Location (Example):** C:\emulators\MasterGear\MG.exe<br>
+**Emulator Parameters:** <br>
+
+The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
 ## Sega Genesis
 
@@ -1026,7 +1047,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -1035,7 +1056,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch blastem<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -1044,7 +1065,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Sega Genesis 32X
 
@@ -1061,7 +1082,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Sega Genesis CD
 
@@ -1078,7 +1099,7 @@ Please read core documentation.<br>
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
@@ -1087,14 +1108,14 @@ Please read core documentation.<br>
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
-Please read core documentation.<br>
+Please read core documentation.
 
 **Emulator Name:** ares<br>
 **Emulator Location:** [ares Folder]\ares.exe<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
 **Emulator Parameters:** --system "Mega CD"<br>
 
-Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sega Master System
 
@@ -1111,7 +1132,14 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
+
+**Emulator Name:** MasterGear<br>
+**Emulator Location:** [MasterGear Folder]\MG.exe<br>
+**Emulator Location (Example):** C:\emulators\MasterGear\MG.exe<br>
+**Emulator Parameters:** <br>
+
+The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
 ## Sega Model 3
 
@@ -1133,7 +1161,7 @@ Supermodel.exe "D:\Sega Model3\bass.zip" -fullscreen -show-fps
 ```
 
 Adjust the batch file as per your needs. You need a separate batch file for each game (or ROM) you own. Name each batch file with the same name as the game (or ROM).<br>
-Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within 'Simple Launcher'.
+Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within Simple Launcher.
 
 ## Sega Saturn
 
@@ -1150,7 +1178,7 @@ Before using Simple Launcher, first try running your batch file directly. If it 
 
 This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/).
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Sega SC-3000
 
@@ -1165,6 +1193,13 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
+**Emulator Name:** MasterGear<br>
+**Emulator Location:** [MasterGear Folder]\MG.exe<br>
+**Emulator Location (Example):** C:\emulators\MasterGear\MG.exe<br>
+**Emulator Parameters:** <br>
+
+The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
 ## Sega SG-1000
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1177,6 +1212,13 @@ Please read core documentation.<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
+
+**Emulator Name:** MasterGear<br>
+**Emulator Location:** [MasterGear Folder]\MG.exe<br>
+**Emulator Location (Example):** C:\emulators\MasterGear\MG.exe<br>
+**Emulator Parameters:** <br>
+
+The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
 ## Sinclair ZX Spectrum
 
@@ -1193,7 +1235,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fuse/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## SNK Neo Geo CD
 
@@ -1208,7 +1250,9 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\neocd_libretro.dll" -f<br>
 
-This core requires BIOS or Other files to run properly. Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Please read core documentation.<br>
+This core requires BIOS or other files to run properly.
+Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info).
+Please read core documentation.
 
 ## SNK Neo Geo Pocket
 
@@ -1225,7 +1269,7 @@ This core requires BIOS or Other files to run properly. Core documentation can b
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## SNK Neo Geo Pocket Color
 
@@ -1242,7 +1286,7 @@ Please read core documentation.<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/).
 Core may require BIOS files or special configurations to work properly.
-Please read core documentation.<br>
+Please read core documentation.
 
 ## Sony Playstation 1
 
@@ -1257,14 +1301,18 @@ Please read core documentation.<br>
 **Emulator Location (Example):** C:\emulators\duckstation\duckstation-qt-x64-ReleaseLTCG.exe<br>
 **Emulator Parameters:** -fullscreen<br>
 
-This emulator requires a BIOS file to run. Core documentation can be found at [GitHub](https://github.com/stenzek/duckstation). Please read core documentation.<br>
+This emulator requires a BIOS file to run.<br>
+Core documentation can be found at [GitHub](https://github.com/stenzek/duckstation).
+Please read core documentation.
 
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_psx_libretro.dll" -f<br>
 
-This emulator requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/). Please read core documentation.<br>
+This emulator requires a BIOS file to run.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/).
+Please read core documentation.
 
 ## Sony Playstation 2
 
@@ -1279,7 +1327,9 @@ This emulator requires a BIOS file to run. Core documentation can be found at [L
 **Emulator Location (Example):** C:\emulators\pcsx2\pcsx2-qt.exe<br>
 **Emulator Parameters:** -fullscreen<br>
 
-This emulator requires a BIOS file to run. Documentation can be found at [Emulator website](https://pcsx2.net/docs/). Please read the documentation.<br >
+This emulator requires a BIOS file to run.<br>
+Documentation can be found at [Emulator website](https://pcsx2.net/docs/).
+Please read the documentation.
 
 ## Sony Playstation 3
 
@@ -1293,8 +1343,7 @@ This emulator requires a BIOS file to run. Documentation can be found at [Emulat
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-Use the [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) I wrote to generate the BAT files for you.<br>
-Try launching your batch file outside Simple Launcher first. If it works there, it should also work inside Simple Launcher.<br>
+Use the tool available in the Simple Launcher menu to generate BAT files for you.
 
 ## Sony PSP
 
@@ -1314,4 +1363,6 @@ Try launching your batch file outside Simple Launcher first. If it works there, 
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\ppsspp_libretro.dll" -f<br>
 
-This core requires Special Files to work properly. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/). Please read core documentation.<br>
+This core requires special files to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/).
+Please read core documentation.

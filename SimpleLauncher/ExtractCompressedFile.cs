@@ -91,7 +91,7 @@ namespace SimpleLauncher
                 string errorMessage = $"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.\n\nIf you want to debug the error you can see the file error_user.log in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Extraction of the compressed file failed.\n\nThe file {archiveName} may be corrupted.\n\nIf you want to debug the error you can see the file 'error_user.log' in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             finally

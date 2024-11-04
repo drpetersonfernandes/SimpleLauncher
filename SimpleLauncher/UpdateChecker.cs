@@ -268,14 +268,10 @@ namespace SimpleLauncher
                             {
                                 window.Close();  // Close each window manually
                             }
-                            
                             GC.Collect();       // Force garbage collection
                             GC.WaitForPendingFinalizers();  // Wait for finalizers to complete
-
                             Application.Current.Shutdown();  // Shutdown the application
-                            
-                            // Forcefully kill the process to ensure all threads and handles are released
-                            Process.GetCurrentProcess().Kill();
+                            Process.GetCurrentProcess().Kill(); // Forcefully kill the process to ensure all threads and handles are released
                         });
                     });
                 }
