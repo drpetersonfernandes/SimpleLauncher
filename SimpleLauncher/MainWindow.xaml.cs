@@ -121,7 +121,7 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"system.xml was not found in the application folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string contextMessage = $"'system.xml' was not found in the application folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
