@@ -2,7 +2,10 @@ release3.4.1
 ------------
 
 11/03/2024
-
+- Automatically set the SystemImageFolder if the user does not specify it. It will be set to .\images\SystemName.
+- Implemented a way to retry extraction of the downloaded file in case it is locked by antivirus software.
+- Updated the download link for the emulators to the latest version in EasyMode.
+- Added 'Sony PlayStation 3' to the EasyMode installation window.
 
 release3.4
 ----------
