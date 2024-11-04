@@ -599,11 +599,6 @@ namespace SimpleLauncher
             var systemFolder = systemFolderText.Trim();
             var systemImageFolder = systemImageFolderText.Trim();
 
-            if (systemImageFolder.Length == 0)
-            {
-                systemImageFolder = $".\\images\\{systemName}";
-            }
-
             string systemIsMame = SystemIsMameComboBox.SelectedItem == null ? "false" : (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem == null ? "false" : (ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             
@@ -670,6 +665,12 @@ namespace SimpleLauncher
                 if (!string.IsNullOrEmpty(emulatorName))
                 {
                     AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters);
+                }
+
+                // Add default System Image Folder if not provided by user
+                if (systemImageFolder.Length == 0)
+                {
+                    systemImageFolder = $".\\images\\{systemName}";
                 }
             }
            
