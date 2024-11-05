@@ -390,6 +390,8 @@ Compress the game folder to a ZIP file, then put it inside the System Folder.
 **Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
 **Emulator Parameters:** <br>
 
+You can find a list of all parameters available for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
+
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
@@ -420,6 +422,8 @@ Please read core documentation.
 **Emulator Location:** [OpenMSX Folder]\openmsx.exe<br>
 **Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
 **Emulator Parameters:** <br>
+
+You can find a list of all parameters available for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
