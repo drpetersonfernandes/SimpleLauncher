@@ -43,6 +43,10 @@ namespace SimpleLauncher
             if (!File.Exists(_xmlFilePath))
             {
                 MessageBox.Show("'system.xml' not found inside the application folder!\n\nPlease restart Simple Launcher.\n\nIf that does not work, please reinstall Simple Launcher.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                // Shutdown SimpleLauncher
+                Application.Current.Shutdown();
+                Environment.Exit(0);
             }
             else
             {
