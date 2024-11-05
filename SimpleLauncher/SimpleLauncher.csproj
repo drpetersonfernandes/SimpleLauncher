@@ -276,6 +276,21 @@
     <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.runtimeconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

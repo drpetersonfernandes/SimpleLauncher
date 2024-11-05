@@ -1278,7 +1278,7 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("An error occurred while launching FindRomCover.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1308,7 +1308,7 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("An error occurred while launching CreateBatchFilesForPS3Games.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1338,7 +1338,37 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("An error occurred while launching CreateBatchFilesForScummVMGames.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private void CreateBatchFilesForSegaModel3Games_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string createBatchFilesForSegaModel3Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
+
+                if (File.Exists(createBatchFilesForSegaModel3Path))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = createBatchFilesForSegaModel3Path,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("CreateBatchFilesForSegaModel3Games.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"An error occurred while launching CreateBatchFilesForSegaModel3Games.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("An error occurred while launching CreateBatchFilesForSegaModel3Games.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                                "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1368,7 +1398,7 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("An error occurred while launching CreateBatchFilesForWindowsGames.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                                "If you want to debug the error yourself check the file error_user.log inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

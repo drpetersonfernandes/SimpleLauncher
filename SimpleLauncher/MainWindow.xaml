@@ -210,6 +210,11 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click" Header="Create Batch Files For Sega Model3 Games">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Click="CreateBatchFilesForWindowsGames_Click" Header="Create Batch Files For Windows Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />

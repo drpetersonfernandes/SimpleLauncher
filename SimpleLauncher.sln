@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForWindowsG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.csproj", "{C8D526AC-41E5-4AA4-9227-28A15E8F4643}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.csproj", "{CDE2F18B-EDAE-4652-8F65-42673A6D91A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{C8D526AC-41E5-4AA4-9227-28A15E8F4643}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8D526AC-41E5-4AA4-9227-28A15E8F4643}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8D526AC-41E5-4AA4-9227-28A15E8F4643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE2F18B-EDAE-4652-8F65-42673A6D91A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE2F18B-EDAE-4652-8F65-42673A6D91A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE2F18B-EDAE-4652-8F65-42673A6D91A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE2F18B-EDAE-4652-8F65-42673A6D91A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
