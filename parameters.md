@@ -173,7 +173,9 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -f<br>
 
-Core requires BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/). Please read core documentation.
+Core requires a BIOS file to run.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/).
+Please read core documentation.
 
 **Emulator Name:** Hatari<br>
 **Emulator Location:** [Hatari Folder]\hatari.exe<br>
@@ -1158,14 +1160,7 @@ The list of commands available for this emulator can be found at [https://fms.ko
 **Emulator Location (Example):** <br>
 **Emulator Parameters:** <br>
 
-BAT file example:
-```bat
-cd /d D:\Emulators\Supermodel
-Supermodel.exe "D:\Sega Model3\bass.zip" -fullscreen -show-fps
-```
-
-Adjust the batch file as per your needs. You need a separate batch file for each game (or ROM) you own. Name each batch file with the same name as the game (or ROM).<br>
-Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within Simple Launcher.
+Use the Simple Launcher tools to generate BAT files for you.
 
 ## Sega Saturn
 

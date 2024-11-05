@@ -54,57 +54,31 @@ If the Image Pack is not provided, you can download cover images on websites lik
 We have compiled a list of parameters for each emulator for your convenience. Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters) to see the list.
 
 ## Special Settings:
+
 **LaserDisk**
 
 If you want to add LaserDisk games to the Simple Launcher frontend,
 you should create a folder with BAT files that directly call the game.<br>
 
-**Microsoft Windows Games or Applications**
+**MAME CHD Games**
 
-You should create a folder with LNK (Shortcut), BAT (Batch) or EXE (Executable) files,
-that directly call the Game or Application.<br>
-If you use BAT files, follow the model below:
+The CHD folders should be in the same folder as the ROM zipped files.
 
-```bat
-@echo off
-cd /d "J:\Microsoft Windows\Mega Man 11"
-start game.exe
-```
+**Microsoft Windows Games**
 
-**Sony Playstation 3**
-
-This RPCS3 emulator loads games extracted from ISO files into a Game Folder.<br>
-To launch a specific game, it searches for a file named EBOOT.BIN located inside the `PS3_GAME\USRDIR\` or `USRDIR\` directories.  
-Configuring these games in an Emulator Frontend can be a challenge. The quickest and easiest solution we found is to create batch (.bat) files that can directly launch the games. These batch (.bat) files can be configured in 'Simple Launcher' to be treated as games.  
-For the Sony Playstation 3 system configuration, you should set the Format To Search in System Folder as batch (.bat).
-I have created a [program](https://github.com/drpetersonfernandes/ps3batchlaunchercreator) that automatically generates these batch files for you.
-
-**Sega Model 3**
-
-You should create a folder with BAT files that directly call the supermodel emulator.<br>
-
-BAT file example:
-```bat
-cd /d D:\Emulators\Supermodel
-Supermodel.exe "D:\Sega Model3\bass.zip" -fullscreen -show-fps
-```
-
-Adjust the batch file as per your needs. You need a separate batch file for each game (or ROM) you own. Name each batch file with the same name as the game (or ROM).<br>
-Before using Simple Launcher, first try running your batch file directly. If it works there, it will also work within 'Simple Launcher'.
+Use the Simple Launcher Tools to generate BAT files for you.
 
 **ScummVM Games**
 
-You should create a folder with BAT files that directly call the game.<br>
+Use the Simple Launcher Tools to generate BAT files for you.
 
-Bat file model:
-```bat
-[ScummVM Folder]\scummvm.exe -p "[BAT Folder]\[Game Folder]" --auto-detect --fullscreen
-```
+**Sega Model 3**
 
-Bat file example:
-```bat
-D:\Emulators\ScummVM\scummvm.exe -p "I:\ScummVM\The Curse Of Monkey Island (CD Windows)" --auto-detect --fullscreen
-```
+Use the Simple Launcher Tools to generate BAT files for you.
+
+**Sony Playstation 3**
+
+Use the Simple Launcher Tools to generate BAT files for you.
 
 ## Right Click Context Menu
 
