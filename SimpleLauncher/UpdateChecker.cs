@@ -284,7 +284,7 @@ namespace SimpleLauncher
                     {
                         // Ask user if they want to be redirected to the download page
                         var messageBoxResult = MessageBox.Show(
-                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update manually?",
+                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update it manually?",
                             "Update Error",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Error);
@@ -427,7 +427,7 @@ namespace SimpleLauncher
                     {
                         // Ask user if they want to be redirected to the download page
                         var messageBoxResult = MessageBox.Show(
-                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update manually?",
+                            "There was an error updating the application.\n\nWould you like to be redirected to the download page to update it manually?",
                             "Update Error",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Error);
@@ -532,8 +532,8 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    // Log and show error if the user does not want to download
-                    MessageBox.Show("Please try reinstalling Simple Launcher manually.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Show error if the user does not want to download
+                    MessageBox.Show("Please update Simple Launcher manually.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
