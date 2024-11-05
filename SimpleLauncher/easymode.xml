@@ -1865,10 +1865,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-<!--                <ExtrasLocation/>-->
-<!--                <ExtrasLatestVersion/>-->
-<!--                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ExtrasDownloadLink>-->
-<!--                <ExtrasDownloadExtractPath>.\images\Sony Playstation 3</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony Playstation 3</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>

@@ -2,7 +2,8 @@ release3.4.2
 ------------
 
 11/05/2024
-- 
+- I have improved error and exception notification in several methods for both user and developer.
+- Added 'Sony PlayStation 3' image pack. 
 
 release3.4.1
 ------------
