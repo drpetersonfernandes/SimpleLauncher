@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SimpleLauncher
 {
@@ -97,9 +98,13 @@ namespace SimpleLauncher
             {
                 SetDefaultsAndSave();
 
-                string contextMessage = $"Error loading or parsing setting.xml from SettingsConfig class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string contextMessage = $"Error loading or parsing 'setting.xml' from SettingsConfig class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show("Simple Launcher does not have enough privileges to write to the file 'settings.xml'.\n" +
+                                "Please grant the application more privileges, or it won't work properly.\n" +
+                                "Try running it with administrative privileges.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

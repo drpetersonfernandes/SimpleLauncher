@@ -283,11 +283,12 @@ public static class GameLauncher
 
                 if (!fileFound)
                 {
-                    string errorMessage = @"Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the temp folder.";
+                    string errorMessage = @"Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the extracted folder.";
                     Exception exception = new(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
-                                
-                    MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the temp folder.\n\nPlease go in Edit System - Expert Mode and fix the settings.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the extracted folder.\n\n" +
+                                    "Please go to Edit System - Expert Mode and correct the settings for this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }

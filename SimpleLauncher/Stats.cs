@@ -40,22 +40,45 @@ public static class Stats
             string errorMessage = "API Key is missing in the CallApiAsync method.";
             Exception ex = new Exception(errorMessage);
             await LogErrors.LogErrorAsync(ex, errorMessage);
-
             return;
         }
 
-        try
+        int maxAttempts = 2;
+        int attempt = 0;
+        Exception lastException = null;
+
+        while (attempt < maxAttempts)
         {
-            HttpResponseMessage response = await client.GetAsync(ApiUrl);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(ApiUrl);
+                response.EnsureSuccessStatusCode();
+                return; // Success, exit method
+            }
+            catch (HttpRequestException ex)
+            {
+                lastException = ex;
+                if (attempt < maxAttempts - 1)
+                {
+                    await Task.Delay(2000); // Wait 2 seconds before retrying
+                }
+            }
+            catch (Exception ex)
+            {
+                lastException = ex;
+                break; // Exit if it's not a HttpRequestException
+            }
+
+            attempt++;
         }
-        catch (HttpRequestException ex)
+
+        if (lastException != null)
         {
-            await LogErrors.LogErrorAsync(ex, $"There was an error communicating with the stats API.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            await LogErrors.LogErrorAsync(ex, $"There was an unexpected error in CallApiAsync method.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
+            string errorMessage = lastException is HttpRequestException
+                ? $"There was an error communicating with the stats API.\n\nException type: {lastException.GetType().Name}\nException details: {lastException.Message}"
+                : $"There was an unexpected error in CallApiAsync method.\n\nException type: {lastException.GetType().Name}\nException details: {lastException.Message}";
+
+            await LogErrors.LogErrorAsync(lastException, errorMessage);
         }
     }
 }

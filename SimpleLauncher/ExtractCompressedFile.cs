@@ -28,9 +28,6 @@ namespace SimpleLauncher
             var pleaseWaitExtraction = new PleaseWaitExtraction();
             pleaseWaitExtraction.Show();
 
-            // Get filename
-            string archiveName = Path.GetFileNameWithoutExtension(archivePath);
-
             // Combine temp folder with generated temp folders
             string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
             Directory.CreateDirectory(tempDirectory);
