@@ -1557,6 +1557,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Sega Model 3</SystemName>
+        <SystemFolder>.\roms\Sega Model 3</SystemFolder>
+        <SystemImageFolder>.\images\Sega Model 3</SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bat</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Supermodel</EmulatorName>
+                <EmulatorLocation>.\emulators\Supermodel\Supermodel.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.supermodel3.com/Download.html</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.3.20102024</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.supermodel3.com/Files/Git_Snapshots/Supermodel_0.3a-git-f9cb795_Win64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\Supermodel\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamodel3.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sega Model 3</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Sega SC-3000</SystemName>
         <SystemFolder>.\roms\Sega SC-3000</SystemFolder>
         <SystemImageFolder>.\images\Sega SC-3000</SystemImageFolder>
