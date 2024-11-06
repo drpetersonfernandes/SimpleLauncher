@@ -839,6 +839,7 @@ namespace SimpleLauncher
 
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
+            GameFileGrid.Dispatcher.Invoke(() => GameListView.Items.Clear());
 
             try
             {
@@ -963,18 +964,28 @@ namespace SimpleLauncher
 
                 // Reload the FavoritesConfig
                 _favoritesConfig = _favoritesManager.LoadFavorites();
-    
+
                 // Create a new instance of GameButtonFactory with updated FavoritesConfig
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
-
+                
                 // Create Button action for each cell
                 foreach (var filePath in allFiles)
                 {
-                    // Adjust the CreateGameButton call.
-                    Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
-                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
-                }
+                    if (GridViewOption.IsChecked)
+                    {
+                        Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                        GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
+                    }
+                    else // For list view
+                    {
+                        // Create a new instance of GameListFactory with updated FavoritesConfig
+                        var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig,  this);
+                        var listViewItem = await gameListViewFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
+                        GameListView.Items.Add(listViewItem);
 
+                    }
+                }
+                
                 // Apply visibility settings to each button based on _settings.ShowGames
                 ApplyShowGamesSetting();
 
@@ -990,7 +1001,7 @@ namespace SimpleLauncher
                 MessageBox.Show("There was an error while creating the game buttons.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        
         public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
         {
             return await Task.Run(async () =>
@@ -1399,6 +1410,24 @@ namespace SimpleLauncher
                 
                 MessageBox.Show("An error occurred while launching CreateBatchFilesForWindowsGames.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (Equals(sender, GridViewOption))
+            {
+                GridViewOption.IsChecked = true;
+                ListViewOption.IsChecked = false;
+                GameFileGrid.Visibility = Visibility.Visible;
+                GameListView.Visibility = Visibility.Collapsed;
+            }
+            else if (Equals(sender, ListViewOption))
+            {
+                GridViewOption.IsChecked = false;
+                ListViewOption.IsChecked = true;
+                GameFileGrid.Visibility = Visibility.Collapsed;
+                GameListView.Visibility = Visibility.Visible;
             }
         }
 

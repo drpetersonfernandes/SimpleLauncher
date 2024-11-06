@@ -16,6 +16,10 @@
 
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Options">
+                <MenuItem Header="View Mode">
+                    <MenuItem x:Name="GridViewOption" Header="Grid View" Click="ChangeViewMode_Click" IsCheckable="True" IsChecked="True"/>
+                    <MenuItem x:Name="ListViewOption" Header="List View" Click="ChangeViewMode_Click" IsCheckable="True"/>
+                </MenuItem>
                 <MenuItem Header="Set Thumbnail Size">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/image.png"
@@ -312,6 +316,16 @@
                 <!--  Items will be added here programmatically  -->
             </WrapPanel>
         </ScrollViewer>
+        
+        <ListView x:Name="GameListView" Visibility="Collapsed" Grid.Row="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="File Name" Width="200" DisplayMemberBinding="{Binding FileName}"/>
+                    <GridViewColumn Header="Machine Description" Width="300" DisplayMemberBinding="{Binding MachineDescription}"/>
+                    <GridViewColumn Header="System Folder" Width="200" DisplayMemberBinding="{Binding SystemFolder}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <Grid Grid.Row="3" VerticalAlignment="Center"
               Margin="10,5,10,5">
