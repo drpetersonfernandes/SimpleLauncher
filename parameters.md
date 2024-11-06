@@ -412,6 +412,11 @@ Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
 Please read core documentation.
 
+**Emulator Name:** MSXEC<br>
+**Emulator Location:** [MSXEC Folder]\MSXEC.EXE<br>
+**Emulator Location (Example):** C:\emulators\MSXEC\MSXEC.exe<br>
+**Emulator Parameters:** 
+
 ## Microsoft MSX2
 
 **System Folder:** [ROM Folder]<br>
@@ -444,6 +449,11 @@ Please read core documentation.
 Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
 Please read core documentation.
+
+**Emulator Name:** MSXEC<br>
+**Emulator Location:** [MSXEC Folder]\MSXEC.EXE<br>
+**Emulator Location (Example):** C:\emulators\MSXEC\MSXEC.exe<br>
+**Emulator Parameters:**
 
 ## Microsoft Windows
 

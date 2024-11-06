@@ -68,6 +68,15 @@ The CHD folders should be in the same folder as the ROM zipped files.
 
 Use the Simple Launcher Tools to generate BAT files for you.
 
+**Microsoft XBOX 360 XBLA**
+
+Compress each game folder into a zipped file.<br>
+Configure Simple Launcher to extract the file before launch.<br>
+Configure the format to launch after extraction as `bin`.<br>
+When a user launches a game, Simple Launcher will look into every folder inside the game folder
+to find the folder `000D0000`, then launch the first found file.<br>
+For this logic to work, the system name needs to have `XBLA` in its name.
+
 **ScummVM Games**
 
 Use the Simple Launcher Tools to generate BAT files for you.

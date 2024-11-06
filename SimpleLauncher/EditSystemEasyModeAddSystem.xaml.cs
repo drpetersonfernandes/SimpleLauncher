@@ -550,7 +550,7 @@ namespace SimpleLauncher
             }
             catch (HttpRequestException ex)
             {
-                string formattedException = $"Network error during file download.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"Network error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 MessageBox.Show("There was an network error.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
