@@ -333,9 +333,9 @@
                       MouseDoubleClick="GameDataGrid_MouseDoubleClick"
                       Margin="10"
                       BorderThickness="1"
-                      BorderBrush="Gray"
-                      Background="White"
-                      Foreground="Black"
+                      BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}" 
+                      Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                      Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       IsReadOnly="True"
@@ -344,6 +344,20 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" /> <!-- Text color from theme -->
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" /> <!-- Row background from theme -->
+
+                        <!-- Trigger to control the hover background and foreground color -->
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" /> <!-- Accent color for selected row -->
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" /> <!-- Keep text color from theme on hover -->
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" /> <!-- Accent color for selected row -->
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" /> <!-- Ideal foreground color on selection -->
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
@@ -354,11 +368,11 @@
 
             <!-- Preview area in the right column -->
             <StackPanel Grid.Column="1" Margin="10">
-                <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
-                <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
+                <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" 
+                       Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray2}" BorderThickness="1" Padding="5">
                     <Grid>
-                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch" />
+                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </Grid>
                 </Border>
             </StackPanel>

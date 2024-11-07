@@ -70,10 +70,26 @@ namespace SimpleLauncher
             launchMenuItem.Click += async (_, _) => await LaunchGame(filePath, systemName);
             contextMenu.Items.Add(launchMenuItem);
 
-            var addToFavoritesMenuItem = new MenuItem { Header = "Add to Favorites" };
-            addToFavoritesMenuItem.Click += (_, _) => AddToFavorites(systemName, Path.GetFileName(filePath));
+            // Add To Favorites
+            var addToFavoritesIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+                Width = 16,
+                Height = 16
+            };
+            var addToFavoritesMenuItem = new MenuItem
+            {
+                Header = "Add To Favorites",
+                Icon = addToFavoritesIcon
+            };
+            addToFavoritesMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                AddToFavorites(systemName, Path.GetFileName(filePath));
+            };
             contextMenu.Items.Add(addToFavoritesMenuItem);
 
+            // Return
             return contextMenu;
         }
 
@@ -105,7 +121,7 @@ namespace SimpleLauncher
         {
             if (selectedItem != null)
             {
-                string filePath = selectedItem.FilePath;  // Use the full file path here
+                string filePath = selectedItem.FilePath;
                 string selectedSystem = _systemComboBox.SelectedItem as string;
                 var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
@@ -114,8 +130,24 @@ namespace SimpleLauncher
                     // Get the preview image path
                     string previewImagePath = GetPreviewImagePath(filePath, systemConfig);
 
-                    // Update the preview image in MainWindow
-                    _mainWindow.PreviewImage.Source = new BitmapImage(new Uri(previewImagePath, UriKind.RelativeOrAbsolute));
+                    // Set the preview image if a valid path is returned
+                    if (!string.IsNullOrEmpty(previewImagePath))
+                    {
+                        _mainWindow.Dispatcher.Invoke(() =>
+                        {
+                            var bitmap = new BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.UriSource = new Uri(previewImagePath, UriKind.RelativeOrAbsolute);
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
+                            bitmap.EndInit();
+                            _mainWindow.PreviewImage.Source = bitmap;
+                        });
+                    }
+                    else
+                    {
+                        // Optionally, clear the image if no preview is available
+                        _mainWindow.PreviewImage.Source = null;
+                    }
                 }
             }
         }
@@ -124,14 +156,14 @@ namespace SimpleLauncher
         {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
 
-            // First, check in the SystemImageFolder if it's defined
+            // Determine the image folder based on whether SystemImageFolder is set
             string imageFolder = !string.IsNullOrEmpty(systemConfig.SystemImageFolder)
                 ? systemConfig.SystemImageFolder
                 : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName);
 
             string[] extensions = [".png", ".jpg", ".jpeg"];
 
-            // Look for the image file in the defined or default image folder
+            // Look for the image file in the specified or default image folder
             foreach (var extension in extensions)
             {
                 string imagePath = Path.Combine(imageFolder, $"{fileNameWithoutExtension}{extension}");
@@ -149,7 +181,13 @@ namespace SimpleLauncher
             }
 
             // If user-defined default image isn't found, fallback to the global default image
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
+            string globalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
+            if (File.Exists(globalDefaultImagePath))
+            {
+                return globalDefaultImagePath;
+            }
+            return string.Empty; // Return empty if no image is found
         }
+
     }
 }
