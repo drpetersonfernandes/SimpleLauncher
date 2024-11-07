@@ -108,9 +108,8 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show("Simple Launcher does not have enough privileges to write to the file 'settings.xml'.\n" +
-                                "Please grant the application more privileges, or it won't work properly.\n" +
-                                "Try running it with administrative privileges.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Simple Launcher does not have enough privileges to write to the file 'settings.xml'.\n\nPlease grant the application more privileges, or it won't work properly.\n\nTry running it with administrative privileges.",
+                    @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -321,39 +321,36 @@
             </WrapPanel>
         </ScrollViewer>
         
-        <!-- Embedded Grid for ListView and Preview Area -->
+        <!-- Embedded Grid for DataGrid and Preview Area -->
         <Grid x:Name="ListViewPreviewArea" Grid.Row="2" Visibility="Collapsed" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4.5*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- ListView in the left column -->
-            <ListView x:Name="GameListView"
+            <!-- DataGrid in the left column -->
+            <DataGrid Name="GameDataGrid"
+                      MouseDoubleClick="GameDataGrid_MouseDoubleClick"
                       Margin="10"
                       BorderThickness="1"
                       BorderBrush="Gray"
                       Background="White"
-                      ScrollViewer.CanContentScroll="True">
-                <ListView.Resources>
-                    <!-- Header Style -->
-                    <Style TargetType="GridViewColumnHeader">
-                        <Setter Property="Background" Value="#E5E5E5" />
-                        <Setter Property="Padding" Value="5,3" />
-                        <Setter Property="BorderBrush" Value="Gray" />
-                        <Setter Property="BorderThickness" Value="1,0,1,1" />
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                      Foreground="Black"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="All"
+                      SelectionChanged="GameDataGrid_SelectionChanged">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
                     </Style>
-                </ListView.Resources>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="File Name" Width="200" DisplayMemberBinding="{Binding FileName}" />
-                        <GridViewColumn Header="Machine Description (for MAME files)" Width="300" DisplayMemberBinding="{Binding MachineDescription}" />
-                        <GridViewColumn Header="System Folder" Width="200" DisplayMemberBinding="{Binding SystemFolder}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
+                    <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
 
             <!-- Preview area in the right column -->
             <StackPanel Grid.Column="1" Margin="10">

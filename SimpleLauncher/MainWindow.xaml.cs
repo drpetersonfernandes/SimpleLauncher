@@ -52,6 +52,9 @@ namespace SimpleLauncher
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
+        // Declare _gameListViewFactory
+        private GameListViewFactory _gameListViewFactory;
+        
         // tray icon
         private NotifyIcon _trayIcon;
         private ContextMenuStrip _trayMenu;
@@ -84,10 +87,6 @@ namespace SimpleLauncher
         {
             InitializeComponent();
             
-            // Default values for SelectedSystem and PlayTime
-            SelectedSystem = "No system selected";
-            PlayTime = "00:00:00";
-
             DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
             
             // Tray icon
@@ -105,15 +104,12 @@ namespace SimpleLauncher
             _favoritesConfig = _favoritesManager.LoadFavorites();
             
             // Load mame.xml
-            // string xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.xml");
             _machines = MameConfig.LoadFromXml();
             
             // Load system.xml
             try
             {
-                // string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
                 _systemConfigs = SystemConfig.LoadSystemConfigs();
-
                 // Sort the system names in alphabetical order
                 var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
 
@@ -125,7 +121,7 @@ namespace SimpleLauncher
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("The file system.xml is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The file 'system.xml' is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Shutdown current application instance
                 Application.Current.Shutdown();
@@ -182,8 +178,8 @@ namespace SimpleLauncher
             // Pagination related
             PrevPageButton.IsEnabled = false;
             NextPageButton.IsEnabled = false;
-            _prevPageButton = PrevPageButton; // Connects the field to the XAML-defined button
-            _nextPageButton = NextPageButton; // Connects the field to the XAML-defined button
+            _prevPageButton = PrevPageButton;
+            _nextPageButton = NextPageButton;
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
@@ -197,13 +193,13 @@ namespace SimpleLauncher
             // Check for updates using Async Event Handler
             Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
             
+            // Stats using Async Event Handler
+            Loaded += async (_, _) => await Stats.CallApiAsync();
+
             // Attach the Load and Close event handler.
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-            
-            // Stats using Async Event Handler
-            Loaded += async (_, _) => await Stats.CallApiAsync();
             
             // Check for command-line arguments
             var args = Environment.GetCommandLineArgs();
@@ -212,6 +208,11 @@ namespace SimpleLauncher
                 // Show UpdateHistory after the MainWindow is fully loaded
                 Loaded += (_, _) => OpenUpdateHistory();
             }
+            
+            // Initialize _gameListViewFactory with required parameters
+            _gameListViewFactory = new GameListViewFactory(
+                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
+            );
         }
         
         // Open UpdateHistory window
@@ -221,7 +222,7 @@ namespace SimpleLauncher
             updateHistoryWindow.Show();
         }
 
-        // The app will delete generated temp files before close.
+        // Method to delete generated temp files before close.
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             ExtractCompressedFile.Instance2.Cleanup();
@@ -237,9 +238,9 @@ namespace SimpleLauncher
             _settings.MainWindowState = WindowState.ToString();
 
             // Set other settings from the application's current state
-            _settings.ThumbnailSize = _gameButtonFactory.ImageHeight; // Assuming ImageHeight is used for ThumbnailSize
+            _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
             _settings.GamesPerPage = _filesPerPage;
-            _settings.ShowGames = _settings.ShowGames; // This assumes the setting is already updated correctly
+            _settings.ShowGames = _settings.ShowGames;
             _settings.EnableGamePadNavigation = EnableGamePadNavigation.IsChecked;
 
             // Save theme settings
@@ -253,24 +254,29 @@ namespace SimpleLauncher
             _settings.Save();
         }
 
-        // Load state and size of MainWindow and also the theme from settings.xml
+        // Windows Load method
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // Windows state
             Width = _settings.MainWindowWidth;
             Height = _settings.MainWindowHeight;
             Top = _settings.MainWindowTop;
             Left = _settings.MainWindowLeft;
             WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+            
+            // SelectedSystem and PlayTime
+            SelectedSystem = "No system selected";
+            PlayTime = "00:00:00";
 
-            // Apply saved theme settings
+            // Theme settings
             App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
             SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
             
-            // Set ViewMode based on settings
+            // ViewMode state
             SetViewMode(_settings.ViewMode);
         }
 
-        // Dispose gamepad resources and Save MainWindow state and size to setting.xml before close.
+        // Dispose gamepad resources and Save MainWindow state before window close.
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             GamePadController.Instance2.Stop();
@@ -304,7 +310,7 @@ namespace SimpleLauncher
             }
         }
         
-        // Helper method to set the ViewMode
+        // Set ViewMode
         private void SetViewMode(string viewMode)
         {
             if (viewMode == "ListView")
@@ -368,7 +374,7 @@ namespace SimpleLauncher
             if (WindowState == WindowState.Minimized)
             {
                 Hide();
-                ShowTrayMessage("SimpleLauncher is minimized to the tray.");
+                ShowTrayMessage("Simple Launcher is minimized to the tray.");
             }
             base.OnStateChanged(e);
         }
@@ -393,9 +399,9 @@ namespace SimpleLauncher
 
         private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SearchTextBox.Text = "";
-            EmulatorComboBox.ItemsSource = null;
-            EmulatorComboBox.SelectedIndex = -1;
+            SearchTextBox.Text = ""; // Empty search field
+            EmulatorComboBox.ItemsSource = null; // Null selected emulator
+            EmulatorComboBox.SelectedIndex = -1; // No emulator selected
             
             // Reset search results
             _currentSearchResults.Clear();
@@ -456,6 +462,7 @@ namespace SimpleLauncher
             }
         }
 
+        # region SystemInfo
         private static int CountFiles(string folderPath, List<string> fileExtensions)
         {
             if (!Directory.Exists(folderPath))
@@ -498,7 +505,7 @@ namespace SimpleLauncher
                 Margin = new Thickness(10)
             };
 
-            // Create and add system info TextBlock
+            // Create and add System Info TextBlock
             var systemInfoTextBlock = new TextBlock
             {
                 Text = $"\nSystem Folder: {systemFolder}\n" +
@@ -630,6 +637,34 @@ namespace SimpleLauncher
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         
+        private void AddNoSystemMessage()
+        {
+            GameFileGrid.Children.Clear();
+            GameFileGrid.Children.Add(new TextBlock
+            {
+                Text = "\nPlease select a System",
+                Padding = new Thickness(10)
+            });
+
+            // Deselect any selected letter when no system is selected
+            _letterNumberMenu.DeselectLetter();
+        }
+        
+        private void NoFilesMessage()
+        {
+            GameFileGrid.Children.Clear();
+            GameFileGrid.Children.Add(new TextBlock
+            {
+                Text = "\nUnfortunately, no games matched your search query or the selected button.",
+                Padding = new Thickness(10)
+            });
+
+            // Deselect any selected letter when no system is selected
+            _letterNumberMenu.DeselectLetter();
+        }
+        
+        #endregion
+        
         private void ApplyShowGamesSetting()
         {
             switch (_settings.ShowGames)
@@ -645,7 +680,9 @@ namespace SimpleLauncher
                     break;
             }
         }
-        
+
+        #region Pagination
+
         private void ResetPaginationButtons()
         {
             _prevPageButton.IsEnabled = false;
@@ -683,7 +720,7 @@ namespace SimpleLauncher
                 string errorMessage = $"Previous page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show("There was an error in the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error in this button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -711,7 +748,7 @@ namespace SimpleLauncher
                 string errorMessage = $"Next page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show("There was an error with the button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error with this button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -721,64 +758,11 @@ namespace SimpleLauncher
             _prevPageButton.IsEnabled = _currentPage > 1;
             _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
         }
-
-        private void AddNoSystemMessage()
-        {
-            GameFileGrid.Children.Clear();
-            GameFileGrid.Children.Add(new TextBlock
-            {
-                Text = "\nPlease select a System",
-                Padding = new Thickness(10)
-            });
-
-            // Deselect any selected letter when no system is selected
-            _letterNumberMenu.DeselectLetter();
-        }
         
-        private void NoFilesMessage()
-        {
-            GameFileGrid.Children.Clear();
-            GameFileGrid.Children.Add(new TextBlock
-            {
-                Text = "\nUnfortunately, no games matched your search query or the selected button.",
-                Padding = new Thickness(10)
-            });
+        #endregion
 
-            // Deselect any selected letter when no system is selected
-            _letterNumberMenu.DeselectLetter();
-        }
-
-        private void UpdateMenuCheckMarks(int selectedSize)
-        {
-            Size100.IsChecked = (selectedSize == 100);
-            Size150.IsChecked = (selectedSize == 150);
-            Size200.IsChecked = (selectedSize == 200);
-            Size250.IsChecked = (selectedSize == 250);
-            Size300.IsChecked = (selectedSize == 300);
-            Size350.IsChecked = (selectedSize == 350);
-            Size400.IsChecked = (selectedSize == 400);
-            Size450.IsChecked = (selectedSize == 450);
-            Size500.IsChecked = (selectedSize == 500);
-            Size550.IsChecked = (selectedSize == 550);
-            Size600.IsChecked = (selectedSize == 600);
-        }
+        #region MainWindow Search
         
-        private void UpdateMenuCheckMarks2(int selectedSize)
-        {
-            Page100.IsChecked = (selectedSize == 100);
-            Page200.IsChecked = (selectedSize == 200);
-            Page300.IsChecked = (selectedSize == 300);
-            Page400.IsChecked = (selectedSize == 400);
-            Page500.IsChecked = (selectedSize == 500);
-        }
-        
-        private void UpdateMenuCheckMarks3(string selectedValue)
-        {
-            ShowAll.IsChecked = (selectedValue == "ShowAll");
-            ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
-            ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
-        }
-       
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             await ExecuteSearch();
@@ -837,6 +821,8 @@ namespace SimpleLauncher
                 await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
             }
         }
+        
+        #endregion
 
         private Task ShowPleaseWaitWindowAsync(Window window)
         {
@@ -861,7 +847,7 @@ namespace SimpleLauncher
 
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-            await Dispatcher.InvokeAsync(() => GameListView.Items.Clear());
+            await Dispatcher.InvokeAsync(() => GameDataGrid.Items.Clear());
             
             // Check ViewMode and apply it to the UI
             if (_settings.ViewMode == "GridView")
@@ -1001,11 +987,11 @@ namespace SimpleLauncher
                 // Reload the FavoritesConfig
                 _favoritesConfig = _favoritesManager.LoadFavorites();
                 
-                // Create a new instance of GameButtonFactory with updated FavoritesConfig
+                // Initialize GameButtonFactory with updated FavoritesConfig
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
                 
-                // Create a new instance of GameListFactory with updated FavoritesConfig
-                var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig,  this);
+                // Initialize GameListFactory with updated FavoritesConfig
+                var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
 
                 // Display files based on ViewMode
                 foreach (var filePath in allFiles)
@@ -1017,8 +1003,8 @@ namespace SimpleLauncher
                     }
                     else // For list view
                     {
-                        var listViewItem = await gameListViewFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
-                        await Dispatcher.InvokeAsync(() => GameListView.Items.Add(listViewItem));
+                        var gameListViewItem = await gameListViewFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
+                        await Dispatcher.InvokeAsync(() => GameDataGrid.Items.Add(gameListViewItem));
                     }
                 }
                 
@@ -1034,7 +1020,7 @@ namespace SimpleLauncher
                 string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-                MessageBox.Show("There was an error while creating the game buttons.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error while loading the game list.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -1056,7 +1042,7 @@ namespace SimpleLauncher
                     string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                    MessageBox.Show("There was an error finding the files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("There was an error finding the game files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return new List<string>();
                 }
             });
@@ -1118,7 +1104,7 @@ namespace SimpleLauncher
             {
                 var psi = new ProcessStartInfo
                 {
-                    FileName = "https://purelogiccode.com/Donate",
+                    FileName = "https://www.purelogiccode.com/Donate",
                     UseShellExecute = true
                 };
                 Process.Start(psi);
@@ -1221,7 +1207,6 @@ namespace SimpleLauncher
                     _settings.Save(); // Save the settings
                     UpdateMenuCheckMarks(newSize);
                     
-                    // Inform user
                     MessageBox.Show("The thumbnail size is set.\n\nReload the list of games to see the new size.", "Thumbnail size is set", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -1315,16 +1300,16 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("FindRomCover.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("'FindRomCover.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while launching FindRomCover.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("An error occurred while launching FindRomCover.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                MessageBox.Show("An error occurred while launching 'FindRomCover.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1345,16 +1330,16 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("CreateBatchFilesForPS3Games.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("'CreateBatchFilesForPS3Games.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while launching CreateBatchFilesForPS3Games.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("An error occurred while launching CreateBatchFilesForPS3Games.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                MessageBox.Show("An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1375,16 +1360,16 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("CreateBatchFilesForScummVMGames.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("'CreateBatchFilesForScummVMGames.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while launching CreateBatchFilesForScummVMGames.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("An error occurred while launching CreateBatchFilesForScummVMGames.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                MessageBox.Show("An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1405,16 +1390,16 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("CreateBatchFilesForSegaModel3Games.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("'CreateBatchFilesForSegaModel3Games.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while launching CreateBatchFilesForSegaModel3Games.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("An error occurred while launching CreateBatchFilesForSegaModel3Games.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                MessageBox.Show("An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1435,21 +1420,52 @@ namespace SimpleLauncher
                 }
                 else
                 {
-                    MessageBox.Show("CreateBatchFilesForWindowsGames.exe was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("'CreateBatchFilesForWindowsGames.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while launching CreateBatchFilesForWindowsGames.exe.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("An error occurred while launching CreateBatchFilesForWindowsGames.exe.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                MessageBox.Show("An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
                                 "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
-        private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
+        private void UpdateMenuCheckMarks(int selectedSize)
+        {
+            Size100.IsChecked = (selectedSize == 100);
+            Size150.IsChecked = (selectedSize == 150);
+            Size200.IsChecked = (selectedSize == 200);
+            Size250.IsChecked = (selectedSize == 250);
+            Size300.IsChecked = (selectedSize == 300);
+            Size350.IsChecked = (selectedSize == 350);
+            Size400.IsChecked = (selectedSize == 400);
+            Size450.IsChecked = (selectedSize == 450);
+            Size500.IsChecked = (selectedSize == 500);
+            Size550.IsChecked = (selectedSize == 550);
+            Size600.IsChecked = (selectedSize == 600);
+        }
+        
+        private void UpdateMenuCheckMarks2(int selectedSize)
+        {
+            Page100.IsChecked = (selectedSize == 100);
+            Page200.IsChecked = (selectedSize == 200);
+            Page300.IsChecked = (selectedSize == 300);
+            Page400.IsChecked = (selectedSize == 400);
+            Page500.IsChecked = (selectedSize == 500);
+        }
+        
+        private void UpdateMenuCheckMarks3(string selectedValue)
+        {
+            ShowAll.IsChecked = (selectedValue == "ShowAll");
+            ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
+            ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
+        }
+        
+        private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
         {
             if (Equals(sender, GridView))
             {
@@ -1460,9 +1476,8 @@ namespace SimpleLauncher
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-                LoadGameFilesAsync();
+                await LoadGameFilesAsync();
                 
-                //MessageBox.Show($"View mode changed to {_settings.ViewMode}", "View Mode Changed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else if (Equals(sender, ListView))
             {
@@ -1473,9 +1488,8 @@ namespace SimpleLauncher
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
                 
-                LoadGameFilesAsync();
+                await LoadGameFilesAsync();
                 
-                //MessageBox.Show($"View mode changed to {_settings.ViewMode}", "View Mode Changed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             _settings.Save(); // Save the updated ViewMode
         }
@@ -1541,7 +1555,6 @@ namespace SimpleLauncher
             MauveAccent.IsChecked = false;
             TaupeAccent.IsChecked = false;
             SiennaAccent.IsChecked = false;
-            // Uncheck other accent color menu items as needed
         }
 
         private void SetCheckedTheme(string baseTheme, string accentColor)
@@ -1631,5 +1644,24 @@ namespace SimpleLauncher
         }
         #endregion
 
+        private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GameDataGrid.SelectedItem is GameListViewFactory.GameListViewItem selectedItem)
+            {
+                var gameListViewFactory = new GameListViewFactory(
+                    EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
+                );
+                gameListViewFactory.HandleSelectionChanged(selectedItem);
+            }
+        }
+
+        private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (GameDataGrid.SelectedItem is GameListViewFactory.GameListViewItem selectedItem)
+            {
+                // Delegate the double-click handling to GameListViewFactory
+                await _gameListViewFactory.HandleDoubleClick(selectedItem);
+            }
+        }
     }
 }
