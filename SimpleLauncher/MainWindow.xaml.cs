@@ -265,6 +265,9 @@ namespace SimpleLauncher
             // Apply saved theme settings
             App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
             SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+            
+            // Set ViewMode based on settings
+            SetViewMode(_settings.ViewMode);
         }
 
         // Dispose gamepad resources and Save MainWindow state and size to setting.xml before close.
@@ -298,6 +301,21 @@ namespace SimpleLauncher
                 // Shutdown current application instance
                 Application.Current.Shutdown();
                 Environment.Exit(0);
+            }
+        }
+        
+        // Helper method to set the ViewMode
+        private void SetViewMode(string viewMode)
+        {
+            if (viewMode == "ListView")
+            {
+                ListView.IsChecked = true;
+                GridView.IsChecked = false;
+            }
+            else
+            {
+                GridView.IsChecked = true;
+                ListView.IsChecked = false;
             }
         }
        
@@ -381,6 +399,10 @@ namespace SimpleLauncher
             
             // Reset search results
             _currentSearchResults.Clear();
+            
+            // Hide ListView
+            GameFileGrid.Visibility = Visibility.Visible;
+            ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
             if (SystemComboBox.SelectedItem != null)
             {
@@ -839,7 +861,21 @@ namespace SimpleLauncher
 
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-            GameFileGrid.Dispatcher.Invoke(() => GameListView.Items.Clear());
+            await Dispatcher.InvokeAsync(() => GameListView.Items.Clear());
+            
+            // Check ViewMode and apply it to the UI
+            if (_settings.ViewMode == "GridView")
+            {
+                // Allow GridView
+                GameFileGrid.Visibility = Visibility.Visible;
+                ListViewPreviewArea.Visibility = Visibility.Collapsed;                
+            }
+            else
+            {
+                // Allow ListView
+                GameFileGrid.Visibility = Visibility.Collapsed;
+                ListViewPreviewArea.Visibility = Visibility.Visible;
+            }
 
             try
             {
@@ -964,25 +1000,25 @@ namespace SimpleLauncher
 
                 // Reload the FavoritesConfig
                 _favoritesConfig = _favoritesManager.LoadFavorites();
-
+                
                 // Create a new instance of GameButtonFactory with updated FavoritesConfig
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
                 
-                // Create Button action for each cell
+                // Create a new instance of GameListFactory with updated FavoritesConfig
+                var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig,  this);
+
+                // Display files based on ViewMode
                 foreach (var filePath in allFiles)
                 {
-                    if (GridViewOption.IsChecked)
+                    if (_settings.ViewMode == "GridView")
                     {
-                        Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, SystemComboBox.SelectedItem.ToString(), selectedConfig);
+                        Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedConfig);
                         GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                     }
                     else // For list view
                     {
-                        // Create a new instance of GameListFactory with updated FavoritesConfig
-                        var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig,  this);
                         var listViewItem = await gameListViewFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
-                        GameListView.Items.Add(listViewItem);
-
+                        await Dispatcher.InvokeAsync(() => GameListView.Items.Add(listViewItem));
                     }
                 }
                 
@@ -1415,20 +1451,33 @@ namespace SimpleLauncher
         
         private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
         {
-            if (Equals(sender, GridViewOption))
+            if (Equals(sender, GridView))
             {
-                GridViewOption.IsChecked = true;
-                ListViewOption.IsChecked = false;
+                GridView.IsChecked = true;
+                ListView.IsChecked = false;
+                _settings.ViewMode = "GridView";
+                
                 GameFileGrid.Visibility = Visibility.Visible;
-                GameListView.Visibility = Visibility.Collapsed;
+                ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+                LoadGameFilesAsync();
+                
+                //MessageBox.Show($"View mode changed to {_settings.ViewMode}", "View Mode Changed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (Equals(sender, ListViewOption))
+            else if (Equals(sender, ListView))
             {
-                GridViewOption.IsChecked = false;
-                ListViewOption.IsChecked = true;
+                GridView.IsChecked = false;
+                ListView.IsChecked = true;
+                _settings.ViewMode = "ListView";
+                
                 GameFileGrid.Visibility = Visibility.Collapsed;
-                GameListView.Visibility = Visibility.Visible;
+                ListViewPreviewArea.Visibility = Visibility.Visible;
+                
+                LoadGameFilesAsync();
+                
+                //MessageBox.Show($"View mode changed to {_settings.ViewMode}", "View Mode Changed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            _settings.Save(); // Save the updated ViewMode
         }
 
         #endregion

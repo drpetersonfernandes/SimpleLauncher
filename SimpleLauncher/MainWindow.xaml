@@ -16,10 +16,6 @@
 
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="Options">
-                <MenuItem Header="View Mode">
-                    <MenuItem x:Name="GridViewOption" Header="Grid View" Click="ChangeViewMode_Click" IsCheckable="True" IsChecked="True"/>
-                    <MenuItem x:Name="ListViewOption" Header="List View" Click="ChangeViewMode_Click" IsCheckable="True"/>
-                </MenuItem>
                 <MenuItem Header="Set Thumbnail Size">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/image.png"
@@ -95,6 +91,14 @@
                         x:Name="Page500"
                         Click="GamesPerPage_Click"
                         Header="500 games" />
+                </MenuItem>
+                <MenuItem Header="View Mode">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/show.png"
+                               Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="GridView" Header="Grid View" Click="ChangeViewMode_Click" IsCheckable="True" IsChecked="True"/>
+                    <MenuItem x:Name="ListView" Header="List View" Click="ChangeViewMode_Click" IsCheckable="True"/>
                 </MenuItem>
                 <MenuItem Header="Show Games" x:Name="ShowGamesMenu">
                     <MenuItem.Icon>
@@ -317,15 +321,51 @@
             </WrapPanel>
         </ScrollViewer>
         
-        <ListView x:Name="GameListView" Visibility="Collapsed" Grid.Row="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="File Name" Width="200" DisplayMemberBinding="{Binding FileName}"/>
-                    <GridViewColumn Header="Machine Description" Width="300" DisplayMemberBinding="{Binding MachineDescription}"/>
-                    <GridViewColumn Header="System Folder" Width="200" DisplayMemberBinding="{Binding SystemFolder}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <!-- Embedded Grid for ListView and Preview Area -->
+        <Grid x:Name="ListViewPreviewArea" Grid.Row="2" Visibility="Collapsed" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4.5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ListView in the left column -->
+            <ListView x:Name="GameListView"
+                      Margin="10"
+                      BorderThickness="1"
+                      BorderBrush="Gray"
+                      Background="White"
+                      ScrollViewer.CanContentScroll="True">
+                <ListView.Resources>
+                    <!-- Header Style -->
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="#E5E5E5" />
+                        <Setter Property="Padding" Value="5,3" />
+                        <Setter Property="BorderBrush" Value="Gray" />
+                        <Setter Property="BorderThickness" Value="1,0,1,1" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="File Name" Width="200" DisplayMemberBinding="{Binding FileName}" />
+                        <GridViewColumn Header="Machine Description (for MAME files)" Width="300" DisplayMemberBinding="{Binding MachineDescription}" />
+                        <GridViewColumn Header="System Folder" Width="200" DisplayMemberBinding="{Binding SystemFolder}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <!-- Preview area in the right column -->
+            <StackPanel Grid.Column="1" Margin="10">
+                <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+                <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
+                    <Grid>
+                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
 
         <Grid Grid.Row="3" VerticalAlignment="Center"
               Margin="10,5,10,5">

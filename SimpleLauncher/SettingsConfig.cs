@@ -21,10 +21,15 @@ namespace SimpleLauncher
         private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
         private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500];
         private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
+        private readonly HashSet<string> _validViewModes =
+        [
+            "GridView", "ListView"
+        ];
 
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
         public string ShowGames { get; set; }
+        public string ViewMode { get; set; }  // New ViewMode property
         public bool EnableGamePadNavigation { get; set; }
         public string VideoUrl { get; set; }
         public string InfoUrl { get; set; }
@@ -65,6 +70,7 @@ namespace SimpleLauncher
                 ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
                 GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
                 ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
+                ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
                 EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
                 VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
                 InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
@@ -130,6 +136,11 @@ namespace SimpleLauncher
         {
             return _validShowGames.Contains(value) ? value : "ShowAll";
         }
+        
+        private string ValidateViewMode(string value)
+        {
+            return _validViewModes.Contains(value) ? value : "GridView";
+        }
 
         private double ValidateDimension(string value, double defaultValue)
         {
@@ -154,6 +165,7 @@ namespace SimpleLauncher
             ThumbnailSize = 200;
             GamesPerPage = 100;
             ShowGames = "ShowAll";
+            ViewMode = "GridView";
             EnableGamePadNavigation = false;
             VideoUrl = "https://www.youtube.com/results?search_query=";
             InfoUrl = "https://www.igdb.com/search?q=";
@@ -183,6 +195,7 @@ namespace SimpleLauncher
                 new XElement("ThumbnailSize", ThumbnailSize),
                 new XElement("GamesPerPage", GamesPerPage),
                 new XElement("ShowGames", ShowGames),
+                new XElement("ViewMode", ViewMode),
                 new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
                 new XElement("VideoUrl", VideoUrl),
                 new XElement("InfoUrl", InfoUrl),

@@ -2,6 +2,7 @@
 <Settings>
   <ThumbnailSize>250</ThumbnailSize>
   <GamesPerPage>200</GamesPerPage>
+  <ViewMode>GridView</ViewMode>
   <ShowGames>ShowAll</ShowGames>
   <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
