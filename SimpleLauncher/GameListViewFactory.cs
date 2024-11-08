@@ -40,7 +40,7 @@ namespace SimpleLauncher
             public string MachineDescription { get; set; }
             public string FilePath { get; set; }
             public ContextMenu ContextMenu { get; set; }
-
+            public bool IsFavorite { get; set; } // New property
         }
 
         public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -48,13 +48,19 @@ namespace SimpleLauncher
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             string machineDescription = systemConfig.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
+            // Check if this file is a favorite
+            bool isFavorite = _favoritesConfig.FavoriteList
+                .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
+                          f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            
             // Create the GameListViewItem with file details
             var gameListViewItem = new GameListViewItem
             {
                 FileName = fileNameWithoutExtension,
                 MachineDescription = machineDescription,
                 FilePath = filePath,
-                ContextMenu = CreateContextMenu(filePath, systemName, systemConfig)
+                ContextMenu = CreateContextMenu(filePath, systemName, systemConfig),
+                IsFavorite = isFavorite
             };
 
             return Task.FromResult(gameListViewItem);
@@ -760,6 +766,7 @@ namespace SimpleLauncher
                     _favoritesManager.SaveFavorites(favorites);
 
                     MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 }
                 else
                 {
