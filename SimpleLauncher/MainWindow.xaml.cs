@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -22,6 +23,8 @@ namespace SimpleLauncher
 {
     public partial class MainWindow : INotifyPropertyChanged
     {
+        public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
+        
         // Logic to update the System Name and PlayTime in the Statusbar
         public event PropertyChangedEventHandler PropertyChanged;
         private string _selectedSystem;
@@ -183,6 +186,9 @@ namespace SimpleLauncher
 
             // Initialize _gameButtonFactory with settings
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
+            
+            // Initialize _gameListFactory with required parameters
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
 
             // Check if a system is already selected, otherwise show the message
             if (SystemComboBox.SelectedItem == null)
@@ -208,11 +214,7 @@ namespace SimpleLauncher
                 // Show UpdateHistory after the MainWindow is fully loaded
                 Loaded += (_, _) => OpenUpdateHistory();
             }
-            
-            // Initialize _gameListFactory with required parameters
-            _gameListFactory = new GameListFactory(
-                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
-            );
+
         }
         
         // Open UpdateHistory window
@@ -652,9 +654,9 @@ namespace SimpleLauncher
             }
             else
             {
-                // For List view, clear existing items in the DataGrid and add the message
-                GameDataGrid.Items.Clear();
-                GameDataGrid.Items.Add(new GameListFactory.GameListViewItem
+                // For List view, clear existing items in the ObservableCollection instead
+                GameListItems.Clear();
+                GameListItems.Add(new GameListFactory.GameListViewItem
                 {
                     FileName = "Please select a System",
                     MachineDescription = string.Empty
@@ -862,7 +864,10 @@ namespace SimpleLauncher
 
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-            await Dispatcher.InvokeAsync(() => GameDataGrid.Items.Clear());
+            await Dispatcher.InvokeAsync(() => GameListItems.Clear());
+            
+            // Clear the ObservableCollection
+            await Dispatcher.InvokeAsync(() => GameListItems.Clear());
             
             // Check ViewMode and apply it to the UI
             if (_settings.ViewMode == "GridView")
@@ -1006,7 +1011,7 @@ namespace SimpleLauncher
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
                 
                 // Initialize GameListFactory with updated FavoritesConfig
-                var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+                var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
 
                 // Display files based on ViewMode
                 foreach (var filePath in allFiles)
@@ -1018,8 +1023,8 @@ namespace SimpleLauncher
                     }
                     else // For list view
                     {
-                        var gameListViewItem = await gameListViewFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
-                        await Dispatcher.InvokeAsync(() => GameDataGrid.Items.Add(gameListViewItem));
+                        var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
+                        await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                     }
                 }
                 

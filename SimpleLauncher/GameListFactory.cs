@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameListFactory
+    public class GameListFactory
     {
         private readonly ComboBox _emulatorComboBox;
         private readonly ComboBox _systemComboBox;
@@ -34,13 +35,49 @@ namespace SimpleLauncher
             _mainWindow = mainWindow;
         }
 
-        public class GameListViewItem
+        public class GameListViewItem : INotifyPropertyChanged
         {
-            public string FileName { get; set; }
-            public string MachineDescription { get; set; }
+            private string _fileName;
+            private string _machineDescription;
             public string FilePath { get; init; }
             public ContextMenu ContextMenu { get; set; }
-            public bool IsFavorite { get; set; }
+            private bool _isFavorite;
+            
+            public bool IsFavorite
+            {
+                get => _isFavorite;
+                set
+                {
+                    _isFavorite = value;
+                    OnPropertyChanged(nameof(IsFavorite));
+                }
+            }
+
+            public string FileName
+            {
+                get => _fileName;
+                set
+                {
+                    _fileName = value;
+                    OnPropertyChanged(nameof(FileName));
+                }
+            }
+
+            public string MachineDescription
+            {
+                get => _machineDescription;
+                set
+                {
+                    _machineDescription = value;
+                    OnPropertyChanged(nameof(MachineDescription));
+                }
+            }
+            
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string name)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
         }
 
         public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -398,24 +435,28 @@ namespace SimpleLauncher
         {
             try
             {
-                // Load existing favorites
                 FavoritesConfig favorites = _favoritesManager.LoadFavorites();
 
-                // Add the new favorite if it doesn't already exist
                 if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                      && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
                 {
                     favorites.FavoriteList.Add(new Favorite
                     {
-                        FileName = fileNameWithExtension, // Use the file name with an extension
+                        FileName = fileNameWithExtension,
                         SystemName = systemName
                     });
 
-                    // Save the updated favorites list
                     _favoritesManager.SaveFavorites(favorites);
 
-                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Find the GameListViewItem and update its IsFavorite property
+                    var gameItem = _mainWindow.GameListItems
+                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)); 
+                    if (gameItem != null)
+                    {
+                        gameItem.IsFavorite = true;
+                    }
 
+                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -436,19 +477,22 @@ namespace SimpleLauncher
         {
             try
             {
-                // Load existing favorites
                 FavoritesConfig favorites = _favoritesManager.LoadFavorites();
 
-                // Find the favorite to remove
                 var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
                 if (favoriteToRemove != null)
                 {
                     favorites.FavoriteList.Remove(favoriteToRemove);
-
-                    // Save the updated favorites list
                     _favoritesManager.SaveFavorites(favorites);
+
+                    // Find the GameListViewItem and update its IsFavorite property
+                    var gameItem = _mainWindow.GameListItems
+                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)); 
+                    if (gameItem != null)
+                    {
+                        gameItem.IsFavorite = false;
+                    }
 
                     MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

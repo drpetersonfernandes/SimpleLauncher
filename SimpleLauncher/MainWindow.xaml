@@ -334,6 +334,7 @@
             <!-- DataGrid in the left column -->
             <DataGrid Name="GameDataGrid"
                       MouseDoubleClick="GameDataGrid_MouseDoubleClick"
+                      ItemsSource="{Binding GameListItems}"
                       Margin="10"
                       BorderThickness="1"
                       BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}" 
