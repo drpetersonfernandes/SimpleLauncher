@@ -52,8 +52,8 @@ namespace SimpleLauncher
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
-        // Declare _gameListViewFactory
-        private GameListViewFactory _gameListViewFactory;
+        // Declare _gameListFactory
+        private GameListFactory _gameListFactory;
         
         // tray icon
         private NotifyIcon _trayIcon;
@@ -209,8 +209,8 @@ namespace SimpleLauncher
                 Loaded += (_, _) => OpenUpdateHistory();
             }
             
-            // Initialize _gameListViewFactory with required parameters
-            _gameListViewFactory = new GameListViewFactory(
+            // Initialize _gameListFactory with required parameters
+            _gameListFactory = new GameListFactory(
                 EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
             );
         }
@@ -654,7 +654,7 @@ namespace SimpleLauncher
             {
                 // For List view, clear existing items in the DataGrid and add the message
                 GameDataGrid.Items.Clear();
-                GameDataGrid.Items.Add(new GameListViewFactory.GameListViewItem
+                GameDataGrid.Items.Add(new GameListFactory.GameListViewItem
                 {
                     FileName = "Please select a System",
                     MachineDescription = string.Empty
@@ -1006,7 +1006,7 @@ namespace SimpleLauncher
                 _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
                 
                 // Initialize GameListFactory with updated FavoritesConfig
-                var gameListViewFactory = new GameListViewFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+                var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
 
                 // Display files based on ViewMode
                 foreach (var filePath in allFiles)
@@ -1685,9 +1685,9 @@ namespace SimpleLauncher
 
         private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (GameDataGrid.SelectedItem is GameListViewFactory.GameListViewItem selectedItem)
+            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
             {
-                var gameListViewFactory = new GameListViewFactory(
+                var gameListViewFactory = new GameListFactory(
                     EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
                 );
                 gameListViewFactory.HandleSelectionChanged(selectedItem);
@@ -1696,10 +1696,10 @@ namespace SimpleLauncher
 
         private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (GameDataGrid.SelectedItem is GameListViewFactory.GameListViewItem selectedItem)
+            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
             {
-                // Delegate the double-click handling to GameListViewFactory
-                await _gameListViewFactory.HandleDoubleClick(selectedItem);
+                // Delegate the double-click handling to GameListFactory
+                await _gameListFactory.HandleDoubleClick(selectedItem);
             }
         }
     }

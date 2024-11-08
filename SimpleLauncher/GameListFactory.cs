@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
-    internal class GameListViewFactory
+    internal class GameListFactory
     {
         private readonly ComboBox _emulatorComboBox;
         private readonly ComboBox _systemComboBox;
@@ -21,7 +21,7 @@ namespace SimpleLauncher
         private readonly MainWindow _mainWindow;
         private readonly FavoritesManager _favoritesManager;
 
-        public GameListViewFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, 
+        public GameListFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, 
             List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, MainWindow mainWindow)
         {
             _emulatorComboBox = emulatorComboBox;
@@ -38,7 +38,7 @@ namespace SimpleLauncher
         {
             public string FileName { get; set; }
             public string MachineDescription { get; set; }
-            public string FilePath { get; set; }
+            public string FilePath { get; init; }
             public ContextMenu ContextMenu { get; set; }
             public bool IsFavorite { get; set; }
         }
@@ -373,6 +373,99 @@ namespace SimpleLauncher
             // Return
             return contextMenu;
         }
+        
+        private async Task LaunchGame(string filePath)
+        {
+            PlayClick.PlayClickSound();
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+        }
+
+        public async Task HandleDoubleClick(GameListViewItem selectedItem)
+        {
+            if (selectedItem == null) return;
+
+            string selectedSystem = _systemComboBox.SelectedItem as string;
+            var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+            if (systemConfig != null)
+            {
+                // Launch the game using the full file path stored in the selected item
+                await LaunchGame(selectedItem.FilePath);
+            }
+        }
+
+        private void AddToFavorites(string systemName, string fileNameWithExtension)
+        {
+            try
+            {
+                // Load existing favorites
+                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+                // Add the new favorite if it doesn't already exist
+                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    favorites.FavoriteList.Add(new Favorite
+                    {
+                        FileName = fileNameWithExtension, // Use the file name with an extension
+                        SystemName = systemName
+                    });
+
+                    // Save the updated favorites list
+                    _favoritesManager.SaveFavorites(favorites);
+
+                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show($"{fileNameWithExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"An error occurred while adding a game to the favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"An error occurred while adding this game to the favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private void RemoveFromFavorites(string systemName, string fileNameWithExtension)
+        {
+            try
+            {
+                // Load existing favorites
+                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+                // Find the favorite to remove
+                var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+                if (favoriteToRemove != null)
+                {
+                    favorites.FavoriteList.Remove(favoriteToRemove);
+
+                    // Save the updated favorites list
+                    _favoritesManager.SaveFavorites(favorites);
+
+                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"{fileNameWithExtension} is not in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"An error occurred while removing a game from favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"An error occurred while removing this game from favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private void OpenPcb(string systemName, string fileName)
         {
@@ -687,99 +780,6 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"There was a problem opening the Video Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void RemoveFromFavorites(string systemName, string fileNameWithExtension)
-        {
-            try
-            {
-                // Load existing favorites
-                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-                // Find the favorite to remove
-                var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
-                if (favoriteToRemove != null)
-                {
-                    favorites.FavoriteList.Remove(favoriteToRemove);
-
-                    // Save the updated favorites list
-                    _favoritesManager.SaveFavorites(favorites);
-
-                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show($"{fileNameWithExtension} is not in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                string formattedException = $"An error occurred while removing a game from favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-                
-                MessageBox.Show($"An error occurred while removing this game from favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public async Task HandleDoubleClick(GameListViewItem selectedItem)
-        {
-            if (selectedItem == null) return;
-
-            string selectedSystem = _systemComboBox.SelectedItem as string;
-            var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-            if (systemConfig != null)
-            {
-                // Launch the game using the full file path stored in the selected item
-                await LaunchGame(selectedItem.FilePath);
-            }
-        }
-
-        private async Task LaunchGame(string filePath)
-        {
-            PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
-        }
-
-        private void AddToFavorites(string systemName, string fileNameWithExtension)
-        {
-            try
-            {
-                // Load existing favorites
-                FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-                // Add the new favorite if it doesn't already exist
-                if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
-                {
-                    favorites.FavoriteList.Add(new Favorite
-                    {
-                        FileName = fileNameWithExtension, // Use the file name with an extension
-                        SystemName = systemName
-                    });
-
-                    // Save the updated favorites list
-                    _favoritesManager.SaveFavorites(favorites);
-
-                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                }
-                else
-                {
-                    MessageBox.Show($"{fileNameWithExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                string formattedException = $"An error occurred while adding a game to the favorites.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-                
-                MessageBox.Show($"An error occurred while adding this game to the favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         

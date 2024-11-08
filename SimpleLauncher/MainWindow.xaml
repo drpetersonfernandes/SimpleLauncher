@@ -7,7 +7,6 @@
                       MinHeight="500"
                       Closing="MainWindow_Closing">
     <Window.Resources>
-        <!-- Add the BooleanToVisibilityConverter to the resources -->
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Grid>
