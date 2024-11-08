@@ -22,7 +22,7 @@ namespace SimpleLauncher
         private readonly FavoritesManager _favoritesManager;
 
         public GameListViewFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, 
-                                   List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, MainWindow mainWindow)
+            List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, MainWindow mainWindow)
         {
             _emulatorComboBox = emulatorComboBox;
             _systemComboBox = systemComboBox;
@@ -40,7 +40,7 @@ namespace SimpleLauncher
             public string MachineDescription { get; set; }
             public string FilePath { get; set; }
             public ContextMenu ContextMenu { get; set; }
-            public bool IsFavorite { get; set; } // New property
+            public bool IsFavorite { get; set; }
         }
 
         public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -699,7 +699,7 @@ namespace SimpleLauncher
 
                 // Find the favorite to remove
                 var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (favoriteToRemove != null)
                 {

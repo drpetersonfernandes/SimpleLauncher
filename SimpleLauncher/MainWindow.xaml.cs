@@ -1491,7 +1491,18 @@ namespace SimpleLauncher
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-                await LoadGameFilesAsync();
+                // Ensure pagination is reset at the beginning
+                ResetPaginationButtons();
+                // Clear SearchTextBox
+                SearchTextBox.Text = "";
+                // Update current filter
+                _currentFilter = null;
+                // Empty SystemComboBox
+                _selectedSystem = null;
+                SystemComboBox.SelectedItem = null;
+                SelectedSystem = "No system selected";
+                PlayTime = "00:00:00";
+                AddNoSystemMessage();
                 
             }
             else if (Equals(sender, ListView))
@@ -1502,7 +1513,20 @@ namespace SimpleLauncher
                 
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
-                
+
+                // Ensure pagination is reset at the beginning
+                ResetPaginationButtons();
+                // Clear SearchTextBox
+                SearchTextBox.Text = "";
+                // Update current filter
+                _currentFilter = null;
+                // Empty SystemComboBox
+                _selectedSystem = null;
+                PreviewImage.Source = null;
+                SystemComboBox.SelectedItem = null;
+                SelectedSystem = "No system selected";
+                PlayTime = "00:00:00";
+                AddNoSystemMessage();
                 await LoadGameFilesAsync();
                 
             }
