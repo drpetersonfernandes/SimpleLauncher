@@ -639,12 +639,27 @@ namespace SimpleLauncher
         
         private void AddNoSystemMessage()
         {
-            GameFileGrid.Children.Clear();
-            GameFileGrid.Children.Add(new TextBlock
+            // Check the current view mode
+            if (_settings.ViewMode == "GridView")
             {
-                Text = "\nPlease select a System",
-                Padding = new Thickness(10)
-            });
+                // Clear existing content in Grid view and add the message
+                GameFileGrid.Children.Clear();
+                GameFileGrid.Children.Add(new TextBlock
+                {
+                    Text = "\nPlease select a System",
+                    Padding = new Thickness(10)
+                });
+            }
+            else
+            {
+                // For List view, clear existing items in the DataGrid and add the message
+                GameDataGrid.Items.Clear();
+                GameDataGrid.Items.Add(new GameListViewFactory.GameListViewItem
+                {
+                    FileName = "Please select a System",
+                    MachineDescription = string.Empty
+                });
+            }
 
             // Deselect any selected letter when no system is selected
             _letterNumberMenu.DeselectLetter();
