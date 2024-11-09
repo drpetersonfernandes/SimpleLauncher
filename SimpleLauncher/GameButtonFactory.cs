@@ -266,7 +266,7 @@ namespace SimpleLauncher
             openHistoryWindow.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                OpenHistoryWindow(systemName, fileNameWithoutExtension, filePath, systemConfig);
+                OpenHistoryWindow(systemName, fileNameWithoutExtension);
             };
 
             // Open Cover Context Menu
@@ -729,7 +729,7 @@ namespace SimpleLauncher
             }
         }
         
-        private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
+        private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension)
         {
             string romName = fileNameWithoutExtension.ToLowerInvariant();
            
@@ -743,7 +743,7 @@ namespace SimpleLauncher
 
             try
             {
-                var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, filePath, systemConfig);
+                var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm);
                 historyWindow.Show();
 
             }

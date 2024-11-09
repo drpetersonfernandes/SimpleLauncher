@@ -9,11 +9,22 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">
             <StackPanel>
-                <Image Name="PreviewImage"
-                       Height="200"
-                       Width="200"
-                       Stretch="Uniform"
-                       Margin="0,0,0,10"/>
+                <TextBox Name="RomNameTextBox" 
+                         IsReadOnly="True" 
+                         Text="{Binding RomName}" 
+                         FontWeight="Bold" 
+                         FontSize="16" 
+                         Margin="0" 
+                         HorizontalAlignment="Center"
+                         HorizontalScrollBarVisibility="Disabled" />
+                <TextBox Name="RomDescriptionTextBox" 
+                         IsReadOnly="True" 
+                         Text="{Binding RomDescription}" 
+                         FontWeight="Bold" 
+                         FontSize="16" 
+                         Margin="0,0,0,10" 
+                         HorizontalAlignment="Center"
+                         HorizontalScrollBarVisibility="Disabled" />
                 <TextBox Name="HistoryTextBlock" 
                          IsReadOnly="True" 
                          TextWrapping="Wrap" 
