@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher
 {
@@ -12,12 +13,14 @@ namespace SimpleLauncher
         private Button _selectedButton;
 
         public event Action<string> OnLetterSelected;
+        public event Action OnFavoritesSelected;
 
         public LetterNumberMenu()
         {
             InitializeAllButton();
             InitializeNumberButton();
             InitializeLetterButtons();
+            InitializeFavoritesButton();
         }
         
         private void InitializeNumberButton()
@@ -55,6 +58,33 @@ namespace SimpleLauncher
                 OnLetterSelected?.Invoke(null);
             };
             LetterPanel.Children.Add(allButton);
+        }
+        
+        private void InitializeFavoritesButton()
+        {
+            Button favoritesButton = new Button
+            {
+                Width = 30,
+                Height = 30,
+                ToolTip = "Favorites"
+            };
+
+            Image starImage = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+                Width = 16,
+                Height = 16
+            };
+            favoritesButton.Content = starImage;
+
+            // Attach event for Favorites button
+            favoritesButton.Click += (_, _) =>
+            {
+                UpdateSelectedButton(favoritesButton);
+                OnFavoritesSelected?.Invoke(); // Trigger favorites event
+            };
+
+            LetterPanel.Children.Add(favoritesButton);
         }
 
         private void UpdateSelectedButton(Button button)

@@ -56,7 +56,7 @@ namespace SimpleLauncher
         }
         
         // Declare _gameListFactory
-        private GameListFactory _gameListFactory;
+        private readonly GameListFactory _gameListFactory;
         
         // tray icon
         private NotifyIcon _trayIcon;
@@ -101,10 +101,6 @@ namespace SimpleLauncher
             // Set the initial theme
             App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
             SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
-            
-            // Initialize favorite's manager and load favorites
-            _favoritesManager = new FavoritesManager();
-            _favoritesConfig = _favoritesManager.LoadFavorites();
             
             // Load mame.xml
             _machines = MameConfig.LoadFromXml();
@@ -165,18 +161,35 @@ namespace SimpleLauncher
             // Create and integrate LetterNumberMenu
             _letterNumberMenu.OnLetterSelected += async selectedLetter =>
             {
-                // Ensure pagination is reset at the beginning
-                ResetPaginationButtons();
-
-                // Clear SearchTextBox
-                SearchTextBox.Text = "";
-    
-                // Update current filter
-                _currentFilter = selectedLetter;
-
-                // Load games
-                await LoadGameFilesAsync(selectedLetter);
+                ResetPaginationButtons(); // Ensure pagination is reset at the beginning
+                SearchTextBox.Text = "";  // Clear SearchTextBox
+                _currentFilter = selectedLetter; // Update current filter
+                await LoadGameFilesAsync(selectedLetter); // Load games
             };
+            
+            _letterNumberMenu.OnFavoritesSelected += async () =>
+            {
+                ResetPaginationButtons();
+                SearchTextBox.Text = ""; // Clear search field
+                _currentFilter = null; // Clear any active filter
+
+                // Filter favorites for the selected system and store them in _currentSearchResults
+                var favoriteGames = GetFavoriteGamesForSelectedSystem();
+                if (favoriteGames.Any())
+                {
+                    _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+                    await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync with "FAVORITES" query
+                }
+                else
+                {
+                    AddNoFilesMessage();
+                    MessageBox.Show("No favorite games found for the selected system.", "Favorites", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            };
+            
+            // Initialize favorite's manager and load favorites
+            _favoritesManager = new FavoritesManager();
+            _favoritesConfig = _favoritesManager.LoadFavorites();
             
             // Pagination related
             PrevPageButton.IsEnabled = false;
@@ -326,6 +339,36 @@ namespace SimpleLauncher
                 ListView.IsChecked = false;
             }
         }
+        
+        private List<string> GetFavoriteGamesForSelectedSystem()
+        {
+            // Reload favorites to ensure we have the latest data
+            _favoritesConfig = _favoritesManager.LoadFavorites();
+            
+            string selectedSystem = SystemComboBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedSystem))
+            {
+                return new List<string>();
+            }
+
+            // Retrieve the system configuration for the selected system
+            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+            if (selectedConfig == null)
+            {
+                return new List<string>();
+            }
+
+            // Get the system folder path
+            string systemFolderPath = selectedConfig.SystemFolder;
+
+            // Filter the favorites and build the full file path for each favorite game
+            var favoriteGamePaths = _favoritesConfig.FavoriteList
+                .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
+                .Select(fav => Path.Combine(systemFolderPath, fav.FileName))
+                .ToList();
+
+            return favoriteGamePaths;
+        }
        
         #region TrayIcon
         
@@ -404,6 +447,7 @@ namespace SimpleLauncher
             SearchTextBox.Text = ""; // Empty search field
             EmulatorComboBox.ItemsSource = null; // Null selected emulator
             EmulatorComboBox.SelectedIndex = -1; // No emulator selected
+            PreviewImage.Source = null; // Empty PreviewImage
             
             // Reset search results
             _currentSearchResults.Clear();
@@ -667,14 +711,29 @@ namespace SimpleLauncher
             _letterNumberMenu.DeselectLetter();
         }
         
-        private void NoFilesMessage()
+        private void AddNoFilesMessage()
         {
-            GameFileGrid.Children.Clear();
-            GameFileGrid.Children.Add(new TextBlock
+            // Check the current view mode
+            if (_settings.ViewMode == "GridView")
             {
-                Text = "\nUnfortunately, no games matched your search query or the selected button.",
-                Padding = new Thickness(10)
-            });
+                // Clear existing content in Grid view and add the message
+                GameFileGrid.Children.Clear();
+                GameFileGrid.Children.Add(new TextBlock
+                {
+                    Text = "\nUnfortunately, no games matched your search query or the selected button.",
+                    Padding = new Thickness(10)
+                });
+            }
+            else
+            {
+                // For List view, clear existing items in the ObservableCollection instead
+                GameListItems.Clear();
+                GameListItems.Add(new GameListFactory.GameListViewItem
+                {
+                    FileName = "Unfortunately, no games matched your search query or the selected button.",
+                    MachineDescription = string.Empty
+                });
+            }
 
             // Deselect any selected letter when no system is selected
             _letterNumberMenu.DeselectLetter();
@@ -861,12 +920,14 @@ namespace SimpleLauncher
         {
             // Move scroller to top
             Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
+            
+            // Clear PreviewImage
+            PreviewImage.Source = null;
 
             // Clear FileGrid
             GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-            await Dispatcher.InvokeAsync(() => GameListItems.Clear());
             
-            // Clear the ObservableCollection
+            // Clear the ListItems
             await Dispatcher.InvokeAsync(() => GameListItems.Clear());
             
             // Check ViewMode and apply it to the UI
@@ -890,7 +951,7 @@ namespace SimpleLauncher
                     AddNoSystemMessage();
                     return;
                 }
-        
+ 
                 string selectedSystem = SystemComboBox.SelectedItem.ToString();
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
                 if (selectedConfig == null)
@@ -902,24 +963,70 @@ namespace SimpleLauncher
                     MessageBox.Show("There was an error while loading the system configuration for this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
-                // Get the SystemFolder from the selected configuration
-                string systemFolderPath = selectedConfig.SystemFolder;
-
-                // Extract the file extensions from the selected system configuration
-                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-
                 List<string> allFiles;
-
-                if (!string.IsNullOrWhiteSpace(searchQuery))
+                
+                // Check if we are in "FAVORITES" mode
+                if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Any())
                 {
-                    // Use stored search results if available
-                    if (_currentSearchResults.Any())
+                    allFiles = _currentSearchResults;
+                }
+                // Regular behavior: load files based on startLetter or searchQuery
+                else
+                {
+                    // Get the SystemFolder from the selected configuration
+                    string systemFolderPath = selectedConfig.SystemFolder;
+
+                    // Extract the file extensions from the selected system configuration
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+
+                    if (!string.IsNullOrWhiteSpace(searchQuery))
                     {
-                        allFiles = _currentSearchResults;
+                        // Use stored search results if available
+                        if (_currentSearchResults != null && _currentSearchResults.Count != 0)
+                        {
+                            allFiles = _currentSearchResults;
+                        }
+                        else
+                        {
+                            // List of files with that match the system extensions
+                            // then sort the list alphabetically 
+                            allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
+
+                            if (!string.IsNullOrWhiteSpace(startLetter))
+                            {
+                                allFiles = await FilterFilesAsync(allFiles, startLetter);
+                            }
+
+                            bool systemIsMame = selectedConfig.SystemIsMame;
+
+                            allFiles = await Task.Run(() => allFiles.Where(file =>
+                            {
+                                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                                // Search in filename
+                                bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                                if (!systemIsMame) // If not a MAME system, return match based on filename only
+                                {
+                                    return filenameMatch;
+                                }
+
+                                // For MAME systems, additionally check the description for a match
+                                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                                bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                                return filenameMatch || descriptionMatch;
+
+                            }).ToList());
+
+                            // Store the search results
+                            _currentSearchResults = allFiles;
+                        }
                     }
                     else
                     {
+                        // Reset search results if no search query is provided
+                        _currentSearchResults?.Clear();
+    
                         // List of files with that match the system extensions
                         // then sort the list alphabetically 
                         allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
@@ -928,44 +1035,6 @@ namespace SimpleLauncher
                         {
                             allFiles = await FilterFilesAsync(allFiles, startLetter);
                         }
-
-                        bool systemIsMame = selectedConfig.SystemIsMame;
-
-                        allFiles = await Task.Run(() => allFiles.Where(file =>
-                        {
-                            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                            // Search in filename
-                            bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-
-                            if (!systemIsMame) // If not a MAME system, return match based on filename only
-                            {
-                                return filenameMatch;
-                            }
-
-                            // For MAME systems, additionally check the description for a match
-                            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                            bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-
-                            return filenameMatch || descriptionMatch;
-
-                        }).ToList());
-
-                        // Store the search results
-                        _currentSearchResults = allFiles;
-                    }
-                }
-                else
-                {
-                    // Reset search results if no search query is provided
-                    _currentSearchResults.Clear();
-    
-                    // List of files with that match the system extensions
-                    // then sort the list alphabetically 
-                    allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
-
-                    if (!string.IsNullOrWhiteSpace(startLetter))
-                    {
-                        allFiles = await FilterFilesAsync(allFiles, startLetter);
                     }
                 }
 
@@ -996,7 +1065,7 @@ namespace SimpleLauncher
                 // Display message if the number of files == 0
                 if (allFiles.Count == 0)
                 {
-                    NoFilesMessage();
+                    AddNoFilesMessage();
                 }
 
                 // Update the UI to reflect the current pagination status and the indices of files being displayed

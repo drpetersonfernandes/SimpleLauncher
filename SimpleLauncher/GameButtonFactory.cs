@@ -60,7 +60,7 @@ namespace SimpleLauncher
                 TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
-                FontSize = 12,
+                FontSize = 13,
                 ToolTip = fileNameWithoutExtension
             };
 
@@ -584,7 +584,7 @@ namespace SimpleLauncher
                         grid.Children.Add(startImage);
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -633,7 +633,7 @@ namespace SimpleLauncher
                         }
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {

@@ -74,7 +74,7 @@ namespace SimpleLauncher
             }
             
             public event PropertyChangedEventHandler PropertyChanged;
-            protected void OnPropertyChanged(string name)
+            private void OnPropertyChanged(string name)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             }
@@ -413,7 +413,6 @@ namespace SimpleLauncher
         
         private async Task LaunchGame(string filePath)
         {
-            PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         }
 
@@ -459,7 +458,7 @@ namespace SimpleLauncher
                         gameItem.IsFavorite = true;
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -483,7 +482,7 @@ namespace SimpleLauncher
                 FavoritesConfig favorites = _favoritesManager.LoadFavorites();
 
                 var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
                 if (favoriteToRemove != null)
                 {
                     favorites.FavoriteList.Remove(favoriteToRemove);
@@ -501,7 +500,7 @@ namespace SimpleLauncher
                         gameItem.IsFavorite = false;
                     }
 
-                    MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -552,6 +551,7 @@ namespace SimpleLauncher
                     var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(flyerPath);
                     imageViewerWindow.Show();
+                    
                     return;
                 }
             }
@@ -572,6 +572,7 @@ namespace SimpleLauncher
                     var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cabinetPath);
                     imageViewerWindow.Show();
+                    
                     return;
                 }
             }
@@ -598,6 +599,7 @@ namespace SimpleLauncher
                             FileName = walkthroughPath,
                             UseShellExecute = true
                         });
+                        
                         return;
                     }
                     catch (Exception ex)
@@ -634,6 +636,7 @@ namespace SimpleLauncher
                             FileName = manualPath,
                             UseShellExecute = true
                         });
+                        
                         return;
                     }
                     catch (Exception ex)
@@ -667,6 +670,7 @@ namespace SimpleLauncher
                         FileName = videoPath,
                         UseShellExecute = true
                     });
+                    
                     return;
                 }
             }
@@ -687,6 +691,7 @@ namespace SimpleLauncher
                     var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(cartPath);
                     imageViewerWindow.Show();
+                    
                     return;
                 }
             }
@@ -707,6 +712,7 @@ namespace SimpleLauncher
                     var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(gameplaySnapshotPath);
                     imageViewerWindow.Show();
+                    
                     return;
                 }
             }
@@ -727,6 +733,7 @@ namespace SimpleLauncher
                     var imageViewerWindow = new ImageViewerWindow();
                     imageViewerWindow.LoadImage(titleSnapshotPath);
                     imageViewerWindow.Show();
+                    
                     return;
                 }
             }
@@ -767,6 +774,7 @@ namespace SimpleLauncher
                 var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(foundImagePath);
                 imageViewerWindow.Show();
+                
             }
             else
             {
@@ -793,6 +801,7 @@ namespace SimpleLauncher
                     FileName = searchUrl,
                     UseShellExecute = true
                 });
+                
             }
             catch (Exception ex)
             {
@@ -823,6 +832,7 @@ namespace SimpleLauncher
                     FileName = searchUrl,
                     UseShellExecute = true
                 });
+                
             }
             catch (Exception ex)
             {
