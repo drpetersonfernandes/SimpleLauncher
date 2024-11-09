@@ -451,6 +451,9 @@ namespace SimpleLauncher
                     // Find the GameListViewItem and update its IsFavorite property
                     var gameItem = _mainWindow.GameListItems
                         .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)); 
+                    // var gameItem = _mainWindow.GameListItems
+                    //     .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)
+                    //                          && g.ContextMenu?.DataContext as string == systemName); // Assuming DataContext holds the system name
                     if (gameItem != null)
                     {
                         gameItem.IsFavorite = true;
@@ -489,6 +492,10 @@ namespace SimpleLauncher
                     // Find the GameListViewItem and update its IsFavorite property
                     var gameItem = _mainWindow.GameListItems
                         .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)); 
+                    
+                    // var gameItem = _mainWindow.GameListItems
+                    //     .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)
+                    //                          && g.ContextMenu?.DataContext as string == systemName); // Assuming DataContext holds the system name
                     if (gameItem != null)
                     {
                         gameItem.IsFavorite = false;
