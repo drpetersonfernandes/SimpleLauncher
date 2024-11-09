@@ -210,6 +210,24 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenInfoLink(systemName, fileNameWithoutExtension);
             };
+            
+            // Open History Context Menu
+            var openHistoryIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png")),
+                Width = 16,
+                Height = 16
+            };
+            var openHistoryWindow = new MenuItem
+            {
+                Header = "Open ROM History",
+                Icon = openHistoryIcon
+            };
+            openHistoryWindow.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig);
+            };
 
             // Open Cover Context Menu
             var openCoverIcon = new Image
@@ -396,6 +414,7 @@ namespace SimpleLauncher
             contextMenu.Items.Add(removeFromFavorites);
             contextMenu.Items.Add(openVideoLink);
             contextMenu.Items.Add(openInfoLink);
+            contextMenu.Items.Add(openHistoryWindow);
             contextMenu.Items.Add(openCover);
             contextMenu.Items.Add(openTitleSnapshot);
             contextMenu.Items.Add(openGameplaySnapshot);
@@ -514,6 +533,34 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show($"An error occurred while removing this game from favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
+        {
+            string romName = fileNameWithoutExtension.ToLowerInvariant();
+           
+            // Attempt to find a matching machine description
+            string searchTerm = fileNameWithoutExtension;
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
+            {
+                searchTerm = machine.Description;
+            }
+
+            try
+            {
+                var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
+                historyWindow.Show();
+
+            }
+            catch (Exception ex)
+            {
+                string contextMessage = $"There was a problem opening the History window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show($"There was a problem opening the History window.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -254,7 +254,7 @@ namespace SimpleLauncher
             // Open History Context Menu
             var openHistoryIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png")),
                 Width = 16,
                 Height = 16
             };
@@ -266,7 +266,7 @@ namespace SimpleLauncher
             openHistoryWindow.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                OpenHistoryWindow(systemName, fileNameWithoutExtension);
+                OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig);
             };
 
             // Open Cover Context Menu
@@ -729,7 +729,7 @@ namespace SimpleLauncher
             }
         }
         
-        private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension)
+        private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
         {
             string romName = fileNameWithoutExtension.ToLowerInvariant();
            
@@ -743,7 +743,7 @@ namespace SimpleLauncher
 
             try
             {
-                var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm);
+                var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
                 historyWindow.Show();
 
             }

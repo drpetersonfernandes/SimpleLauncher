@@ -369,6 +369,9 @@
     <Resource Include="images\tools.png" />
     <None Remove="images\findromcover.png" />
     <Resource Include="images\findromcover.png" />
+    <None Remove="images\romhistory.png" />
+    <Resource Include="images\romhistory.png" />
+    <None Remove="images\gamecover.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

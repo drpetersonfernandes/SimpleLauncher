@@ -13,13 +13,15 @@ public partial class RomHistoryWindow
     private readonly string _romName;
     private readonly string _systemName;
     private readonly string _searchTerm;
+    private readonly SystemConfig _systemConfig;
     
-    public RomHistoryWindow(string romName, string systemName, string searchTerm = "")
+    public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemConfig systemConfig)
     {
         InitializeComponent();
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
+        _systemConfig = systemConfig;
         
         // Attach Loaded event to start loading history after the window is fully initialized
         Loaded += async (_, _) => await LoadRomHistoryAsync();
@@ -47,7 +49,14 @@ public partial class RomHistoryWindow
                                 .Any(item => item.Attribute("name")?.Value == _romName) == true);
 
             RomNameTextBox.Text = _romName;
-            RomDescriptionTextBox.Text = _searchTerm;
+            
+            // Only show _searchTerm in RomDescriptionTextBox if SystemIsMame is true
+            if (_systemConfig.SystemIsMame)
+                RomDescriptionTextBox.Text = _searchTerm;
+            else
+            {
+                RomDescriptionTextBox.Visibility = Visibility.Collapsed;
+            }
 
             if (entry != null)
             {
@@ -62,8 +71,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             await LogErrorAsync(ex, "An error occurred while loading ROM history.");
-            MessageBox.Show("An error occurred while loading ROM history."
-                            +
+            MessageBox.Show("An error occurred while loading ROM history." +
                             " The error was reported to the developer.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -76,7 +84,14 @@ public partial class RomHistoryWindow
             "ROM History Not Found", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         RomNameTextBox.Text = _romName;
-        RomDescriptionTextBox.Text = _searchTerm;
+        
+        if (_systemConfig.SystemIsMame)
+            RomDescriptionTextBox.Text = _searchTerm;
+        else
+        {
+            RomDescriptionTextBox.Visibility = Visibility.Collapsed;
+        }
+        
         HistoryTextBlock.Text = "No ROM history found in the local database for the selected file.";
 
         if (result == MessageBoxResult.Yes)
