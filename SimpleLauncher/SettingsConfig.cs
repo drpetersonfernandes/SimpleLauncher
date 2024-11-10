@@ -234,12 +234,3 @@ namespace SimpleLauncher
         }
     }
 }
-
-
-
-
-
-
-
-
-

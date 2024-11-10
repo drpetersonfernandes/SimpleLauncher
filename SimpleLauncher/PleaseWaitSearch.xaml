@@ -10,7 +10,7 @@
                       ResizeMode="NoResize"
                       ShowInTaskbar="False"
                       AllowsTransparency="True">
-    
+
     <Border BorderBrush="Gray" BorderThickness="1">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Searching, please wait..." HorizontalAlignment="Center" Margin="20" />

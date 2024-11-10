@@ -598,7 +598,7 @@
       </Emulator>
     </Emulators>
   </SystemConfig>
-  
+
   <SystemConfig>
     <SystemName>NEC PC Engine</SystemName>
     <SystemFolder>.\roms\NEC PC Engine</SystemFolder>

@@ -5,14 +5,14 @@
                       Title="Update History"
                       Width="800"
                       Height="700"
-                      WindowStartupLocation="CenterScreen" >
+                      WindowStartupLocation="CenterScreen">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">
-            <TextBox Name="WhatsNewTextBox" 
-                     IsReadOnly="True" 
-                     TextWrapping="Wrap" 
-                     VerticalScrollBarVisibility="Auto" 
-                     HorizontalScrollBarVisibility="Disabled"/>
+            <TextBox Name="WhatsNewTextBox"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Disabled" />
         </ScrollViewer>
     </Grid>
 </controls:MetroWindow>

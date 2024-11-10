@@ -5,8 +5,8 @@
                       Title="Add New System"
                       Width="550"
                       Height="760"
-                      WindowStartupLocation="CenterScreen" >
-    
+                      WindowStartupLocation="CenterScreen">
+
     <StackPanel Orientation="Vertical" Margin="10">
         <Label Content="Please choose a system to Add" HorizontalAlignment="Center" />
         <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10"

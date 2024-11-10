@@ -48,11 +48,12 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
                     <DataGridTextColumn Header="Number of ROMs or ISOs" Binding="{Binding NumberOfFiles}" Width="Auto" />
-                    <DataGridTextColumn Header="Number of Matched Images" Binding="{Binding NumberOfImages}" Width="Auto" />
+                    <DataGridTextColumn Header="Number of Matched Images" Binding="{Binding NumberOfImages}"
+                                        Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
-        
+
         <StackPanel
             Grid.Row="3"
             Margin="10,10,10,20"

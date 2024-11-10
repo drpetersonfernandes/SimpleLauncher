@@ -6,7 +6,7 @@
                       Width="350"
                       Height="280"
                       WindowStartupLocation="CenterScreen">
-    
+
     <StackPanel Orientation="Vertical">
 
         <Label
