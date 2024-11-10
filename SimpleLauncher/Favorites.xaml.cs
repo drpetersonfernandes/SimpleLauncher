@@ -145,7 +145,8 @@ namespace SimpleLauncher
             {
                 _favoriteList.Remove(selectedFavorite);
                 _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-
+                
+                PlayClick.PlayClickSound();
                 PreviewImage.Source = null;
             }
             else
@@ -158,6 +159,7 @@ namespace SimpleLauncher
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
+                PlayClick.PlayClickSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -342,6 +344,7 @@ namespace SimpleLauncher
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
+                    
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
                     var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
                     OpenHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig);
@@ -551,6 +554,8 @@ namespace SimpleLauncher
         {
             _favoriteList.Remove(selectedFavorite);
             _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+            
+            PreviewImage.Source = null;
         }
 
         private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
@@ -608,6 +613,7 @@ namespace SimpleLauncher
         
         private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
         {
+            
             string romName = fileNameWithoutExtension.ToLowerInvariant();
            
             // Attempt to find a matching machine description
@@ -949,6 +955,7 @@ namespace SimpleLauncher
             {
                 if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                 {
+                    PlayClick.PlayClickSound();
                     await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
                 }
             }
@@ -976,6 +983,8 @@ namespace SimpleLauncher
         {
             if (e.Key == Key.Delete)
             {
+                PlayClick.PlayClickSound();
+
                 RemoveSelectedFavorite();
             }
         }

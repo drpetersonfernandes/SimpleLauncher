@@ -344,6 +344,7 @@ namespace SimpleLauncher
             {
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
+                    PlayClick.PlayClickSound();
                     LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                 }
                 else
@@ -1097,6 +1098,8 @@ namespace SimpleLauncher
             {
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
+                    PlayClick.PlayClickSound();
+
                     LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                 }
             }
