@@ -1,10 +1,10 @@
 # Simple Launcher
 Simple Launcher is an emulator frontend that makes playing retro games a breeze.
 
-Main Window
+Main Window in Grid View With Right Button Context Menu
 ![Screenshot](screenshot.png)
 
-Right Button Context Menu
+Main Window in List View With Right Button Context Menu
 ![Screenshot](screenshot2.png)
 
 Global Search Window
@@ -13,7 +13,7 @@ Global Search Window
 Favorites Window
 ![Screenshot](screenshot4.png)
 
-Edit System Window
+Edit System Window in Expert Mode
 ![Screenshot](screenshot5.png)
 
 ## Installation
@@ -44,16 +44,15 @@ Users will be able to custom folders, add multiple emulators for the same System
 You can find more details in our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
 
 ## Additional Features:
-- **Edit Systems menu:** Easily edit, add, or delete a system.
+- **Edit Systems:** Easily edit, add, or delete a system.
 - **Automatic installation of most emulators:** We offer automatic installation of emulators that don't require BIOS or copyrighted files to work.
 - **Search Engine:** User can search for games from within the frontend.
 - **Right Click Context Menu:** User can load Cover image, Title snapshot, Gameplay snapshot, Manual, Walkthrough, Cabinet, Flyer or PCB of the selected game. 
-- **Edit Links menu:** Customize the Video and Info search engine used within the UI.
+- **Edit Links:** Customize the Video and Info search engine used within the UI.
 - **Control Thumbnail Size:** Conveniently adjust the size of the cover images in the UI.
 - **Automatic Update:** The application has an automatic update mechanism.
 
 ## Related Utilities:
-- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
 - **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
 

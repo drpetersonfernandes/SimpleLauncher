@@ -21,10 +21,8 @@ then extract the zip file into your chosen folder.
 ## Easy Mode
 This Edit Mode was made for people starting in the world of emulation.<br>
 This mode download and install the most used emulator for a specific System.<br>
-Also create default folders for roms and cover images, located inside 'Simple Launcher' folder.<br>
-The roms for a specific system need to be placed inside .\rom\SystemName.<br>
-The cover images for a specific system need to be placed inside .\images\SystemName.<br>
-The emulator will be installed inside the 'emulators' folder.<br>
+Also create default folders for ROMs and Cover Images inside Simple Launcher folder.<br>
+The Cover Images for a specific system need to be placed inside .\images\SystemName.<br>
 
 ## Expert Mode (Advanced Mode)
 This mode was made for people familiar with the world of emulation.<br>
@@ -58,7 +56,7 @@ We have compiled a list of parameters for each emulator for your convenience. Cl
 **LaserDisk**
 
 If you want to add LaserDisk games to the Simple Launcher frontend,
-you should create a folder with BAT files that directly call the game.<br>
+you should create a folder with BAT files that directly call the games.<br>
 
 **MAME CHD Games**
 
@@ -96,6 +94,7 @@ When 'Simple Launcher' generates the buttons for each game, it adds a Context Me
 - **Launch Game:** It launches the game.
 - **Open Video Link:** Open video link related to that game.
 - **Open Info Link:** Open info page related to that game.
+- **Open ROM History:** Open ROM History window that displays historical data about your ROM. This functionality is more useful for MAME based ROMs.
 - **Cover:** Open cover image related to that game. File should be inside .\title_snapshots\SystemName or inside custom folder.
 - **Title Snapshot:** Open title snapshot related to that game. File should be inside .\title_snapshots\SystemName
 - **Gameplay Snapshot:** Open title snapshot related to that game. File should be inside .\gameplay_snapshots\SystemName
@@ -106,7 +105,8 @@ When 'Simple Launcher' generates the buttons for each game, it adds a Context Me
 - **Flyer:** Open cabinet related to that game. File should be inside .\flyers\SystemName
 - **PCB:** Open PCB related to that game. File should be inside .\pcbs\SystemName
 
-The image files should be in format JPG, JPEG or PNG and will be opened by Simple Launcher Image Viewer Window.<br>
+Links will be opened by user's default browser.<br>
+Image files should be in format JPG, JPEG or PNG and will be opened by Simple Launcher Image Viewer Window.<br>
 Video files should be in format MP4, AVI or MKV and will be opened by user's default video player.
 I recommend to use [VLC Player](https://www.videolan.org/vlc/download-windows.html).<br>
 PDF files will be open by user's default PDF viewer.
@@ -184,7 +184,6 @@ This file contains information about various systems and their settings. You can
 
 ## Related Utilities:
 
-- **[PS3BatchLauncherCreator](https://github.com/drpetersonfernandes/ps3batchlaunchercreator):** An application written by a Simple Launcher developer, that automatically creates BAT files for easy launch of PS3 games on the RPCS3 emulator.
 - **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
 
