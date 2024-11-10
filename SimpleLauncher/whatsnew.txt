@@ -1,15 +1,16 @@
-release3.5
+release3.5.0
 ------------
 
 11/09/2024
 - Added a tool to generate BAT files for Sega Model 3.
-- Added a local ROM history database using the history.xml available at arcade-history.com. This functionality is most useful for MAME-based ROMs.
+- Added a local ROM history database using the history.xml, available at arcade-history.com. This functionality is most useful for MAME-based ROMs.
 - Added a new way to view the games in the main UI. Users can now choose between Grid View and List View.
 - Added a Star button to the Main Window top menu, which selects all the favorites for the selected system.
 - Improved error and exception notifications in several methods for both users and developers.
 - Added 'Sony PlayStation 3' image pack.
 - Increased the font size for the game filenames in the GameButtonFactory.
 - Added Sega Model 3 to Easy Mode with an ImagePack available for this system.
+- Update emulator download links to the latest version.
 
 release3.4.1
 ------------

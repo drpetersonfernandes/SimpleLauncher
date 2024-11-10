@@ -1076,11 +1076,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v140\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>140</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v140/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>141</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1498,11 +1498,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v140\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>140</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v140/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1813,7 +1813,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20241011</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20241103</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
@@ -1932,8 +1932,8 @@
                 <EmulatorLocation>.\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_18/ppsspp_win.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.18.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_18_1/ppsspp_win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
