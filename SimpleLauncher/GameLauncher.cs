@@ -288,7 +288,7 @@ public static class GameLauncher
                     await LogErrors.LogErrorAsync(exception, errorMessage);
 
                     MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the extracted folder.\n\n" +
-                                    "Please go to Edit System - Expert Mode and correct the settings for this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    "Please go to Edit System - Expert Mode and fix the settings for this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
