@@ -959,11 +959,11 @@ namespace SimpleLauncher
             }
             else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
             {
-                return Path.Combine(baseDirectory, "7z_32bits.exe");
+                return Path.Combine(baseDirectory, "7z_x86.exe");
             }
             else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
             {
-                return Path.Combine(baseDirectory, "7z_arm.exe");
+                return Path.Combine(baseDirectory, "7z_arm64.exe");
             }
             else
             {

@@ -295,10 +295,10 @@
     <None Update="history.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="7z_32bits.exe">
+    <None Update="7z_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="7z_arm.exe">
+    <None Update="7z_arm64.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
