@@ -262,12 +262,13 @@ public static class GameLauncher
         // Extract File if Needed
         if (systemConfig.ExtractFileBeforeLaunch)
         {
-            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
             string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
             // Accept ZIP, 7Z and RAR files
             if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
+                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                
                 // Iterate through the formats to launch and find the first file with the specified extension
                 bool fileFound = false;
                 foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
@@ -293,8 +294,19 @@ public static class GameLauncher
                     return;
                 }
             }
-            
-            if (string.IsNullOrEmpty(gamePathToLaunch)) return;
+            else
+            {
+                MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
+                                $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
+                                $"Please go to Edit System - Expert Mode, and edit this system.", 
+                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(gamePathToLaunch))
+            {
+                return;
+            }
         }
 
         // Construct the PSI
@@ -456,17 +468,18 @@ public static class GameLauncher
             return;
         }
 
-        string gamePathToLaunch = null;
+        string gamePathToLaunch;
 
         // Check if extraction is needed
         if (systemConfig.ExtractFileBeforeLaunch)
         {
-            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
             string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
             // Accept ZIP, 7Z and RAR files
             if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
+                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                
                 if (!Directory.Exists(tempExtractLocation))
                 {
                     MessageBox.Show("Extraction failed. Could not find the extracted files inside the temp folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -475,10 +488,18 @@ public static class GameLauncher
 
                 gamePathToLaunch = await FindXblaGamePath(tempExtractLocation); // Search within the extracted folder
             }
+            else
+            {
+                MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
+                                $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
+                                $"Please go to Edit System - Expert Mode, and edit this system.", 
+                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
         }
         else
         {
-            MessageBox.Show("To launch Xbox 360 XBLA games the compressed file need to be extracted first.\n\nPlease 'Edit System' in the 'Expert Mode' and change the 'Extract File Before Launch' to true.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("To launch Xbox 360 XBLA games the compressed file need to be extracted first.\n\nPlease go to Edit System - Expert Mode and change the 'Extract File Before Launch' to true.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 

@@ -13,7 +13,6 @@ using System.Windows.Navigation;
 using System.Xml.Linq;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
-using System.Runtime.InteropServices;
 
 namespace SimpleLauncher
 {
@@ -162,7 +161,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
                     
-                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
             
                         if (extractionSuccess)
@@ -314,7 +313,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -432,7 +431,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -594,141 +593,6 @@ namespace SimpleLauncher
                     
                     MessageBox.Show("Download timed out or was canceled unexpectedly.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-        }
-        
-        private async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
-        {
-            if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
-            {
-                string formattedException = $"The downloaded file appears to be empty or corrupted.";
-                Exception exception = new(formattedException);
-                await LogErrors.LogErrorAsync(exception, formattedException);
-                
-                MessageBox.Show("The downloaded file appears to be empty or corrupted.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            
-            try
-            {
-                // Get the correct 7z executable path based on user environment (x64, x32 or arm)
-                string sevenZipPath = Get7ZipExecutablePath();
-
-                if (!File.Exists(sevenZipPath))
-                {
-                    string formattedException = $"The required 7z executable was not found in the application folder.";
-                    Exception exception = new(formattedException);
-                    await LogErrors.LogErrorAsync(exception, formattedException);
-                    
-                    // Ask the user if they want to automatically reinstall Simple Launcher
-                    var messageBoxResult = MessageBox.Show(
-                        "The appropriate version of 7z.exe was not found in the application folder!\n\n" +
-                        "Simple Launcher will not be able to extract compressed files.\n\n" +
-                        "Do you want to automatically reinstall Simple Launcher to fix the problem?",
-                        "Extraction Error",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
-
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        Loaded += async (_, _) => await UpdateChecker.ReinstallSimpleLauncherAsync(this);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please reinstall Simple Launcher to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
-                    }
-                    
-                    return false;
-                }
-                
-                // Ensure the destination folder exists
-                Directory.CreateDirectory(destinationFolder);
-
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = sevenZipPath,
-                    Arguments = $"x \"{filePath}\" -o\"{destinationFolder}\" -y",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true
-                };
-
-                using var process = new Process();
-                process.StartInfo = processStartInfo;
-                process.Start();
-
-                await process.StandardOutput.ReadToEndAsync();
-                string error = await process.StandardError.ReadToEndAsync();
-
-                await process.WaitForExitAsync();
-
-                if (process.ExitCode != 0)
-                {
-                    string formattedException = $"Error extracting the file: {filePath}\n\nError message: {error}";
-                    Exception ex = new(formattedException);
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-            
-                    var retryResult = MessageBox.Show(
-                        $"Error extracting the file: {filePath}\n\n" +
-                        $"The file might be corrupted or locked by some other process.\n\n" +
-                        $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
-                        $"Do you want to retry extracting the file?", 
-                        "Extraction Error", 
-                        MessageBoxButton.YesNo, 
-                        MessageBoxImage.Error);
-
-                    if (retryResult == MessageBoxResult.Yes)
-                    {
-                        MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        // Send notification to developer
-                        string formattedException2 = $"User choose to retry the extraction of file: {filePath}";
-                        Exception ex2 = new(formattedException2);
-                        await LogErrors.LogErrorAsync(ex2, formattedException2);
-                        
-                        // Wait for 5 seconds before retrying
-                        await Task.Delay(TimeSpan.FromSeconds(5));
-                        
-                        // Retry the extraction
-                        return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
-                    }
-
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                string formattedException = $"Error extracting the file: {filePath}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
-
-                var retryResult = MessageBox.Show(
-                    $"Error extracting the file: {filePath}\n\n" +
-                    $"The file might be corrupted or locked by some other process.\n\n" +
-                    $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
-                    $"Do you want to retry extracting the file?", 
-                    "Extraction Error", 
-                    MessageBoxButton.YesNo, 
-                    MessageBoxImage.Error);
-
-                if (retryResult == MessageBoxResult.Yes)
-                {
-                    MessageBox.Show("Click on the OK button and hold for 5 seconds.\n\nI will try again.", "Hold", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
-                    // Send notification to developer
-                    string formattedException2 = $"User choose to retry the extraction of file: {filePath}";
-                    Exception ex2 = new(formattedException2);
-                    await LogErrors.LogErrorAsync(ex2, formattedException2);
-
-                    // Wait for 5 seconds before retrying
-                    await Task.Delay(TimeSpan.FromSeconds(5));
-                    
-                    // Retry the extraction
-                    return await ExtractFileWith7ZipAsync(filePath, destinationFolder);
-                }
-
-                return false;
             }
         }
         
@@ -949,26 +813,6 @@ namespace SimpleLauncher
             }
         }
         
-        private string Get7ZipExecutablePath()
-        {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            if (RuntimeInformation.ProcessArchitecture == Architecture.X64)
-            {
-                return Path.Combine(baseDirectory, "7z.exe"); // Default for 64-bit
-            }
-            else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
-            {
-                return Path.Combine(baseDirectory, "7z_x86.exe");
-            }
-            else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
-            {
-                return Path.Combine(baseDirectory, "7z_arm64.exe");
-            }
-            else
-            {
-                throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
-            }
-        }
+        
     }
 }

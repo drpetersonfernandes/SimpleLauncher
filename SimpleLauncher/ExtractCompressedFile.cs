@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace SimpleLauncher
 {
@@ -22,7 +23,18 @@ namespace SimpleLauncher
 
         public async Task<string> ExtractArchiveToTempAsync(string archivePath)
         {
-            // Choose the correct 7z executable path based on user environment (x64, x32 or arm) 
+            // Check if the file extension is valid (7z, zip, rar) and allow uppercase extensions
+            string extension = Path.GetExtension(archivePath)?.ToLower();
+            if (extension != ".7z" && extension != ".zip" && extension != ".rar")
+            {
+                MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
+                                $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
+                                $"Please go to Edit System - Expert Mode, and edit this system.", 
+                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+            }
+            
+            // Choose the correct 7z executable path based on user environment (x64, x86 or arm64) 
             string sevenZipPath = Get7ZipExecutablePath();
             
             // Open the Please Wait Window
@@ -162,5 +174,225 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
+        
+        public async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
+        {
+            if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
+            {
+                string formattedException = $"The downloaded file appears to be empty or corrupted.";
+                Exception exception = new(formattedException);
+                await LogErrors.LogErrorAsync(exception, formattedException);
+                
+                MessageBox.Show("The downloaded file appears to be empty or corrupted.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            
+            if (IsFileLocked(filePath))
+            {
+                if (IsRunningAsAdministrator())
+                {
+                    await RunHandleExeAndLogProcess(filePath);
+                }
+                else
+                {
+                    var restartAsAdminResult = MessageBox.Show(
+                        "The file appears to be locked by another process.\n\n" +
+                        "'Simple Launcher' does not have administrative privileges to detect the cause of this lock.\n\n" +
+                        "Would you like to restart Simple Launcher with administrative privileges to diagnose the issue?",
+                        "File Lock Detected",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                    if (restartAsAdminResult == MessageBoxResult.Yes)
+                    {
+                        RestartAsAdministrator();
+                        MessageBox.Show("Please retry the extraction after Simple Launcher restarts with administrative privileges.", "Restart with Admin Privileges", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return false;
+                    }
+                }
+            }
+            
+            try
+            {
+                // Get the correct 7z executable path based on user environment (x64, x86 or arm64)
+                string sevenZipPath = Get7ZipExecutablePath();
+
+                if (!File.Exists(sevenZipPath))
+                {
+                    string formattedException = $"The required 7z executable was not found in the application folder.";
+                    Exception exception = new(formattedException);
+                    await LogErrors.LogErrorAsync(exception, formattedException);
+                    
+                    // Ask the user if they want to automatically reinstall Simple Launcher
+                    var messageBoxResult = MessageBox.Show(
+                        "The appropriate version of 7z.exe was not found in the application folder!\n\n" +
+                        "Simple Launcher will not be able to extract compressed files.\n\n" +
+                        "Do you want to automatically reinstall Simple Launcher to fix the problem?",
+                        "Extraction Error",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        Loaded += async (_, _) => await UpdateChecker.ReinstallSimpleLauncherAsync(this);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please reinstall Simple Launcher to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                    }
+                    
+                    return false;
+                }
+                
+                // Ensure the destination folder exists
+                Directory.CreateDirectory(destinationFolder);
+
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = sevenZipPath,
+                    Arguments = $"x \"{filePath}\" -o\"{destinationFolder}\" -y",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using var process = new Process();
+                process.StartInfo = processStartInfo;
+                process.Start();
+
+                await process.StandardOutput.ReadToEndAsync();
+                string error = await process.StandardError.ReadToEndAsync();
+
+                await process.WaitForExitAsync();
+
+                if (process.ExitCode != 0)
+                {
+                    string formattedException = $"Error extracting the file: {filePath}\n\nError message: {error}";
+                    Exception ex = new(formattedException);
+                    await LogErrors.LogErrorAsync(ex, formattedException);
+            
+                    MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
+                                    $"The file might be corrupted or locked by some other process.\n\n" +
+                                    $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
+                                    "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"Error extracting the file: {filePath}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+
+                MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
+                                $"The file might be corrupted or locked by some other process.\n\n" +
+                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
+                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return false;
+            }
+        }
+        
+        private bool IsFileLocked(string filePath)
+        {
+            try
+            {
+                using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                return false;
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+        }
+        
+        private bool IsRunningAsAdministrator()
+        {
+            using var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+        
+        private async Task RunHandleExeAndLogProcess(string filePath)
+        {
+            string handleExePath = GetHandleExecutablePath();
+    
+            if (!File.Exists(handleExePath))
+            {
+                string formattedException = $"{Path.GetFileName(handleExePath)} was not found in the application folder.";
+                await LogErrors.LogErrorAsync(new FileNotFoundException(formattedException), formattedException);
+                return;
+            }
+
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = handleExePath,
+                Arguments = filePath,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using var process = new Process();
+            process.StartInfo = processStartInfo;
+            process.Start();
+
+            string output = await process.StandardOutput.ReadToEndAsync();
+            string error = await process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+
+            string logMessage = string.IsNullOrEmpty(output) ? "No process found locking the file." : output;
+            await LogErrors.LogErrorAsync(new Exception("File lock detected"), logMessage);
+
+            MessageBox.Show($"The following process is locking the file:\n\n{logMessage}", "File Lock Detected", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private string GetHandleExecutablePath()
+        {
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (Environment.Is64BitOperatingSystem)
+            {
+                // Check if the system is ARM64
+                if (Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") == "ARM64")
+                {
+                    return Path.Combine(appDirectory, "handle_arm64.exe");
+                }
+                else
+                {
+                    return Path.Combine(appDirectory, "handle.exe");
+                }
+            }
+            else
+            {
+                // 32-bit system
+                return Path.Combine(appDirectory, "handle_x86.exe");
+            }
+        }
+        
+        private void RestartAsAdministrator()
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = Process.GetCurrentProcess().MainModule.FileName,
+                UseShellExecute = true,
+                Verb = "runas"
+            };
+
+            try
+            {
+                Process.Start(startInfo);
+                Application.Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to restart with administrative privileges.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
@@ -540,268 +540,235 @@ namespace SimpleLauncher
         private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
         {
             
-            // Trim input values and validate. Check folder location and emulator location.
-            // Allow empty SystemImageFolder and empty EmulatorLocation.
-            string systemFolderText = SystemFolderTextBox.Text.Trim();
-            string systemImageFolderText = SystemImageFolderTextBox.Text.Trim();
-            string emulator1LocationText = Emulator1LocationTextBox.Text.Trim();
-            string emulator2LocationText = Emulator2LocationTextBox.Text.Trim();
-            string emulator3LocationText = Emulator3LocationTextBox.Text.Trim();
-            string emulator4LocationText = Emulator4LocationTextBox.Text.Trim();
-            string emulator5LocationText = Emulator5LocationTextBox.Text.Trim();
+            // Format input values
+            string systemName = SystemNamePlaceholderTextBox.Text.Trim();
+            string systemFolder = string.IsNullOrWhiteSpace(SystemFolderTextBox.Text) ? $".\\roms\\{systemName}" : SystemFolderTextBox.Text.Trim();
+            string systemImageFolder = string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text) ? $".\\images\\{systemName}" : SystemImageFolderTextBox.Text.Trim();
+            bool systemIsMame = (bool)SystemIsMameComboBox.SelectedItem;
+
+            List<string> formatToSearch = FormatToSearchTextBox.Text
+                .Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
+                .Select(format => format.Trim().ToLower())
+                .ToList();
             
-            bool isSystemFolderValid = IsValidPath(systemFolderText);
-            bool isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || IsValidPath(systemImageFolderText);
-            bool isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || IsValidPath(emulator1LocationText);
-            bool isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || IsValidPath(emulator2LocationText);
-            bool isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || IsValidPath(emulator3LocationText);
-            bool isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || IsValidPath(emulator4LocationText);
-            bool isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || IsValidPath(emulator5LocationText);
+            bool extractFileBeforeLaunch = (bool)ExtractFileBeforeLaunchComboBox.SelectedItem;
+
+            List<string> formatToLaunch = FormatToLaunchPlaceholderTextBox.Text
+                .Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
+                .Select(format => format.Trim().ToLower())
+                .ToList();
             
-            // Trim and validate parameters, allowing empty values.
-            string emulator1ParametersText = Emulator1ParametersTextBox.Text.Trim();
-            string emulator2ParametersText = Emulator2ParametersTextBox.Text.Trim();
-            string emulator3ParametersText = Emulator3ParametersTextBox.Text.Trim();
-            string emulator4ParametersText = Emulator4ParametersTextBox.Text.Trim();
-            string emulator5ParametersText = Emulator5ParametersTextBox.Text.Trim();
+            string emulator1Name = Emulator1NamePlaceholderTextBox.Text.Trim();
+            string emulator1Location = Emulator1LocationTextBox.Text.Trim();
+            string emulator1Parameters = Emulator1ParametersTextBox.Text.Trim();
             
-            bool isEmulator1ParametersValid = string.IsNullOrWhiteSpace(emulator1ParametersText) || IsValidPath2(emulator1ParametersText);
-            bool isEmulator2ParametersValid = string.IsNullOrWhiteSpace(emulator2ParametersText) || IsValidPath2(emulator2ParametersText);
-            bool isEmulator3ParametersValid = string.IsNullOrWhiteSpace(emulator3ParametersText) || IsValidPath2(emulator3ParametersText);
-            bool isEmulator4ParametersValid = string.IsNullOrWhiteSpace(emulator4ParametersText) || IsValidPath2(emulator4ParametersText);
-            bool isEmulator5ParametersValid = string.IsNullOrWhiteSpace(emulator5ParametersText) || IsValidPath2(emulator5ParametersText);
+            string emulator2Name = Emulator2NameTextBox.Text.Trim();
+            string emulator2Location = Emulator2LocationTextBox.Text.Trim();
+            string emulator2Parameters = Emulator2ParametersTextBox.Text.Trim();
             
-            // Handle validation alerts as needed
+            string emulator3Name = Emulator3NameTextBox.Text.Trim();
+            string emulator3Location = Emulator3LocationTextBox.Text.Trim();
+            string emulator3Parameters = Emulator3ParametersTextBox.Text.Trim();
+            
+            string emulator4Name = Emulator4NameTextBox.Text.Trim();
+            string emulator4Location = Emulator4LocationTextBox.Text.Trim();
+            string emulator4Parameters = Emulator4ParametersTextBox.Text.Trim();
+            
+            string emulator5Name = Emulator5NameTextBox.Text.Trim();
+            string emulator5Location = Emulator5LocationTextBox.Text.Trim();
+            string emulator5Parameters = Emulator5ParametersTextBox.Text.Trim();
+            
+            // Check systemName
+            if (string.IsNullOrWhiteSpace(systemName))
+            {
+                MessageBox.Show("'System Name' is required and cannot contain empty values.", "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
+            // Check systemFolder
+            bool isSystemFolderValid = IsValidPath(systemFolder);
             MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
+            
+            // Check systemImageFolder
+            bool isSystemImageFolderValid = IsValidPath(systemImageFolder);
             MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
+            
+            // Check formatToSearch
+            if (formatToSearch.Count == 0 || formatToSearch.Any(string.IsNullOrWhiteSpace))
+            {
+                MessageBox.Show("'Format to Search in the System Folder' is required and cannot contain empty values.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (extractFileBeforeLaunch && !formatToSearch.Any(f => f == "7z" || f == "zip" || f == "rar"))
+            {
+                MessageBox.Show("When 'Extract File Before Launch' is set to true the 'Format to Search in the System Folder' must include 7z, zip, or rar.",
+                    "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
+            // Check formatToLaunch
+            if (extractFileBeforeLaunch && (formatToLaunch.Count == 0))
+            {
+                MessageBox.Show("When 'Extract File Before Launch' is set to true, the 'Format to Launch After Extraction' is required.",
+                    "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
+            // Check emulator1Name
+            if (string.IsNullOrWhiteSpace(emulator1Name))
+            {
+                MessageBox.Show("'Emulator 1 Name' is required.", "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
+            // Check emulator1Location
+            bool isEmulator1LocationValid = IsValidPath(emulator1Location);
             MarkInvalid(Emulator1LocationTextBox, isEmulator1LocationValid);
-            MarkInvalid(Emulator2LocationTextBox, isEmulator2LocationValid);
-            MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
-            MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
-            MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
+
+            // Check emulator1Parameters
+            bool isEmulator1ParametersValid = string.IsNullOrWhiteSpace(emulator1Parameters) || IsValidPath2(emulator1Parameters);
             MarkInvalid(Emulator1ParametersTextBox, isEmulator1ParametersValid);
+            
+            // Check emulator2Name
+            
+            // Check emulator2Location
+            bool isEmulator2LocationValid = IsValidPath(emulator2Location);
+            MarkInvalid(Emulator2LocationTextBox, isEmulator2LocationValid);
+            
+            // Check emulator2Parameters
+            bool isEmulator2ParametersValid = string.IsNullOrWhiteSpace(emulator2Parameters) || IsValidPath2(emulator2Parameters);
             MarkInvalid(Emulator2ParametersTextBox, isEmulator2ParametersValid);
+            
+            // Check emulator3Name
+            
+            // Check emulator3Location
+            bool isEmulator3LocationValid = IsValidPath(emulator3Location);
+            MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
+            
+            // Check emulator3Parameters
+            bool isEmulator3ParametersValid = string.IsNullOrWhiteSpace(emulator3Parameters) || IsValidPath2(emulator3Parameters);
             MarkInvalid(Emulator3ParametersTextBox, isEmulator3ParametersValid);
+            
+            // Check emulator4Name
+            
+            // Check emulator4Location
+            bool isEmulator4LocationValid = IsValidPath(emulator4Location);
+            MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
+            
+            // Check emulator4Parameters
+            bool isEmulator4ParametersValid = string.IsNullOrWhiteSpace(emulator4Parameters) || IsValidPath2(emulator4Parameters);
             MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
+            
+            // Check emulator5Name
+            
+            // Check emulator5Location
+            bool isEmulator5LocationValid = IsValidPath(emulator5Location);
+            MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
+            
+            // Check emulator4Parameters
+            bool isEmulator5ParametersValid = string.IsNullOrWhiteSpace(emulator5Parameters) || IsValidPath2(emulator5Parameters);
             MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
             // Check validation results before proceeding
-            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+            if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid ||
+                !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid ||
+                !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
             {
                 MessageBox.Show("One or more paths or parameters are invalid.\n\nPlease correct them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             
-            // Validate and trim 'SystemName' input
-            var systemName = SystemNameTextBox.Text.Trim();
-            if (string.IsNullOrEmpty(systemName))
-            {
-                MessageBox.Show("The System Name cannot be empty or contain only spaces.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            var systemFolder = systemFolderText.Trim();
-            var systemImageFolder = systemImageFolderText.Trim();
-
-            string systemIsMame = SystemIsMameComboBox.SelectedItem == null ? "false" : (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem == null ? "false" : (ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            // Create emulator configurations
+            List<SystemConfig.Emulator> emulators = new List<SystemConfig.Emulator>();
+            AddEmulator(emulators, emulator1Name, emulator1Location, emulator1Parameters);
+            AddEmulator(emulators, emulator2Name, emulator2Location, emulator2Parameters);
+            AddEmulator(emulators, emulator3Name, emulator3Location, emulator3Parameters);
+            AddEmulator(emulators, emulator4Name, emulator4Location, emulator4Parameters);
+            AddEmulator(emulators, emulator5Name, emulator5Location, emulator5Parameters);
             
-            var formatToSearchInput = FormatToSearchTextBox.Text.Trim();
-            var formatsToSearch = formatToSearchInput.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
-                .Select(format => format.Trim())
-                .Where(format => !string.IsNullOrEmpty(format))
-                .ToList(); // Convert to list to allow adding
-            if(string.IsNullOrEmpty(formatToSearchInput))
-                formatsToSearch.Add(string.Empty); // Add an empty string if the input was empty
-            
-            var formatToLaunchInput = FormatToLaunchTextBox.Text.Trim();
-            var formatsToLaunch = formatToLaunchInput.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
-                .Select(format => format.Trim())
-                .Where(format => !string.IsNullOrEmpty(format))
-                .ToList(); // Convert to list to allow adding
-            if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch == "true")
+            // Create a new SystemConfig instance
+            var newSystemConfig = new SystemConfig
             {
-                MessageBox.Show("The 'Format to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if(string.IsNullOrEmpty(formatToLaunchInput))
-                formatsToLaunch.Add(string.Empty); // Add an empty string if the input was empty
+                SystemName = systemName,
+                SystemFolder = systemFolder,
+                SystemImageFolder = systemImageFolder,
+                SystemIsMame = systemIsMame,
+                FileFormatsToSearch = formatToSearch,
+                ExtractFileBeforeLaunch = extractFileBeforeLaunch,
+                FileFormatsToLaunch = formatToLaunch,
+                Emulators = emulators
+            };
             
-            // Emulator1 validation
-            var emulator1Name = Emulator1NameTextBox.Text.Trim();
-            bool hasValidEmulator = !string.IsNullOrEmpty(emulator1Name);
-            if (!hasValidEmulator)
-            {
-                MessageBox.Show("The name for Emulator 1 is required.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            // Load current configs, update or add new config, and save
+            List<SystemConfig> systemConfigs = SystemConfig.LoadSystemConfigs() ?? new List<SystemConfig>();
+            var existingConfig = systemConfigs.FirstOrDefault(config => config.SystemName == systemName);
+            if (existingConfig != null)
+                systemConfigs.Remove(existingConfig);
+
+            systemConfigs.Add(newSystemConfig);
+            SystemConfig.SaveSystemConfigs(systemConfigs);
             
-            // Initialize 'emulatorsElement' as an XElement
-            var emulatorsElement = new XElement("Emulators");
-
-            // Add Emulator1 details to XML
-            AddEmulatorToXml(emulatorsElement, emulator1Name, Emulator1LocationTextBox.Text.Trim(), Emulator1ParametersTextBox.Text.Trim());
-
-            // Arrays for emulator names, locations, and parameters TextBoxes
-            TextBox[] nameTextBoxes = new[] { Emulator2NameTextBox, Emulator3NameTextBox, Emulator4NameTextBox, Emulator5NameTextBox };
-            TextBox[] locationTextBoxes = new[] { Emulator2LocationTextBox, Emulator3LocationTextBox, Emulator4LocationTextBox, Emulator5LocationTextBox };
-            TextBox[] parametersTextBoxes = new[] { Emulator2ParametersTextBox, Emulator3ParametersTextBox, Emulator4ParametersTextBox, Emulator5ParametersTextBox };
-
-            // Loop over the emulators 2 through 5 to validate and add their details
-            for (int i = 0; i < nameTextBoxes.Length; i++)
+            // Create folders for each system
+            CreateSystemFolders(systemName);
+            
+            MessageBox.Show("System configuration saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        // Helper to add emulator only if name is provided
+        private void AddEmulator(List<SystemConfig.Emulator> emulators, string name, string location, string parameters)
+        {
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                var emulatorName = nameTextBoxes[i].Text.Trim();
-                var emulatorLocation = locationTextBoxes[i].Text.Trim();
-                var emulatorParameters = parametersTextBoxes[i].Text.Trim();
-
-                // Check if any data related to the emulator is provided
-                if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
+                emulators.Add(new SystemConfig.Emulator
                 {
-                    // Make the emulator name required if related data is provided
-                    if (string.IsNullOrEmpty(emulatorName))
-                    {
-                        MessageBox.Show($"Emulator {i + 2} name is required because related data has been provided.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return; // Exit the method to prevent saving incomplete data
-                    }
-                }
-
-                // If the emulator name is provided, add the emulator details to XML
-                if (!string.IsNullOrEmpty(emulatorName))
-                {
-                    AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters);
-                }
-
-                // Add default System Image Folder if not provided by user
-                if (systemImageFolder.Length == 0)
-                {
-                    systemImageFolder = $".\\images\\{systemName}";
-                }
+                    EmulatorName = name.Trim(),
+                    EmulatorLocation = location.Trim(),
+                    EmulatorParameters = parameters.Trim()
+                });
             }
-           
-            _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-            var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemName}']");
-
-            if (existingSystem != null)
-            {
-                // Update existing system
-                existingSystem.SetElementValue("SystemFolder", systemFolder);
-                existingSystem.SetElementValue("SystemImageFolder", systemImageFolder);
-                existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
-                existingSystem.Element("FileFormatsToSearch")
-                    ?.ReplaceNodes(formatsToSearch.Select(format => new XElement("FormatToSearch", format)));
-                existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
-                existingSystem.Element("FileFormatsToLaunch")
-                    ?.ReplaceNodes(formatsToLaunch.Select(format => new XElement("FormatToLaunch", format)));
-                existingSystem.Element("Emulators")
-                    ?.Remove(); // Remove existing emulators section before adding updated one
-                existingSystem.Add(emulatorsElement);
-            }
-            else if (string.IsNullOrEmpty(systemName))
-            {
-                MessageBox.Show("The System Name is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-            else if (string.IsNullOrEmpty(systemFolder))
-            {
-                MessageBox.Show("The System Folder is empty.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-            else if (!formatsToSearch.Any())
-            {
-                MessageBox.Show("The 'Format to Search in the Search Folder' is empty or is not valid.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            else if (string.IsNullOrEmpty(formatToLaunchInput) && extractFileBeforeLaunch == "true")
-            {
-                MessageBox.Show("The 'Format to Launch After Extraction' is required when Extract File Before Launch is set to true.\n\nPlease fill this field.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            else
-            {
-                // Add a new system
-                var newSystem = new XElement("SystemConfig",
-                    new XElement("SystemName", systemName),
-                    new XElement("SystemFolder", systemFolder),
-                    new XElement("SystemImageFolder", systemImageFolder),
-                    new XElement("SystemIsMAME", systemIsMame),
-                    new XElement("FileFormatsToSearch",
-                        formatsToSearch.Select(format => new XElement("FormatToSearch", format))),
-                    new XElement("ExtractFileBeforeLaunch", extractFileBeforeLaunch),
-                    new XElement("FileFormatsToLaunch",
-                        formatsToLaunch.Select(format => new XElement("FormatToLaunch", format))),
-                    emulatorsElement);
-                _xmlDoc.Element("SystemConfigs")?.Add(newSystem);
-            }
-
-            // Sort the XML elements by "SystemName" before saving
-            var sortedDoc = new XDocument(new XElement("SystemConfigs",
-                from system in _xmlDoc.Descendants("SystemConfig")
-                orderby system.Element("SystemName")?.Value
-                select system));
-
-            sortedDoc.Save(_xmlFilePath);
-            PopulateSystemNamesDropdown();
-            SystemNameDropdown.SelectedItem = systemName;
-
-            MessageBox.Show("System saved successfully.", "Info", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            
-            // Always create the necessary folders for each system
+        }
+        
+        private void CreateSystemFolders(string systemName)
+        {
             string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // List of folder names to be created under each system
             string[] folderNames = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs", "carts"];
 
             foreach (var folderName in folderNames)
             {
                 string parentDirectory = Path.Combine(applicationDirectory, folderName);
-    
-                // Ensure the parent directory exists
+
                 if (!Directory.Exists(parentDirectory))
                 {
                     Directory.CreateDirectory(parentDirectory);
                 }
 
-                // Use SystemName as the name for the new folder inside the parent directory
                 string newFolderPath = Path.Combine(parentDirectory, systemName);
 
                 try
                 {
-                    // Check if the folder exists, and create it if it doesn't
                     if (!Directory.Exists(newFolderPath))
                     {
                         Directory.CreateDirectory(newFolderPath);
                         if (folderName == "images")
                         {
-                            MessageBox.Show($"Simple Launcher created a folder for this System within the '{folderName}' folder at {newFolderPath}. You may place the cover images for this System inside this folder.\n\n" +
-                                            $"I also created folders for \"title_snapshots\", \"gameplay_snapshots\", \"videos\", \"manuals\", \"walkthrough\", \"cabinets\", \"flyers\", \"pcbs\" and \"carts\" inside the Simple Launcher folder.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show($"'Simple Launcher' created a image folder for this System at {applicationDirectory}\\images\\{systemName}.\n\n" +
+                                            $"You may place the cover images for this System inside this folder.\n\n" +
+                                            $"I also created folders for \"title_snapshots\", \"gameplay_snapshots\", \"videos\", \"manuals\", \"walkthrough\", \"cabinets\", \"flyers\", \"pcbs\" and \"carts\" inside the 'Simple Launcher' folder.",
+                                "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"The Simple Launcher failed to create the '{folderName}' folder for the newly created system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string formattedException = $"'Simple Launcher' failed to create the necessary folders for the newly created system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                    
-                    MessageBox.Show($"The application failed to create the '{folderName}' folder for this system.\n\nProbably the application does not have enough privileges.\n\nTry to run the application with administrative privileges.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                    throw;
+
+                    MessageBox.Show($"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
+                                    $"Probably the application does not have write privileges.\n\n" +
+                                    $"Try to run 'Simple Launcher' with administrative privileges.",
+                        "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }
-
-        }
-
-        private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters)
-        {
-            if (!string.IsNullOrEmpty(name)) // Check if the emulator name is not empty
-            {
-                var emulatorElement = new XElement("Emulator",
-                    new XElement("EmulatorName", name),
-                    new XElement("EmulatorLocation", location),
-                    new XElement("EmulatorParameters", parameters));
-                emulatorsElement.Add(emulatorElement);
             }
         }
 
