@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Documents;
 
 namespace SimpleLauncher;
 
@@ -69,7 +71,7 @@ public partial class RomHistoryWindow
             if (entry != null)
             {
                 string historyText = entry.Element("text")?.Value ?? "No text available.";
-                HistoryTextBlock.Text = historyText;
+                SetHistoryTextWithLinks(historyText);
             }
             else
             {
@@ -130,6 +132,41 @@ public partial class RomHistoryWindow
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             MessageBox.Show("An error occurred while opening the browser.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void SetHistoryTextWithLinks(string historyText)
+    {
+        HistoryTextBlock.Inlines.Clear();
+
+        var regex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
+        var parts = regex.Split(historyText);
+        var matches = regex.Matches(historyText);
+
+        int index = 0;
+        foreach (var part in parts)
+        {
+            HistoryTextBlock.Inlines.Add(new Run(part));
+
+            if (index < matches.Count)
+            {
+                var hyperlink = new Hyperlink(new Run(matches[index].Value))
+                {
+                    NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                        ? matches[index].Value
+                        : "http://" + matches[index].Value)
+                };
+                hyperlink.RequestNavigate += (_, e) =>
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = e.Uri.AbsoluteUri,
+                        UseShellExecute = true
+                    });
+                };
+                HistoryTextBlock.Inlines.Add(hyperlink);
+                index++;
+            }
         }
     }
 }

@@ -55,7 +55,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex,
                 $"Generic error in the GameLauncher class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
             
-            MessageBox.Show("The application could not launch the selected game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("The application could not launch the selected game.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -347,10 +348,10 @@ public static class GameLauncher
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n" +
+                    "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                     "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
-                    "If you want to debug the error, you can see the 'error_user.log' file inside the Simple Launcher folder.\n\n" +
-                    "Would you like to be redirected to the Simple Launcher Wiki, where you will find a list of parameters for each emulator?",
+                    "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                    "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                     "Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
@@ -401,10 +402,10 @@ public static class GameLauncher
                 
             var result = MessageBox.Show(
                 "The emulator could not open the game with the provided parameters.\n\n" +
-                "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n" +
+                "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                 "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
-                "If you want to debug the error, you can see the 'error_user.log' file inside the Simple Launcher folder.\n\n" +
-                "Would you like to be redirected to the Simple Launcher Wiki, where you will find a list of parameters for each emulator?",
+                "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                 "Error",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Error);
@@ -541,9 +542,8 @@ public static class GameLauncher
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
-                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                    "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                     "Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
@@ -594,9 +594,8 @@ public static class GameLauncher
                 
             var result = MessageBox.Show(
                 "The emulator could not open the game with the provided parameters.\n\n" +
-                "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of parameters for each emulator.\n\n" +
-                "Would you like to be redirected to the Simple Launcher Wiki?",
+                "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                 "Error",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Error);

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Navigation;
 using System.Xml.Linq;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using System.Runtime.InteropServices;
 
 namespace SimpleLauncher
 {
@@ -27,6 +29,8 @@ namespace SimpleLauncher
         public EditSystemEasyModeAddSystem()
         {
             InitializeComponent();
+            
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
             
             App.ApplyThemeToWindow(this);
             
@@ -541,7 +545,7 @@ namespace SimpleLauncher
                 }
 
             }
-            catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
             {
                 string formattedException = $"The requested file was not available on the server.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
@@ -607,16 +611,20 @@ namespace SimpleLauncher
             
             try
             {
-                string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
+                // Get the correct 7z executable path based on user environment (x64, x32 or arm)
+                string sevenZipPath = Get7ZipExecutablePath();
+
                 if (!File.Exists(sevenZipPath))
                 {
-                    string formattedException = $"7z.exe was not found in the application folder.";
+                    string formattedException = $"The required 7z executable was not found in the application folder.";
                     Exception exception = new(formattedException);
                     await LogErrors.LogErrorAsync(exception, formattedException);
                     
                     // Ask the user if they want to automatically reinstall Simple Launcher
                     var messageBoxResult = MessageBox.Show(
-                        "7z.exe was not found in the application folder!\n\nSimple Launcher will not be able to extract compressed files.\n\nDo you want to automatically reinstall Simple Launcher to fix the problem?",
+                        "The appropriate version of 7z.exe was not found in the application folder!\n\n" +
+                        "Simple Launcher will not be able to extract compressed files.\n\n" +
+                        "Do you want to automatically reinstall Simple Launcher to fix the problem?",
                         "Extraction Error",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
@@ -662,7 +670,8 @@ namespace SimpleLauncher
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
                     var retryResult = MessageBox.Show(
-                        $"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
+                        $"Error extracting the file: {filePath}\n\n" +
+                        $"The file might be corrupted or locked by some other process.\n\n" +
                         $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
                         $"Do you want to retry extracting the file?", 
                         "Extraction Error", 
@@ -695,8 +704,9 @@ namespace SimpleLauncher
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 var retryResult = MessageBox.Show(
-                    $"Error extracting the file: {filePath}\n\nThe file might be corrupted or locked by some other process.\n\n" +
-                    $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
+                    $"Error extracting the file: {filePath}\n\n" +
+                    $"The file might be corrupted or locked by some other process.\n\n" +
+                    $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
                     $"Do you want to retry extracting the file?", 
                     "Extraction Error", 
                     MessageBoxButton.YesNo, 
@@ -936,6 +946,28 @@ namespace SimpleLauncher
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SystemFolderTextBox.Text = dialog.SelectedPath;
+            }
+        }
+        
+        private string Get7ZipExecutablePath()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (RuntimeInformation.ProcessArchitecture == Architecture.X64)
+            {
+                return Path.Combine(baseDirectory, "7z.exe"); // Default for 64-bit
+            }
+            else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+            {
+                return Path.Combine(baseDirectory, "7z_32bits.exe");
+            }
+            else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+            {
+                return Path.Combine(baseDirectory, "7z_arm.exe");
+            }
+            else
+            {
+                throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
             }
         }
     }

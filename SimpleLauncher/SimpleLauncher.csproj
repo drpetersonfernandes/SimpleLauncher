@@ -9,7 +9,7 @@
     <Product>Simple Launcher</Product>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <IsPublishable>False</IsPublishable>
   </PropertyGroup>
   <PropertyGroup>
@@ -20,8 +20,8 @@
     <PackageIcon>icon2.png</PackageIcon>
     <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>3.5</AssemblyVersion>
-    <FileVersion>3.5</FileVersion>
+    <AssemblyVersion>3.5.1</AssemblyVersion>
+    <FileVersion>3.5.1</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <IsPublishable>False</IsPublishable>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="images\logo2.png" />
@@ -294,14 +295,20 @@
     <None Update="history.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="7z_32bits.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="7z_arm.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
-    <Content Include="mame.xml">
+    <None Include="mame.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
     <None Remove="images\wait.gif" />

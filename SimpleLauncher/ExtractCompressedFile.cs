@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.InteropServices;
 
 namespace SimpleLauncher
 {
@@ -17,13 +18,13 @@ namespace SimpleLauncher
         private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string _tempFolder = Path.Combine(AppDirectory, "temp");
         
-        // Path to the 7z.exe executable
-        private readonly string _sevenZipPath = Path.Combine(AppDirectory, "7z.exe");
-
         private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
         public async Task<string> ExtractArchiveToTempAsync(string archivePath)
         {
+            // Choose the correct 7z executable path based on user environment (x64, x32 or arm) 
+            string sevenZipPath = Get7ZipExecutablePath();
+            
             // Open the Please Wait Window
             var pleaseWaitExtraction = new PleaseWaitExtraction();
             pleaseWaitExtraction.Show();
@@ -38,7 +39,7 @@ namespace SimpleLauncher
             // Start the process to extract the archive
             ProcessStartInfo processStartInfo = new()
             {
-                FileName = _sevenZipPath,
+                FileName = sevenZipPath,
                 Arguments = $"x \"{archivePath}\" -o\"{tempDirectory}\" -y",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -99,6 +100,28 @@ namespace SimpleLauncher
             {
                 // Close the Please Wait Window
                 pleaseWaitExtraction.Close();
+            }
+        }
+        
+        private string Get7ZipExecutablePath()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (RuntimeInformation.ProcessArchitecture == Architecture.X64)
+            {
+                return Path.Combine(baseDirectory, "7z.exe"); // Default for 64-bit
+            }
+            else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+            {
+                return Path.Combine(baseDirectory, "7z_32bits.exe");
+            }
+            else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+            {
+                return Path.Combine(baseDirectory, "7z_arm.exe");
+            }
+            else
+            {
+                throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
             }
         }
 

@@ -1352,7 +1352,13 @@ Please read the documentation.
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-Use the tool available in the Simple Launcher menu to generate BAT files for you.
+Use the tool available in the Simple Launcher menu to generate BAT files for you.<br>
+
+BAT file example:
+
+```bat
+"D:\Emulators\RPCS3\rpcs3.exe" --no-gui "I:\Sony PlayStation 3\Ninja Gaiden Sigma 2 (USA) (En,Ja,Fr,De,Es,It)\PS3_GAME\USRDIR\EBOOT.BIN"
+```
 
 ## Sony PSP
 
