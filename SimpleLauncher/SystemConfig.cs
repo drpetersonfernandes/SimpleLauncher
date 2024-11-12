@@ -120,90 +120,118 @@ public class SystemConfig
             
             var doc = XDocument.Load(XmlPath);
             var systemConfigs = new List<SystemConfig>();
+            var invalidConfigs = new List<XElement>();
 
             if (doc.Root != null)
             {
                 foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                 {
-                    if (sysConfigElement.Element("SystemName") == null ||
-                        string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
-                        throw new InvalidOperationException("Missing or empty SystemName in XML.");
 
-                    if (sysConfigElement.Element("SystemFolder") == null ||
-                        string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
-                        throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
-
-                    if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
-                        throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
-
-                    // Validate FileFormatsToSearch
-                    var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
-                        ?.Elements("FormatToSearch")
-                        .Select(e => e.Value.Trim())
-                        .Where(value => !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
-                        .ToList();
-                    if (formatsToSearch == null || formatsToSearch.Count == 0)
-                        throw new InvalidOperationException("FileFormatsToSearch should have at least one value.");
-
-                    // Check and handle ExtractFileBeforeLaunch
-                    if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
-                            out bool extractFileBeforeLaunch))
-                        throw new InvalidOperationException(
-                            "Invalid or missing value for ExtractFileBeforeLaunch.");
-
-                    // Validate FileFormatsToLaunch
-                    var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
-                        ?.Elements("FormatToLaunch")
-                        .Select(e => e.Value.Trim())
-                        .Where(value => !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
-                        .ToList();
-                    if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                        throw new InvalidOperationException(
-                            "FileFormatsToLaunch should have at least one value when ExtractFileBeforeLaunch is true.");
-
-                    // Process emulator configurations
-                    var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(
-                        emulatorElement =>
-                        {
-                            if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                                throw new InvalidOperationException("EmulatorName should not be empty or null.");
-
-                            return new Emulator
-                            {
-                                EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
-                                EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                EmulatorParameters =
-                                    emulatorElement.Element("EmulatorParameters")
-                                        ?.Value // It's okay if this is null or empty
-                            };
-                        }).ToList();
-
-                    if (emulators == null || emulators.Count == 0)
-                        throw new InvalidOperationException("Emulators list should not be empty or null.");
-
-                    systemConfigs.Add(new SystemConfig
+                    try
                     {
-                        SystemName = sysConfigElement.Element("SystemName")?.Value,
-                        SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
-                        SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
-                        SystemIsMame = systemIsMame,
-                        ExtractFileBeforeLaunch = extractFileBeforeLaunch,
-                        FileFormatsToSearch = formatsToSearch,
-                        FileFormatsToLaunch = formatsToLaunch,
-                        Emulators = emulators
-                    });
+                        // Attempt to parse each system configuration.
+                        if (sysConfigElement.Element("SystemName") == null ||
+                            string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
+                            throw new InvalidOperationException("Missing or empty SystemName in XML.");
+
+                        if (sysConfigElement.Element("SystemFolder") == null ||
+                            string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
+                            throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
+
+                        if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
+                            throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
+
+                        // Validate FileFormatsToSearch
+                        var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
+                            ?.Elements("FormatToSearch")
+                            .Select(e => e.Value.Trim())
+                            .Where(value =>
+                                !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
+                            .ToList();
+                        if (formatsToSearch == null || formatsToSearch.Count == 0)
+                            throw new InvalidOperationException("FileFormatsToSearch should have at least one value.");
+
+                        // Validate ExtractFileBeforeLaunch
+                        if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
+                                out bool extractFileBeforeLaunch))
+                            throw new InvalidOperationException(
+                                "Invalid or missing value for ExtractFileBeforeLaunch.");
+
+                        // Validate FileFormatsToLaunch
+                        var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
+                            ?.Elements("FormatToLaunch")
+                            .Select(e => e.Value.Trim())
+                            .Where(value =>
+                                !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
+                            .ToList();
+                        if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
+                            throw new InvalidOperationException(
+                                "FileFormatsToLaunch should have at least one value when ExtractFileBeforeLaunch is true.");
+
+                        // Validate emulator configurations
+                        var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(
+                            emulatorElement =>
+                            {
+                                if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
+                                    throw new InvalidOperationException("EmulatorName should not be empty or null.");
+
+                                return new Emulator
+                                {
+                                    EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
+                                    EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
+                                    EmulatorParameters =
+                                        emulatorElement.Element("EmulatorParameters")
+                                            ?.Value // It's okay if this is null or empty
+                                };
+                            }).ToList();
+
+                        if (emulators == null || emulators.Count == 0)
+                            throw new InvalidOperationException("Emulators list should not be empty or null.");
+
+                        systemConfigs.Add(new SystemConfig
+                        {
+                            SystemName = sysConfigElement.Element("SystemName")?.Value,
+                            SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
+                            SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
+                            SystemIsMame = systemIsMame,
+                            ExtractFileBeforeLaunch = extractFileBeforeLaunch,
+                            FileFormatsToSearch = formatsToSearch,
+                            FileFormatsToLaunch = formatsToLaunch,
+                            Emulators = emulators
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        // Collect invalid configurations for removal
+                        invalidConfigs.Add(sysConfigElement);
+                        // Display a message to user for each invalid system removed
+                        MessageBox.Show($"The system '{sysConfigElement.Element("SystemName")?.Value}' was removed due to invalid values.", "Invalid System Configuration", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+               
                 }
+            
+                // Remove any invalid configurations from the XML document
+                foreach (var invalidConfig in invalidConfigs)
+                {
+                    invalidConfig.Remove();
+                }
+            
+                // Save the corrected XML back to disk
+                doc.Save(XmlPath);
             }
 
             return systemConfigs;
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error loading system configurations from system.xml.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error loading system configurations from 'system.xml'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show($"'system.xml' is corrupted or could not be open.\n\nPlease fix it manually or delete it.\n\nIf you choose to delete it then Simple Launcher will create a new one for you.\n\nIf you want to debug the error yourself, check the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"'system.xml' is corrupted or could not be open.\n\n" +
+                            $"Please fix it manually or delete it.\n\n" +
+                            $"If you choose to delete it then Simple Launcher will create a new one for you.\n\n" +
+                            $"If you want to debug the error yourself, check the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
     }
