@@ -257,7 +257,7 @@
                     Grid.Row="4"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Format to Search in the System Folder" />
+                    Content="Extension to Search in the System Folder" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchTextBox"
@@ -307,7 +307,7 @@
                     Grid.Row="6"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="Format to Launch After Extraction" />
+                    Content="Extension to Launch After Extraction" />
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToLaunchTextBox"

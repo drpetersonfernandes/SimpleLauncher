@@ -120,7 +120,7 @@ public class SystemConfig
             
             var doc = XDocument.Load(XmlPath);
             var systemConfigs = new List<SystemConfig>();
-            var invalidConfigs = new List<XElement>();
+            var invalidConfigs = new Dictionary<XElement, string>();
 
             if (doc.Root != null)
             {
@@ -200,24 +200,32 @@ public class SystemConfig
                             Emulators = emulators
                         });
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // Collect invalid configurations for removal
-                        invalidConfigs.Add(sysConfigElement);
-                        // Display a message to user for each invalid system removed
-                        MessageBox.Show($"The system '{sysConfigElement.Element("SystemName")?.Value}' was removed due to invalid values.", "Invalid System Configuration", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        string systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
+                        if (!invalidConfigs.ContainsKey(sysConfigElement))
+                        {
+                            invalidConfigs[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
+                        }
+                        invalidConfigs[sysConfigElement] += $"- {ex.Message}\n";
                     }
                
                 }
             
                 // Remove any invalid configurations from the XML document
-                foreach (var invalidConfig in invalidConfigs)
+                foreach (var invalidConfig in invalidConfigs.Keys)
                 {
                     invalidConfig.Remove();
                 }
             
                 // Save the corrected XML back to disk
                 doc.Save(XmlPath);
+                
+                // Notify user about each invalid configuration in a single message per system
+                foreach (var error in invalidConfigs.Values)
+                {
+                    MessageBox.Show(error, "Invalid System Configuration", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
 
             return systemConfigs;
@@ -235,58 +243,4 @@ public class SystemConfig
             return null;
         }
     }
-    
-    public static void SaveSystemConfigs(List<SystemConfig> systemConfigs)
-    {
-        if (systemConfigs == null || systemConfigs.Count == 0)
-            throw new ArgumentNullException(nameof(systemConfigs), @"System configurations list cannot be null or empty.");
-
-        try
-        {
-            // Sort the systemConfigs list alphabetically by SystemName
-            var sortedSystemConfigs = systemConfigs.OrderBy(config => config.SystemName).ToList();
-
-            var doc = new XDocument(
-                new XElement("Systems",
-                    sortedSystemConfigs.Select(systemConfig =>
-                        new XElement("SystemConfig",
-                            new XElement("SystemName", systemConfig.SystemName),
-                            new XElement("SystemFolder", systemConfig.SystemFolder),
-                            new XElement("SystemImageFolder", systemConfig.SystemImageFolder),
-                            new XElement("SystemIsMAME", systemConfig.SystemIsMame),
-                            new XElement("FileFormatsToSearch",
-                                systemConfig.FileFormatsToSearch.Select(format =>
-                                    new XElement("FormatToSearch", format))
-                            ),
-                            new XElement("ExtractFileBeforeLaunch", systemConfig.ExtractFileBeforeLaunch),
-                            new XElement("FileFormatsToLaunch",
-                                systemConfig.FileFormatsToLaunch.Select(format =>
-                                    new XElement("FormatToLaunch", format))
-                            ),
-                            new XElement("Emulators",
-                                systemConfig.Emulators.Select(emulator =>
-                                    new XElement("Emulator",
-                                        new XElement("EmulatorName", emulator.EmulatorName),
-                                        new XElement("EmulatorLocation", emulator.EmulatorLocation),
-                                        new XElement("EmulatorParameters", emulator.EmulatorParameters)
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            );
-
-            doc.Save(XmlPath);
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"Error saving system configurations to system.xml.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-
-            MessageBox.Show($"There was an error saving system configurations.\n\nPlease check 'error_user.log' in the Simple Launcher folder for more details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
 }
