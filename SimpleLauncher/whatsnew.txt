@@ -1,3 +1,14 @@
+release3.5.1
+------------
+
+11/__/2024
+- I did a major refactoring to the class EditSystem to implement a better validation in the input fields of the window EditSystem. This was needed to prevent user from entering wrong values into the input fields. I hope they get fewer errors now when launching a game.
+- I improve the system validation mechanism of the 'system.xml' file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down, it will now remove any corrupted system, alert the user and preserve the good formated systems. Handy in case of a corrupted 'system.xml' file.
+- I move the extraction method from EditSystemEasyModeAddSystem class to ExtractCompressedFile. Trying to better organize the code.
+- Added different versions of 7z executable, for x86, x64 and arm64 bits. Working on the release of an arm64 version of 'Simple Launcher.'
+- Added handle executable to improve debugging of extraction errors.
+- Added code to automatically convert [url formated text] into real links in the RomHistory window.
+
 release3.5.0
 ------------
 
@@ -46,7 +57,7 @@ release3.3.2
 - I have fixed the download of the 'ares' emulator. This emulator is the default in the 'Easy Mode' window for Nintendo Satellaview and Sega Genesis CD.
 - I have fixed the download of the 'Redream' emulator. This emulator is the default in the 'Easy Mode' window for Sega Dreamcast.
 - I have fixed a bug in the 'Easy Mode' window to prevent the extraction of partially downloaded files.
-- I have added Xbox 360 XBLA into 'easymode.xml' and 'system_model.xml'.
+- I have added Xbox 360 XBLA into 'easymode.xml' and 'system_model.xml.'
 
 release3.3.1
 -------------
