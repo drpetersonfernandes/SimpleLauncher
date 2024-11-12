@@ -22,7 +22,7 @@ namespace SimpleLauncher
         private bool _isEmulatorDownloaded;
         private bool _isCoreDownloaded;
         private CancellationTokenSource _cancellationTokenSource;
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient = new();
         private bool _isDownloadCompleted;
         
         public EditSystemEasyModeAddSystem()
@@ -37,10 +37,10 @@ namespace SimpleLauncher
             PopulateSystemDropdown();
             
             // Subscribe to the Closed event
-            Closed += EditSystemEasyModeAddSystem_Closed; 
-            
-            MessageBox.Show("Some antivirus programs may lock or scan newly downloaded files, causing access issues during installation.\n\n" +
-                            "If you get errors try to temporarily disable real-time protection.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            Closed += EditSystemEasyModeAddSystem_Closed;
+
+            MessageBox.Show("Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n\n" +
+                            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative access.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void LoadConfig()
@@ -161,7 +161,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
                     
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
             
                         if (extractionSuccess)
@@ -313,7 +313,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -431,7 +431,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -555,17 +555,17 @@ namespace SimpleLauncher
             {
                 string formattedException = $"Network error during file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                
-                MessageBox.Show("There was an network error.\n\nYou can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
+                                "Please try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (IOException ex)
             {
                 string formattedException = $"File read/write error after file download.\n\nURL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show("There was an file read/write error after file download.\n\n" +
-                                "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
-                                "Maybe the extraction process will continue without errors.", "Read/Write error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was a file read/write error after the file download.\n\n" +
+                                "Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try temporarily disabling real-time protection.", "Read/Write Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (TaskCanceledException ex)
             {

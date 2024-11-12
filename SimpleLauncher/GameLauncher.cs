@@ -267,7 +267,7 @@ public static class GameLauncher
             // Accept ZIP, 7Z and RAR files
             if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
-                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                string tempExtractLocation = await ExtractCompressedFile.Instance.ExtractArchiveToTempAsync(filePath);
                 
                 // Iterate through the formats to launch and find the first file with the specified extension
                 bool fileFound = false;
@@ -478,7 +478,7 @@ public static class GameLauncher
             // Accept ZIP, 7Z and RAR files
             if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
-                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                string tempExtractLocation = await ExtractCompressedFile.Instance.ExtractArchiveToTempAsync(filePath);
                 
                 if (!Directory.Exists(tempExtractLocation))
                 {

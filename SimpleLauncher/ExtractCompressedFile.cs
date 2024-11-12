@@ -11,8 +11,7 @@ namespace SimpleLauncher
 {
     internal class ExtractCompressedFile
     {
-        private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
-        public static ExtractCompressedFile Instance2 => Instance.Value;
+        public static ExtractCompressedFile Instance { get; } = new ExtractCompressedFile();
         private readonly List<string> _tempDirectories = new();
         
         // Use the application's directory for the temporary directory
@@ -23,14 +22,13 @@ namespace SimpleLauncher
 
         public async Task<string> ExtractArchiveToTempAsync(string archivePath)
         {
-            // Check if the file extension is valid (7z, zip, rar) and allow uppercase extensions
             string extension = Path.GetExtension(archivePath)?.ToLower();
+
             if (extension != ".7z" && extension != ".zip" && extension != ".rar")
             {
                 MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
                                 $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                                $"Please go to Edit System - Expert Mode, and edit this system.", 
-                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                $"Please go to Edit System - Expert Mode, and edit this system.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return null;
             }
             
@@ -183,7 +181,8 @@ namespace SimpleLauncher
                 Exception exception = new(formattedException);
                 await LogErrors.LogErrorAsync(exception, formattedException);
                 
-                MessageBox.Show("The downloaded file appears to be empty or corrupted.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The downloaded file appears to be empty or corrupted.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             
@@ -196,9 +195,9 @@ namespace SimpleLauncher
                 else
                 {
                     var restartAsAdminResult = MessageBox.Show(
-                        "The file appears to be locked by another process.\n\n" +
+                        "The downloaded file appears to be locked by another process.\n\n" +
                         "'Simple Launcher' does not have administrative privileges to detect the cause of this lock.\n\n" +
-                        "Would you like to restart Simple Launcher with administrative privileges to diagnose the issue?",
+                        "Would you like to restart 'Simple Launcher' with administrative privileges to diagnose the issue?",
                         "File Lock Detected",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
@@ -206,7 +205,7 @@ namespace SimpleLauncher
                     if (restartAsAdminResult == MessageBoxResult.Yes)
                     {
                         RestartAsAdministrator();
-                        MessageBox.Show("Please retry the extraction after Simple Launcher restarts with administrative privileges.", "Restart with Admin Privileges", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Please retry the download and extraction after 'Simple Launcher' restarts with administrative privileges.", "Restart with Admin Privileges", MessageBoxButton.OK, MessageBoxImage.Information);
                         return false;
                     }
                 }
@@ -226,25 +225,25 @@ namespace SimpleLauncher
                     // Ask the user if they want to automatically reinstall Simple Launcher
                     var messageBoxResult = MessageBox.Show(
                         "The appropriate version of 7z.exe was not found in the application folder!\n\n" +
-                        "Simple Launcher will not be able to extract compressed files.\n\n" +
-                        "Do you want to automatically reinstall Simple Launcher to fix the problem?",
+                        "'Simple Launcher' will not be able to extract compressed files.\n\n" +
+                        "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
                         "Extraction Error",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        Loaded += async (_, _) => await UpdateChecker.ReinstallSimpleLauncherAsync(this);
+                        ReinstallSimpleLauncher.StartUpdaterAndShutdown();
                     }
                     else
                     {
-                        MessageBox.Show("Please reinstall Simple Launcher to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                        MessageBox.Show("Please reinstall 'Simple Launcher' to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
                     }
                     
                     return false;
                 }
                 
-                // Ensure the destination folder exists
+                // Create destination folder if it does not exist
                 Directory.CreateDirectory(destinationFolder);
 
                 var processStartInfo = new ProcessStartInfo
@@ -274,8 +273,8 @@ namespace SimpleLauncher
             
                     MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                                     $"The file might be corrupted or locked by some other process.\n\n" +
-                                    $"Some antivirus programs may lock or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
-                                    "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
+                        "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     return false;
                 }
@@ -289,7 +288,7 @@ namespace SimpleLauncher
                 MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                                 $"The file might be corrupted or locked by some other process.\n\n" +
                                 $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
-                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return false;
             }
@@ -314,7 +313,8 @@ namespace SimpleLauncher
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
-        
+
+        // Using Handle from Microsoft to figure out which program is locking the downloaded file
         private async Task RunHandleExeAndLogProcess(string filePath)
         {
             string handleExePath = GetHandleExecutablePath();
@@ -344,10 +344,14 @@ namespace SimpleLauncher
             string error = await process.StandardError.ReadToEndAsync();
             await process.WaitForExitAsync();
 
-            string logMessage = string.IsNullOrEmpty(output) ? "No process found locking the file." : output;
-            await LogErrors.LogErrorAsync(new Exception("File lock detected"), logMessage);
+            string logMessageUser = string.IsNullOrEmpty(output) ? "No process found locking the file." : output;
+            string logMessageDeveloper = string.IsNullOrEmpty(output) ? "No process found locking the file." : $"Handle output: {output}\nHandle error: {error}";
+            await LogErrors.LogErrorAsync(new Exception("File lock detected"), logMessageDeveloper);
 
-            MessageBox.Show($"The following process is locking the file:\n\n{logMessage}", "File Lock Detected", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"The following process is locking the file:\n\n" +
+                            $"{logMessageUser}\n\n" +
+                            $"You may try to stop this process to proceed with the extraction.\n\n" +
+                            $"A report has been sent to the developer, who will attempt to fix the issue and prevent it from happening again.", "File Lock Detected", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         
         private string GetHandleExecutablePath()
@@ -372,27 +376,27 @@ namespace SimpleLauncher
                 return Path.Combine(appDirectory, "handle_x86.exe");
             }
         }
-        
+
         private void RestartAsAdministrator()
         {
-            var startInfo = new ProcessStartInfo
+            // Prepare the process start info
+            var processModule = Process.GetCurrentProcess().MainModule;
+            if (processModule != null)
             {
-                FileName = Process.GetCurrentProcess().MainModule.FileName,
-                UseShellExecute = true,
-                Verb = "runas"
-            };
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = processModule.FileName,
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
 
-            try
-            {
+                // Start new application instance
                 Process.Start(startInfo);
+
+                // Shutdown current application instance
                 Application.Current.Shutdown();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to restart with administrative privileges.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(0);
             }
         }
-        
-        
     }
 }

@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace SimpleLauncher
 {
-    public class ReinstallSimpleLauncher
+    public static class ReinstallSimpleLauncher
     {
         public static void StartUpdaterAndShutdown()
         {
