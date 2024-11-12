@@ -40,7 +40,7 @@ namespace SimpleLauncher
             Closed += EditSystemEasyModeAddSystem_Closed;
 
             MessageBox.Show("Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n\n" +
-                            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative access.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void LoadConfig()
@@ -161,7 +161,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
                     
-                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
             
                         if (extractionSuccess)
@@ -313,7 +313,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -431,7 +431,7 @@ namespace SimpleLauncher
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)

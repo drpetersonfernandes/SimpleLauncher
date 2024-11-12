@@ -240,7 +240,7 @@ namespace SimpleLauncher
         // Method to delete generated temp files before close.
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            ExtractCompressedFile.Instance.Cleanup();
+            ExtractCompressedFile.Instance2.Cleanup();
         }
 
         // Save Application Settings

@@ -11,7 +11,8 @@ namespace SimpleLauncher
 {
     internal class ExtractCompressedFile
     {
-        public static ExtractCompressedFile Instance { get; } = new ExtractCompressedFile();
+        private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
+        public static ExtractCompressedFile Instance2 => Instance.Value;
         private readonly List<string> _tempDirectories = new();
         
         // Use the application's directory for the temporary directory
@@ -296,12 +297,19 @@ namespace SimpleLauncher
         
         private bool IsFileLocked(string filePath)
         {
+            if (!File.Exists(filePath))
+                return false;
+
             try
             {
                 using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
                 return false;
             }
             catch (IOException)
+            {
+                return true;
+            }
+            catch (UnauthorizedAccessException)
             {
                 return true;
             }
@@ -323,6 +331,10 @@ namespace SimpleLauncher
             {
                 string formattedException = $"{Path.GetFileName(handleExePath)} was not found in the application folder.";
                 await LogErrors.LogErrorAsync(new FileNotFoundException(formattedException), formattedException);
+
+                MessageBox.Show("'Simple Launcher' could not find the appropriate handle executable.\n\n" +
+                                "The error has been reported to the developer, who will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 return;
             }
 
@@ -395,7 +407,6 @@ namespace SimpleLauncher
 
                 // Shutdown current application instance
                 Application.Current.Shutdown();
-                Environment.Exit(0);
             }
         }
     }
