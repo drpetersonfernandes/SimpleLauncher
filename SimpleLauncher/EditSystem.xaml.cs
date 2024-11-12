@@ -711,7 +711,8 @@ public partial class EditSystem
         // Second validation for SystemImageFolder
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
-            MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK,
+            MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK,
                 MessageBoxImage.Information);
             return;
         }
@@ -719,7 +720,8 @@ public partial class EditSystem
         // Second validation for FormatToSearch
         if (formatsToSearch.Count == 0)
         {
-            MessageBox.Show("'Extension to Search in the Search Folder' cannot be empty.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("'Extension to Search in the Search Folder' cannot be empty.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
