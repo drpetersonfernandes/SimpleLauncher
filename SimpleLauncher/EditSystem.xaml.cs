@@ -585,7 +585,7 @@ public partial class EditSystem
         MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
         MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
-        // Check validation results before proceeding
+        // Check paths
         if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
         {
             MessageBox.Show("One or more paths or parameters are invalid.\n\nPlease fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -599,10 +599,7 @@ public partial class EditSystem
             MessageBox.Show("'System Name' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
-
-        bool systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-        bool extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-            
+        
         // Add default System Folder if not provided by user
         if (systemFolderText.Length == 0)
         {
@@ -616,6 +613,11 @@ public partial class EditSystem
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
         }
+
+        // Validate systemIsMame and extractFileBeforeLaunch
+        // Set to false if user does not choose
+        bool systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+        bool extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
             
         // Validate FormatToSearchInSystemFolder
         string formatToSearchInput = FormatToSearchTextBox.Text.Trim();
@@ -625,7 +627,7 @@ public partial class EditSystem
             .ToList();
         if (formatsToSearch.Count == 0)
         {
-            MessageBox.Show("'Format to Search in the System Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("'Extension to Search in the System Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -637,7 +639,8 @@ public partial class EditSystem
             .ToList();
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
-            MessageBox.Show("The 'Format to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The 'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
             
@@ -697,7 +700,7 @@ public partial class EditSystem
             return;
         }
             
-        // Validate SystemFolder
+        // Second validation for SystemFolder
         if (string.IsNullOrEmpty(systemFolderText))
         {
             MessageBox.Show("'System Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK,
@@ -705,7 +708,7 @@ public partial class EditSystem
             return;
         }
             
-        // Validate SystemImageFolder
+        // Second validation for SystemImageFolder
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
             MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK,
@@ -713,30 +716,32 @@ public partial class EditSystem
             return;
         }
             
-        // Validate FormatToSearch
+        // Second validation for FormatToSearch
         if (formatsToSearch.Count == 0)
         {
-            MessageBox.Show("'Format to Search in the Search Folder' cannot be empty.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("'Extension to Search in the Search Folder' cannot be empty.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
         {
-            MessageBox.Show("When 'Extract File Before Launch' is set to true, 'Format to Search in the System Folder' must include 'zip', '7z', or 'rar'.\n\n" +
+            MessageBox.Show("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.\n\n" +
                             "It will not accept other extensions.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
             
-        // Validate FormatToLaunch
+        // Second validation for FormatToLaunch
         if (extractFileBeforeLaunch && formatsToLaunch.Count == 0)
         {
-            MessageBox.Show("The 'Format to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         
-        // Second check
+        // Second validation for paths
         if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
         {
-            MessageBox.Show("One or more paths or parameters are invalid.\n\nPlease fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
+                            "Please fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
            
@@ -799,7 +804,6 @@ public partial class EditSystem
 
     private static void CreateFolders(string systemNameText)
     {
-        // Create folders
         string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string[] folderNames = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs", "carts"];
 
