@@ -1,13 +1,13 @@
 release3.5.1
 ------------
 
-11/__/2024
+11/13/2024
 - I did a major refactoring to the class EditSystem to implement a better validation in the input fields of the window EditSystem. This was needed to prevent user from entering wrong values into the input fields. I hope they get fewer errors now when launching a game.
-- I improve the system validation mechanism of the 'system.xml' file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down, it will now remove any corrupted system, alert the user and preserve the good formated systems. Handy in case of a corrupted 'system.xml' file.
-- I move the extraction method from EditSystemEasyModeAddSystem class to ExtractCompressedFile. Trying to better organize the code.
-- Added different versions of 7z executable, for x86, x64 and arm64 bits. Working on the release of an arm64 version of 'Simple Launcher.'
-- Added handle executable to improve debugging of extraction errors.
+- I improve the system validation mechanism of the 'system.xml' file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down the application, it will now remove any corrupted system, alert the user and preserve the good formated systems. Handy in case of a corrupted 'system.xml' file.
+- I implement extraction in memory for files below 50 Mb to prevent file locks and get a better change of extraction success. For file above 50 Mb, the extraction will process the way it was.
+- Added different versions of 7z executable, for x86, x64 and arm64 bits.
 - Added code to automatically convert [url formated text] into real links in the RomHistory window.
+- Improve log class to send more debug info to the developer.
 
 release3.5.0
 ------------

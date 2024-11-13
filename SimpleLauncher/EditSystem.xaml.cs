@@ -586,9 +586,12 @@ public partial class EditSystem
         MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
         // Check paths
-        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
+            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid ||
+            !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
         {
-            MessageBox.Show("One or more paths or parameters are invalid.\n\nPlease fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
+                            "Please fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
             
@@ -596,7 +599,8 @@ public partial class EditSystem
         string systemNameText = SystemNameTextBox.Text.Trim();
         if (string.IsNullOrEmpty(systemNameText))
         {
-            MessageBox.Show("'System Name' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("'System Name' cannot be empty or contain only spaces.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         
@@ -606,6 +610,15 @@ public partial class EditSystem
             systemFolderText = $".\\roms\\{systemNameText}";
             SystemFolderTextBox.Text = systemFolderText;
         }
+        
+        // Validation for SystemFolder
+        if (string.IsNullOrEmpty(systemFolderText))
+        {
+            MessageBox.Show("'System Folder' cannot be empty or contain only spaces.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return;
+        }
 
         // Add default System Image Folder if not provided by user
         if (systemImageFolderText.Length == 0)
@@ -613,13 +626,25 @@ public partial class EditSystem
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
         }
+        
+        // Validation for SystemImageFolder
+        if (string.IsNullOrEmpty(systemImageFolderText))
+        {
+            MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return;
+        }
 
-        // Validate systemIsMame and extractFileBeforeLaunch
+        // Validate systemIsMame
         // Set to false if user does not choose
         bool systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+        
+        // Validate extractFileBeforeLaunch
+        // Set to false if user does not choose
         bool extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
             
-        // Validate FormatToSearchInSystemFolder
+        // Validate FormatToSearch
         string formatToSearchInput = FormatToSearchTextBox.Text.Trim();
         List<string> formatsToSearch = formatToSearchInput.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(format => format.Trim())
@@ -627,7 +652,14 @@ public partial class EditSystem
             .ToList();
         if (formatsToSearch.Count == 0)
         {
-            MessageBox.Show("'Extension to Search in the System Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("'Extension to Search in the System Folder' cannot be empty or contain only spaces.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
+        {
+            MessageBox.Show("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.\n\n" +
+                            "It will not accept other extensions.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
@@ -639,7 +671,7 @@ public partial class EditSystem
             .ToList();
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
-            MessageBox.Show("The 'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\n" +
+            MessageBox.Show("'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\n" +
                             "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
@@ -648,7 +680,8 @@ public partial class EditSystem
         string emulator1Name = Emulator1NameTextBox.Text.Trim();
         if (string.IsNullOrEmpty(emulator1Name))
         {
-            MessageBox.Show("'Emulator 1 Name' is required.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("'Emulator 1 Name' is required.\n\n" +
+                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
             
@@ -675,10 +708,12 @@ public partial class EditSystem
             // Check if any data related to the emulator is provided
             if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
             {
+                // Validate EmulatorName for Emulators 2-5
                 // Make the emulator name required if related data is provided
                 if (string.IsNullOrEmpty(emulatorName))
                 {
-                    MessageBox.Show($"Emulator {i + 2} name is required because related data has been provided.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Emulator {i + 2} name is required because related data has been provided.\n\n" +
+                                    $"Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
@@ -693,60 +728,6 @@ public partial class EditSystem
             }
         }
             
-        // Second validation for SystemName
-        if (string.IsNullOrEmpty(systemNameText))
-        {
-            MessageBox.Show("'System Name' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-            
-        // Second validation for SystemFolder
-        if (string.IsNullOrEmpty(systemFolderText))
-        {
-            MessageBox.Show("'System Folder' cannot be empty or contain only spaces.\n\nPlease fix this field.", "Validation Error", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            return;
-        }
-            
-        // Second validation for SystemImageFolder
-        if (string.IsNullOrEmpty(systemImageFolderText))
-        {
-            MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\n" +
-                            "Please fix this field.", "Validation Error", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            return;
-        }
-            
-        // Second validation for FormatToSearch
-        if (formatsToSearch.Count == 0)
-        {
-            MessageBox.Show("'Extension to Search in the Search Folder' cannot be empty.\n\n" +
-                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
-        {
-            MessageBox.Show("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.\n\n" +
-                            "It will not accept other extensions.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-            
-        // Second validation for FormatToLaunch
-        if (extractFileBeforeLaunch && formatsToLaunch.Count == 0)
-        {
-            MessageBox.Show("'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.\n\n" +
-                            "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-        
-        // Second validation for paths
-        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid || !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid || !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
-        {
-            MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
-                            "Please fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-           
         ////////////////
         // XML factory//
         ////////////////
