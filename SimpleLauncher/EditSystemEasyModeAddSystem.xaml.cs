@@ -80,115 +80,108 @@ namespace SimpleLauncher
             }
         }
         
-        private string GetInstalledEmulatorVersion(string emulatorLocation)
-        {
-            string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_emulator.txt");
-            if (File.Exists(versionFilePath))
-            {
-                return File.ReadAllText(versionFilePath).Trim();
-            }
-            return null;
-        }
-        
         private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
         {
             _isDownloadCompleted = false;
-
+    
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
                 string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
                 string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
-                Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
+                Directory.CreateDirectory(emulatorsFolderPath);
                 string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get emulatorDownloadUrl"));
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
                 string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
-                // Check if the emulator is already installed and get the installed version
+                // Check if the emulator is already installed and up to date
                 if (File.Exists(emulatorLocation))
                 {
                     string installedVersionString = GetInstalledEmulatorVersion(emulatorLocation);
-
                     if (Version.TryParse(installedVersionString, out Version installedVersion) &&
                         Version.TryParse(latestVersionString, out Version latestVersion) &&
                         installedVersion.CompareTo(latestVersion) >= 0)
                     {
                         MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        // Mark as downloaded and disable button
                         _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
-
-                        // Update AddSystemButton state
                         UpdateAddSystemButtonState();
-
                         return;
                     }
                 }
 
                 try
                 {
-                    // Display progress bar
                     DownloadProgressBar.Visibility = Visibility.Visible;
                     DownloadProgressBar.Value = 0;
                     StopDownloadButton.IsEnabled = true;
-            
-                    // Initialize cancellation token source
+
                     _cancellationTokenSource = new CancellationTokenSource();
 
-                    // Download the file
-                    await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
+                    // Determine file size
+                    long fileSize = await GetFileSizeAsync(emulatorDownloadUrl);
 
-                    // Only proceed with extraction if the download completed successfully
-                    if (_isDownloadCompleted)
+                    if (fileSize < 50 * 1024 * 1024) // Less than 50 MB
                     {
-                        // Rename the file to .7z if EmulatorDownloadRename is true
-                        if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
+                        await DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath, _cancellationTokenSource.Token);
+                    }
+                    else
+                    {
+                        await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
+
+                        if (_isDownloadCompleted)
                         {
-                            string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
-                    
-                            if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
+                            if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
                             {
-                                File.Move(downloadFilePath, newFilePath);
+                                string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
+                                if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
+                                {
+                                    File.Move(downloadFilePath, newFilePath);
+                                }
+                                downloadFilePath = newFilePath;
                             }
 
-                            downloadFilePath = newFilePath;
-                        }
+                            PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+                            pleaseWaitWindow.Show();
 
-                        // Show the PleaseWaitExtraction window
-                        PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
-                        pleaseWaitWindow.Show();
-                    
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
-                        pleaseWaitWindow.Close();
-            
-                        if (extractionSuccess)
-                        {
-                            MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                            bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                            pleaseWaitWindow.Close();
 
-                            // Clean up the downloaded file only if extraction is successful
-                            File.Delete(downloadFilePath);
-
-                            // Update the version file if necessary
-                            if (destinationPath2 != null)
+                            if (extractionSuccess)
                             {
-                                string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
-                                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                                MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                                File.Delete(downloadFilePath);
+                                if (destinationPath2 != null)
+                                {
+                                    string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
+                                    await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                                }
+                                _isEmulatorDownloaded = true;
+                                DownloadEmulatorButton.IsEnabled = false;
+                                UpdateAddSystemButtonState();
                             }
-
-                            // Mark as downloaded and disable button
-                            _isEmulatorDownloaded = true;
-                            DownloadEmulatorButton.IsEnabled = false;
-
-                            // Update AddSystemButton state
-                            UpdateAddSystemButtonState();
+                            else
+                            {
+                                // Extraction failed
+                                MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} emulator.\n\n" +
+                                                                          $"Would you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    Process.Start(new ProcessStartInfo
+                                    {
+                                        FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+                                        UseShellExecute = true
+                                    });
+                                }
+                            }
                         }
                         else
                         {
-                            // Extraction failed - offer redirect option
-                            MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} emulator.\n\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            // Download was incomplete
+                            MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
+                                                                      $"Would you like to be redirected to the download page?", "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
                             if (result == MessageBoxResult.Yes)
                             {
                                 Process.Start(new ProcessStartInfo
@@ -199,32 +192,16 @@ namespace SimpleLauncher
                             }
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Download was incomplete and will not be extracted.", "Download incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        MessageBoxResult result = MessageBox.Show($"Would you like to be redirected to the download page?", "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                                UseShellExecute = true
-                            });
-                        }
-                    }
                 }
                 catch (TaskCanceledException)
                 {
-                    // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath))
-                    {
-                        File.Delete(downloadFilePath);
-                    } 
-            
+                    // Download was canceled
+                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath);
                     MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
+                    // Error downloading
                     string formattedException = $"Error downloading emulator.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
@@ -244,17 +221,162 @@ namespace SimpleLauncher
                 }
             }
         }
-        
-        private string GetInstalledCoreVersion(string coreLocation)
-        {
-            string versionFilePath = Path.Combine(Path.GetDirectoryName(coreLocation) ?? string.Empty, "version_core.txt");
-            if (File.Exists(versionFilePath))
-            {
-                return File.ReadAllText(versionFilePath).Trim();
-            }
-            return null;
-        }
 
+        // private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
+        // {
+        //     _isDownloadCompleted = false;
+        //
+        //     var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        //     if (selectedSystem != null)
+        //     {
+        //         string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
+        //         string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
+        //         string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
+        //         Directory.CreateDirectory(emulatorsFolderPath); // Ensure the emulators folder exists
+        //         string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get emulatorDownloadUrl"));
+        //         string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+        //         string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
+        //         string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
+        //
+        //         // Check if the emulator is already installed and get the installed version
+        //         if (File.Exists(emulatorLocation))
+        //         {
+        //             string installedVersionString = GetInstalledEmulatorVersion(emulatorLocation);
+        //
+        //             if (Version.TryParse(installedVersionString, out Version installedVersion) &&
+        //                 Version.TryParse(latestVersionString, out Version latestVersion) &&
+        //                 installedVersion.CompareTo(latestVersion) >= 0)
+        //             {
+        //                 MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+        //
+        //                 // Mark as downloaded and disable button
+        //                 _isEmulatorDownloaded = true;
+        //                 DownloadEmulatorButton.IsEnabled = false;
+        //
+        //                 // Update AddSystemButton state
+        //                 UpdateAddSystemButtonState();
+        //
+        //                 return;
+        //             }
+        //         }
+        //
+        //         try
+        //         {
+        //             // Display progress bar
+        //             DownloadProgressBar.Visibility = Visibility.Visible;
+        //             DownloadProgressBar.Value = 0;
+        //             StopDownloadButton.IsEnabled = true;
+        //     
+        //             // Initialize cancellation token source
+        //             _cancellationTokenSource = new CancellationTokenSource();
+        //
+        //             // Download the file
+        //             await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
+        //
+        //             // Only proceed with extraction if the download completed successfully
+        //             if (_isDownloadCompleted)
+        //             {
+        //                 // Rename the file to .7z if EmulatorDownloadRename is true
+        //                 if (selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
+        //                 {
+        //                     string newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
+        //             
+        //                     if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
+        //                     {
+        //                         File.Move(downloadFilePath, newFilePath);
+        //                     }
+        //
+        //                     downloadFilePath = newFilePath;
+        //                 }
+        //
+        //                 // Show the PleaseWaitExtraction window
+        //                 PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+        //                 pleaseWaitWindow.Show();
+        //             
+        //                 bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+        //                 pleaseWaitWindow.Close();
+        //     
+        //                 if (extractionSuccess)
+        //                 {
+        //                     MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.", "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+        //
+        //                     // Clean up the downloaded file only if extraction is successful
+        //                     File.Delete(downloadFilePath);
+        //
+        //                     // Update the version file if necessary
+        //                     if (destinationPath2 != null)
+        //                     {
+        //                         string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
+        //                         await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+        //                     }
+        //
+        //                     // Mark as downloaded and disable button
+        //                     _isEmulatorDownloaded = true;
+        //                     DownloadEmulatorButton.IsEnabled = false;
+        //
+        //                     // Update AddSystemButton state
+        //                     UpdateAddSystemButtonState();
+        //                 }
+        //                 else
+        //                 {
+        //                     // Extraction failed - offer redirect option
+        //                     MessageBoxResult result = MessageBox.Show($"Extraction failed for {selectedSystem.SystemName} emulator.\n\nWould you like to be redirected to the download page?", "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        //                     if (result == MessageBoxResult.Yes)
+        //                     {
+        //                         Process.Start(new ProcessStartInfo
+        //                         {
+        //                             FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+        //                             UseShellExecute = true
+        //                         });
+        //                     }
+        //                 }
+        //             }
+        //             else
+        //             {
+        //                 MessageBox.Show("Download was incomplete and will not be extracted.", "Download incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //                 MessageBoxResult result = MessageBox.Show($"Would you like to be redirected to the download page?", "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        //                 if (result == MessageBoxResult.Yes)
+        //                 {
+        //                     Process.Start(new ProcessStartInfo
+        //                     {
+        //                         FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+        //                         UseShellExecute = true
+        //                     });
+        //                 }
+        //             }
+        //         }
+        //         catch (TaskCanceledException)
+        //         {
+        //             // Delete a partially downloaded file
+        //             if (File.Exists(downloadFilePath))
+        //             {
+        //                 File.Delete(downloadFilePath);
+        //             } 
+        //     
+        //             MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             string formattedException = $"Error downloading emulator.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+        //             await LogErrors.LogErrorAsync(ex, formattedException);
+        //     
+        //             MessageBoxResult result = MessageBox.Show($"Error downloading emulator.\n\nWould you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        //             if (result == MessageBoxResult.Yes)
+        //             {
+        //                 Process.Start(new ProcessStartInfo
+        //                 {
+        //                     FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+        //                     UseShellExecute = true
+        //                 });
+        //             }
+        //         }
+        //         finally
+        //         {
+        //             StopDownloadButton.IsEnabled = false;
+        //         }
+        //     }
+        // }
+        
         private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
         {
             _isDownloadCompleted = false;
@@ -596,6 +718,34 @@ namespace SimpleLauncher
             }
         }
         
+        private async Task DownloadAndExtractInMemoryAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
+        {
+            using var response = await _httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            response.EnsureSuccessStatusCode();
+    
+            await using var memoryStream = new MemoryStream();
+            await response.Content.CopyToAsync(memoryStream, cancellationToken);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            using (var archive = SharpCompress.Archives.ArchiveFactory.Open(memoryStream))
+            {
+                foreach (var entry in archive.Entries)
+                {
+                    if (!entry.IsDirectory)
+                    {
+                        string entryDestinationPath = Path.Combine(destinationPath, entry.Key ?? throw new InvalidOperationException("Could not get entry.key"));
+                        Directory.CreateDirectory(Path.GetDirectoryName(entryDestinationPath) ?? throw new InvalidOperationException("Could not GetDirectoryName"));
+                        await using var entryStream = entry.OpenEntryStream();
+                        await using var fileStream = new FileStream(entryDestinationPath, FileMode.Create, FileAccess.Write);
+                        await entryStream.CopyToAsync(fileStream, cancellationToken);
+                    }
+                }
+            }
+
+            _isDownloadCompleted = true;
+            MessageBox.Show("Download and extraction in-memory complete.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
         private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
         {
             if (_cancellationTokenSource != null)
@@ -610,11 +760,6 @@ namespace SimpleLauncher
                 // Reinitialize the cancellation token source for the next download
                 _cancellationTokenSource = new CancellationTokenSource();
             }
-        }
-
-        private void UpdateAddSystemButtonState()
-        {
-            AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
         }
 
         private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -725,6 +870,11 @@ namespace SimpleLauncher
             }
         }
         
+        private void UpdateAddSystemButtonState()
+        {
+            AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
+        }
+        
         private void CreateSystemFolders(string systemName, string systemFolder, string systemImageFolder)
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -734,8 +884,7 @@ namespace SimpleLauncher
             string imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
 
             // List of additional folders to create
-            string[] additionalFolders = ["title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"
-            ];
+            string[] additionalFolders = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"];
 
             try
             {
@@ -795,12 +944,6 @@ namespace SimpleLauncher
             }
         }
         
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-            e.Handled = true;
-        }
-
         private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
         {
             using var dialog = new FolderBrowserDialog();
@@ -813,6 +956,38 @@ namespace SimpleLauncher
             }
         }
         
+        private async Task<long> GetFileSizeAsync(string url)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Head, url);
+            using var response = await _httpClient.SendAsync(request);
+            return response.Content.Headers.ContentLength ?? 0;
+        }
         
+        private string GetInstalledEmulatorVersion(string emulatorLocation)
+        {
+            string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_emulator.txt");
+            if (File.Exists(versionFilePath))
+            {
+                return File.ReadAllText(versionFilePath).Trim();
+            }
+            return null;
+        }
+        
+        private string GetInstalledCoreVersion(string coreLocation)
+        {
+            string versionFilePath = Path.Combine(Path.GetDirectoryName(coreLocation) ?? string.Empty, "version_core.txt");
+            if (File.Exists(versionFilePath))
+            {
+                return File.ReadAllText(versionFilePath).Trim();
+            }
+            return null;
+        }
+        
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
+        }
+
     }
 }

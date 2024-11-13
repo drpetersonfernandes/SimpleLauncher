@@ -509,6 +509,7 @@ namespace SimpleLauncher
         }
 
         # region SystemInfo
+        
         private static int CountFiles(string folderPath, List<string> fileExtensions)
         {
             if (!Directory.Exists(folderPath))
@@ -741,22 +742,6 @@ namespace SimpleLauncher
         
         #endregion
         
-        private void ApplyShowGamesSetting()
-        {
-            switch (_settings.ShowGames)
-            {
-                case "ShowAll":
-                    ShowAllGames_Click(ShowAll, null);
-                    break;
-                case "ShowWithCover":
-                    ShowGamesWithCover_Click(ShowWithCover, null);
-                    break;
-                case "ShowWithoutCover":
-                    ShowGamesWithoutCover_Click(ShowWithoutCover, null);
-                    break;
-            }
-        }
-
         #region Pagination
 
         private void ResetPaginationButtons()
@@ -1608,6 +1593,22 @@ namespace SimpleLauncher
                 
             }
             _settings.Save(); // Save the updated ViewMode
+        }
+        
+        private void ApplyShowGamesSetting()
+        {
+            switch (_settings.ShowGames)
+            {
+                case "ShowAll":
+                    ShowAllGames_Click(ShowAll, null);
+                    break;
+                case "ShowWithCover":
+                    ShowGamesWithCover_Click(ShowWithCover, null);
+                    break;
+                case "ShowWithoutCover":
+                    ShowGamesWithoutCover_Click(ShowWithoutCover, null);
+                    break;
+            }
         }
 
         #endregion
