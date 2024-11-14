@@ -5,6 +5,7 @@ using System.Windows;
 using System.Xml.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace SimpleLauncher;
 
@@ -123,7 +124,27 @@ public class SystemConfig
                 }
             }
             
-            var doc = XDocument.Load(XmlPath);
+            XDocument doc;
+            
+            try
+            {
+                doc = XDocument.Load(XmlPath);
+            }
+            catch (XmlException ex)
+            {
+                string errorDetails = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
+                                      $"To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
+                MessageBox.Show(errorDetails, "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
+                                      $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                
+                Task logTask = LogErrors.LogErrorAsync(ex, errorDetailsDeveloper);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                return null;
+            }
+            
             var systemConfigs = new List<SystemConfig>();
             var invalidConfigs = new Dictionary<XElement, string>();
 
@@ -131,20 +152,19 @@ public class SystemConfig
             {
                 foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                 {
-
                     try
                     {
                         // Attempt to parse each system configuration.
                         if (sysConfigElement.Element("SystemName") == null ||
                             string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
-                            throw new InvalidOperationException("Missing or empty SystemName in XML.");
+                            throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
 
                         if (sysConfigElement.Element("SystemFolder") == null ||
                             string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
-                            throw new InvalidOperationException("Missing or empty SystemFolder in XML.");
+                            throw new InvalidOperationException("Missing or empty 'System Folder' in XML.");
 
                         if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out bool systemIsMame))
-                            throw new InvalidOperationException("Invalid or missing value for SystemIsMAME.");
+                            throw new InvalidOperationException("Invalid or missing value for 'System Is MAME'.");
 
                         // Validate FileFormatsToSearch
                         var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
@@ -154,14 +174,15 @@ public class SystemConfig
                                 !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                             .ToList();
                         if (formatsToSearch == null || formatsToSearch.Count == 0)
-                            throw new InvalidOperationException("FileFormatsToSearch should have at least one value.");
-
+                            throw new InvalidOperationException("'File Extension To Search' should have at least one value.");
+                        
                         // Validate ExtractFileBeforeLaunch
                         if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
                                 out bool extractFileBeforeLaunch))
-                            throw new InvalidOperationException(
-                                "Invalid or missing value for ExtractFileBeforeLaunch.");
-
+                            throw new InvalidOperationException("Invalid or missing value for 'Extract File Before Launch'.");
+                        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
+                            throw new InvalidOperationException("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
+                        
                         // Validate FileFormatsToLaunch
                         var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
                             ?.Elements("FormatToLaunch")
@@ -170,15 +191,14 @@ public class SystemConfig
                                 !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                             .ToList();
                         if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                            throw new InvalidOperationException(
-                                "FileFormatsToLaunch should have at least one value when ExtractFileBeforeLaunch is true.");
+                            throw new InvalidOperationException("'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
                         // Validate emulator configurations
                         var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(
                             emulatorElement =>
                             {
                                 if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                                    throw new InvalidOperationException("EmulatorName should not be empty or null.");
+                                    throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
 
                                 return new Emulator
                                 {
@@ -223,8 +243,11 @@ public class SystemConfig
                     invalidConfig.Remove();
                 }
             
-                // Save the corrected XML back to disk
-                doc.Save(XmlPath);
+                // Save the corrected XML back to disk if any invalid configurations were removed
+                if (invalidConfigs.Any())
+                {
+                    doc.Save(XmlPath);
+                }
                 
                 // Notify user about each invalid configuration in a single message per system
                 foreach (var error in invalidConfigs.Values)

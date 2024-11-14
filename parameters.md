@@ -135,7 +135,7 @@ Please read core documentation.
 
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, cdi<br>
+**Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** cue, cdi<br>
 

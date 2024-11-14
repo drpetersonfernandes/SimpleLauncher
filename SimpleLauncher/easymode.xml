@@ -303,7 +303,6 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7z</FormatToSearch>
-            <FormatToSearch>cdi</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
