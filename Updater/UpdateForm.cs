@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.IO.Compression;
 
 namespace Updater
 {
@@ -337,18 +338,19 @@ namespace Updater
 
         private void ExtractUpdateFile(string zipFilePath, string destinationDirectory)
         {
-            string sevenZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7z.exe");
-            if (!File.Exists(sevenZipPath))
+            if (!File.Exists(zipFilePath))
             {
-                Log("7z.exe not found in the application folder.");
-    
+                Log("Zip file not found.");
+
                 // Ask user if they want to be redirected to the download page
                 var result = MessageBox.Show(
-                    "7z.exe not found in the application directory.\n\nWould you like to be redirected to the download page to download it manually?",
-                    "7z.exe not found",
+                    "The specified zip file was not found in the provided path.\n\n" +
+                    "'Simple Launcher' won't be able to automatically update to the new version.\n\n" +
+                    "Would you like to be redirected to the download page to download it manually?",
+                    "Update Failure",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
-
+                
                 if (result == DialogResult.Yes)
                 {
                     // Redirect to the download page
@@ -356,40 +358,40 @@ namespace Updater
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = downloadPageUrl,
-                        UseShellExecute = true // Open URL in default browser
+                        UseShellExecute = true
                     });
                 }
-
                 return;
             }
 
-            var psi = new ProcessStartInfo
+            try
             {
-                FileName = sevenZipPath,
-                Arguments = $"x \"{zipFilePath}\" -o\"{destinationDirectory}\" -y",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+                Log("Extracting the update file...");
 
-            using var process = Process.Start(psi);
+                // Ensure the destination directory exists
+                if (!Directory.Exists(destinationDirectory))
+                {
+                    Directory.CreateDirectory(destinationDirectory);
+                }
 
-            Log("Extracting the update file...");
-            
-            process?.WaitForExit();
+                // Extract the zip file
+                ZipFile.ExtractToDirectory(zipFilePath, destinationDirectory, overwriteFiles: true);
 
-            if (process != null && process.ExitCode != 0)
+                Log("Extraction completed successfully.");
+            }
+            catch (InvalidDataException)
             {
-                Log($"7z.exe exited with code {process.ExitCode}. Extraction failed.");
-    
+                Log("Invalid or corrupted zip file.");
+
                 // Ask user if they want to be redirected to the download page
                 var result = MessageBox.Show(
-                    "7z.exe could not extract the compressed file.\n\nWould you like to be redirected to the download page to download it manually?",
-                    "Error extracting the file",
+                    "The update file appears to be corrupted or invalid.\n\n" +
+                    "'Simple Launcher' won't be able to automatically update to the new version.\n\n" +
+                    "Would you like to be redirected to the download page to download it manually?",
+                    "Update Failure",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
-
+                
                 if (result == DialogResult.Yes)
                 {
                     // Redirect to the download page
@@ -397,7 +399,80 @@ namespace Updater
                     Process.Start(new ProcessStartInfo
                     {
                         FileName = downloadPageUrl,
-                        UseShellExecute = true // Open URL in default browser
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (IOException ioEx)
+            {
+                Log($"Error during extraction: {ioEx.Message}");
+
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "An error occurred during the extraction process.\n\n" +
+                    "'Simple Launcher' won't be able to automatically update to the new version.\n\n" +
+                    "Would you like to be redirected to the download page to download it manually?",
+                    "Update Failure",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+                
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Log("Permission error: Unauthorized access to the destination folder.");
+
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "Permission error: Unable to access the destination folder.\n\n" +
+                    "You can try to run with administrative privileges.\n\n" +
+                    "'Simple Launcher' won't be able to automatically update to the new version.\n\n" +
+                    "Would you like to be redirected to the download page to download it manually?",
+                    "Update Failure",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+                
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"Unexpected error: {ex.Message}");
+
+                // Ask user if they want to be redirected to the download page
+                var result = MessageBox.Show(
+                    "An unexpected error occurred.\n\n" +
+                    "'Simple Launcher' won't be able to automatically update to the new version.\n\n" +
+                    "Would you like to be redirected to the download page to download it manually?",
+                    "Update Failure",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error);
+                
+                if (result == DialogResult.Yes)
+                {
+                    // Redirect to the download page
+                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true
                     });
                 }
             }

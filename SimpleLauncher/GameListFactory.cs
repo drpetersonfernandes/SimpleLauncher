@@ -115,10 +115,7 @@ namespace SimpleLauncher
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             
             // Check if the game is already in favorites
-            bool isFavorite = _favoritesConfig.FavoriteList
-                .Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) && 
-                          f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            
+
             var contextMenu = new ContextMenu();
 
             // Launch Game Context Menu

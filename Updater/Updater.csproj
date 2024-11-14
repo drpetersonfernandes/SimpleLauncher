@@ -18,10 +18,4 @@
       </Compile>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="7z.exe">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
 </Project>

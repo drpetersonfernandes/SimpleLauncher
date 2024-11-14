@@ -249,7 +249,7 @@ public partial class EditSystem
                 match.Groups[4].Value;
 
             // Check if the path contains more than one '..\' sequence.
-            int doubleDotCount = path.Split(new string[] { @"..\" }, StringSplitOptions.None).Length - 1;
+            int doubleDotCount = path.Split([@"..\"], StringSplitOptions.None).Length - 1;
             if (doubleDotCount > 1)
             {
                 continue; // Skip validation for paths with multiple '..\' components.
