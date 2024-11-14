@@ -116,11 +116,13 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string contextMessage = $"'system.xml' was not found in the application folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string contextMessage = $"'system.xml' is corrupted.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show("The file 'system.xml' is missing.\n\nThe application will be shutdown.\n\nPlease reinstall Simple Launcher to restore this file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The file 'system.xml' is corrupted.\n\n" +
+                                "You need to fix it manually or delete it.\n\n" +
+                                "The application will be shutdown.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Shutdown current application instance
                 Application.Current.Shutdown();

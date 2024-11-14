@@ -585,16 +585,6 @@ public partial class EditSystem
         MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
         MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
-        // Check paths
-        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
-            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid ||
-            !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
-        {
-            MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
-                            "Please fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-            
         // Validate SystemName
         string systemNameText = SystemNameTextBox.Text.Trim();
         if (string.IsNullOrEmpty(systemNameText))
@@ -604,7 +594,7 @@ public partial class EditSystem
             return;
         }
         
-        // Add default System Folder if not provided by user
+        // Add the default System Folder if not provided by user
         if (systemFolderText.Length == 0)
         {
             systemFolderText = $".\\roms\\{systemNameText}";
@@ -620,7 +610,7 @@ public partial class EditSystem
             return;
         }
 
-        // Add default System Image Folder if not provided by user
+        // Add the default System Image Folder if not provided by user
         if (systemImageFolderText.Length == 0)
         {
             systemImageFolderText = $".\\images\\{systemNameText}";
@@ -684,6 +674,16 @@ public partial class EditSystem
                             "Please fix this field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
+        
+        // Check paths
+        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
+            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid ||
+            !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+        {
+            MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
+                            "Please fix them to proceed.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
             
         ////////////////
         // XML factory//
@@ -694,9 +694,9 @@ public partial class EditSystem
         AddEmulatorToXml(emulatorsElement, emulator1Name, Emulator1LocationTextBox.Text.Trim(), Emulator1ParametersTextBox.Text.Trim());
 
         // Arrays for emulator names, locations, and parameters TextBoxes
-        TextBox[] nameTextBoxes = new[] { Emulator2NameTextBox, Emulator3NameTextBox, Emulator4NameTextBox, Emulator5NameTextBox };
-        TextBox[] locationTextBoxes = new[] { Emulator2LocationTextBox, Emulator3LocationTextBox, Emulator4LocationTextBox, Emulator5LocationTextBox };
-        TextBox[] parametersTextBoxes = new[] { Emulator2ParametersTextBox, Emulator3ParametersTextBox, Emulator4ParametersTextBox, Emulator5ParametersTextBox };
+        TextBox[] nameTextBoxes = [Emulator2NameTextBox, Emulator3NameTextBox, Emulator4NameTextBox, Emulator5NameTextBox];
+        TextBox[] locationTextBoxes = [Emulator2LocationTextBox, Emulator3LocationTextBox, Emulator4LocationTextBox, Emulator5LocationTextBox];
+        TextBox[] parametersTextBoxes = [Emulator2ParametersTextBox, Emulator3ParametersTextBox, Emulator4ParametersTextBox, Emulator5ParametersTextBox];
 
         // Loop over the emulators 2 through 5 to validate and add their details
         for (int i = 0; i < nameTextBoxes.Length; i++)
