@@ -382,6 +382,10 @@
     <None Remove="images\romhistory.png" />
     <Resource Include="images\romhistory.png" />
     <None Remove="images\gamecover.png" />
+    <None Remove="images\delete.png" />
+    <Resource Include="images\delete.png" />
+    <None Remove="images\takescreenshot.png" />
+    <Resource Include="images\takescreenshot.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

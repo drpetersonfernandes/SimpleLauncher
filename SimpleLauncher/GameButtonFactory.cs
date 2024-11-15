@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher
 {
@@ -448,6 +451,61 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenPcb(systemName, fileNameWithoutExtension);
             };
+            
+            // Delete Game Context Menu
+            var deleteGameIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Width = 16,
+                Height = 16
+            };
+            var deleteGame = new MenuItem
+            {
+                Header = "Delete Game",
+                Icon = deleteGameIcon
+            };
+            deleteGame.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
+                                             $"This action will delete the file from the HDD and cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeleteFile(filePath, fileNameWithExtension, button);
+                }
+            };
+            
+            // Take Screenshot Context Menu
+            var takeScreenshotIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/takescreenshot.png")),
+                Width = 16,
+                Height = 16
+            };
+            var takeScreenshot = new MenuItem
+            {
+                Header = "Take Screenshot",
+                Icon = takeScreenshotIcon
+            };
+            takeScreenshot.Click += async (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                MessageBox.Show(
+                    "The game will launch now.\n\n" +
+                    "A selection window will open up, allowing you to choose the desired window to capture.\n\n" +
+                    "Once you select the window, a screenshot will be taken and saved with the same filename as the game file.",
+                    "Take Screenshot",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                
+                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+                
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            };
 
             contextMenu.Items.Add(launchMenuItem);
             contextMenu.Items.Add(addToFavorites);
@@ -465,9 +523,124 @@ namespace SimpleLauncher
             contextMenu.Items.Add(openCabinet);
             contextMenu.Items.Add(openFlyer);
             contextMenu.Items.Add(openPcb);
+            contextMenu.Items.Add(takeScreenshot);
+            contextMenu.Items.Add(deleteGame);
             button.ContextMenu = contextMenu;
 
             return button;
+        }
+
+        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+        {
+            try
+            {
+                // Wait for 1 seconds
+                await Task.Delay(1000);
+                
+                // Get the list of open windows
+                var openWindows = WindowManager.GetOpenWindows();
+
+                // Show the selection dialog
+                var dialog = new WindowSelectionDialog(openWindows);
+                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+                {
+                    MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                IntPtr hWnd = dialog.SelectedWindowHandle;
+                
+                WindowScreenshot.Rect rect;
+
+                // Try to get the client area dimensions
+                if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+                {
+                    // If client area fails, fall back to the full window dimensions
+                    if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                    {
+                        throw new Exception("Failed to retrieve window dimensions.");
+                    }
+                }
+                else
+                {
+                    // Successfully retrieved client area
+                    rect = clientRect;
+                }
+
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+
+                // Determine the save path for the screenshot
+                string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+
+                string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+
+                // Capture the window into a bitmap
+                using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+                {
+                    using (var graphics = Graphics.FromImage(bitmap))
+                    {
+                        graphics.CopyFromScreen(
+                            new System.Drawing.Point(rect.Left, rect.Top),
+                            System.Drawing.Point.Empty,
+                            new System.Drawing.Size(width, height));
+                    }
+
+                    // Save the screenshot
+                    bitmap.Save(screenshotPath, ImageFormat.Png);
+                }
+
+                // Notify the user of success
+                MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors
+                MessageBox.Show($"Failed to save screenshot. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Optionally log the error
+                Task logTask = LogErrors.LogErrorAsync(ex, "Error capturing screenshot.");
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
+        }
+
+        private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                        "File Deleted",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    
+                    // Remove the button from the UI
+                    _gameFileGrid.Children.Remove(button);
+                }
+                else
+                {
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                        "File Not Found",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                // Notify developer
+                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                      $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
         }
 
         private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
@@ -629,7 +802,7 @@ namespace SimpleLauncher
 
                 // Find the favorite to remove
                 var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                                  && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                    && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (favoriteToRemove != null)
                 {
