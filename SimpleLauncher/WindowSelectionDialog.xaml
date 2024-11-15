@@ -5,7 +5,6 @@
                       Title="Select a Window"
                       Width="500"
                       Height="450"
-                      WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize">
     <Grid Margin="10">
         <ListBox x:Name="WindowsListBox"

@@ -385,7 +385,8 @@
     <None Remove="images\delete.png" />
     <Resource Include="images\delete.png" />
     <None Remove="images\takescreenshot.png" />
-    <Resource Include="images\takescreenshot.png" />
+    <None Remove="images\noimage.png" />
+    <Resource Include="images\noimage.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

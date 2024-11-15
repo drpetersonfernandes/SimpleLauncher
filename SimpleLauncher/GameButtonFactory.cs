@@ -482,7 +482,7 @@ namespace SimpleLauncher
             // Take Screenshot Context Menu
             var takeScreenshotIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/takescreenshot.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
                 Width = 16,
                 Height = 16
             };
@@ -502,7 +502,7 @@ namespace SimpleLauncher
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 
-                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName, button);
                 
                 await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
             };
@@ -530,7 +530,7 @@ namespace SimpleLauncher
             return button;
         }
 
-        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName, Button button)
         {
             try
             {
@@ -593,6 +593,13 @@ namespace SimpleLauncher
 
                 // Notify the user of success
                 MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                // Update the button image
+                UpdateButtonImage(button, screenshotPath);
+                
+                // Reload current Game List
+                await _mainWindow.LoadGameFilesAsync();
+
             }
             catch (Exception ex)
             {
@@ -604,7 +611,28 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
+        
+        private void UpdateButtonImage(Button button, string newImagePath)
+        {
+            if (button.Content is Grid grid)
+            {
+                var image = grid.Children.OfType<Image>().FirstOrDefault();
+                if (image != null && File.Exists(newImagePath))
+                {
+                    // Load the new image
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Ensure thread-safety for UI
 
+                    // Update the image source
+                    image.Source = bitmapImage;
+                }
+            }
+        }
+        
         private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
         {
             try
