@@ -14,6 +14,13 @@ public static class GameLauncher
 {
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
     {
+        // Get the file name from the filePath
+        string fileName = Path.GetFileNameWithoutExtension(filePath);
+
+        // Copy the file name to the clipboard
+        Clipboard.SetText(fileName);
+        
+        // Stop the GamePadController if it is running
         bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
         if (wasGamePadControllerRunning)
         {

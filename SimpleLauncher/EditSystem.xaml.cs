@@ -540,8 +540,9 @@ public partial class EditSystem
 
     private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        // Trim input values and validate. Check folder location and emulator location.
-        // Allow empty SystemImageFolder and empty EmulatorLocation.
+        // Trim input values
+        // Validate folder and emulator paths
+        string systemNameText = SystemNameTextBox.Text.Trim();
         string systemFolderText = SystemFolderTextBox.Text.Trim();
         string systemImageFolderText = SystemImageFolderTextBox.Text.Trim();
         string emulator1LocationText = Emulator1LocationTextBox.Text.Trim();
@@ -586,7 +587,6 @@ public partial class EditSystem
         MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
 
         // Validate SystemName
-        string systemNameText = SystemNameTextBox.Text.Trim();
         if (string.IsNullOrEmpty(systemNameText))
         {
             MessageBox.Show("'System Name' cannot be empty or contain only spaces.\n\n" +
