@@ -819,7 +819,8 @@ public partial class EditSystem
             }
             catch (Exception ex)
             {
-                string formattedException = $"The Simple Launcher failed to create the necessary folders for this system.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                     

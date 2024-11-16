@@ -45,7 +45,7 @@ release3.4
 - Added tool to Create Batch Files for ScummVM Games.
 - Added tool to Create Batch Files for Windows Games.
 - Added tool to Organize System Images.
-- I have implemented code to automatically redirect the user to the Simple Launcher Wiki page if the provided parameters for emulator launch fail.
+- I have implemented code to automatically redirect the user to Simple Launcher Wiki page if the provided parameters for emulator launch fail.
 - I have implemented the automatic launch of the UpdateHistory window after an update so the user can see what is new in the release.
 - I have implemented logic to automatically reinstall Simple Launcher if the required files are missing.
 - I have improved the Updater application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.

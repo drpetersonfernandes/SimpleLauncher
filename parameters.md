@@ -470,7 +470,7 @@ Please read core documentation.
 LNK files are shortcut links.
 You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
 
-If you prefer to use BAT files, use the tool available in the Simple Launcher menu to generate BAT files for you.
+If you prefer to use BAT files, use the tool available in Simple Launcher menu to generate BAT files for you.
 
 ## Microsoft Xbox
 
@@ -1000,7 +1000,7 @@ Please read core documentation.
 **Emulator Parameters:** <br>
 
 Command line parameters can be found [here](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
-Use the tool available in the Simple Launcher menu to generate BAT files for you.
+Use the tool available in Simple Launcher menu to generate BAT files for you.
 
 ## Sega Dreamcast
 
@@ -1170,7 +1170,7 @@ The list of commands available for this emulator can be found at [https://fms.ko
 **Emulator Location (Example):** <br>
 **Emulator Parameters:** <br>
 
-Use the Simple Launcher tools to generate BAT files for you.
+Use Simple Launcher tools to generate BAT files for you.
 
 ## Sega Saturn
 
@@ -1352,7 +1352,7 @@ Please read the documentation.
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-Use the tool available in the Simple Launcher menu to generate BAT files for you.<br>
+Use the tool available in Simple Launcher menu to generate BAT files for you.<br>
 
 BAT file example:
 

@@ -60,9 +60,11 @@ public static class GameLauncher
         catch (Exception ex)
         {
             await LogErrors.LogErrorAsync(ex,
-                $"Generic error in the GameLauncher class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
+                $"Generic error in the GameLauncher class.\n\n" +
+                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}");
             
-            MessageBox.Show("The application could not launch the selected game.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
+            MessageBox.Show("The application could not launch the selected game.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
                             "If you want to debug the error yourself you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
@@ -137,19 +139,27 @@ public static class GameLauncher
 
             if (process.ExitCode != 0 || error.Length > 0)
             {
-                string errorMessage = $"There was an issue running the batch process.\n\nBatch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                string errorMessage = $"There was an issue running the batch process.\n\n" +
+                                      $"Batch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an issue running the batch process.\n\nTry to run the batch file outside Simple Launcher to see if it is working properly.\n\nMaybe the batch file has errors.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an issue running the batch process.\n\n" +
+                                "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                "Maybe the batch file has errors.\n\n" +
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorMessage = $"There was an issue running the batch process.\n\nBatch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"There was an issue running the batch process.\n\n" +
+                                  $"Batch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
-            MessageBox.Show("There was an issue running the batch process.\n\nTry to run the batch file outside Simple Launcher to see if it is working.\n\nMaybe the batch file has errors.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an issue running the batch process.\n\n" +
+                            "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
+                            "Maybe the batch file has errors.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -175,19 +185,25 @@ public static class GameLauncher
            
             if (process.ExitCode != 0)
             {
-                string errorMessage = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}";
+                string errorMessage = $"Error launching the shortcut file.\n\n" +
+                                      $"Shortcut file: {psi.FileName}\nExit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the shortcut file.\n\nTry to run the shortcut file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error launching the shortcut file.\n\n" +
+                                "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the shortcut file.\n\nShortcut file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the shortcut file.\n\n" +
+                                  $"Shortcut file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("There was an error launching the shortcut file.\n\nTry to run the shortcut file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching the shortcut file.\n\n" +
+                            "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -213,19 +229,25 @@ public static class GameLauncher
            
             if (process.ExitCode != 0)
             {
-                string errorMessage = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}";
+                string errorMessage = $"Error launching the executable file.\n\n" +
+                                      $"Executable file: {psi.FileName}\nExit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the executable file.\n\nTry to run the executable file outside Simple Launcher to see if it is working properly.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error launching the executable file.\n\n" +
+                                "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
-            string errorDetails = $"Error launching the executable file.\n\nExecutable file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorDetails = $"Error launching the executable file.\n\n" +
+                                  $"Executable file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("There was an error launching the executable file.\n\nTry to launch the executable file outside Simple Launcher to see if it is working.\n\nIf you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching the executable file.\n\n" +
+                            "Try to launch the executable file outside 'Simple Launcher' to see if it is working.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -397,9 +419,9 @@ public static class GameLauncher
                     "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
                     "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
-                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "If you want to debug the error, you can see the file 'error_user.log' inside 'Simple Launcher' folder.\n\n" +
+                    "Please visit our Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
+                    "Would you like to be redirected to the 'Simple Launcher' Wiki?",
                     "Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);
@@ -564,7 +586,8 @@ public static class GameLauncher
 
             if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                      $"Exit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
@@ -598,9 +621,9 @@ public static class GameLauncher
                     "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
                     "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside Simple Launcher folder.\n\n" +
-                    "Please visit Simple Launcher Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
-                    "Would you like to be redirected to the Simple Launcher Wiki?",
+                    "If you want to debug the error, you can see the file 'error_user.log' inside 'Simple Launcher' folder.\n\n" +
+                    "Please visit our Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
+                    "Would you like to be redirected to the 'Simple Launcher' Wiki?",
                     "Error",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error);

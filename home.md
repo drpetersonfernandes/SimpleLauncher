@@ -55,7 +55,7 @@ We have compiled a list of parameters for each emulator for your convenience. Cl
 
 **LaserDisk**
 
-If you want to add LaserDisk games to the Simple Launcher frontend,
+If you want to add LaserDisk games to Simple Launcher frontend,
 you should create a folder with BAT files that directly call the games.<br>
 
 **MAME CHD Games**
@@ -64,7 +64,7 @@ The CHD folders should be in the same folder as the ROM zipped files.
 
 **Microsoft Windows Games**
 
-Use the Simple Launcher Tools to generate BAT files for you.
+Use Simple Launcher Tools to generate BAT files for you.
 
 **Microsoft XBOX 360 XBLA**
 
@@ -77,15 +77,15 @@ For this logic to work, the system name needs to have `XBLA` in its name.
 
 **ScummVM Games**
 
-Use the Simple Launcher Tools to generate BAT files for you.
+Use Simple Launcher Tools to generate BAT files for you.
 
 **Sega Model 3**
 
-Use the Simple Launcher Tools to generate BAT files for you.
+Use Simple Launcher Tools to generate BAT files for you.
 
 **Sony Playstation 3**
 
-Use the Simple Launcher Tools to generate BAT files for you.
+Use Simple Launcher Tools to generate BAT files for you.
 
 ## Right Click Context Menu
 
@@ -188,7 +188,7 @@ This file contains information about various systems and their settings. You can
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
 
 ## Technical Details:
-The Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 8 Framework.<br>
+Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 8 Framework.<br>
 This program is Windows-only.
 It has been tested on Windows 11.
 

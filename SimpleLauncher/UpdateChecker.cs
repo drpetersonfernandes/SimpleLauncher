@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using SharpCompress.Archives;
 
 namespace SimpleLauncher;
 
@@ -35,8 +33,6 @@ public static class UpdateChecker
     // Regular CheckForUpdates
     public static async Task CheckForUpdatesAsync(Window mainWindow)
     {
-        DeleteUpdateFile();
-            
         try
         {
             // Establish a connection with the GitHub API
@@ -52,7 +48,7 @@ public static class UpdateChecker
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    ShowUpdateWindow2(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
                 }
             }
         }
@@ -67,8 +63,6 @@ public static class UpdateChecker
     // Check for update from within About Window
     public static async Task CheckForUpdatesAsync2(Window mainWindow)
     {
-        DeleteUpdateFile();
-
         try
         {
             // Establish a connection to GitHub API
@@ -84,7 +78,7 @@ public static class UpdateChecker
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    ShowUpdateWindow2(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
                 }
                 else
                 {
@@ -106,12 +100,8 @@ public static class UpdateChecker
         }
     }
 
-
-
     public static async Task ReinstallSimpleLauncherAsync(Window mainWindow)
     {
-        DeleteUpdateFile();
-            
         // Set BaseVersion
         string baseVersion = "0.0.0.0";
             
@@ -129,7 +119,7 @@ public static class UpdateChecker
 
                 if (IsNewVersionAvailable(baseVersion, latestVersion))
                 {
-                    ShowUpdateWindow(assetUrl, mainWindow);
+                    ShowReinstallWindow(assetUrl, mainWindow);
                 }
             }
         }
@@ -144,114 +134,9 @@ public static class UpdateChecker
                 "Error reinstalling Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
-
-
     
-    // To be used by the Reinstallation method
-    private static async void ShowUpdateWindow(string assetUrl, Window owner)
-    {
-        try
-        {
-            var logWindow = new UpdateLogWindow();
-            logWindow.Show();
-            logWindow.Log("Starting the installation ...");
-
-            // Close the main window
-            owner.Close();
-
-            try
-            {
-                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string tempDirectory = Path.Combine(appDirectory, "temp2");
-                Directory.CreateDirectory(tempDirectory);
-
-                logWindow.Log("Downloading installation file...");
-                    
-                await Task.Run(async () =>
-                {
-                    // Download the update file to memory
-                    using var memoryStream = new MemoryStream();
-                    await DownloadUpdateFileToMemory(assetUrl, memoryStream);
-                        
-                    logWindow.Log("Extracting installation file...");
-
-                    // Extract the file from memory
-                    ExtractFileFromMemory(memoryStream, tempDirectory);
-
-                    logWindow.Log("Updating the updater app...");
-                        
-                    var updaterFiles = new[]
-                    {
-                        "Updater.deps.json",
-                        "Updater.dll",
-                        "Updater.exe",
-                        "Updater.pdb",
-                        "Updater.runtimeconfig.json"
-                    };
-                        
-                    foreach (var file in updaterFiles)
-                    {
-                        var sourceFile = Path.Combine(tempDirectory, file);
-                        var destFile = Path.Combine(appDirectory, file);
-                        if (File.Exists(sourceFile))
-                        {
-                            File.Copy(sourceFile, destFile, true);
-                            logWindow.Log($"Copied {file}");
-                        }
-                    }
-
-                    await Task.Delay(2000);
-
-                    // Execute Updater
-                    await ExecuteUpdater(logWindow);
-                });
-            }
-            catch (Exception ex)
-            {
-                string contextMessage = $"There was an error updating the application.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
-                    
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    // Ask user if they want to be redirected to the download page
-                    var messageBoxResult = MessageBox.Show(
-                        "There was an error updating the application.\n\n" +
-                        "Would you like to be redirected to the download page to update it manually?",
-                        "Update Error",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Error);
-
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        // Redirect to the download page
-                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = downloadPageUrl,
-                            UseShellExecute = true // Open URL in default browser
-                        });
-                    }
-
-                    logWindow.Log("There was an error updating the application.");
-                    logWindow.Log("Please update it manually.");
-                    logWindow.Close();
-                    
-                });
-            }
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"There was an error updating the application.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-        }
-    }
-
-    
-
     // Regular call of the Update Window
-    private static async void ShowUpdateWindow2(string assetUrl, string currentVersion, string latestVersion, Window owner)
+    private static async void ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
     {
         try
         {
@@ -259,7 +144,6 @@ public static class UpdateChecker
                              $"The current version is {currentVersion}\n" +
                              $"The update version is {latestVersion}\n\n" +
                              "Do you want to download and install the latest version automatically?";
-
             MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
@@ -274,8 +158,6 @@ public static class UpdateChecker
                 try
                 {
                     string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string tempDirectory = Path.Combine(appDirectory, "temp2");
-                    Directory.CreateDirectory(tempDirectory);
                     
                     logWindow.Log("Downloading update file...");
 
@@ -287,12 +169,8 @@ public static class UpdateChecker
                         await DownloadUpdateFileToMemory(assetUrl, memoryStream);
                         
                         logWindow.Log("Extracting update file...");
-
-                        // Extract the file from memory
-                        ExtractFileFromMemory(memoryStream, tempDirectory);
-
-                        logWindow.Log("Updating the updater app...");
-
+                        
+                        // Files to be updated
                         var updaterFiles = new[]
                         {
                             "Updater.deps.json",
@@ -301,17 +179,11 @@ public static class UpdateChecker
                             "Updater.pdb",
                             "Updater.runtimeconfig.json"
                         };
-                        
-                        foreach (var file in updaterFiles)
-                        {
-                            var sourceFile = Path.Combine(tempDirectory, file);
-                            var destFile = Path.Combine(appDirectory, file);
-                            if (File.Exists(sourceFile))
-                            {
-                                File.Copy(sourceFile, destFile, true);
-                                logWindow.Log($"Copied {file}");
-                            }
-                        }
+
+                        // Extract directly from memory to the destination
+                        ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
+
+                        logWindow.Log("Update completed successfully.");
 
                         await Task.Delay(2000);
                         
@@ -360,6 +232,90 @@ public static class UpdateChecker
             await LogErrors.LogErrorAsync(ex, contextMessage);            }
     }
 
+    private static async void ShowReinstallWindow(string assetUrl, Window owner)
+    {
+        try
+        {
+            var logWindow = new UpdateLogWindow();
+            logWindow.Show();
+            logWindow.Log("Starting the installation ...");
+
+            // Close the main window
+            owner.Close();
+
+            try
+            {
+                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                logWindow.Log("Downloading installation file...");
+                    
+                await Task.Run(async () =>
+                {
+                    // Download the update file to memory
+                    using var memoryStream = new MemoryStream();
+                    await DownloadUpdateFileToMemory(assetUrl, memoryStream);
+                        
+                    logWindow.Log("Extracting installation file...");
+
+                    // Files to be updated
+                    var updaterFiles = new[]
+                    {
+                        "Updater.deps.json",
+                        "Updater.dll",
+                        "Updater.exe",
+                        "Updater.pdb",
+                        "Updater.runtimeconfig.json"
+                    };
+                        
+                    // Extract directly from memory to the destination
+                    ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
+                    
+                    logWindow.Log("Installation completed successfully.");
+
+                    await Task.Delay(2000);
+
+                    // Execute Updater
+                    await ExecuteUpdater(logWindow);
+                });
+            }
+            catch (Exception ex)
+            {
+                string contextMessage = $"There was an error installing the application.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
+                    
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var messageBoxResult = MessageBox.Show(
+                        "There was an error installing the application.\n\n" +
+                        "Would you like to be redirected to the download page to install it manually?",
+                        "Installation Error",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Error);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = downloadPageUrl,
+                            UseShellExecute = true
+                        });
+                    }
+
+                    logWindow.Log("There was an error updating the application.");
+                    logWindow.Log("Please update it manually.");
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            string contextMessage = $"There was an error installing the application.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, contextMessage);
+        }
+    }
+    
     private static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
     {
         using var client = new HttpClient();
@@ -369,90 +325,28 @@ public static class UpdateChecker
         await using var stream = await response.Content.ReadAsStreamAsync();
         await stream.CopyToAsync(memoryStream);
     }
-    
-    private static void ExtractFileFromMemory(MemoryStream memoryStream, string tempDirectory)
+
+    private static void ExtractFilesToDestination(Stream zipStream, string destinationPath, string[] filesToExtract, UpdateLogWindow logWindow)
     {
-        memoryStream.Position = 0; // Reset stream position
-        using var archive = ArchiveFactory.Open(memoryStream);
-        foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+        using var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Read);
+
+        foreach (var fileName in filesToExtract)
         {
-            if (entry.Key != null)
+            var entry = archive.GetEntry(fileName);
+            if (entry != null)
             {
-                string destinationPath = Path.Combine(tempDirectory, entry.Key);
+                string destinationFile = Path.Combine(destinationPath, fileName);
+                logWindow.Log($"Extracting {fileName} to {destinationFile}");
 
-                // Ensure the destination folder exists
-                string destinationFolder = Path.GetDirectoryName(destinationPath);
-                if (!string.IsNullOrEmpty(destinationFolder) && !Directory.Exists(destinationFolder))
-                {
-                    Directory.CreateDirectory(destinationFolder);
-                }
-
-                // Extract directly to disk
-                entry.WriteToFile(destinationPath, new SharpCompress.Common.ExtractionOptions
-                {
-                    ExtractFullPath = true,
-                    Overwrite = true
-                });
+                using var entryStream = entry.Open();
+                using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
+                entryStream.CopyTo(fileStream);
+            }
+            else
+            {
+                logWindow.Log($"File {fileName} not found in the archive.");
             }
         }
-    }
-
-    private static void DeleteUpdateFile()
-    {
-        // Delete the update.zip file if it exists
-        // Always use the most recent version of the file
-        string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string updateZipPath = Path.Combine(appDirectory, "update.zip");
-        if (File.Exists(updateZipPath))
-        {
-            File.Delete(updateZipPath);
-        }
-    }
-    
-    private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
-    {
-        Version current = new Version(Regex.Replace(currentVersion, @"[^\d\.]", ""));
-        Version latest = new Version(Regex.Replace(latestVersion, @"[^\d\.]", ""));
-        int versionComparison = latest.CompareTo(current);
-
-        if (versionComparison > 0) return true;
-
-        return false;
-    }
-    
-    private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
-    {
-        using JsonDocument doc = JsonDocument.Parse(jsonResponse);
-        JsonElement root = doc.RootElement;
-
-        if (root.TryGetProperty("tag_name", out JsonElement tagNameElement) &&
-            root.TryGetProperty("assets", out JsonElement assetsElement))
-        {
-            string versionTag = tagNameElement.GetString();
-            string assetUrl = null;
-            foreach (var asset in assetsElement.EnumerateArray())
-            {
-                if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
-                {
-                    assetUrl = downloadUrlElement.GetString();
-                    break;
-                }
-            }
-
-            var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
-            if (versionMatch.Success)
-            {
-                return (NormalizeVersion(versionMatch.Value), assetUrl);
-            }
-
-            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.");
-        }
-        else
-        {
-            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version information not found in the response.");
-        }
-
-        return (null, null);
     }
     
     private static async Task ExecuteUpdater(UpdateLogWindow logWindow)
@@ -516,6 +410,52 @@ public static class UpdateChecker
             Application.Current.Shutdown(); // Shutdown the application
             Process.GetCurrentProcess().Kill(); // Forcefully kill the process
         });
+    }
+  
+    private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
+    {
+        Version current = new Version(Regex.Replace(currentVersion, @"[^\d\.]", ""));
+        Version latest = new Version(Regex.Replace(latestVersion, @"[^\d\.]", ""));
+        int versionComparison = latest.CompareTo(current);
+
+        if (versionComparison > 0) return true;
+
+        return false;
+    }
+    
+    private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
+    {
+        using JsonDocument doc = JsonDocument.Parse(jsonResponse);
+        JsonElement root = doc.RootElement;
+
+        if (root.TryGetProperty("tag_name", out JsonElement tagNameElement) &&
+            root.TryGetProperty("assets", out JsonElement assetsElement))
+        {
+            string versionTag = tagNameElement.GetString();
+            string assetUrl = null;
+            foreach (var asset in assetsElement.EnumerateArray())
+            {
+                if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
+                {
+                    assetUrl = downloadUrlElement.GetString();
+                    break;
+                }
+            }
+
+            var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
+            if (versionMatch.Success)
+            {
+                return (NormalizeVersion(versionMatch.Value), assetUrl);
+            }
+
+            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.");
+        }
+        else
+        {
+            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version information not found in the response.");
+        }
+
+        return (null, null);
     }
     
     private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
