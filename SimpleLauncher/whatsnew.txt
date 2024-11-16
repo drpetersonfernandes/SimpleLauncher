@@ -1,13 +1,15 @@
-release3.5.1
-------------
+release3.6
+-----------
 
-11/13/2024
-- I did a major refactoring to the class EditSystem to implement a better validation in the input fields of the window EditSystem. This was needed to prevent user from entering wrong values into the input fields. I hope they get fewer errors now when launching a game.
-- I improve the system validation mechanism of the 'system.xml' file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down the application, it will now remove any corrupted system, alert the user and preserve the good formated systems. Handy in case of a corrupted 'system.xml' file.
-- I implement extraction in memory for files below 50 Mb to prevent file locks and get a better change of extraction success. For file above 50 Mb, the extraction will process the way it was.
-- Added different versions of 7z executable, for x86, x64 and arm64 bits.
-- Added code to automatically convert [url formated text] into real links in the RomHistory window.
-- Improve log class to send more debug info to the developer.
+11/15/2024
+- I did a major refactoring to the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was needed to prevent users from entering wrong values into the input fields. I hope they will encounter fewer errors now when launching a game.
+- I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is handy in case of a corrupted `system.xml` file.
+- I implemented in-memory extraction for files below 50 MB to prevent file locks and improve extraction success rates. For files above 50 MB, the extraction will proceed as before.
+- Added different versions of the `7z` executable for x86 and x64.
+- Added code to automatically convert [url formatted text] into real links in the `RomHistory` window.
+- Improved the log class to send more debug info to the developer.
+- Added functionality to delete a game file from within the UI. Available in the right-click context menu.
+- Added functionality to auto-generate image previews for the loaded games. The image file is saved inside the corresponding System Image folder with the correct name. Available in the right-click context menu.
 
 release3.5.0
 ------------
