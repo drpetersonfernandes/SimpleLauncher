@@ -462,10 +462,13 @@ namespace SimpleLauncher
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
-                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                        "File Deleted",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    
+                    // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    //     "File Deleted",
+                    //     MessageBoxButton.OK,
+                    //     MessageBoxImage.Information);
+                    
+                    PlayClick.PlayTrashSound();
                     
                     // Reload current Game List
                     await _mainWindow.LoadGameFilesAsync();

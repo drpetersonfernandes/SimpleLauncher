@@ -544,7 +544,7 @@ namespace SimpleLauncher
                 var dialog = new WindowSelectionDialog(openWindows);
                 if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
                 {
-                    MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -591,11 +591,17 @@ namespace SimpleLauncher
                     bitmap.Save(screenshotPath, ImageFormat.Png);
                 }
 
+                PlayClick.PlayShutterSound();
+                
+                // Show the flash effect
+                var flashWindow = new FlashOverlayWindow();
+                await flashWindow.ShowFlashAsync();
+                
                 // Notify the user of success
-                MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                 // Update the button image
-                UpdateButtonImage(button, screenshotPath);
+                //UpdateButtonImage(button, screenshotPath);
                 
                 // Reload current Game List
                 await _mainWindow.LoadGameFilesAsync();
@@ -612,26 +618,26 @@ namespace SimpleLauncher
             }
         }
         
-        private void UpdateButtonImage(Button button, string newImagePath)
-        {
-            if (button.Content is Grid grid)
-            {
-                var image = grid.Children.OfType<Image>().FirstOrDefault();
-                if (image != null && File.Exists(newImagePath))
-                {
-                    // Load the new image
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze(); // Ensure thread-safety for UI
-
-                    // Update the image source
-                    image.Source = bitmapImage;
-                }
-            }
-        }
+        // private void UpdateButtonImage(Button button, string newImagePath)
+        // {
+        //     if (button.Content is Grid grid)
+        //     {
+        //         var image = grid.Children.OfType<Image>().FirstOrDefault();
+        //         if (image != null && File.Exists(newImagePath))
+        //         {
+        //             // Load the new image
+        //             var bitmapImage = new BitmapImage();
+        //             bitmapImage.BeginInit();
+        //             bitmapImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
+        //             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+        //             bitmapImage.EndInit();
+        //             bitmapImage.Freeze(); // Ensure thread-safety for UI
+        //
+        //             // Update the image source
+        //             image.Source = bitmapImage;
+        //         }
+        //     }
+        // }
         
         private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
         {
@@ -640,10 +646,13 @@ namespace SimpleLauncher
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
-                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                        "File Deleted",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    
+                    // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    //     "File Deleted",
+                    //     MessageBoxButton.OK,
+                    //     MessageBoxImage.Information);
+                    
+                    PlayClick.PlayTrashSound();
                     
                     // Remove the button from the UI
                     _gameFileGrid.Children.Remove(button);

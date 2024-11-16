@@ -1,0 +1,15 @@
+<Window x:Class="SimpleLauncher.FlashOverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual"
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}}"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}">
+    <Grid Background="Transparent">
+        <Rectangle Name="FlashRectangle" Fill="White" Opacity="0" />
+    </Grid>
+</Window>

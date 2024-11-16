@@ -400,6 +400,14 @@
     <AdditionalFiles Include="audio\click.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
+    <None Remove="audio\shutter.mp3" />
+    <AdditionalFiles Include="audio\shutter.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <None Remove="audio\trash.mp3" />
+    <AdditionalFiles Include="audio\trash.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\info.png" />

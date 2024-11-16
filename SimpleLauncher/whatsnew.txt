@@ -10,6 +10,7 @@ release3.6
 - Improved the log class to send more debug info to the developer.
 - Added functionality to delete a game file from within the UI. Available in the right-click context menu.
 - Added functionality to auto-generate image previews for the loaded games. The image file is saved inside the corresponding System Image folder with the correct name. Available in the right-click context menu.
+- Added image pack for Atari 8-Bit.
 
 release3.5.0
 ------------

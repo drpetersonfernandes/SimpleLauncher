@@ -250,10 +250,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Atari 8-Bit</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari 8-Bit</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
