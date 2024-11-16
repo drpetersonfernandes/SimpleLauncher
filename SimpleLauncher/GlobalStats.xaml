@@ -60,10 +60,10 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
-                Width="130"
-                x:Name="DownloadButton"
-                Click="DownloadReport_Click"
-                Content="Download Report" />
+                Width="110"
+                x:Name="SaveButton"
+                Click="SaveReport_Click"
+                Content="Save Report" />
         </StackPanel>
 
     </Grid>

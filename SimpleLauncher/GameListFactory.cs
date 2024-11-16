@@ -405,6 +405,33 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 OpenPcb(systemName, fileNameWithoutExtension);
             };
+            
+            // Delete Game Context Menu
+            var deleteGameIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Width = 16,
+                Height = 16
+            };
+            var deleteGame = new MenuItem
+            {
+                Header = "Delete Game",
+                Icon = deleteGameIcon
+            };
+            deleteGame.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
+                                             $"This action will delete the file from the HDD and cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeleteFile(filePath, fileNameWithExtension);
+                }
+            };
 
             contextMenu.Items.Add(launchMenuItem);
             contextMenu.Items.Add(addToFavorites);
@@ -422,11 +449,51 @@ namespace SimpleLauncher
             contextMenu.Items.Add(openCabinet);
             contextMenu.Items.Add(openFlyer);
             contextMenu.Items.Add(openPcb);
+            contextMenu.Items.Add(deleteGame);
 
             // Return
             return contextMenu;
         }
-        
+
+        private async void DeleteFile(string filePath, string fileNameWithExtension)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                        "File Deleted",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    
+                    // Reload current Game List
+                    await _mainWindow.LoadGameFilesAsync();
+                    
+                }
+                else
+                {
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                        "File Not Found",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                // Notify developer
+                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                      $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
+        }
+
         private async Task LaunchGame(string filePath)
         {
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);

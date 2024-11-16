@@ -26,7 +26,7 @@ namespace SimpleLauncher
         private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)
         {
             ProgressBar.Visibility = Visibility.Visible;
-            DownloadButton.Visibility = Visibility.Collapsed;
+            SaveButton.Visibility = Visibility.Collapsed;
 
             try
             {
@@ -52,7 +52,7 @@ namespace SimpleLauncher
                     SaveReport(_globalStats, _systemStats);
                 }
                 
-                DownloadButton.Visibility = Visibility.Visible;
+                SaveButton.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ namespace SimpleLauncher
             return report;
         }
 
-        private void DownloadReport_Click(object sender, RoutedEventArgs routedEventArgs)
+        private void SaveReport_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_globalStats != null && _systemStats != null)
             {

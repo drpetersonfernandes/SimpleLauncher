@@ -452,33 +452,6 @@ namespace SimpleLauncher
                 OpenPcb(systemName, fileNameWithoutExtension);
             };
             
-            // Delete Game Context Menu
-            var deleteGameIcon = new Image
-            {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
-                Width = 16,
-                Height = 16
-            };
-            var deleteGame = new MenuItem
-            {
-                Header = "Delete Game",
-                Icon = deleteGameIcon
-            };
-            deleteGame.Click += (_, _) =>
-            {
-                PlayClick.PlayClickSound();
-                var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
-                                             $"This action will delete the file from the HDD and cannot be undone.",
-                    "Confirm Deletion",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    DeleteFile(filePath, fileNameWithExtension, button);
-                }
-            };
-            
             // Take Screenshot Context Menu
             var takeScreenshotIcon = new Image
             {
@@ -505,6 +478,33 @@ namespace SimpleLauncher
                 _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName, button);
                 
                 await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            };
+            
+            // Delete Game Context Menu
+            var deleteGameIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Width = 16,
+                Height = 16
+            };
+            var deleteGame = new MenuItem
+            {
+                Header = "Delete Game",
+                Icon = deleteGameIcon
+            };
+            deleteGame.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
+                                             $"This action will delete the file from the HDD and cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeleteFile(filePath, fileNameWithExtension, button);
+                }
             };
 
             contextMenu.Items.Add(launchMenuItem);
