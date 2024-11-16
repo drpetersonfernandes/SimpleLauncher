@@ -125,10 +125,6 @@ internal class ExtractCompressedFile
         {
             return Path.Combine(baseDirectory, "7z_x86.exe");
         }
-        else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
-        {
-            return Path.Combine(baseDirectory, "7z_arm64.exe");
-        }
         else
         {
             throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");

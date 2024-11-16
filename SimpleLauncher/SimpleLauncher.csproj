@@ -298,9 +298,6 @@
     <None Update="7z_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="7z_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Remove="handle.exe" />
     <None Remove="handle_arm64.exe" />
     <None Remove="handle_x86.exe" />
