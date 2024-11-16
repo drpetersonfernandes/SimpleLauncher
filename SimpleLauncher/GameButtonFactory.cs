@@ -475,7 +475,7 @@ namespace SimpleLauncher
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 
-                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName, button);
+                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
                 
                 await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
             };
@@ -530,7 +530,7 @@ namespace SimpleLauncher
             return button;
         }
 
-        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName, Button button)
+        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
         {
             try
             {

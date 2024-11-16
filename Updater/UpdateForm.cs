@@ -8,23 +8,17 @@ namespace Updater
 {
     public partial class UpdateForm : Form
     {
-        private readonly string[] _args;
         private delegate void LogDelegate(string message);
         private const string RepoOwner = "drpetersonfernandes";
         private const string RepoName = "SimpleLauncher";
         static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string TempDirectory = Path.Combine(AppDirectory, "temp2");
         private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
-        
-        string _applicationFolderFromArgs = ""; // I will discard this value in favor of a better and safer implementation of the logic.
-        string _tempFolderFromArgs = "";
-        string _updateZipFileFromArgs = "";
 
-        public UpdateForm(string[] args)
+        public UpdateForm()
         {
             InitializeComponent();
             EnsureDirectories();
-            _args = args ?? throw new ArgumentNullException(nameof(args));
 
             string applicationVersion = GetApplicationVersion();
             Log($"Updater version: {applicationVersion}\n\n");
@@ -64,19 +58,6 @@ namespace Updater
 
         private async Task UpdateProcess()
         {
-            if (_args.Length == 3) // Expecting 3 arguments: applicationFolder, tempFolder, updateFile
-            {
-                _applicationFolderFromArgs = _args[0];
-                _tempFolderFromArgs = _args[1];
-                _updateZipFileFromArgs = _args[2];                
-            }
-            else
-            {
-                Log("Invalid arguments. Usage: Updater <applicationFolder> <tempFolder> <updateFile>");
-                Log("No arguments were provided.");
-                Log("Updater will try to update to the latest version.");
-            }
-            
             if (string.IsNullOrEmpty(AppDirectory))
             {
                 Log("Could not determine the application directory.");
@@ -116,29 +97,19 @@ namespace Updater
                     return;
                 }
 
-                // Check if updateZipFileFromArgs exists. If not, download it.
-                if (!File.Exists(_updateZipFileFromArgs))
-                {
-                    Log("update.zip not found. The application will download again.");
-                    await DownloadUpdateFile(assetUrl, UpdateFile);
-                }
+                await DownloadUpdateFile(assetUrl, UpdateFile);
 
-                // Check if the tempFolderFromArgs exists. If not, extract UpdateFile
-                if (!Directory.Exists(_tempFolderFromArgs))
-                {
-                    Log("tempFolderFromArgs not found. Extracting update File...");
-                    ExtractUpdateFile(UpdateFile, TempDirectory);
-                }
+                ExtractUpdateFile(UpdateFile, TempDirectory);
 
                 // Ensure the TempDirectory exists after extraction
-                // Will be _tempFolderFromArgs or TempDirectory that are the same folder
                 if (!Directory.Exists(TempDirectory))
                 {
                     Log("Failed to extract update files. Update process aborted.");
     
                     // Ask user if they want to be redirected to the download page
                     var result = MessageBox.Show(
-                        "Failed to extract update files.\n\nWould you like to be redirected to the download page to update manually?",
+                        "Failed to extract update files.\n\n" +
+                        "Would you like to be redirected to the download page to update manually?",
                         "Error",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Error);
@@ -210,22 +181,10 @@ namespace Updater
                 // Delete the temporary files and folders
                 Log("Deleting temporary update files...");
 
-                if (File.Exists(_updateZipFileFromArgs))
-                {
-                    File.Delete(_updateZipFileFromArgs);
-                    Log($"Deleted file: {_updateZipFileFromArgs}");
-                }
-
                 if (File.Exists(UpdateFile))
                 {
                     File.Delete(UpdateFile);
                     Log($"Deleted file: {UpdateFile}");
-                }
-
-                if (Directory.Exists(_tempFolderFromArgs))
-                {
-                    Directory.Delete(_tempFolderFromArgs, true);
-                    Log($"Deleted folder: {_tempFolderFromArgs}");
                 }
 
                 if (Directory.Exists(TempDirectory))
