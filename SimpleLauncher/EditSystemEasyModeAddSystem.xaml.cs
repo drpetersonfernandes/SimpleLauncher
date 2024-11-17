@@ -40,7 +40,8 @@ public partial class EditSystemEasyModeAddSystem
         Closed += EditSystemEasyModeAddSystem_Closed;
 
         MessageBox.Show("Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n\n" +
-                        "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.",
+            "Info", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void LoadConfig()
@@ -106,7 +107,8 @@ public partial class EditSystemEasyModeAddSystem
                         Version.TryParse(latestVersionString, out Version latestVersion) &&
                         installedVersion.CompareTo(latestVersion) >= 0)
                     {
-                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.", "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.",
+                            "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
                         _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
                         UpdateAddSystemButtonState();
@@ -214,11 +216,13 @@ public partial class EditSystemEasyModeAddSystem
                 catch (Exception ex)
                 {
                     // Error downloading
-                    string formattedException = $"Error downloading emulator.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string formattedException = $"Error downloading emulator.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
                     MessageBoxResult result = MessageBox.Show($"Error downloading emulator.\n\n" +
-                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?",
+                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -633,7 +637,7 @@ public partial class EditSystemEasyModeAddSystem
                 if (!entry.IsDirectory)
                 {
                     string entryDestinationPath = Path.Combine(destinationPath, entry.Key ?? throw new InvalidOperationException("Could not get entry.key"));
-                    Directory.CreateDirectory(Path.GetDirectoryName(entryDestinationPath) ?? throw new InvalidOperationException("Could not GetDirectoryName"));
+                    Directory.CreateDirectory(Path.GetDirectoryName(entryDestinationPath) ?? throw new InvalidOperationException("Could not get Destination Path"));
                     await using var entryStream = entry.OpenEntryStream();
                     await using var fileStream = new FileStream(entryDestinationPath, FileMode.Create, FileAccess.Write);
                     await entryStream.CopyToAsync(fileStream, cancellationToken);
@@ -642,7 +646,7 @@ public partial class EditSystemEasyModeAddSystem
         }
 
         _isDownloadCompleted = true;
-        MessageBox.Show("Download and extraction in-memory complete.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show("Download and extraction is complete.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
     }
         
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
