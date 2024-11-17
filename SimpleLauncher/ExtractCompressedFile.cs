@@ -178,7 +178,8 @@ internal class ExtractCompressedFile
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
             MessageBox.Show("The downloaded file appears to be empty or corrupted.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return false;
         }
             
@@ -190,15 +191,15 @@ internal class ExtractCompressedFile
                 
             MessageBox.Show("The downloaded file appears to be locked.\n\n" +
                             "'Simple Launcher' will not be able to extract the downloaded file because of that.\n\n" +
-                            "You will need to download and extract the files manually and also configure the Systems manually.", "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            "You will need to download and extract the files manually and also configure the Systems manually.",
+                "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
                 
             return false;
-               
         }
             
         try
         {
-            // Get the correct 7z executable path based on user environment (x64, x86 or arm64)
+            // Get the correct 7z executable path based on user environment (x64 or x86)
             string sevenZipPath = Get7ZipExecutablePath();
 
             if (!File.Exists(sevenZipPath))
@@ -209,7 +210,7 @@ internal class ExtractCompressedFile
                     
                 // Ask the user if they want to automatically reinstall Simple Launcher
                 var messageBoxResult = MessageBox.Show(
-                    "The appropriate version of 7z.exe was not found in the application folder!\n\n" +
+                    "The appropriate version of '7z.exe' was not found in the application folder!\n\n" +
                     "'Simple Launcher' will not be able to extract compressed files.\n\n" +
                     "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
                     "Extraction Error",
@@ -222,7 +223,8 @@ internal class ExtractCompressedFile
                 }
                 else
                 {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' to fix the problem.","Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                    MessageBox.Show("Please reinstall 'Simple Launcher' to fix the problem.",
+                        "Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
                     
                 return false;
@@ -231,8 +233,9 @@ internal class ExtractCompressedFile
             // Create destination folder if it does not exist
             Directory.CreateDirectory(destinationFolder);
             
-            // Delay for 2 seconds
-            await Task.Delay(2000); 
+            // Delay for 1 second
+            // Give time to file unlock and also create destinationFolder
+            await Task.Delay(1000);
 
             var processStartInfo = new ProcessStartInfo
             {
@@ -255,13 +258,15 @@ internal class ExtractCompressedFile
 
             if (process.ExitCode != 0)
             {
-                string formattedException = $"Error extracting the file: {filePath}\n\nError message: {error}";
+                string formattedException = $"Error extracting the file: {filePath}\n\n" +
+                                            $"Error message: {error}";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
             
                 MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                                 $"The file might be corrupted or locked by some other process.\n\n" +
-                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
+                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
+                                $"Try to temporarily disable real-time protection.\n\n",
                     "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return false;
@@ -270,12 +275,14 @@ internal class ExtractCompressedFile
         }
         catch (Exception ex)
         {
-            string formattedException = $"Error extracting the file: {filePath}\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"Error extracting the file: {filePath}\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                             $"The file might be corrupted or locked by some other process.\n\n" +
-                            $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n",
+                            $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
+                            $"Try to temporarily disable real-time protection.\n\n",
                 "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             return false;
