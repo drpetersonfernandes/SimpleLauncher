@@ -174,7 +174,6 @@ public partial class EditSystemEasyModeAddSystem
                             MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
                                             $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                            
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
                             /////////////////////////////////////////////////
@@ -203,7 +202,6 @@ public partial class EditSystemEasyModeAddSystem
                             
                                     // Update AddSystemButton state
                                     UpdateAddSystemButtonState();
-                                    
                                 }
                                 else
                                 {
@@ -244,7 +242,6 @@ public partial class EditSystemEasyModeAddSystem
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - End  //////
                             /////////////////////////////////////////////////
-                            
                             
                         }
                     }
