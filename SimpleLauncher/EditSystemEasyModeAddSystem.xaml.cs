@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,7 +12,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
-using SharpCompress.Archives;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -172,7 +172,7 @@ public partial class EditSystemEasyModeAddSystem
                         else
                         {
                             MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                            $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -954,17 +954,34 @@ public partial class EditSystemEasyModeAddSystem
 
             memoryStream.Seek(0, SeekOrigin.Begin); // Reset memory stream for reading
 
-            // Step 2: Extract the file from memory using SharpCompress
-            using var archive = SharpCompress.Archives.SevenZip.SevenZipArchive.Open(memoryStream);
-            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+            // Step 2: Extract the ZIP file directly from the memory stream
+            Directory.CreateDirectory(destinationPath); // Ensure destination directory exists
+            
+            // Show the PleaseWaitExtraction window
+            PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
+            pleaseWaitWindow.Show();
+
+            using var zipArchive = new ZipArchive(memoryStream, ZipArchiveMode.Read, leaveOpen: false);
+            foreach (var entry in zipArchive.Entries)
             {
-                string extractedFilePath = Path.Combine(destinationPath, entry.Key ?? throw new InvalidOperationException("There is no entry.key to set the extractedFilePath."));
+                if (string.IsNullOrEmpty(entry.FullName) || entry.FullName.EndsWith("/"))
+                {
+                    // Skip directories
+                    continue;
+                }
+
+                string extractedFilePath = Path.Combine(destinationPath, entry.FullName);
                 Directory.CreateDirectory(Path.GetDirectoryName(extractedFilePath) ?? string.Empty);
 
-                await using var extractedFileStream = File.OpenWrite(extractedFilePath);
-                entry.WriteTo(extractedFileStream);
+                // Extract the file
+                await using var entryStream = entry.Open(); // Open the ZIP entry
+                await using var fileStream = File.Create(extractedFilePath); // Create the output file
+                await entryStream.CopyToAsync(fileStream, cancellationToken); // Stream the content
             }
-        
+            
+            // Close the PleaseWaitExtraction window
+            pleaseWaitWindow.Close();
+
             // Extraction successful
             return true;
         }

@@ -171,6 +171,21 @@ internal class ExtractCompressedFile
         
     public async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
     {
+        
+        // // Test: Lock the file before trying to extract it
+        // FileStream? testLockStream = null;
+        // try
+        // {
+        //     // Open the file and lock it for testing purposes
+        //     testLockStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        //     testLockStream.Lock(0, new FileInfo(filePath).Length); // Lock the entire file
+        //     Console.WriteLine(@"File is locked for testing purposes. Attempting extraction...");
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine($@"Failed to lock the file: {ex.Message}");
+        // }
+        
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
             string formattedException = $"The downloaded file appears to be empty or corrupted.";
@@ -190,8 +205,8 @@ internal class ExtractCompressedFile
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
             MessageBox.Show("The downloaded file appears to be locked.\n\n" +
-                            "'Simple Launcher' will not be able to extract the downloaded file because of that.\n\n" +
-                            "You will need to download and extract the files manually and also configure the Systems manually.",
+                            "'Simple Launcher' will not be able to extract the downloaded file using the default method.\n\n" +
+                            "I will try again using in memory download and extraction.",
                 "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
                 
             return false;
@@ -287,6 +302,14 @@ internal class ExtractCompressedFile
 
             return false;
         }
+        
+        // finally
+        // {
+        //     // Unlock the file after testing
+        //     testLockStream?.Unlock(0, new FileInfo(filePath).Length);
+        //     testLockStream?.Dispose();
+        //     Console.WriteLine(@"File lock released after testing.");
+        // }
     }
         
     private bool IsFileLocked(string filePath)
