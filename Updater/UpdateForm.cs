@@ -72,7 +72,8 @@ public partial class UpdateForm : Form
             if (string.IsNullOrEmpty(assetUrl))
             {
                 Log("Failed to retrieve download URL for the latest release.");
-                RedirectToDownloadPage("Failed to retrieve the latest release.\n\nWould you like to update manually?");
+                RedirectToDownloadPage("Failed to retrieve the latest release.\n\n" +
+                                       "Would you like to update manually?");
                 Close();
                 return;
             }

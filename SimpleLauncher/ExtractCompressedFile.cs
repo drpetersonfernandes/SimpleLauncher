@@ -144,6 +144,13 @@ internal class ExtractCompressedFile
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show(
+                        "'Simple Launcher' could not clean up the temporary directories inside its folder.\n\n" +
+                        "You will have to delete them yourself.\n\n" +
+                        "This happened because 'Simple Launcher' is running with low privileges.\n" +
+                        "Try running it with administrative privileges.", "Warning", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    
                     string contextMessage = $"Error occurred while cleaning up temp directories.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
