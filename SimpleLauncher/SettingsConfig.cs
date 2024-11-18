@@ -216,7 +216,7 @@ namespace SimpleLauncher
 
             if (systemPlayTime == null)
             {
-                // Add new system play time if the system doesn't exist
+                // Add new system playtime if the system doesn't exist
                 systemPlayTime = new SystemPlayTime
                 {
                     SystemName = systemName,
@@ -225,11 +225,11 @@ namespace SimpleLauncher
                 SystemPlayTimes.Add(systemPlayTime);
             }
 
-            // Parse the existing play time and add the new time
+            // Parse the existing playtime and add the new time
             TimeSpan existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
             TimeSpan updatedPlayTime = existingPlayTime + playTime;
 
-            // Update the play time in the correct format
+            // Update the playtime in the correct format
             systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss");
         }
     }

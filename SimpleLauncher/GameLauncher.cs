@@ -76,12 +76,12 @@ public static class GameLauncher
             
             // Capture the time when the game exits
             DateTime endTime = DateTime.Now; 
-            // Calculate the play time
+            // Calculate the playtime
             TimeSpan playTime = endTime - startTime; 
             // Get System Name
             string selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
     
-            // Update the system play time in settings
+            // Update the system playtime in settings
             settings.UpdateSystemPlayTime(selectedSystem, playTime);
     
             // Save the updated settings

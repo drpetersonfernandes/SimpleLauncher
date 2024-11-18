@@ -583,7 +583,7 @@ public partial class MainWindow : INotifyPropertyChanged
         string imageFolderPath = selectedConfig.SystemImageFolder;
         if (string.IsNullOrWhiteSpace(imageFolderPath))
         {
-            // Use default image folder if SystemImageFolder is not set
+            // Use the default image folder if SystemImageFolder is not set
             imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
         }
 

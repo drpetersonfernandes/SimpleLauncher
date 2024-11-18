@@ -470,7 +470,7 @@ namespace SimpleLauncher
                     
                     PlayClick.PlayTrashSound();
                     
-                    // Reload current Game List
+                    // Reload the current Game List
                     await _mainWindow.LoadGameFilesAsync();
                     
                 }

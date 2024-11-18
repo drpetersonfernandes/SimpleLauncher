@@ -555,7 +555,7 @@ namespace SimpleLauncher
                 // Try to get the client area dimensions
                 if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
                 {
-                    // If client area fails, fall back to the full window dimensions
+                    // If the client area fails, fall back to the full window dimensions
                     if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
                     {
                         throw new Exception("Failed to retrieve window dimensions.");
@@ -603,7 +603,7 @@ namespace SimpleLauncher
                 // Update the button image
                 //UpdateButtonImage(button, screenshotPath);
                 
-                // Reload current Game List
+                // Reload the current Game List
                 await _mainWindow.LoadGameFilesAsync();
 
             }

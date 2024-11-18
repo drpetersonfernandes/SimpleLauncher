@@ -43,7 +43,9 @@ namespace SimpleLauncher
                 
                 // Ask the user if they want to automatically reinstall Simple Launcher
                 var messageBoxResult = MessageBox.Show(
-                    "File appsettings.json is missing.\n\nThe application will not be able to send the Bug Report.\n\nDo you want to automatically reinstall Simple Launcher to fix the problem?",
+                    "File appsettings.json is missing.\n\n" +
+                    "The application will not be able to send the Bug Report.\n\n" +
+                    "Do you want to automatically reinstall Simple Launcher to fix the problem?",
                     "Warning",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
@@ -75,19 +77,28 @@ namespace SimpleLauncher
 
         private async void SendBugReport_Click(object sender, RoutedEventArgs e)
         {
-            string nameText = NameTextBox.Text;
-            string emailText = EmailTextBox.Text;
-            string bugReportText = BugReportTextBox.Text;
-            string applicationVersion = ApplicationVersion;
-
-            if (string.IsNullOrWhiteSpace(bugReportText))
+            try
             {
-                MessageBox.Show("Please enter the details of the bug.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+                string nameText = NameTextBox.Text;
+                string emailText = EmailTextBox.Text;
+                string bugReportText = BugReportTextBox.Text;
+                string applicationVersion = ApplicationVersion;
 
-            string fullMessage = $"\n\n{applicationVersion}\nName: {nameText}\nEmail: {emailText}\nBug Report:\n\n{bugReportText}";
-            await SendBugReportToApiAsync(fullMessage);
+                if (string.IsNullOrWhiteSpace(bugReportText))
+                {
+                    MessageBox.Show("Please enter the details of the bug.",
+                        "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                string fullMessage = $"\n\n{applicationVersion}\nName: {nameText}\nEmail: {emailText}\nBug Report:\n\n{bugReportText}";
+                await SendBugReportToApiAsync(fullMessage);
+            }
+            catch (Exception ex)
+            {
+                string formattedException = $"Error in the SendBugReport_Click method.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);            }
         }
 
         private async Task SendBugReportToApiAsync(string fullMessage)
@@ -115,7 +126,9 @@ namespace SimpleLauncher
                 Exception exception = new(formattedException);
                 await LogErrors.LogErrorAsync(exception, formattedException);
                 
-                MessageBox.Show("There was an error in the API Key of this form.\n\nThe developer was informed and will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error in the API Key of this form.\n\n" +
+                                "The developer was informed and will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -125,7 +138,8 @@ namespace SimpleLauncher
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Bug report sent successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Bug report sent successfully.",
+                        "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     NameTextBox.Clear();
                     EmailTextBox.Clear();
                     BugReportTextBox.Clear();
@@ -136,14 +150,19 @@ namespace SimpleLauncher
                     Exception exception = new Exception(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
                     
-                    MessageBox.Show("An error occurred while sending the bug report.\n\nThe bug was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("An error occurred while sending the bug report.\n\n" +
+                                    "The bug was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}");
+                await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\n" +
+                                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}");
                 
-                MessageBox.Show($"An error occurred while sending the bug report.\n\nThe bug was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while sending the bug report.\n\n" +
+                                $"The bug was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
