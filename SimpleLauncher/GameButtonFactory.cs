@@ -534,8 +534,8 @@ namespace SimpleLauncher
         {
             try
             {
-                // Wait for 2 seconds
-                await Task.Delay(2000);
+                // Wait for 2.5 seconds
+                await Task.Delay(2500);
                 
                 // Get the list of open windows
                 var openWindows = WindowManager.GetOpenWindows();
