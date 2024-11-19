@@ -469,8 +469,9 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 MessageBox.Show(
                     "The game will launch now.\n\n" +
-                    "A selection window will open up, allowing you to choose the desired window to capture.\n\n" +
-                    "Once you select the window, a screenshot will be taken and saved with the same filename as the game file.",
+                    "Set the game window to be non-fullscreen.\n\n" +
+                    "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
+                    "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
                     "Take Screenshot",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
