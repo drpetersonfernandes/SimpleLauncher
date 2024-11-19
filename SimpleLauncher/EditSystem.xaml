@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Edit System"
-                      Width="900"
+                      Width="950"
                       Height="700"
                       MinWidth="900"
                       WindowStartupLocation="CenterScreen">
@@ -146,54 +146,47 @@
                     Margin="10,20,10,10"
                     Grid.Row="0"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="System Name" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            System Name&#160;
+                            <Span Background="Yellow">
+                                <Bold>(Required)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,20,10,10"
                     x:Name="SystemNameTextBox"
                     Grid.Row="0"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    Background="Transparent"
-                    GotFocus="SystemNameTextBox_GotFocus"
-                    LostFocus="SystemNameTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,20,10,10"
-                    x:Name="SystemNamePlaceholderTextBox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    IsEnabled="False"
                     IsReadOnly="True"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="required" />
+                    IsEnabled="False" />
 
                 <!-- System Folder -->
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="1"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="System Folder" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            System Folder&#160;
+                            <Span Background="Yellow">
+                                <Bold>(Optional)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="SystemFolderTextBox"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="SystemFolderTextBox_GotFocus"
-                    LostFocus="SystemFolderTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,0,10,10"
-                    x:Name="SystemFolderPlaceholderTextBox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    IsEnabled="False"
                     IsReadOnly="True"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="required" />
+                    IsEnabled="False"/>
                 <Button
                     x:Name="ChooseSystemFolderButton"
                     Margin="0,0,10,10"
@@ -202,15 +195,24 @@
                     Width="160"
                     Click="ChooseSystemFolder"
                     Content="Set System Folder"
-                    IsEnabled="False" />
+                    IsEnabled="False" 
+                    HorizontalAlignment="Left" />
 
                 <!-- System Image Folder -->
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="2"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="System Image Folder" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            System Image Folder&#160;
+                            <Span Background="Yellow">
+                                <Bold>(Optional)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,0,10,10"
                     Grid.Row="2"
@@ -231,7 +233,8 @@
                     Width="160"
                     Click="ChooseSystemImageFolder"
                     Content="Set System Image Folder"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
 
                 <!-- System Is MAME? -->
                 <Label
@@ -256,32 +259,38 @@
                     Margin="10,0,10,10"
                     Grid.Row="4"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="Extension to Search in the System Folder" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            Extension to Search in the System Folder&#160;
+                            <Span Background="Yellow">
+                                <Bold>(Required)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToSearchTextBox"
                     Grid.Row="4"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="FormatToSearchTextBox_GotFocus"
-                    LostFocus="FormatToSearchTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,0,10,10"
-                    x:Name="FormatToSearchPlaceholderTextBox"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    IsEnabled="False"
                     IsReadOnly="True"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="Hint: zip, 7z, iso, chd" />
+                    IsEnabled="False"/>
                 <Label
                     Margin="0,0,10,10"
                     Grid.Row="4"
                     Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Content="use , or | to add multiple" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            Use a comma&#160;
+                            <Span Background="Yellow">
+                                <Bold>[  ,  ]</Bold>
+                            </Span>
+                            &#160;to add multiple extensions
+                        </Span>
+                    </TextBlock>
+                </Label>
 
                 <!-- Extract File Before Launch -->
                 <Label
@@ -306,58 +315,61 @@
                     Margin="10,0,10,10"
                     Grid.Row="6"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="Extension to Launch After Extraction" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            Extension to Launch After Extraction&#160;
+                            <Span Background="Yellow">
+                                <Bold>(May be Required)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="FormatToLaunchTextBox"
                     Grid.Row="6"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="FormatToLaunchTextBox_GotFocus"
-                    LostFocus="FormatToLaunchTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,0,10,10"
-                    x:Name="FormatToLaunchPlaceholderTextBox"
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    IsEnabled="False"
                     IsReadOnly="True"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="Hint: bin, rom, md, sms, nes, sfc, smc" />
+                    IsEnabled="False"/>
                 <Label
                     Margin="0,0,10,10"
                     Grid.Row="6"
                     Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Content="use , or | to add multiple" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            Use a comma&#160;
+                            <Span Background="Yellow">
+                                <Bold>[  ,  ]</Bold>
+                            </Span>
+                            &#160;to add multiple extensions
+                        </Span>
+                    </TextBlock>
+                </Label>
 
                 <!-- Emulator 1 -->
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="7"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="Emulator 1 Name" />
+                    VerticalAlignment="Center">
+                    <TextBlock>
+                        <Span>
+                            Emulator 1 Name&#160;
+                            <Span Background="Yellow">
+                                <Bold>(Required)</Bold>
+                            </Span>
+                        </Span>
+                    </TextBlock>
+                </Label>
                 <TextBox
                     Margin="0,0,10,10"
                     x:Name="Emulator1NameTextBox"
                     Grid.Row="7"
                     Grid.Column="1"
-                    Background="Transparent"
-                    GotFocus="Emulator1NameTextBox_GotFocus"
-                    LostFocus="Emulator1NameTextBox_LostFocus" />
-                <TextBox
-                    Margin="0,0,10,10"
-                    x:Name="Emulator1NamePlaceholderTextBox"
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    IsEnabled="False"
                     IsReadOnly="True"
-                    IsHitTestVisible="False"
-                    Style="{StaticResource PlaceholderTextStyle}"
-                    Text="required" />
+                    IsEnabled="False"/>
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="8"
@@ -370,6 +382,7 @@
                     Grid.Row="8"
                     Grid.Column="1"
                     IsReadOnly="True"
+                    IsEnabled="False"
                     HorizontalAlignment="Stretch" />
                 <Button
                     Margin="0,0,10,10"
@@ -379,7 +392,8 @@
                     Width="160"
                     Click="ChooseEmulator1Location"
                     Content="Set Emulator 1 Location"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="9"
@@ -430,7 +444,8 @@
                     Grid.Row="11"
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"
+                    IsEnabled="False" />
                 <Button
                     Margin="0,0,10,10"
                     x:Name="ChooseEmulator2LocationButton"
@@ -439,7 +454,8 @@
                     Width="160"
                     Click="ChooseEmulator2Location"
                     Content="Set Emulator 2 Location"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="12"
@@ -514,7 +530,8 @@
                     Click="ChooseEmulator3Location"
                     Content="Set Emulator 3 Location"
                     Visibility="Collapsed"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="15"
@@ -594,7 +611,8 @@
                     Click="ChooseEmulator4Location"
                     Content="Set Emulator 4 Location"
                     Visibility="Collapsed"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="18"
@@ -674,7 +692,8 @@
                     Click="ChooseEmulator5Location"
                     Content="Set Emulator 5 Location"
                     Visibility="Collapsed"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    HorizontalAlignment="Left" />
                 <Label
                     Margin="10,0,10,10"
                     Grid.Row="21"
