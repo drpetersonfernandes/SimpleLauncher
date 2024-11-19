@@ -780,6 +780,12 @@ public partial class EditSystem
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
         }
+        
+        // Create the directory if it doesn't exist
+        if (!Directory.Exists(systemImageFolderText))
+        {
+            Directory.CreateDirectory(systemImageFolderText);
+        }
 
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
@@ -800,6 +806,11 @@ public partial class EditSystem
         {
             systemFolderText = $".\\roms\\{systemNameText}";
             SystemFolderTextBox.Text = systemFolderText;
+        }
+        // Create the directory if it doesn't exist
+        if (!Directory.Exists(systemFolderText))
+        {
+            Directory.CreateDirectory(systemFolderText);
         }
 
         if (string.IsNullOrEmpty(systemFolderText))
