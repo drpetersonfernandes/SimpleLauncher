@@ -48,4 +48,37 @@ public abstract class FileManager
             return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
     }
+    
+    public static int CountFiles(string folderPath, List<string> fileExtensions)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            return 0;
+        }
+
+        try
+        {
+            int fileCount = 0;
+
+            foreach (string extension in fileExtensions)
+            {
+                string searchPattern = $"*.{extension}";
+                fileCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
+            }
+
+            return fileCount;
+        }
+        catch (Exception ex)
+        {
+            string contextMessage = $"An error occurred while counting files in the Main window.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+                
+            MessageBox.Show("An error occurred while counting files.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return 0;
+        }
+    }
 }

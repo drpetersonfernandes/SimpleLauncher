@@ -19,9 +19,9 @@ namespace SimpleLauncher
         private readonly List<MameConfig> _machines;
         private readonly SettingsConfig _settings;
         private readonly FavoritesConfig _favoritesConfig;
-        private readonly MainWindow _mainWindow;
         private readonly FavoritesManager _favoritesManager;
-
+        private readonly MainWindow _mainWindow;
+        
         public GameListFactory(ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, 
             List<MameConfig> machines, SettingsConfig settings, FavoritesConfig favoritesConfig, MainWindow mainWindow)
         {
@@ -30,8 +30,8 @@ namespace SimpleLauncher
             _systemConfigs = systemConfigs;
             _machines = machines;
             _settings = settings;
-            _favoritesManager = new FavoritesManager();
             _favoritesConfig = favoritesConfig;
+            _favoritesManager = new FavoritesManager();
             _mainWindow = mainWindow;
         }
 
@@ -74,6 +74,7 @@ namespace SimpleLauncher
             }
             
             public event PropertyChangedEventHandler PropertyChanged;
+
             private void OnPropertyChanged(string name)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

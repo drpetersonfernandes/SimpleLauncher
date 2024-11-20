@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +16,6 @@ using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
-using Orientation = System.Windows.Controls.Orientation;
 
 namespace SimpleLauncher;
 
@@ -218,11 +216,6 @@ public partial class MainWindow : INotifyPropertyChanged
         // Stats using Async Event Handler
         Loaded += async (_, _) => await Stats.CallApiAsync();
 
-        // Attach the Load and Close event handler.
-        Loaded += MainWindow_Loaded;
-        Closing += MainWindow_Closing;
-        AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-            
         // Check for command-line arguments
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("whatsnew"))
@@ -230,6 +223,11 @@ public partial class MainWindow : INotifyPropertyChanged
             // Show UpdateHistory after the MainWindow is fully loaded
             Loaded += (_, _) => OpenUpdateHistory();
         }
+        
+        // Attach the Load and Close event handler.
+        Loaded += MainWindow_Loaded;
+        Closing += MainWindow_Closing;
+        AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
     }
         
     // Open UpdateHistory window
@@ -239,13 +237,6 @@ public partial class MainWindow : INotifyPropertyChanged
         updateHistoryWindow.Show();
     }
 
-    // Method to delete generated temp files before close.
-    private void CurrentDomain_ProcessExit(object sender, EventArgs e)
-    {
-        ExtractCompressedFile.Instance2.Cleanup();
-    }
-
-    // Save Application Settings
     private void SaveApplicationSettings()
     {
         _settings.MainWindowWidth = Width;
@@ -271,7 +262,6 @@ public partial class MainWindow : INotifyPropertyChanged
         _settings.Save();
     }
 
-    // Windows Load method
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         // Windows state
@@ -293,22 +283,27 @@ public partial class MainWindow : INotifyPropertyChanged
         SetViewMode(_settings.ViewMode);
     }
 
-    // Dispose gamepad resources and save MainWindow state before window close.
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
+        // Dispose gamepad resources
         GamePadController.Instance2.Stop();
         GamePadController.Instance2.Dispose();
+        
+        // Save MainWindow state
         SaveApplicationSettings();
     }
+    
+    private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+    {
+        // Delete generated temp files before close.
+        ExtractCompressedFile.Instance2.Cleanup();
+    }
 
-    // Restart Application
     // Used in cases that need to reload system.xml or update the pagination settings or update the video and info links 
     private void MainWindow_Restart()
     {
-        // Save Application Settings
         SaveApplicationSettings();
 
-        // Prepare the process start info
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule != null)
         {
@@ -318,16 +313,13 @@ public partial class MainWindow : INotifyPropertyChanged
                 UseShellExecute = true
             };
 
-            // Start new application instance
             Process.Start(startInfo);
 
-            // Shutdown current application instance
             Application.Current.Shutdown();
             Environment.Exit(0);
         }
     }
         
-    // Set ViewMode
     private void SetViewMode(string viewMode)
     {
         if (viewMode == "ListView")
@@ -371,79 +363,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
         return favoriteGamePaths;
     }
-       
-    #region TrayIcon
-        
-    private void InitializeTrayIcon()
-    {
-        // Create a context menu for the tray icon
-        _trayMenu = new ContextMenuStrip();
-        _trayMenu.Items.Add("Open", null, OnOpen);
-        _trayMenu.Items.Add("Exit", null, OnExit);
-
-        // Load the embedded icon from resources
-        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico"))?.Stream;
-
-        // Create the tray icon using the embedded icon
-        if (iconStream != null)
-        {
-            _trayIcon = new NotifyIcon
-            {
-                Icon = new Icon(iconStream), // Set icon from stream
-                ContextMenuStrip = _trayMenu,
-                Text = @"SimpleLauncher",
-                Visible = true
-            };
-
-            // Handle tray icon events
-            _trayIcon.DoubleClick += OnOpen;
-        }
-    }
-        
-    // Handle "Open" context menu item or tray icon double-click
-    private void OnOpen(object sender, EventArgs e)
-    {
-        Show();
-        WindowState = WindowState.Normal;
-        Activate();
-    }
-
-    // Handle "Exit" context menu item
-    private void OnExit(object sender, EventArgs e)
-    {
-        _trayIcon.Visible = false;
-        Application.Current.Shutdown();
-    }
-
-    // Override the OnStateChanged method to hide the window when minimized
-    protected override void OnStateChanged(EventArgs e)
-    {
-        if (WindowState == WindowState.Minimized)
-        {
-            Hide();
-            ShowTrayMessage("Simple Launcher is minimized to the tray.");
-        }
-        base.OnStateChanged(e);
-    }
-
-    // Method to display a balloon message on the tray icon
-    private void ShowTrayMessage(string message)
-    {
-        _trayIcon.BalloonTipTitle = @"SimpleLauncher";
-        _trayIcon.BalloonTipText = message;
-        _trayIcon.ShowBalloonTip(3000); // Display for 3 seconds
-    }
-
-    // Clean up resources when closing the application
-    protected override void OnClosing(CancelEventArgs e)
-    {
-        _trayIcon.Visible = false;
-        _trayIcon.Dispose();
-        base.OnClosing(e);
-    }
-        
-    #endregion
-
+    
     private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         SearchTextBox.Text = ""; // Empty search field
@@ -484,8 +404,10 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Display the system info
                 string systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
-                int gameCount = CountFiles(systemFolderPath, fileExtensions);
-                DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig);
+                int gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                
+                // SystemInfo
+                SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
                     
                 // Update Image Folder and Rom Folder Variables
                 _selectedRomFolder = selectedConfig.SystemFolder;
@@ -510,182 +432,6 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    # region SystemInfo
-        
-    private static int CountFiles(string folderPath, List<string> fileExtensions)
-    {
-        if (!Directory.Exists(folderPath))
-        {
-            return 0;
-        }
-
-        try
-        {
-            int fileCount = 0;
-
-            foreach (string extension in fileExtensions)
-            {
-                string searchPattern = $"*.{extension}";
-                fileCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
-            }
-
-            return fileCount;
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"An error occurred while counting files in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("An error occurred while counting files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return 0;
-        }
-    }
-
-    private void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig)
-    {
-        // Clear existing content
-        GameFileGrid.Children.Clear();
-
-        // Create a StackPanel to hold TextBlocks vertically
-        var verticalStackPanel = new StackPanel
-        {
-            Orientation = Orientation.Vertical,
-            Margin = new Thickness(10)
-        };
-
-        // Create and add System Info TextBlock
-        var systemInfoTextBlock = new TextBlock
-        {
-            Text = $"\nSystem Folder: {systemFolder}\n" +
-                   $"System Image Folder: {selectedConfig.SystemImageFolder ?? "[Using default image folder]"}\n" +
-                   $"System is MAME? {selectedConfig.SystemIsMame}\n" +
-                   $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
-                   $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
-                   $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n",
-            Padding = new Thickness(0),
-            TextWrapping = TextWrapping.Wrap
-        };
-        verticalStackPanel.Children.Add(systemInfoTextBlock);
-
-        // Add the number of games in the system folder
-        var gameCountTextBlock = new TextBlock
-        {
-            Text = $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}",
-            Padding = new Thickness(0),
-            TextWrapping = TextWrapping.Wrap
-        };
-        verticalStackPanel.Children.Add(gameCountTextBlock);
-
-        // Determine the image folder to search
-        string imageFolderPath = selectedConfig.SystemImageFolder;
-        if (string.IsNullOrWhiteSpace(imageFolderPath))
-        {
-            // Use the default image folder if SystemImageFolder is not set
-            imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
-        }
-
-        // Add the number of images in the system's image folder
-        if (Directory.Exists(imageFolderPath))
-        {
-            var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" };
-            int imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
-
-            var imageCountTextBlock = new TextBlock
-            {
-                Text = $"Number of images in the System Image Folder: {imageCount}",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
-            verticalStackPanel.Children.Add(imageCountTextBlock);
-        }
-        else
-        {
-            var noImageFolderTextBlock = new TextBlock
-            {
-                Text = "System Image Folder does not exist or is not specified.",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
-            verticalStackPanel.Children.Add(noImageFolderTextBlock);
-        }
-
-        // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
-        foreach (var emulator in selectedConfig.Emulators)
-        {
-            var emulatorInfoTextBlock = new TextBlock
-            {
-                Text = $"\nEmulator Name: {emulator.EmulatorName}\n" +
-                       $"Emulator Location: {emulator.EmulatorLocation}\n" +
-                       $"Emulator Parameters: {emulator.EmulatorParameters}\n",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
-            verticalStackPanel.Children.Add(emulatorInfoTextBlock);
-        }
-
-        // Add the vertical StackPanel to the horizontal WrapPanel
-        GameFileGrid.Children.Add(verticalStackPanel);
-
-        // Validate the System
-        ValidateSystemConfiguration(systemFolder, selectedConfig);
-    }
-
-    private void ValidateSystemConfiguration(string systemFolder, SystemConfig selectedConfig)
-    {
-        StringBuilder errorMessages = new StringBuilder();
-        bool hasErrors = false;
-
-        // Validate the system folder path
-        if (!IsValidPath(systemFolder))
-        {
-            hasErrors = true;
-            errorMessages.AppendLine($"System Folder path is not valid or does not exist: '{systemFolder}'\n\n");
-        }
-
-        // Validate the system image folder path if it's provided. Allow null or empty.
-        if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
-        {
-            hasErrors = true;
-            errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
-        }
-
-        // Validate each emulator's location path if it's provided. Allow null or empty.
-        foreach (var emulator in selectedConfig.Emulators)
-        {
-            if (!string.IsNullOrWhiteSpace(emulator.EmulatorLocation) && !IsValidPath(emulator.EmulatorLocation))
-            {
-                hasErrors = true;
-                errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
-            }
-        }
-            
-        // Display all error messages if there are any errors
-        if (hasErrors)
-        {
-            string extraline = "Edit System to fix it.";
-            MessageBox.Show(errorMessages + extraline,"Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    // Check paths in SystemFolder, SystemImageFolder and EmulatorLocation. Allow relative paths.
-    private bool IsValidPath(string path)
-    {
-        // Check if the path is not null or whitespace
-        if (string.IsNullOrWhiteSpace(path)) return false;
-
-        // Check if the path is an absolute path and exists
-        if (Directory.Exists(path) || File.Exists(path)) return true;
-
-        // Assume the path might be relative and combine it with the base directory
-        // Allow relative paths
-        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-        string fullPath = Path.Combine(basePath, path);
-
-        // Check if the combined path exists
-        return Directory.Exists(fullPath) || File.Exists(fullPath);
-    }
-        
     private void AddNoSystemMessage()
     {
         // Check the current view mode
@@ -742,8 +488,6 @@ public partial class MainWindow : INotifyPropertyChanged
         _letterNumberMenu.DeselectLetter();
     }
         
-    #endregion
-        
     #region Pagination
 
     private void ResetPaginationButtons()
@@ -785,7 +529,8 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             MessageBox.Show("There was an error in this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -837,10 +582,13 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method SearchButton_Click.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method SearchButton_Click.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error with this method.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error with this method.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -971,7 +719,8 @@ public partial class MainWindow : INotifyPropertyChanged
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 MessageBox.Show("There was an error while loading the system configuration for this system.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             List<string> allFiles;
@@ -1113,14 +862,16 @@ public partial class MainWindow : INotifyPropertyChanged
 
             // Update the UI to reflect the current pagination status
             UpdatePaginationButtons();
-
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error while loading the game list.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error while loading the game list.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1128,7 +879,6 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
-        // Save Application Settings
         SaveApplicationSettings();
                 
         EditSystemEasyMode editSystemEasyModeWindow = new(_settings);
@@ -1137,7 +887,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
-        // Save Application Settings
         SaveApplicationSettings();
                 
         EditSystem editSystemWindow = new(_settings);
@@ -1146,7 +895,6 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void EditLinks_Click(object sender, RoutedEventArgs e)
     {
-        // Save Application Settings
         SaveApplicationSettings();
                 
         EditLinks editLinksWindow = new(_settings);
@@ -1171,11 +919,14 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Unable to open the Donation Link from the menu.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("There was an error opening the Donation Link.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error opening the Donation Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1276,11 +1027,13 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method ThumbnailSize_Click.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method ThumbnailSize_Click.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1322,7 +1075,6 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void Favorites_Click(object sender, RoutedEventArgs e)
     {
-        // Save Application Settings
         SaveApplicationSettings();
             
         var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines, this);
@@ -1372,12 +1124,26 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBox.Show("'FindRomCover.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'FindRomCover.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
@@ -1405,17 +1171,33 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBox.Show("'CreateBatchFilesForPS3Games.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'CreateBatchFilesForPS3Games.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1435,17 +1217,33 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBox.Show("'CreateBatchFilesForScummVMGames.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'CreateBatchFilesForScummVMGames.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1465,17 +1263,33 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBox.Show("'CreateBatchFilesForSegaModel3Games.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'CreateBatchFilesForSegaModel3Games.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1495,17 +1309,33 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBox.Show("'CreateBatchFilesForWindowsGames.exe' was not found in the expected path.\n\nReinstall Simple Launcher to fix it.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'CreateBatchFilesForWindowsGames.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\nThe error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside Simple Launcher folder" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1531,6 +1361,7 @@ public partial class MainWindow : INotifyPropertyChanged
         Page300.IsChecked = (selectedSize == 300);
         Page400.IsChecked = (selectedSize == 400);
         Page500.IsChecked = (selectedSize == 500);
+        Page1000.IsChecked = (selectedSize == 1000);
     }
         
     private void UpdateMenuCheckMarks3(string selectedValue)
@@ -1797,4 +1628,76 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBox.Show("There was an error with this method.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+    
+    #region TrayIcon
+        
+    private void InitializeTrayIcon()
+    {
+        // Create a context menu for the tray icon
+        _trayMenu = new ContextMenuStrip();
+        _trayMenu.Items.Add("Open", null, OnOpen);
+        _trayMenu.Items.Add("Exit", null, OnExit);
+
+        // Load the embedded icon from resources
+        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico"))?.Stream;
+
+        // Create the tray icon using the embedded icon
+        if (iconStream != null)
+        {
+            _trayIcon = new NotifyIcon
+            {
+                Icon = new Icon(iconStream), // Set icon from stream
+                ContextMenuStrip = _trayMenu,
+                Text = @"SimpleLauncher",
+                Visible = true
+            };
+
+            // Handle tray icon events
+            _trayIcon.DoubleClick += OnOpen;
+        }
+    }
+        
+    // Handle "Open" context menu item or tray icon double-click
+    private void OnOpen(object sender, EventArgs e)
+    {
+        Show();
+        WindowState = WindowState.Normal;
+        Activate();
+    }
+
+    // Handle "Exit" context menu item
+    private void OnExit(object sender, EventArgs e)
+    {
+        _trayIcon.Visible = false;
+        Application.Current.Shutdown();
+    }
+
+    // Override the OnStateChanged method to hide the window when minimized
+    protected override void OnStateChanged(EventArgs e)
+    {
+        if (WindowState == WindowState.Minimized)
+        {
+            Hide();
+            ShowTrayMessage("Simple Launcher is minimized to the tray.");
+        }
+        base.OnStateChanged(e);
+    }
+
+    // Method to display a balloon message on the tray icon
+    private void ShowTrayMessage(string message)
+    {
+        _trayIcon.BalloonTipTitle = @"SimpleLauncher";
+        _trayIcon.BalloonTipText = message;
+        _trayIcon.ShowBalloonTip(3000); // Display for 3 seconds
+    }
+
+    // Clean up resources when closing the application
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        _trayIcon.Visible = false;
+        _trayIcon.Dispose();
+        base.OnClosing(e);
+    }
+        
+    #endregion
 }
