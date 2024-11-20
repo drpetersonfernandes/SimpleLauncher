@@ -167,7 +167,6 @@ public partial class MainWindow : INotifyPropertyChanged
             SearchTextBox.Text = "";  // Clear SearchTextBox
             _currentFilter = selectedLetter; // Update current filter
             await LoadGameFilesAsync(selectedLetter); // Load games
-            Scroller.ScrollToTop();
         };
             
         _letterNumberMenu.OnFavoritesSelected += async () =>
@@ -182,7 +181,6 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
                 await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync with "FAVORITES" query
-                Scroller.ScrollToTop();
             }
             else
             {
@@ -773,12 +771,10 @@ public partial class MainWindow : INotifyPropertyChanged
                 if (_currentSearchResults.Any())
                 {
                     await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                    Scroller.ScrollToTop();
                 }
                 else
                 {
                     await LoadGameFilesAsync(_currentFilter);
-                    Scroller.ScrollToTop();
                 }
             }
         }
@@ -803,12 +799,10 @@ public partial class MainWindow : INotifyPropertyChanged
                 if (_currentSearchResults.Any())
                 {
                     await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                    Scroller.ScrollToTop();
                 }
                 else
                 {
                     await LoadGameFilesAsync(_currentFilter);
-                    Scroller.ScrollToTop();
                 }
             }
         }
@@ -897,7 +891,6 @@ public partial class MainWindow : INotifyPropertyChanged
         try
         {
             await LoadGameFilesAsync(null, searchQuery);
-            Scroller.ScrollToTop();
         }
         finally
         {
@@ -931,8 +924,8 @@ public partial class MainWindow : INotifyPropertyChanged
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
-        // // Move scroller to top
-        // Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
+        // Move scroller to top
+        Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
             
         // Clear PreviewImage
         PreviewImage.Source = null;
@@ -1313,7 +1306,6 @@ public partial class MainWindow : INotifyPropertyChanged
                     
                     // Reload List of Games
                     await LoadGameFilesAsync();
-                    Scroller.ScrollToTop();
                 }
             }
         }
@@ -1633,7 +1625,6 @@ public partial class MainWindow : INotifyPropertyChanged
                 PlayTime = "00:00:00";
                 AddNoSystemMessage();
                 await LoadGameFilesAsync();
-                Scroller.ScrollToTop();
             }
             _settings.Save(); // Save the updated ViewMode
         }
