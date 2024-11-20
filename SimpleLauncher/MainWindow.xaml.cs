@@ -47,8 +47,8 @@ public partial class MainWindow : INotifyPropertyChanged
             OnPropertyChanged(nameof(PlayTime));
         }
     }
-        
-    protected virtual void OnPropertyChanged(string propertyName)
+
+    private void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -1426,10 +1426,12 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method ChangeViewMode_Click.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error with this method.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error with this method.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1622,10 +1624,13 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error with this method.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error with this method.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
     
@@ -1648,7 +1653,7 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 Icon = new Icon(iconStream), // Set icon from stream
                 ContextMenuStrip = _trayMenu,
-                Text = @"SimpleLauncher",
+                Text = @"Simple Launcher",
                 Visible = true
             };
 
@@ -1686,7 +1691,7 @@ public partial class MainWindow : INotifyPropertyChanged
     // Method to display a balloon message on the tray icon
     private void ShowTrayMessage(string message)
     {
-        _trayIcon.BalloonTipTitle = @"SimpleLauncher";
+        _trayIcon.BalloonTipTitle = @"Simple Launcher";
         _trayIcon.BalloonTipText = message;
         _trayIcon.ShowBalloonTip(3000); // Display for 3 seconds
     }
