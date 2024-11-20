@@ -83,7 +83,7 @@ public partial class GlobalStats
         foreach (var config in _systemConfigs)
         {
             // Asynchronous file count and base filenames of ROMs/ISOs
-            var romFiles = await MainWindow.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
+            var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
             var romFileBaseNames = romFiles.Select(Path.GetFileNameWithoutExtension).ToHashSet();
 
             // Calculate the total disk size for the ROM/ISO files

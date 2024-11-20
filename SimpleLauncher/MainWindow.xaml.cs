@@ -54,7 +54,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-        
+
     // Declare _gameListFactory
     private readonly GameListFactory _gameListFactory;
         
@@ -116,7 +116,8 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string contextMessage = $"'system.xml' is corrupted.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"'system.xml' is corrupted.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -229,7 +230,6 @@ public partial class MainWindow : INotifyPropertyChanged
             // Show UpdateHistory after the MainWindow is fully loaded
             Loaded += (_, _) => OpenUpdateHistory();
         }
-
     }
         
     // Open UpdateHistory window
@@ -293,7 +293,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SetViewMode(_settings.ViewMode);
     }
 
-    // Dispose gamepad resources and Save MainWindow state before window close.
+    // Dispose gamepad resources and save MainWindow state before window close.
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
         GamePadController.Instance2.Stop();
@@ -780,10 +780,12 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Previous page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Previous page button error in the Main window.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show("There was an error in this button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error in this button.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -808,10 +810,12 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Next page button error in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Next page button error in the Main window.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show("There was an error with this button.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error with this button.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -966,7 +970,8 @@ public partial class MainWindow : INotifyPropertyChanged
                 Exception ex = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show("There was an error while loading the system configuration for this system.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error while loading the system configuration for this system.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             List<string> allFiles;
@@ -996,11 +1001,11 @@ public partial class MainWindow : INotifyPropertyChanged
                     {
                         // List of files with that match the system extensions
                         // then sort the list alphabetically 
-                        allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
+                        allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
 
                         if (!string.IsNullOrWhiteSpace(startLetter))
                         {
-                            allFiles = await FilterFilesAsync(allFiles, startLetter);
+                            allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
                         }
 
                         bool systemIsMame = selectedConfig.SystemIsMame;
@@ -1035,11 +1040,11 @@ public partial class MainWindow : INotifyPropertyChanged
     
                     // List of files with that match the system extensions
                     // then sort the list alphabetically 
-                    allFiles = await GetFilesAsync(systemFolderPath, fileExtensions);
+                    allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        allFiles = await FilterFilesAsync(allFiles, startLetter);
+                        allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
                     }
                 }
             }
@@ -1117,46 +1122,6 @@ public partial class MainWindow : INotifyPropertyChanged
                 
             MessageBox.Show("There was an error while loading the game list.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    }
-        
-    public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
-    {
-        return await Task.Run(async () =>
-        {
-            try
-            {
-                if (!Directory.Exists(directoryPath))
-                {
-                    return new List<string>();
-                }
-                var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
-                return foundFiles;
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                MessageBox.Show("There was an error finding the game files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return new List<string>();
-            }
-        });
-    }
-
-    private static async Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
-    {
-        return await Task.Run(() =>
-        {
-            if (string.IsNullOrEmpty(startLetter))
-                return files; // If no startLetter is provided, no filtering is required
-
-            if (startLetter == "#")
-            {
-                return files.Where(file => char.IsDigit(Path.GetFileName(file)[0])).ToList();
-            }
-
-            return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
-        });
     }
         
     #region Menu Items
