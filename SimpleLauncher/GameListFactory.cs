@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher
 {
@@ -407,6 +410,36 @@ namespace SimpleLauncher
                 OpenPcb(systemName, fileNameWithoutExtension);
             };
             
+            // Take Screenshot Context Menu
+            var takeScreenshotIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+                Width = 16,
+                Height = 16
+            };
+            var takeScreenshot = new MenuItem
+            {
+                Header = "Take Screenshot",
+                Icon = takeScreenshotIcon
+            };
+            takeScreenshot.Click += async (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                MessageBox.Show(
+                    "The game will launch now.\n\n" +
+                    "Set the game window to non-fullscreen. This is important.\n\n" +
+                    "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
+                    "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
+                    "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
+                    "Take Screenshot",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                
+                _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+                
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            };
+            
             // Delete Game Context Menu
             var deleteGameIcon = new Image
             {
@@ -450,10 +483,96 @@ namespace SimpleLauncher
             contextMenu.Items.Add(openCabinet);
             contextMenu.Items.Add(openFlyer);
             contextMenu.Items.Add(openPcb);
+            contextMenu.Items.Add(takeScreenshot);
             contextMenu.Items.Add(deleteGame);
 
             // Return
             return contextMenu;
+        }
+        
+        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+        {
+            try
+            {
+                // Wait for 4 seconds
+                await Task.Delay(4000);
+                
+                // Get the list of open windows
+                var openWindows = WindowManager.GetOpenWindows();
+
+                // Show the selection dialog
+                var dialog = new WindowSelectionDialog(openWindows);
+                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+                {
+                    //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                IntPtr hWnd = dialog.SelectedWindowHandle;
+                
+                WindowScreenshot.Rect rect;
+
+                // Try to get the client area dimensions
+                if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+                {
+                    // If the client area fails, fall back to the full window dimensions
+                    if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                    {
+                        throw new Exception("Failed to retrieve window dimensions.");
+                    }
+                }
+                else
+                {
+                    // Successfully retrieved client area
+                    rect = clientRect;
+                }
+
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+
+                // Determine the save path for the screenshot
+                string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+
+                string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+
+                // Capture the window into a bitmap
+                using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+                {
+                    using (var graphics = Graphics.FromImage(bitmap))
+                    {
+                        graphics.CopyFromScreen(
+                            new System.Drawing.Point(rect.Left, rect.Top),
+                            System.Drawing.Point.Empty,
+                            new System.Drawing.Size(width, height));
+                    }
+
+                    // Save the screenshot
+                    bitmap.Save(screenshotPath, ImageFormat.Png);
+                }
+
+                PlayClick.PlayShutterSound();
+                
+                // Show the flash effect
+                var flashWindow = new FlashOverlayWindow();
+                await flashWindow.ShowFlashAsync();
+                
+                // Notify the user of success
+                //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                // Reload the current Game List
+                await _mainWindow.LoadGameFilesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors
+                MessageBox.Show($"Failed to save screenshot. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Optionally log the error
+                Task logTask = LogErrors.LogErrorAsync(ex, "Error capturing screenshot.");
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
         }
 
         private async void DeleteFile(string filePath, string fileNameWithExtension)

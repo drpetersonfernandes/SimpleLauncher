@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher
 {
@@ -25,6 +28,8 @@ namespace SimpleLauncher
         private DispatcherTimer _closeTimer;
         private readonly FavoritesManager _favoritesManager;
         private readonly MainWindow _mainWindow;
+        private readonly ComboBox _mockSystemComboBox = new();
+        private readonly ComboBox _mockEmulatorComboBox = new();
 
         public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, MainWindow mainWindow)
         {
@@ -34,9 +39,9 @@ namespace SimpleLauncher
             _settings = settings;
             _searchResults = [];
             ResultsDataGrid.ItemsSource = _searchResults;
-            Closed += GlobalSearch_Closed;
-            _favoritesManager = new FavoritesManager();
             _mainWindow = mainWindow;
+            _favoritesManager = new FavoritesManager();
+            Closed += GlobalSearch_Closed;
             
             // Apply the theme to this window
             App.ApplyThemeToWindow(this);
@@ -295,39 +300,42 @@ namespace SimpleLauncher
         {
             try
             {
+                var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                    config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                
                 if (string.IsNullOrEmpty(systemName) || emulatorConfig == null)
                 {
-                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\nThere is no System or Emulator associated with the game.";
+                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\n" +
+                                                $"There is no System or Emulator associated with the game.";
                     Exception ex = new(formattedException);
                     await LogErrors.LogErrorAsync(ex, formattedException);
                                         
-                    MessageBox.Show("There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("There was an error launching the selected game.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
-                var systemConfig = _systemConfigs.FirstOrDefault(config =>
-                    config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (systemConfig == null)
                 {
-                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\nSystem configuration not found for the selected game.\nThe error was reported to the developer that will fix the issue.";
+                    string formattedException = $"That was an error trying to launch a game from the search result in the Global Search window.\n\n" +
+                                                $"System configuration not found for the selected game.";
                     Exception exception = new(formattedException);
                     await LogErrors.LogErrorAsync(exception, formattedException);
                     
-                    MessageBox.Show("There was an error launching the selected game.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("There was an error launching the selected game.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                var mockSystemComboBox = new ComboBox();
-                var mockEmulatorComboBox = new ComboBox();
+                _mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+                _mockSystemComboBox.SelectedItem = systemConfig.SystemName;
 
-                mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
-                mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+                _mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                _mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
-                mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
-
-                await GameLauncher.HandleButtonClick(filePath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
+                await GameLauncher.HandleButtonClick(filePath, _mockEmulatorComboBox, _mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
             }
             catch (Exception ex)
             {
@@ -366,8 +374,37 @@ namespace SimpleLauncher
         {
             try
             {
+                // if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult)
+                // {
+                //     MessageBox.Show("Please select a valid item to perform an action.",
+                //         "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //     return;
+                // }
+
                 if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
                 {
+
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedResult.FileName);
+                    string fileNameWithExtension = selectedResult.FileName;
+                    string filePath = GetFullPath(selectedResult.FileName);
+                    var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                        config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                    if (systemConfig == null)
+                    {
+                        string formattedException =
+                            $"systemConfig is null in method ResultsDataGrid_MouseRightButtonUp.";
+                        Exception ex = new(formattedException);
+                        Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+
+                        MessageBox.Show($"There was an error loading the systemConfig.\n\n" +
+                                        $"The error was reported to the developer that will try to fix the issue.",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
                     var contextMenu = new ContextMenu();
 
                     // "Launch Selected Game" MenuItem
@@ -385,7 +422,8 @@ namespace SimpleLauncher
                     launchMenuItem.Click += (_, _) =>
                     {
                         PlayClick.PlayClickSound();
-                        LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+                        LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
+                            selectedResult.EmulatorConfig);
                     };
 
                     // "Add To Favorites" MenuItem
@@ -441,11 +479,12 @@ namespace SimpleLauncher
                         PlayClick.PlayClickSound();
                         OpenInfoLink(selectedResult.SystemName, selectedResult.FileName, selectedResult.MachineName);
                     };
-                    
+
                     // "Open ROM History" MenuItem
                     var openHistoryIcon = new Image
                     {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png", UriKind.RelativeOrAbsolute)),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png",
+                            UriKind.RelativeOrAbsolute)),
                         Width = 16,
                         Height = 16
                     };
@@ -457,8 +496,6 @@ namespace SimpleLauncher
                     openHistoryMenuItem.Click += (_, _) =>
                     {
                         PlayClick.PlayClickSound();
-                        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedResult.FileName);
-                        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
                         OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
                     };
 
@@ -497,7 +534,7 @@ namespace SimpleLauncher
                         PlayClick.PlayClickSound();
                         OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName);
                     };
-                    
+
                     // "Gameplay Snapshot" MenuItem
                     var gameplaySnapshotIcon = new Image
                     {
@@ -515,7 +552,7 @@ namespace SimpleLauncher
                         PlayClick.PlayClickSound();
                         OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName);
                     };
-                    
+
                     // "Cart" MenuItem
                     var cartIcon = new Image
                     {
@@ -642,6 +679,66 @@ namespace SimpleLauncher
                         OpenPcb(selectedResult.SystemName, selectedResult.FileName);
                     };
 
+                    // Take Screenshot Context Menu
+                    var takeScreenshotIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var takeScreenshot = new MenuItem
+                    {
+                        Header = "Take Screenshot",
+                        Icon = takeScreenshotIcon
+                    };
+                    takeScreenshot.Click += (_, _) =>
+                    {
+                        PlayClick.PlayClickSound();
+                        MessageBox.Show(
+                            "The game will launch now.\n\n" +
+                            "Set the game window to non-fullscreen. This is important.\n\n" +
+                            "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
+                            "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
+                            "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
+                            "Take Screenshot",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+
+                        _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+
+                        LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
+                            selectedResult.EmulatorConfig);
+
+                    };
+
+                    // Delete Game Context Menu
+                    var deleteGameIcon = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                        Width = 16,
+                        Height = 16
+                    };
+                    var deleteGame = new MenuItem
+                    {
+                        Header = "Delete Game",
+                        Icon = deleteGameIcon
+                    };
+                    deleteGame.Click += (_, _) =>
+                    {
+                        PlayClick.PlayClickSound();
+                        var result = MessageBox.Show(
+                            $"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
+                            $"This action will delete the file from the HDD and cannot be undone.",
+                            "Confirm Deletion",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            DeleteFile(filePath, fileNameWithExtension);
+                        }
+                    };
+
                     contextMenu.Items.Add(launchMenuItem);
                     contextMenu.Items.Add(addToFavoritesMenuItem);
                     contextMenu.Items.Add(videoLinkMenuItem);
@@ -657,17 +754,22 @@ namespace SimpleLauncher
                     contextMenu.Items.Add(cabinetMenuItem);
                     contextMenu.Items.Add(flyerMenuItem);
                     contextMenu.Items.Add(pcbMenuItem);
-
+                    contextMenu.Items.Add(takeScreenshot);
+                    contextMenu.Items.Add(deleteGame);
                     contextMenu.IsOpen = true;
                 }
             }
             catch (Exception ex)
             {
-                string formattedException = $"There was an error in the right-click context menu in the global search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException =
+                    $"There was an error in the right-click context menu in the ResultsDataGrid_MouseRightButtonUp method.\n\n" +
+                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show("There was an error in the right-click context menu.\n\nThe error was reported to the developer, who will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("There was an error in the right-click context menu.\n\n" +
+                                "The error was reported to the developer, who will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -700,11 +802,13 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while adding game to favorites in the Global Search window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while adding game to favorites in the Global Search window.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                MessageBox.Show($"An error occurred while adding the game to the favorites.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while adding the game to the favorites.\n\n" +
+                                $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1090,6 +1194,130 @@ namespace SimpleLauncher
                 }
             }
             MessageBox.Show("There is no PCB file associated with this game.", "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+        {
+            try
+            {
+                // Wait for 4 seconds
+                await Task.Delay(4000);
+                
+                // Get the list of open windows
+                var openWindows = WindowManager.GetOpenWindows();
+
+                // Show the selection dialog
+                var dialog = new WindowSelectionDialog(openWindows);
+                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+                {
+                    //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                IntPtr hWnd = dialog.SelectedWindowHandle;
+                
+                WindowScreenshot.Rect rect;
+
+                // Try to get the client area dimensions
+                if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+                {
+                    // If the client area fails, fall back to the full window dimensions
+                    if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                    {
+                        throw new Exception("Failed to retrieve window dimensions.");
+                    }
+                }
+                else
+                {
+                    // Successfully retrieved client area
+                    rect = clientRect;
+                }
+
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+
+                // Determine the save path for the screenshot
+                string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+
+                string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+
+                // Capture the window into a bitmap
+                using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+                {
+                    using (var graphics = Graphics.FromImage(bitmap))
+                    {
+                        graphics.CopyFromScreen(
+                            new System.Drawing.Point(rect.Left, rect.Top),
+                            System.Drawing.Point.Empty,
+                            new System.Drawing.Size(width, height));
+                    }
+
+                    // Save the screenshot
+                    bitmap.Save(screenshotPath, ImageFormat.Png);
+                }
+
+                PlayClick.PlayShutterSound();
+                
+                // Show the flash effect
+                var flashWindow = new FlashOverlayWindow();
+                await flashWindow.ShowFlashAsync();
+                
+                // Notify the user of success
+                //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                // Reload the current Game List
+                await _mainWindow.LoadGameFilesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors
+                MessageBox.Show($"Failed to save screenshot. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Optionally log the error
+                Task logTask = LogErrors.LogErrorAsync(ex, "Error capturing screenshot.");
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
+        }
+        
+        private void DeleteFile(string filePath, string fileNameWithExtension)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    
+                    // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    //     "File Deleted",
+                    //     MessageBoxButton.OK,
+                    //     MessageBoxImage.Information);
+                    
+                    PlayClick.PlayTrashSound();
+                    
+                }
+                else
+                {
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                        "File Not Found",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                // Notify developer
+                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                      $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
         }
 
         private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

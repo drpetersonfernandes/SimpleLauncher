@@ -536,8 +536,8 @@ namespace SimpleLauncher
         {
             try
             {
-                // Wait for 2.5 seconds
-                await Task.Delay(2500);
+                // Wait for 4 seconds
+                await Task.Delay(4000);
                 
                 // Get the list of open windows
                 var openWindows = WindowManager.GetOpenWindows();
@@ -602,9 +602,6 @@ namespace SimpleLauncher
                 // Notify the user of success
                 //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
-                // Update the button image
-                //UpdateButtonImage(button, screenshotPath);
-                
                 // Reload the current Game List
                 await _mainWindow.LoadGameFilesAsync();
 
@@ -619,27 +616,6 @@ namespace SimpleLauncher
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
-        
-        // private void UpdateButtonImage(Button button, string newImagePath)
-        // {
-        //     if (button.Content is Grid grid)
-        //     {
-        //         var image = grid.Children.OfType<Image>().FirstOrDefault();
-        //         if (image != null && File.Exists(newImagePath))
-        //         {
-        //             // Load the new image
-        //             var bitmapImage = new BitmapImage();
-        //             bitmapImage.BeginInit();
-        //             bitmapImage.UriSource = new Uri(newImagePath, UriKind.Absolute);
-        //             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-        //             bitmapImage.EndInit();
-        //             bitmapImage.Freeze(); // Ensure thread-safety for UI
-        //
-        //             // Update the image source
-        //             image.Source = bitmapImage;
-        //         }
-        //     }
-        // }
         
         private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
         {
