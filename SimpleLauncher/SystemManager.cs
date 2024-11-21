@@ -85,7 +85,7 @@ public static class SystemManager
             {
                 Text = $"\nEmulator Name: {emulator.EmulatorName}\n" +
                        $"Emulator Location: {emulator.EmulatorLocation}\n" +
-                       $"Emulator Parameters: {emulator.EmulatorParameters}\n",
+                       $"Emulator Parameters: {emulator.EmulatorParameters}",
                 Padding = new Thickness(0),
                 TextWrapping = TextWrapping.Wrap
             };
