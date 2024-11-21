@@ -20,7 +20,8 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error playing the click sound or the audio file could not be found or loaded.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error playing the click sound or the audio file could not be found or loaded.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -37,7 +38,8 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error playing the shutter sound or the audio file could not be found or loaded.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error playing the shutter sound or the audio file could not be found or loaded.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -54,7 +56,8 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error playing the trash sound or the audio file could not be found or loaded.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error playing the trash sound or the audio file could not be found or loaded.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }

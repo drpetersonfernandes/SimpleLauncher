@@ -45,7 +45,7 @@ namespace SimpleLauncher
         public EmulatorConfig Emulator { get; set; }
     }
 
-    public class EmulatorConfig
+    public abstract class EmulatorConfig
     {
         public string EmulatorName { get; set; }
         public string EmulatorLocation { get; set; }

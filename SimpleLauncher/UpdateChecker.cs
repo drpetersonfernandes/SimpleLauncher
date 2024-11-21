@@ -203,9 +203,7 @@ public static class UpdateChecker
                         var messageBoxResult = MessageBox.Show(
                             "There was an error updating the application.\n\n" +
                             "Would you like to be redirected to the download page to update it manually?",
-                            "Update Error",
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Error);
+                            "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {

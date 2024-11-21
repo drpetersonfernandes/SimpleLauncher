@@ -96,14 +96,16 @@ internal class ExtractCompressedFile
         catch (Exception ex)
         {
             // Log the error
-            string errorMessage = $"Extraction of the compressed file failed.\n\nThe file {archivePath} may be corrupted.";
+            string errorMessage = $"Extraction of the compressed file failed.\n\n" +
+                                  $"The file {archivePath} may be corrupted.";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show($"Extraction of the compressed file failed!\n" +
+            MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
                             $"The file {archivePath} may be corrupted.\n" +
                             $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
                             $"Try to run with administrative privileges.\n\n" +
-                            $"If you want to debug the error you can see the file 'error_user.log' inside Simple Launcher folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
         finally

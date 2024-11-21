@@ -14,6 +14,45 @@ public static class GameLauncher
 {
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
     {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            MessageBox.Show("The filePath cannot be null or empty.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+            string contextMessage = "The filePath is null or empty in the method HandleButtonClick.";
+            Exception ex = new();
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            return;
+        }
+        
+        if (systemComboBox.SelectedItem == null)
+        {
+            MessageBox.Show("Please select a system from the system combo box.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            
+            string contextMessage = "The system from the system combo box is null or empty in the method HandleButtonClick.";
+            Exception ex = new();
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            return;
+        }
+
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            MessageBox.Show("Please select an emulator from the emulator combo box.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            
+            string contextMessage = "The emulator from the emulator combo box is null or empty in the method HandleButtonClick.";
+            Exception ex = new();
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            return;
+        }
+        
         // Get the file name from the filePath
         string fileName = Path.GetFileNameWithoutExtension(filePath);
 
@@ -61,11 +100,16 @@ public static class GameLauncher
         {
             await LogErrors.LogErrorAsync(ex,
                 $"Generic error in the GameLauncher class.\n\n" +
-                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}");
+                $"Exception type: {ex.GetType().Name}\n" +
+                $"Exception details: {ex.Message}\n" +
+                $"FilePath: {filePath}\n" +
+                $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
+                $"SelectedEmulator: {emulatorComboBox.SelectedItem}");
             
             MessageBox.Show("The application could not launch the selected game.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "If you want to debug the error yourself you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -98,6 +142,11 @@ public static class GameLauncher
 
     private static async Task LaunchBatchFile(string filePath)
     {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath), @"Batch file path is null or empty.");
+        }
+
         var psi = new ProcessStartInfo
         {
             FileName = filePath,
@@ -147,7 +196,8 @@ public static class GameLauncher
                 MessageBox.Show("There was an issue running the batch process.\n\n" +
                                 "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
                                 "Maybe the batch file has errors.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
@@ -159,12 +209,18 @@ public static class GameLauncher
             MessageBox.Show("There was an issue running the batch process.\n\n" +
                             "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
                             "Maybe the batch file has errors.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     private static async Task LaunchShortcutFile(string filePath)
     {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath), @"Shortcut filePath is null or empty.");
+        }
+        
         var psi = new ProcessStartInfo
         {
             FileName = filePath,
@@ -192,7 +248,8 @@ public static class GameLauncher
                         
                 MessageBox.Show("There was an error launching the shortcut file.\n\n" +
                                 "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
@@ -203,12 +260,18 @@ public static class GameLauncher
                         
             MessageBox.Show("There was an error launching the shortcut file.\n\n" +
                             "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     private static async Task LaunchExecutable(string filePath)
     {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException(nameof(filePath), @"Executable filePath is null or empty.");
+        }
+
         var psi = new ProcessStartInfo
         {
             FileName = filePath,

@@ -75,8 +75,10 @@ public static class Stats
         if (lastException != null)
         {
             string errorMessage = lastException is HttpRequestException
-                ? $"There was an error communicating with the stats API.\n\nException type: {lastException.GetType().Name}\nException details: {lastException.Message}"
-                : $"There was an unexpected error in CallApiAsync method.\n\nException type: {lastException.GetType().Name}\nException details: {lastException.Message}";
+                ? $"There was an error communicating with the stats API.\n\n" +
+                  $"Exception type: {lastException.GetType().Name}\nException details: {lastException.Message}"
+                : $"There was an unexpected error in CallApiAsync method.\n\n" +
+                  $"Exception type: {lastException.GetType().Name}\nException details: {lastException.Message}";
 
             await LogErrors.LogErrorAsync(lastException, errorMessage);
         }

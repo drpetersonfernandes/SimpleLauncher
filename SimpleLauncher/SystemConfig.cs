@@ -53,9 +53,12 @@ public class SystemConfig
                         {
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
-                            MessageBoxResult restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\n" +
-                                                                             "But I found a backup file.\n\n" +
-                                                                             "Would you like to restore the last backup?", "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            
+                            var restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\n" +
+                                                                "But I found a backup file.\n\n" +
+                                                                "Would you like to restore the last backup?",
+                                "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
                             if (restoreResult == MessageBoxResult.Yes)
                             {
                                 // Rename the most recent backup file to system.xml
@@ -83,9 +86,7 @@ public class SystemConfig
                                     "The file 'system_model.xml' is missing.\n\n" +
                                     "'Simple Launcher' cannot work properly without this file.\n\n" +
                                     "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
-                                    "Missing File",
-                                    MessageBoxButton.YesNo,
-                                    MessageBoxImage.Warning);
+                                    "Missing File", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                                 if (messageBoxResult == MessageBoxResult.Yes)
                                 {
@@ -94,7 +95,8 @@ public class SystemConfig
                                 else
                                 {
                                     MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                                                    "The application will shut down.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                                    "The application will shut down.",
+                                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                                     // Shutdown the application and exit
                                     Application.Current.Shutdown();
@@ -106,7 +108,8 @@ public class SystemConfig
                 }
                 catch (Exception ex)
                 {
-                    string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
@@ -114,7 +117,8 @@ public class SystemConfig
                                     $"Please fix it manually or delete it.\n" +
                                     $"If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
                                     $"If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                                    $"The application will shut down.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    $"The application will shut down.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     
                     // Shutdown the application and exit
                     Application.Current.Shutdown();
@@ -134,7 +138,8 @@ public class SystemConfig
             {
                 string errorDetails = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                       $"To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
-                MessageBox.Show(errorDetails, "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errorDetails,
+                    "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                       $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
@@ -260,14 +265,16 @@ public class SystemConfig
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error loading system configurations from 'system.xml'.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             MessageBox.Show("'system.xml' is corrupted or could not be opened.\n\n" +
                             "Please fix it manually or delete it.\n\n" +
                             "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
-                            "If you want to debug the error yourself, check the file 'error_user.log' inside the 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "If you want to debug the error yourself, check the file 'error_user.log' inside the 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
     }

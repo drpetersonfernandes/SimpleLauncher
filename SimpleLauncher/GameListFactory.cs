@@ -37,7 +37,7 @@ namespace SimpleLauncher
 
         public class GameListViewItem : INotifyPropertyChanged
         {
-            private string _fileName;
+            private readonly string _fileName;
             private string _machineDescription;
             public string FilePath { get; init; }
             public ContextMenu ContextMenu { get; set; }
@@ -56,7 +56,7 @@ namespace SimpleLauncher
             public string FileName
             {
                 get => _fileName;
-                set
+                init
                 {
                     _fileName = value;
                     OnPropertyChanged(nameof(FileName));

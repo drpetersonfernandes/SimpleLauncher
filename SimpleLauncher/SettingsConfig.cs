@@ -5,13 +5,13 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace SimpleLauncher
 {
     public class SystemPlayTime
     {
-        public string SystemName { get; set; }
+        public string SystemName { get; init; }
         public string PlayTime { get; set; }
     }
 
@@ -19,7 +19,7 @@ namespace SimpleLauncher
     {
         private readonly string _filePath;
         private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
-        private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500];
+        private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000];
         private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
         private readonly HashSet<string> _validViewModes =
         [
@@ -29,7 +29,7 @@ namespace SimpleLauncher
         public int ThumbnailSize { get; set; }
         public int GamesPerPage { get; set; }
         public string ShowGames { get; set; }
-        public string ViewMode { get; set; }  // New ViewMode property
+        public string ViewMode { get; set; }
         public bool EnableGamePadNavigation { get; set; }
         public string VideoUrl { get; set; }
         public string InfoUrl { get; set; }
@@ -42,7 +42,7 @@ namespace SimpleLauncher
         public string AccentColor { get; set; }
 
         // List to hold multiple SystemPlayTime instances
-        public List<SystemPlayTime> SystemPlayTimes { get; set; }
+        public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
         private const string DefaultSettingsFilePath = "settings.xml";
 
@@ -104,12 +104,16 @@ namespace SimpleLauncher
             {
                 SetDefaultsAndSave();
 
-                string contextMessage = $"Error loading or parsing 'setting.xml' from SettingsConfig class.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string contextMessage = $"Error loading or parsing 'setting.xml' from SettingsConfig class.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show(@"Simple Launcher does not have enough privileges to write to the file 'settings.xml'.\n\nPlease grant the application more privileges, or it won't work properly.\n\nTry running it with administrative privileges.",
-                    @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "'Simple Launcher' does not have enough privileges to write to the file 'settings.xml'.\n\n" +
+                    "Please grant the application more privileges, or it won't work properly.\n\n" +
+                    "Try running it with administrative privileges.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -211,6 +215,26 @@ namespace SimpleLauncher
         
         public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
         {
+            if (string.IsNullOrWhiteSpace(systemName))
+            {
+                string contextMessage = "The systemName is null or empty in the method UpdateSystemPlayTime.";
+                Exception ex = new();
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                return;
+            }
+
+            if (playTime == TimeSpan.Zero)
+            {
+                string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
+                Exception ex = new();
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                return;
+            }
+            
             // Find the existing System PlayTime or create a new one
             var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
 
