@@ -121,7 +121,8 @@ public partial class MainWindow : INotifyPropertyChanged
                 
             MessageBox.Show("The file 'system.xml' is corrupted.\n\n" +
                             "You need to fix it manually or delete it.\n\n" +
-                            "The application will be shutdown.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The application will be shutdown.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Shutdown current application instance
             Application.Current.Shutdown();

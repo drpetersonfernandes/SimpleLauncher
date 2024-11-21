@@ -469,7 +469,8 @@ namespace SimpleLauncher
                 PlayClick.PlayClickSound();
                 MessageBox.Show(
                     "The game will launch now.\n\n" +
-                    "Set the game window to be non-fullscreen.\n\n" +
+                    "Set the game window to non-fullscreen. This is important.\n\n" +
+                    "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
                     "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
                     "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
                     "Take Screenshot",

@@ -767,12 +767,13 @@ public partial class EditSystemEasyModeAddSystem
         if (selectedSystem != null)
         {
             // Determine the system folder to use
-            string systemFolder =
-                // Use the default ROM folder
-                string.IsNullOrEmpty(SystemFolderTextBox.Text) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName) :
-                    // Use the value from SystemFolderTextBox
-                    SystemFolderTextBox.Text;
-
+            string systemFolder = SystemFolderTextBox.Text;
+            if (string.IsNullOrEmpty(systemFolder))
+            {
+                systemFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName);
+                SystemFolderTextBox.Text = systemFolder;
+            }
+            
             // Remove the leading dot from the SystemImageFolder for the message
             string systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
 

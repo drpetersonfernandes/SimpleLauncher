@@ -16,6 +16,9 @@ Favorites Window
 Edit System Window in Expert Mode
 ![Screenshot](screenshot5.png)
 
+If you like the software, please give us a Star.<br>
+That will be useful to advertise 'Simple Launcher'.
+
 ## Installation
 You need to download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases), then extract the zip file into your chosen folder.
 

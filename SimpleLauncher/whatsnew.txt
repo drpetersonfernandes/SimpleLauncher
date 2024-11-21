@@ -1,11 +1,11 @@
 release3.6
 -----------
 
-11/15/2024
-- I did a major refactoring to the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was needed to prevent users from entering wrong values into the input fields. I hope they will encounter fewer errors now when launching a game.
+11/21/2024
+- I did a major refactoring to the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was needed to prevent users from entering wrong values. I hope they will encounter fewer errors when launching a game.
 - I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user of a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is handy in case of a corrupted `system.xml` file.
-- I implemented in-memory extraction for files below 2000 MB to prevent file locks and improve extraction success rates. For files above 2000 MB, the extraction will proceed as before.
-- Added different versions of the `7z` executable for x86 and x64.
+- I implemented in-memory download and extraction of files as a backup method in case the regular method fails. This was created because some user are getting extraction errors of newly downloaded files, because of file locks.
+- Added different versions of the `7z` executable for x86 and x64. The extraction method will automatically detect the user environment and use the appropriate executable.
 - Added code to automatically convert [url formatted text] into real links in the `RomHistory` window.
 - Improved the log class to send more debug info to the developer.
 - Added functionality to delete a game file from within the UI. Available in the right-click context menu.

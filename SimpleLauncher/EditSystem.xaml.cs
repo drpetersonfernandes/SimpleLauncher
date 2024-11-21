@@ -580,9 +580,19 @@ public partial class EditSystem
         ////////////////
         // Initialize 'emulatorsElement' as an XElement
         var emulatorsElement = new XElement("Emulators");
-        // Add Emulator1 details to XML
+        
+        // HashSet to store emulator names and ensure uniqueness
+        var emulatorNames = new HashSet<string>();
+        
+        // Add Emulator1 details to XML and check uniqueness
+        if (!emulatorNames.Add(emulator1NameText))
+        {
+            MessageBox.Show($"The name '{emulator1NameText}' is used multiple times. Each emulator name must be unique.",
+                "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
         AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText);
-
+        
         // Validate Emulators 2-5
         // Arrays for emulator names, locations, and parameters TextBoxes
         string[] nameText = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
@@ -610,9 +620,17 @@ public partial class EditSystem
                 }
             }
 
-            // If the emulator name is provided, add the emulator details to XML
+            // If the emulator name is provided, check for uniqueness and add the emulator details to XML
             if (!string.IsNullOrEmpty(emulatorName))
             {
+                // Check for uniqueness
+                if (!emulatorNames.Add(emulatorName))
+                {
+                    MessageBox.Show($"The name '{emulatorName}' is used multiple times. Each emulator name must be unique.",
+                        "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                
                 ////////////////
                 // XML factory//
                 ////////////////

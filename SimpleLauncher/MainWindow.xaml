@@ -416,9 +416,8 @@
 
             <!-- Preview area in the right column -->
             <StackPanel Grid.Column="1" Margin="10">
-                <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"
-                       Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray2}" BorderThickness="1" Padding="5">
+                <Label Content="Preview Image" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+                <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                     <Grid>
                         <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch" />
