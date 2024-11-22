@@ -158,136 +158,12 @@ public partial class Favorites
                 "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
-      
-    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
-            {
-                PlayClick.PlayClickSound();
-                await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
-            }
-            else
-            {
-                MessageBox.Show("Please select a game to launch.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        catch (Exception ex)
-        {
-            string formattedException = $"Error in the LaunchGame_Click method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);            }
-    }
-
-    private async Task LaunchGameFromFavorite(string fileName, string systemName)
-    {
-        try
-        {
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
-            {
-
-                string formattedException = $"There was an error in the Favorites window.\n\n" +
-                                            $"No system configuration found for the selected favorite.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
-                   
-                MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
-            if (emulatorConfig == null)
-            {
-                string formattedException = $"There was an error in the Favorites window.\n\n" +
-                                            $"No emulator configuration found for the selected favorite.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
-                    
-                MessageBox.Show("No emulator configuration found for the selected favorite.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            string fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
-                
-            // Check if the file exists
-            if (!File.Exists(fullPath))
-            {
-                string formattedException = $"There was an error in the Favorites window.\n\n" +
-                                            $"The favorite file does not exist.";
-                Exception exception = new(formattedException);
-                await LogErrors.LogErrorAsync(exception, formattedException);
-                    
-                // Remove the favorite from the list since the file no longer exists
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
-                if (favoriteToRemove != null)
-                {
-                    _favoriteList.Remove(favoriteToRemove);
-                    _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-                }
-                    
-                MessageBox.Show("The game file does not exist!\n\n" +
-                                "The favorite has been removed from the list.",
-                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            var mockSystemComboBox = new ComboBox();
-            var mockEmulatorComboBox = new ComboBox();
-
-            mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
-            mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-
-            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
-            mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
-
-            await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
-        }
-        catch (Exception ex)
-        {
-            string formattedException = $"There was an error launching the game from Favorites.\n\n" +
-                                        $"File Path: {fileName}\nSystem Name: {systemName}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-                
-            MessageBox.Show($"There was an error launching the game from Favorites.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-        
-    private string GetFullPath(string path)
-    {
-        if (path.StartsWith(@".\"))
-        {
-            path = path.Substring(2);
-        }
-
-        if (Path.IsPathRooted(path))
-        {
-            return path;
-        }
-
-        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-    }
-
+    
     private void FavoritesDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         try
         {
             
-            // if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite)
-            // {
-            //     MessageBox.Show("Please select a valid item to perform an action.",
-            //         "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //     return;
-            // }
-        
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
                 string fileNameWithExtension = selectedFavorite.FileName;
@@ -399,7 +275,7 @@ public partial class Favorites
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig);
+                    OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig);
                 };
 
                 // "Cover" MenuItem
@@ -603,12 +479,10 @@ public partial class Favorites
                         "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
                         "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
                         "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
-                        "Take Screenshot",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                        "Take Screenshot", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
-                
+
                     _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
                 };
             
@@ -629,13 +503,12 @@ public partial class Favorites
                     PlayClick.PlayClickSound();
                     var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
                                                  $"This action will delete the file from the HDD and cannot be undone.",
-                        "Confirm Deletion",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
+                        "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
                     {
                         DeleteFile(filePath, fileNameWithExtension);
+                        RemoveFromFavorites(selectedFavorite);
                     }
                 };
 
@@ -672,127 +545,106 @@ public partial class Favorites
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    
-    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+      
+    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Wait for 4 seconds
-            await Task.Delay(4000);
-                
-            // Get the list of open windows
-            var openWindows = WindowManager.GetOpenWindows();
-
-            // Show the selection dialog
-            var dialog = new WindowSelectionDialog(openWindows);
-            if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                PlayClick.PlayClickSound();
+                await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+            }
+            else
+            {
+                MessageBox.Show("Please select a game to launch.",
+                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"Error in the LaunchGame_Click method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);            }
+    }
+
+    private async Task LaunchGameFromFavorite(string fileName, string systemName)
+    {
+        try
+        {
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
+            {
+
+                string formattedException = $"There was an error in the Favorites window.\n\n" +
+                                            $"No system configuration found for the selected favorite.";
+                Exception ex = new(formattedException);
+                await LogErrors.LogErrorAsync(ex, formattedException);
+                   
+                MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            IntPtr hWnd = dialog.SelectedWindowHandle;
-                
-            WindowScreenshot.Rect rect;
-
-            // Try to get the client area dimensions
-            if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
+            if (emulatorConfig == null)
             {
-                // If the client area fails, fall back to the full window dimensions
-                if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                string formattedException = $"There was an error in the Favorites window.\n\n" +
+                                            $"No emulator configuration found for the selected favorite.";
+                Exception ex = new(formattedException);
+                await LogErrors.LogErrorAsync(ex, formattedException);
+                    
+                MessageBox.Show("No emulator configuration found for the selected favorite.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+                
+            // Check if the file exists
+            if (!File.Exists(fullPath))
+            {
+                string formattedException = $"There was an error in the Favorites window.\n\n" +
+                                            $"The favorite file does not exist.";
+                Exception exception = new(formattedException);
+                await LogErrors.LogErrorAsync(exception, formattedException);
+                    
+                // Remove the favorite from the list since the file no longer exists
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
+                if (favoriteToRemove != null)
                 {
-                    throw new Exception("Failed to retrieve window dimensions.");
+                    _favoriteList.Remove(favoriteToRemove);
+                    _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
                 }
-            }
-            else
-            {
-                // Successfully retrieved client area
-                rect = clientRect;
-            }
-
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
-
-            // Determine the save path for the screenshot
-            string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
-            Directory.CreateDirectory(systemImageFolder);
-
-            string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
-
-            // Capture the window into a bitmap
-            using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
-            {
-                using (var graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.CopyFromScreen(
-                        new System.Drawing.Point(rect.Left, rect.Top),
-                        System.Drawing.Point.Empty,
-                        new System.Drawing.Size(width, height));
-                }
-
-                // Save the screenshot
-                bitmap.Save(screenshotPath, ImageFormat.Png);
+                    
+                MessageBox.Show("The game file does not exist!\n\n" +
+                                "The favorite has been removed from the list.",
+                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
 
-            PlayClick.PlayShutterSound();
-                
-            // Show the flash effect
-            var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync();
-                
-            // Notify the user of success
-            //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-            // Reload the current Game List
-            await _mainWindow.LoadGameFilesAsync();
+            var mockSystemComboBox = new ComboBox();
+            var mockEmulatorComboBox = new ComboBox();
 
+            mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+
+            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+            mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
+
+            await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
         }
         catch (Exception ex)
         {
-            // Handle any errors
-            MessageBox.Show($"Failed to save screenshot. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Optionally log the error
-            Task logTask = LogErrors.LogErrorAsync(ex, "Error capturing screenshot.");
-            logTask.Wait(TimeSpan.FromSeconds(2));
-        }
-    }
-        
-    private void DeleteFile(string filePath, string fileNameWithExtension)
-    {
-        try
-        {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-                    
-                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                //     "File Deleted",
-                //     MessageBoxButton.OK,
-                //     MessageBoxImage.Information);
-                    
-                PlayClick.PlayTrashSound();
-            }
-            else
-            {
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
-                    "File Not Found",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-            // Notify developer
-            string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            string formattedException = $"There was an error launching the game from Favorites.\n\n" +
+                                        $"File Path: {fileName}\nSystem Name: {systemName}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+                
+            MessageBox.Show($"There was an error launching the game from Favorites.\n\n" +
+                            $"The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -863,7 +715,7 @@ public partial class Favorites
         }
     }
         
-    private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
+    private void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
     {
             
         string romName = fileNameWithoutExtension.ToLowerInvariant();
@@ -1221,6 +1073,126 @@ public partial class Favorites
         MessageBox.Show("There is no PCB file associated with this favorite.",
             "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
     }
+    
+    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+    {
+        try
+        {
+            // Wait for 4 seconds
+            await Task.Delay(4000);
+                
+            // Get the list of open windows
+            var openWindows = WindowManager.GetOpenWindows();
+
+            // Show the selection dialog
+            var dialog = new WindowSelectionDialog(openWindows);
+            if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+            {
+                //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            IntPtr hWnd = dialog.SelectedWindowHandle;
+                
+            WindowScreenshot.Rect rect;
+
+            // Try to get the client area dimensions
+            if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+            {
+                // If the client area fails, fall back to the full window dimensions
+                if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                {
+                    throw new Exception("Failed to retrieve window dimensions.");
+                }
+            }
+            else
+            {
+                // Successfully retrieved client area
+                rect = clientRect;
+            }
+
+            int width = rect.Right - rect.Left;
+            int height = rect.Bottom - rect.Top;
+
+            // Determine the save path for the screenshot
+            string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+            Directory.CreateDirectory(systemImageFolder);
+
+            string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+
+            // Capture the window into a bitmap
+            using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+            {
+                using (var graphics = Graphics.FromImage(bitmap))
+                {
+                    graphics.CopyFromScreen(
+                        new System.Drawing.Point(rect.Left, rect.Top),
+                        System.Drawing.Point.Empty,
+                        new System.Drawing.Size(width, height));
+                }
+
+                // Save the screenshot
+                bitmap.Save(screenshotPath, ImageFormat.Png);
+            }
+
+            PlayClick.PlayShutterSound();
+                
+            // Show the flash effect
+            var flashWindow = new FlashOverlayWindow();
+            await flashWindow.ShowFlashAsync();
+                
+            // Notify the user of success
+            MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}",
+                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+        }
+        catch (Exception ex)
+        {
+            // Handle any errors
+            MessageBox.Show($"Failed to save screenshot.\n\n" +
+                            $"The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Send log to developer
+            string formattedException = $"There was an error in the TakeScreenshotOfSelectedWindow method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+        }
+    }
+        
+    private void DeleteFile(string filePath, string fileNameWithExtension)
+    {
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                    
+                PlayClick.PlayTrashSound();
+                
+                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                //     "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                            $"The error was reported to developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify developer
+            string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+        }
+    }
         
     private async void FavoritesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
@@ -1277,5 +1249,20 @@ public partial class Favorites
             MessageBox.Show("Please select a favorite to remove.",
                 "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+    }
+    
+    private string GetFullPath(string path)
+    {
+        if (path.StartsWith(@".\"))
+        {
+            path = path.Substring(2);
+        }
+
+        if (Path.IsPathRooted(path))
+        {
+            return path;
+        }
+
+        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
     }
 }
