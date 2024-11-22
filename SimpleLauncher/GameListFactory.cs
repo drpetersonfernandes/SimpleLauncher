@@ -443,6 +443,7 @@ public class GameListFactory(
             if (result == MessageBoxResult.Yes)
             {
                 DeleteFile(filePath, fileNameWithExtension);
+                RemoveFromFavorites2(systemName, fileNameWithExtension);
             }
         };
 
@@ -560,6 +561,29 @@ public class GameListFactory(
             MessageBox.Show($"An error occurred while removing this game from favorites.\n\n" +
                             $"The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
+    {
+        try
+        {
+            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (favoriteToRemove != null)
+            {
+                favorites.FavoriteList.Remove(favoriteToRemove);
+                _favoritesManager.SaveFavorites(favorites);
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"An error occurred in the method RemoveFromFavorites2 in the class GameListFactory.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
     
@@ -1039,16 +1063,14 @@ public class GameListFactory(
             {
                 File.Delete(filePath);
                     
-                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                //     "File Deleted",
-                //     MessageBoxButton.OK,
-                //     MessageBoxImage.Information);
-                    
                 PlayClick.PlayTrashSound();
+                
+                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
                     
                 // Reload the current Game List
                 await mainWindow.LoadGameFilesAsync();
-                    
+
             }
             else
             {

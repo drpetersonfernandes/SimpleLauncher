@@ -391,7 +391,7 @@ public partial class GlobalSearch
             {
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedResult.FileName);
                 string fileNameWithExtension = selectedResult.FileName;
-                string filePath = GetFullPath(selectedResult.FileName);
+                string filePath = selectedResult.FilePath;
                 var systemConfig = _systemConfigs.FirstOrDefault(config =>
                     config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -737,6 +737,7 @@ public partial class GlobalSearch
                     if (result == MessageBoxResult.Yes)
                     {
                         DeleteFile(filePath, fileNameWithExtension);
+                        RemoveFromFavorites2(selectedResult.SystemName, fileNameWithExtension);
                     }
                 };
 
@@ -813,6 +814,29 @@ public partial class GlobalSearch
             MessageBox.Show($"An error occurred while adding the game to the favorites.\n\n" +
                             $"The error was reported to the developer that will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
+    {
+        try
+        {
+            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (favoriteToRemove != null)
+            {
+                favorites.FavoriteList.Remove(favoriteToRemove);
+                _favoritesManager.SaveFavorites(favorites);
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"An error occurred in the RemoveFromFavorites2 method in the GlobalSearch class.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
 
@@ -1322,16 +1346,14 @@ public partial class GlobalSearch
             {
                 File.Delete(filePath);
                     
-                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                //     "File Deleted",
-                //     MessageBoxButton.OK,
-                //     MessageBoxImage.Information);
-                    
                 PlayClick.PlayTrashSound();
                 
+                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 // Redo the search after deletion
                 SearchButton_Click(null, null);
-                
+
             }
             else
             {

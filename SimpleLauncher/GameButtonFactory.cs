@@ -492,6 +492,7 @@ internal class GameButtonFactory(
             if (result == MessageBoxResult.Yes)
             {
                 DeleteFile(filePath, fileNameWithExtension, button);
+                RemoveFromFavorites2(systemName, fileNameWithExtension);
             }
         };
 
@@ -625,6 +626,33 @@ internal class GameButtonFactory(
                 
             MessageBox.Show($"An error occurred while removing this game from favorites.\n\n" +
                             $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
+    {
+        try
+        {
+            // Load existing favorites
+            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
+
+            // Find the favorite to remove
+            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+            if (favoriteToRemove != null)
+            {
+                favorites.FavoriteList.Remove(favoriteToRemove);
+                // Save the updated favorites list
+                _favoritesManager.SaveFavorites(favorites);
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"Error in the method RemoveFromFavorites2 in the class GameButtonFactory.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
 
@@ -1088,12 +1116,10 @@ internal class GameButtonFactory(
             {
                 File.Delete(filePath);
                     
-                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                //     "File Deleted",
-                //     MessageBoxButton.OK,
-                //     MessageBoxImage.Information);
-                    
                 PlayClick.PlayTrashSound();
+                
+                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
                     
                 // Remove the button from the UI
                 gameFileGrid.Children.Remove(button);

@@ -166,26 +166,42 @@ public partial class Favorites
             
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                string fileNameWithExtension = selectedFavorite.FileName;
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-                string filePath = GetFullPath(selectedFavorite.FileName);
-
-                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-
-                if (systemConfig == null)
+                if (selectedFavorite.FileName == null)
                 {
-                    string formattedException = $"systemConfig is null in method FavoritesDataGrid_MouseRightButtonUp.";
+                    string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
+                                                $"No FileName found for the selected favorite.";
                     Exception ex = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                
-                    MessageBox.Show($"There was an error loading the systemConfig.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                   
+                    MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        
+                    
                     return;
                 }
-            
+                
+                string fileNameWithExtension = selectedFavorite.FileName;
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
+                
+                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (systemConfig == null)
+                {
+                    string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
+                                                $"No system configuration found for the selected favorite.";
+                    Exception ex = new(formattedException);
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                   
+                    MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    return;
+                }
+
+                string filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
+
                 var contextMenu = new ContextMenu();
 
                 // "Launch Selected Game" MenuItem
@@ -1171,8 +1187,8 @@ public partial class Favorites
                     
                 PlayClick.PlayTrashSound();
                 
-                // MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                //     "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
