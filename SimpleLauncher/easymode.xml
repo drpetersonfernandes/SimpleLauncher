@@ -277,8 +277,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.15</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v115.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.16</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v116.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -315,8 +315,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.15</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v115.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.16</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v116.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -1812,7 +1812,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20241111</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20241120</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>

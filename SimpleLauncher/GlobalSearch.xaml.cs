@@ -1249,6 +1249,9 @@ public partial class GlobalSearch
     {
         try
         {
+            // Clear the PreviewImage
+            PreviewImage.Source = null;
+            
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)

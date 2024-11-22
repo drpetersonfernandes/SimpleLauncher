@@ -1088,6 +1088,9 @@ public partial class Favorites
     {
         try
         {
+            // Clear the PreviewImage
+            PreviewImage.Source = null;
+            
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
@@ -1173,7 +1176,9 @@ public partial class Favorites
             // Notify the user of success
             MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}",
                 "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
+            LoadFavorites();
+
         }
         catch (Exception ex)
         {

@@ -1072,10 +1072,6 @@ internal class GameButtonFactory(
             int width = rect.Right - rect.Left;
             int height = rect.Bottom - rect.Top;
             
-            // Remove the button from the UI
-            // Needed to prevent error when saving the new image
-            gameFileGrid.Children.Remove(button);
-
             string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
@@ -1101,10 +1097,21 @@ internal class GameButtonFactory(
                 
             // Notify the user of success
             //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                
-            // Reload the current Game List
-            await mainWindow.LoadGameFilesAsync();
-
+            
+            // Update the button's image
+            if (button.Content is Grid grid)
+            {
+                var stackPanel = grid.Children.OfType<StackPanel>().FirstOrDefault();
+                if (stackPanel != null)
+                {
+                    var imageControl = stackPanel.Children.OfType<Image>().FirstOrDefault();
+                    if (imageControl != null)
+                    {
+                        // Reload the image without a file lock
+                        await LoadImageAsync(imageControl, button, screenshotPath, DefaultImagePath);
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -1193,19 +1200,25 @@ internal class GameButtonFactory(
             throw new ArgumentException(@"Invalid image path.", nameof(imagePath));
         try
         {
-            var bitmapImage = await Task.Run(() =>
+            BitmapImage bitmapImage = null;
+
+            await Task.Run(() =>
             {
-                BitmapImage bi = new BitmapImage();
+                // Read the image into a memory stream to prevent file locks
+                byte[] imageData = File.ReadAllBytes(imagePath);
+
+                using var ms = new MemoryStream(imageData);
+                var bi = new BitmapImage();
                 bi.BeginInit();
-                bi.CacheOption = BitmapCacheOption.OnLoad; // Ensure the stream stays open until the BitmapImage is loaded
-                bi.StreamSource = File.OpenRead(imagePath);
-                bi.EndInit(); // Important for multithreaded access
-                bi.Freeze();
-                return bi;
+                bi.CacheOption = BitmapCacheOption.OnLoad; // Ensures the image is loaded into memory
+                bi.StreamSource = ms;
+                bi.EndInit();
+                bi.Freeze(); // Makes the image thread-safe
+                bitmapImage = bi;
             });
 
             // Assign the loaded image to the image control on the UI thread
-            imageControl.Source = bitmapImage;
+            imageControl.Dispatcher.Invoke(() => imageControl.Source = bitmapImage);
         }
         catch (Exception)
         {

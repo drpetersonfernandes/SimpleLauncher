@@ -1,7 +1,7 @@
 release3.6
 -----------
 
-11/21/2024
+11/22/2024
 - I performed a major refactoring of the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was necessary to prevent users from entering incorrect values. I hope they will encounter fewer errors when launching a game.
 - I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user about a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is useful in case of a corrupted `system.xml` file.
 - I implemented in-memory download and extraction of files as a backup method in case the regular method fails. This was done because some users were encountering extraction errors of newly downloaded files, due to file locks.
@@ -11,6 +11,7 @@ release3.6
 - Added functionality to delete a game file from within the UI, available in the right-click context menu.
 - Added functionality to auto-generate image previews for the loaded games. The image file is saved inside the corresponding System Image folder with the correct name, available in the right-click context menu.
 - Added an image pack for Atari 8-Bit.
+- Update the emulator links to the latest version.
 
 release3.5.0
 ------------

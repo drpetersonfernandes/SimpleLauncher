@@ -968,6 +968,9 @@ public class GameListFactory(
     {
         try
         {
+            // Optionally, clear the preview image
+            mainWindow.PreviewImage.Source = null;
+            
             string systemName = systemConfig.SystemName;
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string systemImageFolder = systemConfig.SystemImageFolder;
