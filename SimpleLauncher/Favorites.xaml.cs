@@ -68,12 +68,12 @@ public partial class Favorites
         _favoriteList =
         [
         ];
-
         foreach (var favorite in favoritesConfig.FavoriteList)
         {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName), StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m =>
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName),
+                    StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
-
             var favoriteItem = new Favorite
             {
                 FileName = favorite.FileName,
@@ -81,9 +81,9 @@ public partial class Favorites
                 MachineDescription = machineDescription,
                 CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName) // Set cover image path
             };
-
             _favoriteList.Add(favoriteItem);
         }
+
         FavoritesDataGrid.ItemsSource = _favoriteList;
     }
 
