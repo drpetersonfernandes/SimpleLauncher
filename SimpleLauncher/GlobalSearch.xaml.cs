@@ -935,7 +935,7 @@ public partial class GlobalSearch
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         if (systemConfig == null)
         {
-            string formattedException = $"System configuration not found for the selected game in the Global Search window while using the OpenCover method.";
+            string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the OpenCover method.";
             Exception ex = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -946,20 +946,13 @@ public partial class GlobalSearch
             return;
         }
     
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-    
-        // Specific image path
-        string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-        string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
+        string systemImageFolder = systemConfig.SystemImageFolder;
+        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
-        // Global image path
-        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-
-        // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Search for the image file
+        // Function to search for the image file
         bool TryFindImage(string directory, out string foundPath)
         {
             foreach (var extension in imageExtensions)
@@ -975,15 +968,16 @@ public partial class GlobalSearch
             return false;
         }
 
-        // First try to find the image in the specific directory
-        if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+        // First try to find the image in the systemImageFolder
+        // Then try to find in the globalImageDirectory
+        if (TryFindImage(systemImageFolder, out string foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
             imageViewerWindow.Show();
         }
         // If not found, try the global directory
-        else if (TryFindImage(globalDirectory, out foundImagePath))
+        else if (TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
@@ -1255,6 +1249,28 @@ public partial class GlobalSearch
     {
         try
         {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
+            {
+                string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the TakeScreenshotOfSelectedWindow method.";
+                Exception ex = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                MessageBox.Show("There was a problem getting the systemConfig for this game.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+    
+            string systemImageFolder = systemConfig.SystemImageFolder;
+            if (string.IsNullOrEmpty(systemImageFolder))
+            {
+                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+            }
+            
             // Wait for 4 seconds
             await Task.Delay(4000);
                 
@@ -1291,10 +1307,6 @@ public partial class GlobalSearch
             int width = rect.Right - rect.Left;
             int height = rect.Bottom - rect.Top;
 
-            // Determine the save path for the screenshot
-            string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
-            Directory.CreateDirectory(systemImageFolder);
-
             string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
@@ -1330,7 +1342,7 @@ public partial class GlobalSearch
                             $"The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            // Send log to developer
+            // Send log to the developer
             string formattedException = $"Failed to save screenshot in the Global Search window.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);

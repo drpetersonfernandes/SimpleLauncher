@@ -463,7 +463,7 @@ internal class GameButtonFactory(
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
                 
-            _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+            _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button);
                 
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
@@ -755,11 +755,8 @@ internal class GameButtonFactory(
     private void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-
-        // Construct paths for system-specific and global image directories
-        string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
-        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+        string systemImageFolder = systemConfig.SystemImageFolder;
+        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
@@ -780,8 +777,9 @@ internal class GameButtonFactory(
             return false;
         }
 
-        // Try to find the image in the system-specific directory first
-        if (TryFindImage(systemSpecificDirectory, out string foundImagePath) || TryFindImage(globalDirectory, out foundImagePath))
+        // Try to find the image in the systemImageFolder directory first
+        // Then search inside the globalImageDirectory
+        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
@@ -789,7 +787,8 @@ internal class GameButtonFactory(
         }
         else
         {
-            MessageBox.Show("There is no cover file associated with this game.", "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("There is no cover file associated with this game.",
+                "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -1023,11 +1022,21 @@ internal class GameButtonFactory(
             "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
     }
         
-    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button)
     {
         try
         {
-            // Wait for 4 seconds
+            string systemName = systemConfig.SystemName;
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string systemImageFolder = systemConfig.SystemImageFolder;
+
+            if (string.IsNullOrEmpty(systemImageFolder))
+            {
+                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+            }
+
+            // Wait for the Game or Emulator to launch
             await Task.Delay(4000);
                 
             // Get the list of open windows
@@ -1062,10 +1071,10 @@ internal class GameButtonFactory(
 
             int width = rect.Right - rect.Left;
             int height = rect.Bottom - rect.Top;
-
-            // Determine the save path for the screenshot
-            string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
-            Directory.CreateDirectory(systemImageFolder);
+            
+            // Remove the button from the UI
+            // Needed to prevent error when saving the new image
+            gameFileGrid.Children.Remove(button);
 
             string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 

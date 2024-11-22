@@ -414,7 +414,7 @@ public class GameListFactory(
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
                 
-            _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+            _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig);
                 
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
@@ -689,11 +689,8 @@ public class GameListFactory(
     private void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-
-        // Construct paths for system-specific and global image directories
-        string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
-        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+        string systemImageFolder = systemConfig.SystemImageFolder;
+        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
@@ -714,8 +711,9 @@ public class GameListFactory(
             return false;
         }
 
-        // Try to find the image in the system-specific directory first
-        if (TryFindImage(systemSpecificDirectory, out string foundImagePath) || TryFindImage(globalDirectory, out foundImagePath))
+        // Try to find the image in the systemImageFolder directory first
+        // Then try to find in the globalImageDirectory
+        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
@@ -966,10 +964,20 @@ public class GameListFactory(
             "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
+    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig)
     {
         try
         {
+            string systemName = systemConfig.SystemName;
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string systemImageFolder = systemConfig.SystemImageFolder;
+
+            if (string.IsNullOrEmpty(systemImageFolder))
+            {
+                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
+                Directory.CreateDirectory(systemImageFolder);
+            }
+            
             // Wait for 4 seconds
             await Task.Delay(4000);
                 
@@ -1006,10 +1014,6 @@ public class GameListFactory(
             int width = rect.Right - rect.Left;
             int height = rect.Bottom - rect.Top;
 
-            // Determine the save path for the screenshot
-            string systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
-            Directory.CreateDirectory(systemImageFolder);
-
             string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
@@ -1034,7 +1038,8 @@ public class GameListFactory(
             await flashWindow.ShowFlashAsync();
                 
             // Notify the user of success
-            MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}",
+                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
             // Reload the current Game List
             // await mainWindow.LoadGameFilesAsync();
@@ -1042,12 +1047,11 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
-            // Handle any errors
             MessageBox.Show($"Failed to save screenshot.\n\n" +
                             $"The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            // Send error to developer
+            // Send log error to the developer
             string contextMessage = $"There was a problem saving the screenshot.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
