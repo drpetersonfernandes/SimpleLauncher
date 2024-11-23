@@ -1,65 +1,47 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Media;
+using NAudio.Wave;
 
-namespace SimpleLauncher;
-
-public static class PlayClick
+namespace SimpleLauncher
 {
-    private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    public static class PlayClick
+    {
+        private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    public static void PlayClickSound()
-    {
-        try
+        private static async Task PlaySoundAsync(string soundFileName)
         {
-            var soundPath = Path.Combine(BaseDirectory, "audio", "click.mp3");
-            MediaPlayer mediaPlayer = new();
-            mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            mediaPlayer.Play();
+            string soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
+
+            if (!File.Exists(soundPath))
+            {
+                throw new FileNotFoundException($"Sound file '{soundFileName}' not found.");
+            }
+
+            try
+            {
+                await using var audioFileReader = new AudioFileReader(soundPath);
+                using var waveOut = new WaveOutEvent();
+                
+                waveOut.Init(audioFileReader);
+                waveOut.Play();
+
+                // Wait for the sound to finish playing
+                while (waveOut.PlaybackState == PlaybackState.Playing)
+                {
+                    await Task.Delay(100); // Check every 100ms
+                }
+            }
+            catch (Exception ex)
+            {
+                string contextMessage = $"Error playing the sound '{soundFileName}'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
+            }
         }
-        catch (Exception ex)
-        {
-            string contextMessage = $"Error playing the click sound or the audio file could not be found or loaded.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-        }
-    }
-    
-    public static void PlayShutterSound()
-    {
-        try
-        {
-            var soundPath = Path.Combine(BaseDirectory, "audio", "shutter.mp3");
-            MediaPlayer mediaPlayer = new();
-            mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            mediaPlayer.Play();
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"Error playing the shutter sound or the audio file could not be found or loaded.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-        }
-    }
-    
-    public static void PlayTrashSound()
-    {
-        try
-        {
-            var soundPath = Path.Combine(BaseDirectory, "audio", "trash.mp3");
-            MediaPlayer mediaPlayer = new();
-            mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            mediaPlayer.Play();
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"Error playing the trash sound or the audio file could not be found or loaded.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-        }
+
+        public static Task PlayClickSound() => PlaySoundAsync("click.mp3");
+        public static Task PlayShutterSound() => PlaySoundAsync("shutter.mp3");
+        public static Task PlayTrashSound() => PlaySoundAsync("trash.mp3");
     }
 }

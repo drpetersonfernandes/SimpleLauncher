@@ -709,7 +709,6 @@ public partial class GlobalSearch
                         MessageBoxImage.Information);
 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
-
                     LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
 
                 };
@@ -1327,7 +1326,7 @@ public partial class GlobalSearch
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            PlayClick.PlayShutterSound();
+            await PlayClick.PlayShutterSound();
                 
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();

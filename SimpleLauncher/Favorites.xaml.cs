@@ -498,7 +498,6 @@ public partial class Favorites
                         "Take Screenshot", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
-
                     _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
                 };
             
@@ -568,7 +567,7 @@ public partial class Favorites
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                PlayClick.PlayClickSound();
+                await PlayClick.PlayClickSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -1167,7 +1166,7 @@ public partial class Favorites
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            PlayClick.PlayShutterSound();
+            await PlayClick.PlayShutterSound();
                 
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
@@ -1234,7 +1233,7 @@ public partial class Favorites
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                PlayClick.PlayClickSound();
+                await PlayClick.PlayClickSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
         }

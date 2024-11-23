@@ -143,7 +143,7 @@ internal class GameButtonFactory(
 
         button.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            await PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -164,7 +164,7 @@ internal class GameButtonFactory(
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            await PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -452,7 +452,7 @@ internal class GameButtonFactory(
         };
         takeScreenshot.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            await PlayClick.PlayClickSound();
             MessageBox.Show(
                 "The game will launch now.\n\n" +
                 "Set the game window to non-fullscreen. This is important.\n\n" +
@@ -1088,13 +1088,13 @@ internal class GameButtonFactory(
                 // Save the screenshot
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
-
-            PlayClick.PlayShutterSound();
-                
+            
+            await PlayClick.PlayShutterSound();
+            
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
-                
+            
             // Notify the user of success
             //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             
@@ -1102,14 +1102,11 @@ internal class GameButtonFactory(
             if (button.Content is Grid grid)
             {
                 var stackPanel = grid.Children.OfType<StackPanel>().FirstOrDefault();
-                if (stackPanel != null)
+                var imageControl = stackPanel?.Children.OfType<Image>().FirstOrDefault();
+                if (imageControl != null)
                 {
-                    var imageControl = stackPanel.Children.OfType<Image>().FirstOrDefault();
-                    if (imageControl != null)
-                    {
-                        // Reload the image without a file lock
-                        await LoadImageAsync(imageControl, button, screenshotPath, DefaultImagePath);
-                    }
+                    // Reload the image without a file lock
+                    await LoadImageAsync(imageControl, button, screenshotPath, DefaultImagePath);
                 }
             }
         }

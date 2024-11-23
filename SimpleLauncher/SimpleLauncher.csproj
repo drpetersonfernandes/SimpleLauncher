@@ -301,6 +301,15 @@
     <None Remove="handle.exe" />
     <None Remove="handle_arm64.exe" />
     <None Remove="handle_x86.exe" />
+    <None Update="audio\shutter.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="audio\trash.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="audio\shutter.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -397,17 +406,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="audio\click.mp3">
+    <None Include="audio\click.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
-    <None Remove="audio\shutter.mp3" />
-    <AdditionalFiles Include="audio\shutter.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
-    <None Remove="audio\trash.mp3" />
-    <AdditionalFiles Include="audio\trash.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\info.png" />
@@ -415,6 +416,7 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>

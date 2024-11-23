@@ -115,7 +115,7 @@ public class GameListFactory(
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            await PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -403,7 +403,7 @@ public class GameListFactory(
         };
         takeScreenshot.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            await PlayClick.PlayClickSound();
             MessageBox.Show(
                 "The game will launch now.\n\n" +
                 "Set the game window to non-fullscreen. This is important.\n\n" +
@@ -415,8 +415,8 @@ public class GameListFactory(
                 MessageBoxImage.Information);
                 
             _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig);
-                
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            
         };
             
         // Delete Game Context Menu
@@ -1034,7 +1034,7 @@ public class GameListFactory(
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            PlayClick.PlayShutterSound();
+            await PlayClick.PlayShutterSound();
                 
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
@@ -1045,7 +1045,7 @@ public class GameListFactory(
                 "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
             // Reload the current Game List
-            // await mainWindow.LoadGameFilesAsync();
+            await mainWindow.LoadGameFilesAsync();
 
         }
         catch (Exception ex)
@@ -1070,7 +1070,7 @@ public class GameListFactory(
             {
                 File.Delete(filePath);
                     
-                PlayClick.PlayTrashSound();
+                await PlayClick.PlayTrashSound();
                 
                 MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
                     "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1106,28 +1106,43 @@ public class GameListFactory(
             string filePath = selectedItem.FilePath;
             string selectedSystem = systemComboBox.SelectedItem as string;
             var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
             if (systemConfig != null)
             {
                 // Get the preview image path
                 string previewImagePath = GetPreviewImagePath(filePath, systemConfig);
-
+                
                 // Set the preview image if a valid path is returned
                 if (!string.IsNullOrEmpty(previewImagePath))
                 {
-                    mainWindow.Dispatcher.Invoke(() =>
+                    try
                     {
-                        var bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.UriSource = new Uri(previewImagePath, UriKind.RelativeOrAbsolute);
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
-                        bitmap.EndInit();
-                        mainWindow.PreviewImage.Source = bitmap;
-                    });
+                        byte[] imageBytes = File.ReadAllBytes(previewImagePath);
+                        MemoryStream memoryStream = new MemoryStream(imageBytes);
+
+                        mainWindow.Dispatcher.Invoke(() =>
+                        {
+                            var bitmap = new BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.StreamSource = memoryStream;
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
+                            bitmap.EndInit();
+                            mainWindow.PreviewImage.Source = bitmap;
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        mainWindow.PreviewImage.Source = null;
+                        
+                        // Notify developer
+                        string errorMessage = $"An error occurred while using method HandleSelectionChanged in GameListFactory class." +
+                                              $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                        Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                    }
                 }
                 else
                 {
-                    // Optionally, clear the image if no preview is available
+                    // Clear the image if no preview is available
                     mainWindow.PreviewImage.Source = null;
                 }
             }
