@@ -446,15 +446,20 @@ public static class GameLauncher
 
             if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
-                    "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
-                    "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                    "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+                    "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
+                    "For debugging the error, you can check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
                     "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                     "Error",
                     MessageBoxButton.YesNo,
@@ -468,12 +473,19 @@ public static class GameLauncher
                         UseShellExecute = true
                     });
                 }
+                
+                return;
             }
         
             // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
-                string errorMessage = $"There was an access violation error running the emulator.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"There was an access violation error running the emulator.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
@@ -501,7 +513,14 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string formattedException = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                        $"Exit code: {process.ExitCode}\n" +
+                                        $"Emulator: {psi.FileName}\n" +
+                                        $"Emulator output: {output}\n" +
+                                        $"Emulator error: {error}\n" +
+                                        $"Calling parameters: {psi.Arguments}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
             var result = MessageBox.Show(
@@ -650,7 +669,11 @@ public static class GameLauncher
             if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
                 string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                      $"Exit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
@@ -670,6 +693,8 @@ public static class GameLauncher
                         UseShellExecute = true
                     });
                 }
+                
+                return;
             }
             
             // Memory Access Violation error
@@ -703,7 +728,14 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string formattedException = $"The emulator could not open the game with the provided parameters.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                        $"Exit code: {process.ExitCode}\n" +
+                                        $"Emulator: {psi.FileName}\n" +
+                                        $"Emulator output: {output}\n" +
+                                        $"Emulator error: {error}\n" +
+                                        $"Calling parameters: {psi.Arguments}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
             var result = MessageBox.Show(
