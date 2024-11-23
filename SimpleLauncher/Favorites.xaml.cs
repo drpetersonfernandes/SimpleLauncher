@@ -95,18 +95,20 @@ public partial class Favorites
         {
             return Path.Combine(baseDirectory, "images", "default.png");
         }
-
-        // Remove the original file extension
+        return FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
+    }
+    
+    private string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
+    {
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        // Specific image path
-        string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-        string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
-
-        // Global image path
+    
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+    
         string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-
-        // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
         // Search for the image file
@@ -126,7 +128,7 @@ public partial class Favorites
         }
 
         // First try to find the image in the specific directory
-        if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+        if (TryFindImage(systemImageFolder, out var foundImagePath))
         {
             return foundImagePath;
         }
@@ -187,8 +189,8 @@ public partial class Favorites
                 var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (systemConfig == null)
                 {
-                    string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
-                                                $"No system configuration found for the selected favorite.";
+                    const string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
+                                                      $"No system configuration found for the selected favorite.";
                     Exception ex = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
@@ -764,62 +766,60 @@ public partial class Favorites
 
     private void OpenCover(string systemName, string fileName)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        if (systemConfig == null)
+        try
         {
-            string formattedException = $"There was a problem getting the system configuration for the selected favorite in the Favorites window.";
-            Exception ex = new(formattedException);
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs?.FirstOrDefault(config =>
+                config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            MessageBox.Show("There was an error trying to open the cover image.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        string systemImageFolder = systemConfig.SystemImageFolder;
-        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
-
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Function to search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
+            if (systemConfig == null)
             {
-                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (File.Exists(imagePath))
+                const string formattedException = "There was a problem getting the system configuration for the selected favorite in the Favorites window.";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+
+                MessageBox.Show("There was an error trying to open the cover image.\n\n" +
+                                "The error was reported to the developer who will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            try
+            {
+                string imagePath = FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
+                if (!imagePath.EndsWith("default.png"))
                 {
-                    foundPath = imagePath;
-                    return true;
+                    var imageViewerWindow = new ImageViewerWindow();
+                    imageViewerWindow.LoadImage(imagePath);
+                    imageViewerWindow.Show();
+                }
+                else
+                {
+                    MessageBox.Show("There is no cover associated with this favorite.",
+                        "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            foundPath = null;
-            return false;
-        }
+            catch (IOException ex)
+            {
+                string formattedException = $"IOException in the method OpenCover in the Favorites window.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Exception exception = new(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
 
-        // First try to find the image in the systemImageFolder directory
-        // Then try to find in the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out string foundImagePath))
-        {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
+                MessageBox.Show("There was an error trying to open the cover image.\n\n" +
+                                "The error was reported to the developer who will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        // If not found, try the global directory
-        else if (TryFindImage(globalImageDirectory, out foundImagePath))
+        catch (Exception ex)
         {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
-        }
-        else
-        {
-            MessageBox.Show("There is no cover associated with this favorite.",
-                "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
+            string formattedException = $"There was an error in the method OpenCover in the Favorites window\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            Exception exception = new(formattedException);
+            Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
 

@@ -756,10 +756,33 @@ internal class GameButtonFactory(
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string systemImageFolder = systemConfig.SystemImageFolder;
+        
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+        
         string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+        // Try to find the image in the systemImageFolder directory first
+        // Then search inside the globalImageDirectory
+        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
+        {
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(foundImagePath);
+            imageViewerWindow.Show();
+        }
+        else
+        {
+            MessageBox.Show("There is no cover file associated with this game.",
+                "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        return;
 
         // Function to search for the file in a given directory
         bool TryFindImage(string directory, out string foundPath)
@@ -776,23 +799,9 @@ internal class GameButtonFactory(
             foundPath = null;
             return false;
         }
-
-        // Try to find the image in the systemImageFolder directory first
-        // Then search inside the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
-        {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
-        }
-        else
-        {
-            MessageBox.Show("There is no cover file associated with this game.",
-                "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
     }
 
-    private void OpenTitleSnapshot(string systemName, string fileName)
+    private static void OpenTitleSnapshot(string systemName, string fileName)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
@@ -1165,10 +1174,18 @@ internal class GameButtonFactory(
     
     private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
     {
-        // Check if systemConfig or its SystemImageFolder is null or empty
-        string baseImageDirectory = string.IsNullOrEmpty(systemConfig?.SystemImageFolder)
-            ? Path.Combine(_baseDirectory, "images", systemName)
-            : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder);
+        // Determine base image directory
+        string baseImageDirectory;
+        if (string.IsNullOrEmpty(systemConfig?.SystemImageFolder))
+        {
+            baseImageDirectory = Path.Combine(_baseDirectory, "images", systemName);
+        }
+        else
+        {
+            baseImageDirectory = Path.IsPathRooted(systemConfig.SystemImageFolder)
+                ? systemConfig.SystemImageFolder // If already absolute
+                : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder); // Make it absolute
+        }
 
         // Extensions to check
         string[] extensions = [".png", ".jpg", ".jpeg"];
@@ -1245,14 +1262,26 @@ internal class GameButtonFactory(
 
         if (File.Exists(fallbackImagePath))
         {
-            var bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.UriSource = new Uri(fallbackImagePath, UriKind.Absolute);
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.EndInit();
-            bitmapImage.Freeze();
-            imageControl.Source = bitmapImage; // Assign the fallback image
-            button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
+            try
+            {
+                byte[] imageData = File.ReadAllBytes(fallbackImagePath);
+                using MemoryStream ms = new MemoryStream(imageData);
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+                imageControl.Source = bitmapImage; // Assign the fallback image
+                button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
+            }
+            catch (Exception ex)
+            {
+                var formattedException = $"Fail to load the fallback image in the method LoadFallbackImage.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+            }
         }
         else
         {

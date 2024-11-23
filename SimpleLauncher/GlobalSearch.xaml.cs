@@ -170,27 +170,26 @@ public partial class GlobalSearch
         
     private string GetCoverImagePath(string systemName, string fileName)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         if (systemConfig == null)
         {
             return Path.Combine(baseDirectory, "images", "default.png");
         }
 
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        // Specific image path
-        string systemImageFolder = systemConfig.SystemImageFolder ?? string.Empty;
-        string systemSpecificDirectory = Path.Combine(baseDirectory, systemImageFolder);
-
-        // Global image path
-        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-
-        // Image extensions to look for
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+        var systemImageFolder = systemConfig.SystemImageFolder;
+        
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+        
+        var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Search for the image file
+        // Function to search for the image file
         bool TryFindImage(string directory, out string foundPath)
         {
             foreach (var extension in imageExtensions)
@@ -206,12 +205,12 @@ public partial class GlobalSearch
             return false;
         }
 
-        // First try to find the image in the specific directory
-        if (TryFindImage(systemSpecificDirectory, out string foundImagePath))
+        // First try to find the image in the systemImageFolder
+        if (TryFindImage(systemImageFolder, out var foundImagePath))
         {
             return foundImagePath;
         }
-        // If not found, try the global directory
+        // If not found, try the globalImageDirectory
         else if (TryFindImage(globalDirectory, out foundImagePath))
         {
             return foundImagePath;
@@ -930,11 +929,11 @@ public partial class GlobalSearch
 
     private void OpenCover(string systemName, string fileName)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         if (systemConfig == null)
         {
-            string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the OpenCover method.";
+            const string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the OpenCover method.";
             Exception ex = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -945,10 +944,16 @@ public partial class GlobalSearch
             return;
         }
     
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        string systemImageFolder = systemConfig.SystemImageFolder;
-        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
-
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+        var systemImageFolder = systemConfig.SystemImageFolder;
+        
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+        
+        var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
         // Function to search for the image file
@@ -966,16 +971,15 @@ public partial class GlobalSearch
             foundPath = null;
             return false;
         }
-
+        
         // First try to find the image in the systemImageFolder
-        // Then try to find in the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out string foundImagePath))
+        if (TryFindImage(systemImageFolder, out var foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
             imageViewerWindow.Show();
         }
-        // If not found, try the global directory
+        // If not found, try the globalImageDirectory
         else if (TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
