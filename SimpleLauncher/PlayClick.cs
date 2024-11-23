@@ -20,14 +20,13 @@ namespace SimpleLauncher
 
             try
             {
-                await using var audioFileReader = new AudioFileReader(soundPath);
-                using var waveOut = new WaveOutEvent();
-                
-                waveOut.Init(audioFileReader);
-                waveOut.Play();
+                await using var audioFileReader = new AudioFileReader(soundPath); // MP3 decoding happens here
+                using var wasapiOut = new WasapiOut(); // Uses shared mode for smooth playback
+                wasapiOut.Init(audioFileReader);
+                wasapiOut.Play();
 
                 // Wait for the sound to finish playing
-                while (waveOut.PlaybackState == PlaybackState.Playing)
+                while (wasapiOut.PlaybackState == PlaybackState.Playing)
                 {
                     await Task.Delay(100); // Check every 100ms
                 }
