@@ -21,7 +21,7 @@ namespace SimpleLauncher
             Height = SystemParameters.PrimaryScreenHeight;
 
             // Create a fade-in animation
-            var fadeInAnimation = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromMilliseconds(200)))
+            var fadeInAnimation = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromMilliseconds(300)))
             {
                 AutoReverse = true // Automatically fade out
             };

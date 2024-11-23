@@ -567,7 +567,7 @@ public partial class Favorites
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                await PlayClick.PlayClickSound();
+                PlayClick.PlayClickSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -1166,8 +1166,11 @@ public partial class Favorites
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            await PlayClick.PlayShutterSound();
-                
+            PlayClick.PlayShutterSound();
+            
+            // Wait
+            await Task.Delay(1000);
+            
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
@@ -1233,7 +1236,7 @@ public partial class Favorites
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                await PlayClick.PlayClickSound();
+                PlayClick.PlayClickSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
         }

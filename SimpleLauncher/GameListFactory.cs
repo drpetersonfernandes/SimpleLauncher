@@ -115,7 +115,7 @@ public class GameListFactory(
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            await PlayClick.PlayClickSound();
+            PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -403,7 +403,7 @@ public class GameListFactory(
         };
         takeScreenshot.Click += async (_, _) =>
         {
-            await PlayClick.PlayClickSound();
+            PlayClick.PlayClickSound();
             MessageBox.Show(
                 "The game will launch now.\n\n" +
                 "Set the game window to non-fullscreen. This is important.\n\n" +
@@ -1034,8 +1034,11 @@ public class GameListFactory(
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            await PlayClick.PlayShutterSound();
-                
+            PlayClick.PlayShutterSound();
+            
+            // Wait
+            await Task.Delay(1000);
+            
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
@@ -1070,7 +1073,7 @@ public class GameListFactory(
             {
                 File.Delete(filePath);
                     
-                await PlayClick.PlayTrashSound();
+                PlayClick.PlayTrashSound();
                 
                 MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
                     "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);

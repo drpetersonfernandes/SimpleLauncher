@@ -1326,8 +1326,11 @@ public partial class GlobalSearch
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            await PlayClick.PlayShutterSound();
-                
+            PlayClick.PlayShutterSound();
+            
+            // Wait
+            await Task.Delay(1000);
+            
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();

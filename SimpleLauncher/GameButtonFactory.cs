@@ -143,7 +143,7 @@ internal class GameButtonFactory(
 
         button.Click += async (_, _) =>
         {
-            await PlayClick.PlayClickSound();
+            PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -164,7 +164,7 @@ internal class GameButtonFactory(
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            await PlayClick.PlayClickSound();
+            PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
 
@@ -452,7 +452,7 @@ internal class GameButtonFactory(
         };
         takeScreenshot.Click += async (_, _) =>
         {
-            await PlayClick.PlayClickSound();
+            PlayClick.PlayClickSound();
             MessageBox.Show(
                 "The game will launch now.\n\n" +
                 "Set the game window to non-fullscreen. This is important.\n\n" +
@@ -1089,14 +1089,17 @@ internal class GameButtonFactory(
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
             
-            await PlayClick.PlayShutterSound();
+            PlayClick.PlayShutterSound();
+            
+            // Wait
+            await Task.Delay(1000);
             
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
             
             // Notify the user of success
-            //MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            // MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             
             // Update the button's image
             if (button.Content is Grid grid)
