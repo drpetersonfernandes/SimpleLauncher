@@ -1,3 +1,9 @@
+release3.6.1
+------------
+
+11/__/2024
+- Fixed a bug in several methods that attempt to load a preview image or open a cover image when the UserImagePath is a relative path. These methods will now convert all relative paths to absolute paths before execution.
+
 release3.6.0
 ------------
 
