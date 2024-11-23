@@ -690,9 +690,15 @@ public class GameListFactory(
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string systemImageFolder = systemConfig.SystemImageFolder;
+        
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+        
         string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
-        // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
         // Function to search for the file in a given directory
@@ -1137,7 +1143,7 @@ public class GameListFactory(
                         mainWindow.PreviewImage.Source = null;
                         
                         // Notify developer
-                        string errorMessage = $"An error occurred while using method HandleSelectionChanged in GameListFactory class." +
+                        string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class." +
                                               $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
@@ -1147,6 +1153,22 @@ public class GameListFactory(
                 {
                     // Clear the image if no preview is available
                     mainWindow.PreviewImage.Source = null;
+                    
+                    var result = MessageBox.Show("I could not get a valid image to preview, not even a default image.\n\n" +
+                                                 "Do you want to reinstall 'Simple Launcher' to fix it?",
+                        "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please reinstall Simple Launcher to fix the error.\n\n" +
+                                        "The application will shutdown now.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        
+                        // Shutdown SimpleLauncher
+                        Application.Current.Shutdown();
+                        Environment.Exit(0);                    }
                 }
             }
         }
@@ -1155,15 +1177,21 @@ public class GameListFactory(
     private string GetPreviewImagePath(string filePath, SystemConfig systemConfig)
     {
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-
-        // Determine the image folder based on whether SystemImageFolder is set
-        string imageFolder = !string.IsNullOrEmpty(systemConfig.SystemImageFolder)
-            ? systemConfig.SystemImageFolder
+        string imageFolder = systemConfig.SystemImageFolder;
+        
+        // Be sure that SystemImageFolder path is absolute
+        if (!Path.IsPathRooted(imageFolder))
+        {
+            if (imageFolder != null) imageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageFolder);
+        }
+        
+        imageFolder = !string.IsNullOrEmpty(imageFolder)
+            ? imageFolder
             : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName);
 
         string[] extensions = [".png", ".jpg", ".jpeg"];
 
-        // Look for the image file in the specified or default image folder
+        // Function to get the imagePath
         foreach (var extension in extensions)
         {
             string imagePath = Path.Combine(imageFolder, $"{fileNameWithoutExtension}{extension}");
@@ -1173,6 +1201,7 @@ public class GameListFactory(
             }
         }
 
+        // load default
         // If no specific image found, try the user-defined default image in SystemImageFolder
         string userDefinedDefaultImagePath = Path.Combine(imageFolder, "default.png");
         if (File.Exists(userDefinedDefaultImagePath))
@@ -1186,7 +1215,8 @@ public class GameListFactory(
         {
             return globalDefaultImagePath;
         }
-        return string.Empty; // Return empty if no image is found
+        
+        return string.Empty; // Return empty if no image is found (not even a default image)
     }
         
     private string GetMachineDescription(string fileName)
