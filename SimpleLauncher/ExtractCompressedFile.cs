@@ -77,7 +77,11 @@ internal class ExtractCompressedFile
 
                 if (process.ExitCode != 0)
                 {
-                    string errorMessage = $"Extraction of the compressed file failed.\n\nExit code: {process.ExitCode}\nOutput: {output}\nError: {error}";
+                    string errorMessage = $"Extraction of the compressed file failed.\n\n" +
+                                          $"Method: ExtractArchiveToTempAsync\n" +
+                                          $"Exit code: {process.ExitCode}\n" +
+                                          $"Output: {output}\n" +
+                                          $"Error: {error}";
                     throw new Exception(errorMessage);
                 }
 
@@ -97,7 +101,8 @@ internal class ExtractCompressedFile
         {
             // Log the error
             string errorMessage = $"Extraction of the compressed file failed.\n\n" +
-                                  $"The file {archivePath} may be corrupted.";
+                                  $"The file {archivePath} may be corrupted.\n" +
+                                  $"Method: ExtractArchiveToTempAsync";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
@@ -153,7 +158,10 @@ internal class ExtractCompressedFile
                         "Try running it with administrative privileges.", "Warning", MessageBoxButton.OK,
                         MessageBoxImage.Warning);
                     
-                    string contextMessage = $"Error occurred while cleaning up temp directories.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    string contextMessage = $"Error occurred while cleaning up temp directories.\n\n" +
+                                            $"Method: Cleanup\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                 }
@@ -172,7 +180,10 @@ internal class ExtractCompressedFile
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error occurred while deleting the temp folder.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"Error occurred while deleting the temp folder.\n\n" +
+                                    $"Method: Cleanup" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -181,23 +192,30 @@ internal class ExtractCompressedFile
     public async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
     {
         
-        // // Test: Lock the file before trying to extract it
-        // FileStream? testLockStream = null;
-        // try
-        // {
-        //     // Open the file and lock it for testing purposes
-        //     testLockStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-        //     testLockStream.Lock(0, new FileInfo(filePath).Length); // Lock the entire file
-        //     Console.WriteLine(@"File is locked for testing purposes. Attempting extraction...");
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($@"Failed to lock the file: {ex.Message}");
-        // }
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        //  // Test: Lock the file before trying to extract it
+        //  FileStream? testLockStream = null;
+        //  try
+        //  {
+        //      // Open the file and lock it for testing purposes
+        //      testLockStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        //      testLockStream.Lock(0, new FileInfo(filePath).Length); // Lock the entire file
+        //      Console.WriteLine(@"File is locked for testing purposes. Attempting extraction...");
+        //  }
+        //  catch (Exception ex)
+        //  {
+        //      Console.WriteLine($@"Failed to lock the file: {ex.Message}");
+        //  }
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
         
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
-            string formattedException = $"The downloaded file appears to be empty or corrupted.";
+            string formattedException = $"The downloaded file appears to be empty or corrupted.\n\n" +
+                                        $"Method: ExtractFileWith7ZipAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
@@ -209,7 +227,8 @@ internal class ExtractCompressedFile
             
         if (IsFileLocked(filePath))
         {
-            string formattedException = $"The downloaded file appears to be locked.";
+            string formattedException = $"The downloaded file appears to be locked.\n" +
+                                        $"Method: ExtractFileWith7ZipAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
@@ -283,14 +302,16 @@ internal class ExtractCompressedFile
             if (process.ExitCode != 0)
             {
                 string formattedException = $"Error extracting the file: {filePath}\n\n" +
-                                            $"Error message: {error}";
+                                            $"Error message: {error}\n\n" +
+                                            $"Method: ExtractFileWith7ZipAsync";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
                 MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                                 $"The file might be corrupted or locked by some other process.\n\n" +
                                 $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
-                                $"Try to temporarily disable real-time protection.\n\n",
+                                $"Try to temporarily disable real-time protection.\n\n" +
+                                $"You can also try to run 'Simple Launcher' with administrative privileges.",
                     "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return false;
@@ -300,25 +321,34 @@ internal class ExtractCompressedFile
         catch (Exception ex)
         {
             string formattedException = $"Error extracting the file: {filePath}\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Method: ExtractFileWith7ZipAsync\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                             $"The file might be corrupted or locked by some other process.\n\n" +
                             $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
-                            $"Try to temporarily disable real-time protection.\n\n",
+                            $"Try to temporarily disable real-time protection.\n\n" +
+                            $"You can also try to run 'Simple Launcher' with administrative privileges.",
                 "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             return false;
         }
         
-        // finally
-        // {
-        //     // Unlock the file after testing
-        //     testLockStream?.Unlock(0, new FileInfo(filePath).Length);
-        //     testLockStream?.Dispose();
-        //     Console.WriteLine(@"File lock released after testing.");
-        // }
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        //  finally
+        //  {
+        //      // Unlock the file after testing
+        //      testLockStream?.Unlock(0, new FileInfo(filePath).Length);
+        //      testLockStream?.Dispose();
+        //      Console.WriteLine(@"File lock released after testing.");
+        //  }
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
+        // ///////////////////////////////////////////////////
     }
         
     private bool IsFileLocked(string filePath)

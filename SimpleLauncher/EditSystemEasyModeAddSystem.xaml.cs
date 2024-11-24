@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -161,11 +160,17 @@ public partial class EditSystemEasyModeAddSystem
                             /////////////////////////////////////////////////
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath, _cancellationTokenSource.Token);
+                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath,
+                                    _cancellationTokenSource.Token, DownloadProgressBar);
                                 
                                 if (extractionSuccess2)
                                 {
                                     await EmulatorSuccessMessage(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+                                    
+                                    // Notify Developer
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    Exception ex = new Exception(notifyDeveloper);
+                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
                                 else
                                 {
@@ -360,11 +365,16 @@ public partial class EditSystemEasyModeAddSystem
                             /////////////////////////////////////////////////
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemoryAsync(coreDownloadUrl, destinationPath, _cancellationTokenSource.Token);
+                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(coreDownloadUrl, destinationPath, _cancellationTokenSource.Token, DownloadProgressBar);
                                 
                                 if (extractionSuccess2)
                                 {
                                     await CoreExtractionSuccess(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+
+                                    // Notify Developer
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    Exception ex = new Exception(notifyDeveloper);
+                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
                                 else
                                 {
@@ -526,18 +536,24 @@ public partial class EditSystemEasyModeAddSystem
                         else
                         {
                             MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
+                                            $"I will try again using in memory download and extraction",
+                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
                             /////////////////////////////////////////////////
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemoryAsync(extrasDownloadUrl, destinationPath, _cancellationTokenSource.Token);
+                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(extrasDownloadUrl, destinationPath, _cancellationTokenSource.Token, DownloadProgressBar);
                                 
                                 if (extractionSuccess2)
                                 {
                                     ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
+                                    
+                                    // Notify Developer
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    Exception ex = new Exception(notifyDeveloper);
+                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
                                 else
                                 {
@@ -991,118 +1007,5 @@ public partial class EditSystemEasyModeAddSystem
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
     }
-    
-    private async Task<bool> DownloadAndExtractInMemoryAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
-    {
-        try
-        {
-            // Step 1: Download the file into memory
-            using var memoryStream = await DownloadToMemoryStream(downloadUrl, cancellationToken);
 
-            // Step 2: Extract the ZIP file directly from the memory stream
-            Directory.CreateDirectory(destinationPath); // Ensure destination directory exists
-            
-            // Show the PleaseWaitExtraction window
-            PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
-            pleaseWaitWindow.Show();
-
-            await ExtractFromMemoryStream(destinationPath, cancellationToken, memoryStream);
-
-            // Close the PleaseWaitExtraction window
-            pleaseWaitWindow.Close();
-
-            // Extraction successful
-            return true;
-        }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
-        {
-            string formattedException = $"The requested file was not available on the server.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-       
-            throw new Exception(formattedException);
-        }
-        catch (IOException ex)
-        {
-            string formattedException = $"Error during in-memory extraction.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
-        
-            throw new Exception(formattedException);
-        }
-        catch (TaskCanceledException)
-        {
-            MessageBox.Show("The operation was canceled by the user.", "Operation Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            string formattedException = "The operation was canceled by the user.";
-            throw new Exception(formattedException);
-        }
-    }
-    
-    private async Task<MemoryStream> DownloadToMemoryStream(string downloadUrl, CancellationToken cancellationToken)
-    {
-        MemoryStream memoryStream = null;
-        try
-        {
-            using var response = await _httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
-
-            long? totalBytes = response.Content.Headers.ContentLength;
-            await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            memoryStream = new MemoryStream();
-
-            var buffer = new byte[8192];
-            long totalBytesRead = 0;
-            int bytesRead;
-
-            while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
-            {
-                await memoryStream.WriteAsync(buffer, 0, bytesRead, cancellationToken);
-                totalBytesRead += bytesRead;
-
-                // Update progress bar
-                if (totalBytes.HasValue)
-                {
-                    DownloadProgressBar.Value = (double)totalBytesRead / totalBytes.Value * 100;
-                }
-            }
-
-            // Verify if the file was fully downloaded
-            if (totalBytes.HasValue && totalBytesRead != totalBytes.Value)
-            {
-                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
-            }
-
-            memoryStream.Seek(0, SeekOrigin.Begin); // Reset memory stream for reading
-            return memoryStream;
-        }
-        catch
-        {
-            if (memoryStream != null)
-            {
-                await memoryStream.DisposeAsync();
-            }
-            throw;
-        }
-    }
-
-    private static async Task ExtractFromMemoryStream(string destinationPath, CancellationToken cancellationToken,
-        MemoryStream memoryStream)
-    {
-        using var zipArchive = new ZipArchive(memoryStream, ZipArchiveMode.Read, leaveOpen: false);
-        foreach (var entry in zipArchive.Entries)
-        {
-            if (string.IsNullOrEmpty(entry.FullName) || entry.FullName.EndsWith("/"))
-            {
-                // Skip directories
-                continue;
-            }
-
-            string extractedFilePath = Path.Combine(destinationPath, entry.FullName);
-            Directory.CreateDirectory(Path.GetDirectoryName(extractedFilePath) ?? string.Empty);
-
-            // Extract the file
-            await using var entryStream = entry.Open(); // Open the ZIP entry
-            await using var fileStream = File.Create(extractedFilePath); // Create the output file
-            await entryStream.CopyToAsync(fileStream, cancellationToken); // Stream the content
-        }
-    }
 }

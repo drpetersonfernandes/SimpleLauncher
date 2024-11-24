@@ -436,13 +436,22 @@ public static class GameLauncher
         try
         {
             bool processStarted = process.Start();
+            
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.");
+                throw new InvalidOperationException("Failed to start the process.\n" +
+                                                    "Method: LaunchRegularEmulator");
             }
+            
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
+            
+            if (!process.HasExited)
+            {
+                throw new InvalidOperationException("The process has not exited as expected.\n" +
+                                                    "Method: LaunchRegularEmulator");
+            }
 
             if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
@@ -459,7 +468,8 @@ public static class GameLauncher
                     "The emulator could not open the game with the provided parameters.\n\n" +
                     "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                     "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
-                    "For debugging the error, you can check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                    "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
+                    "For debugging the error, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
                     "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                     "Error",
                     MessageBoxButton.YesNo,
@@ -490,7 +500,7 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running this emulator with this ROM.\n" +
+                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
                     "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
                     "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
@@ -527,6 +537,7 @@ public static class GameLauncher
                 "The emulator could not open the game with the provided parameters.\n\n" +
                 "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                 "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
+                "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
                 "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
                 "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
                 "Error",
