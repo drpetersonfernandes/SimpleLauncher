@@ -106,10 +106,26 @@ public static class GameLauncher
                 $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
                 $"SelectedEmulator: {emulatorComboBox.SelectedItem}");
             
-            MessageBox.Show("The application could not launch the selected game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            var result = MessageBox.Show(
+                "The application could not launch the selected game.\n\n" +
+                "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+                "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
+                "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
+                "For debugging the error, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
+                "Error",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
+                    UseShellExecute = true
+                });
+            }
+            
         }
         finally
         {
@@ -189,7 +205,10 @@ public static class GameLauncher
             if (process.ExitCode != 0 || error.Length > 0)
             {
                 string errorMessage = $"There was an issue running the batch process.\n\n" +
-                                      $"Batch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}";
+                                      $"Batch file: {psi.FileName}\n" +
+                                      $"Exit code {process.ExitCode}\n" +
+                                      $"Output: {output}\n" +
+                                      $"Error: {error}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
@@ -203,7 +222,12 @@ public static class GameLauncher
         catch (Exception ex)
         {
             string errorMessage = $"There was an issue running the batch process.\n\n" +
-                                  $"Batch file: {psi.FileName}\nExit code {process.ExitCode}\nOutput: {output}\nError: {error}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Batch file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}\n" +
+                                  $"Output: {output}\n" +
+                                  $"Error: {error}\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
             MessageBox.Show("There was an issue running the batch process.\n\n" +
@@ -242,7 +266,8 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 string errorMessage = $"Error launching the shortcut file.\n\n" +
-                                      $"Shortcut file: {psi.FileName}\nExit code {process.ExitCode}";
+                                      $"Shortcut file: {psi.FileName}\n" +
+                                      $"Exit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
@@ -255,7 +280,10 @@ public static class GameLauncher
         catch (Exception ex)
         {
             string errorDetails = $"Error launching the shortcut file.\n\n" +
-                                  $"Shortcut file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Shortcut file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             MessageBox.Show("There was an error launching the shortcut file.\n\n" +
@@ -293,24 +321,30 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 string errorMessage = $"Error launching the executable file.\n\n" +
-                                      $"Executable file: {psi.FileName}\nExit code {process.ExitCode}";
+                                      $"Executable file: {psi.FileName}\n" +
+                                      $"Exit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
                 MessageBox.Show("There was an error launching the executable file.\n\n" +
                                 "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
             string errorDetails = $"Error launching the executable file.\n\n" +
-                                  $"Executable file: {psi.FileName}\nExit code {process.ExitCode}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Executable file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             MessageBox.Show("There was an error launching the executable file.\n\n" +
                             "Try to launch the executable file outside 'Simple Launcher' to see if it is working.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -318,22 +352,26 @@ public static class GameLauncher
     {
         if (emulatorComboBox.SelectedItem == null)
         {
-            MessageBox.Show("Please select an emulator first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Please select an emulator first.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
-
         string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        
         string selectedSystem = systemComboBox.SelectedItem.ToString();
-
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
 
         if (systemConfig == null)
         {
-            string errorMessage = $"systemConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            string errorMessage = $"systemConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchRegularEmulator";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file 'error_user.log' in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching this game.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -341,11 +379,15 @@ public static class GameLauncher
 
         if (emulatorConfig == null)
         {
-            string errorMessage = $"emulatorConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchRegularEmulator";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file 'error_user.log' in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching this game.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -361,6 +403,21 @@ public static class GameLauncher
             {
                 string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
                 
+                if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
+                {
+                    MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (systemConfig.FileFormatsToLaunch == null)
+                {
+                    MessageBox.Show("There is no 'Extension to Launch After Extraction' set in the system configuration.\n\n" +
+                                    "Please go to Expert Mode and fix this system.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                
                 // Iterate through the formats to launch and find the first file with the specified extension
                 bool fileFound = false;
                 foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
@@ -374,15 +431,23 @@ public static class GameLauncher
                         break;
                     }
                 }
+                
+                if (string.IsNullOrEmpty(gamePathToLaunch))
+                {
+                    MessageBox.Show($"No valid game file found with the specified extension: {string.Join(", ", systemConfig.FileFormatsToLaunch)}",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 if (!fileFound)
                 {
-                    string errorMessage = @"Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the extracted folder.";
+                    string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
                     Exception exception = new(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
 
-                    MessageBox.Show("Could not find a file with the extension defined in 'Format to Launch After Extraction' inside the extracted folder.\n\n" +
-                                    "Please go to Edit System - Expert Mode and fix the settings for this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
+                                    "Please go to Expert Mode and fix this system.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -390,15 +455,21 @@ public static class GameLauncher
             {
                 MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
                                 $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                                $"Please go to Edit System - Expert Mode, and edit this system.", 
+                                $"Please go to Expert Mode and fix this system.",
                     "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            if (string.IsNullOrEmpty(gamePathToLaunch))
-            {
-                return;
-            }
+        }
+        
+        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
+        {
+            string errorMessage = $"Invalid game path: {gamePathToLaunch}. Cannot launch the game.";
+            Exception ex = new ArgumentNullException(nameof(gamePathToLaunch), errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            MessageBox.Show("Invalid game file path. Please check the file.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
         }
 
         // Construct the PSI
@@ -435,6 +506,7 @@ public static class GameLauncher
 
         try
         {
+            // Attempt to start the process
             bool processStarted = process.Start();
             
             if (!processStarted)
@@ -445,8 +517,11 @@ public static class GameLauncher
             
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+            
+            // Wait for the process to exit
             await process.WaitForExitAsync();
             
+            // Verify if the process has exited before accessing ExitCode
             if (!process.HasExited)
             {
                 throw new InvalidOperationException("The process has not exited as expected.\n" +
@@ -521,6 +596,19 @@ public static class GameLauncher
                 }
             }
         }
+        catch (InvalidOperationException ex)
+        {
+            string formattedException = $"InvalidOperationException in the method LaunchRegularEmulator";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
+                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
+                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
+                            "Please configure it to run with administrative privileges.\n\n" +
+                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
+                            "Please reinstall the emulator to ensure it is working.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
         catch (Exception ex)
         {
             string formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
@@ -540,9 +628,7 @@ public static class GameLauncher
                 "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
                 "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
                 "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
-                "Error",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error);
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -559,7 +645,8 @@ public static class GameLauncher
     {
         if (emulatorComboBox.SelectedItem == null)
         {
-            MessageBox.Show("Please select an emulator first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Please select an emulator first.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -570,11 +657,15 @@ public static class GameLauncher
 
         if (systemConfig == null)
         {
-            string errorMessage = "systemConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            string errorMessage = "systemConfig not found for the selected system.\n\n" +
+                                  "Method: LaunchXblaGame";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
-            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file 'error_user.log' in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching this game.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
     
@@ -582,11 +673,15 @@ public static class GameLauncher
 
         if (emulatorConfig == null)
         {
-            string errorMessage = $"emulatorConfig not found for the selected system.\n\nError generated inside GameLauncher class.";
+            string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchXblaGame";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\nThe error was reported to the developer that will try to fix the issue.\n\nIf you want to debug the error you can see the file 'error_user.log' in the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("There was an error launching this game.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -602,12 +697,13 @@ public static class GameLauncher
             {
                 string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
                 
-                if (!Directory.Exists(tempExtractLocation))
+                if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
                 {
-                    MessageBox.Show("Extraction failed. Could not find the extracted files inside the temp folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
+                
                 gamePathToLaunch = await FindXblaGamePath(tempExtractLocation); // Search within the extracted folder
             }
             else
@@ -621,16 +717,24 @@ public static class GameLauncher
         }
         else
         {
-            MessageBox.Show("To launch Xbox 360 XBLA games the compressed file need to be extracted first.\n\nPlease go to Edit System - Expert Mode and change the 'Extract File Before Launch' to true.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("To launch Xbox 360 XBLA games the compressed file need to be extracted first.\n\n" +
+                            "Please go to Expert Mode and change the 'Extract File Before Launch' to true.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
-
-        if (string.IsNullOrEmpty(gamePathToLaunch))
+        
+        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
         {
-            MessageBox.Show("Could not find a game file in the 000D0000 folder inside the 'temp' folder.\n\nPlease check the compressed file to see if you can find the game file inside it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string errorMessage = $"Invalid game path: {gamePathToLaunch}. Cannot launch game.";
+            Exception ex = new ArgumentNullException(nameof(gamePathToLaunch), errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            MessageBox.Show("Could not find a game file in the 000D0000 folder inside the temporary folder.\n\n" +
+                            "Please check the compressed file to see if you can find the game file inside it.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
-
+        
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
         string parameters = emulatorConfig.EmulatorParameters;
@@ -668,15 +772,28 @@ public static class GameLauncher
 
         try
         {
+            // Attempt to start the process
             bool processStarted = process.Start();
+
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.");
+                throw new InvalidOperationException("Failed to start the process.\n" +
+                                                    "Method: LaunchXblaGame");
             }
+            
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+            
+            // Wait for the process to exit
             await process.WaitForExitAsync();
 
+            // Verify if the process has exited before accessing ExitCode
+            if (!process.HasExited)
+            {
+                throw new InvalidOperationException("The process has not exited as expected.\n" +
+                                                    "Method: LaunchXblaGame");
+            }
+            
             if (process.ExitCode != 0 && process.ExitCode != -1073741819)
             {
                 string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
@@ -711,7 +828,12 @@ public static class GameLauncher
             // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
-                string errorMessage = $"There was an memory access violation error running this emulator with this ROM.\n\nExit code: {process.ExitCode}\nEmulator: {psi.FileName}\nEmulator output: {output}\nEmulator error: {error}\nCalling parameters: {psi.Arguments}";
+                string errorMessage = $"There was an memory access violation error running this emulator with this ROM.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
@@ -736,6 +858,19 @@ public static class GameLauncher
                     });
                 }
             }
+        }
+        catch (InvalidOperationException ex)
+        {
+            string formattedException = $"InvalidOperationException in the method LaunchXblaGame";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
+                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
+                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
+                            "Please configure it to run with administrative privileges.\n\n" +
+                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
+                            "Please reinstall the emulator to ensure it is working.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {

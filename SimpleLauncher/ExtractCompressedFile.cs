@@ -42,6 +42,24 @@ internal class ExtractCompressedFile
         // Combine temp folder with generated temp folders
         string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
         Directory.CreateDirectory(tempDirectory);
+        
+        if (string.IsNullOrEmpty(tempDirectory) || !Directory.Exists(tempDirectory))
+        {
+            // Notify developer
+            string errorMessage = $"'Simple Launcher' could not create the temporary folder needed for extraction.\n\n" +
+                                  $"Temp Location: {tempDirectory}\n" +
+                                  $"Method: ExtractArchiveToTempAsync";
+            Exception ex = new(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            // Notify user
+            MessageBox.Show("Extraction failed!\n\n" +
+                            "'Simple Launcher' could not create the temporary folder needed for extraction.\n" +
+                            "Try running with administrative privileges. This may fix the error.\n",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+            return null;
+        }
 
         // Keep track of the temp directory
         _tempDirectories.Add(tempDirectory);
@@ -155,8 +173,8 @@ internal class ExtractCompressedFile
                         "'Simple Launcher' could not clean up the temporary directories inside its folder.\n\n" +
                         "You will have to delete them yourself.\n\n" +
                         "This happened because 'Simple Launcher' is running with low privileges.\n" +
-                        "Try running it with administrative privileges.", "Warning", MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+                        "Try running it with administrative privileges.",
+                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     
                     string contextMessage = $"Error occurred while cleaning up temp directories.\n\n" +
                                             $"Method: Cleanup\n" +
@@ -186,6 +204,14 @@ internal class ExtractCompressedFile
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+
+            MessageBox.Show(
+                "'Simple Launcher' could not clean up the temporary folder inside its directory.\n\n" +
+                "You will need to delete it manually.\n\n" +
+                "This issue occurred because 'Simple Launcher' is running with insufficient privileges.\n" +
+                "Try running it with administrative privileges.\n\n" +
+                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
+                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
         
@@ -256,9 +282,7 @@ internal class ExtractCompressedFile
                     "The appropriate version of '7z.exe' was not found in the application folder!\n\n" +
                     "'Simple Launcher' will not be able to extract compressed files.\n\n" +
                     "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
-                    "Extraction Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
+                    "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {

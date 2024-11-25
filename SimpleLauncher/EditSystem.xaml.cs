@@ -843,7 +843,7 @@ public partial class EditSystem
     private bool ValidateSystemImageFolder(string systemNameText, ref string systemImageFolderText)
     {
         // Add the default System Image Folder if not provided by user
-        if (systemImageFolderText.Length == 0)
+        if (systemImageFolderText.Length == 0 || string.IsNullOrEmpty(systemImageFolderText))
         {
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
@@ -854,13 +854,12 @@ public partial class EditSystem
         {
             Directory.CreateDirectory(systemImageFolderText);
         }
-
+        
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
             MessageBox.Show("'System Image Folder' cannot be empty or contain only spaces.\n\n" +
                             "Please fix this field.",
-                "Validation Error", MessageBoxButton.OK,
-                MessageBoxImage.Information);
+                "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
             return true;
         }
 
@@ -870,7 +869,7 @@ public partial class EditSystem
     private bool ValidateSystemFolder(string systemNameText, ref string systemFolderText)
     {
         // Add the default System Folder if not provided by user
-        if (systemFolderText.Length == 0)
+        if (systemFolderText.Length == 0 || string.IsNullOrEmpty(systemFolderText))
         {
             systemFolderText = $".\\roms\\{systemNameText}";
             SystemFolderTextBox.Text = systemFolderText;
