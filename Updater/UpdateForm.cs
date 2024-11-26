@@ -144,7 +144,8 @@ public partial class UpdateForm : Form
         {
             Log($"Automatic update failed: {ex.Message}");
     
-            RedirectToDownloadPage("Automatic update failed.\n\nWould you like to update manually?");
+            RedirectToDownloadPage("Automatic update failed.\n\n" +
+                                   "Would you like to update manually?");
         }
     }
         
@@ -157,7 +158,8 @@ public partial class UpdateForm : Form
         {
             Log($"Failed to download the update file: {response.StatusCode}");
 
-            RedirectToDownloadPage("Failed to download the update file.\n\nWould you like to update manually?");
+            RedirectToDownloadPage("Failed to download the update file.\n\n" +
+                                   "Would you like to update manually?");
                 
             Close();
         }

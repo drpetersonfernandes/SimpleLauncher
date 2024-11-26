@@ -55,7 +55,8 @@ internal class ExtractCompressedFile
             // Notify user
             MessageBox.Show("Extraction failed!\n\n" +
                             "'Simple Launcher' could not create the temporary folder needed for extraction.\n" +
-                            "Try running with administrative privileges. This may fix the error.\n",
+                            "This error is happening because 'Simple Launcher' does not have enough privileges.\n" +
+                            "Try running it with administrative privileges.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
             return null;
@@ -187,32 +188,6 @@ internal class ExtractCompressedFile
         }
         // Clear the list after deleting
         _tempDirectories.Clear();
-            
-        try
-        {
-            // Delete temp folder
-            if (Directory.Exists(_tempFolder))
-            {
-                Directory.Delete(_tempFolder, true);
-            }
-        }
-        catch (Exception ex)
-        {
-            string contextMessage = $"Error occurred while deleting the temp folder.\n\n" +
-                                    $"Method: Cleanup" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-
-            MessageBox.Show(
-                "'Simple Launcher' could not clean up the temporary folder inside its directory.\n\n" +
-                "You will need to delete it manually.\n\n" +
-                "This issue occurred because 'Simple Launcher' is running with insufficient privileges.\n" +
-                "Try running it with administrative privileges.\n\n" +
-                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
     }
         
     public async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
