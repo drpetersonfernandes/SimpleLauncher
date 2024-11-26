@@ -313,9 +313,11 @@ public partial class EditSystemEasyModeAddSystem
                 string coreDownloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
-                string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get coreDownloadUrl"));
+                // string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get coreDownloadUrl"));
+                string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get coreDownloadUrl"));
+                Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
+                string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
 
                 // Check if the core is already installed and get the installed version
@@ -364,7 +366,7 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            await CoreExtractionSuccess(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+                            await CoreExtractionSuccess(selectedSystem, downloadFilePath, finalPath, latestVersionString);
                         }
                         else
                         {
@@ -380,7 +382,7 @@ public partial class EditSystemEasyModeAddSystem
                                 
                                 if (extractionSuccess2)
                                 {
-                                    await CoreExtractionSuccess(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+                                    await CoreExtractionSuccess(selectedSystem, downloadFilePath, finalPath, latestVersionString);
 
                                     // Notify Developer
                                     string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
@@ -515,7 +517,9 @@ public partial class EditSystemEasyModeAddSystem
                 string extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
                 string extrasFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
                 Directory.CreateDirectory(extrasFolderPath);
-                string downloadFilePath = Path.Combine(extrasFolderPath, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get extrasDownloadUrl"));
+                // string downloadFilePath = Path.Combine(extrasFolderPath, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get extrasDownloadUrl"));
+                string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
+                Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
                 try

@@ -282,14 +282,19 @@ public partial class MainWindow : INotifyPropertyChanged
             
         // ViewMode state
         SetViewMode(_settings.ViewMode);
+        
+        // Check if application has write access
+        if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
+        {
+            MessageBox.Show("It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access to its folder.\n\n" +
+                            "Please move the application folder to a writable location like 'C:\\SimpleLauncher', 'D:\\SimpleLauncher', or inside the 'Documents' folder.\n\n" +
+                            "If you encounter access errors when using 'Simple Launcher', try running it with administrative access.",
+                "Access Issue", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
-        // Dispose gamepad resources
-        GamePadController.Instance2.Stop();
-        GamePadController.Instance2.Dispose();
-        
         // Save MainWindow state
         SaveApplicationSettings();
     }
@@ -301,6 +306,10 @@ public partial class MainWindow : INotifyPropertyChanged
         
         // Delete temp folders and files before close.
         CleanSimpleLauncherFolder.CleanupTrash();
+        
+        // Dispose gamepad resources
+        GamePadController.Instance2.Stop();
+        GamePadController.Instance2.Dispose();
     }
 
     // Used in cases that need to reload system.xml or update the pagination settings or update the video and info links 
@@ -876,6 +885,54 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBox.Show("There was an error while loading the game list.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
+        {
+            var gameListViewFactory = new GameListFactory(
+                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
+            );
+            gameListViewFactory.HandleSelectionChanged(selectedItem);
+        }
+    }
+
+    private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
+            {
+                // Delegate the double-click handling to GameListFactory
+                await _gameListFactory.HandleDoubleClick(selectedItem);
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+            MessageBox.Show("There was an error with this method.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private static bool IsWritableDirectory(string path)
+    {
+        try
+        {
+            string testFile = Path.Combine(path, Path.GetRandomFileName());
+            using (File.Create(testFile, 1, FileOptions.DeleteOnClose))
+            { }
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
         
@@ -1604,39 +1661,6 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
     #endregion
-
-    private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
-        {
-            var gameListViewFactory = new GameListFactory(
-                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
-            );
-            gameListViewFactory.HandleSelectionChanged(selectedItem);
-        }
-    }
-
-    private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        try
-        {
-            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
-            {
-                // Delegate the double-click handling to GameListFactory
-                await _gameListFactory.HandleDoubleClick(selectedItem);
-            }
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
     
     #region TrayIcon
         

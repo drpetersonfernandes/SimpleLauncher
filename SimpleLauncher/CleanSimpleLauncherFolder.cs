@@ -13,6 +13,7 @@ public static class CleanSimpleLauncherFolder
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
     private static readonly string TempFolder = Path.Combine(AppDirectory, "temp");
     private static readonly string TempFolder2 = Path.Combine(AppDirectory, "temp2");
+    private static readonly string TempFolder3 = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
 
     /// <summary>
@@ -32,6 +33,12 @@ public static class CleanSimpleLauncherFolder
             if (Directory.Exists(TempFolder2))
             {
                 Directory.Delete(TempFolder2, true);
+            }
+            
+            // Delete TempFolder3
+            if (Directory.Exists(TempFolder3))
+            {
+                Directory.Delete(TempFolder3, true);
             }
 
             // Delete UpdateFile
