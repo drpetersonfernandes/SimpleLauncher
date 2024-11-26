@@ -148,7 +148,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -361,7 +361,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -454,6 +454,12 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
+                    
+                    // Delete temp download file
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    }
                 }
             }
         }
@@ -541,7 +547,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractFileWith7ZipAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -634,6 +640,12 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
+                    
+                    // Delete temp download file
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    }
                 }
             }
         }

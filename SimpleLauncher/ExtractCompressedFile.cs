@@ -193,7 +193,7 @@ internal class ExtractCompressedFile
         _tempDirectories.Clear();
     }
         
-    public async Task<bool> ExtractFileWith7ZipAsync(string filePath, string destinationFolder)
+    public async Task<bool> ExtractDownloadFilesAsync(string filePath, string destinationFolder)
     {
         
         // ///////////////////////////////////////////////////
@@ -219,7 +219,7 @@ internal class ExtractCompressedFile
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
             string formattedException = $"The downloaded file appears to be empty or corrupted.\n\n" +
-                                        $"Method: ExtractFileWith7ZipAsync";
+                                        $"Method: ExtractDownloadFilesAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
@@ -232,7 +232,7 @@ internal class ExtractCompressedFile
         if (IsFileLocked(filePath))
         {
             string formattedException = $"The downloaded file appears to be locked.\n" +
-                                        $"Method: ExtractFileWith7ZipAsync";
+                                        $"Method: ExtractDownloadFilesAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
@@ -305,7 +305,7 @@ internal class ExtractCompressedFile
             {
                 string formattedException = $"Error extracting the file: {filePath}\n\n" +
                                             $"Error message: {error}\n\n" +
-                                            $"Method: ExtractFileWith7ZipAsync";
+                                            $"Method: ExtractDownloadFilesAsync";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -323,7 +323,7 @@ internal class ExtractCompressedFile
         catch (Exception ex)
         {
             string formattedException = $"Error extracting the file: {filePath}\n\n" +
-                                        $"Method: ExtractFileWith7ZipAsync\n" +
+                                        $"Method: ExtractDownloadFilesAsync\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
