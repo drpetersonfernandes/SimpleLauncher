@@ -14,9 +14,12 @@ internal class ExtractCompressedFile
     public static ExtractCompressedFile Instance2 => Instance.Value;
     private readonly List<string> _tempDirectories = new();
         
-    // Use the application's directory for the temporary directory
-    private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private readonly string _tempFolder = Path.Combine(AppDirectory, "temp");
+    // // Use the application's directory for the temporary directory
+    // private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    // private readonly string _tempFolder = Path.Combine(AppDirectory, "temp");
+    
+    // Use the Windows default temp directory for the temporary folder
+    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
@@ -171,7 +174,7 @@ internal class ExtractCompressedFile
                 catch (Exception ex)
                 {
                     MessageBox.Show(
-                        "'Simple Launcher' could not clean up the temporary directories inside its folder.\n\n" +
+                        "'Simple Launcher' could not clean up the temporary directories.\n\n" +
                         "You will have to delete them yourself.\n\n" +
                         "This happened because 'Simple Launcher' is running with low privileges.\n" +
                         "Try running it with administrative privileges.",

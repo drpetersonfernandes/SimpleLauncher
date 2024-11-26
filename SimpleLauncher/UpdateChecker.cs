@@ -55,7 +55,8 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             string contextMessage = $"Error checking for updates.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
@@ -91,7 +92,8 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             string contextMessage = $"Error checking for updates.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
                 
             MessageBox.Show(mainWindow, $"There was an error checking for updates.\n\n" +
@@ -126,7 +128,8 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             string contextMessage = $"Error reinstalling 'Simple Launcher'.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
                 
             MessageBox.Show(mainWindow, $"There was an error reinstalling 'Simple Launcher'.\n\n" +
@@ -144,7 +147,8 @@ public static class UpdateChecker
                              $"The current version is {currentVersion}\n" +
                              $"The update version is {latestVersion}\n\n" +
                              "Do you want to download and install the latest version automatically?";
-            MessageBoxResult result = MessageBox.Show(owner, message, "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show(owner, message,
+                "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -195,7 +199,8 @@ public static class UpdateChecker
                 catch (Exception ex)
                 {
                     string contextMessage = $"There was an error updating the application.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, contextMessage);
                     
                     Application.Current.Dispatcher.Invoke(() =>
@@ -226,7 +231,8 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             string contextMessage = $"There was an error updating the application.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);            }
     }
 
@@ -279,7 +285,8 @@ public static class UpdateChecker
             catch (Exception ex)
             {
                 string contextMessage = $"There was an error installing the application.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
                     
                 Application.Current.Dispatcher.Invoke(() =>
@@ -309,7 +316,8 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             string contextMessage = $"There was an error installing the application.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }

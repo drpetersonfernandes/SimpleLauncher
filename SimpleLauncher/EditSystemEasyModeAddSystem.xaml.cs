@@ -24,6 +24,9 @@ public partial class EditSystemEasyModeAddSystem
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient = new();
     private bool _isDownloadCompleted;
+    
+    // Unique temp folder within the Windows temp directory
+    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     public EditSystemEasyModeAddSystem()
     {
@@ -94,9 +97,11 @@ public partial class EditSystemEasyModeAddSystem
                 string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
-                string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
+                // string downloadFilePath = Path.Combine(emulatorsFolderPath, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
+                string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
+                Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                string destinationPath2 = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
+                string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
                 // Check if the emulator is already installed and up to date
@@ -148,7 +153,7 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            await EmulatorSuccessMessage(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+                            await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
                         }
                         else
                         {
@@ -165,7 +170,7 @@ public partial class EditSystemEasyModeAddSystem
                                 
                                 if (extractionSuccess2)
                                 {
-                                    await EmulatorSuccessMessage(selectedSystem, downloadFilePath, destinationPath2, latestVersionString);
+                                    await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
                                     
                                     // Notify Developer
                                     string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
@@ -239,6 +244,12 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
+
+                    // Delete temp download file
+                    if (File.Exists(downloadFilePath))
+                    {
+                        File.Delete(downloadFilePath);
+                    }
                 }
             }
         }
@@ -739,7 +750,9 @@ public partial class EditSystemEasyModeAddSystem
                 }
                     
                 string formattedException = $"Download was canceled by the user.\n\n" +
-                                            $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"URL: {downloadUrl}\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
             }
             else
@@ -751,7 +764,9 @@ public partial class EditSystemEasyModeAddSystem
                 }
                     
                 string formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
-                                            $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"URL: {downloadUrl}\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
