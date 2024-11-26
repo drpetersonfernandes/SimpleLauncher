@@ -1,3 +1,10 @@
+release3.6.3
+------------
+
+11/26/2024
+- I changed the temp folder from within the application folder to the Windows temp folder to prevent access issues.
+- I implemented methods to handle the cleanup of temp files and folders.
+
 release3.6.2
 ------------
 
