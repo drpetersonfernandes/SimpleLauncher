@@ -286,9 +286,11 @@ public partial class MainWindow : INotifyPropertyChanged
         // Check if application has write access
         if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
-            MessageBox.Show("It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access to its folder.\n\n" +
-                            "Please move the application folder to a writable location like 'C:\\SimpleLauncher', 'D:\\SimpleLauncher', or inside the 'Documents' folder.\n\n" +
-                            "If you encounter access errors when using 'Simple Launcher', try running it with administrative access.",
+            MessageBox.Show(
+                "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.\n\n" +
+                "It needs write access to its folder.\n\n" +
+                "Please move the application folder to a writable location like 'C:\\SimpleLauncher', 'D:\\SimpleLauncher', or the 'Documents' folder.\n\n" +
+                "If possible, run it with administrative privileges.",
                 "Access Issue", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
@@ -925,9 +927,20 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string testFile = Path.Combine(path, Path.GetRandomFileName());
-            using (File.Create(testFile, 1, FileOptions.DeleteOnClose))
-            { }
+            // Ensure the directory exists
+            if (!Directory.Exists(path))
+                return false;
+
+            // Generate a unique temporary file path
+            string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
+
+            // Attempt to create and delete the file
+            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                fs.Close();
+            }
+            File.Delete(testFile);
+
             return true;
         }
         catch

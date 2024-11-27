@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,21 +50,14 @@ public static class CleanSimpleLauncherFolder
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error occurred while cleaning the 'Simple Launcher' folder.\n\n" +
+            string contextMessage = $"Error occurred while cleaning the 'Simple Launcher' temp folders and files.\n" +
+                                    $"User was not notified.\n\n" +
                                     $"Method: CleanupTrash\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}\n" +
                                     $"Stack trace: {ex.StackTrace}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-
-            MessageBox.Show(
-                "'Simple Launcher' could not clean up temporary folders and files inside its directory.\n\n" +
-                "You will need to delete them manually.\n\n" +
-                "This issue occurred because 'Simple Launcher' is running with insufficient privileges.\n" +
-                "Try running it with administrative privileges.\n\n" +
-                "To debug the error, you can see the file 'error_user.log' inside the 'Simple Launcher' folder.",
-                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
