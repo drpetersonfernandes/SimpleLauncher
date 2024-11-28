@@ -189,6 +189,18 @@ public partial class EditSystem
                 }
             }
         }
+        
+        // Create SystemFolder default
+        if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
+        {
+            Directory.CreateDirectory(SystemFolderTextBox.Text);
+        }
+        
+        // Create SystemImageFolder default
+        if (SystemImageFolderTextBox.Text == $".\\images\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemImageFolderTextBox.Text))
+        {
+            Directory.CreateDirectory(SystemImageFolderTextBox.Text);
+        }
             
         // Validate System Folder and System Image Folder
         MarkInvalid(SystemFolderTextBox, IsValidPath(SystemFolderTextBox.Text));
@@ -207,6 +219,24 @@ public partial class EditSystem
         MarkInvalid(Emulator3ParametersTextBox, string.IsNullOrWhiteSpace(Emulator3ParametersTextBox.Text) || IsValidPath2(Emulator3ParametersTextBox.Text));
         MarkInvalid(Emulator4ParametersTextBox, string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text));
         MarkInvalid(Emulator5ParametersTextBox, string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text));
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ]);
     }
         
     private bool IsValidPath(string path)
@@ -343,6 +373,24 @@ public partial class EditSystem
             Emulator1LocationTextBox.Text = filename;
             MarkValid(Emulator1LocationTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ]);
     }
 
     private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
@@ -672,6 +720,25 @@ public partial class EditSystem
         MessageBox.Show("System saved successfully.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             
         CreateFolders(systemNameText);
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ]);
+
     }
 
     private void ValidateParameters(string emulator1ParametersText, string emulator2ParametersText,
@@ -1014,6 +1081,9 @@ public partial class EditSystem
         {
             MessageBox.Show("Selected system not found in the XML document!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
+        
+        // Clear existing content
+        HelpUserRichTextBox.Document.Blocks.Clear();
     }
 
     private void ToggleEmulator3Button_Click(object sender, RoutedEventArgs e)
@@ -1153,5 +1223,5 @@ public partial class EditSystem
             UseShellExecute = true
         });
     }
-
+    
 }
