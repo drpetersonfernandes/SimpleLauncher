@@ -236,7 +236,8 @@ public partial class EditSystem
                 Emulator3NameTextBox,
                 Emulator4NameTextBox,
                 Emulator5NameTextBox
-            ]);
+            ],
+            SystemFolderTextBox);
     }
         
     private bool IsValidPath(string path)
@@ -342,6 +343,25 @@ public partial class EditSystem
 
             MarkValid(SystemFolderTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ],
+            SystemFolderTextBox);
     }
         
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
@@ -390,7 +410,8 @@ public partial class EditSystem
                 Emulator3NameTextBox,
                 Emulator4NameTextBox,
                 Emulator5NameTextBox
-            ]);
+            ],
+            SystemFolderTextBox);
     }
 
     private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
@@ -409,6 +430,25 @@ public partial class EditSystem
             Emulator2LocationTextBox.Text = filename;
             MarkValid(Emulator2LocationTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ],
+            SystemFolderTextBox);
     }
 
     private void ChooseEmulator3Location(object sender, RoutedEventArgs e)
@@ -427,6 +467,25 @@ public partial class EditSystem
             Emulator3LocationTextBox.Text = filename;
             MarkValid(Emulator3LocationTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ],
+            SystemFolderTextBox);
     }
 
     private void ChooseEmulator4Location(object sender, RoutedEventArgs e)
@@ -445,6 +504,25 @@ public partial class EditSystem
             Emulator4LocationTextBox.Text = filename;
             MarkValid(Emulator4LocationTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ],
+            SystemFolderTextBox);
     }
 
     private void ChooseEmulator5Location(object sender, RoutedEventArgs e)
@@ -462,6 +540,25 @@ public partial class EditSystem
             Emulator5LocationTextBox.Text = filename;
             MarkValid(Emulator5LocationTextBox);
         }
+        
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            [
+                Emulator1NameTextBox,
+                Emulator2NameTextBox,
+                Emulator3NameTextBox,
+                Emulator4NameTextBox,
+                Emulator5NameTextBox
+            ],
+            SystemFolderTextBox);
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -737,7 +834,8 @@ public partial class EditSystem
                 Emulator3NameTextBox,
                 Emulator4NameTextBox,
                 Emulator5NameTextBox
-            ]);
+            ],
+            SystemFolderTextBox);
 
     }
 
