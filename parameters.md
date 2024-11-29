@@ -668,6 +668,10 @@ Please read core documentation.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
 Please read core documentation.
 
+**Emulator Name:** Project64<br>
+**Emulator Location (Example):** C:\Emulators\Project64\Project64.exe<br>
+**Emulator Parameters:** <br>
+
 ## Nintendo 64DD
 
 **System Folder:** [ROM Folder]<br>

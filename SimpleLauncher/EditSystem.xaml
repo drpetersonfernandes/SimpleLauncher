@@ -3,9 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Edit System"
-                      Width="1200"
                       Height="700"
-                      MinWidth="1200"
+                      MinWidth="1100"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -131,16 +130,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -157,7 +146,7 @@
                         <TextBlock>
                             <Span>
                                 System Name&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>(Required)</Bold>
                                 </Span>
                             </Span>
@@ -181,7 +170,7 @@
                         <TextBlock>
                             <Span>
                                 System Folder&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>(Optional)</Bold>
                                 </Span>
                             </Span>
@@ -214,7 +203,7 @@
                         <TextBlock>
                             <Span>
                                 System Image Folder&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>(Optional)</Bold>
                                 </Span>
                             </Span>
@@ -270,7 +259,7 @@
                         <TextBlock>
                             <Span>
                                 Extension to Search in the System Folder&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>(Required)</Bold>
                                 </Span>
                             </Span>
@@ -291,7 +280,7 @@
                         <TextBlock>
                             <Span>
                                 Use a comma&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>[  ,  ]</Bold>
                                 </Span>
                                 &#160;to add multiple extensions
@@ -326,7 +315,7 @@
                         <TextBlock>
                             <Span>
                                 Extension to Launch After Extraction&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>(May be Required)</Bold>
                                 </Span>
                             </Span>
@@ -347,7 +336,7 @@
                         <TextBlock>
                             <Span>
                                 Use a comma&#160;
-                                <Span Background="Yellow">
+                                <Span>
                                     <Bold>[  ,  ]</Bold>
                                 </Span>
                                 &#160;to add multiple extensions
@@ -356,379 +345,434 @@
                     </Label>
 
                     <!-- Emulator 1 -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="7"
-                        Grid.Column="0"
-                        VerticalAlignment="Center">
-                        <TextBlock>
-                            <Span>
-                                Emulator 1 Name&#160;
-                                <Span Background="Yellow">
-                                    <Bold>(Required)</Bold>
-                                </Span>
-                            </Span>
-                        </TextBlock>
-                    </Label>
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator1NameTextBox"
-                        Grid.Row="7"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="8"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 1 Location" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator1LocationTextBox"
-                        Grid.Row="8"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False"
-                        HorizontalAlignment="Stretch" />
-                    <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseEmulator1LocationButton"
-                        Grid.Row="8"
-                        Grid.Column="2"
-                        Width="160"
-                        Click="ChooseEmulator1Location"
-                        Content="Set Emulator 1 Location"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="9"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 1 Parameters" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator1ParametersTextBox"
-                        Grid.Row="9"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0"
-                        Grid.Row="9"
-                        Grid.Column="2"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Click="HelpLink_Click"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
-                        <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </Button>
+                    <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="5" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="10"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center">
+                                <TextBlock>
+                                    <Span>
+                                        Emulator 1 Name&#160;
+                                        <Span>
+                                            <Bold>(Required)</Bold>
+                                        </Span>
+                                    </Span>
+                                </TextBlock>
+                            </Label>
+                            <TextBox
+                                Margin="0,10,10,10"
+                                x:Name="Emulator1NameTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 1 Location" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator1LocationTextBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False"
+                                HorizontalAlignment="Stretch" />
+                            <Button
+                                Margin="0,0,10,10"
+                                x:Name="ChooseEmulator1LocationButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="160"
+                                Click="ChooseEmulator1Location"
+                                Content="Set Emulator 1 Location"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 1 Parameters" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator1ParametersTextBox"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Button
+                                Margin="0"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Click="HelpLink_Click"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
                     <!-- Emulator 2 -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="10"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 2 Name" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator2NameTextBox"
-                        Grid.Row="10"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="11"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 2 Location" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator2LocationTextBox"
-                        Grid.Row="11"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseEmulator2LocationButton"
-                        Grid.Row="11"
-                        Grid.Column="2"
-                        Width="160"
-                        Click="ChooseEmulator2Location"
-                        Content="Set Emulator 2 Location"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="12"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 2 Parameters" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator2ParametersTextBox"
-                        Grid.Row="12"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0"
-                        Grid.Row="12"
-                        Grid.Column="2"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Click="HelpLink_Click"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
-                        <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </Button>
+                    <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="5" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="10"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center">
+                                <TextBlock>
+                                    <Span>
+                                        Emulator 2 Name&#160;
+                                        <Span>
+                                            <Bold>(May be Required)</Bold>
+                                        </Span>
+                                    </Span>
+                                </TextBlock>
+                            </Label>
+                            <TextBox
+                                Margin="0,10,10,10"
+                                x:Name="Emulator2NameTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 2 Location" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator2LocationTextBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False"
+                                HorizontalAlignment="Stretch" />
+                            <Button
+                                Margin="0,0,10,10"
+                                x:Name="ChooseEmulator2LocationButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="160"
+                                Click="ChooseEmulator2Location"
+                                Content="Set Emulator 2 Location"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 2 Parameters" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator2ParametersTextBox"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Button
+                                Margin="0"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Click="HelpLink_Click"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
                     <!-- Emulator 3 -->
-                    <Button
-                        Margin="10,0,10,10"
-                        x:Name="ToggleEmulator3Button"
-                        Content="Show Emulator 3"
-                        Click="ToggleEmulator3Button_Click"
-                        Grid.Row="13"
-                        Grid.Column="0" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="13"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 3 Name"
-                        x:Name="Emulator3NameLabel"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator3NameTextBox"
-                        Grid.Row="13"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="14"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 3 Location"
-                        x:Name="Emulator3NameLabel2"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator3LocationTextBox"
-                        Grid.Row="14"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseEmulator3LocationButton"
-                        Grid.Row="14"
-                        Grid.Column="2"
-                        Width="160"
-                        Click="ChooseEmulator3Location"
-                        Content="Set Emulator 3 Location"
-                        Visibility="Collapsed"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="15"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 3 Parameters"
-                        x:Name="Emulator3NameLabel3"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator3ParametersTextBox"
-                        Grid.Row="15"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        x:Name="Emulator3ParametersHelper"
-                        Margin="0"
-                        Grid.Row="15"
-                        Grid.Column="2"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Click="HelpLink_Click"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Visibility="Collapsed">
-                        <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </Button>
+                    <Border Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="5" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="10"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center">
+                                <TextBlock>
+                                    <Span>
+                                        Emulator 3 Name&#160;
+                                        <Span>
+                                            <Bold>(May be Required)</Bold>
+                                        </Span>
+                                    </Span>
+                                </TextBlock>
+                            </Label>
+                            <TextBox
+                                Margin="0,10,10,10"
+                                x:Name="Emulator3NameTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 3 Location" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator3LocationTextBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False"
+                                HorizontalAlignment="Stretch" />
+                            <Button
+                                Margin="0,0,10,10"
+                                x:Name="ChooseEmulator3LocationButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="160"
+                                Click="ChooseEmulator3Location"
+                                Content="Set Emulator 3 Location"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 3 Parameters" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator3ParametersTextBox"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Button
+                                Margin="0"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Click="HelpLink_Click"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
                     <!-- Emulator 4 -->
-                    <Button
-                        Margin="10,0,10,10"
-                        x:Name="ToggleEmulator4Button"
-                        Content="Show Emulator 4"
-                        Click="ToggleEmulator4Button_Click"
-                        Grid.Row="16"
-                        Grid.Column="0" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="16"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 4 Name"
-                        x:Name="Emulator4NameLabel"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator4NameTextBox"
-                        Grid.Row="16"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="17"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 4 Location"
-                        x:Name="Emulator4NameLabel2"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator4LocationTextBox"
-                        Grid.Row="17"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseEmulator4LocationButton"
-                        Grid.Row="17"
-                        Grid.Column="2"
-                        Width="160"
-                        Click="ChooseEmulator4Location"
-                        Content="Set Emulator 4 Location"
-                        Visibility="Collapsed"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="18"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 4 Parameters"
-                        x:Name="Emulator4NameLabel3"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator4ParametersTextBox"
-                        Grid.Row="18"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        x:Name="Emulator4ParametersHelper"
-                        Margin="0"
-                        Grid.Row="18"
-                        Grid.Column="2"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Click="HelpLink_Click"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Visibility="Collapsed">
-                        <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </Button>
+                    <Border Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="5" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="10"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center">
+                                <TextBlock>
+                                    <Span>
+                                        Emulator 4 Name&#160;
+                                        <Span>
+                                            <Bold>(May be Required)</Bold>
+                                        </Span>
+                                    </Span>
+                                </TextBlock>
+                            </Label>
+                            <TextBox
+                                Margin="0,10,10,10"
+                                x:Name="Emulator4NameTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 4 Location" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator4LocationTextBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False"
+                                HorizontalAlignment="Stretch" />
+                            <Button
+                                Margin="0,0,10,10"
+                                x:Name="ChooseEmulator4LocationButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="160"
+                                Click="ChooseEmulator4Location"
+                                Content="Set Emulator 4 Location"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 4 Parameters" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator4ParametersTextBox"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Button
+                                Margin="0"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Click="HelpLink_Click"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
                     <!-- Emulator 5 -->
-                    <Button
-                        Margin="10,0,10,10"
-                        x:Name="ToggleEmulator5Button"
-                        Content="Show Emulator 5"
-                        Click="ToggleEmulator5Button_Click"
-                        Grid.Row="19"
-                        Grid.Column="0" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="19"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 5 Name"
-                        x:Name="Emulator5NameLabel"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator5NameTextBox"
-                        Grid.Row="19"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="20"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 5 Location"
-                        x:Name="Emulator5NameLabel2"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator5LocationTextBox"
-                        Grid.Row="20"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseEmulator5LocationButton"
-                        Grid.Row="20"
-                        Grid.Column="2"
-                        Width="160"
-                        Click="ChooseEmulator5Location"
-                        Content="Set Emulator 5 Location"
-                        Visibility="Collapsed"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="21"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Emulator 5 Parameters"
-                        x:Name="Emulator5NameLabel3"
-                        Visibility="Collapsed" />
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="Emulator5ParametersTextBox"
-                        Grid.Row="21"
-                        Grid.Column="1"
-                        Visibility="Collapsed"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Button
-                        x:Name="Emulator5ParametersHelper"
-                        Margin="0,0,10,10"
-                        Grid.Row="21"
-                        Grid.Column="2"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                        Click="HelpLink_Click"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Visibility="Collapsed">
-                        <Image Source="images/help.png" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </Button>
+                    <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                            CornerRadius="5" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="10"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center">
+                                <TextBlock>
+                                    <Span>
+                                        Emulator 5 Name&#160;
+                                        <Span>
+                                            <Bold>(May be Required)</Bold>
+                                        </Span>
+                                    </Span>
+                                </TextBlock>
+                            </Label>
+                            <TextBox
+                                Margin="0,10,10,10"
+                                x:Name="Emulator5NameTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 5 Location" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator5LocationTextBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False"
+                                HorizontalAlignment="Stretch" />
+                            <Button
+                                Margin="0,0,10,10"
+                                x:Name="ChooseEmulator5LocationButton"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Width="160"
+                                Click="ChooseEmulator5Location"
+                                Content="Set Emulator 5 Location"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left" />
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="Emulator 5 Parameters" />
+                            <TextBox
+                                Margin="0,0,10,10"
+                                x:Name="Emulator5ParametersTextBox"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False" />
+                            <Button
+                                Margin="0"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Click="HelpLink_Click"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
+                                       VerticalAlignment="Top" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
                 </Grid>
             </ScrollViewer>
@@ -736,19 +780,19 @@
 
         <!-- Right column -->
         <Grid Grid.Column="1" Margin="10">
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
+
             <Label
                 Margin="10"
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Content="Developer Suggestion" />
-            
+
             <RichTextBox
                 x:Name="HelpUserRichTextBox"
                 Grid.Row="1"
@@ -758,6 +802,6 @@
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch" />
         </Grid>
-        
+
     </Grid>
 </controls:MetroWindow>
