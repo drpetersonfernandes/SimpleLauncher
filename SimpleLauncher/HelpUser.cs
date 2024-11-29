@@ -20,50 +20,552 @@ public static class HelpUser
         emulatorLocationTextBoxes ??= [];
         emulatorNameTextBoxes ??= [];
 
+        string systemFolderPath = NormalizePath(systemFolderTextBox?.Text ?? string.Empty);
+        
         // Define target words and corresponding responses with formatting
         var emulatorResponses = new Dictionary<string, Func<string, List<Inline>>>(StringComparer.OrdinalIgnoreCase)
         {
             {
                 "retroarch", retroarchFolder =>
                 [
-                    new Run("Recommended settings for the ") { FontWeight = FontWeights.Normal },
+                    new Run("Recommended settings for the "),
                     new Run("Retroarch") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator") { FontWeight = FontWeights.Normal },
+                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new Run($"{retroarchFolder}\\retroarch.exe") { FontWeight = FontWeights.Normal },
+                    new Run($"{retroarchFolder}\\retroarch.exe"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new Run($"-L \"{retroarchFolder}\\cores\\[REPLACE WITH THE CORE FILENAME].dll\" -f") { FontWeight = FontWeights.Normal },
+                    new Run($"-L \"{retroarchFolder}\\cores\\[REPLACE WITH THE CORE FILENAME].dll\" -f"),
                     new LineBreak(),
                     new LineBreak()
                 ]
             },
             {
                 "mame", mameFolder =>
-                {
-                    string systemFolderPath = NormalizePath(systemFolderTextBox?.Text ?? string.Empty);
-
-                    return
-                    [
-                        new Run("Recommended settings for the ") { FontWeight = FontWeights.Normal },
-                        new Run("MAME") { FontWeight = FontWeights.Bold },
-                        new Run(" emulator") { FontWeight = FontWeights.Normal },
-                        new LineBreak(),
-                        new LineBreak(),
-                        new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                        new Run($"{mameFolder}\\mame.exe") { FontWeight = FontWeights.Normal },
-                        new LineBreak(),
-                        new LineBreak(),
-                        new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                        new Run($"-rompath \"{systemFolderPath}\"") { FontWeight = FontWeights.Normal },
-                        new LineBreak(),
-                        new LineBreak()
-                    ];
-                }
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("MAME") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{mameFolder}\\mame.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-rompath \"{systemFolderPath}\""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "gx4000", mameFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("MAME gx4000") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{mameFolder}\\mame.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"gx4000 -cart"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "stella", stellaFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Stella") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{stellaFolder}\\Stella.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-fullscreen 1"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "altirra", altirraFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Altirra") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{altirraFolder}\\Altirra64.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"/f"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "bigpemu", bigpemuFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("BigPEmu") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{bigpemuFolder}\\BigPEmu.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "mednafen", mednafenFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Mednafen") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{mednafenFolder}\\mednafen.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "hatari", hatariFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Hatari") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{hatariFolder}\\hatari.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "bizHawk", bizHawkFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("BizHawk") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{bizHawkFolder}\\EmuHawk.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "pv1000", mameFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("MAME pv1000") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{mameFolder}\\mame.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"pv1000 -cart"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "daphne", _ =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Daphne") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "openmsx", openmsxFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("OpenMSX") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{openmsxFolder}\\openmsx.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "msxec", msxecFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("MSXEC") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{msxecFolder}\\MSXEC.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "xemu", xemuFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Xemu") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{xemuFolder}\\xemu.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-full-screen -dvd_path"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "xenia", xeniaFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Xenia") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{xeniaFolder}\\xenia.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "ares", aresFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("ares") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{aresFolder}\\ares.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"--system \"[REPLACE WITH THE TYPE OF SYSTEM]\""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "citra", citraFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Citra") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{citraFolder}\\citra-qt.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "dolphin", dolphinFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Dolphin") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{dolphinFolder}\\Dolphin.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "snes9x", snes9XFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Snes9x") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{snes9XFolder}\\snes9x-x64.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-fullscreen"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "ryujinx", ryujinxFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Ryujinx") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{ryujinxFolder}\\Ryujinx.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "yuzu", yuzuFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Yuzu") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{yuzuFolder}\\yuzu.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "cemu", cemuFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Cemu") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{cemuFolder}\\cemu.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-f -g"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "scummvm", _ =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("ScummVM") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "redream", redreamFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Redream") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{redreamFolder}\\redream.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "mastergear", mastergearFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("MasterGear") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{mastergearFolder}\\MG.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "model", _ =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Sega Model 3") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "duckstation", duckstationFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("DuckStation") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{duckstationFolder}\\duckstation-qt-x64-ReleaseLTCG.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-fullscreen"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "pcsx2", pcsx2Folder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("PCSX2") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{pcsx2Folder}\\pcsx2-qt.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"-fullscreen"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "rpcs3", _ =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("RPCS3") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
+            },
+            {
+                "ppsspp", ppssppFolder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("PPSSPP") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new Run($"{ppssppFolder}\\PPSSPPWindows64.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new Run($"--fullscreen"),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
             }
+            
         };
 
         // Get all emulator inputs (locations and names)
@@ -113,7 +615,7 @@ public static class HelpUser
         {
             // If no matches are found, display a default message
             helpUserRichTextBox?.Document.Blocks.Add(
-                new Paragraph(new Run("No known emulator detected.") { FontWeight = FontWeights.Normal }));
+                new Paragraph(new Run("No known emulator detected.")));
         }
     }
 

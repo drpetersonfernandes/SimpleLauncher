@@ -149,7 +149,7 @@ Please read core documentation.
 **System Folder:** [ROM or ISO Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** lnx, o<br>
 
 **Emulator Name:** Retroarch mednafen_lynx<br>
@@ -159,6 +159,11 @@ Please read core documentation.
 
 Core require a BIOS file to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Please read core documentation.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
 
 ## Atari ST
 
@@ -206,6 +211,11 @@ Please read core documentation.
 **Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## Bandai WonderSwan Color
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -226,6 +236,11 @@ Please read core documentation.
 **Emulator Name:** BizHawk<br>
 **Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
 **Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
+**Emulator Parameters:** <br>
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
 
 ## Casio PV-1000
@@ -533,6 +548,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core may require BIOS files or special configurations to work properly.
 Please read core documentation.
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## NEC PC Engine CD
 
 **System Folder:** [ISO Folder]<br>
@@ -557,6 +577,11 @@ Please read core documentation.
 
 Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## NEC PC-FX
 
 **System Folder:** [ISO Folder]<br>
@@ -579,6 +604,11 @@ Please read core documentation.
 **Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## NEC SuperGrafx
 
 **System Folder:** [ROM Folder]<br>
@@ -595,6 +625,11 @@ Please read core documentation.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/).
 Core may require BIOS files or special configurations to work properly.
 Please read core documentation.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
 
 ## Nintendo 3DS
 
@@ -1189,6 +1224,11 @@ This core requires BIOS or Other files to run properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/).
 Please read core documentation.
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## Sega SC-3000
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1280,6 +1320,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core may require BIOS files or special configurations to work properly.
 Please read core documentation.
 
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
+
 ## SNK Neo Geo Pocket Color
 
 **System Folder:** [ROM or ISO Folder]<br>
@@ -1296,6 +1341,11 @@ Please read core documentation.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/).
 Core may require BIOS files or special configurations to work properly.
 Please read core documentation.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
 
 ## Sony Playstation 1
 
@@ -1322,6 +1372,11 @@ Please read core documentation.
 This emulator requires a BIOS file to run.<br>
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/).
 Please read core documentation.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
+**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters:** <br>
 
 ## Sony Playstation 2
 
