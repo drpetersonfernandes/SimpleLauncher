@@ -230,13 +230,6 @@ public partial class EditSystem
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
             ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
             SystemFolderTextBox);
     }
         
@@ -354,13 +347,6 @@ public partial class EditSystem
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
             ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
             SystemFolderTextBox);
     }
         
@@ -404,13 +390,6 @@ public partial class EditSystem
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
             ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
             SystemFolderTextBox);
     }
 
@@ -440,13 +419,6 @@ public partial class EditSystem
                 Emulator3LocationTextBox,
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
-            ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
             ],
             SystemFolderTextBox);
     }
@@ -478,13 +450,6 @@ public partial class EditSystem
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
             ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
             SystemFolderTextBox);
     }
 
@@ -515,13 +480,6 @@ public partial class EditSystem
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
             ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
             SystemFolderTextBox);
     }
 
@@ -550,13 +508,6 @@ public partial class EditSystem
                 Emulator3LocationTextBox,
                 Emulator4LocationTextBox,
                 Emulator5LocationTextBox
-            ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
             ],
             SystemFolderTextBox);
     }
@@ -678,6 +629,18 @@ public partial class EditSystem
 
     private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
     {
+        // Update the HelpUserTextBox
+        HelpUser.UpdateHelpUserRichTextBox(
+            HelpUserRichTextBox,
+            [
+                Emulator1LocationTextBox,
+                Emulator2LocationTextBox,
+                Emulator3LocationTextBox,
+                Emulator4LocationTextBox,
+                Emulator5LocationTextBox
+            ],
+            SystemFolderTextBox);
+        
         // Trim input values
         TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText, out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText, out var emulator2NameText, out var emulator3NameText, out var emulator4NameText, out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText, out var emulator3LocationText, out var emulator4LocationText, out var emulator5LocationText, out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText, out var emulator4ParametersText, out var emulator5ParametersText);
 
@@ -817,25 +780,6 @@ public partial class EditSystem
         MessageBox.Show("System saved successfully.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             
         CreateFolders(systemNameText);
-        
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            [
-                Emulator1NameTextBox,
-                Emulator2NameTextBox,
-                Emulator3NameTextBox,
-                Emulator4NameTextBox,
-                Emulator5NameTextBox
-            ],
-            SystemFolderTextBox);
 
     }
 
@@ -1012,12 +956,22 @@ public partial class EditSystem
         {
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
-        }
-        
-        // Create the directory if it doesn't exist
-        if (!Directory.Exists(systemImageFolderText))
-        {
-            Directory.CreateDirectory(systemImageFolderText);
+            
+            // Create the directory if it doesn't exist
+            if (!Directory.Exists(systemImageFolderText))
+            {
+                try
+                {
+                    Directory.CreateDirectory(systemImageFolderText);
+                }
+                catch (Exception ex)
+                {
+                    string formattedException = $"'Failed to create the default systemImageFolder.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                }
+            }
         }
         
         if (string.IsNullOrEmpty(systemImageFolderText))
@@ -1038,12 +992,22 @@ public partial class EditSystem
         {
             systemFolderText = $".\\roms\\{systemNameText}";
             SystemFolderTextBox.Text = systemFolderText;
-        }
-
-        // Create the directory if it doesn't exist
-        if (!Directory.Exists(systemFolderText))
-        {
-            Directory.CreateDirectory(systemFolderText);
+            
+            // Create the directory if it doesn't exist
+            if (!Directory.Exists(systemFolderText))
+            {
+                try
+                {
+                    Directory.CreateDirectory(systemFolderText);
+                }
+                catch (Exception ex)
+                {
+                    string formattedException = $"'Failed to create the default systemFolder.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+                }
+            }
         }
 
         if (string.IsNullOrEmpty(systemFolderText))

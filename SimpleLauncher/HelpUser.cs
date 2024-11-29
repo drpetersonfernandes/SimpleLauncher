@@ -13,12 +13,10 @@ public static class HelpUser
     public static void UpdateHelpUserRichTextBox(
         RichTextBox helpUserRichTextBox,
         IEnumerable<TextBox> emulatorLocationTextBoxes,
-        IEnumerable<TextBox> emulatorNameTextBoxes,
         TextBox systemFolderTextBox)
     {
         // Initialize to empty enumerable if null
         emulatorLocationTextBoxes ??= [];
-        emulatorNameTextBoxes ??= [];
 
         string systemFolderPath = NormalizePath(systemFolderTextBox?.Text ?? string.Empty);
         
@@ -624,13 +622,32 @@ public static class HelpUser
                     new LineBreak(),
                     new LineBreak()
                 ]
+            },
+            {
+                "project64", project64Folder =>
+                [
+                    new Run("Recommended settings for the "),
+                    new Run("Project 64") { FontWeight = FontWeights.Bold },
+                    new Run(" emulator"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
+                    new LineBreak(),
+                    new Run($"{project64Folder}\\Project64.exe"),
+                    new LineBreak(),
+                    new LineBreak(),
+                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
+                    new LineBreak(),
+                    new Run($""),
+                    new LineBreak(),
+                    new LineBreak()
+                ]
             }
             
         };
 
         // Get all emulator inputs (locations and names)
         var emulatorInputs = emulatorLocationTextBoxes
-            .Concat(emulatorNameTextBoxes)
             .Select(textBox => textBox?.Text)
             .Where(input => !string.IsNullOrEmpty(input))
             .Select(NormalizePath)
