@@ -490,25 +490,25 @@
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch/>
+            <FormatToLaunch>bat</FormatToLaunch>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Retroarch dosbox_pure</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\dosbox_pure_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
+                <EmulatorName>DOSBox Staging</EmulatorName>
+                <EmulatorLocation>.\emulators\DOSBox Staging\dosbox-staging-v0.82.0\dosbox.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.dosbox-staging.org/releases/windows/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.82.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.0/dosbox-staging-windows-x64-v0.82.0.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>.\emulators\DOSBox Staging\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\dosbox_pure_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.19.1</CoreLatestVersion>
-                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <!--                <ExtrasLocation/>
                                 <ExtrasLatestVersion/>

@@ -220,17 +220,6 @@ public partial class EditSystem
         MarkInvalid(Emulator4ParametersTextBox, string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text));
         MarkInvalid(Emulator5ParametersTextBox, string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text));
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
     }
         
     private bool IsValidPath(string path)
@@ -337,17 +326,6 @@ public partial class EditSystem
             MarkValid(SystemFolderTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
     }
         
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
@@ -629,18 +607,6 @@ public partial class EditSystem
 
     private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
-        
         // Trim input values
         TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText, out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText, out var emulator2NameText, out var emulator3NameText, out var emulator4NameText, out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText, out var emulator3LocationText, out var emulator4LocationText, out var emulator5LocationText, out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText, out var emulator4ParametersText, out var emulator5ParametersText);
 

@@ -464,7 +464,7 @@ public static class UpdateChecker
         return (null, null);
     }
     
-    private static Regex MyRegex() => new Regex(@"(?<=\D*)\d+(\.\d+)*", RegexOptions.Compiled);
+    private static Regex MyRegex() => new Regex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled);
     
     private static string NormalizeVersion(string version)
     {

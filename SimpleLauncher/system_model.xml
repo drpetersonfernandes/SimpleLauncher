@@ -433,6 +433,32 @@
     </Emulators>
   </SystemConfig>
   <SystemConfig>
+    <SystemName>Microsoft DOS</SystemName>
+    <SystemFolder>.\roms\Microsoft DOS</SystemFolder>
+    <SystemImageFolder>.\images\Microsoft DOS</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch>bat</FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>DOSBox Staging</EmulatorName>
+        <EmulatorLocation>.\emulators\DOSBox Staging\dosbox.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>DOSBox-X</EmulatorName>
+        <EmulatorLocation>.\emulators\DOSBox-X\dosbox-x.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
     <SystemName>Microsoft MSX</SystemName>
     <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
     <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>

@@ -64,26 +64,6 @@ public static class HelpUser
                 ]
             },
             {
-                "gx4000", mameFolder =>
-                [
-                    new Run("Recommended settings for the "),
-                    new Run("MAME gx4000") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{mameFolder}\\mame.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"gx4000 -cart"),
-                    new LineBreak(),
-                    new LineBreak()
-                ]
-            },
-            {
                 "stella", stellaFolder =>
                 [
                     new Run("Recommended settings for the "),
@@ -184,7 +164,7 @@ public static class HelpUser
                 ]
             },
             {
-                "bizHawk", bizHawkFolder =>
+                "bizhawk", bizhawkFolder =>
                 [
                     new Run("Recommended settings for the "),
                     new Run("BizHawk") { FontWeight = FontWeights.Bold },
@@ -193,7 +173,7 @@ public static class HelpUser
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
-                    new Run($"{bizHawkFolder}\\EmuHawk.exe"),
+                    new Run($"{bizhawkFolder}\\EmuHawk.exe"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
@@ -204,36 +184,16 @@ public static class HelpUser
                 ]
             },
             {
-                "pv1000", mameFolder =>
+                "emuhawk", emuhawkFolder =>
                 [
                     new Run("Recommended settings for the "),
-                    new Run("MAME pv1000") { FontWeight = FontWeights.Bold },
+                    new Run("BizHawk") { FontWeight = FontWeights.Bold },
                     new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
-                    new Run($"{mameFolder}\\mame.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"pv1000 -cart"),
-                    new LineBreak(),
-                    new LineBreak()
-                ]
-            },
-            {
-                "daphne", _ =>
-                [
-                    new Run("Recommended settings for the "),
-                    new Run("Daphne") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
+                    new Run($"{emuhawkFolder}\\EmuHawk.exe"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
@@ -464,26 +424,6 @@ public static class HelpUser
                 ]
             },
             {
-                "scummvm", _ =>
-                [
-                    new Run("Recommended settings for the "),
-                    new Run("ScummVM") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new LineBreak()
-                ]
-            },
-            {
                 "redream", redreamFolder =>
                 [
                     new Run("Recommended settings for the "),
@@ -514,26 +454,6 @@ public static class HelpUser
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
                     new Run($"{mastergearFolder}\\MG.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new LineBreak()
-                ]
-            },
-            {
-                "model", _ =>
-                [
-                    new Run("Recommended settings for the "),
-                    new Run("Sega Model 3") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
@@ -579,26 +499,6 @@ public static class HelpUser
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
                     new Run($"-fullscreen"),
-                    new LineBreak(),
-                    new LineBreak()
-                ]
-            },
-            {
-                "rpcs3", _ =>
-                [
-                    new Run("Recommended settings for the "),
-                    new Run("RPCS3") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
                     new LineBreak(),
                     new LineBreak()
                 ]
