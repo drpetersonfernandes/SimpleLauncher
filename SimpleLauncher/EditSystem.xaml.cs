@@ -66,6 +66,8 @@ public partial class EditSystem
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        HelpUserRichTextBox?.Document.Blocks.Clear();
+        
         EnableFields();
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
@@ -494,6 +496,7 @@ public partial class EditSystem
     {
         EnableFields();
         ClearFields();
+        HelpUserRichTextBox?.Document.Blocks.Clear();
 
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = false;
@@ -1078,6 +1081,8 @@ public partial class EditSystem
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
+        HelpUserRichTextBox?.Document.Blocks.Clear();
+        
         if (SystemNameDropdown.SelectedItem == null)
         {
             MessageBox.Show("Please select a system to delete.", "Alert", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -1111,34 +1116,23 @@ public partial class EditSystem
         }
         
         // Clear existing content
-        HelpUserRichTextBox.Document.Blocks.Clear();
+        HelpUserRichTextBox?.Document.Blocks.Clear();
     }
 
-    private void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
-        MessageBoxResult result = MessageBox.Show("Do you want to save a backup copy of the current configuration?",
-            "Alert",
-            MessageBoxButton.YesNo);
+        // Create backup file
+        string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+        string sourceFilePath = Path.Combine(appFolderPath, "system.xml");
+        string backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+        string backupFilePath = Path.Combine(appFolderPath, backupFileName);
 
-        if (result == MessageBoxResult.Yes)
+        if (File.Exists(sourceFilePath))
         {
-            string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
-            string sourceFilePath = Path.Combine(appFolderPath, "system.xml");
-            string backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
-            string backupFilePath = Path.Combine(appFolderPath, backupFileName);
-
-            if (File.Exists(sourceFilePath))
-            {
-                File.Copy(sourceFilePath, backupFilePath);
-                MessageBox.Show("The backup was created in the application folder", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("The system.xml file was not found in the application folder.\n\nWe could not backup it!\n\nTry to reinstall Simple Launcher to fix the issue.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+            File.Copy(sourceFilePath, backupFilePath);
         }
 
-        // Prepare the process start info
+        // Prepare the process start info to restart application
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule != null)
         {

@@ -1417,13 +1417,13 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForXbox360XBLAGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
+            string createBatchFilesForXbox360XblaGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
 
-            if (File.Exists(createBatchFilesForXbox360XBLAGamesPath))
+            if (File.Exists(createBatchFilesForXbox360XblaGamesPath))
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = createBatchFilesForXbox360XBLAGamesPath,
+                    FileName = createBatchFilesForXbox360XblaGamesPath,
                     UseShellExecute = true
                 });
             }

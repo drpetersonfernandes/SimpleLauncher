@@ -12,6 +12,8 @@ namespace SimpleLauncher;
 
 public static class GameLauncher
 {
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
     {
         if (string.IsNullOrWhiteSpace(filePath))
@@ -105,25 +107,29 @@ public static class GameLauncher
                 $"FilePath: {filePath}\n" +
                 $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
                 $"SelectedEmulator: {emulatorComboBox.SelectedItem}");
-            
+
             var result = MessageBox.Show(
                 "The application could not launch the selected game.\n\n" +
                 "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                 "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
                 "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                "For debugging the error, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
-                "Error",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error);
+                "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             
         }
@@ -212,11 +218,27 @@ public static class GameLauncher
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an issue running the batch process.\n\n" +
+                var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
                                 "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
                                 "Maybe the batch file has errors.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -230,11 +252,28 @@ public static class GameLauncher
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
-            MessageBox.Show("There was an issue running the batch process.\n\n" +
+            var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
                             "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
                             "Maybe the batch file has errors.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
         }
     }
 
@@ -271,10 +310,26 @@ public static class GameLauncher
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the shortcut file.\n\n" +
+                var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
                                 "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -286,10 +341,26 @@ public static class GameLauncher
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("There was an error launching the shortcut file.\n\n" +
+            var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
                             "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 
@@ -326,10 +397,26 @@ public static class GameLauncher
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                MessageBox.Show("There was an error launching the executable file.\n\n" +
+                var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
                                 "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -341,10 +428,26 @@ public static class GameLauncher
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            MessageBox.Show("There was an error launching the executable file.\n\n" +
+            var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
                             "Try to launch the executable file outside 'Simple Launcher' to see if it is working.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 
@@ -368,10 +471,27 @@ public static class GameLauncher
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\n" +
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return;
         }
 
@@ -384,10 +504,27 @@ public static class GameLauncher
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\n" +
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return;
         }
 
@@ -540,23 +677,27 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 var result = MessageBox.Show(
-                    "The emulator could not open the game with the provided parameters.\n\n" +
+                    "The application could not launch the selected game.\n\n" +
                     "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                     "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
                     "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                    "For debugging the error, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                    "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
-                    "Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error);
+                    "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                        UseShellExecute = true
-                    });
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 
                 return;
@@ -579,23 +720,27 @@ public static class GameLauncher
                     "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
                     "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside 'Simple Launcher' folder.\n\n" +
-                    "Please visit our Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
-                    "Would you like to be redirected to the 'Simple Launcher' Wiki?",
-                    "Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error);
+                    "Do you want to open file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                        UseShellExecute = true
-                    });
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
+        
         catch (InvalidOperationException ex)
         {
             string formattedException = $"InvalidOperationException in the method LaunchRegularEmulator";
@@ -626,17 +771,23 @@ public static class GameLauncher
                 "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
                 "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
                 "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
+                "Would you like to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
@@ -662,10 +813,27 @@ public static class GameLauncher
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
-            MessageBox.Show("There was an error launching this game.\n\n" +
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return;
         }
     
@@ -678,10 +846,27 @@ public static class GameLauncher
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
-            MessageBox.Show("There was an error launching this game.\n\n" +
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error you can see the file 'error_user.log' in the application folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return;
         }
 
@@ -807,19 +992,23 @@ public static class GameLauncher
 
                 var result = MessageBox.Show(
                     "The emulator could not open the game with the provided parameters.\n\n" +
-                    "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                    "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
-                    "Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error);
+                    "Do you wan to open file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                        UseShellExecute = true
-                    });
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 
                 return;
@@ -842,20 +1031,23 @@ public static class GameLauncher
                     "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
                     "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "If you want to debug the error, you can see the file 'error_user.log' inside 'Simple Launcher' folder.\n\n" +
-                    "Please visit our Wiki on GitHub. There, you will find a list of recommended emulators and parameters.\n\n" +
-                    "Would you like to be redirected to the 'Simple Launcher' Wiki?",
-                    "Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error);
+                    "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo
+                    try
                     {
-                        FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                        UseShellExecute = true
-                    });
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
@@ -886,19 +1078,23 @@ public static class GameLauncher
                 
             var result = MessageBox.Show(
                 "The emulator could not open the game with the provided parameters.\n\n" +
-                "If you want to debug the error, you can see the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                "Would you like to be redirected to the 'Simple Launcher' Wiki, where you will find a list of parameters for each emulator?",
-                "Error",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error);
+                "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters",
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
