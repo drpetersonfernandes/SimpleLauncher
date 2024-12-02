@@ -794,13 +794,19 @@
                 Content="Developer Suggestion" />
 
             <RichTextBox
-                x:Name="HelpUserRichTextBox"
-                Grid.Row="1"
-                Margin="10"
-                IsReadOnly="True"
-                IsDocumentEnabled="True"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch" />
+                    x:Name="HelpUserRichTextBox"
+                    Grid.Row="1"
+                    Margin="10"
+                    IsReadOnly="True"
+                    IsDocumentEnabled="True"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
+                    <FlowDocument>
+                        <Paragraph>
+                            Select the Emulator Location to see Suggestions.
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
         </Grid>
 
     </Grid>
