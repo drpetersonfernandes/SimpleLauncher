@@ -56,8 +56,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.270</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0270/mame0270b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -277,8 +277,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.16</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v116.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.17</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v117.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -315,8 +315,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.16</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v116.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.17</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v117.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -426,8 +426,8 @@
                 <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
                 <EmulatorParameters>pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.270</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0270/mame0270b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
                 <EmulatorDownloadRename>true</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
@@ -1004,8 +1004,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-master-2407-3-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1239,8 +1239,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-master-2407-3-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1310,8 +1310,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2407-3</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-master-2407-3-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1616,8 +1616,8 @@
                 <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.10-rc1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc1/BizHawk-2.10-rc1-win-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.10-rc2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc2/BizHawk-2.10-rc2-win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
@@ -1659,8 +1659,8 @@
                 <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.10-rc1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc1/BizHawk-2.10-rc1-win-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.10-rc2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10-rc2/BizHawk-2.10-rc2-win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
