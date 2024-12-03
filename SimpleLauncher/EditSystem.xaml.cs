@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -66,7 +66,13 @@ public partial class EditSystem
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        HelpUserRichTextBox?.Document.Blocks.Clear();
+        if (HelpUserRichTextBox != null)
+        {
+            HelpUserRichTextBox.Document.Blocks.Clear(); // Clear existing content if needed
+            var paragraph = new Paragraph();
+            paragraph.Inlines.Add(new Run("Select the Emulator Location to see Suggestions."));
+            HelpUserRichTextBox.Document.Blocks.Add(paragraph);
+        }
         
         EnableFields();
         SaveSystemButton.IsEnabled = true;
@@ -215,13 +221,6 @@ public partial class EditSystem
         MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
         MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
             
-        // Validate Parameters (considered valid if empty)
-        MarkInvalid(Emulator1ParametersTextBox, string.IsNullOrWhiteSpace(Emulator1ParametersTextBox.Text) || IsValidPath2(Emulator1ParametersTextBox.Text));
-        MarkInvalid(Emulator2ParametersTextBox, string.IsNullOrWhiteSpace(Emulator2ParametersTextBox.Text) || IsValidPath2(Emulator2ParametersTextBox.Text));
-        MarkInvalid(Emulator3ParametersTextBox, string.IsNullOrWhiteSpace(Emulator3ParametersTextBox.Text) || IsValidPath2(Emulator3ParametersTextBox.Text));
-        MarkInvalid(Emulator4ParametersTextBox, string.IsNullOrWhiteSpace(Emulator4ParametersTextBox.Text) || IsValidPath2(Emulator4ParametersTextBox.Text));
-        MarkInvalid(Emulator5ParametersTextBox, string.IsNullOrWhiteSpace(Emulator5ParametersTextBox.Text) || IsValidPath2(Emulator5ParametersTextBox.Text));
-        
     }
         
     private bool IsValidPath(string path)
@@ -240,51 +239,6 @@ public partial class EditSystem
         return Directory.Exists(fullPath) || File.Exists(fullPath);
     }
         
-    private bool IsValidPath2(string parameters)
-    {
-        // Return true immediately if the parameter string is empty or null.
-        if (string.IsNullOrWhiteSpace(parameters)) return true;
-
-        // This pattern looks for paths inside double or single quotes, excluding non-path arguments.
-        string pattern = @"(?:-L\s+""([^""]+)""|-rompath\s+""([^""]+)"")|""([^""]+\\[^""]+|[a-zA-Z]:\\[^""]+)""|'([^']+\\[^']+|[a-zA-Z]:\\[^']+)'";
-        var matches = Regex.Matches(parameters, pattern);
-
-        // Use the application's current directory as the base for relative paths.
-        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-        // Iterate over all matches to validate each path found.
-        foreach (Match match in matches)
-        {
-            // Extract the path from the match, considering different groups in the regex.
-            string path = match.Groups[1].Success ? match.Groups[1].Value :
-                match.Groups[2].Success ? match.Groups[2].Value :
-                match.Groups[3].Success ? match.Groups[3].Value :
-                match.Groups[4].Value;
-
-            // Check if the path contains more than one '..\' sequence.
-            int doubleDotCount = path.Split([@"..\"], StringSplitOptions.None).Length - 1;
-            if (doubleDotCount > 1)
-            {
-                continue; // Skip validation for paths with multiple '..\' components.
-            }
-
-            // Convert relative paths to absolute paths using the base directory.
-            string absolutePath = Path.IsPathRooted(path) ? path : Path.GetFullPath(Path.Combine(basePath, path));
-
-            // Check if the path (either absolute or converted from relative) is valid.
-            bool isValid = Directory.Exists(absolutePath) || File.Exists(absolutePath);
-
-            // If any path is invalid, return false immediately.
-            if (!isValid)
-            {
-                return false;
-            }
-        }
-
-        // Return true if all paths (if any) are valid.
-        return true;
-    }
-
     private void MarkInvalid(TextBox textBox, bool isValid)
     {
         if (isValid)
@@ -616,11 +570,8 @@ public partial class EditSystem
         // Validate paths
         ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText, out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid, out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid, out var isEmulator5LocationValid);
 
-        // Validate parameters
-        ValidateParameters(emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText, out var isEmulator1ParametersValid, out var isEmulator2ParametersValid, out var isEmulator3ParametersValid, out var isEmulator4ParametersValid, out var isEmulator5ParametersValid);
-
         // Handle validation alerts
-        HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid, isEmulator1ParametersValid, isEmulator2ParametersValid, isEmulator3ParametersValid, isEmulator4ParametersValid, isEmulator5ParametersValid);
+        HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
         // Validate SystemName
         if (ValidateSystemName(systemNameText)) return;
@@ -648,9 +599,9 @@ public partial class EditSystem
         // Validate Emulator1Name
         if (ValidateEmulator1Name(emulator1NameText)) return;
         
-        // Check paths and paths from parameter
+        // Check paths
         if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
-                isEmulator5LocationValid, isEmulator1ParametersValid, isEmulator2ParametersValid, isEmulator3ParametersValid, isEmulator4ParametersValid, isEmulator5ParametersValid)) return;
+                isEmulator5LocationValid)) return;
             
         ////////////////
         // XML factory//
@@ -752,18 +703,6 @@ public partial class EditSystem
 
     }
 
-    private void ValidateParameters(string emulator1ParametersText, string emulator2ParametersText,
-        string emulator3ParametersText, string emulator4ParametersText, string emulator5ParametersText,
-        out bool isEmulator1ParametersValid, out bool isEmulator2ParametersValid, out bool isEmulator3ParametersValid,
-        out bool isEmulator4ParametersValid, out bool isEmulator5ParametersValid)
-    {
-        isEmulator1ParametersValid = string.IsNullOrWhiteSpace(emulator1ParametersText) || IsValidPath2(emulator1ParametersText);
-        isEmulator2ParametersValid = string.IsNullOrWhiteSpace(emulator2ParametersText) || IsValidPath2(emulator2ParametersText);
-        isEmulator3ParametersValid = string.IsNullOrWhiteSpace(emulator3ParametersText) || IsValidPath2(emulator3ParametersText);
-        isEmulator4ParametersValid = string.IsNullOrWhiteSpace(emulator4ParametersText) || IsValidPath2(emulator4ParametersText);
-        isEmulator5ParametersValid = string.IsNullOrWhiteSpace(emulator5ParametersText) || IsValidPath2(emulator5ParametersText);
-    }
-
     private void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText, string emulator1LocationText,
         string emulator2LocationText, string emulator3LocationText, string emulator4LocationText,
         string emulator5LocationText, out bool isSystemFolderValid, out bool isSystemImageFolderValid,
@@ -853,12 +792,10 @@ public partial class EditSystem
 
     private static bool CheckPaths(bool isSystemFolderValid, bool isSystemImageFolderValid, bool isEmulator1LocationValid,
         bool isEmulator2LocationValid, bool isEmulator3LocationValid, bool isEmulator4LocationValid,
-        bool isEmulator5LocationValid, bool isEmulator1ParametersValid, bool isEmulator2ParametersValid,
-        bool isEmulator3ParametersValid, bool isEmulator4ParametersValid, bool isEmulator5ParametersValid)
+        bool isEmulator5LocationValid)
     {
         if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
-            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid || !isEmulator1ParametersValid ||
-            !isEmulator2ParametersValid || !isEmulator3ParametersValid || !isEmulator4ParametersValid || !isEmulator5ParametersValid)
+            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
         {
             MessageBox.Show("One or more paths or parameters are invalid.\n\n" +
                             "Please fix them to proceed.",
@@ -1003,9 +940,7 @@ public partial class EditSystem
 
     private void HandleValidationAlerts(bool isSystemFolderValid, bool isSystemImageFolderValid,
         bool isEmulator1LocationValid, bool isEmulator2LocationValid, bool isEmulator3LocationValid,
-        bool isEmulator4LocationValid, bool isEmulator5LocationValid, bool isEmulator1ParametersValid,
-        bool isEmulator2ParametersValid, bool isEmulator3ParametersValid, bool isEmulator4ParametersValid,
-        bool isEmulator5ParametersValid)
+        bool isEmulator4LocationValid, bool isEmulator5LocationValid)
     {
         MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
         MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
@@ -1014,11 +949,6 @@ public partial class EditSystem
         MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
         MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
         MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
-        MarkInvalid(Emulator1ParametersTextBox, isEmulator1ParametersValid);
-        MarkInvalid(Emulator2ParametersTextBox, isEmulator2ParametersValid);
-        MarkInvalid(Emulator3ParametersTextBox, isEmulator3ParametersValid);
-        MarkInvalid(Emulator4ParametersTextBox, isEmulator4ParametersValid);
-        MarkInvalid(Emulator5ParametersTextBox, isEmulator5ParametersValid);
     }
 
     private static void CreateFolders(string systemNameText)
@@ -1081,7 +1011,13 @@ public partial class EditSystem
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        HelpUserRichTextBox?.Document.Blocks.Clear();
+        if (HelpUserRichTextBox != null)
+        {
+            HelpUserRichTextBox.Document.Blocks.Clear(); // Clear existing content if needed
+            var paragraph = new Paragraph();
+            paragraph.Inlines.Add(new Run("Select the Emulator Location to see Suggestions."));
+            HelpUserRichTextBox.Document.Blocks.Add(paragraph);
+        }
         
         if (SystemNameDropdown.SelectedItem == null)
         {
@@ -1114,9 +1050,7 @@ public partial class EditSystem
         {
             MessageBox.Show("Selected system not found in the XML document!", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
-        
-        // Clear existing content
-        HelpUserRichTextBox?.Document.Blocks.Clear();
+
     }
 
     private static void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)

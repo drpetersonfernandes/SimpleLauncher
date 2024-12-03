@@ -1279,13 +1279,22 @@ public static class GameLauncher
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
         string parameters = emulatorConfig.EmulatorParameters;
+        string workingDirectory = Path.GetDirectoryName(programLocation);
         string gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
         string arguments = $"{parameters} {gameFilenameWithoutExtension}";
+
+        if (string.IsNullOrEmpty(workingDirectory))
+        {
+            MessageBox.Show("Invalid working directory. Please check the file.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
 
         var psi = new ProcessStartInfo
         {
             FileName = programLocation,
             Arguments = arguments,
+            WorkingDirectory = workingDirectory,
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true
