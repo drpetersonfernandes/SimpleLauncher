@@ -2,314 +2,306 @@
 
 ## Amstrad CPC
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\Amstrad CPC<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch caprice32<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\cap32_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). 
+Core may require BIOS files or system files to work properly.
 
 ## Amstrad CPC GX4000
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** MAME gx4000<br>
-**Emulator Location:** [MAME Folder]\mame.exe<br>
-**Emulator Location (Example):** C:\emulators\mame\mame.exe<br>
-**Emulator Parameters:** gx4000 -cart
+**Emulator Name:** MAME Amstrad CPC GX4000<br>
+**Emulator Location (Example):** c:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
+**Fullscreen Parameter:** -window<br>
 
 ## Arcade (MAME)
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\emulators\mame\roms<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** MAME<br>
-**Emulator Location:** [MAME Folder]\mame.exe<br>
 **Emulator Location (Example):** C:\emulators\mame\mame.exe<br>
-**Emulator Parameters:** -rompath "[ROM Folder]"<br>
-**Emulator Parameters (Example):** -rompath "c:\mame\roms"<br>
+**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Fullscreen Parameter:** -window<br>
 
 **Emulator Name:** Retroarch mame<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
 **Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mame_libretro.dll" -f<br>
+**Emulator Parameters (Example):** -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mame_2010/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS files or system files to work properly.
 
 ## Atari 2600
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari 2600<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch stella<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\stella_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Stella<br>
-**Emulator Location:** [Stella Folder]\Stella.exe<br>
 **Emulator Location (Example):** C:\emulators\stella\Stella.exe<br>
-**Emulator Parameters:** -fullscreen 1<br>
+**Emulator Parameters (Example):** -fullscreen 1<br>
+**Fullscreen Parameter:** -fullscreen 1<br>
 
 Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).
 
 ## Atari 5200
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari 5200<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Altirra<br>
-**Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
-**Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
-**Emulator Parameters:** /f<br>
+**Emulator Location (Example):** c:\emulators\altirra\Altirra64.exe<br>
+**Emulator Parameters (Example):** /f<br>
+**Fullscreen Parameter:** /f<br>
 
 ## Atari 7800
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari 7800<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch prosystem<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\prosystem_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS files or system files to work properly.
 
 ## Atari 8-Bit
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari 8-Bit<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Altirra<br>
-**Emulator Location:** [Altirra Folder]\Altirra64.exe<br>
-**Emulator Location (Example):** C:\emulators\altirra\Altirra64.exe<br>
+**Emulator Location (Example):** c:\emulators\altirra\Altirra64.exe<br>
 **Emulator Parameters:** /f<br>
+**Fullscreen Parameter:** /f<br>
 
 ## Atari Jaguar
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari Jaguar<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** BigPEmu<br>
-**Emulator Location:** [BigPEmu Folder]\BigPEmu.exe<br>
-**Emulator Location (Example):** C:\emulators\bigpemu\BigPEmu.exe<br>
+**Emulator Location (Example):** c:\emulators\bigpemu\BigPEmu.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Atari Jaguar CD
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari Jaguar CD<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** cue, cdi<br>
 
 **Emulator Name:** BigPEmu<br>
-**Emulator Location:** [BigPEmu Folder]\BigPEmu.exe<br>
-**Emulator Location (Example):** C:\emulators\bigpemu\BigPEmu.exe<br>
+**Emulator Location (Example):** c:\emulators\bigpemu\BigPEmu.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Atari Lynx
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari Lynx<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** lnx, o<br>
 
 **Emulator Name:** Retroarch mednafen_lynx<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_lynx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core require a BIOS file to run.
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/).
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Atari ST
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Atari ST<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, msa, st, stx, dim, ipf<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch hatari<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\hatari_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\hatari_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires a BIOS file to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** Hatari<br>
-**Emulator Location:** [Hatari Folder]\hatari.exe<br>
 **Emulator Location (Example):** C:\emulators\hatari\hatari.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
-Emulator requires a BIOS file to run. Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari). Please read emulator documentation. 
+Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari).
+Emulator may require BIOS or system files to run properly. 
 
 ## Bandai WonderSwan
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Bandai WonderSwan<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS or system files to work properly.
 
 **Emulator Name:** BizHawk<br>
-**Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
-**Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
+**Emulator Location (Example):** c:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Bandai WonderSwan Color
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS or system files to work properly.
 
 **Emulator Name:** BizHawk<br>
-**Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
-**Emulator Location (Example):** C:\emulators\emuhawk\EmuHawk.exe<br>
+**Emulator Location (Example):** c:\emulators\emuhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Casio PV-1000
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Casio PV-1000<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** MAME pv1000<br>
-**Emulator Location:** [MAME Folder]\mame.exe<br>
-**Emulator Location (Example):** C:\emulators\mame\mame.exe<br>
-**Emulator Parameters:** pv1000 -cart<br>
+**Emulator Name:** MAME Casio PV-1000<br>
+**Emulator Location (Example):** c:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios\;c:\Casio PV-1000" pv1000 -cart<br>
+**Fullscreen Parameter:** -window<br>
 
 ## Colecovision
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Colecovision<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** col, cv, bin, rom<br>
 
 **Emulator Name:** Retroarch gearcoleco<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\gearcoleco_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires a BIOS file to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 ## Commodore 64
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Commodore 64<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch vice_x64<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\vice_x64_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/vice/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core may require BIOS or system files to work properly.
 
 ## Commodore Amiga CD32
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Commodore Amiga CD32<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue, ccd, nrg, mds, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch puae<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\puae_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires a BIOS file to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae).
-Please read core documentation.
+Core may require BIOS or system files to work properly.
 
 ## LaserDisk
 
-**System Folder:** [BAT Folder]<br>
+**System Folder (Example):** c:\LaserDisk<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
@@ -318,119 +310,122 @@ Please read core documentation.
 **Emulator Name:** Daphne<br>
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
-You need to create a BAT file that can directly launch the game.<br>
-Try launching your batch file directly outside of Simple Launcher first.
-If it works there, it will work inside Simple Launcher.
+You need to create a BAT files to launch the games.
 
 ## Magnavox Odyssey 2
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bin<br>
 
 **Emulator Name:** Retroarch o2em<br>
-**Emulator Location:** [Retroarch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\o2em_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\o2em_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires a BIOS file to run. Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/). Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/).
+Core may require BIOS or system files to run properly.
 
 ## Mattel Aquarius
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Mattel Aquarius<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** AquaLite<br>
-**Emulator Location:** [AquaLite Folder]\AquaLite.exe<br>
-**Emulator Location (Example):** C:\emulators\aqualite\AquaLite.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Name:** MAME Mattel Aquarius<br>
+**Emulator Location (Example):** c:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
+**Fullscreen Parameter:** -window<br>
 
 ## Mattel Intellivision
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Mattel Intellivision<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** int, rom, bin<br>
 
 **Emulator Name:** Retroarch freeintv<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\freeintv_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\freeintv_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires a BIOS file to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/).
-Please read the documentation.
+Core may require BIOS and system files to work properly.
 
 ## Microsoft DOS
 
-**System Folder:** [ZIP Folder]<br>
+**System Folder (Example):** c:\Microsoft DOS<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Search In System Folder:** zip, 7z, rar<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** bat<br>
+
+**Emulator Name:** DOSBox Staging<br>
+**Emulator Location (Example):** c:\emulators\DOSBox Staging\dosbox.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** DOSBox-X<br>
+**Emulator Location (Example):** c:\emulators\DOSBox-X\dosbox-x.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** Retroarch dosbox_pure<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\dosbox_pure_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dosbox_pure/).
-Please read core documentation.<br>
-Compress the game folder to a ZIP file, then put it inside the System Folder.
 
 **Emulator Name:** Retroarch dosbox<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\dosbox_core_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_core_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dosbox/).
-Please read core documentation.<br>
-Compress the game folder to a ZIP file, then put it inside the System Folder.
 
 ## Microsoft MSX
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\Microsoft MSX<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 
 **Emulator Name:** OpenMSX<br>
-**Emulator Location:** [OpenMSX Folder]\openmsx.exe<br>
-**Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
+**Emulator Location (Example):** c:\emulators\openmsx\openmsx.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
-You can find a list of all parameters available for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
+You can find a list of parameters for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
 
 **Emulator Name:** Retroarch bluemsx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** Retroarch fmsx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** MSXEC<br>
-**Emulator Location:** [MSXEC Folder]\MSXEC.EXE<br>
-**Emulator Location (Example):** C:\emulators\MSXEC\MSXEC.exe<br>
-**Emulator Parameters:** 
+**Emulator Location (Example):** c:\emulators\msxex\MSXEC.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Microsoft MSX2
 
@@ -441,38 +436,36 @@ Please read core documentation.
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 
 **Emulator Name:** OpenMSX<br>
-**Emulator Location:** [OpenMSX Folder]\openmsx.exe<br>
-**Emulator Location (Example):** C:\emulators\OpenMSX\openmsx.exe<br>
+**Emulator Location (Example):** c:\emulators\openmsx\openmsx.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
-You can find a list of all parameters available for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
+You can find a list of parameters for this emulator at [OpenMSX Website](https://openmsx.org/manual/commands.html).
 
 **Emulator Name:** Retroarch bluemsx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** Retroarch fmsx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\fmsx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core requires BIOS or Other Files to run.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
-Please read core documentation.
+Core may require BIOS or system files to run properly.
 
 **Emulator Name:** MSXEC<br>
-**Emulator Location:** [MSXEC Folder]\MSXEC.EXE<br>
-**Emulator Location (Example):** C:\emulators\MSXEC\MSXEC.exe<br>
-**Emulator Parameters:**
+**Emulator Location (Example):** c:\emulators\msxex\MSXEC.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Microsoft Windows
 
-**System Folder:** [BAT Folder] or [LNK Folder] or [EXE Folder]<br>
+**System Folder (Example):** c:\Windows Games<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** lnk, bat, exe<br>
 **Extract File Before Launch?** false<br>
@@ -482,54 +475,167 @@ Please read core documentation.
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-LNK files are shortcut links.
-You can create a shortcut by right-clicking on the GameLauncher.exe and selecting 'Create Shortcut'.<br>
+LNK files are shortcut files.
+You can create a shortcut by right-clicking on the Game.exe and selecting 'Create Shortcut'.<br>
 
-If you prefer to use BAT files, use the tool available in Simple Launcher menu to generate BAT files for you.
+If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Microsoft Xbox
 
-**System Folder:** [ISO Folder]<br>
+**System Folder (Example):** c:\Microsoft Xbox<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Xemu<br>
-**Emulator Location:** [Xemu Folder]\xemu.exe<br>
-**Emulator Location (Example):** C:\emulators\xemu\xemu.exe<br>
-**Emulator Parameters:** -full-screen -dvd_path<br>
+**Emulator Location (Example):** c:\emulators\xemu\xemu.exe<br>
+**Emulator Parameters (Example):** -full-screen -dvd_path<br>
+**Fullscreen Parameter:** -full-screen<br>
 
-This emulator requires BIOS and Special Files to run properly.
+This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found [here](https://xemu.app/docs/required-files/).<br>
 The ISO file needs to be formated in XBOX format, as the original XBOX discs.
 You can find information about that [here](https://xemu.app/docs/disc-images/).
 
 ## Microsoft Xbox 360
 
-**System Folder:** [ISO Folder]<br>
+**System Folder (Example):** c:\Microsoft Xbox 360<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Xenia<br>
-**Emulator Location:** [Xenia Folder]\xenia.exe<br>
-**Emulator Location (Example):** C:\emulators\xenia\xenia.exe<br>
+**Emulator Location (Example):** c:\emulators\xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
-## Microsoft Xbox 360 XBLA
+## Microsoft Xbox 360 XBLA Using Compressed Folders
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bin<br>
 
 **Emulator Name:** Xenia<br>
-**Emulator Location:** [Xenia Folder]\xenia.exe<br>
-**Emulator Location (Example):** C:\emulators\xenia\xenia.exe<br>
+**Emulator Location (Example):** c:\emulators\xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+## Microsoft Xbox 360 XBLA Using BAT files
+
+**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** bat<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Xenia<br>
+**Emulator Location (Example):** <br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## NEC PC Engine / TurboGrafx-16
 
@@ -1039,7 +1145,7 @@ Please read core documentation.
 **Emulator Parameters:** <br>
 
 Command line parameters can be found [here](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
-Use the tool available in Simple Launcher menu to generate BAT files for you.
+Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Sega Dreamcast
 
@@ -1351,7 +1457,7 @@ Please read core documentation.
 **Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
 
-## Sony Playstation 1
+## Sony PlayStation 1
 
 **System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
@@ -1382,7 +1488,7 @@ Please read core documentation.
 **Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
 
-## Sony Playstation 2
+## Sony PlayStation 2
 
 **System Folder:** [ISO Folder]<br>
 **System Is MAME?** false<br>
@@ -1399,7 +1505,7 @@ This emulator requires a BIOS file to run.<br>
 Documentation can be found at [Emulator website](https://pcsx2.net/docs/).
 Please read the documentation.
 
-## Sony Playstation 3
+## Sony PlayStation 3
 
 **System Folder:** [BAT Folder]<br>
 **System Is MAME?** false<br>
@@ -1411,7 +1517,7 @@ Please read the documentation.
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 
-Use the tool available in Simple Launcher menu to generate BAT files for you.<br>
+Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.<br>
 
 BAT file example:
 

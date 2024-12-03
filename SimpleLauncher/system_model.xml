@@ -16,7 +16,7 @@
       <Emulator>
         <EmulatorName>Retroarch caprice32</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\cap32_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -34,9 +34,9 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>MAME gx4000</EmulatorName>
+        <EmulatorName>MAME Amstrad GX4000</EmulatorName>
         <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-        <EmulatorParameters>gx4000 -cart</EmulatorParameters>
+        <EmulatorParameters>-window -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios" gx4000 -cart</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -56,12 +56,12 @@
       <Emulator>
         <EmulatorName>Retroarch mame</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mame_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>MAME</EmulatorName>
         <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-        <EmulatorParameters>-rompath "G:\MAME\MAME Roms"</EmulatorParameters>
+        <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -75,19 +75,18 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch>a26</FormatToLaunch>
-      <FormatToLaunch>bin</FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Retroarch stella</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\stella_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\stella_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Stella</EmulatorName>
         <EmulatorLocation>.\emulators\Stella\Stella.exe</EmulatorLocation>
-        <EmulatorParameters>-fullscreen 1</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -121,13 +120,13 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch>a78</FormatToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
         <EmulatorName>Retroarch prosystem</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\prosystem_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\prosystem_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -199,7 +198,6 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
-      <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -210,7 +208,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_lynx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -230,7 +228,7 @@
       <Emulator>
         <EmulatorName>Retroarch hatari</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\hatari_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Hatari</EmulatorName>
@@ -255,7 +253,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -275,7 +273,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -293,9 +291,9 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>MAME pv1000</EmulatorName>
+        <EmulatorName>MAME Casio PV1000</EmulatorName>
         <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-        <EmulatorParameters>pv1000 -cart</EmulatorParameters>
+        <EmulatorParameters>-window -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios" pv1000 -cart</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -308,7 +306,7 @@
       <FormatToSearch>zip</FormatToSearch>
       <FormatToSearch>7z</FormatToSearch>
     </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
       <FormatToLaunch>col</FormatToLaunch>
       <FormatToLaunch>cv</FormatToLaunch>
@@ -319,7 +317,7 @@
       <Emulator>
         <EmulatorName>Retroarch gearcoleco</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\gearcoleco_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -339,7 +337,7 @@
       <Emulator>
         <EmulatorName>Retroarch vice_x64</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\vice_x64_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -364,7 +362,7 @@
       <Emulator>
         <EmulatorName>Retroarch puae</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\puae_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -385,7 +383,7 @@
       <Emulator>
         <EmulatorName>Retroarch o2em</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\o2em_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\o2em_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -403,9 +401,9 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>AquaLite</EmulatorName>
-        <EmulatorLocation>.\emulators\AquaLite\AquaLite.exe</EmulatorLocation>
-        <EmulatorParameters/>
+        <EmulatorName>MAME Mattel Aquarius</EmulatorName>
+        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorParameters>-window -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios" aquarius</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -428,7 +426,7 @@
       <Emulator>
         <EmulatorName>Retroarch freeintv</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\freeintv_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -489,12 +487,12 @@
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch fmsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -529,12 +527,12 @@
       <Emulator>
         <EmulatorName>Retroarch bluemsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bluemsx_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch fmsx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fmsx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -576,7 +574,7 @@
       <Emulator>
         <EmulatorName>Xemu</EmulatorName>
         <EmulatorLocation>.\emulators\Xemu\xemu.exe</EmulatorLocation>
-        <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>
+        <EmulatorParameters>-dvd_path</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -602,7 +600,7 @@
   </SystemConfig>
 
   <SystemConfig>
-    <SystemName>Microsoft Xbox 360 XBLA</SystemName>
+    <SystemName>Microsoft Xbox 360 XBLA Using Compressed Folders</SystemName>
     <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
     <SystemImageFolder>.\images\Microsoft Xbox 360 XBLA</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
@@ -614,6 +612,27 @@
     <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
       <FormatToLaunch>bin</FormatToLaunch>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Xenia</EmulatorName>
+        <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+
+  <SystemConfig>
+    <SystemName>Microsoft Xbox 360 XBLA Using BAT files</SystemName>
+    <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
+    <SystemImageFolder>.\images\Microsoft Xbox 360 XBLA</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>bat</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch/>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -640,7 +659,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_pce</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -666,7 +685,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_pce</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>ares</EmulatorName>
@@ -681,6 +700,9 @@
     <SystemImageFolder>.\images\NEC PC-FX</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>ccd</FormatToSearch>
+      <FormatToSearch>toc</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
@@ -691,7 +713,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_pcfx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -702,6 +724,8 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>pce</FormatToSearch>
+      <FormatToSearch>sgx</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -711,7 +735,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_supergrafx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -722,6 +746,12 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>3ds</FormatToSearch>
+      <FormatToSearch>3dsx</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>axf</FormatToSearch>
+      <FormatToSearch>cci</FormatToSearch>
+      <FormatToSearch>cxi</FormatToSearch>
+      <FormatToSearch>app</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -731,7 +761,7 @@
       <Emulator>
         <EmulatorName>Retroarch citra</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\citra_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\citra_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -756,9 +786,14 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
+        <EmulatorName>Simple64</EmulatorName>
+        <EmulatorLocation>.\emulators\Simple64\simple64-gui.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
         <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Ares</EmulatorName>
@@ -766,14 +801,9 @@
         <EmulatorParameters/>
       </Emulator>
       <Emulator>
-        <EmulatorName>Simple64</EmulatorName>
-        <EmulatorLocation>.\emulators\Simple64\simple64-gui.exe</EmulatorLocation>
-        <EmulatorParameters/>
-      </Emulator>
-      <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters>--fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Project64</EmulatorName>
@@ -805,7 +835,7 @@
       <Emulator>
         <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -827,12 +857,12 @@
       <Emulator>
         <EmulatorName>Retroarch melonds</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\melonds_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\melonds_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch desmume</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\desmume_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\desmume_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -856,17 +886,17 @@
       <Emulator>
         <EmulatorName>Retroarch mesen</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mesen_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch nestopia</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch fceumm</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -886,7 +916,7 @@
       <Emulator>
         <EmulatorName>Retroarch sameboy</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -906,7 +936,7 @@
       <Emulator>
         <EmulatorName>Retroarch mgba</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mgba_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mgba_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -926,7 +956,7 @@
       <Emulator>
         <EmulatorName>Retroarch sameboy</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\sameboy_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -937,6 +967,15 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>rvz</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>gcm</FormatToSearch>
+      <FormatToSearch>dol</FormatToSearch>
+      <FormatToSearch>tgc</FormatToSearch>
+      <FormatToSearch>wbfs</FormatToSearch>
+      <FormatToSearch>ciso</FormatToSearch>
+      <FormatToSearch>gcz</FormatToSearch>
+      <FormatToSearch>wad</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -951,7 +990,7 @@
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -971,17 +1010,17 @@
       <Emulator>
         <EmulatorName>Retroarch mesen</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mesen_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch nestopia</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch fceumm</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1027,12 +1066,12 @@
       <Emulator>
         <EmulatorName>Retroarch snes9x</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Snes9x</EmulatorName>
         <EmulatorLocation>.\emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
-        <EmulatorParameters>-fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1058,12 +1097,12 @@
       <Emulator>
         <EmulatorName>Retroarch snes9x</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Snes9x</EmulatorName>
         <EmulatorLocation>.\emulators\snes9x\snes9x-x64.exe</EmulatorLocation>
-        <EmulatorParameters>-fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1095,6 +1134,15 @@
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
       <FormatToSearch>rvz</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>gcm</FormatToSearch>
+      <FormatToSearch>dol</FormatToSearch>
+      <FormatToSearch>tgc</FormatToSearch>
+      <FormatToSearch>wbfs</FormatToSearch>
+      <FormatToSearch>ciso</FormatToSearch>
+      <FormatToSearch>gcz</FormatToSearch>
+      <FormatToSearch>wad</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1109,7 +1157,7 @@
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1129,7 +1177,7 @@
       <Emulator>
         <EmulatorName>Cemu</EmulatorName>
         <EmulatorLocation>.\emulators\Cemu\cemu.exe</EmulatorLocation>
-        <EmulatorParameters>-f -g</EmulatorParameters>
+        <EmulatorParameters>-g</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1139,6 +1187,15 @@
     <SystemImageFolder>.\images\Nintendo WiiWare</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>rvz</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>gcm</FormatToSearch>
+      <FormatToSearch>dol</FormatToSearch>
+      <FormatToSearch>tgc</FormatToSearch>
+      <FormatToSearch>wbfs</FormatToSearch>
+      <FormatToSearch>ciso</FormatToSearch>
+      <FormatToSearch>gcz</FormatToSearch>
       <FormatToSearch>wad</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
@@ -1154,7 +1211,7 @@
       <Emulator>
         <EmulatorName>Retroarch dolphin</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dolphin_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1177,7 +1234,7 @@
       <Emulator>
         <EmulatorName>Retroarch opera</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\opera_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\opera_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1198,7 +1255,7 @@
       <Emulator>
         <EmulatorName>Retroarch same_cdi</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\same_cdi_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1228,11 +1285,17 @@
     <SystemImageFolder>.\images\Sega Dreamcast</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cdi</FormatToSearch>
       <FormatToSearch>gdi</FormatToSearch>
+      <FormatToSearch>chd</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>bin</FormatToSearch>
-      <FormatToSearch>cdi</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+      <FormatToSearch>7z</FormatToSearch>
+      <FormatToSearch>lst</FormatToSearch>
+      <FormatToSearch>dat</FormatToSearch>
+      <FormatToSearch>m3u</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1247,7 +1310,7 @@
       <Emulator>
         <EmulatorName>Retroarch flycast</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\flycast_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\flycast_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1267,7 +1330,7 @@
       <Emulator>
         <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1287,17 +1350,17 @@
       <Emulator>
         <EmulatorName>Retroarch picodrive</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch blastem_libretro</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\blastem_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\blastem_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1317,7 +1380,7 @@
       <Emulator>
         <EmulatorName>Retroarch picodrive</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1327,10 +1390,16 @@
     <SystemImageFolder>.\images\Sega Genesis CD</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>chd</FormatToSearch>
       <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>gen</FormatToSearch>
+      <FormatToSearch>smd</FormatToSearch>
+      <FormatToSearch>md</FormatToSearch>
+      <FormatToSearch>32x</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>sms</FormatToSearch>
+      <FormatToSearch>68k</FormatToSearch>
+      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1340,12 +1409,12 @@
       <Emulator>
         <EmulatorName>Retroarch picodrive</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll"</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>ares</EmulatorName>
@@ -1370,7 +1439,7 @@
       <Emulator>
         <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1400,11 +1469,11 @@
     <SystemImageFolder>.\images\Sega Saturn</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>toc</FormatToSearch>
       <FormatToSearch>m3u</FormatToSearch>
       <FormatToSearch>ccd</FormatToSearch>
-      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1414,7 +1483,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_saturn</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1440,7 +1509,7 @@
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters>--fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1466,10 +1535,35 @@
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters>--fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
+  <SystemConfig>
+    <SystemName>Sharp X68000</SystemName>
+    <SystemFolder>.\roms\Sharp X68000</SystemFolder>
+    <SystemImageFolder>.\images\Sharp X68000</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>zip</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch/>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>MAME Sharp X68000</EmulatorName>
+        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorParameters>-window -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios" x68000 -flop1</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch px68k</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\px68k_libretro.dll"</EmulatorParameters>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>  
   <SystemConfig>
     <SystemName>Sinclair ZX Spectrum</SystemName>
     <SystemFolder>.\roms\Sinclair ZX Spectrum</SystemFolder>
@@ -1486,7 +1580,7 @@
       <Emulator>
         <EmulatorName>Retroarch fuse</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fuse_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fuse_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1507,7 +1601,7 @@
       <Emulator>
         <EmulatorName>Retroarch neocd</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\neocd_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\neocd_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1527,7 +1621,7 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1547,23 +1641,23 @@
       <Emulator>
         <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
-    <SystemName>Sony Playstation 1</SystemName>
-    <SystemFolder>.\roms\Sony Playstation 1</SystemFolder>
-    <SystemImageFolder>.\images\Sony Playstation 1</SystemImageFolder>
+    <SystemName>Sony PlayStation 1</SystemName>
+    <SystemFolder>.\roms\Sony PlayStation 1</SystemFolder>
+    <SystemImageFolder>.\images\Sony PlayStation 1</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>chd</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
-      <FormatToSearch>bin</FormatToSearch>
-      <FormatToSearch>img</FormatToSearch>
-      <FormatToSearch>mds</FormatToSearch>
-      <FormatToSearch>mdf</FormatToSearch>
+      <FormatToSearch>toc</FormatToSearch>
+      <FormatToSearch>m3u</FormatToSearch>
+      <FormatToSearch>ccd</FormatToSearch>
+      <FormatToSearch>exe</FormatToSearch>
       <FormatToSearch>pbp</FormatToSearch>
+      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1573,17 +1667,17 @@
       <Emulator>
         <EmulatorName>DuckStation</EmulatorName>
         <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
-        <EmulatorParameters>-fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch mednafen_psx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_psx_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_psx_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
-    <SystemName>Sony Playstation 2</SystemName>
+    <SystemName>Sony PlayStation 2</SystemName>
     <SystemFolder>.\roms\Sony PlayStation 2</SystemFolder>
     <SystemImageFolder>.\images\Sony PlayStation 2</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
@@ -1604,12 +1698,12 @@
       <Emulator>
         <EmulatorName>PCSX2</EmulatorName>
         <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
-        <EmulatorParameters>-fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
-    <SystemName>Sony Playstation 3</SystemName>
+    <SystemName>Sony PlayStation 3</SystemName>
     <SystemFolder>.\roms\Sony PlayStation 3</SystemFolder>
     <SystemImageFolder>.\images\Sony PlayStation 3</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
@@ -1634,12 +1728,12 @@
     <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>elf</FormatToSearch>
       <FormatToSearch>iso</FormatToSearch>
       <FormatToSearch>cso</FormatToSearch>
-      <FormatToSearch>chd</FormatToSearch>
-      <FormatToSearch>pbp</FormatToSearch>
-      <FormatToSearch>elf</FormatToSearch>
       <FormatToSearch>prx</FormatToSearch>
+      <FormatToSearch>pbp</FormatToSearch>
+      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1649,12 +1743,12 @@
       <Emulator>
         <EmulatorName>PPSSPP</EmulatorName>
         <EmulatorLocation>.\emulators\ppsspp\PPSSPPWindows64.exe</EmulatorLocation>
-        <EmulatorParameters>--fullscreen</EmulatorParameters>
+        <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>Retroarch ppsspp</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\ppsspp_libretro.dll" -f</EmulatorParameters>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\ppsspp_libretro.dll"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>

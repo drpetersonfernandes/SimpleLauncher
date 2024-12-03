@@ -83,7 +83,7 @@ Use Simple Launcher Tools to generate BAT files for you.
 
 Use Simple Launcher Tools to generate BAT files for you.
 
-**Sony Playstation 3**
+**Sony PlayStation 3**
 
 Use Simple Launcher Tools to generate BAT files for you.
 

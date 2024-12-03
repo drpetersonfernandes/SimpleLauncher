@@ -1789,9 +1789,9 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sony Playstation 1</SystemName>
-        <SystemFolder>.\roms\Sony Playstation 1</SystemFolder>
-        <SystemImageFolder>.\images\Sony Playstation 1</SystemImageFolder>
+        <SystemName>Sony PlayStation 1</SystemName>
+        <SystemFolder>.\roms\Sony PlayStation 1</SystemFolder>
+        <SystemImageFolder>.\images\Sony PlayStation 1</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1824,16 +1824,16 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ExtrasDownloadLink>
-                <ExtrasDownloadExtractPath>.\images\Sony Playstation 1</ExtrasDownloadExtractPath>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation1.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony PlayStation 1</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sony Playstation 2</SystemName>
-        <SystemFolder>.\roms\Sony Playstation 2</SystemFolder>
-        <SystemImageFolder>.\images\Sony Playstation 2</SystemImageFolder>
+        <SystemName>Sony PlayStation 2</SystemName>
+        <SystemFolder>.\roms\Sony PlayStation 2</SystemFolder>
+        <SystemImageFolder>.\images\Sony PlayStation 2</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1866,16 +1866,16 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ExtrasDownloadLink>
-                <ExtrasDownloadExtractPath>.\images\Sony Playstation 2</ExtrasDownloadExtractPath>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation2.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony PlayStation 2</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sony Playstation 3</SystemName>
-        <SystemFolder>.\roms\Sony Playstation 3</SystemFolder>
-        <SystemImageFolder>.\images\Sony Playstation 3</SystemImageFolder>
+        <SystemName>Sony PlayStation 3</SystemName>
+        <SystemFolder>.\roms\Sony PlayStation 3</SystemFolder>
+        <SystemImageFolder>.\images\Sony PlayStation 3</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bat</FormatToSearch>
@@ -1902,8 +1902,8 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ExtrasDownloadLink>
-                <ExtrasDownloadExtractPath>.\images\Sony Playstation 3</ExtrasDownloadExtractPath>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation3.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Sony PlayStation 3</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
