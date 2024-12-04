@@ -22,7 +22,6 @@ then extract the zip file into your chosen folder.
 This Edit Mode was made for people starting in the world of emulation.<br>
 This mode download and install the most used emulator for a specific System.<br>
 Also create default folders for ROMs and Cover Images inside Simple Launcher folder.<br>
-The Cover Images for a specific system need to be placed inside .\images\SystemName.<br>
 
 ## Expert Mode (Advanced Mode)
 This mode was made for people familiar with the world of emulation.<br>
@@ -94,7 +93,7 @@ When 'Simple Launcher' generates the buttons for each game, it adds a Context Me
 - **Launch Game:** It launches the game.
 - **Open Video Link:** Open video link related to that game.
 - **Open Info Link:** Open info page related to that game.
-- **Open ROM History:** Open ROM History window that displays historical data about your ROM. This functionality is more useful for MAME based ROMs.
+- **Open ROM History:** Open ROM History window that displays historical data about your ROM. This functionality is more useful for MAME-based ROMs.
 - **Cover:** Open cover image related to that game. File should be inside .\title_snapshots\SystemName or inside custom folder.
 - **Title Snapshot:** Open title snapshot related to that game. File should be inside .\title_snapshots\SystemName
 - **Gameplay Snapshot:** Open title snapshot related to that game. File should be inside .\gameplay_snapshots\SystemName
@@ -106,9 +105,8 @@ When 'Simple Launcher' generates the buttons for each game, it adds a Context Me
 - **PCB:** Open PCB related to that game. File should be inside .\pcbs\SystemName
 
 Links will be opened by user's default browser.<br>
-Image files should be in format JPG, JPEG or PNG and will be opened by Simple Launcher Image Viewer Window.<br>
-Video files should be in format MP4, AVI or MKV and will be opened by user's default video player.
-I recommend to use [VLC Player](https://www.videolan.org/vlc/download-windows.html).<br>
+Image files should be in format JPG, JPEG or PNG and will be opened by 'Simple Launcher'.<br>
+Video files should be in format MP4, AVI or MKV and will be opened by user's default video player. I recommend to use [VLC Player](https://www.videolan.org/vlc/download-windows.html).<br>
 PDF files will be open by user's default PDF viewer.
 
 ## Global Search
