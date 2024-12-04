@@ -537,227 +537,186 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## NEC PC Engine / TurboGrafx-16
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\NEC PC Engine<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_pce<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## NEC PC Engine CD
 
-**System Folder:** [ISO Folder]<br>
+**System Folder:** c:\NEC PC Engine CD<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_pce<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-This core requires a BIOS file to run.
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/).
-Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** ares<br>
-**Emulator Location:** [ares Folder]\ares.exe<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
-**Emulator Parameters:** --system "PC Engine CD"<br>
+**Emulator Parameters (Example):** --system "PC Engine CD"<br>
+**Fullscreen Parameter:** <br>
 
 Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## NEC PC-FX
 
-**System Folder:** [ISO Folder]<br>
+**System Folder (Example):** c:\NEC PC-FX<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue, ccd, toc<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_pcfx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_pcfx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pcfx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-This core requires a BIOS file.
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/).
-Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). This core may require BIOS of system files to work properly.
 
 **Emulator Name:** BizHawk<br>
-**Emulator Location:** [BizHawk Folder]\EmuHawk.exe<br>
-**Emulator Location (Example):** C:\emulators\bizhawk\EmuHawk.exe<br>
+**Emulator Location (Example):** c:\emulators\bizhawk\EmuHawk.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## NEC SuperGrafx
 
-**System Folder:** [ROM Folder]<br>
+**System Folder (Example):** c:\NEC SuperGrafx<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch mednafen_supergrafx<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\mednafen_supergrafx_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_supergrafx_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_sgx/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
-**Emulator Location:** [Mednafen Folder]\mednafen.exe<br>
-**Emulator Location (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
 
 ## Nintendo 3DS
 
-**System Folder:** [ROM or ISO Folder]<br>
+**System Folder (Example):** c:\Nintendo 3DS<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** 3ds<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Retroarch citra<br>
-**Emulator Location:** [RetroArch Folder]\retroarch.exe<br>
-**Emulator Location (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters:** -L "[Retroarch Folder]\cores\citra_libretro.dll" -f<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\citra_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/citra/).
-Core may require BIOS files or special configurations to work properly.
-Please read core documentation.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/citra/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Citra<br>
-**Emulator Location:** [Citra Folder]\citra-qt.exe<br>
-**Emulator Location (Example):** C:\emulators\citra\citra-qt.exe<br>
+**Emulator Location (Example):** c:\emulators\citra\citra-qt.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Nintendo 64
 
