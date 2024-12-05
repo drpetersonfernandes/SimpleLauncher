@@ -537,7 +537,7 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-Use the 'Simple Launcher' tools menu to generate BAT files for you. 
+Use the 'Simple Launcher' tools menu to generate BAT files for you.
 
 ## NEC PC Engine / TurboGrafx-16
 
@@ -1417,6 +1417,19 @@ This emulator may require BIOS or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
+
+## Sony PlayStation Vita
+
+**System Folder (Example):** c:\Sony PlayStation Vita<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** iso<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Vita3K<br>
+**Emulator Location (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 ## Sony PSP
 
