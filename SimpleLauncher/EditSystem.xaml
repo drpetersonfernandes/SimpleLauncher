@@ -5,7 +5,8 @@
                       Title="Edit System"
                       Height="700"
                       MinWidth="1100"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen"
+                      WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -780,27 +781,25 @@
 
         <!-- Right column -->
         <Grid Grid.Column="1" Margin="10">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
             <Label
                 Margin="10"
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Content="Developer Suggestion" />
-
-            <TextBlock
-                x:Name="HelpUserTextBlock"
-                Grid.Row="1"
-                Margin="10"
-                TextWrapping="Wrap"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch">
-            </TextBlock>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <TextBlock
+                    x:Name="HelpUserTextBlock"
+                    Margin="10"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
+                </TextBlock>
+            </ScrollViewer>
         </Grid>
 
     </Grid>
