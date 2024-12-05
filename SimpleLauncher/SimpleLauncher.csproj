@@ -7,7 +7,7 @@
     <IsPackable>false</IsPackable>
     <Company>Pure Logic Code</Company>
     <Product>Simple Launcher</Product>
-    <LangVersion>13</LangVersion>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
