@@ -26,9 +26,7 @@ public static class HelpUser
             {
                 "retroarch", retroarchFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Retroarch") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -38,17 +36,15 @@ public static class HelpUser
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
-                    new Run($"-L \"{retroarchFolder}\\cores\\[REPLACE WITH THE CORE FILENAME].dll\" -f"),
+                    new Run($"-L \"{retroarchFolder}\\cores\\[REPLACE WITH DESIRED CORE FILENAME].dll\" -f"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "mame", mameFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("MAME") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -58,17 +54,15 @@ public static class HelpUser
                     new LineBreak(),
                     new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
                     new LineBreak(),
-                    new Run($"-rompath \"{systemFolderPath}\""),
+                    new Run($"-rompath \"{systemFolderPath};{mameFolder}\\roms;{mameFolder}\\bios\""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "stella", stellaFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Stella") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -80,15 +74,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-fullscreen 1"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "altirra", altirraFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Altirra") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -100,15 +92,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"/f"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "bigpemu", bigpemuFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("BigPEmu") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -120,15 +110,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "mednafen", mednafenFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Mednafen") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -140,15 +128,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "hatari", hatariFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Hatari") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -160,15 +146,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "bizhawk", bizhawkFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("BizHawk") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -180,15 +164,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "emuhawk", emuhawkFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("BizHawk") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -200,15 +182,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "openmsx", openmsxFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("OpenMSX") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -220,15 +200,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "msxec", msxecFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("MSXEC") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -240,15 +218,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "xemu", xemuFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Xemu") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -260,15 +236,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-full-screen -dvd_path"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "xenia", xeniaFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Xenia") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -280,15 +254,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "ares", aresFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("ares") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -300,15 +272,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"--system \"[REPLACE WITH THE TYPE OF SYSTEM]\""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "citra", citraFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Citra") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -320,15 +290,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "dolphin", dolphinFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Dolphin") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -340,15 +308,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "snes9x", snes9XFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Snes9x") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -360,15 +326,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-fullscreen"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "ryujinx", ryujinxFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Ryujinx") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -380,15 +344,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "yuzu", yuzuFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Yuzu") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -400,15 +362,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "cemu", cemuFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Cemu") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -420,15 +380,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-f -g"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "redream", redreamFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Redream") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -440,15 +398,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "mastergear", mastergearFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("MasterGear") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -460,15 +416,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "duckstation", duckstationFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("DuckStation") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -480,15 +434,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-fullscreen"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "pcsx2", pcsx2Folder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("PCSX2") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -500,15 +452,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"-fullscreen"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "ppsspp", ppssppFolder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("PPSSPP") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -520,15 +470,13 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($"--fullscreen"),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             },
             {
                 "project64", project64Folder =>
                 [
-                    new Run("Recommended settings for the "),
                     new Run("Project 64") { FontWeight = FontWeights.Bold },
-                    new Run(" emulator"),
                     new LineBreak(),
                     new LineBreak(),
                     new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
@@ -540,7 +488,7 @@ public static class HelpUser
                     new LineBreak(),
                     new Run($""),
                     new LineBreak(),
-                    new LineBreak()
+                    new Run("--------------------------")
                 ]
             }
             
