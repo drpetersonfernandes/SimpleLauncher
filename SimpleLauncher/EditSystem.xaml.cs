@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -66,14 +65,6 @@ public partial class EditSystem
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (HelpUserRichTextBox != null)
-        {
-            HelpUserRichTextBox.Document.Blocks.Clear(); // Clear existing content if needed
-            var paragraph = new Paragraph();
-            paragraph.Inlines.Add(new Run("Select the Emulator Location to see Suggestions."));
-            HelpUserRichTextBox.Document.Blocks.Add(paragraph);
-        }
-        
         EnableFields();
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
@@ -220,7 +211,10 @@ public partial class EditSystem
         MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text));
         MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
         MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
-            
+        
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
         
     private bool IsValidPath(string path)
@@ -314,17 +308,9 @@ public partial class EditSystem
             MarkValid(Emulator1LocationTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
@@ -344,17 +330,9 @@ public partial class EditSystem
             MarkValid(Emulator2LocationTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator3Location(object sender, RoutedEventArgs e)
@@ -374,17 +352,9 @@ public partial class EditSystem
             MarkValid(Emulator3LocationTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator4Location(object sender, RoutedEventArgs e)
@@ -404,17 +374,9 @@ public partial class EditSystem
             MarkValid(Emulator4LocationTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator5Location(object sender, RoutedEventArgs e)
@@ -433,24 +395,17 @@ public partial class EditSystem
             MarkValid(Emulator5LocationTextBox);
         }
         
-        // Update the HelpUserTextBox
-        HelpUser.UpdateHelpUserRichTextBox(
-            HelpUserRichTextBox,
-            [
-                Emulator1LocationTextBox,
-                Emulator2LocationTextBox,
-                Emulator3LocationTextBox,
-                Emulator4LocationTextBox,
-                Emulator5LocationTextBox
-            ],
-            SystemFolderTextBox);
+        // Update the HelpUserTextBlock
+        HelpUserTextBlock.Text = string.Empty;
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
         EnableFields();
         ClearFields();
-        HelpUserRichTextBox?.Document.Blocks.Clear();
+        HelpUserTextBlock.Text = string.Empty;
 
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = false;
@@ -1011,13 +966,7 @@ public partial class EditSystem
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        if (HelpUserRichTextBox != null)
-        {
-            HelpUserRichTextBox.Document.Blocks.Clear(); // Clear existing content if needed
-            var paragraph = new Paragraph();
-            paragraph.Inlines.Add(new Run("Select the Emulator Location to see Suggestions."));
-            HelpUserRichTextBox.Document.Blocks.Add(paragraph);
-        }
+        HelpUserTextBlock.Text = string.Empty;
         
         if (SystemNameDropdown.SelectedItem == null)
         {
@@ -1095,5 +1044,4 @@ public partial class EditSystem
             UseShellExecute = true
         });
     }
-    
 }

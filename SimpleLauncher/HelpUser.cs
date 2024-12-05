@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
@@ -10,559 +9,341 @@ namespace SimpleLauncher;
 
 public static class HelpUser
 {
-    public static void UpdateHelpUserRichTextBox(
-        RichTextBox helpUserRichTextBox,
-        IEnumerable<TextBox> emulatorLocationTextBoxes,
-        TextBox systemFolderTextBox)
+    public static void UpdateHelpUserTextBlock(TextBlock helpUserTextBlock, TextBox systemNameTextBox)
     {
-        // Initialize to empty enumerable if null
-        emulatorLocationTextBoxes ??= [];
+        // Retrieve the system name from the TextBox
+        string systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
 
-        string systemFolderPath = NormalizePath(systemFolderTextBox?.Text ?? string.Empty);
-        
-        // Define target words and corresponding responses with formatting
-        var emulatorResponses = new Dictionary<string, Func<string, List<Inline>>>(StringComparer.OrdinalIgnoreCase)
+        if (string.IsNullOrEmpty(systemName))
         {
-            {
-                "retroarch", retroarchFolder =>
-                [
-                    new Run("Retroarch") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{retroarchFolder}\\retroarch.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-L \"{retroarchFolder}\\cores\\[REPLACE WITH DESIRED CORE FILENAME].dll\" -f"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "mame", mameFolder =>
-                [
-                    new Run("MAME") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{mameFolder}\\mame.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-rompath \"{systemFolderPath};{mameFolder}\\roms;{mameFolder}\\bios\""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "stella", stellaFolder =>
-                [
-                    new Run("Stella") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{stellaFolder}\\Stella.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-fullscreen 1"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "altirra", altirraFolder =>
-                [
-                    new Run("Altirra") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{altirraFolder}\\Altirra64.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"/f"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "bigpemu", bigpemuFolder =>
-                [
-                    new Run("BigPEmu") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{bigpemuFolder}\\BigPEmu.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "mednafen", mednafenFolder =>
-                [
-                    new Run("Mednafen") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{mednafenFolder}\\mednafen.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "hatari", hatariFolder =>
-                [
-                    new Run("Hatari") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{hatariFolder}\\hatari.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "bizhawk", bizhawkFolder =>
-                [
-                    new Run("BizHawk") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{bizhawkFolder}\\EmuHawk.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "emuhawk", emuhawkFolder =>
-                [
-                    new Run("BizHawk") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{emuhawkFolder}\\EmuHawk.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "openmsx", openmsxFolder =>
-                [
-                    new Run("OpenMSX") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{openmsxFolder}\\openmsx.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "msxec", msxecFolder =>
-                [
-                    new Run("MSXEC") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{msxecFolder}\\MSXEC.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "xemu", xemuFolder =>
-                [
-                    new Run("Xemu") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{xemuFolder}\\xemu.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-full-screen -dvd_path"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "xenia", xeniaFolder =>
-                [
-                    new Run("Xenia") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{xeniaFolder}\\xenia.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "ares", aresFolder =>
-                [
-                    new Run("ares") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{aresFolder}\\ares.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"--system \"[REPLACE WITH THE TYPE OF SYSTEM]\""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "citra", citraFolder =>
-                [
-                    new Run("Citra") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{citraFolder}\\citra-qt.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "dolphin", dolphinFolder =>
-                [
-                    new Run("Dolphin") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{dolphinFolder}\\Dolphin.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "snes9x", snes9XFolder =>
-                [
-                    new Run("Snes9x") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{snes9XFolder}\\snes9x-x64.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-fullscreen"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "ryujinx", ryujinxFolder =>
-                [
-                    new Run("Ryujinx") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{ryujinxFolder}\\Ryujinx.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "yuzu", yuzuFolder =>
-                [
-                    new Run("Yuzu") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{yuzuFolder}\\yuzu.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "cemu", cemuFolder =>
-                [
-                    new Run("Cemu") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{cemuFolder}\\cemu.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-f -g"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "redream", redreamFolder =>
-                [
-                    new Run("Redream") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{redreamFolder}\\redream.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "mastergear", mastergearFolder =>
-                [
-                    new Run("MasterGear") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{mastergearFolder}\\MG.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "duckstation", duckstationFolder =>
-                [
-                    new Run("DuckStation") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{duckstationFolder}\\duckstation-qt-x64-ReleaseLTCG.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-fullscreen"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "pcsx2", pcsx2Folder =>
-                [
-                    new Run("PCSX2") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{pcsx2Folder}\\pcsx2-qt.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"-fullscreen"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "ppsspp", ppssppFolder =>
-                [
-                    new Run("PPSSPP") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{ppssppFolder}\\PPSSPPWindows64.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"--fullscreen"),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            },
-            {
-                "project64", project64Folder =>
-                [
-                    new Run("Project 64") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Location: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($"{project64Folder}\\Project64.exe"),
-                    new LineBreak(),
-                    new LineBreak(),
-                    new Run("Emulator Parameters: ") { FontWeight = FontWeights.Bold },
-                    new LineBreak(),
-                    new Run($""),
-                    new LineBreak(),
-                    new Run("--------------------------")
-                ]
-            }
-            
-        };
-
-        // Get all emulator inputs (locations and names)
-        var emulatorInputs = emulatorLocationTextBoxes
-            .Select(textBox => textBox?.Text)
-            .Where(input => !string.IsNullOrEmpty(input))
-            .Select(NormalizePath)
-            .ToList();
-
-        // Clear existing content
-        helpUserRichTextBox?.Document.Blocks.Clear();
-
-        var paragraphs = new List<Paragraph>();
-        var processedEmulators = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        // Iterate through the target words and search for matches
-        foreach (var emulatorResponse in emulatorResponses)
-        {
-            string targetWord = emulatorResponse.Key;
-            var matchedInputs = emulatorInputs
-                .Where(input => input.IndexOf(targetWord, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-
-            if (matchedInputs.Any() && !processedEmulators.Contains(targetWord))
-            {
-                // Process the first occurrence of this emulator
-                var folderPath = Path.GetDirectoryName(matchedInputs.First()) ?? matchedInputs.First();
-                var paragraph = new Paragraph();
-                paragraph.Inlines.AddRange(emulatorResponse.Value(folderPath));
-                paragraphs.Add(paragraph);
-
-                // Mark this emulator as processed
-                processedEmulators.Add(targetWord);
-            }
+            // Clear the TextBlock and display a default message if no system name is provided
+            helpUserTextBlock.Inlines.Clear();
+            helpUserTextBlock.Inlines.Add(new Run("No system name provided."));
+            return;
         }
 
-        // Add all found paragraphs to the RichTextBox
-        if (paragraphs.Any())
+        // Define the emulator configurations based on system names
+        var responses = new Dictionary<string, Func<string>>(StringComparer.OrdinalIgnoreCase)
         {
-            foreach (var paragraph in paragraphs)
-            {
-                helpUserRichTextBox?.Document.Blocks.Add(paragraph);
-            }
+            { "Amstrad CPC", AmstradCpcDetails },
+            { "Amstrad CPC GX4000", AmstradCpcgx4000Details },
+            { "Arcade", ArcadeDetails },
+            { "Atari 2600", Atari2600Details },
+            { "Atari 5200", Atari5200Details },
+            { "Atari 7800", Atari7800Details },
+            { "Atari 8-Bit", Atari8BitDetails },
+            { "Atari Jaguar", AtariJaguarDetails },
+            { "Atari Jaguar CD", AtariJaguarCdDetails },
+            { "Atari Lynx", AtariLynxDetails },
+            { "Atari ST", AtariStDetails },
+            { "Bandai WonderSwan", BandaiWonderSwanDetails }
+        };
+        
+        helpUserTextBlock.Inlines.Clear();
+
+        // Check if a response exists for the given system name
+        if (responses.TryGetValue(systemName, out var responseGenerator))
+        {
+            var text = responseGenerator();
+            SetTextWithLinks(helpUserTextBlock, text);
         }
         else
         {
-            // If no matches are found, display a default message
-            helpUserRichTextBox?.Document.Blocks.Add(
-                new Paragraph(new Run("No known emulator detected.")));
+            // Display a message if the system name is not recognized
+            helpUserTextBlock.Inlines.Add(new Run($"No information available for system: {systemName}"));
+        }
+    }
+    
+    private static void SetTextWithLinks(TextBlock textBlock, string text)
+    {
+        var regex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
+        var parts = regex.Split(text);
+        var matches = regex.Matches(text);
+
+        int index = 0;
+        foreach (var part in parts)
+        {
+            textBlock.Inlines.Add(new Run(part));
+
+            if (index < matches.Count)
+            {
+                var hyperlink = new Hyperlink(new Run(matches[index].Value))
+                {
+                    NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                        ? matches[index].Value
+                        : "http://" + matches[index].Value)
+                };
+                hyperlink.RequestNavigate += (_, e) =>
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = e.Uri.AbsoluteUri,
+                        UseShellExecute = true
+                    });
+                };
+                textBlock.Inlines.Add(hyperlink);
+                index++;
+            }
         }
     }
 
-    // Method to normalize path
-    private static string NormalizePath(string path)
+    private static string AmstradCpcDetails()
     {
-        if (string.IsNullOrWhiteSpace(path))
-            return path;
+        return
+            @"Amstrad CPC
 
-        try
-        {
-            // Convert relative paths to absolute paths based on the current directory
-            if (!Path.IsPathRooted(path))
-            {
-                path = Path.GetFullPath(path, AppDomain.CurrentDomain.BaseDirectory);
-            }
-        }
-        catch
-        {
-            // If any exception occurs, return the original string
-        }
+System Folder (Example): c:\Amstrad CPC
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction:
 
-        return path;
+Emulator Name: Retroarch caprice32
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\cap32_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). 
+Core may require BIOS files or system files to work properly.";
+    }
+
+    private static string AmstradCpcgx4000Details()
+    {
+        return
+            @"Amstrad CPC GX4000
+
+System Folder (Example): c:\Amstrad CPC GX4000
+System Is MAME? true
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction:
+
+Emulator Name: MAME Amstrad CPC GX4000
+Emulator Location (Example): c:\emulators\mame\mame.exe
+Emulator Parameters (Example): -rompath ""c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000"" gx4000 -cart
+Fullscreen Parameter: -window";
+    }
+
+    private static string ArcadeDetails()
+    {
+        return
+            @"Arcade
+
+System Folder (Example): c:\emulators\mame\roms
+System Is MAME? true
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction:
+
+Emulator Name: MAME
+Emulator Location (Example): C:\emulators\mame\mame.exe
+Emulator Parameters (Example): -rompath ""c:\emulators\mame\roms;c:\emulators\mame\bios""
+Fullscreen Parameter: -window
+
+Emulator Name: Retroarch mame
+Emulator Location (Example): C:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""C:\emulators\retroarch\cores\mame_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mame_2010/).
+Core may require BIOS files or system files to work properly.";
+    }
+    
+    private static string Atari2600Details()
+    {
+        return
+            @"Atari 2600
+
+System Folder (Example): c:\Atari 2600
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Retroarch stella
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\stella_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/).
+Core may require BIOS files or system files to work properly.
+
+Emulator Name: Stella
+Emulator Location (Example): C:\emulators\stella\Stella.exe
+Emulator Parameters (Example): -fullscreen 1
+Fullscreen Parameter: -fullscreen 1
+
+Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).";
+    }
+    
+    private static string Atari5200Details()
+    {
+        return
+            @"Atari 5200
+
+System Folder (Example): c:\Atari 5200
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Altirra
+Emulator Location (Example): c:\emulators\altirra\Altirra64.exe
+Emulator Parameters (Example): /f
+Fullscreen Parameter: /f";
+    }
+    
+    private static string Atari7800Details()
+    {
+        return
+            @"Atari 7800
+
+System Folder (Example): c:\Atari 7800
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Retroarch prosystem
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\prosystem_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/).
+Core may require BIOS files or system files to work properly.";
+    }
+    
+    private static string Atari8BitDetails()
+    {
+        return
+            @"Atari 8-Bit
+
+System Folder (Example): c:\Atari 8-Bit
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Altirra
+Emulator Location (Example): c:\emulators\altirra\Altirra64.exe
+Emulator Parameters: /f
+Fullscreen Parameter: /f";
+    }
+    
+    private static string AtariJaguarDetails()
+    {
+        return
+            @"Atari Jaguar
+
+System Folder (Example): c:\Atari Jaguar
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: BigPEmu
+Emulator Location (Example): c:\emulators\bigpemu\BigPEmu.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ";
+    }
+    
+    private static string AtariJaguarCdDetails()
+    {
+        return
+            @"Atari Jaguar CD
+
+System Folder (Example): c:\Atari Jaguar CD
+System Is MAME? false
+Format To Search In System Folder: zip, 7z
+Extract File Before Launch? true
+Format To Launch After Extraction: cue, cdi
+
+Emulator Name: BigPEmu
+Emulator Location (Example): c:\emulators\bigpemu\BigPEmu.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ";
+    }
+    
+    private static string AtariLynxDetails()
+    {
+        return
+            @"Atari Lynx
+
+System Folder (Example): c:\Atari Lynx
+System Is MAME? false
+Format To Search In System Folder: zip, 7z
+Extract File Before Launch? false
+Format To Launch After Extraction: lnx, o
+
+Emulator Name: Retroarch mednafen_lynx
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/).
+Core may require BIOS or system files to run properly.
+
+Emulator Name: Mednafen
+Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
+Emulator Parameters: 
+Fullscreen Parameter: ";
+    }
+    
+    private static string AtariStDetails()
+    {
+        return
+            @"Atari ST
+
+System Folder (Example): c:\Atari ST
+System Is MAME? false
+Format To Search In System Folder: zip, msa, st, stx, dim, ipf
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Retroarch hatari
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\hatari_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/hatari/).
+Core may require BIOS or system files to run properly.
+
+Emulator Name: Hatari
+Emulator Location (Example): C:\emulators\hatari\hatari.exe
+Emulator Parameters: 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari).
+Emulator may require BIOS or system files to run properly.";
+    }
+    
+    private static string BandaiWonderSwanDetails()
+    {
+        return
+            @"Bandai WonderSwan
+
+System Folder (Example): c:\Bandai WonderSwan
+System Is MAME? false
+Format To Search In System Folder: zip
+Extract File Before Launch? false
+Format To Launch After Extraction: 
+
+Emulator Name: Retroarch mednafen_wswan
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L ""c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll"" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
+Core may require BIOS or system files to work properly.
+
+Emulator Name: BizHawk
+Emulator Location (Example): c:\emulators\emuhawk\EmuHawk.exe
+Emulator Parameters: 
+Fullscreen Parameter: 
+
+Emulator Name: Mednafen
+Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
+Emulator Parameters: 
+Fullscreen Parameter: ";
     }
 }
