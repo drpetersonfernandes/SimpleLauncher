@@ -482,6 +482,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Mattel Aquarius</SystemName>
+        <SystemFolder>.\roms\Mattel Aquarius</SystemFolder>
+        <SystemImageFolder>.\images\Mattel Aquarius</SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME aquarius</EmulatorName>
+                <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "c:\SimpleLauncher\emulators\MAME\roms;c:\SimpleLauncher\emulators\MAME\bios;c:\SimpleLauncher\roms\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorDownloadRename>true</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mattelaquarius.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Mattel Aquarius</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Microsoft DOS</SystemName>
         <SystemFolder>.\roms\Microsoft DOS</SystemFolder>
         <SystemImageFolder>.\images\Microsoft DOS</SystemImageFolder>
@@ -1673,6 +1709,42 @@
                 <ExtrasLatestVersion/>
                 <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasg1000.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Sega SG-1000</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sharp x68000</SystemName>
+        <SystemFolder>.\roms\Sharp x68000</SystemFolder>
+        <SystemImageFolder>.\images\Sharp x68000</SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME x68000</EmulatorName>
+                <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "c:\SimpleLauncher\emulators\MAME\roms;c:\SimpleLauncher\emulators\MAME\bios;c:\SimpleLauncher\roms\Sharp x68000;c:\MAME Software List Roms\x68k_flop" x68000 -flop1</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
+                <EmulatorDownloadRename>true</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Mattel Aquarius</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
