@@ -4,7 +4,7 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Edit System - Easy Mode"
                       Width="350"
-                      Height="280"
+                      Height="330"
                       WindowStartupLocation="CenterScreen">
 
     <StackPanel Orientation="Vertical">
@@ -17,7 +17,7 @@
         <Button
             Margin="10"
             Padding="10"
-            Width="150"
+            Width="160"
             HorizontalAlignment="Center"
             Click="AddSystemButton_Click"
             Content="Add New System">
@@ -26,7 +26,7 @@
         <Button
             Margin="10"
             Padding="10"
-            Width="150"
+            Width="160"
             HorizontalAlignment="Center"
             Click="EditSystemButton_Click"
             Content="Edit Existing System" />
@@ -34,10 +34,18 @@
         <Button
             Margin="10"
             Padding="10"
-            Width="150"
+            Width="160"
             HorizontalAlignment="Center"
             Click="DeleteSystemButton_Click"
             Content="Delete Existing System" />
+        
+        <Button
+            Margin="10"
+            Padding="10"
+            Width="160"
+            HorizontalAlignment="Center"
+            Click="DownloadImagePackButton_Click"
+            Content="Download Image Pack" />
 
     </StackPanel>
 </controls:MetroWindow>

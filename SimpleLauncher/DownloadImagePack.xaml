@@ -1,0 +1,102 @@
+<controls:MetroWindow x:Class="SimpleLauncher.DownloadImagePack"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Download Image Pack"
+                      Width="450"
+                      Height="400"
+                      MinWidth="450"
+                      WindowStartupLocation="CenterScreen">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Text="Please select an Image Pack"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Center"
+                TextAlignment="Justify"
+                Margin="10" />
+
+            <ComboBox Grid.Row="1"
+                      x:Name="SystemNameDropdown"
+                      HorizontalAlignment="Stretch"
+                      Margin="10"
+                      SelectionChanged="SystemNameDropdown_SelectionChanged" />
+
+            <Button Grid.Row="2"
+                    x:Name="DownloadExtrasButton"
+                    Content="Download Image Pack"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="150"
+                    Padding="5"
+                    Click="DownloadExtrasButton_Click"
+                    IsEnabled="False"
+                    Margin="5" />
+
+            <Grid Grid.Row="3"
+                  Margin="10,20,10,10"
+                  HorizontalAlignment="Stretch">
+
+                <ProgressBar
+                    x:Name="DownloadProgressBar"
+                    HorizontalAlignment="Stretch"
+                    Height="29" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="Download Progress" />
+
+            </Grid>
+
+            <Button Grid.Row="4"
+                    x:Name="StopDownloadButton"
+                    Content="Stop Download"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="5"
+                    Margin="10,10,10,20"
+                    Width="150"
+                    Click="StopDownloadButton_Click"
+                    IsEnabled="False" />
+
+            <TextBlock Grid.Row="5"
+                       Margin="10"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       TextWrapping="Wrap"
+                       Text="In case the Image Pack is not available you can download Images for this system in the following websites:" />
+
+            <TextBlock Grid.Row="6"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="10,0,10,10">
+                <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    https://github.com/libretro-thumbnails/libretro-thumbnails
+                </Hyperlink>
+            </TextBlock>
+
+            <TextBlock Grid.Row="7"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="10,0,10,10">
+                <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
+            </TextBlock>
+
+        </Grid>
+    </ScrollViewer>
+
+</controls:MetroWindow>

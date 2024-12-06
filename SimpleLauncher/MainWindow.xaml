@@ -210,6 +210,13 @@
                             Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="DownloadImagePack_Click" Header="Download Image Pack">
+                    <MenuItem.Icon>
+                        <Image
+                            Source="pack://application:,,,/images/image.png"
+                            Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem Header="Global Search">

@@ -3,40 +3,65 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Add New System"
-                      Width="550"
-                      Height="760"
+                      Width="650"
+                      Height="800"
+                      MinWidth="650"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Orientation="Vertical" Margin="10">
-            <Label Content="Please choose a system to Add" HorizontalAlignment="Center" />
-            <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10"
-                      SelectionChanged="SystemNameDropdown_SelectionChanged" />
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <Grid Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <TextBlock
+                Text="In this window you can easily download and install emulators that won't require BIOS or system files to work."
+                Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,10,10,5"/>
+
+            <TextBlock
+                Text="We also have support for systems that require those files, but for those you will have to use the 'Expert Mode' and install it yourself."
+                Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,0,10,10" />
+
+            <TextBlock
+                Text="Please choose a system to Add"
+                Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
+
+            <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" SelectionChanged="SystemNameDropdown_SelectionChanged" />
+
+            <TextBlock
+                Text="Choose folder with ROMs or ISOs for this system"
+                Grid.Row="4" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
+            
+            <TextBlock
+                Text="(If you leave it empty the application will create a folder for this system inside roms folder)"
+                Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="0,0,0,10" />
+
+            <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Content="Choose folder with ROMs or ISOs for this system" HorizontalAlignment="Center"
-                       Margin="0" />
-                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                       Content="If you leave it empty the application will create a folder for this system inside roms folder"
-                       HorizontalAlignment="Center" Margin="0,0,0,10" />
-                <TextBox x:Name="SystemFolderTextBox" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch"
-                         VerticalContentAlignment="Center" Margin="0,0,10,0" />
-                <Button Grid.Row="2" Grid.Column="1" Padding="5" Width="150" Content="Choose Folder"
-                        Click="ChooseFolderButton_Click" />
+            <TextBox Grid.Column="0" x:Name="SystemFolderTextBox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" />
+            <Button Grid.Column="1" Padding="5" Width="150" Content="Choose Folder" Click="ChooseFolderButton_Click" Margin="10,0,0,0" />
             </Grid>
 
-            <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Margin="10,20,10,10" HorizontalAlignment="Center" Grid.Row="7">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -46,77 +71,53 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Content="Download and Install Emulator and Core"
-                       HorizontalAlignment="Center" Margin="0,0,0,10" />
-                <Label Grid.Row="1" Grid.Column="0" Content="1st step" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="Download Emulator"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadEmulatorButton_Click"
-                        IsEnabled="False" Margin="5" />
 
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Install Emulator and Core" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+         
+                <Label Grid.Row="1" Grid.Column="0" Content="1st step" VerticalAlignment="Center" Margin="5" />
+                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="Download Emulator" HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadEmulatorButton_Click" IsEnabled="False" Margin="5" />
+                
                 <Label Grid.Row="2" Grid.Column="0" Content="2nd step" VerticalAlignment="Center" Margin="5" />
                 <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton" Content="Download Core"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadCoreButton_Click"
-                        IsEnabled="False" Margin="5" />
-            </Grid>
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Padding="5"
+                        Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5" />
+                
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Extract Image Pack (if Available)" HorizontalAlignment="Center" Margin="0,20,10,10"/>
 
-            <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Download Image Pack (if available)"
-                       HorizontalAlignment="Center" Margin="0,0,0,10" />
-                <Label Grid.Row="1" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Image Pack"
+                <Label Grid.Row="4" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" />
+                <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Image Pack"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadExtrasButton_Click"
                         IsEnabled="False" Margin="5" />
-
             </Grid>
 
-            <Grid Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="29" Margin="10" />
+            <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="8">
+                <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="29" />
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Download Progress" />
             </Grid>
 
-            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-                <Button x:Name="StopDownloadButton" Content="Stop Download" HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Padding="5" Width="150" Click="StopDownloadButton_Click"
-                        IsEnabled="False" />
-            </StackPanel>
+            <Button x:Name="StopDownloadButton" Content="Stop Download" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Padding="5" Margin="10,10,0,0" Width="150" Grid.Row="9" 
+                    Click="StopDownloadButton_Click" IsEnabled="False" />
 
-            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-                <Button x:Name="AddSystemButton" Content="Include System in Simple Launcher"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Padding="5" Width="220" Click="AddSystemButton_Click"
-                        IsEnabled="False" />
-            </StackPanel>
+            <Button x:Name="AddSystemButton" Content="Include System in Simple Launcher"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10"
+                    Width="220" Grid.Row="10" Click="AddSystemButton_Click" IsEnabled="False" />
 
-            <StackPanel Orientation="Vertical" Margin="10,20,10,10" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                <Label Content="In case the Image Pack is not available you can download Images for this system"
-                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" />
-                <Label Content="in the following websites:" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Margin="0,0,0,10" />
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10">
-                    <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                               RequestNavigate="Hyperlink_RequestNavigate">
-                        https://github.com/libretro-thumbnails/libretro-thumbnails
-                    </Hyperlink>
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
-                </TextBlock>
-            </StackPanel>
-
-        </StackPanel>
+            <TextBlock Grid.Row="12" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"
+                       Text="In case the Image Pack is not available you can download Images for this system in the following websites:" />
+            
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="13" Margin="10,0,10,10">
+                <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
+                RequestNavigate="Hyperlink_RequestNavigate">https://github.com/libretro-thumbnails/libretro-thumbnails</Hyperlink>
+            </TextBlock>
+            
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="14" Margin="10,0,10,10">
+                <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
+            </TextBlock>
+            
+        </Grid>
     </ScrollViewer>
 
 </controls:MetroWindow>

@@ -966,6 +966,12 @@ public partial class MainWindow : INotifyPropertyChanged
         EditSystem editSystemWindow = new(_settings);
         editSystemWindow.ShowDialog();
     }
+    
+    private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
+    {
+        DownloadImagePack downloadImagePack = new();
+        downloadImagePack.ShowDialog();
+    }
         
     private void EditLinks_Click(object sender, RoutedEventArgs e)
     {
