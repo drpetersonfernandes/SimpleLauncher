@@ -45,8 +45,7 @@ public partial class DownloadImagePack
 
     private void LoadConfig()
     {
-        string configPath = "easymode.xml";
-        _config = EasyModeConfig.Load(configPath);
+        _config = EasyModeConfig.Load();
     }
 
     private void PopulateSystemDropdown()
@@ -87,12 +86,14 @@ public partial class DownloadImagePack
             if (selectedSystem != null)
             {
                 string extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-                string extrasFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
-                Directory.CreateDirectory(extrasFolderPath);
-                // string downloadFilePath = Path.Combine(extrasFolderPath, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get extrasDownloadUrl"));
+                
+                // Determine the extraction folder
+                string extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
+                    ? ExtractionFolderTextBox.Text
+                    : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+                
                 string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
-                string destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
                 try
                 {
@@ -113,7 +114,7 @@ public partial class DownloadImagePack
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, extractionFolder);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -131,7 +132,7 @@ public partial class DownloadImagePack
                             /////////////////////////////////////////////////
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(extrasDownloadUrl, destinationPath, _cancellationTokenSource.Token, DownloadProgressBar);
+                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(extrasDownloadUrl, extractionFolder, _cancellationTokenSource.Token, DownloadProgressBar);
                                 
                                 if (extractionSuccess2)
                                 {
@@ -402,4 +403,15 @@ public partial class DownloadImagePack
         e.Handled = true;
     }
 
+    private void ChooseExtractionFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        using var dialog = new System.Windows.Forms.FolderBrowserDialog();
+        dialog.Description = @"Select a folder to extract the Image Pack";
+        dialog.UseDescriptionForTitle = true;
+
+        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        {
+            ExtractionFolderTextBox.Text = dialog.SelectedPath;
+        }
+    }
 }

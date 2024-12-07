@@ -49,17 +49,19 @@ public partial class EditSystemEasyModeAddSystem
 
     private void LoadConfig()
     {
-        string configPath = "easymode.xml";
-        _config = EasyModeConfig.Load(configPath);
+        _config = EasyModeConfig.Load();
     }
-
+   
     private void PopulateSystemDropdown()
     {
         if (_config?.Systems != null)
         {
-            var sortedSystemNames = _config.Systems.Select(system => system.SystemName)
+            var sortedSystemNames = _config.Systems
+                .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
+                .Select(system => system.SystemName)
                 .OrderBy(name => name)
                 .ToList();
+
             SystemNameDropdown.ItemsSource = sortedSystemNames;
         }
     }

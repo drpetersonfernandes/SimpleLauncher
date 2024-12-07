@@ -3,14 +3,17 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Download Image Pack"
-                      Width="450"
-                      Height="400"
-                      MinWidth="450"
+                      Width="550"
+                      Height="550"
+                      MinWidth="550"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -35,7 +38,34 @@
                       Margin="10"
                       SelectionChanged="SystemNameDropdown_SelectionChanged" />
 
-            <Button Grid.Row="2"
+            <TextBlock
+                Grid.Row="2"
+                Text="Select the Extraction Folder"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Center"
+                TextAlignment="Justify"
+                Margin="10,10,10,0" />
+
+            <TextBlock
+                Grid.Row="3"
+                Text="If you do not choose a folder the images will be extracted to the default folder"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Center"
+                TextAlignment="Justify"
+                Margin="10" />
+
+            <Grid Grid.Row="4" Margin="10" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="ExtractionFolderTextBox" HorizontalAlignment="Stretch"
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="1" Padding="5" Width="150" Content="Choose Folder"
+                        Click="ChooseExtractionFolderButton_Click" Margin="10,0,0,0" />
+            </Grid>
+
+            <Button Grid.Row="5"
                     x:Name="DownloadExtrasButton"
                     Content="Download Image Pack"
                     HorizontalAlignment="Center"
@@ -44,9 +74,9 @@
                     Padding="5"
                     Click="DownloadExtrasButton_Click"
                     IsEnabled="False"
-                    Margin="5" />
+                    Margin="10,20,10,10" />
 
-            <Grid Grid.Row="3"
+            <Grid Grid.Row="6"
                   Margin="10,20,10,10"
                   HorizontalAlignment="Stretch">
 
@@ -61,7 +91,7 @@
 
             </Grid>
 
-            <Button Grid.Row="4"
+            <Button Grid.Row="7"
                     x:Name="StopDownloadButton"
                     Content="Stop Download"
                     HorizontalAlignment="Center"
@@ -72,14 +102,14 @@
                     Click="StopDownloadButton_Click"
                     IsEnabled="False" />
 
-            <TextBlock Grid.Row="5"
+            <TextBlock Grid.Row="8"
                        Margin="10"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        TextWrapping="Wrap"
-                       Text="In case the Image Pack is not available you can download Images for this system in the following websites:" />
+                       Text="In case the Image Pack is not available you can download images for this system in the following websites:" />
 
-            <TextBlock Grid.Row="6"
+            <TextBlock Grid.Row="9"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="10,0,10,10">
@@ -89,7 +119,7 @@
                 </Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Row="7"
+            <TextBlock Grid.Row="10"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="10,0,10,10">

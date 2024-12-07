@@ -1365,6 +1365,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Philips CD-i</SystemName>
+        <SystemFolder>.\roms\Philips CD-i</SystemFolder>
+        <SystemImageFolder>.\images\Philips CD-i</SystemImageFolder>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch same_cdi</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/philipscdi.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Philips CD-i</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Sega Dreamcast</SystemName>
         <SystemFolder>.\roms\Sega Dreamcast</SystemFolder>
         <SystemImageFolder>.\images\Sega Dreamcast</SystemImageFolder>
@@ -1741,10 +1777,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ExtrasLocation/>
-                <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ExtrasDownloadLink>
-                <ExtrasDownloadExtractPath>.\images\Mattel Aquarius</ExtrasDownloadExtractPath>
+<!--                <ExtrasLocation/>-->
+<!--                <ExtrasLatestVersion/>-->
+<!--                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ExtrasDownloadLink>-->
+<!--                <ExtrasDownloadExtractPath>.\images\Mattel Aquarius</ExtrasDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
