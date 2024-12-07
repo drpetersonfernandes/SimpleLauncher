@@ -215,8 +215,10 @@ Core may require BIOS or system files to run properly.
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -273,8 +275,10 @@ Fullscreen Parameter:
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -303,8 +307,10 @@ Fullscreen Parameter:
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -692,8 +698,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -724,7 +732,9 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -752,8 +762,10 @@ Fullscreen Parameter:
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -776,8 +788,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters: 
-Fullscreen Parameter: ]]>
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -1481,7 +1495,9 @@ Core may require BIOS or system files to work properly.
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -1619,7 +1635,9 @@ Core may require BIOS or system files to work properly.
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -1644,7 +1662,9 @@ Core may require BIOS or system files to work properly.
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
@@ -1677,7 +1697,9 @@ This emulator may need BIOS or system files to work properly.
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>

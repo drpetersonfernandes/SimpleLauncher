@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace SimpleLauncher;
@@ -14,18 +15,69 @@ public class HelpUserConfig
 
     public void Load()
     {
-        if (!File.Exists(FilePath))
-            throw new FileNotFoundException($"The file {FilePath} does not exist.");
-
-        XDocument doc = XDocument.Load(FilePath);
-
-        Systems = doc.Descendants("System")
-            .Select(system => new SystemHelper
+        try
+        {
+            if (!File.Exists(FilePath))
             {
-                SystemName = (string)system.Element("SystemName"),
-                SystemHelperText = NormalizeText((string)system.Element("SystemHelper"))
-            }).ToList();
+                MessageBox.Show($"The file 'helpuser.xml' is missing.\n\n" +
+                                $"Please reinstall 'Simple Launcher.'",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            XDocument doc;
+
+            try
+            {
+                doc = XDocument.Load(FilePath);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Unable to load 'helpuser.xml'. The file may be corrupted.\n\n" +
+                                $"Please reinstall 'Simple Launcher.'",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                return;
+            }
+
+            Systems = doc.Descendants("System")
+                .Select(system =>
+                {
+                    try
+                    {
+                        return new SystemHelper
+                        {
+                            SystemName = (string)system.Element("SystemName"),
+                            SystemHelperText = NormalizeText((string)system.Element("SystemHelper"))
+                        };
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"Warning: Failed to parse the file 'helpuser.xml'.\n\n" +
+                                        $"Please reinstall 'Simple Launcher.'",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        
+                        return null; // Ignore invalid system entries
+                    }
+                })
+                .Where(helper => helper != null) // Filter out invalid entries
+                .ToList();
+
+            if (!Systems.Any())
+            {
+                MessageBox.Show($"Warning: No valid systems found in the file 'helpuser.xml'.\n\n" +
+                                $"Please reinstall 'Simple Launcher.'",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception)
+        {
+            MessageBox.Show($"Unexpected error while loading 'helpuser.xml'.\n\n" +
+                            $"Please reinstall 'Simple Launcher.'",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
+
 
     private static string NormalizeText(string text)
     {

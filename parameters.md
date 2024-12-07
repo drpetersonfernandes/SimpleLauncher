@@ -159,8 +159,10 @@ Core may require BIOS or system files to run properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Atari ST
 
@@ -209,8 +211,10 @@ Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Bandai WonderSwan Color
 
@@ -235,8 +239,10 @@ Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Casio PV-1000
 
@@ -556,8 +562,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## NEC PC Engine CD
 
@@ -586,6 +594,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
 ## NEC PC-FX
 
 **System Folder (Example):** c:\NEC PC-FX<br>
@@ -608,8 +618,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
 
@@ -628,8 +640,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Nintendo 3DS
 
@@ -857,6 +871,13 @@ Core may require BIOS or system files to work properly.
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
 Core may require BIOS or system files to work properly.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Nintendo Satellaview
 
@@ -1223,6 +1244,8 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
 ## Sega SC-3000
 
 **System Folder (Example):** c:\Sega SC-3000<br>
@@ -1337,6 +1360,8 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
 ## SNK Neo Geo Pocket Color
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
@@ -1357,6 +1382,8 @@ Core may require BIOS or system files to work properly.
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Sony PlayStation 1
 
@@ -1386,6 +1413,8 @@ This emulator may need BIOS or system files to work properly.
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## Sony PlayStation 2
 
