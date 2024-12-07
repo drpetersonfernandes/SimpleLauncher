@@ -1058,7 +1058,14 @@ Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\fceumm_libretro.
 Fullscreen Parameter: -f
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
-Core may require BIOS or system files to work properly.]]>
+Core may require BIOS or system files to work properly.
+
+Emulator Name: Mednafen
+Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
         </SystemHelper>
     </System>
     <System>
