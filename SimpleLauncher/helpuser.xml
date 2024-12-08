@@ -261,8 +261,9 @@ Fullscreen Parameter: -f
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require BIOS or system files to work properly.
 
 Emulator Name: BizHawk
-Emulator Location (Example): c:\emulators\emuhawk\EmuHawk.exe
+Emulator Location (Example): c:\emulators\BizHawk\EmuHawk.exe
 Emulator Parameters: 
+Fullscreen Parameter: 
 Fullscreen Parameter: 
 
 Emulator Name: Mednafen
@@ -292,7 +293,7 @@ Fullscreen Parameter: -f
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require BIOS or system files to work properly.
 
 Emulator Name: BizHawk
-Emulator Location (Example): c:\emulators\emuhawk\EmuHawk.exe
+Emulator Location (Example): c:\emulators\BizHawk\EmuHawk.exe
 Emulator Parameters: 
 Fullscreen Parameter: 
 
@@ -730,8 +731,8 @@ Fullscreen Parameter: -f
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pce_fast/). Core may require BIOS or system files to work properly.
 
-Emulator Name: ares
-Emulator Location (Example): C:\emulators\ares\ares-v138\ares.exe
+Emulator Name: Ares
+Emulator Location (Example): C:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "PC Engine CD"
 Fullscreen Parameter: --fullscreen
 
@@ -819,7 +820,7 @@ Extract File Before Launch? true
 Format To Launch After Extraction: n64, v64, z64, bin, u1, ndd, gb
 
 Emulator Name: Ares
-Emulator Location (Example): c:\emulators\Ares\ares.exe
+Emulator Location (Example): c:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Nintendo 64"
 Fullscreen Parameter: --fullscreen
 
@@ -865,7 +866,7 @@ Fullscreen Parameter: -f
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
 
 Emulator Name: Ares
-Emulator Location (Example): c:\emulators\Ares\ares.exe
+Emulator Location (Example): c:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Nintendo 64DD"
 Fullscreen Parameter: --fullscreen
 
@@ -1049,8 +1050,8 @@ Format To Search In System Folder: zip
 Extract File Before Launch? false
 Format To Launch After Extraction: 
 
-Emulator Name: ares
-Emulator Location (Example): C:\emulators\ares\ares-v138\ares.exe
+Emulator Name: Ares
+Emulator Location (Example): C:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Super Famicom"
 Fullscreen Parameter: --fullscreen
 
@@ -1119,12 +1120,12 @@ Fullscreen Parameter: -fullscreen]]>
 
 System Folder (Example): c:\Nintendo Switch
 System Is MAME? false
-Format To Search In System Folder: bsp, xci
+Format To Search In System Folder: nsp, xci, nca, nro, nso
 Extract File Before Launch? false
 Format To Launch After Extraction: 
 
 Emulator Name: Ryujinx
-Emulator Location (Example): c:\emulators\ryujinx\Ryujinx.exe
+Emulator Location (Example): c:\emulators\Ryujinx\Ryujinx.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
@@ -1134,7 +1135,7 @@ Emulator Parameters (Example):
 Fullscreen Parameter: 
 
 Emulator Name: Sudachi
-Emulator Location (Example): c:\emulators\sudachi\sudachi.exe
+Emulator Location (Example): c:\emulators\Sudachi\sudachi.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: ]]>
         </SystemHelper>
@@ -1146,7 +1147,7 @@ Fullscreen Parameter: ]]>
 
 System Folder (Example): c:\Nintendo Wii
 System Is MAME? false
-Format To Search In System Folder: rvz
+Format To Search In System Folder: rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad
 Extract File Before Launch? false
 Format To Launch After Extraction: 
 
@@ -1320,7 +1321,7 @@ The list of commands available for this emulator can be found at [https://fms.ko
 
 System Folder (Example): c:\Sega Genesis
 System Is MAME? false
-Format To Search In System Folder: zip, 7z
+Format To Search In System Folder: zip
 Extract File Before Launch? false
 Format To Launch After Extraction: 
 
@@ -1390,8 +1391,8 @@ Fullscreen Parameter: -f
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
 
-Emulator Name: ares
-Emulator Location (Example): c:\emulators\ares\ares-v138\ares.exe
+Emulator Name: Ares
+Emulator Location (Example): c:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Mega CD"
 Fullscreen Parameter: --fullscreen
 
@@ -1416,8 +1417,8 @@ Fullscreen Parameter: -f
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
 
-Emulator Name: ares
-Emulator Location (Example): c:\emulators\ares\ares-v138\ares.exe
+Emulator Name: Ares
+Emulator Location (Example): c:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Master System"
 Fullscreen Parameter: --fullscreen
 
@@ -1488,12 +1489,12 @@ Extract File Before Launch? true
 Format To Launch After Extraction: sms, gg, sg, sc, sf, dsk, cht
 
 Emulator Name: BizHawk
-Emulator Location (Example): c:\emulators\bizhawk\EmuHawk.exe
+Emulator Location (Example): c:\emulators\BizHawk\EmuHawk.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
 Emulator Name: MasterGear
-Emulator Location (Example): c:\emulators\mastergear\MG.exe
+Emulator Location (Example): c:\emulators\MasterGear\MG.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
@@ -1512,12 +1513,12 @@ Extract File Before Launch? true
 Format To Launch After Extraction: sms, gg, sg, sc, sf, dsk, cht
 
 Emulator Name: BizHawk
-Emulator Location (Example): c:\emulators\bizhawk\EmuHawk.exe
+Emulator Location (Example): c:\emulators\BizHawk\EmuHawk.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
 Emulator Name: MasterGear
-Emulator Location (Example): c:\emulators\mastergear\MG.exe
+Emulator Location (Example): c:\emulators\MasterGear\MG.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
@@ -1556,8 +1557,8 @@ Core documentation can be found at [libretro website](https://docs.libretro.com/
 System Folder (Example): c:\Sinclair ZX Spectrum
 System Is MAME? false
 Format To Search In System Folder: zip
-Extract File Before Launch? true
-Format To Launch After Extraction: sms, gg, sg, sc, sf, dsk, cht
+Extract File Before Launch? false
+Format To Launch After Extraction: tzx, tap, z80, rzx, scl, trd
 
 Emulator Name: Retroarch fuse
 Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
@@ -1611,8 +1612,8 @@ Fullscreen Parameter:
 
 Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
-Emulator Name: ares
-Emulator Location (Example): C:\emulators\ares\ares-v138\ares.exe
+Emulator Name: Ares
+Emulator Location (Example): C:\emulators\ares\ares-v141\ares.exe
 Emulator Parameters (Example): --fullscreen --system "Neo Geo Pocket"
 Fullscreen Parameter: --fullscreen
 
@@ -1668,14 +1669,7 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/). Emulator may need BIOS or system files to work properly.
-
-Emulator Name: Mednafen
-Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
-Emulator Parameters (Example): 
-Fullscreen Parameter: 
-
-Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/). Emulator may need BIOS or system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>

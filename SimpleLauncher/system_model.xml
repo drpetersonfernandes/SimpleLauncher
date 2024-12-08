@@ -36,7 +36,7 @@
       <Emulator>
         <EmulatorName>MAME Amstrad GX4000</EmulatorName>
         <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-        <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios" gx4000 -cart</EmulatorParameters>
+        <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -255,6 +255,16 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>BizHawk</EmulatorName>
+        <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -274,6 +284,16 @@
         <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>BizHawk</EmulatorName>
+        <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -473,6 +493,16 @@
         <EmulatorName>DOSBox-X</EmulatorName>
         <EmulatorLocation>.\emulators\DOSBox-X\dosbox-x.exe</EmulatorLocation>
         <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch dosbox_pure</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dosbox_pure_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch dosbox</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\dosbox_core_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -691,6 +721,11 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -718,9 +753,9 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
-        <EmulatorName>ares</EmulatorName>
-        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
-        <EmulatorParameters>--system "PC Engine CD"</EmulatorParameters>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "PC Engine CD"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -766,6 +801,11 @@
         <EmulatorName>Retroarch mednafen_supergrafx</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -821,6 +861,11 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
+      </Emulator>
+      <Emulator>
         <EmulatorName>Simple64</EmulatorName>
         <EmulatorLocation>.\emulators\Simple64\simple64-gui.exe</EmulatorLocation>
         <EmulatorParameters/>
@@ -831,18 +876,13 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
-        <EmulatorName>Ares</EmulatorName>
-        <EmulatorLocation>.\emulators\Ares\ares.exe</EmulatorLocation>
+        <EmulatorName>Project64</EmulatorName>
+        <EmulatorLocation>.\emulators\Project64\Project64.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
       <Emulator>
         <EmulatorName>BizHawk</EmulatorName>
         <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters/>
-      </Emulator>
-      <Emulator>
-        <EmulatorName>Project64</EmulatorName>
-        <EmulatorLocation>.\emulators\Project64\Project64.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
@@ -871,6 +911,11 @@
         <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Nintendo 64DD"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -927,11 +972,6 @@
         <EmulatorName>Retroarch nestopia</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
-      </Emulator>
-      <Emulator>
-        <EmulatorName>Retroarch fceumm</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1053,9 +1093,9 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\nestopia_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
-        <EmulatorName>Retroarch fceumm</EmulatorName>
-        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1073,9 +1113,9 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>ares</EmulatorName>
-        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
-        <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Super Famicom"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1102,6 +1142,11 @@
         <EmulatorName>Retroarch snes9x</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch bsnes</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\bsnes_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Snes9x</EmulatorName>
@@ -1149,6 +1194,9 @@
     <FileFormatsToSearch>
       <FormatToSearch>nsp</FormatToSearch>
       <FormatToSearch>xci</FormatToSearch>
+      <FormatToSearch>nca</FormatToSearch>
+      <FormatToSearch>nro</FormatToSearch>
+      <FormatToSearch>nso</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1318,7 +1366,7 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Direct Launch</EmulatorName>
+        <EmulatorName>ScummVM</EmulatorName>
         <EmulatorLocation/>
         <EmulatorParameters/>
       </Emulator>
@@ -1330,17 +1378,11 @@
     <SystemImageFolder>.\images\Sega Dreamcast</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>cdi</FormatToSearch>
-      <FormatToSearch>gdi</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>gdi</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>bin</FormatToSearch>
-      <FormatToSearch>elf</FormatToSearch>
-      <FormatToSearch>zip</FormatToSearch>
-      <FormatToSearch>7z</FormatToSearch>
-      <FormatToSearch>lst</FormatToSearch>
-      <FormatToSearch>dat</FormatToSearch>
-      <FormatToSearch>m3u</FormatToSearch>
+      <FormatToSearch>cdi</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1440,16 +1482,10 @@
     <SystemImageFolder>.\images\Sega Genesis CD</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>chd</FormatToSearch>
       <FormatToSearch>bin</FormatToSearch>
-      <FormatToSearch>gen</FormatToSearch>
-      <FormatToSearch>smd</FormatToSearch>
-      <FormatToSearch>md</FormatToSearch>
-      <FormatToSearch>32x</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>iso</FormatToSearch>
-      <FormatToSearch>sms</FormatToSearch>
-      <FormatToSearch>68k</FormatToSearch>
-      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1467,9 +1503,9 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
-        <EmulatorName>ares</EmulatorName>
-        <EmulatorLocation>.\emulators\ares\ares-v138\ares.exe</EmulatorLocation>
-        <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Mega CD"</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1492,6 +1528,11 @@
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Master System"</EmulatorParameters>
+      </Emulator>
+      <Emulator>
         <EmulatorName>MasterGear</EmulatorName>
         <EmulatorLocation>.\emulators\MasterGear\MG.exe</EmulatorLocation>
         <EmulatorParameters/>
@@ -1512,7 +1553,7 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Direct Launch</EmulatorName>
+        <EmulatorName>Modeler</EmulatorName>
         <EmulatorLocation/>
         <EmulatorParameters/>
       </Emulator>
@@ -1524,11 +1565,11 @@
     <SystemImageFolder>.\images\Sega Saturn</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
+      <FormatToSearch>chd</FormatToSearch>
       <FormatToSearch>cue</FormatToSearch>
       <FormatToSearch>toc</FormatToSearch>
       <FormatToSearch>m3u</FormatToSearch>
       <FormatToSearch>ccd</FormatToSearch>
-      <FormatToSearch>chd</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1539,6 +1580,11 @@
         <EmulatorName>Retroarch mednafen_saturn</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1639,7 +1685,12 @@
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
-      <FormatToLaunch/>
+      <FormatToLaunch>tzx</FormatToLaunch>
+      <FormatToLaunch>tap</FormatToLaunch>
+      <FormatToLaunch>z80</FormatToLaunch>
+      <FormatToLaunch>rzx</FormatToLaunch>
+      <FormatToLaunch>scl</FormatToLaunch>
+      <FormatToLaunch>trd</FormatToLaunch>
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
@@ -1688,6 +1739,16 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Neo Geo Pocket"</EmulatorParameters>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1708,6 +1769,16 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Mednafen</EmulatorName>
+        <EmulatorLocation>.\emulators\mednafen\mednafen.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Ares</EmulatorName>
+        <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen --system "Neo Geo Pocket Color"</EmulatorParameters>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1716,13 +1787,13 @@
     <SystemImageFolder>.\images\Sony PlayStation 1</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>cue</FormatToSearch>
-      <FormatToSearch>toc</FormatToSearch>
-      <FormatToSearch>m3u</FormatToSearch>
-      <FormatToSearch>ccd</FormatToSearch>
-      <FormatToSearch>exe</FormatToSearch>
-      <FormatToSearch>pbp</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>cue</FormatToSearch>
+      <FormatToSearch>bin</FormatToSearch>
+      <FormatToSearch>img</FormatToSearch>
+      <FormatToSearch>mds</FormatToSearch>
+      <FormatToSearch>mdf</FormatToSearch>
+      <FormatToSearch>pbp</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>
@@ -1781,8 +1852,48 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>Direct Launch</EmulatorName>
+        <EmulatorName>RPCS3</EmulatorName>
         <EmulatorLocation/>
+        <EmulatorParameters/>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
+    <SystemName>Sony PlayStation 4</SystemName>
+    <SystemFolder>.\roms\Sony PlayStation 4</SystemFolder>
+    <SystemImageFolder>.\images\Sony PlayStation 4</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch/>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>shadPS4</EmulatorName>
+        <EmulatorLocation>.\emulators\shadPS4\shadPS4.exe.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+    </Emulators>
+  </SystemConfig>
+  <SystemConfig>
+    <SystemName>Sony PlayStation Vita</SystemName>
+    <SystemFolder>.\roms\Sony PlayStation Vita</SystemFolder>
+    <SystemImageFolder>.\images\Sony PlayStation Vita</SystemImageFolder>
+    <SystemIsMAME>false</SystemIsMAME>
+    <FileFormatsToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+    </FileFormatsToSearch>
+    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+    <FileFormatsToLaunch>
+      <FormatToLaunch/>
+    </FileFormatsToLaunch>
+    <Emulators>
+      <Emulator>
+        <EmulatorName>Vita3K</EmulatorName>
+        <EmulatorLocation>.\emulators\Vita3K\Vita3K.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
@@ -1793,12 +1904,12 @@
     <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
     <SystemIsMAME>false</SystemIsMAME>
     <FileFormatsToSearch>
-      <FormatToSearch>elf</FormatToSearch>
-      <FormatToSearch>iso</FormatToSearch>
       <FormatToSearch>cso</FormatToSearch>
-      <FormatToSearch>prx</FormatToSearch>
-      <FormatToSearch>pbp</FormatToSearch>
       <FormatToSearch>chd</FormatToSearch>
+      <FormatToSearch>iso</FormatToSearch>
+      <FormatToSearch>pbp</FormatToSearch>
+      <FormatToSearch>elf</FormatToSearch>
+      <FormatToSearch>prx</FormatToSearch>
     </FileFormatsToSearch>
     <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
     <FileFormatsToLaunch>

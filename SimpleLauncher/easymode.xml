@@ -813,7 +813,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>ares</EmulatorName>
+                <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
@@ -1113,7 +1113,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>ares</EmulatorName>
+                <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
@@ -1530,7 +1530,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>ares</EmulatorName>
+                <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
