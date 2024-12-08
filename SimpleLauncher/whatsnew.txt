@@ -1,20 +1,20 @@
 release3.7
 ------------
 
-12/--/2024
+12/08/2024
 - Added a tool to generate BAT files for Xbox 360 XBLA games.
 - I have added a Helper class to assist users during system edits.
 - I have improved the UI in the Edit window.
-- Added support for easily launching Mattel Aquarius games on MAME. This system needed a specific command call to launch a game.
-- Fixed bugs and improved exception handling in some methods.
+- Added support for easily launching Mattel Aquarius games on MAME using the frontend.
 - Improved the code that gets the application version from GitHub.
 - Updated the emulator version of the Easy Mode emulators to the latest version.
 - Updated mame.xml to the latest version (MAME 0.272). I have also added Software List games to this list.
 - Updated parameters.md and system_model.xml.
 - Updated the binaries of the tool FindRomCover to the latest version.
 - Added image packs for Philips CD-i and Atari ST.
-- Added a new menu item to easily download image packs for the installed systems.
+- Added a new menu item to easily download image packs.
 - Added Mattel Aquarius and Sharp x68000 to Easy Mode.
+- Fixed bugs and improved exception handling in some methods.
 
 release3.6.3
 ------------

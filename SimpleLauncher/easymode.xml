@@ -334,6 +334,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Atari ST</SystemName>
+        <SystemFolder>.\roms\Atari ST</SystemFolder>
+        <SystemImageFolder>.\images\Atari ST</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch hatari</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarist.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari ST</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Bandai WonderSwan</SystemName>
         <SystemFolder>.\roms\Bandai WonderSwan</SystemFolder>
         <SystemImageFolder>.\images\Bandai WonderSwan</SystemImageFolder>
@@ -1725,19 +1761,19 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME x68000</EmulatorName>
-                <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "c:\SimpleLauncher\emulators\MAME\roms;c:\SimpleLauncher\emulators\MAME\bios;c:\SimpleLauncher\roms\Sharp x68000;c:\MAME Software List Roms\x68k_flop" x68000 -flop1</EmulatorParameters>
-                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
-                <EmulatorDownloadRename>true</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
+                <EmulatorName>Retroarch px68k</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
 <!--                <ExtrasLocation/>-->
 <!--                <ExtrasLatestVersion/>-->

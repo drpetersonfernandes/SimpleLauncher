@@ -12,7 +12,7 @@ public static class CleanSimpleLauncherFolder
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
     private static readonly string TempFolder = Path.Combine(AppDirectory, "temp");
     private static readonly string TempFolder2 = Path.Combine(AppDirectory, "temp2");
-    private static readonly string TempFolder3 = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+    // private static readonly string TempFolder3 = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
 
     /// <summary>
@@ -34,11 +34,11 @@ public static class CleanSimpleLauncherFolder
                 Directory.Delete(TempFolder2, true);
             }
             
-            // Delete TempFolder3
-            if (Directory.Exists(TempFolder3))
-            {
-                Directory.Delete(TempFolder3, true);
-            }
+            // // Delete TempFolder3
+            // if (Directory.Exists(TempFolder3))
+            // {
+            //     Directory.Delete(TempFolder3, true);
+            // }
 
             // Delete UpdateFile
             if (File.Exists(UpdateFile))
@@ -48,7 +48,7 @@ public static class CleanSimpleLauncherFolder
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Error occurred while cleaning the 'Simple Launcher' temp folders and files.\n" +
+            string contextMessage = $"Error occurred while cleaning the 'Simple Launcher' temp folders and files.\n\n" +
                                     $"Method: CleanupTrash\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}\n" +
