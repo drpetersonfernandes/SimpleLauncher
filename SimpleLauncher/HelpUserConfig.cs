@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -19,9 +20,22 @@ public class HelpUserConfig
         {
             if (!File.Exists(FilePath))
             {
-                MessageBox.Show($"The file 'helpuser.xml' is missing.\n\n" +
-                                $"Please reinstall 'Simple Launcher.'",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"The file 'helpuser.xml' is missing.";
+                Exception ex = new Exception(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                var result = MessageBox.Show("The file 'helpuser.xml' is missing.\n\n" +
+                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+                }
+                else
+                {
+                    return;
+                }
                 return;
             }
 
@@ -31,12 +45,24 @@ public class HelpUserConfig
             {
                 doc = XDocument.Load(FilePath);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Unable to load 'helpuser.xml'. The file may be corrupted.\n\n" +
-                                $"Please reinstall 'Simple Launcher.'",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"Unable to load 'helpuser.xml'. The file may be corrupted.";
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
                 
+                var result = MessageBox.Show("Unable to load 'helpuser.xml'. The file may be corrupted.\n\n" +
+                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+                }
+                else
+                {
+                    return;
+                }
+
                 return;
             }
 
@@ -51,11 +77,23 @@ public class HelpUserConfig
                             SystemHelperText = NormalizeText((string)system.Element("SystemHelper"))
                         };
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show($"Warning: Failed to parse the file 'helpuser.xml'.\n\n" +
-                                        $"Please reinstall 'Simple Launcher.'",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string contextMessage = $"Warning: Failed to parse the file 'helpuser.xml'.";
+                        Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        
+                        var result = MessageBox.Show("Warning: Failed to parse the file 'helpuser.xml'.\n\n" +
+                                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+                            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+                        }
+                        else
+                        {
+                            return null;
+                        }
                         
                         return null; // Ignore invalid system entries
                     }
@@ -65,16 +103,33 @@ public class HelpUserConfig
 
             if (!Systems.Any())
             {
-                MessageBox.Show($"Warning: No valid systems found in the file 'helpuser.xml'.\n\n" +
-                                $"Please reinstall 'Simple Launcher.'",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string contextMessage = $"Warning: No valid systems found in the file 'helpuser.xml'.";
+                Exception ex = new Exception(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                var result = MessageBox.Show("Warning: No valid systems found in the file 'helpuser.xml'.\n\n" +
+                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+                }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            MessageBox.Show($"Unexpected error while loading 'helpuser.xml'.\n\n" +
-                            $"Please reinstall 'Simple Launcher.'",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string contextMessage = $"Unexpected error while loading 'helpuser.xml'.";
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            var result = MessageBox.Show("Unexpected error while loading 'helpuser.xml'.\n\n" +
+                                         "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+            }
         }
     }
 

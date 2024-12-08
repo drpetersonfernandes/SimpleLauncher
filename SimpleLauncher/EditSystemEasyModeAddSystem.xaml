@@ -29,11 +29,10 @@
             </Grid.RowDefinitions>
 
             <TextBlock
-                Text="In this window you can easily download and install emulators that won't require BIOS or system files to work."
-                Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,10,10,5"/>
-
+                Text="In this window, you can easily download and install emulators that don't require BIOS or system files to work."
+                Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,10,10,5" />
             <TextBlock
-                Text="We also have support for systems that require those files, but for those you will have to use the 'Expert Mode' and install it yourself."
+                Text="We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself."
                 Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,0,10,10" />
 
             <TextBlock
@@ -47,7 +46,7 @@
                 Grid.Row="4" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
             
             <TextBlock
-                Text="(If you leave it empty the application will create a folder for this system inside roms folder)"
+                Text="If you leave it empty, the application will create a folder for this system inside the 'roms' folder."
                 Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="0,0,0,10" />
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="6">
@@ -83,7 +82,7 @@
                         HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Padding="5"
                         Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5" />
                 
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Extract Image Pack (if Available)" HorizontalAlignment="Center" Margin="0,20,10,10"/>
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Extract Image Pack (If Available)" HorizontalAlignment="Center" Margin="0,20,10,10"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" />
                 <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Image Pack"
@@ -113,7 +112,7 @@
                 RequestNavigate="Hyperlink_RequestNavigate">https://github.com/libretro-thumbnails/libretro-thumbnails</Hyperlink>
             </TextBlock>
             
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="14" Margin="10,0,10,10">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="14" Margin="10,0,10,30">
                 <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
             </TextBlock>
             
