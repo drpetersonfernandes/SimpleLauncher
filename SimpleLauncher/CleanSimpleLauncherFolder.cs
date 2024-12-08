@@ -49,7 +49,6 @@ public static class CleanSimpleLauncherFolder
         catch (Exception ex)
         {
             string contextMessage = $"Error occurred while cleaning the 'Simple Launcher' temp folders and files.\n" +
-                                    $"User was not notified.\n\n" +
                                     $"Method: CleanupTrash\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}\n" +

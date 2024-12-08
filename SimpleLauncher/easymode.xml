@@ -683,18 +683,16 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Microsoft Xbox 360 XBLA</SystemName>
+        <SystemName>Microsoft Xbox 360 XBLA Using BAT files</SystemName>
         <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
         <SystemImageFolder>.\images\Microsoft Xbox360 XBLA</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
-            <FormatToSearch>rar</FormatToSearch>
+            <FormatToSearch>bat</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -803,25 +801,31 @@
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch/>
+            <FormatToLaunch>n64</FormatToLaunch>
+            <FormatToLaunch>v64</FormatToLaunch>
+            <FormatToLaunch>z64</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>u1</FormatToLaunch>
+            <FormatToLaunch>ndd</FormatToLaunch>
+            <FormatToLaunch>gb</FormatToLaunch>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
+                <EmulatorName>ares</EmulatorName>
+                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>141</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.19.1</CoreLatestVersion>
-                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreLocation/>>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <!--                <ExtrasLocation/>
                                 <ExtrasLatestVersion/>
@@ -956,7 +960,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1073,16 +1076,16 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Retroarch fceumm</EmulatorName>
+                <EmulatorName>Retroarch mesen</EmulatorName>
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll" -f</EmulatorParameters>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\fceumm_libretro.dll</CoreLocation>
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
@@ -1212,47 +1215,6 @@
                                 <ExtrasLatestVersion/>
                                 <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ExtrasDownloadLink>
                                 <ExtrasDownloadExtractPath>.\images\Nintendo SNES MSU1</ExtrasDownloadExtractPath>-->
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Nintendo Switch</SystemName>
-        <SystemFolder>.\roms\Nintendo Switch</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Switch</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>nsp</FormatToSearch>
-            <FormatToSearch>xci</FormatToSearch>
-            <FormatToSearch>nso</FormatToSearch>
-            <FormatToSearch>nro</FormatToSearch>
-            <FormatToSearch>nca</FormatToSearch>
-            <FormatToSearch>kip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <EmulatorName>Sudachi</EmulatorName>
-                <EmulatorLocation>.\emulators\Sudachi\sudachi.exe</EmulatorLocation>
-                <EmulatorParameters/>
-                <EmulatorDownloadPage>https://github.com/emuplace/sudachi.emuplace.app/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.0.11</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sudachi-windows-v1.0.11.zip</EmulatorDownloadLink>
-                <EmulatorDownloadRename>false</EmulatorDownloadRename>
-                <EmulatorDownloadExtractPath>.\emulators\Sudachi\</EmulatorDownloadExtractPath>
-
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
-
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendoswitch.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Switch</ExtrasDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1932,7 +1894,7 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation1.zip</ExtrasDownloadLink>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Sony PlayStation 1</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>

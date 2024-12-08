@@ -29,7 +29,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-## Arcade (MAME)
+## Arcade
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
 **System Is MAME?** true<br>
@@ -157,13 +157,6 @@ Core may require BIOS files or system files to work properly.
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/).
 Core may require BIOS or system files to run properly.
 
-**Emulator Name:** Mednafen<br>
-**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
-
 ## Atari ST
 
 **System Folder (Example):** c:\Atari ST<br>
@@ -201,8 +194,7 @@ Emulator may require BIOS or system files to run properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location (Example):** c:\emulators\emuhawk\EmuHawk.exe<br>
@@ -229,8 +221,7 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_cygne/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** BizHawk<br>
 **Emulator Location (Example):** c:\emulators\emuhawk\EmuHawk.exe<br>
@@ -286,8 +277,7 @@ Core may require BIOS or system files to run properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/vice/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/vice/). Core may require BIOS or system files to work properly.
 
 ## Commodore Amiga CD32
 
@@ -302,8 +292,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae). Core may require BIOS or system files to work properly.
 
 ## LaserDisk
 
@@ -501,6 +490,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 
 This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found [here](https://xemu.app/docs/required-files/).<br>
+
 The ISO file needs to be formated in XBOX format, as the original XBOX discs.
 You can find information about that [here](https://xemu.app/docs/disc-images/).
 
@@ -584,17 +574,10 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 **Emulator Name:** ares<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
-**Emulator Parameters (Example):** --system "PC Engine CD"<br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** --fullscreen --system "PC Engine CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
-Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
-
-**Emulator Name:** Mednafen<br>
-**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options). This emulator requires a BIOS file to run this system properly.
 
 ## NEC PC-FX
 
@@ -610,18 +593,6 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). This core may require BIOS of system files to work properly.
-
-**Emulator Name:** BizHawk<br>
-**Emulator Location (Example):** c:\emulators\bizhawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
-**Fullscreen Parameter:** <br>
-
-**Emulator Name:** Mednafen<br>
-**Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
 
@@ -673,6 +644,16 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 
+**Emulator Name:** Ares<br>
+**Emulator Location (Example):** c:\emulators\Ares\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Nintendo 64"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+**Emulator Name:** Simple64<br>
+**Emulator Location (Example):** c:\emulators\Simple64\simple64-gui.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
@@ -680,18 +661,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
 
-**Emulator Name:** Simple64<br>
-**Emulator Location (Example):** c:\emulators\Simple64\simple64-gui.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
 **Emulator Name:** Project64<br>
 **Emulator Location (Example):** c:\emulators\project64\Project64.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-**Emulator Name:** Ares<br>
-**Emulator Location (Example):** c:\emulators\Ares\ares.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
@@ -715,6 +686,13 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mupen64plus/).
 
+**Emulator Name:** Ares<br>
+**Emulator Location (Example):** c:\emulators\Ares\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Nintendo 64DD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator requires BIOS file to run this system.
+
 ## Nintendo DS
 
 **System Folder (Example):** c:\Nintendo DS<br>
@@ -729,7 +707,6 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/melonds/).
-Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch desmume<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -737,7 +714,6 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/desmume/).
-Core may require BIOS or system files to work properly.
 
 ## Nintendo Family Computer Disk System
 
@@ -752,24 +728,14 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/).
-This core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/). This core require BIOS file to run this system.
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/).
-This core may require BIOS or system files to work properly.
-
-**Emulator Name:** Retroarch fceumm<br>
-**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
-**Fullscreen Parameter:** -f<br>
-
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
-This core may require a BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/). This core require BIOS file to run this system.
 
 ## Nintendo Game Boy
 
@@ -784,8 +750,7 @@ This core may require a BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/). Core may require BIOS or system files to work properly.
 
 ## Nintendo Game Boy Advance
 
@@ -800,8 +765,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mgba_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mgba/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mgba/). Core may require BIOS or system files to work properly.
 
 ## Nintendo Game Boy Color
 
@@ -816,8 +780,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/). Core may require BIOS or system files to work properly.
 
 ## Nintendo GameCube
 
@@ -837,8 +800,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require BIOS or system files to work properly.
 
 ## Nintendo NES
 
@@ -854,7 +816,6 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mesen/).
-Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -862,15 +823,6 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/nestopia_ue/).
-Core may require BIOS or system files to work properly.
-
-**Emulator Name:** Retroarch fceumm<br>
-**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
-**Fullscreen Parameter:** -f<br>
-
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fceumm/).
-Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
@@ -889,8 +841,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 **Emulator Name:** ares<br>
 **Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
-**Emulator Parameters (Example):** --system "Super Famicom"<br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
@@ -907,8 +859,14 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/). Core may require BIOS or system files to work properly.
+
+**Emulator Name:** Retroarch bsnes<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bsnes_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_bsnes/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Snes9x<br>
 **Emulator Location (Example):** c:\emulators\snes9x\snes9x-x64.exe<br>
@@ -928,8 +886,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/snes9x/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Snes9x<br>
 **Emulator Location (Example):** c:\emulators\snes9x\snes9x-x64.exe<br>
@@ -977,8 +934,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require BIOS or system files to work properly.
 
 ## Nintendo WiiU
 
@@ -1011,8 +967,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/).
-This core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require BIOS or system files to work properly.
 
 ## Panasonic 3DO
 
@@ -1027,8 +982,7 @@ This core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\opera_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/).
-This core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/). This core require BIOS or system files to run.
 
 ## Philips CD-i
 
@@ -1043,8 +997,7 @@ This core may require BIOS or system files to run properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\same_cdi_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/). Core require BIOS or system files to run.
 
 ## ScummVM
 
@@ -1054,7 +1007,7 @@ Core may require BIOS or system files to run properly.
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** Direct Launch<br>
+**Emulator Name:** ScummVM<br>
 **Emulator Location:** <br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
@@ -1080,8 +1033,7 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\flycast_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/).
-This core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/). This core require BIOS or system files to work.
 
 ## Sega Game Gear
 
@@ -1096,8 +1048,7 @@ This core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** MasterGear<br>
 **Emulator Location (Example):** c:\emulators\mastergear\MG.exe<br>
@@ -1119,24 +1070,21 @@ The list of commands available for this emulator can be found at [https://fms.ko
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch blastem<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\blastem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/). Core may require BIOS or system files to work properly.
 
 ## Sega Genesis 32X
 
@@ -1151,8 +1099,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
 
 ## Sega Genesis CD
 
@@ -1167,21 +1114,19 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/).
-This core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** ares<br>
 **Emulator Location (Example):** c:\emulators\ares\ares-v138\ares.exe<br>
-**Emulator Parameters (Example):** --system "Mega CD"<br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 The list of command-line arguments available for this emulator can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
@@ -1198,8 +1143,14 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/genesis_plus_gx/). Core may require BIOS or system files to work properly.
+
+**Emulator Name:** ares<br>
+**Emulator Location (Example):** c:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Master System"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+The list of command-line arguments available for this emulator can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 **Emulator Name:** MasterGear<br>
 **Emulator Location (Example):** c:\emulators\mastergear\MG.exe<br>
@@ -1216,7 +1167,7 @@ The list of command-line arguments available for this emulator can be found at [
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** Direct Launch<br>
+**Emulator Name:** Modeler<br>
 **Emulator Location (Example):** <br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
@@ -1236,8 +1187,7 @@ Use the 'Simple Launcher' tools menu to generate BAT files for you.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
@@ -1304,8 +1254,7 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\px68k_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [libretro website](https://docs.libretro.com/library/px68k/).
-Core requires BIOS and system files to work properly.
+Core documentation can be found at [libretro website](https://docs.libretro.com/library/px68k/). Core requires BIOS and system files to work properly.
 
 ## Sinclair ZX Spectrum
 
@@ -1320,8 +1269,7 @@ Core requires BIOS and system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fuse_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fuse/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fuse/). Core require BIOS or system files to work properly.
 
 ## SNK Neo Geo CD
 
@@ -1336,8 +1284,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\neocd_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info).
-This core requires BIOS or system files to work properly.
+Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Core requires BIOS or system files to work properly.
 
 ## SNK Neo Geo Pocket
 
@@ -1352,8 +1299,7 @@ This core requires BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
@@ -1361,6 +1307,13 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
+**Emulator Name:** ares<br>
+**Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options). This emulator requires a BIOS file to run this system properly.
 
 ## SNK Neo Geo Pocket Color
 
@@ -1375,8 +1328,7 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/).
-Core may require BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_neopop/). Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
@@ -1384,6 +1336,13 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
+**Emulator Name:** ares<br>
+**Emulator Location (Example):** C:\emulators\ares\ares-v138\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket Color"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options). This emulator requires a BIOS file to run this system properly.
 
 ## Sony PlayStation 1
 
@@ -1398,16 +1357,14 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-Core documentation can be found at [GitHub](https://github.com/stenzek/duckstation).
-This emulator may need BIOS or system files to work properly.
+Core documentation can be found at [GitHub](https://github.com/stenzek/duckstation). Emulator may need BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/).
-This emulator may need BIOS or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_psx/). Emulator may need BIOS or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
@@ -1429,8 +1386,7 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-Documentation can be found at [Emulator website](https://pcsx2.net/docs/).
-This emulator may require BIOS or system files to work properly.
+Documentation can be found at [Emulator website](https://pcsx2.net/docs/). This emulator may require BIOS or system files to work properly.
 
 ## Sony PlayStation 3
 
@@ -1447,6 +1403,19 @@ This emulator may require BIOS or system files to work properly.
 
 Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
+## Sony PlayStation 4
+
+**System Folder (Example):** c:\Sony PlayStation 4<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** iso<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** shadPS4<br>
+**Emulator Location (Example):** c:\emulators\shadPS4\shadPS4.exe.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sony PlayStation Vita
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
@@ -1456,7 +1425,7 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Vita3K<br>
-**Emulator Location (Example):** <br>
+**Emulator Location (Example):** c:\emulators\Vita3K\Vita3K.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
@@ -1478,5 +1447,4 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\ppsspp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/).
-This core may require BIOS or system files to work properly.<br>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/ppsspp/). Core may require BIOS or system files to work properly.<br>

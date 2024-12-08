@@ -722,8 +722,8 @@ public static class GameLauncher
                 
                 var result = MessageBox.Show(
                     "There was an memory access violation error running this emulator with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
                     "Do you want to open file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -1032,9 +1032,9 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running this emulator with this ROM.\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
+                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
                     "Do you want to open the file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -1392,8 +1392,8 @@ public static class GameLauncher
                 
                 var result = MessageBox.Show(
                     "There was an memory access violation error running MAME with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
                     "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
                     "Do you want to open file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);

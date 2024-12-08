@@ -72,6 +72,7 @@ public static class HelpUser
             { "Microsoft Windows", MicrosoftWindowsDetails },
             { "Microsoft Xbox", MicrosoftXboxDetails },
             { "Microsoft Xbox 360", MicrosoftXbox360Details },
+            { "Microsoft Xbox 360 XBLA", MicrosoftXbox360XblaDetails },
             { "Microsoft Xbox 360 XBLA Using Compressed Folders", MicrosoftXbox360XblaUsingCompressedFoldersDetails },
             { "Microsoft Xbox 360 XBLA Using BAT files", MicrosoftXbox360XblaUsingBaTfilesDetails },
             { "NEC PC Engine", NecpcEngineDetails },
@@ -117,6 +118,7 @@ public static class HelpUser
             { "Sony PlayStation 1", SonyPlayStation1Details },
             { "Sony PlayStation 2", SonyPlayStation2Details },
             { "Sony PlayStation 3", SonyPlayStation3Details },
+            { "Sony PlayStation 4", SonyPlayStation4Details },
             { "Sony PlayStation Vita", SonyPlayStationVitaDetails },
             { "Sony PSP", SonyPspDetails }
         };
@@ -163,6 +165,7 @@ public static class HelpUser
     private static string MicrosoftWindowsDetails() => GetSystemDetails("Microsoft Windows");
     private static string MicrosoftXboxDetails() => GetSystemDetails("Microsoft Xbox");
     private static string MicrosoftXbox360Details() => GetSystemDetails("Microsoft Xbox 360");
+    private static string MicrosoftXbox360XblaDetails() => GetSystemDetails("Microsoft Xbox 360 XBLA");
     private static string MicrosoftXbox360XblaUsingCompressedFoldersDetails() => GetSystemDetails("Microsoft Xbox 360 XBLA Using Compressed Folders");
     private static string MicrosoftXbox360XblaUsingBaTfilesDetails() => GetSystemDetails("Microsoft Xbox 360 XBLA Using BAT files");
     private static string NecpcEngineDetails() => GetSystemDetails("NEC PC Engine");
@@ -208,6 +211,7 @@ public static class HelpUser
     private static string SonyPlayStation1Details() => GetSystemDetails("Sony PlayStation 1");
     private static string SonyPlayStation2Details() => GetSystemDetails("Sony PlayStation 2");
     private static string SonyPlayStation3Details() => GetSystemDetails("Sony PlayStation 3");
+    private static string SonyPlayStation4Details() => GetSystemDetails("Sony PlayStation 4");
     private static string SonyPlayStationVitaDetails() => GetSystemDetails("Sony PlayStation Vita");
     private static string SonyPspDetails() => GetSystemDetails("Sony PSP");
     

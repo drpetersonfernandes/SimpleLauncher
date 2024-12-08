@@ -79,7 +79,6 @@
             <Grid Grid.Row="6"
                   Margin="10,20,10,10"
                   HorizontalAlignment="Stretch">
-
                 <ProgressBar
                     x:Name="DownloadProgressBar"
                     HorizontalAlignment="Stretch"
@@ -88,7 +87,6 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Text="Download Progress" />
-
             </Grid>
 
             <Button Grid.Row="7"
@@ -114,9 +112,7 @@
                        HorizontalAlignment="Left"
                        Margin="10,0,10,10">
                 <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                           RequestNavigate="Hyperlink_RequestNavigate">
-                    https://github.com/libretro-thumbnails/libretro-thumbnails
-                </Hyperlink>
+                           RequestNavigate="Hyperlink_RequestNavigate">https://github.com/libretro-thumbnails/libretro-thumbnails</Hyperlink>
             </TextBlock>
 
             <TextBlock Grid.Row="10"
