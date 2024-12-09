@@ -36,6 +36,11 @@ static class Program
 
             MessageBox.Show("No file selected. Exiting application.",
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            // Shutdown
+            Application.Exit();
+            Environment.Exit(0);
+            
             return;
         }
 
@@ -51,6 +56,11 @@ static class Program
 
             MessageBox.Show("No folder selected. Exiting application.",
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            // Shutdown
+            Application.Exit();
+            Environment.Exit(0);
+            
             return;
         }
 
