@@ -1,3 +1,9 @@
+release3.7.1
+------------
+
+12/10/2024
+- Fixed bugs and improved exception handling in some methods.
+
 release3.7
 ------------
 
