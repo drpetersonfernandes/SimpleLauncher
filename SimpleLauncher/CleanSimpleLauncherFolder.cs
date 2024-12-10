@@ -47,7 +47,7 @@ public static class CleanSimpleLauncherFolder
                 {
                     File.Delete(UpdateFile);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // ignore
                 }
