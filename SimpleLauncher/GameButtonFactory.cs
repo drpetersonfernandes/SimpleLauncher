@@ -1132,12 +1132,12 @@ internal class GameButtonFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
-        
+
     private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
     {
-        try
+        if (File.Exists(filePath))
         {
-            if (File.Exists(filePath))
+            try
             {
                 File.Delete(filePath);
                     
@@ -1149,29 +1149,26 @@ internal class GameButtonFactory(
                 // Remove the button from the UI
                 gameFileGrid.Children.Remove(button);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
-                    "File Not Found",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Notify developer
+                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
-        catch (Exception ex)
+        else
         {
-            MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-            // Notify developer
-            string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    
+
     private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
     {
         // Determine base image directory

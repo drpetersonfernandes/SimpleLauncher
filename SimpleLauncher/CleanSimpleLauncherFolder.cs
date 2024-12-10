@@ -43,8 +43,16 @@ public static class CleanSimpleLauncherFolder
             // Delete UpdateFile
             if (File.Exists(UpdateFile))
             {
-                File.Delete(UpdateFile);
+                try
+                {
+                    File.Delete(UpdateFile);
+                }
+                catch (Exception e)
+                {
+                    // ignore
+                }
             }
+            
         }
         catch (Exception ex)
         {

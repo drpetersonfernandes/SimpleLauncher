@@ -182,7 +182,17 @@ public partial class DownloadImagePack
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath);
+                    if (File.Exists(downloadFilePath))
+                    {
+                        try
+                        {
+                            File.Delete(downloadFilePath);
+                        }
+                        catch (Exception)
+                        {
+                            // ignore
+                        }
+                    }
                     
                     MessageBox.Show("Image Pack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -211,7 +221,14 @@ public partial class DownloadImagePack
                     // Delete temp download file
                     if (File.Exists(downloadFilePath))
                     {
-                        File.Delete(downloadFilePath);
+                        try
+                        {
+                            File.Delete(downloadFilePath);
+                        }
+                        catch (Exception)
+                        {
+                            // ignore
+                        }
                     }
                 }
             }
@@ -247,8 +264,15 @@ public partial class DownloadImagePack
             "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
-        File.Delete(downloadFilePath);
-                            
+        try
+        {
+            File.Delete(downloadFilePath);
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
+               
         // Mark as downloaded and disable button
         DownloadExtrasButton.IsEnabled = false;
                             
@@ -328,7 +352,14 @@ public partial class DownloadImagePack
                 // If user canceled, delete the partially downloaded file
                 if (File.Exists(destinationPath))
                 {
-                    File.Delete(destinationPath);
+                    try
+                    {
+                        File.Delete(destinationPath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
                     
                 string formattedException = $"Download was canceled by the user.\n\n" +
@@ -342,7 +373,14 @@ public partial class DownloadImagePack
                 // If user canceled, delete the partially downloaded file
                 if (File.Exists(destinationPath))
                 {
-                    File.Delete(destinationPath);
+                    try
+                    {
+                        File.Delete(destinationPath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
                     
                 string formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +

@@ -1111,7 +1111,7 @@ public class GameListFactory(
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"General error in the method DeleteFile in the class GameListFactory.\n\n" +
+            string errorMessage = $"Generic error in the method DeleteFile in the class GameListFactory.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
