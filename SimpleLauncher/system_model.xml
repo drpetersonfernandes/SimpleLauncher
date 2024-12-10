@@ -35,7 +35,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>MAME Amstrad GX4000</EmulatorName>
-        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
         <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
       </Emulator>
     </Emulators>
@@ -60,7 +60,7 @@
       </Emulator>
       <Emulator>
         <EmulatorName>MAME</EmulatorName>
-        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
         <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Arcade"</EmulatorParameters>
       </Emulator>
     </Emulators>
@@ -312,7 +312,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>MAME Casio PV1000</EmulatorName>
-        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
         <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Casio PV-1000" pv1000 -cart</EmulatorParameters>
       </Emulator>
     </Emulators>
@@ -442,7 +442,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>MAME Mattel Aquarius</EmulatorName>
-        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
         <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Mattel Aquarius" aquarius</EmulatorParameters>
       </Emulator>
     </Emulators>
@@ -1670,7 +1670,7 @@
       </Emulator>
       <Emulator>
         <EmulatorName>MAME Sharp X68000</EmulatorName>
-        <EmulatorLocation>.\emulators\MAME\mame.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
         <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\SimpleLauncher\roms\Sharp X68000" x68000 -flop1</EmulatorParameters>
       </Emulator>
     </Emulators>

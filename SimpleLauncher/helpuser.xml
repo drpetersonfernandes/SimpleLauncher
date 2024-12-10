@@ -1655,7 +1655,7 @@ Extract File Before Launch? false
 Format To Launch After Extraction: 
 
 Emulator Name: MAME Sharp x68000
-Emulator Location (Example): c:\emulators\MAME\mame.exe
+Emulator Location (Example): c:\emulators\mame\mame.exe
 Emulator Parameters (Example): -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1
 Fullscreen Parameter: -window
 

@@ -1361,7 +1361,7 @@ Double-check the file and folder locations when entering them into Simple Launch
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** MAME Sharp x68000<br>
-**Emulator Location (Example):** c:\emulators\MAME\mame.exe<br>
+**Emulator Location (Example):** c:\emulators\mame\mame.exe<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
 **Fullscreen Parameter:** -window<br>
 
