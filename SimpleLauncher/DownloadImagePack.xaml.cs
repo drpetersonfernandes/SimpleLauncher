@@ -152,7 +152,8 @@ public partial class DownloadImagePack
                             {
                                 // Notify Developer
                                 string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
                                 await LogErrors.LogErrorAsync(ex, formattedException);
                                 
                                 ExtrasDownloadExtractFailure(selectedSystem);

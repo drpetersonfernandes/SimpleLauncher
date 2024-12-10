@@ -21,6 +21,11 @@ public static class DownloadAndExtractInMemory
         {
             // Step 1: Download the file into memory
             using var memoryStream = await DownloadToMemoryStream(downloadUrl, cancellationToken, progressBar);
+            
+            if (!IsValidZip(memoryStream))
+            {
+                throw new InvalidDataException("The downloaded file is not a valid ZIP archive.");
+            }
 
             // Step 2: Extract the ZIP file directly from the memory stream
             Directory.CreateDirectory(destinationPath); // Ensure destination directory exists
@@ -77,6 +82,11 @@ public static class DownloadAndExtractInMemory
 
             using var response = await HttpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
+            
+            if (response.Content.Headers.ContentType?.MediaType != "application/zip")
+            {
+                throw new InvalidDataException("Unexpected file type. The server may have returned an error page.");
+            }
 
             long? totalBytes = response.Content.Headers.ContentLength;
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
@@ -107,6 +117,13 @@ public static class DownloadAndExtractInMemory
             memoryStream.Seek(0, SeekOrigin.Begin); // Reset memory stream for reading
             return memoryStream;
         }
+        catch (InvalidDataException)
+        {
+            MessageBox.Show("The downloaded file is not a valid ZIP archive.\n\n" +
+                            "This may be due to a network issue or server error.\n\n" +
+                            "Please try again later.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            throw;
+        }
         catch
         {
             if (memoryStream != null)
@@ -136,6 +153,19 @@ public static class DownloadAndExtractInMemory
             await using var entryStream = entry.Open(); // Open the ZIP entry
             await using var fileStream = File.Create(extractedFilePath); // Create the output file
             await entryStream.CopyToAsync(fileStream, cancellationToken); // Stream the content
+        }
+    }
+    
+    private static bool IsValidZip(MemoryStream memoryStream)
+    {
+        try
+        {
+            using var zipArchive = new ZipArchive(memoryStream, ZipArchiveMode.Read, leaveOpen: true);
+            return true;
+        }
+        catch (InvalidDataException)
+        {
+            return false;
         }
     }
 }

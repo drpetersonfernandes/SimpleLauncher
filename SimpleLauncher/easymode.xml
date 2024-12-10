@@ -57,8 +57,8 @@
                 <EmulatorParameters>gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
-                <EmulatorDownloadRename>true</EmulatorDownloadRename>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -463,8 +463,8 @@
                 <EmulatorParameters>pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
-                <EmulatorDownloadRename>true</EmulatorDownloadRename>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -536,8 +536,8 @@
                 <EmulatorParameters>-rompath "c:\SimpleLauncher\emulators\MAME\roms;c:\SimpleLauncher\emulators\MAME\bios;c:\SimpleLauncher\roms\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/mamedev/mame/releases/download/mame0272/mame0272b_64bit.exe</EmulatorDownloadLink>
-                <EmulatorDownloadRename>true</EmulatorDownloadRename>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\MAME\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
