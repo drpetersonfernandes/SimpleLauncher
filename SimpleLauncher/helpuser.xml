@@ -4,6 +4,8 @@
         <SystemName>Amstrad CPC</SystemName>
         <SystemHelper>
             <![CDATA[Amstrad CPC
+            
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Amstrad CPC
 System Is MAME? false
@@ -16,14 +18,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). 
-Core may require BIOS files or system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Core may require BIOS files or system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Amstrad CPC GX4000</SystemName>
         <SystemHelper>
             <![CDATA[Amstrad CPC GX4000
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Amstrad CPC GX4000
 System Is MAME? true
@@ -42,6 +45,8 @@ Fullscreen Parameter: -window]]>
         <SystemHelper>
             <![CDATA[Arcade
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\emulators\mame\roms
 System Is MAME? true
 Format To Search In System Folder: zip
@@ -58,14 +63,15 @@ Emulator Location (Example): C:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mame_2010/).
-Core may require BIOS files or system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/mame_2010/). Core may require BIOS files or system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Atari 2600</SystemName>
         <SystemHelper>
             <![CDATA[Atari 2600
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Atari 2600
 System Is MAME? false
@@ -78,8 +84,7 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/).
-Core may require BIOS files or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require BIOS files or system files to work properly.
 
 Emulator Name: Stella
 Emulator Location (Example): C:\emulators\stella\Stella.exe
@@ -93,6 +98,8 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
         <SystemName>Atari 5200</SystemName>
         <SystemHelper>
             <![CDATA[Atari 5200
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Atari 5200
 System Is MAME? false
@@ -111,6 +118,8 @@ Fullscreen Parameter: /f]]>
         <SystemHelper>
             <![CDATA[Atari 7800
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Atari 7800
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -122,14 +131,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/).
-Core may require BIOS files or system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/). Core may require BIOS files or system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Atari 8-Bit</SystemName>
         <SystemHelper>
             <![CDATA[Atari 8-Bit
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Atari 8-Bit
 System Is MAME? false
@@ -148,6 +158,8 @@ Fullscreen Parameter: /f]]>
         <SystemHelper>
             <![CDATA[Atari Jaguar
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Atari Jaguar
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -165,6 +177,8 @@ Fullscreen Parameter: ]]>
         <SystemHelper>
             <![CDATA[Atari Jaguar CD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Atari Jaguar CD
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -181,6 +195,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Atari Jaguar CD</SystemName>
         <SystemHelper>
             <![CDATA[Atari Jaguar CD
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Atari Jaguar CD
 System Is MAME? false
@@ -199,6 +215,8 @@ Fullscreen Parameter: ]]>
         <SystemHelper>
             <![CDATA[Atari Lynx
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Atari Lynx
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -210,14 +228,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/).
-Core may require BIOS or system files to run properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Core may require BIOS or system files to run properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Atari ST</SystemName>
         <SystemHelper>
             <![CDATA[Atari ST
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Atari ST
 System Is MAME? false
@@ -238,14 +257,15 @@ Emulator Location (Example): C:\emulators\hatari\hatari.exe
 Emulator Parameters: 
 Fullscreen Parameter: 
 
-Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari).
-Emulator may require BIOS or system files to run properly. ]]>
+Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari). Emulator may require BIOS or system files to run properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Bandai WonderSwan</SystemName>
         <SystemHelper>
             <![CDATA[Bandai WonderSwan
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Bandai WonderSwan
 System Is MAME? false
@@ -279,6 +299,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[Bandai WonderSwan Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Bandai WonderSwan Color
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -310,6 +332,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[Casio PV-1000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Casio PV-1000
 System Is MAME? true
 Format To Search In System Folder: zip
@@ -327,6 +351,8 @@ Fullscreen Parameter: -window]]>
         <SystemHelper>
             <![CDATA[Colecovision
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Colecovision
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -338,14 +364,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/).
-Core may require BIOS or system files to run properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/). Core may require BIOS or system files to run properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Commodore 64</SystemName>
         <SystemHelper>
             <![CDATA[Commodore 64
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Commodore 64
 System Is MAME? false
@@ -366,6 +393,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Commodore Amiga CD32
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Commodore Amiga CD32
 System Is MAME? false
 Format To Search In System Folder: chd, cue, ccd, nrg, mds, iso
@@ -384,6 +413,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>LaserDisk</SystemName>
         <SystemHelper>
             <![CDATA[LaserDisk
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\LaserDisk
 System Is MAME? false
@@ -404,6 +435,8 @@ You need to create a BAT files to launch the games.]]>
         <SystemHelper>
             <![CDATA[Magnavox Odyssey 2
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Magnavox Odyssey 2
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -415,14 +448,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\o2em_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/).
-Core may require BIOS or system files to run properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/o2em/). Core may require BIOS or system files to run properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Mattel Aquarius</SystemName>
         <SystemHelper>
             <![CDATA[Mattel Aquarius
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Mattel Aquarius
 System Is MAME? true
@@ -441,6 +475,8 @@ Fullscreen Parameter: -window]]>
         <SystemHelper>
             <![CDATA[Mattel Intellivision
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Mattel Intellivision
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -452,14 +488,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\freeintv_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/).
-Core may require BIOS and system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/). Core may require BIOS and system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>Microsoft DOS</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft DOS
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Microsoft DOS
 System Is MAME? false
@@ -497,6 +534,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Microsoft MSX
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Microsoft MSX
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -515,16 +554,14 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require BIOS or system files to run properly.
 
 Emulator Name: Retroarch fmsx
 Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Core may require BIOS or system files to run properly.
 
 Emulator Name: MSXEC
 Emulator Location (Example): c:\emulators\msxex\MSXEC.exe
@@ -536,6 +573,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Microsoft MSX2</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft MSX2
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder: [ROM Folder]
 System Is MAME? false
@@ -555,16 +594,14 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/bluemsx/). Core may require BIOS or system files to run properly.
 
 Emulator Name: Retroarch fmsx
 Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/fmsx/). Core may require BIOS or system files to run properly.
 
 Emulator Name: MSXEC
 Emulator Location (Example): c:\emulators\msxex\MSXEC.exe
@@ -576,6 +613,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Microsoft Windows</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft Windows
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Windows Games
 System Is MAME? false
@@ -597,6 +636,8 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
         <SystemName>Microsoft Xbox</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft Xbox
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Microsoft Xbox
 System Is MAME? false
@@ -620,6 +661,8 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).]
         <SystemHelper>
             <![CDATA[Microsoft Xbox 360
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Microsoft Xbox 360
 System Is MAME? false
 Format To Search In System Folder: iso
@@ -636,6 +679,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Microsoft Xbox 360 XBLA</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft Xbox 360 XBLA
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Microsoft Xbox 360 XBLA
 System Is MAME? false
@@ -656,6 +701,8 @@ Use the 'Simple Launcher' tools menu to generate BAT files for you.]]>
         <SystemHelper>
             <![CDATA[Microsoft Xbox 360 XBLA Using Compressed Folders
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Microsoft Xbox 360 XBLA
 System Is MAME? false
 Format To Search In System Folder: zip, 7z, rar
@@ -672,6 +719,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Microsoft Xbox 360 XBLA Using BAT files</SystemName>
         <SystemHelper>
             <![CDATA[Microsoft Xbox 360 XBLA Using BAT files
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Microsoft Xbox 360 XBLA
 System Is MAME? false
@@ -691,6 +740,8 @@ Use the 'Simple Launcher' tools menu to generate BAT files for you.]]>
         <SystemName>NEC PC Engine</SystemName>
         <SystemHelper>
             <![CDATA[NEC PC Engine / TurboGrafx-16
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\NEC PC Engine
 System Is MAME? false
@@ -718,6 +769,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[NEC PC Engine CD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder: c:\NEC PC Engine CD
 System Is MAME? false
 Format To Search In System Folder: chd, pce, cue, ccd, iso, img, bin
@@ -744,6 +797,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
         <SystemHelper>
             <![CDATA[NEC PC-FX
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\NEC PC-FX
 System Is MAME? false
 Format To Search In System Folder: chd, cue, ccd, toc
@@ -762,6 +817,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>NEC SuperGrafx</SystemName>
         <SystemHelper>
             <![CDATA[NEC SuperGrafx
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\NEC SuperGrafx
 System Is MAME? false
@@ -789,6 +846,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[Nintendo 3DS
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo 3DS
 System Is MAME? false
 Format To Search In System Folder: 3ds
@@ -812,6 +871,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Nintendo 64</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo 64
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo 64
 System Is MAME? false
@@ -852,6 +913,8 @@ Fullscreen Parameter: ]]>
         <SystemHelper>
             <![CDATA[Nintendo 64DD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo 64DD
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -877,6 +940,8 @@ This emulator requires BIOS file to run this system.]]>
         <SystemName>Nintendo DS</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo DS
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo DS
 System Is MAME? false
@@ -904,6 +969,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Nintendo Family Computer Disk System
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo Family Computer Disk System
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -930,6 +997,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Nintendo Game Boy
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo Game Boy
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -948,6 +1017,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>Nintendo Game Boy Advance</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo Game Boy Advance
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo Game Boy Advance
 System Is MAME? false
@@ -968,6 +1039,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Nintendo Game Boy Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo Game Boy Color
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -986,6 +1059,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>Nintendo GameCube</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo GameCube
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo GameCube
 System Is MAME? false
@@ -1010,6 +1085,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>Nintendo NES</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo NES
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo NES
 System Is MAME? false
@@ -1044,6 +1121,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[Nintendo Satellaview
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo Satellaview
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1062,6 +1141,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
         <SystemName>Nintendo SNES</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo SNES
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo SNES
 System Is MAME? false
@@ -1094,6 +1175,8 @@ Fullscreen Parameter: -fullscreen]]>
         <SystemHelper>
             <![CDATA[Nintendo SNES MSU1
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder: c:\Nintendo SNES MSU1
 System Is MAME? false
 Format To Search In System Folder: zip, 7z
@@ -1117,6 +1200,8 @@ Fullscreen Parameter: -fullscreen]]>
         <SystemName>Nintendo Switch</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo Switch
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo Switch
 System Is MAME? false
@@ -1145,6 +1230,8 @@ Fullscreen Parameter: ]]>
         <SystemHelper>
             <![CDATA[Nintendo Wii
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo Wii
 System Is MAME? false
 Format To Search In System Folder: rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad
@@ -1169,6 +1256,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Nintendo WiiU
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Nintendo WiiU
 System Is MAME? false
 Format To Search In System Folder: wua
@@ -1185,6 +1274,8 @@ Fullscreen Parameter: -f]]>
         <SystemName>Nintendo WiiWare</SystemName>
         <SystemHelper>
             <![CDATA[Nintendo WiiWare
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Nintendo WiiWare
 System Is MAME? false
@@ -1210,6 +1301,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Panasonic 3DO
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Panasonic 3DO
 System Is MAME? false
 Format To Search In System Folder: iso, bin, chd, cue
@@ -1229,6 +1322,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Philips CD-i
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Philips CD-i
 System Is MAME? false
 Format To Search In System Folder: chd, iso
@@ -1240,14 +1335,15 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\same_cdi_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/).
-Core may require BIOS or system files to run properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/same_cdi/). Core may require BIOS or system files to run properly.]]>
         </SystemHelper>
     </System>
     <System>
         <SystemName>ScummVM</SystemName>
         <SystemHelper>
             <![CDATA[ScummVM
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\ScummVM
 System Is MAME? false
@@ -1268,6 +1364,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
         <SystemName>Sega Dreamcast</SystemName>
         <SystemHelper>
             <![CDATA[Sega Dreamcast
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega Dreamcast
 System Is MAME? false
@@ -1292,6 +1390,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>Sega Game Gear</SystemName>
         <SystemHelper>
             <![CDATA[Sega Game Gear
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega Game Gear
 System Is MAME? false
@@ -1318,6 +1418,8 @@ The list of commands available for this emulator can be found at [https://fms.ko
         <SystemName>Sega Genesis</SystemName>
         <SystemHelper>
             <![CDATA[Sega Genesis
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega Genesis
 System Is MAME? false
@@ -1352,6 +1454,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Sega Genesis 32X
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sega Genesis 32X
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1370,6 +1474,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemName>Sega Genesis CD</SystemName>
         <SystemHelper>
             <![CDATA[Sega Genesis CD
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega Genesis CD
 System Is MAME? false
@@ -1404,6 +1510,8 @@ The list of command-line arguments available for this emulator can be found at [
         <SystemHelper>
             <![CDATA[Sega Master System
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sega Master System
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1437,6 +1545,8 @@ The list of command-line arguments available for this emulator can be found at [
         <SystemHelper>
             <![CDATA[Sega Model 3
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sega Model 3
 System Is MAME? true
 Format To Search In System Folder: bat
@@ -1455,6 +1565,8 @@ Use the 'Simple Launcher' tools menu to generate BAT files for you.]]>
         <SystemName>Sega Saturn</SystemName>
         <SystemHelper>
             <![CDATA[Sega Saturn
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega Saturn
 System Is MAME? false
@@ -1482,6 +1594,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemHelper>
             <![CDATA[Sega SC-3000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sega SC-3000
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1505,6 +1619,8 @@ The list of command-line arguments available for this emulator can be found at [
         <SystemName>Sega SG-1000</SystemName>
         <SystemHelper>
             <![CDATA[Sega SG-1000
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sega SG-1000
 System Is MAME? false
@@ -1530,6 +1646,8 @@ The list of command-line arguments available for this emulator can be found at [
         <SystemHelper>
             <![CDATA[Sharp x68000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sharp x68000
 System Is MAME? true
 Format To Search In System Folder: zip
@@ -1554,6 +1672,8 @@ Core documentation can be found at [libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Sinclair ZX Spectrum
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sinclair ZX Spectrum
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1573,6 +1693,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[SNK Neo Geo CD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\SNK Neo Geo CD
 System Is MAME? false
 Format To Search In System Folder: chd, cue
@@ -1591,6 +1713,8 @@ Core documentation can be found at GitHub [here](https://github.com/libretro/neo
         <SystemName>SNK Neo Geo Pocket</SystemName>
         <SystemHelper>
             <![CDATA[SNK Neo Geo Pocket
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\SNK Neo Geo Pocket
 System Is MAME? false
@@ -1625,6 +1749,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
         <SystemHelper>
             <![CDATA[SNK Neo Geo Pocket Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\SNK Neo Geo Pocket Color
 System Is MAME? false
 Format To Search In System Folder: zip
@@ -1650,6 +1776,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
         <SystemName>Sony PlayStation 1</SystemName>
         <SystemHelper>
             <![CDATA[Sony PlayStation 1
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sony PlayStation 1
 System Is MAME? false
@@ -1677,6 +1805,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
         <SystemHelper>
             <![CDATA[Sony PlayStation 2
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sony PlayStation 2
 System Is MAME? false
 Format To Search In System Folder: chd, bin, iso, mdf, cso, zso, gz
@@ -1695,6 +1825,8 @@ Documentation can be found at [Emulator website](https://pcsx2.net/docs/). This 
         <SystemName>Sony PlayStation 3</SystemName>
         <SystemHelper>
             <![CDATA[Sony PlayStation 3
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sony PlayStation 3
 System Is MAME? false
@@ -1715,6 +1847,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
         <SystemHelper>
             <![CDATA[Sony PlayStation 4
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sony PlayStation 4
 System Is MAME? false
 Format To Search In System Folder: iso
@@ -1732,6 +1866,8 @@ Fullscreen Parameter: ]]>
         <SystemHelper>
             <![CDATA[Sony PlayStation Vita
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 System Folder (Example): c:\Sony PlayStation Vita
 System Is MAME? false
 Format To Search In System Folder: iso
@@ -1748,6 +1884,8 @@ Fullscreen Parameter: ]]>
         <SystemName>Sony PSP</SystemName>
         <SystemHelper>
             <![CDATA[Sony PSP
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 System Folder (Example): c:\Sony PSP
 System Is MAME? false

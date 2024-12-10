@@ -2,6 +2,8 @@
 
 ## Amstrad CPC
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Amstrad CPC<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -13,10 +15,11 @@
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). 
-Core may require BIOS files or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/caprice32/). Core may require BIOS files or system files to work properly.
 
 ## Amstrad CPC GX4000
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **System Is MAME?** true<br>
@@ -30,6 +33,8 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window<br>
 
 ## Arcade
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
 **System Is MAME?** true<br>
@@ -51,6 +56,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Atari 2600
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Atari 2600<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -62,8 +69,7 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/).
-Core may require BIOS files or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/stella/). Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Stella<br>
 **Emulator Location (Example):** C:\emulators\stella\Stella.exe<br>
@@ -73,6 +79,8 @@ Core may require BIOS files or system files to work properly.
 Command line documentation can be found at [Stella website](https://stella-emu.github.io/docs/index.html#CommandLine).
 
 ## Atari 5200
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Atari 5200<br>
 **System Is MAME?** false<br>
@@ -87,6 +95,8 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 
 ## Atari 7800
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Atari 7800<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -98,10 +108,11 @@ Command line documentation can be found at [Stella website](https://stella-emu.g
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/).
-Core may require BIOS files or system files to work properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/prosystem/). Core may require BIOS files or system files to work properly.
 
 ## Atari 8-Bit
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Atari 8-Bit<br>
 **System Is MAME?** false<br>
@@ -116,6 +127,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari Jaguar
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Atari Jaguar<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -128,6 +141,8 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 ## Atari Jaguar CD
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
 **System Is MAME?** false<br>
@@ -142,6 +157,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari Lynx
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Atari Lynx<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -153,10 +170,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_lynx/). Core may require BIOS or system files to run properly.
 
 ## Atari ST
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Atari ST<br>
 **System Is MAME?** false<br>
@@ -179,6 +197,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Emulator documentation can be found at [GitHub website](https://github.com/hatari/hatari). Emulator may require BIOS or system files to run properly. 
 
 ## Bandai WonderSwan
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
 **System Is MAME?** false<br>
@@ -207,6 +227,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Bandai WonderSwan Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -234,6 +256,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Casio PV-1000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Casio PV-1000<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
@@ -247,6 +271,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Colecovision
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Colecovision<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -258,10 +284,11 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/).
-Core may require BIOS or system files to run properly.
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/gearcoleco/). Core may require BIOS or system files to run properly.
 
 ## Commodore 64
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Commodore 64<br>
 **System Is MAME?** false<br>
@@ -278,6 +305,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Commodore Amiga CD32
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue, ccd, nrg, mds, iso<br>
@@ -292,6 +321,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/puae/) or at [GitHub Repository](https://github.com/libretro/libretro-uae). Core may require BIOS or system files to work properly.
 
 ## LaserDisk
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\LaserDisk<br>
 **System Is MAME?** false<br>
@@ -308,6 +339,8 @@ You need to create a BAT files to launch the games.
 
 ## Magnavox Odyssey 2
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -323,6 +356,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Mattel Aquarius
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Mattel Aquarius<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
@@ -335,6 +370,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Fullscreen Parameter:** -window<br>
 
 ## Mattel Intellivision
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
 **System Is MAME?** false<br>
@@ -350,6 +387,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/freeintv/). Core may require BIOS and system files to work properly.
 
 ## Microsoft DOS
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Microsoft DOS<br>
 **System Is MAME?** false<br>
@@ -382,6 +421,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dosbox/).
 
 ## Microsoft MSX
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Microsoft MSX<br>
 **System Is MAME?** false<br>
@@ -419,6 +460,8 @@ Core may require BIOS or system files to run properly.
 
 ## Microsoft MSX2
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -453,6 +496,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Microsoft Windows
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Windows Games<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** lnk, bat, exe<br>
@@ -469,6 +514,8 @@ You can create a shortcut by right-clicking on the Game.exe and selecting 'Creat
 If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Microsoft Xbox
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Microsoft Xbox<br>
 **System Is MAME?** false<br>
@@ -489,6 +536,8 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 
 ## Microsoft Xbox 360
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Microsoft Xbox 360<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
@@ -502,6 +551,8 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 
 ## Microsoft Xbox 360 XBLA Using Compressed Folders
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z, rar<br>
@@ -514,6 +565,8 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 **Fullscreen Parameter:** <br>
 
 ## Microsoft Xbox 360 XBLA Using BAT files
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **System Is MAME?** false<br>
@@ -529,6 +582,8 @@ You can find information about that [here](https://xemu.app/docs/disc-images/).
 Use the 'Simple Launcher' tools menu to generate BAT files for you.
 
 ## NEC PC Engine / TurboGrafx-16
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\NEC PC Engine<br>
 **System Is MAME?** false<br>
@@ -552,6 +607,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## NEC PC Engine CD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder:** c:\NEC PC Engine CD<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
@@ -574,6 +631,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 ## NEC PC-FX
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\NEC PC-FX<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue, ccd, toc<br>
@@ -588,6 +647,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_pc_fx/). This core may require BIOS of system files to work properly.
 
 ## NEC SuperGrafx
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
 **System Is MAME?** false<br>
@@ -611,6 +672,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Nintendo 3DS
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** 3ds<br>
@@ -630,6 +693,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Fullscreen Parameter:** <br>
 
 ## Nintendo 64
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo 64<br>
 **System Is MAME?** false<br>
@@ -666,6 +731,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo 64DD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -687,6 +754,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 This emulator requires BIOS file to run this system.
 
 ## Nintendo DS
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **System Is MAME?** false<br>
@@ -710,6 +779,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Family Computer Disk System
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -732,6 +803,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Game Boy
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -746,6 +819,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/). Core may require BIOS or system files to work properly.
 
 ## Nintendo Game Boy Advance
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
 **System Is MAME?** false<br>
@@ -762,6 +837,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Game Boy Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -776,6 +853,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/sameboy/). Core may require BIOS or system files to work properly.
 
 ## Nintendo GameCube
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
 **System Is MAME?** false<br>
@@ -796,6 +875,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/dolphin/). Core may require BIOS or system files to work properly.
 
 ## Nintendo NES
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo NES<br>
 **System Is MAME?** false<br>
@@ -826,6 +907,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Nintendo Satellaview
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo Satellaview<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -840,6 +923,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 Command-line options can be found at [ares GitHub](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Nintendo SNES
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **System Is MAME?** false<br>
@@ -868,6 +953,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo SNES MSU1
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
@@ -887,6 +974,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Fullscreen Parameter:** -fullscreen<br>
 
 ## Nintendo Switch
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo Switch<br>
 **System Is MAME?** false<br>
@@ -911,6 +1000,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo Wii
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo Wii<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
@@ -931,6 +1022,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Nintendo WiiU
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Nintendo WiiU<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** wua<br>
@@ -943,6 +1036,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Fullscreen Parameter:** -f<br>
 
 ## Nintendo WiiWare
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
 **System Is MAME?** false<br>
@@ -964,6 +1059,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Panasonic 3DO
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Panasonic 3DO<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso, bin, chd, cue<br>
@@ -978,6 +1075,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/opera/). This core require BIOS or system files to run.
 
 ## Philips CD-i
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Philips CD-i<br>
 **System Is MAME?** false<br>
@@ -994,6 +1093,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## ScummVM
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\ScummVM<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** bat<br>
@@ -1009,6 +1110,8 @@ Command line parameters can be found [here](https://scumm-thedocs.readthedocs.io
 Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Sega Dreamcast
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
 **System Is MAME?** false<br>
@@ -1029,6 +1132,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/flycast/). This core require BIOS or system files to work.
 
 ## Sega Game Gear
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega Game Gear<br>
 **System Is MAME?** false<br>
@@ -1051,6 +1156,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
 ## Sega Genesis
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega Genesis<br>
 **System Is MAME?** false<br>
@@ -1081,6 +1188,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sega Genesis 32X
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sega Genesis 32X<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -1095,6 +1204,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
 
 ## Sega Genesis CD
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
 **System Is MAME?** false<br>
@@ -1125,6 +1236,8 @@ The list of command-line arguments available for this emulator can be found at [
 
 ## Sega Master System
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sega Master System<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -1154,6 +1267,8 @@ The list of command-line arguments available for this emulator can be found at [
 
 ## Sega Model 3
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sega Model 3<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** bat<br>
@@ -1168,6 +1283,8 @@ The list of command-line arguments available for this emulator can be found at [
 Use the 'Simple Launcher' tools menu to generate BAT files for you.
 
 ## Sega Saturn
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega Saturn<br>
 **System Is MAME?** false<br>
@@ -1191,6 +1308,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 
 ## Sega SC-3000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sega SC-3000<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -1210,6 +1329,8 @@ Emulator documentation can be found at [Mednafen website](https://mednafen.githu
 The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
 ## Sega SG-1000
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sega SG-1000<br>
 **System Is MAME?** false<br>
@@ -1231,6 +1352,8 @@ The list of command-line arguments available for this emulator can be found at [
 
 ## Sharp x68000
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sharp x68000<br>
 **System Is MAME?** true<br>
 **Format To Search In System Folder:** zip<br>
@@ -1251,6 +1374,8 @@ Core documentation can be found at [libretro website](https://docs.libretro.com/
 
 ## Sinclair ZX Spectrum
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -1266,6 +1391,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## SNK Neo Geo CD
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue<br>
@@ -1280,6 +1407,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Core documentation can be found at GitHub [here](https://github.com/libretro/neocd_libretro) and [here](https://github.com/libretro/libretro-core-info/blob/master/neocd_libretro.info). Core requires BIOS or system files to work properly.
 
 ## SNK Neo Geo Pocket
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
 **System Is MAME?** false<br>
@@ -1310,6 +1439,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 ## SNK Neo Geo Pocket Color
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
@@ -1339,6 +1470,8 @@ Command-line options can be found at [ares GitHub](https://github.com/ares-emula
 
 ## Sony PlayStation 1
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sony PlayStation 1<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
@@ -1361,6 +1494,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 ## Sony PlayStation 2
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sony PlayStation 2<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
@@ -1375,6 +1510,8 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 Documentation can be found at [Emulator website](https://pcsx2.net/docs/). This emulator may require BIOS or system files to work properly.
 
 ## Sony PlayStation 3
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **System Is MAME?** false<br>
@@ -1391,6 +1528,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 
 ## Sony PlayStation 4
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
@@ -1404,6 +1543,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 
 ## Sony PlayStation Vita
 
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
+
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** iso<br>
@@ -1416,6 +1557,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 **Fullscreen Parameter:** <br>
 
 ## Sony PSP
+
+Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
 
 **System Folder (Example):** c:\Sony PSP<br>
 **System Is MAME?** false<br>

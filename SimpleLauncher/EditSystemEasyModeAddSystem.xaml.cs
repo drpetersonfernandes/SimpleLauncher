@@ -160,7 +160,8 @@ public partial class EditSystemEasyModeAddSystem
                         else
                         {
                             MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                            $"I will try again using in memory download and extraction",
+                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -169,13 +170,13 @@ public partial class EditSystemEasyModeAddSystem
                             {
                                 bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath,
                                     _cancellationTokenSource.Token, DownloadProgressBar);
-                                
+
                                 if (extractionSuccess2)
                                 {
                                     await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
                                     
                                     // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
                                     Exception ex = new Exception(notifyDeveloper);
                                     await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
@@ -189,7 +190,8 @@ public partial class EditSystemEasyModeAddSystem
                             {
                                 // Notify Developer
                                 string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
                                 await LogErrors.LogErrorAsync(ex, formattedException);
                                 
                                 EmulatorDownloadExtractionFailure(selectedSystem);                         
@@ -219,15 +221,24 @@ public partial class EditSystemEasyModeAddSystem
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath);
+                    try
+                    {
+                        File.Delete(downloadFilePath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                     
-                    MessageBox.Show("Emulator download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Emulator download was canceled.",
+                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     // Error downloading
                     string formattedException = $"Error downloading emulator.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
                     // Offer redirect
@@ -248,9 +259,13 @@ public partial class EditSystemEasyModeAddSystem
                     StopDownloadButton.IsEnabled = false;
 
                     // Delete temp download file
-                    if (File.Exists(downloadFilePath))
+                    try
                     {
                         File.Delete(downloadFilePath);
+                    }
+                    catch (Exception)
+                    {
+                        // Ignore
                     }
                 }
             }
@@ -258,7 +273,9 @@ public partial class EditSystemEasyModeAddSystem
         catch (Exception ex)
         {
             // Error downloading
-            string formattedException = $"Error downloading emulator.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string formattedException = $"General error downloading the emulator.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
     }
@@ -285,7 +302,14 @@ public partial class EditSystemEasyModeAddSystem
             "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
         // Clean up the downloaded file only if extraction is successful
-        File.Delete(downloadFilePath);
+        try
+        {
+            File.Delete(downloadFilePath);
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
                                 
         // Update the version file if necessary
         if (destinationPath2 != null)
@@ -373,7 +397,8 @@ public partial class EditSystemEasyModeAddSystem
                         else
                         {
                             MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                            $"I will try again using in memory download and extraction",
+                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -387,7 +412,7 @@ public partial class EditSystemEasyModeAddSystem
                                     await CoreExtractionSuccess(selectedSystem, downloadFilePath, finalPath, latestVersionString);
 
                                     // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
                                     Exception ex = new Exception(notifyDeveloper);
                                     await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
@@ -400,7 +425,8 @@ public partial class EditSystemEasyModeAddSystem
                             {
                                 // Notify Developer
                                 string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
                                 await LogErrors.LogErrorAsync(ex, formattedException);
                                 
                                 CoreDownloadExtractionFailure(selectedSystem);
@@ -430,7 +456,14 @@ public partial class EditSystemEasyModeAddSystem
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath);
+                    try
+                    {
+                        File.Delete(downloadFilePath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                     
                     MessageBox.Show("Core download was canceled.",
                         "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -438,12 +471,12 @@ public partial class EditSystemEasyModeAddSystem
                 catch (Exception ex)
                 {
                     string formattedException = $"Error downloading the core.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -458,26 +491,31 @@ public partial class EditSystemEasyModeAddSystem
                     StopDownloadButton.IsEnabled = false;
                     
                     // Delete temp download file
-                    if (File.Exists(downloadFilePath))
+                    try
                     {
                         File.Delete(downloadFilePath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"Error downloading the core.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);        }
+            string formattedException = $"Generic error downloading the core.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+        }
     }
 
     private static void CoreDownloadExtractionFailure(EasyModeSystemConfig selectedSystem)
     {
         // Download and Extraction failed - offer redirect option
         MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} core.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                  $"Would you like to be redirected to the download page?", "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
             Process.Start(new ProcessStartInfo
@@ -495,7 +533,14 @@ public partial class EditSystemEasyModeAddSystem
             "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
-        File.Delete(downloadFilePath);
+        try
+        {
+            File.Delete(downloadFilePath);
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
                                 
         // Update the version file if necessary
         if (destinationPath2 != null)
@@ -574,7 +619,7 @@ public partial class EditSystemEasyModeAddSystem
                                     ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
                                     
                                     // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
+                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
                                     Exception ex = new Exception(notifyDeveloper);
                                     await LogErrors.LogErrorAsync(ex, notifyDeveloper);
                                 }
@@ -587,7 +632,8 @@ public partial class EditSystemEasyModeAddSystem
                             {
                                 // Notify Developer
                                 string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
                                 await LogErrors.LogErrorAsync(ex, formattedException);
                                 
                                 ExtrasDownloadExtractFailure(selectedSystem);
@@ -602,8 +648,7 @@ public partial class EditSystemEasyModeAddSystem
                     {
                         // Download was incomplete
                         MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
-                                                                  $"Would you like to be redirected to the download page?",
-                            "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                                                  $"Would you like to be redirected to the download page?", "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
                             Process.Start(new ProcessStartInfo
@@ -617,19 +662,26 @@ public partial class EditSystemEasyModeAddSystem
                 catch (TaskCanceledException)
                 {
                     // Delete a partially downloaded file
-                    if (File.Exists(downloadFilePath)) File.Delete(downloadFilePath);
-                    
+                    try
+                    {
+                        File.Delete(downloadFilePath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
+
                     MessageBox.Show("Image Pack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     string formattedException = $"Error downloading the Image Pack.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the Image Pack.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -644,17 +696,23 @@ public partial class EditSystemEasyModeAddSystem
                     StopDownloadButton.IsEnabled = false;
                     
                     // Delete temp download file
-                    if (File.Exists(downloadFilePath))
+                    try
                     {
                         File.Delete(downloadFilePath);
                     }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
+                    
                 }
             }
         }
         catch (Exception ex)
         {
             string formattedException = $"Error downloading the Image Pack.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
     }
@@ -663,8 +721,7 @@ public partial class EditSystemEasyModeAddSystem
     {
         // Download and Extraction failed - offer redirect option
         MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} Image Pack.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                  $"Would you like to be redirected to the download page?", "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
             Process.Start(new ProcessStartInfo
@@ -681,7 +738,14 @@ public partial class EditSystemEasyModeAddSystem
             "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
-        File.Delete(downloadFilePath);
+        try
+        {
+            File.Delete(downloadFilePath);
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
                             
         // Mark as downloaded and disable button
         DownloadExtrasButton.IsEnabled = false;
@@ -730,7 +794,9 @@ public partial class EditSystemEasyModeAddSystem
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             string formattedException = $"The requested file was not available on the server.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("The requested file is not available on the server.\n\n" +
@@ -740,7 +806,9 @@ public partial class EditSystemEasyModeAddSystem
         catch (HttpRequestException ex)
         {
             string formattedException = $"Network error during file download.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
@@ -749,7 +817,9 @@ public partial class EditSystemEasyModeAddSystem
         catch (IOException ex)
         {
             string formattedException = $"File read/write error after file download.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a file read/write error after the file download.\n\n" +
@@ -762,9 +832,13 @@ public partial class EditSystemEasyModeAddSystem
             if (cancellationToken.IsCancellationRequested)
             {
                 // If user canceled, delete the partially downloaded file
-                if (File.Exists(destinationPath))
+                try
                 {
                     File.Delete(destinationPath);
+                }
+                catch (Exception)
+                {
+                    // ignore
                 }
                     
                 string formattedException = $"Download was canceled by the user.\n\n" +
@@ -776,9 +850,13 @@ public partial class EditSystemEasyModeAddSystem
             else
             {
                 // If user canceled, delete the partially downloaded file
-                if (File.Exists(destinationPath))
+                try
                 {
                     File.Delete(destinationPath);
+                }
+                catch (Exception)
+                {
+                    // ignore
                 }
                     
                 string formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
@@ -788,8 +866,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
-                                "You can try again later.",
-                    "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "You can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -844,8 +921,7 @@ public partial class EditSystemEasyModeAddSystem
                 {
                     // Ask user if they want to overwrite the existing system
                     MessageBoxResult result = MessageBox.Show($"The system {selectedSystem.SystemName} already exists.\n\n" +
-                                                              $"Do you want to overwrite it?",
-                        "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                                              $"Do you want to overwrite it?", "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.No)
                     {
                         return;
@@ -854,7 +930,7 @@ public partial class EditSystemEasyModeAddSystem
                     // Overwrite existing system
                     existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
                     existingSystem.SetElementValue("SystemFolder", systemFolder);
-                    existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder); // Keep the dot here
+                    existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
                     existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame);
                     existingSystem.Element("FileFormatsToSearch")?.Remove();
                     existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))));
@@ -876,7 +952,7 @@ public partial class EditSystemEasyModeAddSystem
                     var newSystemElement = new XElement("SystemConfig",
                         new XElement("SystemName", selectedSystem.SystemName),
                         new XElement("SystemFolder", systemFolder),
-                        new XElement("SystemImageFolder", selectedSystem.SystemImageFolder), // Keep the dot here
+                        new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
                         new XElement("SystemIsMAME", selectedSystem.SystemIsMame),
                         new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))),
                         new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch),
@@ -915,7 +991,8 @@ public partial class EditSystemEasyModeAddSystem
             catch (Exception ex)
             {
                 string formattedException = $"Error adding system.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                     
@@ -974,8 +1051,7 @@ public partial class EditSystemEasyModeAddSystem
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show($"The application failed to create the necessary folders for this system.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             throw;
         }
     }

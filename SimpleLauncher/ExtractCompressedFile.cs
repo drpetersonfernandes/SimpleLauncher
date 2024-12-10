@@ -10,15 +10,14 @@ namespace SimpleLauncher;
 
 internal class ExtractCompressedFile
 {
+    
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+
     private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
     public static ExtractCompressedFile Instance2 => Instance.Value;
     private readonly List<string> _tempDirectories = new();
         
-    // // Use the application's directory for the temporary directory
-    // private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    // private readonly string _tempFolder = Path.Combine(AppDirectory, "temp");
-    
-    // Use the Windows default temp directory for the temporary folder
+    // Use the Windows default temp directory
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
@@ -31,11 +30,12 @@ internal class ExtractCompressedFile
         {
             MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
                             $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                            $"Please go to Edit System - Expert Mode, and edit this system.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            $"Please go to Edit System - Expert Mode, and edit this system.",
+                "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
             return null;
         }
             
-        // Choose the correct 7z executable path based on user environment (x64, x86 or arm64) 
+        // Choose the correct 7z executable path based on user environment (x64, x86 or arm64)
         string sevenZipPath = Get7ZipExecutablePath();
             
         // Open the Please Wait Window
@@ -127,12 +127,30 @@ internal class ExtractCompressedFile
                                   $"Method: ExtractArchiveToTempAsync";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
-                            $"The file {archivePath} may be corrupted.\n" +
-                            $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
-                            $"Try to run with administrative privileges.\n\n" +
-                            $"If you want to debug the error you can see the file 'error_user.log' inside 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            var result = MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
+                                         $"The file {archivePath} may be corrupted.\n" +
+                                         $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
+                                         $"Try to run with administrative privileges.\n\n" +
+                                         $"Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return null;
         }
         finally
@@ -164,28 +182,16 @@ internal class ExtractCompressedFile
     {
         foreach (var dir in _tempDirectories)
         {
+            // Delete generated temp folders
             if (Directory.Exists(dir))
             {
                 try
                 {
-                    // Delete generated temp folders
                     Directory.Delete(dir, true);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    MessageBox.Show(
-                        "'Simple Launcher' could not clean up the temporary directories.\n\n" +
-                        "You will have to delete them yourself.\n\n" +
-                        "This happened because 'Simple Launcher' is running with low privileges.\n" +
-                        "Try running it with administrative privileges.",
-                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    
-                    string contextMessage = $"Error occurred while cleaning up temp directories.\n\n" +
-                                            $"Method: Cleanup\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    // ignore
                 }
             }
         }

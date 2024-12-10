@@ -1077,16 +1077,30 @@ public class GameListFactory(
         {
             if (File.Exists(filePath))
             {
-                File.Delete(filePath);
+                try
+                {
+                    File.Delete(filePath);
                     
-                PlayClick.PlayTrashSound();
+                    PlayClick.PlayTrashSound();
                 
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
+                        "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
                     
-                // Reload the current Game List
-                await mainWindow.LoadGameFilesAsync();
+                    // Reload the current Game List
+                    await mainWindow.LoadGameFilesAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".\n\n" +
+                                    $"The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                    // Notify developer
+                    string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                          $"Exception type: {ex.GetType().Name}\n" +
+                                          $"Exception details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, errorMessage);
+                }
             }
             else
             {
@@ -1096,15 +1110,11 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             // Notify developer
-            string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            string errorMessage = $"General error in the method DeleteFile in the class GameListFactory.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 

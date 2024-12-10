@@ -1199,9 +1199,9 @@ public partial class Favorites
         
     private void DeleteFile(string filePath, string fileNameWithExtension)
     {
-        try
+        if (File.Exists(filePath))
         {
-            if (File.Exists(filePath))
+            try
             {
                 File.Delete(filePath);
                     
@@ -1210,23 +1210,24 @@ public partial class Favorites
                 MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
                     "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
-                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                $"The error was reported to developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Notify developer
+                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
             }
         }
-        catch (Exception ex)
+        else
         {
-            MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
-                            $"The error was reported to developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Notify developer
-            string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
