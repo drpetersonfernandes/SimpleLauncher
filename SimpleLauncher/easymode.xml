@@ -334,6 +334,43 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Atari Lynx</SystemName>
+        <SystemFolder>.\roms\Atari Lynx</SystemFolder>
+        <SystemImageFolder>.\images\Atari Lynx</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch mednafen_lynx</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarilynx.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Atari Lynx</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Atari ST</SystemName>
         <SystemFolder>.\roms\Atari ST</SystemFolder>
         <SystemImageFolder>.\images\Atari ST</SystemImageFolder>
@@ -710,16 +747,16 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox 360</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox 360</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Microsoft Xbox 360 XBLA Using BAT files</SystemName>
+        <SystemName>Microsoft Xbox 360 XBLA</SystemName>
         <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
         <SystemImageFolder>.\images\Microsoft Xbox360 XBLA</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
@@ -746,10 +783,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox 360</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360xbla.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Microsoft Xbox360 XBLA</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
