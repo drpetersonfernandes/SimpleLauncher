@@ -518,6 +518,46 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Colecovision</SystemName>
+        <SystemFolder>.\roms\Colecovision</SystemFolder>
+        <SystemImageFolder>.\images\Colecovision</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>cv</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch gearcoleco</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/colecovision.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Colecovision</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Commodore 64</SystemName>
         <SystemFolder>.\roms\Commodore 64</SystemFolder>
         <SystemImageFolder>.\images\Commodore 64</SystemImageFolder>
@@ -550,6 +590,47 @@
                 <ExtrasLatestVersion/>
                 <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Commodore 64</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Commodore Amiga CD32</SystemName>
+        <SystemFolder>.\roms\Commodore Amiga CD32</SystemFolder>
+        <SystemImageFolder>.\images\Commodore Amiga CD32</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>ccd</FormatToSearch>
+            <FormatToSearch>nrg</FormatToSearch>
+            <FormatToSearch>mds</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch puae</EmulatorName>
+                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
+<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamigacd32.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Commodore Amiga CD32</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -675,8 +756,8 @@
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft MSX2</SystemName>
-        <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>
+        <SystemFolder>.\roms\Microsoft MSX2</SystemFolder>
+        <SystemImageFolder>.\images\Microsoft MSX2</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -900,10 +981,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo 64</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo 64</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -943,10 +1024,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo 64DD</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo 64DD</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -981,10 +1062,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo DS</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo DS</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1018,10 +1099,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1054,10 +1135,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Advance</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Advance</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1091,10 +1172,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Color</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Game Boy Color</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1126,10 +1207,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo GameCube</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo GameCube</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1163,10 +1244,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo NES</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo NES</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1200,10 +1281,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Satellaview</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Satellaview</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1242,10 +1323,10 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo SNES</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo SNES</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1320,10 +1401,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo Wii</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo Wii</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1356,10 +1437,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo WiiU</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo WiiU</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1391,10 +1472,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ExtrasLocation/>
-                                <ExtrasLatestVersion/>
-                                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ExtrasDownloadLink>
-                                <ExtrasDownloadExtractPath>.\images\Nintendo WiiWare</ExtrasDownloadExtractPath>-->
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\Nintendo WiiWare</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1815,7 +1896,7 @@
 <!--                <ExtrasLocation/>-->
 <!--                <ExtrasLatestVersion/>-->
 <!--                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ExtrasDownloadLink>-->
-<!--                <ExtrasDownloadExtractPath>.\images\Mattel Aquarius</ExtrasDownloadExtractPath>-->
+<!--                <ExtrasDownloadExtractPath>.\images\Sharp x68000</ExtrasDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2009,7 +2090,7 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation2.zip</ExtrasDownloadLink>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Sony PlayStation 2</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
@@ -2045,7 +2126,7 @@
 
                 <ExtrasLocation/>
                 <ExtrasLatestVersion/>
-                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyPlayStation3.zip</ExtrasDownloadLink>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ExtrasDownloadLink>
                 <ExtrasDownloadExtractPath>.\images\Sony PlayStation 3</ExtrasDownloadExtractPath>
             </Emulator>
         </Emulators>
