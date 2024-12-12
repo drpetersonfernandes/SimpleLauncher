@@ -1,8 +1,9 @@
 release3.7.1
 ------------
 
-12/10/2024
-- Fixed bugs and improved exception handling in some methods.
+12/12/2024
+- Fixed bugs and improved exception handling in certain methods.
+- Added image packs for specific systems.
 
 release3.7
 ------------
