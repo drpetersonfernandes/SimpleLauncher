@@ -93,6 +93,13 @@ Double-check the file and folder locations when entering them into Simple Launch
 **Emulator Parameters (Example):** /f<br>
 **Fullscreen Parameter:** /f<br>
 
+**Emulator Name:** Retroarch a5200<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\a5200_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/atari800/). Core may require BIOS files or system files to work properly.
+
 ## Atari 7800
 
 Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
@@ -1299,12 +1306,40 @@ Double-check the file and folder locations when entering them into Simple Launch
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/). Core may require BIOS or system files to work properly.
 
+**Emulator Name:** Retroarch kronos<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\kronos_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/kronos/). Core may require BIOS or system files to work properly.
+
+**Emulator Name:** Retroarch yabasanshiro<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabasanshiro_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/yabasanshiro/). Core may require BIOS or system files to work properly.
+
+**Emulator Name:** Retroarch yabause<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabause_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/yabause/). Core may require BIOS or system files to work properly.
+
 **Emulator Name:** Mednafen<br>
 **Emulator Location (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
+**Emulator Name:** SSF<br>
+**Emulator Location (Example):** c:\emulators\SSF\SSF64.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+Emulator documentation can be found at [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
 
 ## Sega SC-3000
 

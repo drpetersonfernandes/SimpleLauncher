@@ -108,6 +108,11 @@
         <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
         <EmulatorParameters>/f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch a5200</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\a5200_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1580,6 +1585,21 @@
         <EmulatorName>Retroarch mednafen_saturn</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch kronos</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\kronos_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch yabasanshiro</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\yabasanshiro_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Retroarch yabause</EmulatorName>
+        <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+        <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\yabause_libretro.dll" -f</EmulatorParameters>
       </Emulator>
       <Emulator>
         <EmulatorName>Mednafen</EmulatorName>

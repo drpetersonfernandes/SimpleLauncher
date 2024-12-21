@@ -110,7 +110,14 @@ Format To Launch After Extraction:
 Emulator Name: Altirra
 Emulator Location (Example): c:\emulators\altirra\Altirra64.exe
 Emulator Parameters (Example): /f
-Fullscreen Parameter: /f]]>
+Fullscreen Parameter: /f
+
+Emulator Name: Retroarch a5200
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\a5200_libretro.dll" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/atari800/). Core may require BIOS files or system files to work properly.]]>
         </SystemHelper>
     </System>
     <System>
@@ -1581,12 +1588,40 @@ Fullscreen Parameter: -f
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/beetle_saturn/). Core may require BIOS or system files to work properly.
 
+Emulator Name: Retroarch kronos
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\kronos_libretro.dll" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/kronos/). Core may require BIOS or system files to work properly.
+
+Emulator Name: Retroarch yabasanshiro
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\yabasanshiro_libretro.dll" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/yabasanshiro/). Core may require BIOS or system files to work properly.
+
+Emulator Name: Retroarch yabause
+Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
+Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\yabause_libretro.dll" -f
+Fullscreen Parameter: -f
+
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/yabause/). Core may require BIOS or system files to work properly.
+
 Emulator Name: Mednafen
 Emulator Location (Example): c:\emulators\mednafen\mednafen.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
-Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).]]>
+Emulator documentation can be found at [Mednafen website](https://mednafen.github.io/documentation/).
+
+Emulator Name: SSF
+Emulator Location (Example): c:\emulators\SSF\SSF64.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: 
+
+Emulator documentation can be found at [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).]]>
         </SystemHelper>
     </System>
     <System>

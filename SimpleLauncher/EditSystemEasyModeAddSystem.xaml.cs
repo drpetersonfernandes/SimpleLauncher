@@ -169,63 +169,12 @@ public partial class EditSystemEasyModeAddSystem
                         }
                         else // extraction fail
                         {
-                            MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction",
-                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - Start /////
-                            /////////////////////////////////////////////////
-                            try
-                            {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath,
-                                    _cancellationTokenSource.Token, DownloadProgressBar);
-
-                                if (extractionSuccess2)
-                                {
-                                    // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
-                                    Exception ex = new Exception(notifyDeveloper);
-                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
-                                    
-                                    await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
-                                }
-                                else
-                                {
-                                    // Download and Extraction failed - offer redirect option
-                                    EmulatorDownloadExtractionFailure(selectedSystem);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                // Notify Developer
-                                string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\n" +
-                                                            $"Exception details: {ex.Message}";
-                                await LogErrors.LogErrorAsync(ex, formattedException);
-                                
-                                EmulatorDownloadExtractionFailure(selectedSystem);                         
-                            }
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - End  //////
-                            /////////////////////////////////////////////////
-                            
+                            await CallInMemoryDownloadAndExtract(emulatorDownloadUrl, destinationPath, selectedSystem, downloadFilePath, finalPath, latestVersionString);
                         }
                     }
-                    else
+                    else // download fail
                     {
-                        // Download was incomplete
-                        MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
-                                                                  $"Would you like to be redirected to the download page?",
-                            "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                                UseShellExecute = true
-                            });
-                        }
+                        await CallInMemoryDownloadAndExtract(emulatorDownloadUrl, destinationPath, selectedSystem, downloadFilePath, finalPath, latestVersionString);
                     }
                 }
                 catch (TaskCanceledException)
@@ -288,6 +237,51 @@ public partial class EditSystemEasyModeAddSystem
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
+    }
+
+    private async Task CallInMemoryDownloadAndExtract(string emulatorDownloadUrl, string destinationPath,
+        EasyModeSystemConfig selectedSystem, string downloadFilePath, string finalPath, string latestVersionString)
+    {
+        MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
+                        $"I will try again using in memory download and extraction",
+            "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+        /////////////////////////////////////////////////
+        //// In Memory Download and Extract - Start /////
+        /////////////////////////////////////////////////
+        try
+        {
+            bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath,
+                _cancellationTokenSource.Token, DownloadProgressBar);
+
+            if (extractionSuccess2)
+            {
+                // Notify Developer
+                string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
+                Exception ex = new Exception(notifyDeveloper);
+                await LogErrors.LogErrorAsync(ex, notifyDeveloper);
+                                    
+                await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
+            }
+            else
+            {
+                // Download and Extraction failed - offer redirect option
+                EmulatorDownloadExtractionFailure(selectedSystem);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify Developer
+            string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+                                
+            EmulatorDownloadExtractionFailure(selectedSystem);                         
+        }
+        /////////////////////////////////////////////////
+        //// In Memory Download and Extract - End  //////
+        /////////////////////////////////////////////////
     }
 
     private static void EmulatorDownloadExtractionFailure(EasyModeSystemConfig selectedSystem)

@@ -34,7 +34,7 @@ public static class GameLauncher
             MessageBox.Show("Please select a system from the system combo box.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             
-            string contextMessage = "The system from the system combo box is null or empty in the method HandleButtonClick.";
+            string contextMessage = "The system from the system Combo Box is null or empty in the method HandleButtonClick.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -213,7 +213,7 @@ public static class GameLauncher
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
 
-            if (process.ExitCode != 0 || error.Length > 0)
+            if (process.ExitCode != 0)
             {
                 string errorMessage = $"There was an issue running the batch process.\n\n" +
                                       $"Batch file: {psi.FileName}\n" +
