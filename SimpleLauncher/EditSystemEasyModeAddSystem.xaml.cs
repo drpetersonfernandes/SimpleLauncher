@@ -32,8 +32,6 @@ public partial class EditSystemEasyModeAddSystem
     {
         InitializeComponent();
             
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-            
         App.ApplyThemeToWindow(this);
             
         LoadConfig();

@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +14,6 @@ public static class Stats
     static Stats()
     {
         LoadConfiguration();
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
     }
 
     private static void LoadConfiguration()

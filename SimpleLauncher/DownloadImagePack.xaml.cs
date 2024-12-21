@@ -27,9 +27,7 @@ public partial class DownloadImagePack
     public DownloadImagePack()
     {
         InitializeComponent();
-            
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-            
+          
         App.ApplyThemeToWindow(this);
             
         LoadConfig();
