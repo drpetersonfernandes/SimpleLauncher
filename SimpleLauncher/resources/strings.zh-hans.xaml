@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="Options">选项</system:String>
+    <system:String x:Key="Language">语言</system:String>
+    <system:String x:Key="Theme">主题</system:String>
+    <system:String x:Key="SetThumbnailSize">设置缩略图大小</system:String>
+    <system:String x:Key="SetNumberOfGamesPerPage">设置每页游戏数量</system:String>
+    <system:String x:Key="ViewMode">查看模式</system:String>
+    <system:String x:Key="ShowGames">显示游戏</system:String>
+    <system:String x:Key="EditLinks">编辑链接</system:String>
+    <system:String x:Key="EnableGamePadNavigation">启用游戏手柄导航</system:String>
+</ResourceDictionary>

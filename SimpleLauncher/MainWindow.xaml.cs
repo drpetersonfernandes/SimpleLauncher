@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +18,7 @@ using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
+using System.Windows.Markup;
 
 namespace SimpleLauncher;
 
@@ -89,12 +92,16 @@ public partial class MainWindow : INotifyPropertyChanged
         InitializeComponent();
             
         DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
-            
+
         // Tray icon
         InitializeTrayIcon();
             
         // Load settings.xml
         _settings = new SettingsConfig();
+        
+        // Apply language
+        ApplyLanguage(_settings.Language);
+        SetLanguageMenuChecked(_settings.Language);
             
         // Set the initial theme
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
@@ -230,7 +237,76 @@ public partial class MainWindow : INotifyPropertyChanged
         Closing += MainWindow_Closing;
         AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
     }
-        
+    
+    private void ApplyLanguage(string cultureCode = null)
+    {
+        try
+        {
+            // Determine the culture code (default to CurrentUICulture if not provided)
+            var culture = string.IsNullOrEmpty(cultureCode)
+                ? CultureInfo.CurrentUICulture
+                : new CultureInfo(cultureCode);
+
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            // Load the resource dictionary
+            var dictionary = new ResourceDictionary
+            {
+                Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
+            };
+
+            // Replace the current localization dictionary
+            var existingDictionary = Resources.MergedDictionaries
+                .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
+
+            if (existingDictionary != null)
+            {
+                Resources.MergedDictionaries.Remove(existingDictionary);
+            }
+
+            Resources.MergedDictionaries.Add(dictionary);
+
+            // Apply the culture to the application
+            LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to load language resources: {ex.Message}", "Language Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Fallback to English
+            var fallbackDictionary = new ResourceDictionary
+            {
+                Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+            };
+
+            Resources.MergedDictionaries.Add(fallbackDictionary);
+        }
+    }
+    
+    private void SetLanguageMenuChecked(string languageCode)
+    {
+        LanguageArabic.IsChecked = languageCode == "ar";
+        LanguageGerman.IsChecked = languageCode == "de";
+        LanguageEnglish.IsChecked = languageCode == "en";
+        LanguageSpanish.IsChecked = languageCode == "es";
+        LanguageFrench.IsChecked = languageCode == "fr";
+        LanguageHindi.IsChecked = languageCode == "hi";
+        LanguageItalian.IsChecked = languageCode == "it";
+        LanguageJapanese.IsChecked = languageCode == "ja";
+        LanguageKorean.IsChecked = languageCode == "ko";
+        LanguageDutch.IsChecked = languageCode == "nl";
+        LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
+        LanguagePortuguesePt.IsChecked = languageCode == "pt-pt";
+        LanguageRussian.IsChecked = languageCode == "ru";
+        LanguageTurkish.IsChecked = languageCode == "tr";
+        LanguageVietnamese.IsChecked = languageCode == "vi";
+        LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
+        LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
+    }
+
     // Open UpdateHistory window
     private void OpenUpdateHistory()
     {
@@ -1577,6 +1653,41 @@ public partial class MainWindow : INotifyPropertyChanged
                 break;
         }
     }
+    
+    private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem menuItem)
+        {
+            string selectedLanguage = menuItem.Name switch
+            {
+                "LanguageChineseSimplified" => "zh-hans",
+                "LanguageChineseTraditional" => "zh-hant",
+                "LanguageGerman" => "de",
+                "LanguageEnglish" => "en",
+                "LanguageSpanish" => "es",
+                "LanguageFrench" => "fr",
+                "LanguageJapanese" => "ja",                
+                "LanguageKorean" => "ko",
+                "LanguagePortugueseBr" => "pt-br",
+                "LanguagePortuguesePt" => "pt-pt",
+                "LanguageRussian" => "ru",
+                _ => "en"
+            };
+
+            // // Apply Language
+            // ApplyLanguage(selectedLanguage);
+
+            // Save settings
+            _settings.Language = selectedLanguage;
+            _settings.Save();
+
+            // Update checked status
+            SetLanguageMenuChecked(selectedLanguage);
+            
+            // Restart Application
+            MainWindow_Restart();
+        }
+    }
 
     #endregion
         
@@ -1799,5 +1910,4 @@ public partial class MainWindow : INotifyPropertyChanged
     }
         
     #endregion
-
 }

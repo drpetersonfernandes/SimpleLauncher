@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">विकल्प</system:String>
+
+    <system:String x:Key="Language">भाषा</system:String>
+    
+    <system:String x:Key="Theme">थीम</system:String>
+    <system:String x:Key="BaseTheme">बेस थीम</system:String>
+    <system:String x:Key="Light">हल्का</system:String>
+    <system:String x:Key="Dark">गहरा</system:String>
+
+    <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
+    <system:String x:Key="Red">लाल</system:String>
+    <system:String x:Key="Green">हरा</system:String>
+    <system:String x:Key="Blue">नीला</system:String>
+    <system:String x:Key="Purple">बैंगनी</system:String>
+    <system:String x:Key="Orange">नारंगी</system:String>
+    <system:String x:Key="Lime">नींबू</system:String>
+    <system:String x:Key="Emerald">पन्ना</system:String>
+    <system:String x:Key="Teal">टील</system:String>
+    <system:String x:Key="Cyan">सियान</system:String>
+    <system:String x:Key="Cobalt">कोबाल्ट</system:String>
+    <system:String x:Key="Indigo">इंडिगो</system:String>
+    <system:String x:Key="Violet">वायलेट</system:String>
+    <system:String x:Key="Pink">गुलाबी</system:String>
+    <system:String x:Key="Magenta">मैजेंटा</system:String>
+    <system:String x:Key="Crimson">गहरा लाल</system:String>
+    <system:String x:Key="Amber">एम्बर</system:String>
+    <system:String x:Key="Yellow">पीला</system:String>
+    <system:String x:Key="Brown">भूरा</system:String>
+    <system:String x:Key="Olive">जैतून</system:String>
+    <system:String x:Key="Steel">स्टील</system:String>
+    <system:String x:Key="Mauve">मॉव</system:String>
+    <system:String x:Key="Taupe">टोपी</system:String>
+    <system:String x:Key="Sienna">सिएना</system:String>
+
+    <system:String x:Key="SetThumbnailSize">थंबनेल आकार सेट करें</system:String>
+    <system:String x:Key="100pixels">100 पिक्सल</system:String>
+    <system:String x:Key="150pixels">150 पिक्सल</system:String>
+    <system:String x:Key="200pixels">200 पिक्सल</system:String>
+    <system:String x:Key="250pixels">250 पिक्सल</system:String>
+    <system:String x:Key="300pixels">300 पिक्सल</system:String>
+    <system:String x:Key="350pixels">350 पिक्सल</system:String>
+    <system:String x:Key="400pixels">400 पिक्सल</system:String>
+    <system:String x:Key="450pixels">450 पिक्सल</system:String>
+    <system:String x:Key="500pixels">500 पिक्सल</system:String>
+    <system:String x:Key="550pixels">550 पिक्सल</system:String>
+    <system:String x:Key="600pixels">600 पिक्सल</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">प्रति पृष्ठ खेलों की संख्या सेट करें</system:String>
+    <system:String x:Key="100games">100 खेल</system:String>
+    <system:String x:Key="200games">200 खेल</system:String>
+    <system:String x:Key="300games">300 खेल</system:String>
+    <system:String x:Key="400games">400 खेल</system:String>
+    <system:String x:Key="500games">500 खेल</system:String>
+    <system:String x:Key="1000games">1000 खेल</system:String>
+
+    <system:String x:Key="ViewMode">दृश्य मोड</system:String>
+    <system:String x:Key="GridView">ग्रिड दृश्य</system:String>
+    <system:String x:Key="ListView">सूची दृश्य</system:String>
+
+    <system:String x:Key="ShowGames">खेल दिखाएँ</system:String>
+    <system:String x:Key="ShowAllGames">सभी खेल दिखाएँ</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">केवल कवर वाले खेल दिखाएँ</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">केवल बिना कवर वाले खेल दिखाएँ</system:String>
+
+    <system:String x:Key="EditLinks">लिंक संपादित करें</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">गेमपैड नेविगेशन सक्षम करें</system:String>
+    
+    <system:String x:Key="EditSystem">सिस्टम संपादित करें</system:String>
+    <system:String x:Key="EasyMode">आसान मोड</system:String>
+    <system:String x:Key="ExpertMode">विशेषज्ञ मोड</system:String>
+    <system:String x:Key="DownloadImagePack">इमेज पैक डाउनलोड करें</system:String>
+
+    <system:String x:Key="GlobalSearch">वैश्विक खोज</system:String>
+
+    <system:String x:Key="Favorites">पसंदीदा</system:String>
+    
+    <system:String x:Key="GlobalStats">वैश्विक सांख्यिकी</system:String>
+    
+    <system:String x:Key="Tools">उपकरण</system:String>
+    <system:String x:Key="OrganizeSystemImages">सिस्टम इमेज व्यवस्थित करें</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">PS3 खेलों के लिए बैच फाइलें बनाएं</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">ScummVM खेलों के लिए बैच फाइलें बनाएं</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model 3 खेलों के लिए बैच फाइलें बनाएं</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Windows खेलों के लिए बैच फाइलें बनाएं</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA खेलों के लिए बैच फाइलें बनाएं</system:String>
+    
+    <system:String x:Key="BugReport">बग रिपोर्ट करें</system:String>
+
+    <system:String x:Key="Donate">दान करें</system:String>
+    
+    <system:String x:Key="About">के बारे में</system:String>
+    
+    <system:String x:Key="Exit">बाहर जाएं</system:String>
+
+</ResourceDictionary>

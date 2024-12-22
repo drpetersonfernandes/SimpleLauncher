@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">الخيارات</system:String>
+
+    <system:String x:Key="Language">اللغة</system:String>
+
+    <system:String x:Key="Theme">السمة</system:String>
+    <system:String x:Key="BaseTheme">السمة الأساسية</system:String>
+    <system:String x:Key="Light">فاتح</system:String>
+    <system:String x:Key="Dark">داكن</system:String>
+
+    <system:String x:Key="AccentColors">ألوان التمييز</system:String>
+    <system:String x:Key="Red">أحمر</system:String>
+    <system:String x:Key="Green">أخضر</system:String>
+    <system:String x:Key="Blue">أزرق</system:String>
+    <system:String x:Key="Purple">أرجواني</system:String>
+    <system:String x:Key="Orange">برتقالي</system:String>
+    <system:String x:Key="Lime">ليموني</system:String>
+    <system:String x:Key="Emerald">زمردي</system:String>
+    <system:String x:Key="Teal">فيروزي</system:String>
+    <system:String x:Key="Cyan">سماوي</system:String>
+    <system:String x:Key="Cobalt">كوبالت</system:String>
+    <system:String x:Key="Indigo">نيلي</system:String>
+    <system:String x:Key="Violet">بنفسجي</system:String>
+    <system:String x:Key="Pink">وردي</system:String>
+    <system:String x:Key="Magenta">قرمزي</system:String>
+    <system:String x:Key="Crimson">أحمر داكن</system:String>
+    <system:String x:Key="Amber">كهرماني</system:String>
+    <system:String x:Key="Yellow">أصفر</system:String>
+    <system:String x:Key="Brown">بني</system:String>
+    <system:String x:Key="Olive">زيتي</system:String>
+    <system:String x:Key="Steel">فولاذي</system:String>
+    <system:String x:Key="Mauve">أرجواني فاتح</system:String>
+    <system:String x:Key="Taupe">رمادي بني</system:String>
+    <system:String x:Key="Sienna">سيينا</system:String>
+
+    <system:String x:Key="SetThumbnailSize">تعيين حجم الصور المصغرة</system:String>
+    <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
+    <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
+    <system:String x:Key="200pixels">٢٠٠ بكسل</system:String>
+    <system:String x:Key="250pixels">٢٥٠ بكسل</system:String>
+    <system:String x:Key="300pixels">٣٠٠ بكسل</system:String>
+    <system:String x:Key="350pixels">٣٥٠ بكسل</system:String>
+    <system:String x:Key="400pixels">٤٠٠ بكسل</system:String>
+    <system:String x:Key="450pixels">٤٥٠ بكسل</system:String>
+    <system:String x:Key="500pixels">٥٠٠ بكسل</system:String>
+    <system:String x:Key="550pixels">٥٥٠ بكسل</system:String>
+    <system:String x:Key="600pixels">٦٠٠ بكسل</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">تعيين عدد الألعاب لكل صفحة</system:String>
+    <system:String x:Key="100games">١٠٠ لعبة</system:String>
+    <system:String x:Key="200games">٢٠٠ لعبة</system:String>
+    <system:String x:Key="300games">٣٠٠ لعبة</system:String>
+    <system:String x:Key="400games">٤٠٠ لعبة</system:String>
+    <system:String x:Key="500games">٥٠٠ لعبة</system:String>
+    <system:String x:Key="1000games">١٠٠٠ لعبة</system:String>
+
+    <system:String x:Key="ViewMode">وضع العرض</system:String>
+    <system:String x:Key="GridView">عرض شبكي</system:String>
+    <system:String x:Key="ListView">عرض قائمة</system:String>
+
+    <system:String x:Key="ShowGames">عرض الألعاب</system:String>
+    <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
+
+    <system:String x:Key="EditLinks">تعديل الروابط</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">تفعيل التنقل بلوحة الألعاب</system:String>
+
+    <system:String x:Key="EditSystem">تعديل النظام</system:String>
+    <system:String x:Key="EasyMode">الوضع السهل</system:String>
+    <system:String x:Key="ExpertMode">الوضع المتقدم</system:String>
+    <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
+
+    <system:String x:Key="GlobalSearch">بحث شامل</system:String>
+
+    <system:String x:Key="Favorites">المفضلة</system:String>
+
+    <system:String x:Key="GlobalStats">الإحصائيات العامة</system:String>
+
+    <system:String x:Key="Tools">الأدوات</system:String>
+    <system:String x:Key="OrganizeSystemImages">تنظيم صور النظام</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">إنشاء ملفات دفعة لألعاب PS3</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">إنشاء ملفات دفعة لألعاب ScummVM</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">إنشاء ملفات دفعة لألعاب Sega Model 3</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">إنشاء ملفات دفعة لألعاب Windows</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">إنشاء ملفات دفعة لألعاب Xbox 360 XBLA</system:String>
+
+    <system:String x:Key="BugReport">تقرير الأخطاء</system:String>
+
+    <system:String x:Key="Donate">تبرع</system:String>
+
+    <system:String x:Key="About">حول</system:String>
+
+    <system:String x:Key="Exit">خروج</system:String>
+
+</ResourceDictionary>

@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">オプション</system:String>
+
+    <system:String x:Key="Language">言語</system:String>
+    
+    <system:String x:Key="Theme">テーマ</system:String>
+    <system:String x:Key="BaseTheme">基本テーマ</system:String>
+    <system:String x:Key="Light">ライト</system:String>
+    <system:String x:Key="Dark">ダーク</system:String>
+
+    <system:String x:Key="AccentColors">アクセントカラー</system:String>
+    <system:String x:Key="Red">赤</system:String>
+    <system:String x:Key="Green">緑</system:String>
+    <system:String x:Key="Blue">青</system:String>
+    <system:String x:Key="Purple">紫</system:String>
+    <system:String x:Key="Orange">オレンジ</system:String>
+    <system:String x:Key="Lime">ライム</system:String>
+    <system:String x:Key="Emerald">エメラルド</system:String>
+    <system:String x:Key="Teal">ティール</system:String>
+    <system:String x:Key="Cyan">シアン</system:String>
+    <system:String x:Key="Cobalt">コバルト</system:String>
+    <system:String x:Key="Indigo">インディゴ</system:String>
+    <system:String x:Key="Violet">バイオレット</system:String>
+    <system:String x:Key="Pink">ピンク</system:String>
+    <system:String x:Key="Magenta">マゼンタ</system:String>
+    <system:String x:Key="Crimson">クリムゾン</system:String>
+    <system:String x:Key="Amber">アンバー</system:String>
+    <system:String x:Key="Yellow">黄色</system:String>
+    <system:String x:Key="Brown">茶色</system:String>
+    <system:String x:Key="Olive">オリーブ</system:String>
+    <system:String x:Key="Steel">スチール</system:String>
+    <system:String x:Key="Mauve">モーヴ</system:String>
+    <system:String x:Key="Taupe">トープ</system:String>
+    <system:String x:Key="Sienna">シエナ</system:String>
+
+    <system:String x:Key="SetThumbnailSize">サムネイルサイズを設定</system:String>
+    <system:String x:Key="100pixels">100 ピクセル</system:String>
+    <system:String x:Key="150pixels">150 ピクセル</system:String>
+    <system:String x:Key="200pixels">200 ピクセル</system:String>
+    <system:String x:Key="250pixels">250 ピクセル</system:String>
+    <system:String x:Key="300pixels">300 ピクセル</system:String>
+    <system:String x:Key="350pixels">350 ピクセル</system:String>
+    <system:String x:Key="400pixels">400 ピクセル</system:String>
+    <system:String x:Key="450pixels">450 ピクセル</system:String>
+    <system:String x:Key="500pixels">500 ピクセル</system:String>
+    <system:String x:Key="550pixels">550 ピクセル</system:String>
+    <system:String x:Key="600pixels">600 ピクセル</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">1ページあたりのゲーム数を設定</system:String>
+    <system:String x:Key="100games">100 ゲーム</system:String>
+    <system:String x:Key="200games">200 ゲーム</system:String>
+    <system:String x:Key="300games">300 ゲーム</system:String>
+    <system:String x:Key="400games">400 ゲーム</system:String>
+    <system:String x:Key="500games">500 ゲーム</system:String>
+    <system:String x:Key="1000games">1000 ゲーム</system:String>
+
+    <system:String x:Key="ViewMode">表示モード</system:String>
+    <system:String x:Key="GridView">グリッドビュー</system:String>
+    <system:String x:Key="ListView">リストビュー</system:String>
+
+    <system:String x:Key="ShowGames">ゲームを表示</system:String>
+    <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">カバーなしのゲームのみ表示</system:String>
+
+    <system:String x:Key="EditLinks">リンクを編集</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">ゲームパッドナビゲーションを有効化</system:String>
+    
+    <system:String x:Key="EditSystem">システムを編集</system:String>
+    <system:String x:Key="EasyMode">簡単モード</system:String>
+    <system:String x:Key="ExpertMode">エキスパートモード</system:String>
+    <system:String x:Key="DownloadImagePack">画像パックをダウンロード</system:String>
+
+    <system:String x:Key="GlobalSearch">グローバル検索</system:String>
+
+    <system:String x:Key="Favorites">お気に入り</system:String>
+    
+    <system:String x:Key="GlobalStats">グローバル統計</system:String>
+    
+    <system:String x:Key="Tools">ツール</system:String>
+    <system:String x:Key="OrganizeSystemImages">システム画像を整理</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">PS3ゲーム用バッチファイルを作成</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">ScummVMゲーム用バッチファイルを作成</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3ゲーム用バッチファイルを作成</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Windowsゲーム用バッチファイルを作成</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLAゲーム用バッチファイルを作成</system:String>
+    
+    <system:String x:Key="BugReport">バグ報告</system:String>
+
+    <system:String x:Key="Donate">寄付</system:String>
+    
+    <system:String x:Key="About">情報</system:String>
+    
+    <system:String x:Key="Exit">終了</system:String>
+
+</ResourceDictionary>

@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="Options">Опции</system:String>
+    <system:String x:Key="Language">Язык</system:String>
+    <system:String x:Key="Theme">Тема</system:String>
+    <system:String x:Key="SetThumbnailSize">Установить размер миниатюр</system:String>
+    <system:String x:Key="SetNumberOfGamesPerPage">Установить количество игр на странице</system:String>
+    <system:String x:Key="ViewMode">Режим просмотра</system:String>
+    <system:String x:Key="ShowGames">Показать игры</system:String>
+    <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
+    <system:String x:Key="EnableGamePadNavigation">Включить навигацию с геймпадом</system:String>
+</ResourceDictionary>

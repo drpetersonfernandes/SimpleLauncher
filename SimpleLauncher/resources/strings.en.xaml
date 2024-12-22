@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">Options</system:String>
+
+    <system:String x:Key="Language">Language</system:String>
+
+    <system:String x:Key="Theme">Theme</system:String>
+    <system:String x:Key="BaseTheme">Base Theme</system:String>
+    <system:String x:Key="Light">Light</system:String>
+    <system:String x:Key="Dark">Dark</system:String>
+
+    <system:String x:Key="AccentColors">Accent Colors</system:String>
+    <system:String x:Key="Red">Red</system:String>
+    <system:String x:Key="Green">Green</system:String>
+    <system:String x:Key="Blue">Blue</system:String>
+    <system:String x:Key="Purple">Purple</system:String>
+    <system:String x:Key="Orange">Orange</system:String>
+    <system:String x:Key="Lime">Lime</system:String>
+    <system:String x:Key="Emerald">Emerald</system:String>
+    <system:String x:Key="Teal">Teal</system:String>
+    <system:String x:Key="Cyan">Cyan</system:String>
+    <system:String x:Key="Cobalt">Cobalt</system:String>
+    <system:String x:Key="Indigo">Indigo</system:String>
+    <system:String x:Key="Violet">Violet</system:String>
+    <system:String x:Key="Pink">Pink</system:String>
+    <system:String x:Key="Magenta">Magenta</system:String>
+    <system:String x:Key="Crimson">Crimson</system:String>
+    <system:String x:Key="Amber">Amber</system:String>
+    <system:String x:Key="Yellow">Yellow</system:String>
+    <system:String x:Key="Brown">Brown</system:String>
+    <system:String x:Key="Olive">Olive</system:String>
+    <system:String x:Key="Steel">Steel</system:String>
+    <system:String x:Key="Mauve">Mauve</system:String>
+    <system:String x:Key="Taupe">Taupe</system:String>
+    <system:String x:Key="Sienna">Sienna</system:String>
+
+    <system:String x:Key="SetThumbnailSize">Set Thumbnail Size</system:String>
+    <system:String x:Key="100pixels">100 pixels</system:String>
+    <system:String x:Key="150pixels">150 pixels</system:String>
+    <system:String x:Key="200pixels">200 pixels</system:String>
+    <system:String x:Key="250pixels">250 pixels</system:String>
+    <system:String x:Key="300pixels">300 pixels</system:String>
+    <system:String x:Key="350pixels">350 pixels</system:String>
+    <system:String x:Key="400pixels">400 pixels</system:String>
+    <system:String x:Key="450pixels">450 pixels</system:String>
+    <system:String x:Key="500pixels">500 pixels</system:String>
+    <system:String x:Key="550pixels">550 pixels</system:String>
+    <system:String x:Key="600pixels">600 pixels</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">Set Number of Games Per Page</system:String>
+    <system:String x:Key="100games">100 games</system:String>
+    <system:String x:Key="200games">200 games</system:String>
+    <system:String x:Key="300games">300 games</system:String>
+    <system:String x:Key="400games">400 games</system:String>
+    <system:String x:Key="500games">500 games</system:String>
+    <system:String x:Key="1000games">1000 games</system:String>
+
+    <system:String x:Key="ViewMode">View Mode</system:String>
+    <system:String x:Key="GridView">Grid View</system:String>
+    <system:String x:Key="ListView">List View</system:String>
+
+    <system:String x:Key="ShowGames">Show Games</system:String>
+    <system:String x:Key="ShowAllGames">Show All Games</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
+
+    <system:String x:Key="EditLinks">Edit Links</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">Enable GamePad Navigation</system:String>
+
+    <system:String x:Key="EditSystem">Edit System</system:String>
+    <system:String x:Key="EasyMode">Easy Mode</system:String>
+    <system:String x:Key="ExpertMode">Expert Mode</system:String>
+    <system:String x:Key="DownloadImagePack">Download Image Pack</system:String>
+
+    <system:String x:Key="GlobalSearch">Global Search</system:String>
+
+    <system:String x:Key="Favorites">Favorites</system:String>
+
+    <system:String x:Key="GlobalStats">Global Stats</system:String>
+
+    <system:String x:Key="Tools">Tools</system:String>
+    <system:String x:Key="OrganizeSystemImages">Organize System Images</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">Create Batch Files For PS3 Games</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">Create Batch Files For ScummVM Games</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Create Batch Files For Sega Model3 Games</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Create Batch Files For Windows Games</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox 360 XBLA Games</system:String>
+
+    <system:String x:Key="BugReport">Bug Report</system:String>
+
+    <system:String x:Key="Donate">Donate</system:String>
+
+    <system:String x:Key="About">About</system:String>
+
+    <system:String x:Key="Exit">Exit</system:String>
+
+</ResourceDictionary>

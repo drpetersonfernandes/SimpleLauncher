@@ -40,6 +40,8 @@ namespace SimpleLauncher
         public string MainWindowState { get; set; }
         public string BaseTheme { get; set; }
         public string AccentColor { get; set; }
+        
+        public string Language { get; set; }
 
         // List to hold multiple SystemPlayTime instances
         public List<SystemPlayTime> SystemPlayTimes { get; private set; }
@@ -81,6 +83,7 @@ namespace SimpleLauncher
                 MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
                 BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
                 AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
+                Language = settings.Element("Language")?.Value ?? "en";
 
                 // Load multiple SystemPlayTime elements
                 XElement systemPlayTimesElement = settings.Element("SystemPlayTimes");
@@ -179,6 +182,7 @@ namespace SimpleLauncher
             MainWindowState = "Normal";
             BaseTheme = "Light";
             AccentColor = "Blue";
+            Language = "en";
             SystemPlayTimes = new List<SystemPlayTime>();
             Save();
         }
@@ -209,6 +213,7 @@ namespace SimpleLauncher
                 new XElement("MainWindowState", MainWindowState),
                 new XElement("BaseTheme", BaseTheme),
                 new XElement("AccentColor", AccentColor),
+                new XElement("Language", Language),
                 systemPlayTimesElement
             ).Save(_filePath);
         }
