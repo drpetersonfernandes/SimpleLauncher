@@ -99,13 +99,13 @@ public partial class MainWindow : INotifyPropertyChanged
         // Load settings.xml
         _settings = new SettingsConfig();
         
-        // Apply language
-        ApplyLanguage(_settings.Language);
-        SetLanguageMenuChecked(_settings.Language);
-            
         // Set the initial theme
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+        
+        // Apply language
+        ApplyLanguage(_settings.Language);
+        SetLanguageMenuChecked(_settings.Language);
             
         // Load mame.xml
         _machines = MameConfig.LoadFromXml();
@@ -299,7 +299,6 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguageKorean.IsChecked = languageCode == "ko";
         LanguageDutch.IsChecked = languageCode == "nl";
         LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
-        LanguagePortuguesePt.IsChecked = languageCode == "pt-pt";
         LanguageRussian.IsChecked = languageCode == "ru";
         LanguageTurkish.IsChecked = languageCode == "tr";
         LanguageVietnamese.IsChecked = languageCode == "vi";
@@ -1660,22 +1659,24 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             string selectedLanguage = menuItem.Name switch
             {
-                "LanguageChineseSimplified" => "zh-hans",
-                "LanguageChineseTraditional" => "zh-hant",
+                "LanguageArabic" => "ar",
                 "LanguageGerman" => "de",
                 "LanguageEnglish" => "en",
                 "LanguageSpanish" => "es",
                 "LanguageFrench" => "fr",
+                "LanguageHindi" => "hi",
+                "LanguageItalian" => "it",
                 "LanguageJapanese" => "ja",                
                 "LanguageKorean" => "ko",
+                "LanguageDutch" => "nl",
                 "LanguagePortugueseBr" => "pt-br",
-                "LanguagePortuguesePt" => "pt-pt",
                 "LanguageRussian" => "ru",
+                "LanguageTurkish" => "tr",
+                "LanguageVietnamese" => "vi",
+                "LanguageChineseSimplified" => "zh-hans",
+                "LanguageChineseTraditional" => "zh-hant",
                 _ => "en"
             };
-
-            // // Apply Language
-            // ApplyLanguage(selectedLanguage);
 
             // Save settings
             _settings.Language = selectedLanguage;

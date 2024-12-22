@@ -1,4 +1,111 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">Tùy chọn</system:String>
+
+    <system:String x:Key="Language">Ngôn ngữ</system:String>
+
+    <system:String x:Key="Theme">Giao diện</system:String>
+    <system:String x:Key="BaseTheme">Chủ đề cơ bản</system:String>
+    <system:String x:Key="Light">Sáng</system:String>
+    <system:String x:Key="Dark">Tối</system:String>
+
+    <system:String x:Key="AccentColors">Màu nhấn</system:String>
+    <system:String x:Key="Red">Đỏ</system:String>
+    <system:String x:Key="Green">Xanh lá</system:String>
+    <system:String x:Key="Blue">Xanh dương</system:String>
+    <system:String x:Key="Purple">Tím</system:String>
+    <system:String x:Key="Orange">Cam</system:String>
+    <system:String x:Key="Lime">Xanh chuối</system:String>
+    <system:String x:Key="Emerald">Lục bảo</system:String>
+    <system:String x:Key="Teal">Xanh ngọc</system:String>
+    <system:String x:Key="Cyan">Xanh lơ</system:String>
+    <system:String x:Key="Cobalt">Cô-ban</system:String>
+    <system:String x:Key="Indigo">Chàm</system:String>
+    <system:String x:Key="Violet">Tím nhạt</system:String>
+    <system:String x:Key="Pink">Hồng</system:String>
+    <system:String x:Key="Magenta">Đỏ tím</system:String>
+    <system:String x:Key="Crimson">Đỏ thẫm</system:String>
+    <system:String x:Key="Amber">Hổ phách</system:String>
+    <system:String x:Key="Yellow">Vàng</system:String>
+    <system:String x:Key="Brown">Nâu</system:String>
+    <system:String x:Key="Olive">Ô liu</system:String>
+    <system:String x:Key="Steel">Thép</system:String>
+    <system:String x:Key="Mauve">Hồng nhạt</system:String>
+    <system:String x:Key="Taupe">Nâu xám</system:String>
+    <system:String x:Key="Sienna">Nâu đất</system:String>
+
+    <system:String x:Key="SetThumbnailSize">Đặt kích thước hình thu nhỏ</system:String>
+    <system:String x:Key="100pixels">100 pixel</system:String>
+    <system:String x:Key="150pixels">150 pixel</system:String>
+    <system:String x:Key="200pixels">200 pixel</system:String>
+    <system:String x:Key="250pixels">250 pixel</system:String>
+    <system:String x:Key="300pixels">300 pixel</system:String>
+    <system:String x:Key="350pixels">350 pixel</system:String>
+    <system:String x:Key="400pixels">400 pixel</system:String>
+    <system:String x:Key="450pixels">450 pixel</system:String>
+    <system:String x:Key="500pixels">500 pixel</system:String>
+    <system:String x:Key="550pixels">550 pixel</system:String>
+    <system:String x:Key="600pixels">600 pixel</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">Đặt số trò chơi mỗi trang</system:String>
+    <system:String x:Key="100games">100 trò chơi</system:String>
+    <system:String x:Key="200games">200 trò chơi</system:String>
+    <system:String x:Key="300games">300 trò chơi</system:String>
+    <system:String x:Key="400games">400 trò chơi</system:String>
+    <system:String x:Key="500games">500 trò chơi</system:String>
+    <system:String x:Key="1000games">1000 trò chơi</system:String>
+
+    <system:String x:Key="ViewMode">Chế độ xem</system:String>
+    <system:String x:Key="GridView">Dạng lưới</system:String>
+    <system:String x:Key="ListView">Dạng danh sách</system:String>
+
+    <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
+    <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">Chỉ hiển thị trò chơi không có bìa</system:String>
+
+    <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">Kích hoạt điều hướng GamePad</system:String>
+
+    <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
+    <system:String x:Key="EasyMode">Chế độ dễ</system:String>
+    <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
+    <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
+
+    <system:String x:Key="GlobalSearch">Tìm kiếm toàn cầu</system:String>
+
+    <system:String x:Key="Favorites">Yêu thích</system:String>
+
+    <system:String x:Key="GlobalStats">Thống kê toàn cầu</system:String>
+
+    <system:String x:Key="Tools">Công cụ</system:String>
+    <system:String x:Key="OrganizeSystemImages">Sắp xếp hình ảnh hệ thống</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">Tạo tệp hàng loạt cho trò chơi PS3</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">Tạo tệp hàng loạt cho trò chơi ScummVM</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Tạo tệp hàng loạt cho trò chơi Sega Model3</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Tạo tệp hàng loạt cho trò chơi Windows</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Tạo tệp hàng loạt cho trò chơi Xbox 360 XBLA</system:String>
+
+    <system:String x:Key="BugReport">Báo cáo lỗi</system:String>
+
+    <system:String x:Key="Donate">Quyên góp</system:String>
+
+    <system:String x:Key="About">Giới thiệu</system:String>
+
+    <system:String x:Key="Exit">Thoát</system:String>
     
+    <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
+    <system:String x:Key="SelectEmulator">Chọn Trình Giả Lập</system:String>
+    <system:String x:Key="Search">Tìm Kiếm</system:String>
+    <system:String x:Key="Favorite">Yêu Thích</system:String>
+    <system:String x:Key="FileName">Tên Tệp</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">Mô Tả Máy (cho tệp MAME)</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; Trước</system:String>
+    <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
+    <system:String x:Key="System">Hệ Thống:</system:String>
+    <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
+
 </ResourceDictionary>

@@ -96,5 +96,16 @@
     <system:String x:Key="About">情報</system:String>
     
     <system:String x:Key="Exit">終了</system:String>
+    
+    <system:String x:Key="SelectSystem">システムを選択</system:String>
+    <system:String x:Key="SelectEmulator">エミュレータを選択</system:String>
+    <system:String x:Key="Search">検索</system:String>
+    <system:String x:Key="Favorite">お気に入り</system:String>
+    <system:String x:Key="FileName">ファイル名</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">マシンの説明（MAMEファイル用）</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; 前へ</system:String>
+    <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
+    <system:String x:Key="System">システム：</system:String>
+    <system:String x:Key="Playtime">プレイ時間：</system:String>
 
 </ResourceDictionary>

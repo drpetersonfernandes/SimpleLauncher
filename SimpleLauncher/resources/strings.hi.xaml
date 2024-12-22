@@ -96,5 +96,16 @@
     <system:String x:Key="About">के बारे में</system:String>
     
     <system:String x:Key="Exit">बाहर जाएं</system:String>
+    
+    <system:String x:Key="SelectSystem">सिस्टम चुनें</system:String>
+    <system:String x:Key="SelectEmulator">एमुलेटर चुनें</system:String>
+    <system:String x:Key="Search">खोजें</system:String>
+    <system:String x:Key="Favorite">पसंदीदा</system:String>
+    <system:String x:Key="FileName">फ़ाइल का नाम</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">मशीन विवरण (MAME फ़ाइलों के लिए)</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; पिछला</system:String>
+    <system:String x:Key="Next_&gt;">अगला &gt;</system:String>
+    <system:String x:Key="System">सिस्टम:</system:String>
+    <system:String x:Key="Playtime">खेलने का समय:</system:String>
 
 </ResourceDictionary>

@@ -1,4 +1,111 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="Options">Seçenekler</system:String>
+
+    <system:String x:Key="Language">Dil</system:String>
     
+    <system:String x:Key="Theme">Tema</system:String>
+    <system:String x:Key="BaseTheme">Temel Tema</system:String>
+    <system:String x:Key="Light">Açık</system:String>
+    <system:String x:Key="Dark">Koyu</system:String>
+
+    <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
+    <system:String x:Key="Red">Kırmızı</system:String>
+    <system:String x:Key="Green">Yeşil</system:String>
+    <system:String x:Key="Blue">Mavi</system:String>
+    <system:String x:Key="Purple">Mor</system:String>
+    <system:String x:Key="Orange">Turuncu</system:String>
+    <system:String x:Key="Lime">Açık Yeşil</system:String>
+    <system:String x:Key="Emerald">Zümrüt</system:String>
+    <system:String x:Key="Teal">Cam Göbeği</system:String>
+    <system:String x:Key="Cyan">Camgöbeği</system:String>
+    <system:String x:Key="Cobalt">Kobalt</system:String>
+    <system:String x:Key="Indigo">Çivit Mavisi</system:String>
+    <system:String x:Key="Violet">Menekşe</system:String>
+    <system:String x:Key="Pink">Pembe</system:String>
+    <system:String x:Key="Magenta">Eflatun</system:String>
+    <system:String x:Key="Crimson">Kızıl</system:String>
+    <system:String x:Key="Amber">Kehribar</system:String>
+    <system:String x:Key="Yellow">Sarı</system:String>
+    <system:String x:Key="Brown">Kahverengi</system:String>
+    <system:String x:Key="Olive">Zeytin Yeşili</system:String>
+    <system:String x:Key="Steel">Çelik</system:String>
+    <system:String x:Key="Mauve">Eflatun</system:String>
+    <system:String x:Key="Taupe">Toprak</system:String>
+    <system:String x:Key="Sienna">Kiremit</system:String>
+
+    <system:String x:Key="SetThumbnailSize">Küçük Resim Boyutunu Ayarla</system:String>
+    <system:String x:Key="100pixels">100 piksel</system:String>
+    <system:String x:Key="150pixels">150 piksel</system:String>
+    <system:String x:Key="200pixels">200 piksel</system:String>
+    <system:String x:Key="250pixels">250 piksel</system:String>
+    <system:String x:Key="300pixels">300 piksel</system:String>
+    <system:String x:Key="350pixels">350 piksel</system:String>
+    <system:String x:Key="400pixels">400 piksel</system:String>
+    <system:String x:Key="450pixels">450 piksel</system:String>
+    <system:String x:Key="500pixels">500 piksel</system:String>
+    <system:String x:Key="550pixels">550 piksel</system:String>
+    <system:String x:Key="600pixels">600 piksel</system:String>
+
+    <system:String x:Key="SetNumberOfGamesPerPage">Sayfa Başına Oyun Sayısını Ayarla</system:String>
+    <system:String x:Key="100games">100 oyun</system:String>
+    <system:String x:Key="200games">200 oyun</system:String>
+    <system:String x:Key="300games">300 oyun</system:String>
+    <system:String x:Key="400games">400 oyun</system:String>
+    <system:String x:Key="500games">500 oyun</system:String>
+    <system:String x:Key="1000games">1000 oyun</system:String>
+
+    <system:String x:Key="ViewMode">Görünüm Modu</system:String>
+    <system:String x:Key="GridView">Izgara Görünümü</system:String>
+    <system:String x:Key="ListView">Liste Görünümü</system:String>
+
+    <system:String x:Key="ShowGames">Oyunları Göster</system:String>
+    <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">Yalnızca Kapaksız Oyunları Göster</system:String>
+
+    <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">Oyun Kolu Gezinmesini Etkinleştir</system:String>
+    
+    <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
+    <system:String x:Key="EasyMode">Kolay Mod</system:String>
+    <system:String x:Key="ExpertMode">Uzman Mod</system:String>
+    <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
+
+    <system:String x:Key="GlobalSearch">Genel Arama</system:String>
+
+    <system:String x:Key="Favorites">Favoriler</system:String>
+    
+    <system:String x:Key="GlobalStats">Genel İstatistikler</system:String>
+    
+    <system:String x:Key="Tools">Araçlar</system:String>
+    <system:String x:Key="OrganizeSystemImages">Sistem Görsellerini Düzenle</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">PS3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">ScummVM Oyunları İçin Toplu Dosyalar Oluştur</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Windows Oyunları İçin Toplu Dosyalar Oluştur</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA Oyunları İçin Toplu Dosyalar Oluştur</system:String>
+    
+    <system:String x:Key="BugReport">Hata Bildir</system:String>
+
+    <system:String x:Key="Donate">Bağış Yap</system:String>
+    
+    <system:String x:Key="About">Hakkında</system:String>
+    
+    <system:String x:Key="Exit">Çıkış</system:String>
+    
+    <system:String x:Key="SelectSystem">Sistem Seç</system:String>
+    <system:String x:Key="SelectEmulator">Emülatör Seç</system:String>
+    <system:String x:Key="Search">Ara</system:String>
+    <system:String x:Key="Favorite">Favori</system:String>
+    <system:String x:Key="FileName">Dosya Adı</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">Makine Açıklaması (MAME dosyaları için)</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; Önceki</system:String>
+    <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
+    <system:String x:Key="System">Sistem:</system:String>
+    <system:String x:Key="Playtime">Oynama Süresi:</system:String>
+
 </ResourceDictionary>

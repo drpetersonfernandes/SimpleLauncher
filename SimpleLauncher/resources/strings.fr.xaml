@@ -96,5 +96,16 @@
     <system:String x:Key="About">À propos</system:String>
     
     <system:String x:Key="Exit">Quitter</system:String>
+    
+    <system:String x:Key="SelectSystem">Sélectionner le système</system:String>
+    <system:String x:Key="SelectEmulator">Sélectionner l'émulateur</system:String>
+    <system:String x:Key="Search">Rechercher</system:String>
+    <system:String x:Key="Favorite">Favori</system:String>
+    <system:String x:Key="FileName">Nom du fichier</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">Description de la machine (pour les fichiers MAME)</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; Précédent</system:String>
+    <system:String x:Key="Next_&gt;">Suivant &gt;</system:String>
+    <system:String x:Key="System">Système :</system:String>
+    <system:String x:Key="Playtime">Temps de jeu :</system:String>
 
 </ResourceDictionary>

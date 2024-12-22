@@ -1,13 +1,111 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
     <system:String x:Key="Options">选项</system:String>
+
     <system:String x:Key="Language">语言</system:String>
+
     <system:String x:Key="Theme">主题</system:String>
+    <system:String x:Key="BaseTheme">基础主题</system:String>
+    <system:String x:Key="Light">浅色</system:String>
+    <system:String x:Key="Dark">深色</system:String>
+
+    <system:String x:Key="AccentColors">强调色</system:String>
+    <system:String x:Key="Red">红色</system:String>
+    <system:String x:Key="Green">绿色</system:String>
+    <system:String x:Key="Blue">蓝色</system:String>
+    <system:String x:Key="Purple">紫色</system:String>
+    <system:String x:Key="Orange">橙色</system:String>
+    <system:String x:Key="Lime">青柠色</system:String>
+    <system:String x:Key="Emerald">祖母绿</system:String>
+    <system:String x:Key="Teal">水鸭色</system:String>
+    <system:String x:Key="Cyan">青色</system:String>
+    <system:String x:Key="Cobalt">钴蓝色</system:String>
+    <system:String x:Key="Indigo">靛蓝色</system:String>
+    <system:String x:Key="Violet">紫罗兰色</system:String>
+    <system:String x:Key="Pink">粉色</system:String>
+    <system:String x:Key="Magenta">洋红色</system:String>
+    <system:String x:Key="Crimson">深红色</system:String>
+    <system:String x:Key="Amber">琥珀色</system:String>
+    <system:String x:Key="Yellow">黄色</system:String>
+    <system:String x:Key="Brown">棕色</system:String>
+    <system:String x:Key="Olive">橄榄色</system:String>
+    <system:String x:Key="Steel">钢铁色</system:String>
+    <system:String x:Key="Mauve">淡紫色</system:String>
+    <system:String x:Key="Taupe">褐灰色</system:String>
+    <system:String x:Key="Sienna">赭石色</system:String>
+
     <system:String x:Key="SetThumbnailSize">设置缩略图大小</system:String>
+    <system:String x:Key="100pixels">100 像素</system:String>
+    <system:String x:Key="150pixels">150 像素</system:String>
+    <system:String x:Key="200pixels">200 像素</system:String>
+    <system:String x:Key="250pixels">250 像素</system:String>
+    <system:String x:Key="300pixels">300 像素</system:String>
+    <system:String x:Key="350pixels">350 像素</system:String>
+    <system:String x:Key="400pixels">400 像素</system:String>
+    <system:String x:Key="450pixels">450 像素</system:String>
+    <system:String x:Key="500pixels">500 像素</system:String>
+    <system:String x:Key="550pixels">550 像素</system:String>
+    <system:String x:Key="600pixels">600 像素</system:String>
+
     <system:String x:Key="SetNumberOfGamesPerPage">设置每页游戏数量</system:String>
-    <system:String x:Key="ViewMode">查看模式</system:String>
+    <system:String x:Key="100games">100 个游戏</system:String>
+    <system:String x:Key="200games">200 个游戏</system:String>
+    <system:String x:Key="300games">300 个游戏</system:String>
+    <system:String x:Key="400games">400 个游戏</system:String>
+    <system:String x:Key="500games">500 个游戏</system:String>
+    <system:String x:Key="1000games">1000 个游戏</system:String>
+
+    <system:String x:Key="ViewMode">视图模式</system:String>
+    <system:String x:Key="GridView">网格视图</system:String>
+    <system:String x:Key="ListView">列表视图</system:String>
+
     <system:String x:Key="ShowGames">显示游戏</system:String>
+    <system:String x:Key="ShowAllGames">显示所有游戏</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">仅显示有封面的游戏</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">仅显示无封面的游戏</system:String>
+
     <system:String x:Key="EditLinks">编辑链接</system:String>
+
     <system:String x:Key="EnableGamePadNavigation">启用游戏手柄导航</system:String>
+
+    <system:String x:Key="EditSystem">编辑系统</system:String>
+    <system:String x:Key="EasyMode">简单模式</system:String>
+    <system:String x:Key="ExpertMode">专家模式</system:String>
+    <system:String x:Key="DownloadImagePack">下载图像包</system:String>
+
+    <system:String x:Key="GlobalSearch">全局搜索</system:String>
+
+    <system:String x:Key="Favorites">收藏夹</system:String>
+
+    <system:String x:Key="GlobalStats">全局统计</system:String>
+
+    <system:String x:Key="Tools">工具</system:String>
+    <system:String x:Key="OrganizeSystemImages">整理系统图像</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">为 PS3 游戏创建批处理文件</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">为 ScummVM 游戏创建批处理文件</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">为 Sega Model3 游戏创建批处理文件</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">为 Windows 游戏创建批处理文件</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">为 Xbox 360 XBLA 游戏创建批处理文件</system:String>
+
+    <system:String x:Key="BugReport">错误报告</system:String>
+
+    <system:String x:Key="Donate">捐赠</system:String>
+
+    <system:String x:Key="About">关于</system:String>
+
+    <system:String x:Key="Exit">退出</system:String>
+    
+    <system:String x:Key="SelectSystem">选择系统</system:String>
+    <system:String x:Key="SelectEmulator">选择模拟器</system:String>
+    <system:String x:Key="Search">搜索</system:String>
+    <system:String x:Key="Favorite">收藏</system:String>
+    <system:String x:Key="FileName">文件名</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">机器描述（适用于 MAME 文件）</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; 上一页</system:String>
+    <system:String x:Key="Next_&gt;">下一页 &gt;</system:String>
+    <system:String x:Key="System">系统：</system:String>
+    <system:String x:Key="Playtime">游玩时间：</system:String>
+
 </ResourceDictionary>

@@ -9,7 +9,7 @@
     <Product>Simple Launcher</Product>
     <LangVersion>13</LangVersion>
     <Nullable>disable</Nullable>
-    <NeutralLanguage>en-US</NeutralLanguage>
+    <NeutralLanguage></NeutralLanguage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -417,73 +417,70 @@
     <None Remove="images\language.png" />
     <Resource Include="images\language.png" />
     <Page Remove="resources\Strings.de.xaml" />
-    <Resource Include="resources\strings.de.xaml">
+    <Content Include="resources\strings.de.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.en.xaml" />
-    <Resource Include="resources\strings.en.xaml">
+    <Content Include="resources\strings.en.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.es.xaml" />
-    <Resource Include="resources\strings.es.xaml">
+    <Content Include="resources\strings.es.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.fr.xaml" />
-    <Resource Include="resources\strings.fr.xaml">
+    <Content Include="resources\strings.fr.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.ja.xaml" />
-    <Resource Include="resources\strings.ja.xaml">
+    <Content Include="resources\strings.ja.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.ko.xaml" />
-    <Resource Include="resources\strings.ko.xaml">
+    <Content Include="resources\strings.ko.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.pt-BR.xaml" />
-    <Resource Include="resources\strings.pt-br.xaml">
+    <Content Include="resources\strings.pt-br.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.pt-PT.xaml" />
-    <Resource Include="resources\strings.pt-pt.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Page Remove="resources\Strings.ru.xaml" />
-    <Resource Include="resources\strings.ru.xaml">
+    <Content Include="resources\strings.ru.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.zh-Hans.xaml" />
-    <Resource Include="resources\strings.zh-hans.xaml">
+    <Content Include="resources\strings.zh-hans.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\Strings.zh-Hant.xaml" />
-    <Resource Include="resources\strings.zh-hant.xaml">
+    <Content Include="resources\strings.zh-hant.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.ar.xaml" />
-    <Resource Include="resources\strings.ar.xaml">
+    <Content Include="resources\strings.ar.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.hi.xaml" />
-    <Resource Include="resources\strings.hi.xaml">
+    <Content Include="resources\strings.hi.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.it.xaml" />
-    <Resource Include="resources\strings.it.xaml">
+    <Content Include="resources\strings.it.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.nl.xaml" />
-    <Resource Include="resources\strings.nl.xaml">
+    <Content Include="resources\strings.nl.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.tr.xaml" />
-    <Resource Include="resources\strings.tr.xaml">
+    <Content Include="resources\strings.tr.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Page Remove="resources\strings.vi.xaml" />
-    <Resource Include="resources\strings.vi.xaml">
+    <Content Include="resources\strings.vi.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

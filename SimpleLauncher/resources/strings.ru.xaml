@@ -1,13 +1,111 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
     <system:String x:Key="Options">Опции</system:String>
+    
     <system:String x:Key="Language">Язык</system:String>
+    
     <system:String x:Key="Theme">Тема</system:String>
+    <system:String x:Key="BaseTheme">Базовая тема</system:String>
+    <system:String x:Key="Light">Светлая</system:String>
+    <system:String x:Key="Dark">Темная</system:String>
+
+    <system:String x:Key="AccentColors">Акцентные цвета</system:String>
+    <system:String x:Key="Red">Красный</system:String>
+    <system:String x:Key="Green">Зеленый</system:String>
+    <system:String x:Key="Blue">Синий</system:String>
+    <system:String x:Key="Purple">Фиолетовый</system:String>
+    <system:String x:Key="Orange">Оранжевый</system:String>
+    <system:String x:Key="Lime">Лайм</system:String>
+    <system:String x:Key="Emerald">Изумрудный</system:String>
+    <system:String x:Key="Teal">Бирюзовый</system:String>
+    <system:String x:Key="Cyan">Голубой</system:String>
+    <system:String x:Key="Cobalt">Кобальтовый</system:String>
+    <system:String x:Key="Indigo">Индиго</system:String>
+    <system:String x:Key="Violet">Фиалковый</system:String>
+    <system:String x:Key="Pink">Розовый</system:String>
+    <system:String x:Key="Magenta">Пурпурный</system:String>
+    <system:String x:Key="Crimson">Малиновый</system:String>
+    <system:String x:Key="Amber">Янтарный</system:String>
+    <system:String x:Key="Yellow">Желтый</system:String>
+    <system:String x:Key="Brown">Коричневый</system:String>
+    <system:String x:Key="Olive">Оливковый</system:String>
+    <system:String x:Key="Steel">Стальной</system:String>
+    <system:String x:Key="Mauve">Лавандовый</system:String>
+    <system:String x:Key="Taupe">Серо-коричневый</system:String>
+    <system:String x:Key="Sienna">Охра</system:String>
+
     <system:String x:Key="SetThumbnailSize">Установить размер миниатюр</system:String>
+    <system:String x:Key="100pixels">100 пикселей</system:String>
+    <system:String x:Key="150pixels">150 пикселей</system:String>
+    <system:String x:Key="200pixels">200 пикселей</system:String>
+    <system:String x:Key="250pixels">250 пикселей</system:String>
+    <system:String x:Key="300pixels">300 пикселей</system:String>
+    <system:String x:Key="350pixels">350 пикселей</system:String>
+    <system:String x:Key="400pixels">400 пикселей</system:String>
+    <system:String x:Key="450pixels">450 пикселей</system:String>
+    <system:String x:Key="500pixels">500 пикселей</system:String>
+    <system:String x:Key="550pixels">550 пикселей</system:String>
+    <system:String x:Key="600pixels">600 пикселей</system:String>
+
     <system:String x:Key="SetNumberOfGamesPerPage">Установить количество игр на странице</system:String>
+    <system:String x:Key="100games">100 игр</system:String>
+    <system:String x:Key="200games">200 игр</system:String>
+    <system:String x:Key="300games">300 игр</system:String>
+    <system:String x:Key="400games">400 игр</system:String>
+    <system:String x:Key="500games">500 игр</system:String>
+    <system:String x:Key="1000games">1000 игр</system:String>
+
     <system:String x:Key="ViewMode">Режим просмотра</system:String>
+    <system:String x:Key="GridView">Сеткой</system:String>
+    <system:String x:Key="ListView">Списком</system:String>
+
     <system:String x:Key="ShowGames">Показать игры</system:String>
+    <system:String x:Key="ShowAllGames">Показать все игры</system:String>
+    <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
+    <system:String x:Key="ShowOnlyGamesWithoutCover">Показать только игры без обложки</system:String>
+
     <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
-    <system:String x:Key="EnableGamePadNavigation">Включить навигацию с геймпадом</system:String>
+
+    <system:String x:Key="EnableGamePadNavigation">Включить навигацию геймпадом</system:String>
+    
+    <system:String x:Key="EditSystem">Редактировать систему</system:String>
+    <system:String x:Key="EasyMode">Простой режим</system:String>
+    <system:String x:Key="ExpertMode">Экспертный режим</system:String>
+    <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
+
+    <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
+
+    <system:String x:Key="Favorites">Избранное</system:String>
+    
+    <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
+    
+    <system:String x:Key="Tools">Инструменты</system:String>
+    <system:String x:Key="OrganizeSystemImages">Организовать изображения системы</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">Создать пакеты для игр PS3</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">Создать пакеты для игр ScummVM</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Создать пакеты для игр Sega Model3</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Создать пакеты для игр Windows</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Создать пакеты для игр Xbox 360 XBLA</system:String>
+    
+    <system:String x:Key="BugReport">Сообщить об ошибке</system:String>
+
+    <system:String x:Key="Donate">Пожертвовать</system:String>
+    
+    <system:String x:Key="About">О программе</system:String>
+    
+    <system:String x:Key="Exit">Выход</system:String>
+    
+    <system:String x:Key="SelectSystem">Выбрать систему</system:String>
+    <system:String x:Key="SelectEmulator">Выбрать эмулятор</system:String>
+    <system:String x:Key="Search">Поиск</system:String>
+    <system:String x:Key="Favorite">Избранное</system:String>
+    <system:String x:Key="FileName">Имя файла</system:String>
+    <system:String x:Key="MachineDescriptionforMAMEfiles">Описание машины (для файлов MAME)</system:String>
+    <system:String x:Key="&lt;_Prev">&lt; Предыдущая</system:String>
+    <system:String x:Key="Next_&gt;">Следующая &gt;</system:String>
+    <system:String x:Key="System">Система:</system:String>
+    <system:String x:Key="Playtime">Время игры:</system:String>
+
 </ResourceDictionary>
