@@ -1166,13 +1166,13 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             if (sender is MenuItem clickedItem)
             {
-                // Extract the numeric value from the header
-                var sizeText = clickedItem.Header.ToString();
-                if (sizeText != null && int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
+                var sizeText = clickedItem.Name.Replace("Size", "");
+                if (int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
                 {
                     _gameButtonFactory.ImageHeight = newSize; // Update the image height
-                    _settings.ThumbnailSize = newSize; // Update the settings
-                    _settings.Save(); // Save the settings
+                    _settings.ThumbnailSize = newSize;
+                    _settings.Save();
+                    
                     UpdateMenuCheckMarks(newSize);
                     
                     // Reload List of Games
@@ -1183,7 +1183,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Error while using the method ThumbnailSize_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
@@ -1196,15 +1197,14 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         if (sender is MenuItem clickedItem)
         {
-            // Extract the numeric value from the header
-            var pageText = clickedItem.Header.ToString();
-            if (pageText != null && int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out int newPage))
+            var pageText = clickedItem.Name.Replace("Page", "");
+            if (int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out int newPage))
             {
-                _filesPerPage = newPage; // Update the page size
-                _paginationThreshold = newPage; // update pagination threshold
-                _settings.GamesPerPage = newPage; // Update the settings
+                _filesPerPage = newPage; 
+                _paginationThreshold = newPage; 
+                _settings.GamesPerPage = newPage; 
                     
-                _settings.Save(); // Save the settings
+                _settings.Save(); 
                 UpdateMenuCheckMarks2(newPage);
                     
                 // Save Application Settings
@@ -1629,11 +1629,13 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1698,7 +1700,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         if (sender is MenuItem menuItem)
         {
-            string baseTheme = menuItem.Header.ToString();
+            string baseTheme = menuItem.Name;
             string currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
             App.ChangeTheme(baseTheme, currentAccent);
 
@@ -1711,10 +1713,10 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         if (sender is MenuItem menuItem)
         {
-            string accentColor = menuItem.Header.ToString();
+            string accentColor = menuItem.Name;
             string currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
             App.ChangeTheme(currentBaseTheme, accentColor);
-
+            
             UncheckAccentColors();
             menuItem.IsChecked = true;
         }
@@ -1722,35 +1724,35 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void UncheckBaseThemes()
     {
-        LightTheme.IsChecked = false;
-        DarkTheme.IsChecked = false;
+        Light.IsChecked = false;
+        Dark.IsChecked = false;
     }
 
     private void UncheckAccentColors()
     {
-        RedAccent.IsChecked = false;
-        GreenAccent.IsChecked = false;
-        BlueAccent.IsChecked = false;
-        PurpleAccent.IsChecked = false;
-        OrangeAccent.IsChecked = false;
-        LimeAccent.IsChecked = false;
-        EmeraldAccent.IsChecked = false;
-        TealAccent.IsChecked = false;
-        CyanAccent.IsChecked = false;
-        CobaltAccent.IsChecked = false;
-        IndigoAccent.IsChecked = false;
-        VioletAccent.IsChecked = false;
-        PinkAccent.IsChecked = false;
-        MagentaAccent.IsChecked = false;
-        CrimsonAccent.IsChecked = false;
-        AmberAccent.IsChecked = false;
-        YellowAccent.IsChecked = false;
-        BrownAccent.IsChecked = false;
-        OliveAccent.IsChecked = false;
-        SteelAccent.IsChecked = false;
-        MauveAccent.IsChecked = false;
-        TaupeAccent.IsChecked = false;
-        SiennaAccent.IsChecked = false;
+        Red.IsChecked = false;
+        Green.IsChecked = false;
+        Blue.IsChecked = false;
+        Purple.IsChecked = false;
+        Orange.IsChecked = false;
+        Lime.IsChecked = false;
+        Emerald.IsChecked = false;
+        Teal.IsChecked = false;
+        Cyan.IsChecked = false;
+        Cobalt.IsChecked = false;
+        Indigo.IsChecked = false;
+        Violet.IsChecked = false;
+        Pink.IsChecked = false;
+        Magenta.IsChecked = false;
+        Crimson.IsChecked = false;
+        Amber.IsChecked = false;
+        Yellow.IsChecked = false;
+        Brown.IsChecked = false;
+        Olive.IsChecked = false;
+        Steel.IsChecked = false;
+        Mauve.IsChecked = false;
+        Taupe.IsChecked = false;
+        Sienna.IsChecked = false;
     }
 
     private void SetCheckedTheme(string baseTheme, string accentColor)
@@ -1758,83 +1760,83 @@ public partial class MainWindow : INotifyPropertyChanged
         switch (baseTheme)
         {
             case "Light":
-                LightTheme.IsChecked = true;
+                Light.IsChecked = true;
                 break;
             case "Dark":
-                DarkTheme.IsChecked = true;
+                Dark.IsChecked = true;
                 break;
         }
 
         switch (accentColor)
         {
             case "Red":
-                RedAccent.IsChecked = true;
+                Red.IsChecked = true;
                 break;
             case "Green":
-                GreenAccent.IsChecked = true;
+                Green.IsChecked = true;
                 break;
             case "Blue":
-                BlueAccent.IsChecked = true;
+                Blue.IsChecked = true;
                 break;
             case "Purple":
-                PurpleAccent.IsChecked = true;
+                Purple.IsChecked = true;
                 break;
             case "Orange":
-                OrangeAccent.IsChecked = true;
+                Orange.IsChecked = true;
                 break;
             case "Lime":
-                LimeAccent.IsChecked = true;
+                Lime.IsChecked = true;
                 break;
             case "Emerald":
-                EmeraldAccent.IsChecked = true;
+                Emerald.IsChecked = true;
                 break;
             case "Teal":
-                TealAccent.IsChecked = true;
+                Teal.IsChecked = true;
                 break;
             case "Cyan":
-                CyanAccent.IsChecked = true;
+                Cyan.IsChecked = true;
                 break;
             case "Cobalt":
-                CobaltAccent.IsChecked = true;
+                Cobalt.IsChecked = true;
                 break;
             case "Indigo":
-                IndigoAccent.IsChecked = true;
+                Indigo.IsChecked = true;
                 break;
             case "Violet":
-                VioletAccent.IsChecked = true;
+                Violet.IsChecked = true;
                 break;
             case "Pink":
-                PinkAccent.IsChecked = true;
+                Pink.IsChecked = true;
                 break;
             case "Magenta":
-                MagentaAccent.IsChecked = true;
+                Magenta.IsChecked = true;
                 break;
             case "Crimson":
-                CrimsonAccent.IsChecked = true;
+                Crimson.IsChecked = true;
                 break;
             case "Amber":
-                AmberAccent.IsChecked = true;
+                Amber.IsChecked = true;
                 break;
             case "Yellow":
-                YellowAccent.IsChecked = true;
+                Yellow.IsChecked = true;
                 break;
             case "Brown":
-                BrownAccent.IsChecked = true;
+                Brown.IsChecked = true;
                 break;
             case "Olive":
-                OliveAccent.IsChecked = true;
+                Olive.IsChecked = true;
                 break;
             case "Steel":
-                SteelAccent.IsChecked = true;
+                Steel.IsChecked = true;
                 break;
             case "Mauve":
-                MauveAccent.IsChecked = true;
+                Mauve.IsChecked = true;
                 break;
             case "Taupe":
-                TaupeAccent.IsChecked = true;
+                Taupe.IsChecked = true;
                 break;
             case "Sienna":
-                SiennaAccent.IsChecked = true;
+                Sienna.IsChecked = true;
                 break;
         }
     }
