@@ -100,9 +100,6 @@
     <system:String x:Key="SelectSystem">選擇系統</system:String>
     <system:String x:Key="SelectEmulator">選擇模擬器</system:String>
     <system:String x:Key="Search">搜尋</system:String>
-    <system:String x:Key="Favorite">收藏</system:String>
-    <system:String x:Key="FileName">檔案名稱</system:String>
-    <system:String x:Key="MachineDescriptionforMAMEfiles">機器描述（適用於 MAME 檔案）</system:String>
     <system:String x:Key="&lt;_Prev">&lt; 上一頁</system:String>
     <system:String x:Key="Next_&gt;">下一頁 &gt;</system:String>
     <system:String x:Key="System">系統：</system:String>

@@ -100,9 +100,6 @@
     <system:String x:Key="SelectSystem">Seleccionar sistema</system:String>
     <system:String x:Key="SelectEmulator">Seleccionar emulador</system:String>
     <system:String x:Key="Search">Buscar</system:String>
-    <system:String x:Key="Favorite">Favorito</system:String>
-    <system:String x:Key="FileName">Nombre de archivo</system:String>
-    <system:String x:Key="MachineDescriptionforMAMEfiles">Descripción de la máquina (para archivos MAME)</system:String>
     <system:String x:Key="&lt;_Prev">&lt; Anterior</system:String>
     <system:String x:Key="Next_&gt;">Siguiente &gt;</system:String>
     <system:String x:Key="System">Sistema:</system:String>

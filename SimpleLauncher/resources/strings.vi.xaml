@@ -100,9 +100,6 @@
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SelectEmulator">Chọn Trình Giả Lập</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
-    <system:String x:Key="Favorite">Yêu Thích</system:String>
-    <system:String x:Key="FileName">Tên Tệp</system:String>
-    <system:String x:Key="MachineDescriptionforMAMEfiles">Mô Tả Máy (cho tệp MAME)</system:String>
     <system:String x:Key="&lt;_Prev">&lt; Trước</system:String>
     <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>

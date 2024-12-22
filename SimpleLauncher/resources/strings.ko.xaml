@@ -100,9 +100,6 @@
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SelectEmulator">에뮬레이터 선택</system:String>
     <system:String x:Key="Search">검색</system:String>
-    <system:String x:Key="Favorite">즐겨찾기</system:String>
-    <system:String x:Key="FileName">파일 이름</system:String>
-    <system:String x:Key="MachineDescriptionforMAMEfiles">기기 설명 (MAME 파일용)</system:String>
     <system:String x:Key="&lt;_Prev">&lt; 이전</system:String>
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="System">시스템:</system:String>

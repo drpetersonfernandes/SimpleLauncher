@@ -100,9 +100,6 @@
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
     <system:String x:Key="SelectEmulator">اختر المحاكي</system:String>
     <system:String x:Key="Search">بحث</system:String>
-    <system:String x:Key="Favorite">المفضلة</system:String>
-    <system:String x:Key="FileName">اسم الملف</system:String>
-    <system:String x:Key="MachineDescriptionforMAMEfiles">وصف الآلة (لملفات MAME)</system:String>
     <system:String x:Key="&lt;_Prev">&lt; السابق</system:String>
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="System">النظام:</system:String>

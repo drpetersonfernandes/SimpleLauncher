@@ -412,7 +412,7 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="{DynamicResource Favorite}" Width="Auto">
+                    <DataGridTemplateColumn Header="Favorite" Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
@@ -420,8 +420,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{DynamicResource FileName}" Binding="{Binding FileName}" Width="*" />
-                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionforMAMEfiles}" Binding="{Binding MachineDescription}" Width="*" />
+                    <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
+                    <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 
