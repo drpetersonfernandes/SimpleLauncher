@@ -68,7 +68,8 @@
 
     <system:String x:Key="EditLinks">Edit Links</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">Enable GamePad Navigation</system:String>
+    <system:String x:Key="GamepadSupport">Gamepad Support</system:String>
+    <system:String x:Key="Enable">Enable</system:String>
 
     <system:String x:Key="EditSystem">Edit System</system:String>
     <system:String x:Key="EasyMode">Easy Mode</system:String>
@@ -104,5 +105,12 @@
     <system:String x:Key="Next_&gt;">Next &gt;</system:String>
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">Edit System - Easy Mode</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">What do you want to do?</system:String>
+    <system:String x:Key="AddNewSystem">Add New System</system:String>
+    <system:String x:Key="EditExistingSystem">Edit Existing System</system:String>
+    <system:String x:Key="DeleteExistingSystem">Delete Existing System</system:String>
+    <system:String x:Key="DownloadImagePack2">Download Image Pack</system:String>
 
 </ResourceDictionary>

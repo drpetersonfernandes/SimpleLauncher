@@ -68,7 +68,8 @@
 
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">تفعيل التنقل بلوحة الألعاب</system:String>
+    <system:String x:Key="GamepadSupport">دعم وحدة التحكم</system:String>
+    <system:String x:Key="Enable">تفعيل</system:String>
 
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">تحرير النظام - الوضع السهل</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">ماذا تريد أن تفعل؟</system:String>
+    <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
+    <system:String x:Key="EditExistingSystem">تحرير النظام الحالي</system:String>
+    <system:String x:Key="DeleteExistingSystem">حذف النظام الحالي</system:String>
+    <system:String x:Key="DownloadImagePack2">تنزيل حزمة الصور</system:String>
+
 
 </ResourceDictionary>

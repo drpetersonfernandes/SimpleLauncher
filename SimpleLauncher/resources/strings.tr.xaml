@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">Oyun Kolu Gezinmesini Etkinleştir</system:String>
-    
+    <system:String x:Key="GamepadSupport">Gamepad desteği</system:String>
+    <system:String x:Key="Enable">Etkinleştir</system:String>
+
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
     <system:String x:Key="ExpertMode">Uzman Mod</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">Sistemi Düzenle - Kolay Mod</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">Ne yapmak istiyorsunuz?</system:String>
+    <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
+    <system:String x:Key="EditExistingSystem">Mevcut Sistemi Düzenle</system:String>
+    <system:String x:Key="DeleteExistingSystem">Mevcut Sistemi Sil</system:String>
+    <system:String x:Key="DownloadImagePack2">Görüntü Paketini İndir</system:String>
+
 
 </ResourceDictionary>

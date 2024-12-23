@@ -481,6 +481,8 @@
     <Content Include="resources\strings.vi.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="images\gamepad.png" />
+    <Resource Include="images\gamepad.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

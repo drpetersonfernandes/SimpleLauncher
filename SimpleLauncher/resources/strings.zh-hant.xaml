@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">編輯連結</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">啟用遊戲手柄導航</system:String>
-
+    <system:String x:Key="GamepadSupport">手柄支援</system:String>
+    <system:String x:Key="Enable">啟用</system:String>
+    
     <system:String x:Key="EditSystem">編輯系統</system:String>
     <system:String x:Key="EasyMode">簡易模式</system:String>
     <system:String x:Key="ExpertMode">專家模式</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">下一頁 &gt;</system:String>
     <system:String x:Key="System">系統：</system:String>
     <system:String x:Key="Playtime">遊玩時間：</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">編輯系統 - 簡易模式</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">您想做什麼？</system:String>
+    <system:String x:Key="AddNewSystem">新增系統</system:String>
+    <system:String x:Key="EditExistingSystem">編輯現有系統</system:String>
+    <system:String x:Key="DeleteExistingSystem">刪除現有系統</system:String>
+    <system:String x:Key="DownloadImagePack2">下載圖像包</system:String>
+
 
 </ResourceDictionary>

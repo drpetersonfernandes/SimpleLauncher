@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">Editar enlaces</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">Habilitar navegación con GamePad</system:String>
-    
+    <system:String x:Key="GamepadSupport">Soporte para gamepad</system:String>
+    <system:String x:Key="Enable">Habilitar</system:String>
+
     <system:String x:Key="EditSystem">Editar sistema</system:String>
     <system:String x:Key="EasyMode">Modo fácil</system:String>
     <system:String x:Key="ExpertMode">Modo experto</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">Siguiente &gt;</system:String>
     <system:String x:Key="System">Sistema:</system:String>
     <system:String x:Key="Playtime">Tiempo de juego:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">Editar sistema - Modo fácil</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">¿Qué quieres hacer?</system:String>
+    <system:String x:Key="AddNewSystem">Añadir un nuevo sistema</system:String>
+    <system:String x:Key="EditExistingSystem">Editar sistema existente</system:String>
+    <system:String x:Key="DeleteExistingSystem">Eliminar sistema existente</system:String>
+    <system:String x:Key="DownloadImagePack2">Descargar paquete de imágenes</system:String>
+
 
 </ResourceDictionary>

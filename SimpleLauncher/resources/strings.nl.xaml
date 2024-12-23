@@ -68,7 +68,8 @@
 
     <system:String x:Key="EditLinks">Links bewerken</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">GamePad-navigatie inschakelen</system:String>
+    <system:String x:Key="GamepadSupport">Gamepad-ondersteuning</system:String>
+    <system:String x:Key="Enable">Inschakelen</system:String>
     
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">Systeem bewerken - Gemakkelijke modus</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">Wat wilt u doen?</system:String>
+    <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
+    <system:String x:Key="EditExistingSystem">Bestaand systeem bewerken</system:String>
+    <system:String x:Key="DeleteExistingSystem">Bestaand systeem verwijderen</system:String>
+    <system:String x:Key="DownloadImagePack2">Afbeeldingenpakket downloaden</system:String>
+
 
 </ResourceDictionary>

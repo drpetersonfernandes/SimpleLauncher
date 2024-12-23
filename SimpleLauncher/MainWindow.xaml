@@ -29,16 +29,22 @@
                     <MenuItem x:Name="LanguageSpanish" Header="Español" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageFrench" Header="Français" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageHindi" Header="हिन्दी" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageItalian" Header="Italiano" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageItalian" Header="Italiano" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                     <MenuItem x:Name="LanguageJapanese" Header="日本語" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageKorean" Header="한국어" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageDutch" Header="Nederlands" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguagePortugueseBr" Header="Português" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageDutch" Header="Nederlands" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguagePortugueseBr" Header="Português" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                     <MenuItem x:Name="LanguageRussian" Header="Русский" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageTurkish" Header="Türkçe" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageVietnamese" Header="Tiếng Việt" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageChineseSimplified" Header="简体中文" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageChineseTraditional" Header="繁體中文" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageVietnamese" Header="Tiếng Việt" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguageChineseSimplified" Header="简体中文" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguageChineseTraditional" Header="繁體中文" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Theme}">
                     <MenuItem.Icon>
@@ -48,36 +54,61 @@
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" />
                         </MenuItem.Icon>
-                        <MenuItem x:Name="Light" Header="{DynamicResource Light}" Click="ChangeBaseTheme_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Dark" Header="{DynamicResource Dark}" Click="ChangeBaseTheme_Click" IsCheckable="True" />
+                        <MenuItem x:Name="Light" Header="{DynamicResource Light}" Click="ChangeBaseTheme_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Dark" Header="{DynamicResource Dark}" Click="ChangeBaseTheme_Click"
+                                  IsCheckable="True" />
                     </MenuItem>
                     <MenuItem Header="{DynamicResource AccentColors}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" />
                         </MenuItem.Icon>
-                        <MenuItem x:Name="Red" Header="{DynamicResource Red}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Green" Header="{DynamicResource Green}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Blue" Header="{DynamicResource Blue}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Purple" Header="{DynamicResource Purple}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Orange" Header="{DynamicResource Orange}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Lime" Header="{DynamicResource Lime}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Emerald" Header="{DynamicResource Emerald}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Teal" Header="{DynamicResource Teal}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Cyan" Header="{DynamicResource Cyan}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Cobalt" Header="{DynamicResource Cobalt}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Indigo" Header="{DynamicResource Indigo}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Violet" Header="{DynamicResource Violet}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Pink" Header="{DynamicResource Pink}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Magenta" Header="{DynamicResource Magenta}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Crimson" Header="{DynamicResource Crimson}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Amber" Header="{DynamicResource Amber}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Yellow" Header="{DynamicResource Yellow}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Brown" Header="{DynamicResource Brown}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Olive" Header="{DynamicResource Olive}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Steel" Header="{DynamicResource Steel}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Mauve" Header="{DynamicResource Mauve}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Taupe" Header="{DynamicResource Taupe}" Click="ChangeAccentColor_Click" IsCheckable="True" />
-                        <MenuItem x:Name="Sienna" Header="{DynamicResource Sienna}" Click="ChangeAccentColor_Click" IsCheckable="True" />
+                        <MenuItem x:Name="Red" Header="{DynamicResource Red}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Green" Header="{DynamicResource Green}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Blue" Header="{DynamicResource Blue}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Purple" Header="{DynamicResource Purple}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Orange" Header="{DynamicResource Orange}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Lime" Header="{DynamicResource Lime}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Emerald" Header="{DynamicResource Emerald}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Teal" Header="{DynamicResource Teal}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Cyan" Header="{DynamicResource Cyan}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Cobalt" Header="{DynamicResource Cobalt}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Indigo" Header="{DynamicResource Indigo}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Violet" Header="{DynamicResource Violet}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Pink" Header="{DynamicResource Pink}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Magenta" Header="{DynamicResource Magenta}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Crimson" Header="{DynamicResource Crimson}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Amber" Header="{DynamicResource Amber}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Yellow" Header="{DynamicResource Yellow}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Brown" Header="{DynamicResource Brown}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Olive" Header="{DynamicResource Olive}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Steel" Header="{DynamicResource Steel}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Mauve" Header="{DynamicResource Mauve}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Taupe" Header="{DynamicResource Taupe}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
+                        <MenuItem x:Name="Sienna" Header="{DynamicResource Sienna}" Click="ChangeAccentColor_Click"
+                                  IsCheckable="True" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetThumbnailSize}">
@@ -162,16 +193,21 @@
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/show.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="GridView" Header="{DynamicResource GridView}" Click="ChangeViewMode_Click" IsCheckable="True" IsChecked="True" />
-                    <MenuItem x:Name="ListView" Header="{DynamicResource ListView}" Click="ChangeViewMode_Click" IsCheckable="True" />
+                    <MenuItem x:Name="GridView" Header="{DynamicResource GridView}" Click="ChangeViewMode_Click"
+                              IsCheckable="True" IsChecked="True" />
+                    <MenuItem x:Name="ListView" Header="{DynamicResource ListView}" Click="ChangeViewMode_Click"
+                              IsCheckable="True" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ShowGames}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/noimage.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ShowAll" Header="{DynamicResource ShowAllGames}" Click="ShowAllGames_Click" IsCheckable="True" />
-                    <MenuItem x:Name="ShowWithCover" Header="{DynamicResource ShowOnlyGamesWithCover}" Click="ShowGamesWithCover_Click" IsCheckable="True" />
-                    <MenuItem x:Name="ShowWithoutCover" Header="{DynamicResource ShowOnlyGamesWithoutCover}" Click="ShowGamesWithoutCover_Click" IsCheckable="True" />
+                    <MenuItem x:Name="ShowAll" Header="{DynamicResource ShowAllGames}" Click="ShowAllGames_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="ShowWithCover" Header="{DynamicResource ShowOnlyGamesWithCover}"
+                              Click="ShowGamesWithCover_Click" IsCheckable="True" />
+                    <MenuItem x:Name="ShowWithoutCover" Header="{DynamicResource ShowOnlyGamesWithoutCover}"
+                              Click="ShowGamesWithoutCover_Click" IsCheckable="True" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource EditLinks}">
                     <MenuItem.Icon>
@@ -183,24 +219,29 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem
-                    x:Name="EnableGamePadNavigation" Click="EnableGamePadNavigation_Click" Header="{DynamicResource EnableGamePadNavigation}" />
+                <MenuItem Header="{DynamicResource GamepadSupport}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="ToggleGamepad" Header="{DynamicResource Enable}" Click="ToggleGamepad_Click"
+                              IsCheckable="True" />
+                </MenuItem>
             </MenuItem>
 
             <MenuItem
-                Header="{DynamicResource EditSystem}" >
-                <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}" >
+                Header="{DynamicResource EditSystem}">
+                <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/easy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="ExpertMode_Click" Header="{DynamicResource ExpertMode}" >
+                <MenuItem Click="ExpertMode_Click" Header="{DynamicResource ExpertMode}">
                     <MenuItem.Icon>
                         <Image
                             Source="pack://application:,,,/images/expert.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="DownloadImagePack_Click" Header="{DynamicResource DownloadImagePack}" >
+                <MenuItem Click="DownloadImagePack_Click" Header="{DynamicResource DownloadImagePack}">
                     <MenuItem.Icon>
                         <Image
                             Source="pack://application:,,,/images/image.png" Width="16" Height="16" />
@@ -208,83 +249,87 @@
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="{DynamicResource GlobalSearch}" >
-                <MenuItem Click="GlobalSearch_Click" Header="{DynamicResource GlobalSearch}" >
+            <MenuItem Header="{DynamicResource GlobalSearch}">
+                <MenuItem Click="GlobalSearch_Click" Header="{DynamicResource GlobalSearch}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/search.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Favorites}" >
+            <MenuItem Header="{DynamicResource Favorites}">
                 <MenuItem Click="Favorites_Click" Header="{DynamicResource Favorites}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource GlobalStats}" >
-                <MenuItem Click="GlobalStats_Click" Header="{DynamicResource GlobalStats}" >
+            <MenuItem Header="{DynamicResource GlobalStats}">
+                <MenuItem Click="GlobalStats_Click" Header="{DynamicResource GlobalStats}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Tools}" >
-                <MenuItem Click="OrganizeSystemImages_Click" Header="{DynamicResource OrganizeSystemImages}" >
+            <MenuItem Header="{DynamicResource Tools}">
+                <MenuItem Click="OrganizeSystemImages_Click" Header="{DynamicResource OrganizeSystemImages}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForPS3Games_Click" Header="{DynamicResource CreateBatchFilesForPS3Games}" >
+                <MenuItem Click="CreateBatchFilesForPS3Games_Click"
+                          Header="{DynamicResource CreateBatchFilesForPS3Games}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForScummVMGames_Click" Header="{DynamicResource CreateBatchFilesForScummVMGames}" >
+                <MenuItem Click="CreateBatchFilesForScummVMGames_Click"
+                          Header="{DynamicResource CreateBatchFilesForScummVMGames}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click" Header="{DynamicResource CreateBatchFilesForSegaModel3Games}" >
+                <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click"
+                          Header="{DynamicResource CreateBatchFilesForSegaModel3Games}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForWindowsGames_Click" Header="{DynamicResource CreateBatchFilesForWindowsGames}" >
+                <MenuItem Click="CreateBatchFilesForWindowsGames_Click"
+                          Header="{DynamicResource CreateBatchFilesForWindowsGames}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForXbox360XBLAGames_Click"
-                          Header="{DynamicResource CreateBatchFilesForXbox360XBLAGames}" >
+                          Header="{DynamicResource CreateBatchFilesForXbox360XBLAGames}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource BugReport}" >
-                <MenuItem Click="BugReport_Click" Header="{DynamicResource BugReport}" >
+            <MenuItem Header="{DynamicResource BugReport}">
+                <MenuItem Click="BugReport_Click" Header="{DynamicResource BugReport}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/bug.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Donate}" >
-                <MenuItem Click="Donate_Click" Header="{DynamicResource Donate}" >
+            <MenuItem Header="{DynamicResource Donate}">
+                <MenuItem Click="Donate_Click" Header="{DynamicResource Donate}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/donate.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource About}" >
-                <MenuItem Click="About_Click" Header="{DynamicResource About}" >
+            <MenuItem Header="{DynamicResource About}">
+                <MenuItem Click="About_Click" Header="{DynamicResource About}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Exit}" >
-                <MenuItem Click="Exit_Click" Header="{DynamicResource Exit}" >
+            <MenuItem Header="{DynamicResource Exit}">
+                <MenuItem Click="Exit_Click" Header="{DynamicResource Exit}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -348,7 +393,7 @@
                 Name="EmulatorComboBox"
                 Width="500"
                 VerticalAlignment="Center" />
-            <Button 
+            <Button
                 Grid.Row="2"
                 Grid.Column="2"
                 Margin="10,0,10,5"
@@ -421,16 +466,19 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
-                    <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
+                    <DataGridTextColumn Header="Machine Description for MAME files"
+                                        Binding="{Binding MachineDescription}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 
             <!-- Preview area in the right column -->
             <StackPanel Grid.Column="1" Margin="10">
-                <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+                <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center"
+                       Margin="0,0,0,10" />
                 <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                     <Grid>
-                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" />
                     </Grid>
                 </Border>
             </StackPanel>
@@ -464,7 +512,7 @@
                 <Label
                     x:Name="TotalFilesLabel"
                     Margin="10,0,0,0"
-                    Content="" 
+                    Content=""
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center" />
             </StackPanel>

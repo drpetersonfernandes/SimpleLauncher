@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">リンクを編集</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">ゲームパッドナビゲーションを有効化</system:String>
-    
+    <system:String x:Key="GamepadSupport">ゲームパッドサポート</system:String>
+    <system:String x:Key="Enable">有効化</system:String>
+
     <system:String x:Key="EditSystem">システムを編集</system:String>
     <system:String x:Key="EasyMode">簡単モード</system:String>
     <system:String x:Key="ExpertMode">エキスパートモード</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">システムを編集 - 簡単モード</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">何をしたいですか？</system:String>
+    <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
+    <system:String x:Key="EditExistingSystem">既存のシステムを編集</system:String>
+    <system:String x:Key="DeleteExistingSystem">既存のシステムを削除</system:String>
+    <system:String x:Key="DownloadImagePack2">画像パックをダウンロード</system:String>
+
 
 </ResourceDictionary>

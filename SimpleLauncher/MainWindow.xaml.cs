@@ -4,10 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +16,6 @@ using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
-using System.Windows.Markup;
 
 namespace SimpleLauncher;
 
@@ -104,7 +101,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         
         // Apply language
-        ApplyLanguage(_settings.Language);
+        // ApplyLanguage(_settings.Language);
         SetLanguageMenuChecked(_settings.Language);
             
         // Load mame.xml
@@ -122,7 +119,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string contextMessage = $"'system.xml' is corrupted.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -137,7 +135,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
 
         // Apply settings to application from settings.xml
-        EnableGamePadNavigation.IsChecked = _settings.EnableGamePadNavigation;
+        ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
         UpdateMenuCheckMarks(_settings.ThumbnailSize);
         UpdateMenuCheckMarks2(_settings.GamesPerPage);
         UpdateMenuCheckMarks3(_settings.ShowGames);
@@ -238,53 +236,53 @@ public partial class MainWindow : INotifyPropertyChanged
         AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
     }
     
-    private void ApplyLanguage(string cultureCode = null)
-    {
-        try
-        {
-            // Determine the culture code (default to CurrentUICulture if not provided)
-            var culture = string.IsNullOrEmpty(cultureCode)
-                ? CultureInfo.CurrentUICulture
-                : new CultureInfo(cultureCode);
-
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            // Load the resource dictionary
-            var dictionary = new ResourceDictionary
-            {
-                Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
-            };
-
-            // Replace the current localization dictionary
-            var existingDictionary = Resources.MergedDictionaries
-                .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
-
-            if (existingDictionary != null)
-            {
-                Resources.MergedDictionaries.Remove(existingDictionary);
-            }
-
-            Resources.MergedDictionaries.Add(dictionary);
-
-            // Apply the culture to the application
-            LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Failed to load language resources: {ex.Message}", "Language Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Fallback to English
-            var fallbackDictionary = new ResourceDictionary
-            {
-                Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
-            };
-
-            Resources.MergedDictionaries.Add(fallbackDictionary);
-        }
-    }
+    // private void ApplyLanguage(string cultureCode = null)
+    // {
+    //     try
+    //     {
+    //         // Determine the culture code (default to CurrentUICulture if not provided)
+    //         var culture = string.IsNullOrEmpty(cultureCode)
+    //             ? CultureInfo.CurrentUICulture
+    //             : new CultureInfo(cultureCode);
+    //
+    //         Thread.CurrentThread.CurrentCulture = culture;
+    //         Thread.CurrentThread.CurrentUICulture = culture;
+    //
+    //         // Load the resource dictionary
+    //         var dictionary = new ResourceDictionary
+    //         {
+    //             Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
+    //         };
+    //
+    //         // Replace the current localization dictionary
+    //         var existingDictionary = Resources.MergedDictionaries
+    //             .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
+    //
+    //         if (existingDictionary != null)
+    //         {
+    //             Resources.MergedDictionaries.Remove(existingDictionary);
+    //         }
+    //
+    //         Resources.MergedDictionaries.Add(dictionary);
+    //
+    //         // Apply the culture to the application
+    //         LanguageProperty.OverrideMetadata(
+    //             typeof(FrameworkElement),
+    //             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         MessageBox.Show($"Failed to load language resources: {ex.Message}", "Language Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    //
+    //         // Fallback to English
+    //         var fallbackDictionary = new ResourceDictionary
+    //         {
+    //             Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+    //         };
+    //
+    //         Resources.MergedDictionaries.Add(fallbackDictionary);
+    //     }
+    // }
     
     private void SetLanguageMenuChecked(string languageCode)
     {
@@ -325,7 +323,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
         _settings.GamesPerPage = _filesPerPage;
         _settings.ShowGames = _settings.ShowGames;
-        _settings.EnableGamePadNavigation = EnableGamePadNavigation.IsChecked;
+        _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
 
         // Save theme settings
         var detectedTheme = ThemeManager.Current.DetectTheme(this);
@@ -956,7 +954,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error while loading the game list.\n\n" +
@@ -989,7 +988,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
@@ -1075,7 +1075,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -1141,21 +1142,37 @@ public partial class MainWindow : INotifyPropertyChanged
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
         
-    private void EnableGamePadNavigation_Click(object sender, RoutedEventArgs e)
+    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
         if (sender is MenuItem menuItem)
         {
-            menuItem.IsChecked = !menuItem.IsChecked;
-            _settings.EnableGamePadNavigation = menuItem.IsChecked;
-            _settings.Save();
+            try
+            {
+                // Update the settings
+                _settings.EnableGamePadNavigation = menuItem.IsChecked;
 
-            if (menuItem.IsChecked)
-            {
-                GamePadController.Instance2.Start();
+                // Debug message
+                Debug.WriteLine($"Gamepad navigation toggled: {menuItem.IsChecked}");
+
+                // Save the updated settings
+                _settings.Save();
+
+                // Confirm save
+                Debug.WriteLine($"Settings saved. EnableGamePadNavigation: {_settings.EnableGamePadNavigation}");
+
+                // Start or stop the GamePadController
+                if (menuItem.IsChecked)
+                {
+                    GamePadController.Instance2.Start();
+                }
+                else
+                {
+                    GamePadController.Instance2.Stop();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                GamePadController.Instance2.Stop();
+                MessageBox.Show($"Failed to toggle gamepad: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -1913,4 +1930,5 @@ public partial class MainWindow : INotifyPropertyChanged
     }
         
     #endregion
+
 }

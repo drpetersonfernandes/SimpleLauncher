@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">링크 편집</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">게임패드 내비게이션 활성화</system:String>
-    
+    <system:String x:Key="GamepadSupport">게임패드 지원</system:String>
+    <system:String x:Key="Enable">활성화</system:String>
+   
     <system:String x:Key="EditSystem">시스템 편집</system:String>
     <system:String x:Key="EasyMode">간단 모드</system:String>
     <system:String x:Key="ExpertMode">전문가 모드</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="System">시스템:</system:String>
     <system:String x:Key="Playtime">플레이 시간:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">시스템 편집 - 간편 모드</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">무엇을 하시겠습니까?</system:String>
+    <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
+    <system:String x:Key="EditExistingSystem">기존 시스템 편집</system:String>
+    <system:String x:Key="DeleteExistingSystem">기존 시스템 삭제</system:String>
+    <system:String x:Key="DownloadImagePack2">이미지 팩 다운로드</system:String>
+
 
 </ResourceDictionary>

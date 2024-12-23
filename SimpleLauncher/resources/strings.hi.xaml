@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">लिंक संपादित करें</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">गेमपैड नेविगेशन सक्षम करें</system:String>
-    
+    <system:String x:Key="GamepadSupport">गेमपैड समर्थन</system:String>
+    <system:String x:Key="Enable">सक्षम करें</system:String>
+
     <system:String x:Key="EditSystem">सिस्टम संपादित करें</system:String>
     <system:String x:Key="EasyMode">आसान मोड</system:String>
     <system:String x:Key="ExpertMode">विशेषज्ञ मोड</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">अगला &gt;</system:String>
     <system:String x:Key="System">सिस्टम:</system:String>
     <system:String x:Key="Playtime">खेलने का समय:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">सिस्टम संपादित करें - आसान मोड</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">आप क्या करना चाहते हैं?</system:String>
+    <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
+    <system:String x:Key="EditExistingSystem">मौजूदा सिस्टम संपादित करें</system:String>
+    <system:String x:Key="DeleteExistingSystem">मौजूदा सिस्टम हटाएं</system:String>
+    <system:String x:Key="DownloadImagePack2">छवि पैक डाउनलोड करें</system:String>
+
 
 </ResourceDictionary>

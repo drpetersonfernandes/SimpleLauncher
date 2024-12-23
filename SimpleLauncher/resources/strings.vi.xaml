@@ -68,8 +68,9 @@
 
     <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">Kích hoạt điều hướng GamePad</system:String>
-
+    <system:String x:Key="GamepadSupport">Hỗ trợ gamepad</system:String>
+    <system:String x:Key="Enable">Kích hoạt</system:String>
+    
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
     <system:String x:Key="EasyMode">Chế độ dễ</system:String>
     <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">Chỉnh sửa hệ thống - Chế độ dễ</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">Bạn muốn làm gì?</system:String>
+    <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
+    <system:String x:Key="EditExistingSystem">Chỉnh sửa hệ thống hiện có</system:String>
+    <system:String x:Key="DeleteExistingSystem">Xóa hệ thống hiện có</system:String>
+    <system:String x:Key="DownloadImagePack2">Tải xuống gói hình ảnh</system:String>
+
 
 </ResourceDictionary>

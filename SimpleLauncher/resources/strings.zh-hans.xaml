@@ -68,7 +68,8 @@
 
     <system:String x:Key="EditLinks">编辑链接</system:String>
 
-    <system:String x:Key="EnableGamePadNavigation">启用游戏手柄导航</system:String>
+    <system:String x:Key="GamepadSupport">手柄支持</system:String>
+    <system:String x:Key="Enable">启用</system:String>
 
     <system:String x:Key="EditSystem">编辑系统</system:String>
     <system:String x:Key="EasyMode">简单模式</system:String>
@@ -104,5 +105,13 @@
     <system:String x:Key="Next_&gt;">下一页 &gt;</system:String>
     <system:String x:Key="System">系统：</system:String>
     <system:String x:Key="Playtime">游玩时间：</system:String>
+    
+    <system:String x:Key="EditSystemEasyMode">编辑系统 - 简易模式</system:String>
+    <system:String x:Key="Whatdoyouwanttodo">您想做什么？</system:String>
+    <system:String x:Key="AddNewSystem">添加新系统</system:String>
+    <system:String x:Key="EditExistingSystem">编辑现有系统</system:String>
+    <system:String x:Key="DeleteExistingSystem">删除现有系统</system:String>
+    <system:String x:Key="DownloadImagePack2">下载图像包</system:String>
+
 
 </ResourceDictionary>
