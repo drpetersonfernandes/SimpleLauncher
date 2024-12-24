@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="EditExistingSystem">既存のシステムを編集</system:String>
     <system:String x:Key="DeleteExistingSystem">既存のシステムを削除</system:String>
-    <system:String x:Key="DownloadImagePack2">画像パックをダウンロード</system:String>
 
-
+    <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
+    <system:String x:Key="Wealsosupport">BIOSやシステムファイルを必要とするシステムもサポートしていますが、それには「エキスパートモード」を使用して手動でインストールする必要があります。</system:String>
+    <system:String x:Key="Pleasechooseasystem">追加するシステムを選択してください</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">このシステム用のROMやISOが含まれるフォルダーを選択してください</system:String>
+    <system:String x:Key="Ifyouleaveitempty">空のままにすると、アプリケーションがこのシステム用のフォルダーを「roms」フォルダー内に作成します。</system:String>
+    <system:String x:Key="DownloadandInstall">エミュレーターとコアをダウンロードおよびインストールする</system:String>
+    <system:String x:Key="DownloadEmulator">エミュレーターをダウンロード</system:String>
+    <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
+    <system:String x:Key="DownloadandExtractImage">イメージパックをダウンロードして抽出する（利用可能な場合）</system:String>
+    <system:String x:Key="DownloadProgress">ダウンロード進行状況</system:String>
+    <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
+    <system:String x:Key="AddSystem">システムを追加</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">イメージパックが利用できない場合は、以下のウェブサイトからこのシステム用のイメージをダウンロードできます：</system:String>
+    <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
+    <system:String x:Key="1ststep">第1ステップ</system:String>
+    <system:String x:Key="2ndstep">第2ステップ</system:String>
+    <system:String x:Key="3rdstep">第3ステップ</system:String>
+    
 </ResourceDictionary>

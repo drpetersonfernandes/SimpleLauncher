@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Añadir un nuevo sistema</system:String>
     <system:String x:Key="EditExistingSystem">Editar sistema existente</system:String>
     <system:String x:Key="DeleteExistingSystem">Eliminar sistema existente</system:String>
-    <system:String x:Key="DownloadImagePack2">Descargar paquete de imágenes</system:String>
 
-
+    <system:String x:Key="Inthiswindow">En esta ventana, puedes descargar e instalar fácilmente emuladores que no requieren archivos BIOS ni del sistema para funcionar.</system:String>
+    <system:String x:Key="Wealsosupport">También admitimos sistemas que requieren esos archivos, pero para esos tendrás que usar el "Modo Experto" e instalarlos tú mismo.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Por favor, elige un sistema para añadir</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Elige la carpeta con ROMs o ISOs para este sistema</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Si lo dejas vacío, la aplicación creará una carpeta para este sistema dentro de la carpeta 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Descargar e instalar el emulador y núcleo</system:String>
+    <system:String x:Key="DownloadEmulator">Descargar emulador</system:String>
+    <system:String x:Key="DownloadCore">Descargar núcleo</system:String>
+    <system:String x:Key="DownloadandExtractImage">Descargar y extraer paquete de imágenes (si está disponible)</system:String>
+    <system:String x:Key="DownloadProgress">Progreso de descarga</system:String>
+    <system:String x:Key="StopDownload">Detener descarga</system:String>
+    <system:String x:Key="AddSystem">Agregar sistema</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">En caso de que el paquete de imágenes no esté disponible, puedes descargar imágenes para este sistema en los siguientes sitios web:</system:String>
+    <system:String x:Key="ChooseFolder">Elegir carpeta</system:String>
+    <system:String x:Key="1ststep">1er paso</system:String>
+    <system:String x:Key="2ndstep">2do paso</system:String>
+    <system:String x:Key="3rdstep">3er paso</system:String>
+    
 </ResourceDictionary>

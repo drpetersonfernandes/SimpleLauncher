@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="EditExistingSystem">Mevcut Sistemi Düzenle</system:String>
     <system:String x:Key="DeleteExistingSystem">Mevcut Sistemi Sil</system:String>
-    <system:String x:Key="DownloadImagePack2">Görüntü Paketini İndir</system:String>
 
-
+    <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
+    <system:String x:Key="Wealsosupport">Bu tür dosyaları gerektiren sistemleri de destekliyoruz, ancak bu durumda "Uzman Modu"nu kullanarak manuel olarak yüklemeniz gerekiyor.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Eklemek istediğiniz sistemi seçin</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Bu sistem için ROM'ların veya ISO dosyalarının bulunduğu klasörü seçin</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Boş bırakırsanız, uygulama bu sistem için 'roms' klasörünün içine bir klasör oluşturacaktır.</system:String>
+    <system:String x:Key="DownloadandInstall">Emülatörü ve çekirdeği indirip yükle</system:String>
+    <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
+    <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
+    <system:String x:Key="DownloadandExtractImage">Görüntü paketini indir ve çıkar (uygunsa)</system:String>
+    <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
+    <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
+    <system:String x:Key="AddSystem">Sistem ekle</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Görüntü paketi mevcut değilse, bu sistem için görüntüleri şu web sitelerinden indirebilirsiniz:</system:String>
+    <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
+    <system:String x:Key="1ststep">1. Adım</system:String>
+    <system:String x:Key="2ndstep">2. Adım</system:String>
+    <system:String x:Key="3rdstep">3. Adım</system:String>
+    
 </ResourceDictionary>

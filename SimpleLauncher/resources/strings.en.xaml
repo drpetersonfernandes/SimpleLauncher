@@ -111,6 +111,23 @@
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="EditExistingSystem">Edit Existing System</system:String>
     <system:String x:Key="DeleteExistingSystem">Delete Existing System</system:String>
-    <system:String x:Key="DownloadImagePack2">Download Image Pack</system:String>
+    
+    <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
+    <system:String x:Key="Wealsosupport">We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Please choose a system to Add</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Choose folder with ROMs or ISOs for this system</system:String>
+    <system:String x:Key="Ifyouleaveitempty">If you leave it empty, the application will create a folder for this system inside the 'roms' folder.</system:String>
+    <system:String x:Key="DownloadandInstall">Download and Install Emulator and Core</system:String>
+    <system:String x:Key="DownloadEmulator">Download Emulator</system:String>
+    <system:String x:Key="DownloadCore">Download Core</system:String>
+    <system:String x:Key="DownloadandExtractImage">Download and Extract Image Pack (If Available)</system:String>
+    <system:String x:Key="DownloadProgress">Download Progress</system:String>
+    <system:String x:Key="StopDownload">Stop Download</system:String>
+    <system:String x:Key="AddSystem">Add System</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">In case the Image Pack is not available you can download Images for this system in the following websites:</system:String>
+    <system:String x:Key="ChooseFolder">Choose Folder</system:String>
+    <system:String x:Key="1ststep">1st step</system:String>
+    <system:String x:Key="2ndstep">2nd step</system:String>
+    <system:String x:Key="3rdstep">3rd step</system:String>
 
 </ResourceDictionary>

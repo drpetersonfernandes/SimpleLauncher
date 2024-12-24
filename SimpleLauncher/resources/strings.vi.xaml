@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="EditExistingSystem">Chỉnh sửa hệ thống hiện có</system:String>
     <system:String x:Key="DeleteExistingSystem">Xóa hệ thống hiện có</system:String>
-    <system:String x:Key="DownloadImagePack2">Tải xuống gói hình ảnh</system:String>
 
-
+    <system:String x:Key="Inthiswindow">Trong cửa sổ này, bạn có thể dễ dàng tải xuống và cài đặt các trình giả lập không yêu cầu tệp BIOS hoặc tệp hệ thống để hoạt động.</system:String>
+    <system:String x:Key="Wealsosupport">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu các tệp này, nhưng bạn sẽ cần sử dụng "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Vui lòng chọn một hệ thống để thêm</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Chọn thư mục chứa ROM hoặc ISO cho hệ thống này</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Tải xuống và cài đặt trình giả lập và lõi</system:String>
+    <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
+    <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
+    <system:String x:Key="DownloadandExtractImage">Tải xuống và giải nén gói hình ảnh (nếu có)</system:String>
+    <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
+    <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
+    <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Trong trường hợp gói hình ảnh không khả dụng, bạn có thể tải xuống hình ảnh cho hệ thống này tại các trang web sau:</system:String>
+    <system:String x:Key="ChooseFolder">Chọn thư mục</system:String>
+    <system:String x:Key="1ststep">Bước 1</system:String>
+    <system:String x:Key="2ndstep">Bước 2</system:String>
+    <system:String x:Key="3rdstep">Bước 3</system:String>
+    
 </ResourceDictionary>

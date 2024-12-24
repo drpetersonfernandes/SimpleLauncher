@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="EditExistingSystem">Bestaand systeem bewerken</system:String>
     <system:String x:Key="DeleteExistingSystem">Bestaand systeem verwijderen</system:String>
-    <system:String x:Key="DownloadImagePack2">Afbeeldingenpakket downloaden</system:String>
 
-
+    <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
+    <system:String x:Key="Wealsosupport">We ondersteunen ook systemen die deze bestanden wel nodig hebben, maar daarvoor moet je de "Expertmodus" gebruiken en deze handmatig installeren.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Kies een systeem om toe te voegen</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Kies de map met ROM's of ISO's voor dit systeem</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Als je dit leeg laat, maakt de applicatie een map aan voor dit systeem in de map 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Download en installeer de emulator en de kern</system:String>
+    <system:String x:Key="DownloadEmulator">Download emulator</system:String>
+    <system:String x:Key="DownloadCore">Download kern</system:String>
+    <system:String x:Key="DownloadandExtractImage">Download en pak het afbeeldingspakket uit (indien beschikbaar)</system:String>
+    <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
+    <system:String x:Key="StopDownload">Stop download</system:String>
+    <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Als het afbeeldingspakket niet beschikbaar is, kun je afbeeldingen voor dit systeem downloaden via de volgende websites:</system:String>
+    <system:String x:Key="ChooseFolder">Kies map</system:String>
+    <system:String x:Key="1ststep">1e stap</system:String>
+    <system:String x:Key="2ndstep">2e stap</system:String>
+    <system:String x:Key="3rdstep">3e stap</system:String>
+    
 </ResourceDictionary>

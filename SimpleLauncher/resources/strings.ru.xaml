@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="EditExistingSystem">Редактировать существующую систему</system:String>
     <system:String x:Key="DeleteExistingSystem">Удалить существующую систему</system:String>
-    <system:String x:Key="DownloadImagePack2">Скачать пакет изображений</system:String>
 
-
+    <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
+    <system:String x:Key="Wealsosupport">Мы также поддерживаем системы, которые требуют эти файлы, но для этого вам нужно будет использовать "Режим эксперта" и установить их вручную.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Выберите систему для добавления</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Выберите папку с ROM или ISO файлами для этой системы</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Если оставить поле пустым, приложение создаст папку для этой системы внутри папки 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Скачать и установить эмулятор и ядро</system:String>
+    <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
+    <system:String x:Key="DownloadCore">Скачать ядро</system:String>
+    <system:String x:Key="DownloadandExtractImage">Скачать и извлечь пакет изображений (если доступно)</system:String>
+    <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
+    <system:String x:Key="StopDownload">Остановить загрузку</system:String>
+    <system:String x:Key="AddSystem">Добавить систему</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Если пакет изображений недоступен, вы можете скачать изображения для этой системы с следующих веб-сайтов:</system:String>
+    <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
+    <system:String x:Key="1ststep">1-й шаг</system:String>
+    <system:String x:Key="2ndstep">2-й шаг</system:String>
+    <system:String x:Key="3rdstep">3-й шаг</system:String>
+    
 </ResourceDictionary>

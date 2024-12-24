@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">新增系統</system:String>
     <system:String x:Key="EditExistingSystem">編輯現有系統</system:String>
     <system:String x:Key="DeleteExistingSystem">刪除現有系統</system:String>
-    <system:String x:Key="DownloadImagePack2">下載圖像包</system:String>
 
-
+    <system:String x:Key="Inthiswindow">在此視窗中，您可以輕鬆下載和安裝不需要 BIOS 或系統檔案即可運行的模擬器。</system:String>
+    <system:String x:Key="Wealsosupport">我們也支援需要這些檔案的系統，但您需要使用「專家模式」並手動安裝它們。</system:String>
+    <system:String x:Key="Pleasechooseasystem">請選擇一個系統進行新增</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">選擇此系統的 ROM 或 ISO 檔案夾</system:String>
+    <system:String x:Key="Ifyouleaveitempty">如果您留空，應用程式將在「roms」資料夾中為此系統創建一個資料夾。</system:String>
+    <system:String x:Key="DownloadandInstall">下載並安裝模擬器及核心</system:String>
+    <system:String x:Key="DownloadEmulator">下載模擬器</system:String>
+    <system:String x:Key="DownloadCore">下載核心</system:String>
+    <system:String x:Key="DownloadandExtractImage">下載並解壓影像包（如果可用）</system:String>
+    <system:String x:Key="DownloadProgress">下載進度</system:String>
+    <system:String x:Key="StopDownload">停止下載</system:String>
+    <system:String x:Key="AddSystem">添加系統</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">如果影像包不可用，您可以通過以下網站下載該系統的影像：</system:String>
+    <system:String x:Key="ChooseFolder">選擇資料夾</system:String>
+    <system:String x:Key="1ststep">第1步</system:String>
+    <system:String x:Key="2ndstep">第2步</system:String>
+    <system:String x:Key="3rdstep">第3步</system:String>
+    
 </ResourceDictionary>

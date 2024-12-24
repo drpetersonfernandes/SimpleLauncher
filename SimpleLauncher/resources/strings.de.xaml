@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Neues System hinzufügen</system:String>
     <system:String x:Key="EditExistingSystem">Vorhandenes System bearbeiten</system:String>
     <system:String x:Key="DeleteExistingSystem">Vorhandenes System löschen</system:String>
-    <system:String x:Key="DownloadImagePack2">Bildpaket herunterladen</system:String>
 
-
+    <system:String x:Key="Inthiswindow">In diesem Fenster können Sie ganz einfach Emulatoren herunterladen und installieren, die keine BIOS- oder Systemdateien benötigen.</system:String>
+    <system:String x:Key="Wealsosupport">Wir unterstützen auch Systeme, die diese Dateien benötigen, aber dafür müssen Sie den "Expertenmodus" verwenden und sie manuell installieren.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Bitte wählen Sie ein System aus, das hinzugefügt werden soll</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Wählen Sie einen Ordner mit ROMs oder ISOs für dieses System</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Wenn Sie ihn leer lassen, erstellt die Anwendung einen Ordner für dieses System im Ordner 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Emulator und Core herunterladen und installieren</system:String>
+    <system:String x:Key="DownloadEmulator">Emulator herunterladen</system:String>
+    <system:String x:Key="DownloadCore">Core herunterladen</system:String>
+    <system:String x:Key="DownloadandExtractImage">Bildpaket herunterladen und extrahieren (falls verfügbar)</system:String>
+    <system:String x:Key="DownloadProgress">Download-Fortschritt</system:String>
+    <system:String x:Key="StopDownload">Download stoppen</system:String>
+    <system:String x:Key="AddSystem">System hinzufügen</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Falls das Bildpaket nicht verfügbar ist, können Sie Bilder für dieses System auf den folgenden Webseiten herunterladen:</system:String>
+    <system:String x:Key="ChooseFolder">Ordner auswählen</system:String>
+    <system:String x:Key="1ststep">1. Schritt</system:String>
+    <system:String x:Key="2ndstep">2. Schritt</system:String>
+    <system:String x:Key="3rdstep">3. Schritt</system:String>
+    
 </ResourceDictionary>

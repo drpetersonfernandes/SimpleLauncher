@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">Ajouter un nouveau système</system:String>
     <system:String x:Key="EditExistingSystem">Modifier un système existant</system:String>
     <system:String x:Key="DeleteExistingSystem">Supprimer un système existant</system:String>
-    <system:String x:Key="DownloadImagePack2">Télécharger le pack d'images</system:String>
 
-
+    <system:String x:Key="Inthiswindow">Dans cette fenêtre, vous pouvez facilement télécharger et installer des émulateurs qui ne nécessitent pas de fichiers BIOS ou système pour fonctionner.</system:String>
+    <system:String x:Key="Wealsosupport">Nous prenons également en charge les systèmes qui nécessitent ces fichiers, mais pour ceux-là, vous devrez utiliser le "Mode Expert" et les installer vous-même.</system:String>
+    <system:String x:Key="Pleasechooseasystem">Veuillez choisir un système à ajouter</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">Choisissez le dossier contenant les ROMs ou ISOs pour ce système</system:String>
+    <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">Télécharger et installer l'émulateur ainsi que le noyau</system:String>
+    <system:String x:Key="DownloadEmulator">Télécharger l'émulateur</system:String>
+    <system:String x:Key="DownloadCore">Télécharger le noyau</system:String>
+    <system:String x:Key="DownloadandExtractImage">Télécharger et extraire le pack d'images (si disponible)</system:String>
+    <system:String x:Key="DownloadProgress">Progression du téléchargement</system:String>
+    <system:String x:Key="StopDownload">Arrêter le téléchargement</system:String>
+    <system:String x:Key="AddSystem">Ajouter un système</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">Dans le cas où le pack d'images n'est pas disponible, vous pouvez télécharger les images pour ce système sur les sites suivants :</system:String>
+    <system:String x:Key="ChooseFolder">Choisir un dossier</system:String>
+    <system:String x:Key="1ststep">1re étape</system:String>
+    <system:String x:Key="2ndstep">2e étape</system:String>
+    <system:String x:Key="3rdstep">3e étape</system:String>
+    
 </ResourceDictionary>

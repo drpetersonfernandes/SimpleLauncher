@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="EditExistingSystem">تحرير النظام الحالي</system:String>
     <system:String x:Key="DeleteExistingSystem">حذف النظام الحالي</system:String>
-    <system:String x:Key="DownloadImagePack2">تنزيل حزمة الصور</system:String>
 
-
+    <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
+    <system:String x:Key="Wealsosupport">نحن ندعم أيضًا الأنظمة التي تتطلب هذه الملفات، ولكن بالنسبة لهذه الأنظمة، ستحتاج إلى استخدام "الوضع الخبير" وتثبيتها بنفسك.</system:String>
+    <system:String x:Key="Pleasechooseasystem">يرجى اختيار نظام لإضافته</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">اختر المجلد الذي يحتوي على ملفات ROM أو ISO لهذا النظام</system:String>
+    <system:String x:Key="Ifyouleaveitempty">إذا تركته فارغًا، سيقوم التطبيق بإنشاء مجلد لهذا النظام داخل مجلد 'roms'.</system:String>
+    <system:String x:Key="DownloadandInstall">تنزيل وتثبيت المحاكي والنواة</system:String>
+    <system:String x:Key="DownloadEmulator">تنزيل المحاكي</system:String>
+    <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
+    <system:String x:Key="DownloadandExtractImage">تنزيل واستخراج حزمة الصور (إن وجدت)</system:String>
+    <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
+    <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
+    <system:String x:Key="AddSystem">إضافة نظام</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">في حال عدم توفر حزمة الصور، يمكنك تنزيل الصور لهذا النظام من المواقع الإلكترونية التالية:</system:String>
+    <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
+    <system:String x:Key="1ststep">الخطوة الأولى</system:String>
+    <system:String x:Key="2ndstep">الخطوة الثانية</system:String>
+    <system:String x:Key="3rdstep">الخطوة الثالثة</system:String>
+    
 </ResourceDictionary>

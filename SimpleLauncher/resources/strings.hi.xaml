@@ -111,7 +111,23 @@
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="EditExistingSystem">मौजूदा सिस्टम संपादित करें</system:String>
     <system:String x:Key="DeleteExistingSystem">मौजूदा सिस्टम हटाएं</system:String>
-    <system:String x:Key="DownloadImagePack2">छवि पैक डाउनलोड करें</system:String>
 
-
+    <system:String x:Key="Inthiswindow">इस विंडो में, आप आसानी से उन एमुलेटर को डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें काम करने के लिए BIOS या सिस्टम फ़ाइलों की आवश्यकता नहीं होती है।</system:String>
+    <system:String x:Key="Wealsosupport">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फ़ाइलों की आवश्यकता होती है, लेकिन उनके लिए आपको "एक्सपर्ट मोड" का उपयोग करना होगा और उन्हें स्वयं इंस्टॉल करना होगा।</system:String>
+    <system:String x:Key="Pleasechooseasystem">कृपया जोड़ने के लिए एक सिस्टम चुनें</system:String>
+    <system:String x:Key="ChoosefolderwithROMs">इस सिस्टम के लिए ROMs या ISOs के साथ एक फोल्डर चुनें</system:String>
+    <system:String x:Key="Ifyouleaveitempty">यदि आप इसे खाली छोड़ देते हैं, तो एप्लिकेशन इस सिस्टम के लिए 'roms' फोल्डर के अंदर एक फोल्डर बनाएगी।</system:String>
+    <system:String x:Key="DownloadandInstall">एमुलेटर और कोर डाउनलोड और इंस्टॉल करें</system:String>
+    <system:String x:Key="DownloadEmulator">एमुलेटर डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadandExtractImage">इमेज पैक डाउनलोड और निकालें (यदि उपलब्ध हो)</system:String>
+    <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
+    <system:String x:Key="StopDownload">डाउनलोड रोकें</system:String>
+    <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
+    <system:String x:Key="IncasetheImagePackisnotavailable">यदि इमेज पैक उपलब्ध नहीं है तो आप इस सिस्टम के लिए इमेज निम्नलिखित वेबसाइटों से डाउनलोड कर सकते हैं:</system:String>
+    <system:String x:Key="ChooseFolder">फ़ोल्डर चुनें</system:String>
+    <system:String x:Key="1ststep">पहला कदम</system:String>
+    <system:String x:Key="2ndstep">दूसरा कदम</system:String>
+    <system:String x:Key="3rdstep">तीसरा कदम</system:String>
+    
 </ResourceDictionary>

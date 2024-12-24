@@ -2,7 +2,7 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      Title="Add New System"
+                      Title="{DynamicResource AddNewSystem}"
                       Width="650"
                       Height="700"
                       MinWidth="650"
@@ -29,24 +29,24 @@
             </Grid.RowDefinitions>
 
             <TextBlock
-                Text="In this window, you can easily download and install emulators that don't require BIOS or system files to work."
+                Text="{DynamicResource Inthiswindow}"
                 Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,10,10,5" />
             <TextBlock
-                Text="We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself."
+                Text="{DynamicResource Wealsosupport}"
                 Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Justify" Margin="10,0,10,10" />
 
             <TextBlock
-                Text="Please choose a system to Add"
+                Text="{DynamicResource Pleasechooseasystem}"
                 Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
 
             <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" SelectionChanged="SystemNameDropdown_SelectionChanged" />
 
             <TextBlock
-                Text="Choose folder with ROMs or ISOs for this system"
+                Text="{DynamicResource ChoosefolderwithROMs}"
                 Grid.Row="4" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
             
             <TextBlock
-                Text="If you leave it empty, the application will create a folder for this system inside the 'roms' folder."
+                Text="{DynamicResource Ifyouleaveitempty}"
                 Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="0,0,0,10" />
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="6">
@@ -55,7 +55,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" x:Name="SystemFolderTextBox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" />
-            <Button Grid.Column="1" Padding="5" Width="150" Content="Choose Folder" Click="ChooseFolderButton_Click" Margin="10,0,0,0" />
+            <Button Grid.Column="1" Padding="7" Content="{DynamicResource ChooseFolder}" Click="ChooseFolderButton_Click" Margin="10,0,0,0" />
             </Grid>
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Center" Grid.Row="7">
@@ -71,41 +71,42 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Install Emulator and Core" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource DownloadandInstall}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
          
-                <Label Grid.Row="1" Grid.Column="0" Content="1st step" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="Download Emulator" HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadEmulatorButton_Click" IsEnabled="False" Margin="5" />
+                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource 1ststep}" VerticalAlignment="Center" Margin="5" />
+                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="{DynamicResource DownloadEmulator}" HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click" IsEnabled="False" Margin="5" />
                 
-                <Label Grid.Row="2" Grid.Column="0" Content="2nd step" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton" Content="Download Core"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Padding="5"
+                <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 2ndstep}" VerticalAlignment="Center" Margin="5" />
+                <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton" Content="{DynamicResource DownloadCore}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"
                         Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5" />
                 
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Download and Extract Image Pack (If Available)" HorizontalAlignment="Center" Margin="0,20,10,10"/>
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource DownloadandExtractImage}"
+                       HorizontalAlignment="Center" Margin="0,20,10,10"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="3rd step" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton" Content="Download Image Pack"
+                <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center" Margin="5" />
+                <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton" Content="{DynamicResource DownloadImagePack}"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Width="150" Padding="5" Click="DownloadExtrasButton_Click"
+                        VerticalAlignment="Center" Padding="7" Click="DownloadExtrasButton_Click"
                         IsEnabled="False" Margin="5" />
             </Grid>
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="8">
                 <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="29" />
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Download Progress" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{DynamicResource DownloadProgress}" />
             </Grid>
 
-            <Button x:Name="StopDownloadButton" Content="Stop Download" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" Padding="5" Margin="10,10,0,0" Width="150" Grid.Row="9" 
-                    Click="StopDownloadButton_Click" IsEnabled="False" />
+            <Button x:Name="StopDownloadButton" Content="{DynamicResource StopDownload}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10,10,10,0"
+                    Grid.Row="9" Click="StopDownloadButton_Click" IsEnabled="False" />
 
-            <Button x:Name="AddSystemButton" Content="Include System in Simple Launcher"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10"
-                    Width="220" Grid.Row="10" Click="AddSystemButton_Click" IsEnabled="False" />
+            <Button x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10"
+                    Grid.Row="10" Click="AddSystemButton_Click" IsEnabled="False" />
 
             <TextBlock Grid.Row="12" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"
-                       Text="In case the Image Pack is not available you can download Images for this system in the following websites:" />
+                       Text="{DynamicResource IncasetheImagePackisnotavailable}" />
             
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="13" Margin="10,0,10,10">
                 <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
