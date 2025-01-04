@@ -1429,6 +1429,11 @@
         <EmulatorLocation>.\emulators\MasterGear\MG.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1459,6 +1464,11 @@
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\blastem_libretro.dll" -f</EmulatorParameters>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1478,6 +1488,11 @@
         <EmulatorName>Retroarch picodrive</EmulatorName>
         <EmulatorLocation>.\emulators\Retroarch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
         <EmulatorParameters>-L ".\emulators\Retroarch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
+        <EmulatorParameters/>
       </Emulator>
     </Emulators>
   </SystemConfig>
@@ -1540,6 +1555,11 @@
       <Emulator>
         <EmulatorName>MasterGear</EmulatorName>
         <EmulatorLocation>.\emulators\MasterGear\MG.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
@@ -1637,6 +1657,11 @@
         <EmulatorLocation>.\emulators\MasterGear\MG.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
     </Emulators>
   </SystemConfig>
   <SystemConfig>
@@ -1666,6 +1691,11 @@
       <Emulator>
         <EmulatorName>MasterGear</EmulatorName>
         <EmulatorLocation>.\emulators\MasterGear\MG.exe</EmulatorLocation>
+        <EmulatorParameters/>
+      </Emulator>
+      <Emulator>
+        <EmulatorName>Kega Fusion</EmulatorName>
+        <EmulatorLocation>.\emulators\Kega Fusion\Fusion.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>

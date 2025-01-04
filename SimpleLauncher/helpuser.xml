@@ -1423,7 +1423,12 @@ Emulator Location (Example): c:\emulators\mastergear\MG.exe
 Emulator Parameters: 
 Fullscreen Parameter: 
 
-The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).]]>
+The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>
@@ -1458,7 +1463,12 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\blastem_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/). Core may require BIOS or system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/). Core may require BIOS or system files to work properly.
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>
@@ -1479,7 +1489,12 @@ Emulator Location (Example): c:\emulators\retroarch\retroarch.exe
 Emulator Parameters (Example): -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f
 Fullscreen Parameter: -f
 
-Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.]]>
+Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>
@@ -1549,7 +1564,12 @@ Emulator Location (Example): c:\emulators\mastergear\MG.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
-The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).]]>
+The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>
@@ -1652,7 +1672,12 @@ Emulator Location (Example): c:\emulators\MasterGear\MG.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
-The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).]]>
+The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>
@@ -1678,7 +1703,12 @@ Emulator Location (Example): c:\emulators\MasterGear\MG.exe
 Emulator Parameters (Example): 
 Fullscreen Parameter: 
 
-The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).]]>
+The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+Emulator Name: Kega Fusion
+Emulator Location (Example): c:\emulators\Kega Fusion\Fusion.exe
+Emulator Parameters (Example): 
+Fullscreen Parameter: ]]>
         </SystemHelper>
     </System>
     <System>

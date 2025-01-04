@@ -96,6 +96,11 @@ public static class GameLauncher
                     {
                         await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
+                    // ReSharper disable once PossibleNullReferenceException
+                    if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("fusion"))
+                    {
+                        await LaunchKegaFusion(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    }
                     else
                     {
                         await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
@@ -133,7 +138,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             
@@ -224,9 +230,9 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
                 var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
-                                "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "Maybe the batch file has errors.\n\n" +
-                                "Do you want to open the file 'error_user.log' to debug the error?",
+                                             "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                             "Maybe the batch file has errors.\n\n" +
+                                             "Do you want to open the file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 
                 if (result == MessageBoxResult.Yes)
@@ -258,9 +264,9 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
             var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
-                            "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
-                            "Maybe the batch file has errors.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
+                                         "Maybe the batch file has errors.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -316,8 +322,8 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
                 var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
-                                "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "Do you want to open the file 'error_user.log' to debug the error?",
+                                             "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                             "Do you want to open the file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 
                 if (result == MessageBoxResult.Yes)
@@ -347,8 +353,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
-                            "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -403,8 +409,8 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
                 var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
-                                "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                "Do you want to open the file 'error_user.log' to debug the error?",
+                                             "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                             "Do you want to open the file 'error_user.log' to debug the error?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 
                 if (result == MessageBoxResult.Yes)
@@ -434,8 +440,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
             var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
-                            "Try to launch the executable file outside 'Simple Launcher' to see if it is working.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "Try to launch the executable file outside 'Simple Launcher' to see if it is working.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -477,8 +483,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -510,8 +516,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -678,6 +684,7 @@ public static class GameLauncher
                                       $"Emulator output: {output}\n" +
                                       $"Emulator error: {error}\n" +
                                       $"Calling parameters: {psi.Arguments}";
+                
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
@@ -701,7 +708,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 
@@ -791,7 +799,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -819,8 +828,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -852,8 +861,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -1139,8 +1148,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -1172,8 +1181,8 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "Do you want to open the file 'error_user.log' to debug the error?",
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
                 "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
             
             if (result == MessageBoxResult.Yes)
@@ -1463,6 +1472,353 @@ public static class GameLauncher
                     MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+    
+    private static async Task LaunchKegaFusion(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    {
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            MessageBox.Show("Please select an emulator first.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        
+        string selectedSystem = systemComboBox.SelectedItem.ToString();
+        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+
+        if (systemConfig == null)
+        {
+            string errorMessage = $"systemConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchKegaFusion";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
+            return;
+        }
+
+        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+
+        if (emulatorConfig == null)
+        {
+            string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchKegaFusion";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            var result = MessageBox.Show("There was an error launching this game.\n\n" +
+                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
+            return;
+        }
+
+        string gamePathToLaunch = filePath;
+
+        // Extract File if Needed
+        if (systemConfig.ExtractFileBeforeLaunch)
+        {
+            string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+
+            // Accept ZIP, 7Z and RAR files
+            if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
+            {
+                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                
+                if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
+                {
+                    MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (systemConfig.FileFormatsToLaunch == null)
+                {
+                    MessageBox.Show("There is no 'Extension to Launch After Extraction' set in the system configuration.\n\n" +
+                                    "Please go to Expert Mode and fix this system.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                
+                // Iterate through the formats to launch and find the first file with the specified extension
+                bool fileFound = false;
+                foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
+                {
+                    string[] files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}");
+
+                    if (files.Length > 0)
+                    {
+                        gamePathToLaunch = files[0];
+                        fileFound = true;
+                        break;
+                    }
+                }
+                
+                if (string.IsNullOrEmpty(gamePathToLaunch))
+                {
+                    MessageBox.Show($"No valid game file found with the specified extension: {string.Join(", ", systemConfig.FileFormatsToLaunch)}",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (!fileFound)
+                {
+                    string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+                    Exception exception = new(errorMessage);
+                    await LogErrors.LogErrorAsync(exception, errorMessage);
+
+                    MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
+                                    "Please go to Expert Mode and fix this system.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
+                                $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
+                                $"Please go to Expert Mode and fix this system.",
+                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
+        
+        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
+        {
+            string errorMessage = $"Invalid game path: {gamePathToLaunch}. Cannot launch the game.";
+            Exception ex = new ArgumentNullException(nameof(gamePathToLaunch), errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            MessageBox.Show("Invalid game file path. Please check the file.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        // Construct the PSI
+        string programLocation = emulatorConfig.EmulatorLocation;
+        string parameters = emulatorConfig.EmulatorParameters;
+        string arguments = $"{parameters} \"{gamePathToLaunch}\"";
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = programLocation,
+            Arguments = arguments,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        };
+
+        var process = new Process { StartInfo = psi };
+        StringBuilder output = new();
+        StringBuilder error = new();
+
+        process.OutputDataReceived += (_, args) => {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                output.AppendLine(args.Data);
+            }
+        };
+
+        process.ErrorDataReceived += (_, args) => {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                error.AppendLine(args.Data);
+            }
+        };
+
+        try
+        {
+            // Attempt to start the process
+            bool processStarted = process.Start();
+            
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.\n" +
+                                                    "Method: LaunchKegaFusion");
+            }
+            
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            
+            // Wait for the process to exit
+            await process.WaitForExitAsync();
+            
+            // Verify if the process has exited before accessing ExitCode
+            if (!process.HasExited)
+            {
+                throw new InvalidOperationException("The process has not exited as expected.\n" +
+                                                    "Method: LaunchKegaFusion");
+            }
+
+            if (process.ExitCode != 0 && process.ExitCode != -1073741819)
+            {
+                string errorMessage = $"Kega Fusion error. User was not notified.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // var result = MessageBox.Show(
+                //     "The application could not launch the selected game.\n\n" +
+                //     "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+                //     "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
+                //     "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
+                //     "Do you want to open the file 'error_user.log' to debug the error?",
+                //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                //
+                // if (result == MessageBoxResult.Yes)
+                // {
+                //     try
+                //     {
+                //         Process.Start(new ProcessStartInfo
+                //         {
+                //             FileName = LogPath,
+                //             UseShellExecute = true
+                //         });
+                //     }
+                //     catch (Exception)
+                //     {
+                //         MessageBox.Show("The file 'error_user.log' was not found!",
+                //             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //     }
+                // }
+                
+                return;
+            }
+        
+            // Memory Access Violation error
+            if (process.ExitCode == -1073741819)
+            {
+                string errorMessage = $"There was an access violation error running the emulator.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                var result = MessageBox.Show(
+                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
+                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
+                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
+                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
+                    "Do you want to open file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+        
+        catch (InvalidOperationException ex)
+        {
+            string formattedException = $"InvalidOperationException in the method LaunchKegaFusion";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
+                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
+                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
+                            "Please configure it to run with administrative privileges.\n\n" +
+                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
+                            "Please reinstall the emulator to ensure it is working.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"Kega Fusion error. User was not notified.\n\n" +
+                                        $"Exit code: {process.ExitCode}\n" +
+                                        $"Emulator: {psi.FileName}\n" +
+                                        $"Emulator output: {output}\n" +
+                                        $"Emulator error: {error}\n" +
+                                        $"Calling parameters: {psi.Arguments}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+                
+            // var result = MessageBox.Show(
+            //     "The emulator could not open the game with the provided parameters.\n\n" +
+            //     "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
+            //     "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
+            //     "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
+            //     "Would you like to open the file 'error_user.log' to debug the error?",
+            //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            //
+            // if (result == MessageBoxResult.Yes)
+            // {
+            //     try
+            //     {
+            //         Process.Start(new ProcessStartInfo
+            //         {
+            //             FileName = LogPath,
+            //             UseShellExecute = true
+            //         });
+            //     }
+            //     catch (Exception)
+            //     {
+            //         MessageBox.Show("The file 'error_user.log' was not found!",
+            //             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //     }
+            // }
         }
     }
 }

@@ -1167,6 +1167,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 The list of commands available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sega Genesis
 
 Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
@@ -1198,6 +1203,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/blastem/). Core may require BIOS or system files to work properly.
 
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sega Genesis 32X
 
 Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
@@ -1214,6 +1224,11 @@ Double-check the file and folder locations when entering them into Simple Launch
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found at [Libretro website](https://docs.libretro.com/library/picodrive/). Core may require BIOS or system files to work properly.
+
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 ## Sega Genesis CD
 
@@ -1276,6 +1291,11 @@ The list of command-line arguments available for this emulator can be found at [
 **Fullscreen Parameter:** <br>
 
 The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 ## Sega Model 3
 
@@ -1368,6 +1388,11 @@ Double-check the file and folder locations when entering them into Simple Launch
 
 The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
 
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sega SG-1000
 
 Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.
@@ -1389,6 +1414,11 @@ Double-check the file and folder locations when entering them into Simple Launch
 **Fullscreen Parameter:** <br>
 
 The list of command-line arguments available for this emulator can be found at [https://fms.komkon.org/MG/MG.html](https://fms.komkon.org/MG/MG.html).
+
+**Emulator Name:** Kega Fusion<br>
+**Emulator Location (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 ## Sharp x68000
 

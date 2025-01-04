@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--040125-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -57,7 +58,7 @@
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -166,8 +167,8 @@
                 <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
-                <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>4.30</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.30.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Altirra\</EmulatorDownloadExtractPath>
 
@@ -240,8 +241,8 @@
                 <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
-                <EmulatorLatestVersion>4.21</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.virtualdub.org/downloads/Altirra-4.21.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>4.30</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.30.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Altirra\</EmulatorDownloadExtractPath>
 
@@ -500,7 +501,7 @@
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Casio PV-1000" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -691,7 +692,7 @@
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0272b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -1693,11 +1694,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Cemu</EmulatorName>
-                <EmulatorLocation>.\emulators\Cemu\Cemu_2.4\Cemu.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\Cemu\Cemu_2.5\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.4</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.4/cemu-2.4-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.5</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.5/cemu-2.5-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
 
