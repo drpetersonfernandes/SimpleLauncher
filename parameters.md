@@ -736,6 +736,11 @@ Core documentation can be found at [Libretro website](https://docs.libretro.com/
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+**Emulator Name:** Rosalie Mupen GUI<br>
+**Emulator Location (Example):** c:\emulators\Rosalie Mupen GUI\RMG.exe<br>
+**Emulator Parameters (Example):** --fullscreen<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
 ## Nintendo 64DD
 
 Double-check the file and folder locations when entering them into Simple Launcher, especially in the Parameters field.

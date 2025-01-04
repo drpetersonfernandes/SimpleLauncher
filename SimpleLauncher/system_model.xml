@@ -886,9 +886,9 @@
         <EmulatorParameters/>
       </Emulator>
       <Emulator>
-        <EmulatorName>BizHawk</EmulatorName>
-        <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
-        <EmulatorParameters/>
+        <EmulatorName>Rosalie Mupen GUI</EmulatorName>
+        <EmulatorLocation>.\emulators\Rosalie Mupen GUI\RMG.exe</EmulatorLocation>
+        <EmulatorParameters>--fullscreen</EmulatorParameters>
       </Emulator>
     </Emulators>
   </SystemConfig>

@@ -233,7 +233,8 @@ public static class UpdateChecker
             string contextMessage = $"There was an error updating the application.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);            }
+            await LogErrors.LogErrorAsync(ex, contextMessage);
+        }
     }
 
     private static async void ShowReinstallWindow(string assetUrl, Window owner)

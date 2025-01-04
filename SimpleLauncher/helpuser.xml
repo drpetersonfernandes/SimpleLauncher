@@ -912,7 +912,12 @@ Fullscreen Parameter:
 Emulator Name: BizHawk
 Emulator Location (Example): c:\emulators\BizHawk\EmuHawk.exe
 Emulator Parameters (Example): 
-Fullscreen Parameter: ]]>
+Fullscreen Parameter: 
+
+Emulator Name: Rosalie Mupen GUI
+Emulator Location (Example): c:\emulators\Rosalie Mupen GUI\RMG.exe
+Emulator Parameters (Example): --fullscreen
+Fullscreen Parameter: --fullscreen]]>
         </SystemHelper>
     </System>
     <System>

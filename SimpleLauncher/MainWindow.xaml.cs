@@ -1172,7 +1172,8 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to toggle gamepad: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to toggle gamepad: {ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -1291,7 +1292,8 @@ public partial class MainWindow : INotifyPropertyChanged
                 {
                     FileName = findRomCoverPath,
                     Arguments = arguments,
-                    UseShellExecute = true
+                    UseShellExecute = true,
+                    WorkingDirectory = findRomCoverPath
                 });
             }
             else
@@ -1312,16 +1314,27 @@ public partial class MainWindow : INotifyPropertyChanged
                 }
             }
         }
+        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+        {
+            MessageBox.Show("The operation was canceled by the user.",
+                "Operation Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            string formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+        }
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             MessageBox.Show("An error occurred while launching 'FindRomCover.exe'.\n\n" +
                             "This type of error is usually related to low permission settings for Simple Launcher. Try running it with administrative permissions.\n\n" +
-                            "The error has been reported to the developer, who will try to fix the issue.\n\n" +
                             "If you want to debug the error yourself, check the file 'error_user.log' inside the 'Simple Launcher' folder.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }

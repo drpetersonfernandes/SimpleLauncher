@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace SimpleLauncher;
 
 public abstract class FileManager
 {
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
         return await Task.Run(async () =>
@@ -24,10 +26,31 @@ public abstract class FileManager
             }
             catch (Exception ex)
             {
-                string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\n" +
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show("There was an error finding the game files.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var result = MessageBox.Show("There was an error finding the game files.\n\n" +
+                                             "Do you want to open the file 'error_user.log' to debug the error?",
+                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = LogPath,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                
                 return new List<string>();
             }
         });
@@ -70,14 +93,32 @@ public abstract class FileManager
         }
         catch (Exception ex)
         {
-            string contextMessage = $"An error occurred while counting files in the Main window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = "An error occurred while counting files in the Main window.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while counting files.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            var result = MessageBox.Show("An error occurred while counting files.\n\n" +
+                                         "Do you want to open the file 'error_user.log' to debug the error?",
+                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             return 0;
         }
     }
