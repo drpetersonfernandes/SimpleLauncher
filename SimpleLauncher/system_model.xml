@@ -1371,7 +1371,7 @@
     </FileFormatsToLaunch>
     <Emulators>
       <Emulator>
-        <EmulatorName>ScummVM</EmulatorName>
+        <EmulatorName>Direct Launch</EmulatorName>
         <EmulatorLocation/>
         <EmulatorParameters/>
       </Emulator>

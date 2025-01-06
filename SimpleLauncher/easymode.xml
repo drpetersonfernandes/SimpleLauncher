@@ -1825,6 +1825,42 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>ScummVM</SystemName>
+        <SystemFolder>.\roms\ScummVM</SystemFolder>
+        <SystemImageFolder>.\images\ScummVM</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bat</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Direct Launch</EmulatorName>
+                <EmulatorLocation/>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.scummvm.org/downloads/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>2.9.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://downloads.scummvm.org/frs/scummvm/2.9.0/scummvm-2.9.0-win32-x86_64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadRename>false</EmulatorDownloadRename>
+                <EmulatorDownloadExtractPath>.\emulators\ScummVM\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ExtrasLocation/>
+                <ExtrasLatestVersion/>
+                <ExtrasDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/scummvm.zip</ExtrasDownloadLink>
+                <ExtrasDownloadExtractPath>.\images\ScummVM</ExtrasDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Sega Dreamcast</SystemName>
         <SystemFolder>.\roms\Sega Dreamcast</SystemFolder>
         <SystemImageFolder>.\images\Sega Dreamcast</SystemImageFolder>
