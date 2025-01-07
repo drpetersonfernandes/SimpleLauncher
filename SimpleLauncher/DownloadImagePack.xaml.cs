@@ -327,7 +327,9 @@ public partial class DownloadImagePack
         catch (HttpRequestException ex)
         {
             string formattedException = $"Network error during file download.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
@@ -336,7 +338,9 @@ public partial class DownloadImagePack
         catch (IOException ex)
         {
             string formattedException = $"File read/write error after file download.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a file read/write error after the file download.\n\n" +

@@ -129,5 +129,23 @@
     <system:String x:Key="1ststep">1st step</system:String>
     <system:String x:Key="2ndstep">2nd step</system:String>
     <system:String x:Key="3rdstep">3rd step</system:String>
+    
+    <system:String x:Key="Chooseasystem">Choose a system</system:String>
+    <system:String x:Key="SaveorUpdateSystem">Save or Update System</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Delete Selected System</system:String>
+    <system:String x:Key="SetSystemFolder">Set System Folder</system:String>
+    <system:String x:Key="SetSystemImageFolder">Set System Image Folder</system:String>
+    <system:String x:Key="SetEmulator1Location">Set Emulator 1 Location</system:String>
+    <system:String x:Key="SetEmulator2Location">Set Emulator 2 Location</system:String>
+    <system:String x:Key="SetEmulator3Location">Set Emulator 3 Location</system:String>
+    <system:String x:Key="SetEmulator4Location">Set Emulator 4 Location</system:String>
+    <system:String x:Key="SetEmulator5Location">Set Emulator 5 Location</system:String>
+    <system:String x:Key="DeveloperSuggestion">Developer Suggestion</system:String>
+    <system:String x:Key="SystemNameRequired">System Name (Required)</system:String>
+    <system:String x:Key="SystemFolderOptional">System Folder (Optional)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">System Image Folder (Optional)</system:String>
+    <system:String x:Key="SystemisMAME">System is MAME?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Extension to Search in the System Folder (Required)</system:String>
 
+    
 </ResourceDictionary>

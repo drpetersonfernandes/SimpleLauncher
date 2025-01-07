@@ -92,14 +92,19 @@ public static class GameLauncher
                         await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable once PossibleNullReferenceException
-                    if (selectedSystem.ToLowerInvariant().Contains("aquarius") && emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("mame"))
+                    else if (selectedSystem.ToLowerInvariant().Contains("aquarius") && emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("mame"))
                     {
                         await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable once PossibleNullReferenceException
-                    if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("fusion"))
+                    else if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("fusion"))
                     {
-                        await LaunchKegaFusion(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                        await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    }
+                    // ReSharper disable once PossibleNullReferenceException
+                    else if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("mastergear"))
+                    {
+                        await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     else
                     {
@@ -221,7 +226,7 @@ public static class GameLauncher
 
             if (process.ExitCode != 0)
             {
-                string errorMessage = $"There was an issue running the batch process.\n\n" +
+                string errorMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
                                       $"Batch file: {psi.FileName}\n" +
                                       $"Exit code {process.ExitCode}\n" +
                                       $"Output: {output}\n" +
@@ -229,32 +234,32 @@ public static class GameLauncher
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
-                                             "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                             "Maybe the batch file has errors.\n\n" +
-                                             "Do you want to open the file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = LogPath,
-                            UseShellExecute = true
-                        });
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
+                // var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
+                //                              "Try to run the batch file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                //                              "Maybe the batch file has errors.\n\n" +
+                //                              "Do you want to open the file 'error_user.log' to debug the error?",
+                //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                //
+                // if (result == MessageBoxResult.Yes)
+                // {
+                //     try
+                //     {
+                //         Process.Start(new ProcessStartInfo
+                //         {
+                //             FileName = LogPath,
+                //             UseShellExecute = true
+                //         });
+                //     }
+                //     catch (Exception)
+                //     {
+                //         MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //     }
+                // }
             }
         }
         catch (Exception ex)
         {
-            string errorMessage = $"There was an issue running the batch process.\n\n" +
+            string errorMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
                                   $"Batch file: {psi.FileName}\n" +
                                   $"Exit code {process.ExitCode}\n" +
                                   $"Output: {output}\n" +
@@ -263,28 +268,28 @@ public static class GameLauncher
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                         
-            var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
-                                         "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
-                                         "Maybe the batch file has errors.\n\n" +
-                                         "Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-            
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            
+            // var result = MessageBox.Show("There was an issue running the batch process.\n\n" +
+            //                              "Try to run the batch file outside 'Simple Launcher' to see if it is working.\n\n" +
+            //                              "Maybe the batch file has errors.\n\n" +
+            //                              "Do you want to open the file 'error_user.log' to debug the error?",
+            //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            //
+            // if (result == MessageBoxResult.Yes)
+            // {
+            //     try
+            //     {
+            //         Process.Start(new ProcessStartInfo
+            //         {
+            //             FileName = LogPath,
+            //             UseShellExecute = true
+            //         });
+            //     }
+            //     catch (Exception)
+            //     {
+            //         MessageBox.Show("The file 'error_user.log' was not found!",
+            //             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //     }
+            // }
         }
     }
 
@@ -1475,23 +1480,16 @@ public static class GameLauncher
         }
     }
     
-    private static async Task LaunchKegaFusion(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task LaunchRegularEmulatorWithoutWarnings(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
-        if (emulatorComboBox.SelectedItem == null)
-        {
-            MessageBox.Show("Please select an emulator first.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
         string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        
         string selectedSystem = systemComboBox.SelectedItem.ToString();
-        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
 
+        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
         if (systemConfig == null)
         {
             string errorMessage = $"systemConfig not found for the selected system.\n\n" +
-                                  $"Method: LaunchKegaFusion";
+                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -1516,16 +1514,14 @@ public static class GameLauncher
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            
             return;
         }
 
         var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-
         if (emulatorConfig == null)
         {
             string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
-                                  $"Method: LaunchKegaFusion";
+                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -1609,8 +1605,7 @@ public static class GameLauncher
                     await LogErrors.LogErrorAsync(exception, errorMessage);
 
                     MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
-                                    "Please go to Expert Mode and fix this system.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -1675,7 +1670,7 @@ public static class GameLauncher
             if (!processStarted)
             {
                 throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchKegaFusion");
+                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
             }
             
             process.BeginOutputReadLine();
@@ -1688,49 +1683,9 @@ public static class GameLauncher
             if (!process.HasExited)
             {
                 throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchKegaFusion");
+                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
             }
-
-            if (process.ExitCode != 0 && process.ExitCode != -1073741819)
-            {
-                string errorMessage = $"Kega Fusion error. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // var result = MessageBox.Show(
-                //     "The application could not launch the selected game.\n\n" +
-                //     "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
-                //     "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
-                //     "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                //     "Do you want to open the file 'error_user.log' to debug the error?",
-                //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                //
-                // if (result == MessageBoxResult.Yes)
-                // {
-                //     try
-                //     {
-                //         Process.Start(new ProcessStartInfo
-                //         {
-                //             FileName = LogPath,
-                //             UseShellExecute = true
-                //         });
-                //     }
-                //     catch (Exception)
-                //     {
-                //         MessageBox.Show("The file 'error_user.log' was not found!",
-                //             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                //     }
-                // }
-                
-                return;
-            }
-        
+            
             // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
@@ -1767,12 +1722,39 @@ public static class GameLauncher
                             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+                return;
+            }
+            
+            if (process.ExitCode == 1)
+            {
+                string errorMessage = $"Generic error in the emulator. User was not notified.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                return;
+            }
+
+            if (process.ExitCode != 0)
+            {
+                string errorMessage = $"Emulator error. User was not notified.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         
         catch (InvalidOperationException ex)
         {
-            string formattedException = $"InvalidOperationException in the method LaunchKegaFusion";
+            string formattedException = $"InvalidOperationException in the method LaunchRegularEmulatorWithoutWarnings";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
@@ -1785,7 +1767,7 @@ public static class GameLauncher
         }
         catch (Exception ex)
         {
-            string formattedException = $"Kega Fusion error. User was not notified.\n\n" +
+            string formattedException = $"Emulator error. User was not notified.\n\n" +
                                         $"Exit code: {process.ExitCode}\n" +
                                         $"Emulator: {psi.FileName}\n" +
                                         $"Emulator output: {output}\n" +
@@ -1794,31 +1776,6 @@ public static class GameLauncher
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-                
-            // var result = MessageBox.Show(
-            //     "The emulator could not open the game with the provided parameters.\n\n" +
-            //     "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
-            //     "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
-            //     "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-            //     "Would you like to open the file 'error_user.log' to debug the error?",
-            //     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-            //
-            // if (result == MessageBoxResult.Yes)
-            // {
-            //     try
-            //     {
-            //         Process.Start(new ProcessStartInfo
-            //         {
-            //             FileName = LogPath,
-            //             UseShellExecute = true
-            //         });
-            //     }
-            //     catch (Exception)
-            //     {
-            //         MessageBox.Show("The file 'error_user.log' was not found!",
-            //             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //     }
-            // }
         }
     }
 }
