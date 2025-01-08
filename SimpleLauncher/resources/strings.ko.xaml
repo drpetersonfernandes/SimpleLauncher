@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">2단계</system:String>
     <system:String x:Key="3rdstep">3단계</system:String>
     
+    <system:String x:Key="Chooseasystem">시스템 선택</system:String>
+    <system:String x:Key="SaveorUpdateSystem">시스템 저장 또는 업데이트</system:String>
+    <system:String x:Key="DeleteSelectedSystem">선택한 시스템 삭제</system:String>
+    <system:String x:Key="SetSystemFolder">시스템 폴더 설정</system:String>
+    <system:String x:Key="SetSystemImageFolder">시스템 이미지 폴더 설정</system:String>
+    <system:String x:Key="SetEmulator1Location">에뮬레이터 1 경로 설정</system:String>
+    <system:String x:Key="SetEmulator2Location">에뮬레이터 2 경로 설정</system:String>
+    <system:String x:Key="SetEmulator3Location">에뮬레이터 3 경로 설정</system:String>
+    <system:String x:Key="SetEmulator4Location">에뮬레이터 4 경로 설정</system:String>
+    <system:String x:Key="SetEmulator5Location">에뮬레이터 5 경로 설정</system:String>
+    <system:String x:Key="DeveloperSuggestion">개발자 제안</system:String>
+    <system:String x:Key="SystemNameRequired">시스템 이름 (필수)</system:String>
+    <system:String x:Key="SystemFolderOptional">시스템 폴더 (선택)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">시스템 이미지 폴더 (선택)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">시스템 폴더에서 검색할 확장자 (필수)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">여러 확장자를 추가하려면 쉼표 [ , ] 를 사용하세요</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">실행 전에 파일을 추출하시겠습니까?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">추출 후 실행할 확장자 (필요할 수 있음)</system:String>
+    <system:String x:Key="Emulator1NameRequired">에뮬레이터 1 이름 (필수)</system:String>
+    <system:String x:Key="Emulator1Location">에뮬레이터 1 경로</system:String>
+    <system:String x:Key="Emulator1Parameters">에뮬레이터 1 매개변수</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">에뮬레이터 2 이름 (필요할 수 있음)</system:String>
+    <system:String x:Key="Emulator2Location">에뮬레이터 2 경로</system:String>
+    <system:String x:Key="Emulator2Parameters">에뮬레이터 2 매개변수</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">에뮬레이터 3 이름 (필요할 수 있음)</system:String>
+    <system:String x:Key="Emulator3Location">에뮬레이터 3 경로</system:String>
+    <system:String x:Key="Emulator3Parameters">에뮬레이터 3 매개변수</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">에뮬레이터 4 이름 (필요할 수 있음)</system:String>
+    <system:String x:Key="Emulator4Location">에뮬레이터 4 경로</system:String>
+    <system:String x:Key="Emulator4Parameters">에뮬레이터 4 매개변수</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">에뮬레이터 5 이름 (필요할 수 있음)</system:String>
+    <system:String x:Key="Emulator5Location">에뮬레이터 5 경로</system:String>
+    <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
+    
 </ResourceDictionary>

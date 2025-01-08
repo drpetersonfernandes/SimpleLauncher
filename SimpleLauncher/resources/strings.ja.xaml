@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">第2ステップ</system:String>
     <system:String x:Key="3rdstep">第3ステップ</system:String>
     
+    <system:String x:Key="Chooseasystem">システムを選択</system:String>
+    <system:String x:Key="SaveorUpdateSystem">システムを保存または更新</system:String>
+    <system:String x:Key="DeleteSelectedSystem">選択したシステムを削除</system:String>
+    <system:String x:Key="SetSystemFolder">システムフォルダーを設定</system:String>
+    <system:String x:Key="SetSystemImageFolder">システム画像フォルダーを設定</system:String>
+    <system:String x:Key="SetEmulator1Location">エミュレーター1の場所を設定</system:String>
+    <system:String x:Key="SetEmulator2Location">エミュレーター2の場所を設定</system:String>
+    <system:String x:Key="SetEmulator3Location">エミュレーター3の場所を設定</system:String>
+    <system:String x:Key="SetEmulator4Location">エミュレーター4の場所を設定</system:String>
+    <system:String x:Key="SetEmulator5Location">エミュレーター5の場所を設定</system:String>
+    <system:String x:Key="DeveloperSuggestion">開発者の提案</system:String>
+    <system:String x:Key="SystemNameRequired">システム名（必須）</system:String>
+    <system:String x:Key="SystemFolderOptional">システムフォルダー（任意）</system:String>
+    <system:String x:Key="SystemImageFolderOptional">システム画像フォルダー（任意）</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">システムはMAMEベースですか？</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">システムフォルダーで検索する拡張子（必須）</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">複数の拡張子を追加するにはカンマ [ , ] を使用してください</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">起動前にファイルを抽出しますか？</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">抽出後に起動する拡張子（必要になる場合があります）</system:String>
+    <system:String x:Key="Emulator1NameRequired">エミュレーター1の名前（必須）</system:String>
+    <system:String x:Key="Emulator1Location">エミュレーター1の場所</system:String>
+    <system:String x:Key="Emulator1Parameters">エミュレーター1のパラメーター</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">エミュレーター2の名前（必要になる場合があります）</system:String>
+    <system:String x:Key="Emulator2Location">エミュレーター2の場所</system:String>
+    <system:String x:Key="Emulator2Parameters">エミュレーター2のパラメーター</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">エミュレーター3の名前（必要になる場合があります）</system:String>
+    <system:String x:Key="Emulator3Location">エミュレーター3の場所</system:String>
+    <system:String x:Key="Emulator3Parameters">エミュレーター3のパラメーター</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">エミュレーター4の名前（必要になる場合があります）</system:String>
+    <system:String x:Key="Emulator4Location">エミュレーター4の場所</system:String>
+    <system:String x:Key="Emulator4Parameters">エミュレーター4のパラメーター</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
+    <system:String x:Key="Emulator5Location">エミュレーター5の場所</system:String>
+    <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
+    
 </ResourceDictionary>

@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">Bước 2</system:String>
     <system:String x:Key="3rdstep">Bước 3</system:String>
     
+    <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
+    <system:String x:Key="SaveorUpdateSystem">Lưu hoặc cập nhật hệ thống</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Xóa hệ thống đã chọn</system:String>
+    <system:String x:Key="SetSystemFolder">Đặt thư mục hệ thống</system:String>
+    <system:String x:Key="SetSystemImageFolder">Đặt thư mục hình ảnh hệ thống</system:String>
+    <system:String x:Key="SetEmulator1Location">Đặt vị trí của trình giả lập 1</system:String>
+    <system:String x:Key="SetEmulator2Location">Đặt vị trí của trình giả lập 2</system:String>
+    <system:String x:Key="SetEmulator3Location">Đặt vị trí của trình giả lập 3</system:String>
+    <system:String x:Key="SetEmulator4Location">Đặt vị trí của trình giả lập 4</system:String>
+    <system:String x:Key="SetEmulator5Location">Đặt vị trí của trình giả lập 5</system:String>
+    <system:String x:Key="DeveloperSuggestion">Gợi ý từ nhà phát triển</system:String>
+    <system:String x:Key="SystemNameRequired">Tên hệ thống (bắt buộc)</system:String>
+    <system:String x:Key="SystemFolderOptional">Thư mục hệ thống (tùy chọn)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">Thư mục hình ảnh hệ thống (tùy chọn)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Hệ thống có dựa trên MAME không?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Phần mở rộng cần tìm trong thư mục hệ thống (bắt buộc)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">Sử dụng dấu phẩy [ , ] để thêm nhiều phần mở rộng</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Giải nén tệp trước khi khởi chạy?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Phần mở rộng để khởi chạy sau khi giải nén (có thể bắt buộc)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Tên của trình giả lập 1 (bắt buộc)</system:String>
+    <system:String x:Key="Emulator1Location">Vị trí của trình giả lập 1</system:String>
+    <system:String x:Key="Emulator1Parameters">Tham số cho trình giả lập 1</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Tên của trình giả lập 2 (có thể bắt buộc)</system:String>
+    <system:String x:Key="Emulator2Location">Vị trí của trình giả lập 2</system:String>
+    <system:String x:Key="Emulator2Parameters">Tham số cho trình giả lập 2</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Tên của trình giả lập 3 (có thể bắt buộc)</system:String>
+    <system:String x:Key="Emulator3Location">Vị trí của trình giả lập 3</system:String>
+    <system:String x:Key="Emulator3Parameters">Tham số cho trình giả lập 3</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Tên của trình giả lập 4 (có thể bắt buộc)</system:String>
+    <system:String x:Key="Emulator4Location">Vị trí của trình giả lập 4</system:String>
+    <system:String x:Key="Emulator4Parameters">Tham số cho trình giả lập 4</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
+    <system:String x:Key="Emulator5Location">Vị trí của trình giả lập 5</system:String>
+    <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
+    
 </ResourceDictionary>

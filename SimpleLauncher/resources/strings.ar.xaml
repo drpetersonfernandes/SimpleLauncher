@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">الخطوة الثانية</system:String>
     <system:String x:Key="3rdstep">الخطوة الثالثة</system:String>
     
+    <system:String x:Key="Chooseasystem">اختر نظام</system:String>
+    <system:String x:Key="SaveorUpdateSystem">حفظ أو تحديث النظام</system:String>
+    <system:String x:Key="DeleteSelectedSystem">حذف النظام المحدد</system:String>
+    <system:String x:Key="SetSystemFolder">تعيين مجلد النظام</system:String>
+    <system:String x:Key="SetSystemImageFolder">تعيين مجلد صور النظام</system:String>
+    <system:String x:Key="SetEmulator1Location">تعيين موقع المحاكي 1</system:String>
+    <system:String x:Key="SetEmulator2Location">تعيين موقع المحاكي 2</system:String>
+    <system:String x:Key="SetEmulator3Location">تعيين موقع المحاكي 3</system:String>
+    <system:String x:Key="SetEmulator4Location">تعيين موقع المحاكي 4</system:String>
+    <system:String x:Key="SetEmulator5Location">تعيين موقع المحاكي 5</system:String>
+    <system:String x:Key="DeveloperSuggestion">اقتراح المطور</system:String>
+    <system:String x:Key="SystemNameRequired">اسم النظام (مطلوب)</system:String>
+    <system:String x:Key="SystemFolderOptional">مجلد النظام (اختياري)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">مجلد صور النظام (اختياري)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">امتداد للبحث عنه في مجلد النظام (مطلوب)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">استخدم فاصلة [ , ] لإضافة امتدادات متعددة</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">استخراج الملف قبل التشغيل؟</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">الامتداد المطلوب للتشغيل بعد الاستخراج (قد يكون مطلوبًا)</system:String>
+    <system:String x:Key="Emulator1NameRequired">اسم المحاكي 1 (مطلوب)</system:String>
+    <system:String x:Key="Emulator1Location">موقع المحاكي 1</system:String>
+    <system:String x:Key="Emulator1Parameters">معلمات المحاكي 1</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">اسم المحاكي 2 (قد يكون مطلوبًا)</system:String>
+    <system:String x:Key="Emulator2Location">موقع المحاكي 2</system:String>
+    <system:String x:Key="Emulator2Parameters">معلمات المحاكي 2</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">اسم المحاكي 3 (قد يكون مطلوبًا)</system:String>
+    <system:String x:Key="Emulator3Location">موقع المحاكي 3</system:String>
+    <system:String x:Key="Emulator3Parameters">معلمات المحاكي 3</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">اسم المحاكي 4 (قد يكون مطلوبًا)</system:String>
+    <system:String x:Key="Emulator4Location">موقع المحاكي 4</system:String>
+    <system:String x:Key="Emulator4Parameters">معلمات المحاكي 4</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
+    <system:String x:Key="Emulator5Location">موقع المحاكي 5</system:String>
+    <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
+    
 </ResourceDictionary>

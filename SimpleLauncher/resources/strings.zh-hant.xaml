@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">第2步</system:String>
     <system:String x:Key="3rdstep">第3步</system:String>
     
+    <system:String x:Key="Chooseasystem">選擇一個系統</system:String>
+    <system:String x:Key="SaveorUpdateSystem">保存或更新系統</system:String>
+    <system:String x:Key="DeleteSelectedSystem">刪除所選系統</system:String>
+    <system:String x:Key="SetSystemFolder">設置系統資料夾</system:String>
+    <system:String x:Key="SetSystemImageFolder">設置系統圖片資料夾</system:String>
+    <system:String x:Key="SetEmulator1Location">設置模擬器1的位置</system:String>
+    <system:String x:Key="SetEmulator2Location">設置模擬器2的位置</system:String>
+    <system:String x:Key="SetEmulator3Location">設置模擬器3的位置</system:String>
+    <system:String x:Key="SetEmulator4Location">設置模擬器4的位置</system:String>
+    <system:String x:Key="SetEmulator5Location">設置模擬器5的位置</system:String>
+    <system:String x:Key="DeveloperSuggestion">開發者建議</system:String>
+    <system:String x:Key="SystemNameRequired">系統名稱（必填）</system:String>
+    <system:String x:Key="SystemFolderOptional">系統資料夾（可選）</system:String>
+    <system:String x:Key="SystemImageFolderOptional">系統圖片資料夾（可選）</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">系統是基於MAME的嗎？</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">需要在系統資料夾中搜索的副檔名（必填）</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">使用逗號 [ , ] 添加多個副檔名</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">啟動前解壓文件？</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">解壓後啟動的副檔名（可能需要）</system:String>
+    <system:String x:Key="Emulator1NameRequired">模擬器1名稱（必填）</system:String>
+    <system:String x:Key="Emulator1Location">模擬器1位置</system:String>
+    <system:String x:Key="Emulator1Parameters">模擬器1參數</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">模擬器2名稱（可能需要）</system:String>
+    <system:String x:Key="Emulator2Location">模擬器2位置</system:String>
+    <system:String x:Key="Emulator2Parameters">模擬器2參數</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">模擬器3名稱（可能需要）</system:String>
+    <system:String x:Key="Emulator3Location">模擬器3位置</system:String>
+    <system:String x:Key="Emulator3Parameters">模擬器3參數</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">模擬器4名稱（可能需要）</system:String>
+    <system:String x:Key="Emulator4Location">模擬器4位置</system:String>
+    <system:String x:Key="Emulator4Parameters">模擬器4參數</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">模擬器5名稱（可能需要）</system:String>
+    <system:String x:Key="Emulator5Location">模擬器5位置</system:String>
+    <system:String x:Key="Emulator5Parameters">模擬器5參數</system:String>
+    
 </ResourceDictionary>

@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">2. Schritt</system:String>
     <system:String x:Key="3rdstep">3. Schritt</system:String>
     
+    <system:String x:Key="Chooseasystem">Wähle ein System</system:String>
+    <system:String x:Key="SaveorUpdateSystem">System speichern oder aktualisieren</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Ausgewähltes System löschen</system:String>
+    <system:String x:Key="SetSystemFolder">Systemordner festlegen</system:String>
+    <system:String x:Key="SetSystemImageFolder">System-Bildordner festlegen</system:String>
+    <system:String x:Key="SetEmulator1Location">Emulator 1 Speicherort festlegen</system:String>
+    <system:String x:Key="SetEmulator2Location">Emulator 2 Speicherort festlegen</system:String>
+    <system:String x:Key="SetEmulator3Location">Emulator 3 Speicherort festlegen</system:String>
+    <system:String x:Key="SetEmulator4Location">Emulator 4 Speicherort festlegen</system:String>
+    <system:String x:Key="SetEmulator5Location">Emulator 5 Speicherort festlegen</system:String>
+    <system:String x:Key="DeveloperSuggestion">Entwicklervorschlag</system:String>
+    <system:String x:Key="SystemNameRequired">Systemname (erforderlich)</system:String>
+    <system:String x:Key="SystemFolderOptional">Systemordner (optional)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">System-Bildordner (optional)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Ist das System MAME-basiert?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Erweiterung zum Suchen im Systemordner (erforderlich)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">Verwenden Sie ein Komma [ , ], um mehrere Erweiterungen hinzuzufügen</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Datei vor dem Start extrahieren?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Erweiterung, die nach der Extraktion gestartet werden soll (kann erforderlich sein)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (erforderlich)</system:String>
+    <system:String x:Key="Emulator1Location">Emulator 1 Speicherort</system:String>
+    <system:String x:Key="Emulator1Parameters">Emulator 1 Parameter</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Emulator 2 Name (kann erforderlich sein)</system:String>
+    <system:String x:Key="Emulator2Location">Emulator 2 Speicherort</system:String>
+    <system:String x:Key="Emulator2Parameters">Emulator 2 Parameter</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Emulator 3 Name (kann erforderlich sein)</system:String>
+    <system:String x:Key="Emulator3Location">Emulator 3 Speicherort</system:String>
+    <system:String x:Key="Emulator3Parameters">Emulator 3 Parameter</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Emulator 4 Name (kann erforderlich sein)</system:String>
+    <system:String x:Key="Emulator4Location">Emulator 4 Speicherort</system:String>
+    <system:String x:Key="Emulator4Parameters">Emulator 4 Parameter</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (kann erforderlich sein)</system:String>
+    <system:String x:Key="Emulator5Location">Emulator 5 Speicherort</system:String>
+    <system:String x:Key="Emulator5Parameters">Emulator 5 Parameter</system:String>
+    
 </ResourceDictionary>

@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">दूसरा कदम</system:String>
     <system:String x:Key="3rdstep">तीसरा कदम</system:String>
     
+    <system:String x:Key="Chooseasystem">एक सिस्टम चुनें</system:String>
+    <system:String x:Key="SaveorUpdateSystem">सिस्टम सहेजें या अपडेट करें</system:String>
+    <system:String x:Key="DeleteSelectedSystem">चयनित सिस्टम हटाएं</system:String>
+    <system:String x:Key="SetSystemFolder">सिस्टम फ़ोल्डर सेट करें</system:String>
+    <system:String x:Key="SetSystemImageFolder">सिस्टम इमेज फ़ोल्डर सेट करें</system:String>
+    <system:String x:Key="SetEmulator1Location">एमुलेटर 1 स्थान सेट करें</system:String>
+    <system:String x:Key="SetEmulator2Location">एमुलेटर 2 स्थान सेट करें</system:String>
+    <system:String x:Key="SetEmulator3Location">एमुलेटर 3 स्थान सेट करें</system:String>
+    <system:String x:Key="SetEmulator4Location">एमुलेटर 4 स्थान सेट करें</system:String>
+    <system:String x:Key="SetEmulator5Location">एमुलेटर 5 स्थान सेट करें</system:String>
+    <system:String x:Key="DeveloperSuggestion">डेवलपर का सुझाव</system:String>
+    <system:String x:Key="SystemNameRequired">सिस्टम का नाम (आवश्यक)</system:String>
+    <system:String x:Key="SystemFolderOptional">सिस्टम फ़ोल्डर (ऐच्छिक)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">सिस्टम इमेज फ़ोल्डर (ऐच्छिक)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">सिस्टम फ़ोल्डर में खोजने के लिए एक्सटेंशन (आवश्यक)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">कई एक्सटेंशनों को जोड़ने के लिए कॉमा [ , ] का उपयोग करें</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">लॉन्च से पहले फ़ाइल को अनज़िप करें?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">निकालने के बाद लॉन्च करने के लिए एक्सटेंशन (आवश्यक हो सकता है)</system:String>
+    <system:String x:Key="Emulator1NameRequired">एमुलेटर 1 का नाम (आवश्यक)</system:String>
+    <system:String x:Key="Emulator1Location">एमुलेटर 1 का स्थान</system:String>
+    <system:String x:Key="Emulator1Parameters">एमुलेटर 1 पैरामीटर</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">एमुलेटर 2 का नाम (आवश्यक हो सकता है)</system:String>
+    <system:String x:Key="Emulator2Location">एमुलेटर 2 का स्थान</system:String>
+    <system:String x:Key="Emulator2Parameters">एमुलेटर 2 पैरामीटर</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">एमुलेटर 3 का नाम (आवश्यक हो सकता है)</system:String>
+    <system:String x:Key="Emulator3Location">एमुलेटर 3 का स्थान</system:String>
+    <system:String x:Key="Emulator3Parameters">एमुलेटर 3 पैरामीटर</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">एमुलेटर 4 का नाम (आवश्यक हो सकता है)</system:String>
+    <system:String x:Key="Emulator4Location">एमुलेटर 4 का स्थान</system:String>
+    <system:String x:Key="Emulator4Parameters">एमुलेटर 4 पैरामीटर</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">एमुलेटर 5 का नाम (आवश्यक हो सकता है)</system:String>
+    <system:String x:Key="Emulator5Location">एमुलेटर 5 का स्थान</system:String>
+    <system:String x:Key="Emulator5Parameters">एमुलेटर 5 पैरामीटर</system:String>
+    
 </ResourceDictionary>

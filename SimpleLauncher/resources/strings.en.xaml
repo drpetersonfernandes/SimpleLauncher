@@ -144,8 +144,25 @@
     <system:String x:Key="SystemNameRequired">System Name (Required)</system:String>
     <system:String x:Key="SystemFolderOptional">System Folder (Optional)</system:String>
     <system:String x:Key="SystemImageFolderOptional">System Image Folder (Optional)</system:String>
-    <system:String x:Key="SystemisMAME">System is MAME?</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Extension to Search in the System Folder (Required)</system:String>
-
+    <system:String x:Key="Useacommatoaddmultipleextensions">Use a comma [ , ] to add multiple extensions</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Extract File Before Launch?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Extension to Launch After Extraction (May be Required)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (Required)</system:String>
+    <system:String x:Key="Emulator1Location">Emulator 1 Location</system:String>
+    <system:String x:Key="Emulator1Parameters">Emulator 1 Parameters</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Emulator 2 Name (May be Required)</system:String>
+    <system:String x:Key="Emulator2Location">Emulator 2 Location</system:String>
+    <system:String x:Key="Emulator2Parameters">Emulator 2 Parameters</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Emulator 3 Name (May be Required)</system:String>
+    <system:String x:Key="Emulator3Location">Emulator 3 Location</system:String>
+    <system:String x:Key="Emulator3Parameters">Emulator 3 Parameters</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Emulator 4 Name (May be Required)</system:String>
+    <system:String x:Key="Emulator4Location">Emulator 4 Location</system:String>
+    <system:String x:Key="Emulator4Parameters">Emulator 4 Parameters</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (May be Required)</system:String>
+    <system:String x:Key="Emulator5Location">Emulator 5 Location</system:String>
+    <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
     
 </ResourceDictionary>

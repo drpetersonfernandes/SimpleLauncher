@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">2. Adım</system:String>
     <system:String x:Key="3rdstep">3. Adım</system:String>
     
+    <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
+    <system:String x:Key="SaveorUpdateSystem">Sistemi kaydet veya güncelle</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Seçilen sistemi sil</system:String>
+    <system:String x:Key="SetSystemFolder">Sistem klasörünü ayarla</system:String>
+    <system:String x:Key="SetSystemImageFolder">Sistem görüntü klasörünü ayarla</system:String>
+    <system:String x:Key="SetEmulator1Location">Emülatör 1 konumunu ayarla</system:String>
+    <system:String x:Key="SetEmulator2Location">Emülatör 2 konumunu ayarla</system:String>
+    <system:String x:Key="SetEmulator3Location">Emülatör 3 konumunu ayarla</system:String>
+    <system:String x:Key="SetEmulator4Location">Emülatör 4 konumunu ayarla</system:String>
+    <system:String x:Key="SetEmulator5Location">Emülatör 5 konumunu ayarla</system:String>
+    <system:String x:Key="DeveloperSuggestion">Geliştirici önerisi</system:String>
+    <system:String x:Key="SystemNameRequired">Sistem adı (zorunlu)</system:String>
+    <system:String x:Key="SystemFolderOptional">Sistem klasörü (isteğe bağlı)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">Sistem görüntü klasörü (isteğe bağlı)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Sistem klasöründe aranacak uzantı (zorunlu)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">Birden fazla uzantı eklemek için virgül [ , ] kullanın</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Başlatmadan önce dosya çıkartılsın mı?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Çıkarttıktan sonra başlatılacak uzantı (gerekli olabilir)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Emülatör 1 adı (zorunlu)</system:String>
+    <system:String x:Key="Emulator1Location">Emülatör 1 konumu</system:String>
+    <system:String x:Key="Emulator1Parameters">Emülatör 1 parametreleri</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Emülatör 2 adı (gerekli olabilir)</system:String>
+    <system:String x:Key="Emulator2Location">Emülatör 2 konumu</system:String>
+    <system:String x:Key="Emulator2Parameters">Emülatör 2 parametreleri</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Emülatör 3 adı (gerekli olabilir)</system:String>
+    <system:String x:Key="Emulator3Location">Emülatör 3 konumu</system:String>
+    <system:String x:Key="Emulator3Parameters">Emülatör 3 parametreleri</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Emülatör 4 adı (gerekli olabilir)</system:String>
+    <system:String x:Key="Emulator4Location">Emülatör 4 konumu</system:String>
+    <system:String x:Key="Emulator4Parameters">Emülatör 4 parametreleri</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Emülatör 5 adı (gerekli olabilir)</system:String>
+    <system:String x:Key="Emulator5Location">Emülatör 5 konumu</system:String>
+    <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
+    
 </ResourceDictionary>

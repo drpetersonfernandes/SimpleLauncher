@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">2º passo</system:String>
     <system:String x:Key="3rdstep">3º passo</system:String>
     
+    <system:String x:Key="Chooseasystem">Scegli un sistema</system:String>
+    <system:String x:Key="SaveorUpdateSystem">Salva o aggiorna il sistema</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Elimina il sistema selezionato</system:String>
+    <system:String x:Key="SetSystemFolder">Imposta cartella del sistema</system:String>
+    <system:String x:Key="SetSystemImageFolder">Imposta cartella delle immagini del sistema</system:String>
+    <system:String x:Key="SetEmulator1Location">Imposta posizione emulatore 1</system:String>
+    <system:String x:Key="SetEmulator2Location">Imposta posizione emulatore 2</system:String>
+    <system:String x:Key="SetEmulator3Location">Imposta posizione emulatore 3</system:String>
+    <system:String x:Key="SetEmulator4Location">Imposta posizione emulatore 4</system:String>
+    <system:String x:Key="SetEmulator5Location">Imposta posizione emulatore 5</system:String>
+    <system:String x:Key="DeveloperSuggestion">Suggerimento del sviluppatore</system:String>
+    <system:String x:Key="SystemNameRequired">Nome del sistema (obbligatorio)</system:String>
+    <system:String x:Key="SystemFolderOptional">Cartella del sistema (opzionale)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">Cartella delle immagini del sistema (opzionale)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Il sistema è basato su MAME?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Estensione da cercare nella cartella del sistema (obbligatoria)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">Usa una virgola [ , ] per aggiungere più estensioni</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Estrarre il file prima di avviare?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Estensione da avviare dopo l'estrazione (potrebbe essere obbligatoria)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Nome emulatore 1 (obbligatorio)</system:String>
+    <system:String x:Key="Emulator1Location">Posizione emulatore 1</system:String>
+    <system:String x:Key="Emulator1Parameters">Parametri emulatore 1</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Nome emulatore 2 (potrebbe essere obbligatorio)</system:String>
+    <system:String x:Key="Emulator2Location">Posizione emulatore 2</system:String>
+    <system:String x:Key="Emulator2Parameters">Parametri emulatore 2</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Nome emulatore 3 (potrebbe essere obbligatorio)</system:String>
+    <system:String x:Key="Emulator3Location">Posizione emulatore 3</system:String>
+    <system:String x:Key="Emulator3Parameters">Parametri emulatore 3</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Nome emulatore 4 (potrebbe essere obbligatorio)</system:String>
+    <system:String x:Key="Emulator4Location">Posizione emulatore 4</system:String>
+    <system:String x:Key="Emulator4Parameters">Parametri emulatore 4</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Nome emulatore 5 (potrebbe essere obbligatorio)</system:String>
+    <system:String x:Key="Emulator5Location">Posizione emulatore 5</system:String>
+    <system:String x:Key="Emulator5Parameters">Parametri emulatore 5</system:String>
+    
 </ResourceDictionary>

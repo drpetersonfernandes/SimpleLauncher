@@ -130,4 +130,39 @@
     <system:String x:Key="2ndstep">2-й шаг</system:String>
     <system:String x:Key="3rdstep">3-й шаг</system:String>
     
+    <system:String x:Key="Chooseasystem">Выберите систему</system:String>
+    <system:String x:Key="SaveorUpdateSystem">Сохранить или обновить систему</system:String>
+    <system:String x:Key="DeleteSelectedSystem">Удалить выбранную систему</system:String>
+    <system:String x:Key="SetSystemFolder">Установить папку системы</system:String>
+    <system:String x:Key="SetSystemImageFolder">Установить папку изображений системы</system:String>
+    <system:String x:Key="SetEmulator1Location">Установить расположение эмулятора 1</system:String>
+    <system:String x:Key="SetEmulator2Location">Установить расположение эмулятора 2</system:String>
+    <system:String x:Key="SetEmulator3Location">Установить расположение эмулятора 3</system:String>
+    <system:String x:Key="SetEmulator4Location">Установить расположение эмулятора 4</system:String>
+    <system:String x:Key="SetEmulator5Location">Установить расположение эмулятора 5</system:String>
+    <system:String x:Key="DeveloperSuggestion">Рекомендация разработчика</system:String>
+    <system:String x:Key="SystemNameRequired">Название системы (обязательно)</system:String>
+    <system:String x:Key="SystemFolderOptional">Папка системы (необязательно)</system:String>
+    <system:String x:Key="SystemImageFolderOptional">Папка изображений системы (необязательно)</system:String>
+    <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Расширение для поиска в папке системы (обязательно)</system:String>
+    <system:String x:Key="Useacommatoaddmultipleextensions">Используйте запятую [ , ], чтобы добавить несколько расширений</system:String>
+    <system:String x:Key="ExtractFileBeforeLaunch">Извлечь файл перед запуском?</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Расширение для запуска после извлечения (возможно, требуется)</system:String>
+    <system:String x:Key="Emulator1NameRequired">Название эмулятора 1 (обязательно)</system:String>
+    <system:String x:Key="Emulator1Location">Расположение эмулятора 1</system:String>
+    <system:String x:Key="Emulator1Parameters">Параметры эмулятора 1</system:String>
+    <system:String x:Key="Emulator2NameMaybeRequired">Название эмулятора 2 (возможно, требуется)</system:String>
+    <system:String x:Key="Emulator2Location">Расположение эмулятора 2</system:String>
+    <system:String x:Key="Emulator2Parameters">Параметры эмулятора 2</system:String>
+    <system:String x:Key="Emulator3NameMaybeRequired">Название эмулятора 3 (возможно, требуется)</system:String>
+    <system:String x:Key="Emulator3Location">Расположение эмулятора 3</system:String>
+    <system:String x:Key="Emulator3Parameters">Параметры эмулятора 3</system:String>
+    <system:String x:Key="Emulator4NameMaybeRequired">Название эмулятора 4 (возможно, требуется)</system:String>
+    <system:String x:Key="Emulator4Location">Расположение эмулятора 4</system:String>
+    <system:String x:Key="Emulator4Parameters">Параметры эмулятора 4</system:String>
+    <system:String x:Key="Emulator5NameMaybeRequired">Название эмулятора 5 (возможно, требуется)</system:String>
+    <system:String x:Key="Emulator5Location">Расположение эмулятора 5</system:String>
+    <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
+    
 </ResourceDictionary>
