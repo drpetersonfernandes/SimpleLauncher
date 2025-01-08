@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
+    <system:String x:Key="VideoLinkButton">Video Bağlantı Düğmesi</system:String>
+    <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
+    
 </ResourceDictionary>

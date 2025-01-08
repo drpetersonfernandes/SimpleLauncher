@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">檢查更新</system:String>
     <system:String x:Key="UpdateHistory">更新歷史</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">您可以自訂一個 URL，用於視頻連結按鈕和信息連結按鈕。</system:String>
+    <system:String x:Key="VideoLinkButton">視頻連結按鈕</system:String>
+    <system:String x:Key="InfoLinkButton">信息連結按鈕</system:String>
+    <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
+    <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
+    
 </ResourceDictionary>

@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
+    <system:String x:Key="VideoLinkButton">زر رابط الفيديو</system:String>
+    <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
+    <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
+    <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
+    
 </ResourceDictionary>

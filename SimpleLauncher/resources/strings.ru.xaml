@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Проверить обновления</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
+    <system:String x:Key="VideoLinkButton">Кнопка видеоссылки</system:String>
+    <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
+    
 </ResourceDictionary>

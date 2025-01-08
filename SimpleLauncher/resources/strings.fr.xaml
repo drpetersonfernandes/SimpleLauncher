@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Vérifier les mises à jour</system:String>
     <system:String x:Key="UpdateHistory">Historique des mises à jour</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Vous pouvez définir une URL personnalisée à utiliser dans le bouton de lien vidéo et le bouton de lien d'informations.</system:String>
+    <system:String x:Key="VideoLinkButton">Bouton de lien vidéo</system:String>
+    <system:String x:Key="InfoLinkButton">Bouton de lien d'informations</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Enregistrer ou mettre à jour les liens</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Réinitialiser aux valeurs par défaut</system:String>
+    
 </ResourceDictionary>

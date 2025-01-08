@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Auf Updates prüfen</system:String>
     <system:String x:Key="UpdateHistory">Update-Verlauf</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Sie können eine benutzerdefinierte URL für die Video-Link-Schaltfläche und die Info-Link-Schaltfläche definieren.</system:String>
+    <system:String x:Key="VideoLinkButton">Video-Link-Schaltfläche</system:String>
+    <system:String x:Key="InfoLinkButton">Info-Link-Schaltfläche</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Links speichern oder aktualisieren</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Auf Standardwerte zurücksetzen</system:String>
+    
 </ResourceDictionary>

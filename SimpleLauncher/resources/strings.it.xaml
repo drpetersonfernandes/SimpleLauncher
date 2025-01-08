@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Controlla aggiornamenti</system:String>
     <system:String x:Key="UpdateHistory">Cronologia aggiornamenti</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Puoi definire un URL personalizzato da utilizzare nel pulsante del collegamento video e nel pulsante del collegamento informazioni.</system:String>
+    <system:String x:Key="VideoLinkButton">Pulsante collegamento video</system:String>
+    <system:String x:Key="InfoLinkButton">Pulsante collegamento informazioni</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Salva o aggiorna collegamenti</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Ripristina ai valori predefiniti</system:String>
+    
 </ResourceDictionary>

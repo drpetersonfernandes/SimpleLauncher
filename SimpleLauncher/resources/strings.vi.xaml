@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Kiểm tra cập nhật</system:String>
     <system:String x:Key="UpdateHistory">Lịch sử cập nhật</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
+    <system:String x:Key="VideoLinkButton">Nút liên kết video</system:String>
+    <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
+    
 </ResourceDictionary>

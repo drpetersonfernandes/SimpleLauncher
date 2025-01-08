@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
+    <system:String x:Key="VideoLinkButton">Videokoppelingsknop</system:String>
+    <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
+    
 </ResourceDictionary>

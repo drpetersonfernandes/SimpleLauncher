@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">अपडेट की जांच करें</system:String>
     <system:String x:Key="UpdateHistory">अपडेट इतिहास</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">आप वीडियो लिंक बटन और जानकारी लिंक बटन में उपयोग करने के लिए एक कस्टम URL परिभाषित कर सकते हैं।</system:String>
+    <system:String x:Key="VideoLinkButton">वीडियो लिंक बटन</system:String>
+    <system:String x:Key="InfoLinkButton">जानकारी लिंक बटन</system:String>
+    <system:String x:Key="SaveorUpdateLinks">लिंक सहेजें या अपडेट करें</system:String>
+    <system:String x:Key="ReverttoDefaultValues">डिफ़ॉल्ट मानों पर पुनर्स्थापित करें</system:String>
+    
 </ResourceDictionary>

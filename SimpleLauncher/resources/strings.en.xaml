@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">Check For Update</system:String>
     <system:String x:Key="UpdateHistory">Update History</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
+    <system:String x:Key="VideoLinkButton">Video Link Button</system:String>
+    <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
+    <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
+    <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
+    
 </ResourceDictionary>

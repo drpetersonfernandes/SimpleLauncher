@@ -186,4 +186,10 @@
     <system:String x:Key="CheckForUpdate">アップデートを確認</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
     
+    <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
+    <system:String x:Key="VideoLinkButton">ビデオリンクボタン</system:String>
+    <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
+    <system:String x:Key="SaveorUpdateLinks">リンクを保存または更新</system:String>
+    <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
+    
 </ResourceDictionary>
