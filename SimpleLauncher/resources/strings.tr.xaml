@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">Emülatör 5 konumu</system:String>
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">Lütfen bir görüntü paketi seçin</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">Bir klasör seçmezseniz, görüntüler varsayılan klasöre çıkarılacaktır</system:String>
+    
 </ResourceDictionary>

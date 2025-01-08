@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">موقع المحاكي 5</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">يرجى اختيار حزمة الصور</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">إذا لم تختر مجلدًا، فسيتم استخراج الصور إلى المجلد الافتراضي</system:String>
+    
 </ResourceDictionary>

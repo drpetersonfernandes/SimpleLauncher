@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">Vị trí của trình giả lập 5</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">Vui lòng chọn một gói hình ảnh</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">Nếu bạn không chọn thư mục, hình ảnh sẽ được trích xuất vào thư mục mặc định</system:String>
+    
 </ResourceDictionary>

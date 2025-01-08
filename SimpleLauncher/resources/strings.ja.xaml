@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">エミュレーター5の場所</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">画像パックを選択してください</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">フォルダーを選択しない場合、画像はデフォルトのフォルダーに抽出されます</system:String>
+    
 </ResourceDictionary>

@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">에뮬레이터 5 경로</system:String>
     <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">이미지 팩을 선택해 주세요</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">폴더를 선택하지 않으면 이미지는 기본 폴더에 추출됩니다</system:String>
+    
 </ResourceDictionary>

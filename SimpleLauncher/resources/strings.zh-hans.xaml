@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">模拟器5位置</system:String>
     <system:String x:Key="Emulator5Parameters">模拟器5参数</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">请选择一个图像包</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">选择解压文件夹</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">如果您未选择文件夹，图像将解压到默认文件夹</system:String>
+    
 </ResourceDictionary>

@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">Localização do emulador 5</system:String>
     <system:String x:Key="Emulator5Parameters">Parâmetros do emulador 5</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">Por favor, selecione um pacote de imagens</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">Selecione a pasta de extração</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">Se você não selecionar uma pasta, as imagens serão extraídas para a pasta padrão</system:String>
+    
 </ResourceDictionary>

@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">Emulator 5 Location</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">Please select an Image Pack</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">If you do not choose a folder, the images will be extracted to the default folder</system:String>
+    
 </ResourceDictionary>

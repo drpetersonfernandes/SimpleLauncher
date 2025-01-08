@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">एमुलेटर 5 का स्थान</system:String>
     <system:String x:Key="Emulator5Parameters">एमुलेटर 5 पैरामीटर</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">कृपया एक छवि पैक चुनें</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">निकासी फ़ोल्डर चुनें</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">यदि आप कोई फ़ोल्डर नहीं चुनते हैं, तो छवियों को डिफ़ॉल्ट फ़ोल्डर में निकाला जाएगा</system:String>
+    
 </ResourceDictionary>

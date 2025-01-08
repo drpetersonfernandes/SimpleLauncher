@@ -165,4 +165,8 @@
     <system:String x:Key="Emulator5Location">Locatie van emulator 5</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
     
+    <system:String x:Key="PleaseselectanImagePack">Selecteer een afbeeldingspakket</system:String>
+    <system:String x:Key="SelecttheExtractionFolder">Selecteer de extractiemap</system:String>
+    <system:String x:Key="Ifyoudonotchooseafolder">Als u geen map kiest, worden de afbeeldingen in de standaardmap geëxtraheerd</system:String>
+    
 </ResourceDictionary>
