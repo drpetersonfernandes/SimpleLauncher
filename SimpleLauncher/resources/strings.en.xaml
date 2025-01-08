@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">If you do not choose a folder, the images will be extracted to the default folder</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in 'Simple Launcher'.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Launch Selected Game</system:String>
+    <system:String x:Key="PreviewImage">Preview Image</system:String>
+    <system:String x:Key="ListofFavorites">List of Favorites</system:String>
+    <system:String x:Key="RemovefromFavorites">Remove from Favorites</system:String>
+    <system:String x:Key="Processingpleasewait">Processing, please wait...</system:String>
+    <system:String x:Key="SaveReport">Save Report</system:String>
+    <system:String x:Key="Usetheformbelow">Use the form below to report any bug</system:String>
+    <system:String x:Key="Nameoptional">Name (optional)</system:String>
+    <system:String x:Key="Emailoptional">Email (optional)</system:String>
+    <system:String x:Key="SendBugReport">Send Bug Report</system:String>
+    <system:String x:Key="Close">Close</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">An open source emulator frontend</system:String>
+    <system:String x:Key="CheckForUpdate">Check For Update</system:String>
+    <system:String x:Key="UpdateHistory">Update History</system:String>
+    
 </ResourceDictionary>

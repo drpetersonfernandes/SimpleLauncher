@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">フォルダーを選択しない場合、画像はデフォルトのフォルダーに抽出されます</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、『Simple Launcher』で設定された各システム内のファイル名とマシンの説明を検索します。</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
+    <system:String x:Key="LaunchSelectedGame">選択したゲームを起動する</system:String>
+    <system:String x:Key="PreviewImage">プレビュー画像</system:String>
+    <system:String x:Key="ListofFavorites">お気に入りリスト</system:String>
+    <system:String x:Key="RemovefromFavorites">お気に入りから削除</system:String>
+    <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
+    <system:String x:Key="SaveReport">レポートを保存する</system:String>
+    <system:String x:Key="Usetheformbelow">下記のフォームを使用してバグを報告してください</system:String>
+    <system:String x:Key="Nameoptional">名前 (任意)</system:String>
+    <system:String x:Key="Emailoptional">メールアドレス (任意)</system:String>
+    <system:String x:Key="SendBugReport">バグレポートを送信する</system:String>
+    <system:String x:Key="Close">閉じる</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">オープンソースのエミュレーター用フロントエンド</system:String>
+    <system:String x:Key="CheckForUpdate">アップデートを確認</system:String>
+    <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
+    
 </ResourceDictionary>

@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">폴더를 선택하지 않으면 이미지는 기본 폴더에 추출됩니다</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 'Simple Launcher'에 구성된 각 시스템에서 파일 이름과 기계 설명을 검색합니다.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
+    <system:String x:Key="LaunchSelectedGame">선택한 게임 실행</system:String>
+    <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
+    <system:String x:Key="ListofFavorites">즐겨찾기 목록</system:String>
+    <system:String x:Key="RemovefromFavorites">즐겨찾기에서 제거</system:String>
+    <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
+    <system:String x:Key="SaveReport">보고서 저장</system:String>
+    <system:String x:Key="Usetheformbelow">아래 양식을 사용하여 버그를 신고하세요</system:String>
+    <system:String x:Key="Nameoptional">이름 (선택 사항)</system:String>
+    <system:String x:Key="Emailoptional">이메일 (선택 사항)</system:String>
+    <system:String x:Key="SendBugReport">버그 보고서 보내기</system:String>
+    <system:String x:Key="Close">닫기</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
+    <system:String x:Key="CheckForUpdate">업데이트 확인</system:String>
+    <system:String x:Key="UpdateHistory">업데이트 기록</system:String>
+    
 </ResourceDictionary>

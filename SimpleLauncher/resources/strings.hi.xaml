@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">निकासी फ़ोल्डर चुनें</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">यदि आप कोई फ़ोल्डर नहीं चुनते हैं, तो छवियों को डिफ़ॉल्ट फ़ोल्डर में निकाला जाएगा</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">यह सर्च इंजन फ़ाइल के नाम और मशीन विवरण की खोज 'Simple Launcher' में कॉन्फ़िगर किए गए प्रत्येक सिस्टम में करता है।</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
+    <system:String x:Key="LaunchSelectedGame">चुने हुए खेल को शुरू करें</system:String>
+    <system:String x:Key="PreviewImage">पूर्वावलोकन छवि</system:String>
+    <system:String x:Key="ListofFavorites">पसंदीदा की सूची</system:String>
+    <system:String x:Key="RemovefromFavorites">पसंदीदा से हटाएं</system:String>
+    <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
+    <system:String x:Key="SaveReport">रिपोर्ट सहेजें</system:String>
+    <system:String x:Key="Usetheformbelow">कोई भी बग रिपोर्ट करने के लिए नीचे दिए गए फ़ॉर्म का उपयोग करें</system:String>
+    <system:String x:Key="Nameoptional">नाम (वैकल्पिक)</system:String>
+    <system:String x:Key="Emailoptional">ईमेल (वैकल्पिक)</system:String>
+    <system:String x:Key="SendBugReport">बग रिपोर्ट भेजें</system:String>
+    <system:String x:Key="Close">बंद करें</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">एक ओपन सोर्स एम्युलेटर फ्रंटेंड</system:String>
+    <system:String x:Key="CheckForUpdate">अपडेट की जांच करें</system:String>
+    <system:String x:Key="UpdateHistory">अपडेट इतिहास</system:String>
+    
 </ResourceDictionary>

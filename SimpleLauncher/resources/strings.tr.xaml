@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Bir klasör seçmezseniz, görüntüler varsayılan klasöre çıkarılacaktır</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, 'Simple Launcher' ile yapılandırılmış her sistemde dosya adlarını ve makine açıklamalarını arar.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Seçilen Oyunu Başlat</system:String>
+    <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
+    <system:String x:Key="ListofFavorites">Favori Listesi</system:String>
+    <system:String x:Key="RemovefromFavorites">Favorilerden Çıkar</system:String>
+    <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
+    <system:String x:Key="SaveReport">Raporu Kaydet</system:String>
+    <system:String x:Key="Usetheformbelow">Bir hata bildirmek için aşağıdaki formu kullanın</system:String>
+    <system:String x:Key="Nameoptional">Ad (isteğe bağlı)</system:String>
+    <system:String x:Key="Emailoptional">E-posta (isteğe bağlı)</system:String>
+    <system:String x:Key="SendBugReport">Hata Raporunu Gönder</system:String>
+    <system:String x:Key="Close">Kapat</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">Açık kaynaklı bir emülatör ön yüzü</system:String>
+    <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
+    <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
+    
 </ResourceDictionary>

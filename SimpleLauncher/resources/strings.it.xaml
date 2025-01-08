@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Seleziona la cartella di estrazione</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Se non scegli una cartella, le immagini verranno estratte nella cartella predefinita</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">Questo motore di ricerca cerca i nomi dei file e le descrizioni delle macchine in ogni sistema configurato in 'Simple Launcher'.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Avvia il gioco selezionato</system:String>
+    <system:String x:Key="PreviewImage">Anteprima immagine</system:String>
+    <system:String x:Key="ListofFavorites">Elenco dei preferiti</system:String>
+    <system:String x:Key="RemovefromFavorites">Rimuovi dai preferiti</system:String>
+    <system:String x:Key="Processingpleasewait">Elaborazione in corso, attendere...</system:String>
+    <system:String x:Key="SaveReport">Salva rapporto</system:String>
+    <system:String x:Key="Usetheformbelow">Usa il modulo sottostante per segnalare un bug</system:String>
+    <system:String x:Key="Nameoptional">Nome (opzionale)</system:String>
+    <system:String x:Key="Emailoptional">Email (opzionale)</system:String>
+    <system:String x:Key="SendBugReport">Invia rapporto bug</system:String>
+    <system:String x:Key="Close">Chiudi</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">Un'interfaccia frontend open source per emulatori</system:String>
+    <system:String x:Key="CheckForUpdate">Controlla aggiornamenti</system:String>
+    <system:String x:Key="UpdateHistory">Cronologia aggiornamenti</system:String>
+    
 </ResourceDictionary>

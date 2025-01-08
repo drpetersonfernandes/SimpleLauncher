@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">选择解压文件夹</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">如果您未选择文件夹，图像将解压到默认文件夹</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会在“Simple Launcher”配置的每个系统中搜索文件名和机器描述。</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
+    <system:String x:Key="LaunchSelectedGame">启动选定的游戏</system:String>
+    <system:String x:Key="PreviewImage">预览图片</system:String>
+    <system:String x:Key="ListofFavorites">收藏列表</system:String>
+    <system:String x:Key="RemovefromFavorites">从收藏中移除</system:String>
+    <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
+    <system:String x:Key="SaveReport">保存报告</system:String>
+    <system:String x:Key="Usetheformbelow">使用以下表单报告一个错误</system:String>
+    <system:String x:Key="Nameoptional">姓名（可选）</system:String>
+    <system:String x:Key="Emailoptional">邮箱（可选）</system:String>
+    <system:String x:Key="SendBugReport">发送错误报告</system:String>
+    <system:String x:Key="Close">关闭</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">一个开源的仿真器前端</system:String>
+    <system:String x:Key="CheckForUpdate">检查更新</system:String>
+    <system:String x:Key="UpdateHistory">更新历史</system:String>
+    
 </ResourceDictionary>

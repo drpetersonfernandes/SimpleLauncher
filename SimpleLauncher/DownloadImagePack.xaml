@@ -61,7 +61,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" x:Name="ExtractionFolderTextBox" HorizontalAlignment="Stretch"
                          VerticalContentAlignment="Center" />
-                <Button Grid.Column="1" Padding="5" Width="150" Content="{DynamicResource ChooseFolder}"
+                <Button Grid.Column="1" Padding="5" Content="{DynamicResource ChooseFolder}"
                         Click="ChooseExtractionFolderButton_Click" Margin="10,0,0,0" />
             </Grid>
 
@@ -70,7 +70,6 @@
                     Content="{DynamicResource DownloadImagePack}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Width="150"
                     Padding="5"
                     Click="DownloadExtrasButton_Click"
                     IsEnabled="False"
@@ -96,7 +95,6 @@
                     VerticalAlignment="Center"
                     Padding="5"
                     Margin="10,10,10,20"
-                    Width="150"
                     Click="StopDownloadButton_Click"
                     IsEnabled="False" />
 

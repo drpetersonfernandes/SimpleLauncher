@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Nếu bạn không chọn thư mục, hình ảnh sẽ được trích xuất vào thư mục mặc định</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trên mỗi hệ thống được cấu hình trong 'Simple Launcher'.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Khởi chạy trò chơi đã chọn</system:String>
+    <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
+    <system:String x:Key="ListofFavorites">Danh sách yêu thích</system:String>
+    <system:String x:Key="RemovefromFavorites">Xóa khỏi mục yêu thích</system:String>
+    <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
+    <system:String x:Key="SaveReport">Lưu báo cáo</system:String>
+    <system:String x:Key="Usetheformbelow">Sử dụng biểu mẫu bên dưới để báo cáo lỗi</system:String>
+    <system:String x:Key="Nameoptional">Tên (không bắt buộc)</system:String>
+    <system:String x:Key="Emailoptional">Email (không bắt buộc)</system:String>
+    <system:String x:Key="SendBugReport">Gửi báo cáo lỗi</system:String>
+    <system:String x:Key="Close">Đóng</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">Một giao diện trình giả lập mã nguồn mở</system:String>
+    <system:String x:Key="CheckForUpdate">Kiểm tra cập nhật</system:String>
+    <system:String x:Key="UpdateHistory">Lịch sử cập nhật</system:String>
+    
 </ResourceDictionary>

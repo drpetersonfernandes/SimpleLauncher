@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Выберите папку для извлечения</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Если вы не выберете папку, изображения будут извлечены в папку по умолчанию</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">Эта поисковая система ищет имена файлов и описания машин в каждой системе, настроенной в "Simple Launcher".</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Запустить выбранную игру</system:String>
+    <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
+    <system:String x:Key="ListofFavorites">Список избранного</system:String>
+    <system:String x:Key="RemovefromFavorites">Удалить из избранного</system:String>
+    <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
+    <system:String x:Key="SaveReport">Сохранить отчет</system:String>
+    <system:String x:Key="Usetheformbelow">Используйте форму ниже, чтобы сообщить об ошибке</system:String>
+    <system:String x:Key="Nameoptional">Имя (необязательно)</system:String>
+    <system:String x:Key="Emailoptional">Электронная почта (необязательно)</system:String>
+    <system:String x:Key="SendBugReport">Отправить отчет об ошибке</system:String>
+    <system:String x:Key="Close">Закрыть</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">Открытая фронтенд-платформа для эмуляторов</system:String>
+    <system:String x:Key="CheckForUpdate">Проверить обновления</system:String>
+    <system:String x:Key="UpdateHistory">История обновлений</system:String>
+    
 </ResourceDictionary>

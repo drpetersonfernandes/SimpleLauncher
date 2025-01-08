@@ -168,5 +168,22 @@
     <system:String x:Key="PleaseselectanImagePack">يرجى اختيار حزمة الصور</system:String>
     <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">إذا لم تختر مجلدًا، فسيتم استخراج الصور إلى المجلد الافتراضي</system:String>
+
+    <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الأجهزة ضمن كل نظام في 'Simple Launcher'.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
+    <system:String x:Key="LaunchSelectedGame">تشغيل اللعبة المحددة</system:String>
+    <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
+    <system:String x:Key="ListofFavorites">قائمة المفضلة</system:String>
+    <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
+    <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
+    <system:String x:Key="SaveReport">حفظ التقرير</system:String>
+    <system:String x:Key="Usetheformbelow">استخدم النموذج أدناه للإبلاغ عن أي خطأ</system:String>
+    <system:String x:Key="Nameoptional">الاسم (اختياري)</system:String>
+    <system:String x:Key="Emailoptional">البريد الإلكتروني (اختياري)</system:String>
+    <system:String x:Key="SendBugReport">إرسال تقرير الخطأ</system:String>
+    <system:String x:Key="Close">إغلاق</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
+    <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
+    <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
     
 </ResourceDictionary>

@@ -169,4 +169,21 @@
     <system:String x:Key="SelecttheExtractionFolder">Selecteer de extractiemap</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Als u geen map kiest, worden de afbeeldingen in de standaardmap geëxtraheerd</system:String>
     
+    <system:String x:Key="Thissearchenginesearchesfor">Deze zoekmachine zoekt naar bestandsnamen en machinedescripties in elk systeem dat is geconfigureerd in 'Simple Launcher'.</system:String>
+    <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
+    <system:String x:Key="LaunchSelectedGame">Geselecteerd spel starten</system:String>
+    <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
+    <system:String x:Key="ListofFavorites">Favorietenlijst</system:String>
+    <system:String x:Key="RemovefromFavorites">Verwijderen uit favorieten</system:String>
+    <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
+    <system:String x:Key="SaveReport">Rapport opslaan</system:String>
+    <system:String x:Key="Usetheformbelow">Gebruik het onderstaande formulier om een bug te melden</system:String>
+    <system:String x:Key="Nameoptional">Naam (optioneel)</system:String>
+    <system:String x:Key="Emailoptional">E-mail (optioneel)</system:String>
+    <system:String x:Key="SendBugReport">Bugrapport verzenden</system:String>
+    <system:String x:Key="Close">Sluiten</system:String>
+    <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
+    <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
+    <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
+    
 </ResourceDictionary>
