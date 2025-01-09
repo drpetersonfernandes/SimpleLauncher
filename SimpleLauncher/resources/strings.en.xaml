@@ -192,4 +192,17 @@
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
     
+    <system:String x:Key="AntivirusWarning">Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.
+        If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.</system:String>
+    <system:String x:Key="InfoTitle">Info</system:String>
+    <system:String x:Key="Nosystemselected">No system selected</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
+    <system:String x:Key="SaveReport">Save Report</system:String>
+    <system:String x:Key="TotalSystems">Total Number of Systems:</system:String>
+    <system:String x:Key="TotalEmulators">Total Number of Emulators:</system:String>
+    <system:String x:Key="TotalGames">Total Number of Games:</system:String>
+    <system:String x:Key="TotalImages">Total Number of Matched Images:</system:String>
+    <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
+    <system:String x:Key="TotalDiskSize">Disk Size of all Games:</system:String>
+    
 </ResourceDictionary>

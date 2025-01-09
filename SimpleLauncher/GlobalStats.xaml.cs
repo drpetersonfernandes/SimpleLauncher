@@ -37,18 +37,19 @@ public partial class GlobalStats
 
                 // Update the global stats asynchronously
                 _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
-
-                GlobalInfoTextBlock.Text = $"Total Number of Systems: {_globalStats.TotalSystems}\n" +
-                                           $"Total Number of Emulators: {_globalStats.TotalEmulators}\n" +
-                                           $"Total Number of Games: {_globalStats.TotalGames:N0}\n" +
-                                           $"Total Number of Matched Images: {_globalStats.TotalImages:N0}\n" +
-                                           $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                                           $"Disk Size of all Games: {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
+                
+                GlobalInfoTextBlock.Text = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
+                                           $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
+                                           $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
+                                           $"{TryFindResource("TotalImages") as string ?? "Total Number of Matched Images:"} {_globalStats.TotalImages:N0}\n" +
+                                           $"{TryFindResource("ApplicationFolder") as string ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
+                                           $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
                 ProgressBar.Visibility = Visibility.Collapsed;
         
                 // Ask the user if they want to save a report
-                var result = MessageBox.Show("Would you like to save a report with the results?", "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show(TryFindResource("Wouldyouliketosaveareport") as string ?? "Would you like to save a report with the results?",
+                    TryFindResource("SaveReport") as string ?? "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     SaveReport(_globalStats, _systemStats);
@@ -58,10 +59,14 @@ public partial class GlobalStats
             }
             catch (Exception ex)
             {
-                string formattedException = $"An error occurred while calculating Global Statistics.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"An error occurred while calculating Global Statistics.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\n" +
+                                $"The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

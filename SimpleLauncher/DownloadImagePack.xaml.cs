@@ -36,9 +36,9 @@ public partial class DownloadImagePack
         // Subscribe to the Closed event
         Closed += EditSystemEasyModeAddSystem_Closed;
 
-        MessageBox.Show("Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n\n" +
-                        "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.",
-            "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(TryFindResource("AntivirusWarning") as string ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n" +
+            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.",
+            TryFindResource("InfoTitle") as string ?? "Info", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void LoadConfig()
