@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     
+    <system:String x:Key="AntivirusWarning">Bazı antivirüs yazılımları, yakın zamanda indirilen dosyaların çıkarılmasını engelleyebilir veya kilitleyebilir ve bu da kurulum sırasında erişim sorunlarına neden olabilir. 
+        Hata alırsanız, gerçek zamanlı korumayı geçici olarak devre dışı bırakmayı deneyin ve 'Simple Launcher'ı yönetici yetkileriyle çalıştırın.</system:String>
+    <system:String x:Key="InfoTitle">Bilgi</system:String>
+    <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
+    <system:String x:Key="TotalSystems">Toplam sistem sayısı:</system:String>
+    <system:String x:Key="TotalEmulators">Toplam emülatör sayısı:</system:String>
+    <system:String x:Key="TotalGames">Toplam oyun sayısı:</system:String>
+    <system:String x:Key="TotalImages">Eşleşen toplam görsel sayısı:</system:String>
+    <system:String x:Key="ApplicationFolder">Uygulama klasörü:</system:String>
+    <system:String x:Key="TotalDiskSize">Tüm oyunların toplam disk boyutu:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">Lütfen bir sistem seçin</system:String>
+    <system:String x:Key="nogamesmatched">Maalesef, aramanız veya seçtiğiniz buton ile eşleşen bir oyun bulunamadı.</system:String>
+    <system:String x:Key="Displayingfiles0to">0'dan itibaren dosyalar görüntüleniyor:</system:String>
+    <system:String x:Key="outof">toplam</system:String>
+    <system:String x:Key="total">adet</system:String>
+    <system:String x:Key="Displayingfiles">Dosyalar görüntüleniyor</system:String>
+    <system:String x:Key="to">sonuna kadar</system:String>
+    
 </ResourceDictionary>

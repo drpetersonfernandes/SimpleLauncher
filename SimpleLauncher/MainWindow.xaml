@@ -376,6 +376,7 @@
                      Grid.Column="2"
                      x:Name="SearchTextBox"
                      Margin="10,10,10,5"
+                     Width="220"
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Center"
                      KeyDown="SearchTextBox_KeyDown" />
@@ -398,7 +399,6 @@
                 Grid.Column="2"
                 Margin="10,0,10,5"
                 Content="{DynamicResource Search}"
-                Width="180"
                 Click="SearchButton_Click"
                 HorizontalAlignment="Center" />
 

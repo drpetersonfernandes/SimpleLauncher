@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
     
+    <system:String x:Key="AntivirusWarning">某些防毒軟體可能會阻止或鎖定最近下載的檔案解壓縮，這可能會導致安裝過程中無法訪問這些檔案。 
+        如果您遇到錯誤，請嘗試暫時停用即時保護，並以管理員權限運行“Simple Launcher”。</system:String>
+    <system:String x:Key="InfoTitle">資訊</system:String>
+    <system:String x:Key="Nosystemselected">未選擇任何系統</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">您希望保存包含結果的報告嗎？</system:String>
+    <system:String x:Key="TotalSystems">系統總數：</system:String>
+    <system:String x:Key="TotalEmulators">模擬器總數：</system:String>
+    <system:String x:Key="TotalGames">遊戲總數：</system:String>
+    <system:String x:Key="TotalImages">匹配的圖片總數：</system:String>
+    <system:String x:Key="ApplicationFolder">應用程式資料夾：</system:String>
+    <system:String x:Key="TotalDiskSize">所有遊戲的總磁碟大小：</system:String>
+    
+    <system:String x:Key="NoSystemMessage">請選擇一個系統</system:String>
+    <system:String x:Key="nogamesmatched">很抱歉，沒有符合您的搜尋或所選按鈕的遊戲。</system:String>
+    <system:String x:Key="Displayingfiles0to">顯示檔案從 0 到</system:String>
+    <system:String x:Key="outof">共計</system:String>
+    <system:String x:Key="total">總數</system:String>
+    <system:String x:Key="Displayingfiles">正在顯示檔案</system:String>
+    <system:String x:Key="to">至</system:String>
+    
 </ResourceDictionary>

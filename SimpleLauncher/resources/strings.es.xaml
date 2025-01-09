@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">Guardar o actualizar enlaces</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restablecer a valores predeterminados</system:String>
     
+    <system:String x:Key="AntivirusWarning">Algunos programas antivirus pueden bloquear o impedir la extracción de archivos recién descargados, causando problemas de acceso durante la instalación. 
+        Si encuentras errores, intenta desactivar temporalmente la protección en tiempo real y ejecuta 'Simple Launcher' con privilegios de administrador.</system:String>
+    <system:String x:Key="InfoTitle">Información</system:String>
+    <system:String x:Key="Nosystemselected">No se ha seleccionado ningún sistema</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">¿Te gustaría guardar un informe con los resultados?</system:String>
+    <system:String x:Key="TotalSystems">Número total de sistemas:</system:String>
+    <system:String x:Key="TotalEmulators">Número total de emuladores:</system:String>
+    <system:String x:Key="TotalGames">Número total de juegos:</system:String>
+    <system:String x:Key="TotalImages">Número total de imágenes coincidentes:</system:String>
+    <system:String x:Key="ApplicationFolder">Carpeta de la aplicación:</system:String>
+    <system:String x:Key="TotalDiskSize">Tamaño del disco de todos los juegos:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">Por favor, seleccione un sistema</system:String>
+    <system:String x:Key="nogamesmatched">Desafortunadamente, ningún juego coincide con su búsqueda o selección.</system:String>
+    <system:String x:Key="Displayingfiles0to">Mostrando archivos del 0 al</system:String>
+    <system:String x:Key="outof">de</system:String>
+    <system:String x:Key="total">total</system:String>
+    <system:String x:Key="Displayingfiles">Mostrando archivos</system:String>
+    <system:String x:Key="to">a</system:String>
+    
 </ResourceDictionary>

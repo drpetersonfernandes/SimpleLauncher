@@ -204,4 +204,21 @@
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
     <system:String x:Key="TotalDiskSize">Disk Size of all Games:</system:String>
     
+    <system:String x:Key="NoSystemMessage">Please select a System</system:String>
+    <system:String x:Key="nogamesmatched">Unfortunately, no games matched your search query or the selected button.</system:String>
+    <system:String x:Key="Displayingfiles0to">Displaying files 0 to</system:String>
+    <system:String x:Key="outof">out of</system:String>
+    <system:String x:Key="total">total</system:String>
+    <system:String x:Key="Displayingfiles">Displaying files</system:String>
+    <system:String x:Key="to">to</system:String>
+    
+    <system:String x:Key="Pleaseselectasystembeforesearching">Please select a system before searching.</system:String>
+    <system:String x:Key="SystemNotSelected">System Not Selected</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Please enter a search query.</system:String>
+    <system:String x:Key="SearchQueryRequired">Search Query Required</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No favorite games found for the selected system.</system:String>
+    <system:String x:Key="Favorites">Favorites</system:String>
+    <system:String x:Key="Open">Open</system:String>
+    <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
+    
 </ResourceDictionary>

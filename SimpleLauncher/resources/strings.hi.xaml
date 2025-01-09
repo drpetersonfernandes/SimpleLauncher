@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">लिंक सहेजें या अपडेट करें</system:String>
     <system:String x:Key="ReverttoDefaultValues">डिफ़ॉल्ट मानों पर पुनर्स्थापित करें</system:String>
     
+    <system:String x:Key="AntivirusWarning">कुछ एंटीवायरस प्रोग्राम हाल ही में डाउनलोड की गई फ़ाइलों को निकालने से रोक सकते हैं या लॉक कर सकते हैं, जिससे स्थापना के दौरान पहुंच समस्याएं हो सकती हैं। 
+        यदि आपको त्रुटियाँ मिलती हैं, तो रीयल-टाइम सुरक्षा को अस्थायी रूप से बंद करने का प्रयास करें और 'Simple Launcher' को व्यवस्थापक अनुमति के साथ चलाएँ।</system:String>
+    <system:String x:Key="InfoTitle">जानकारी</system:String>
+    <system:String x:Key="Nosystemselected">कोई सिस्टम चयनित नहीं है</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">क्या आप परिणामों के साथ एक रिपोर्ट सहेजना चाहेंगे?</system:String>
+    <system:String x:Key="TotalSystems">संपूर्ण सिस्टम की संख्या:</system:String>
+    <system:String x:Key="TotalEmulators">संपूर्ण इम्यूलेटर की संख्या:</system:String>
+    <system:String x:Key="TotalGames">संपूर्ण खेलों की संख्या:</system:String>
+    <system:String x:Key="TotalImages">मेल खाने वाली छवियों की कुल संख्या:</system:String>
+    <system:String x:Key="ApplicationFolder">एप्लिकेशन फ़ोल्डर:</system:String>
+    <system:String x:Key="TotalDiskSize">सभी खेलों के लिए डिस्क का आकार:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">कृपया एक सिस्टम चुनें</system:String>
+    <system:String x:Key="nogamesmatched">दुर्भाग्यवश, आपका खोज क्वेरी या चयनित बटन किसी भी गेम से मेल नहीं खाता।</system:String>
+    <system:String x:Key="Displayingfiles0to">फ़ाइलें 0 से</system:String>
+    <system:String x:Key="outof">में से</system:String>
+    <system:String x:Key="total">कुल</system:String>
+    <system:String x:Key="Displayingfiles">फ़ाइलें दिखा रहा है</system:String>
+    <system:String x:Key="to">तक</system:String>
+    
 </ResourceDictionary>

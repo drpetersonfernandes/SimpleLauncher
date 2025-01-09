@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     
+    <system:String x:Key="AntivirusWarning">Sommige antivirusprogramma's kunnen het uitpakken van recent gedownloade bestanden blokkeren of vergrendelen, wat toegang tot die bestanden tijdens de installatie kan verhinderen. 
+        Als je fouten tegenkomt, probeer dan de realtimebeveiliging tijdelijk uit te schakelen en 'Simple Launcher' uit te voeren met beheerdersrechten.</system:String>
+    <system:String x:Key="InfoTitle">Informatie</system:String>
+    <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
+    <system:String x:Key="TotalSystems">Totaal aantal systemen:</system:String>
+    <system:String x:Key="TotalEmulators">Totaal aantal emulators:</system:String>
+    <system:String x:Key="TotalGames">Totaal aantal games:</system:String>
+    <system:String x:Key="TotalImages">Totaal aantal overeenkomende afbeeldingen:</system:String>
+    <system:String x:Key="ApplicationFolder">Applicatiemap:</system:String>
+    <system:String x:Key="TotalDiskSize">Schijfgrootte van alle games:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">Selecteer een systeem</system:String>
+    <system:String x:Key="nogamesmatched">Helaas, er zijn geen spellen die overeenkomen met uw zoekopdracht of geselecteerde knop.</system:String>
+    <system:String x:Key="Displayingfiles0to">Bestanden weergeven van 0 tot</system:String>
+    <system:String x:Key="outof">van</system:String>
+    <system:String x:Key="total">totaal</system:String>
+    <system:String x:Key="Displayingfiles">Bestanden weergeven</system:String>
+    <system:String x:Key="to">tot</system:String>
+    
 </ResourceDictionary>

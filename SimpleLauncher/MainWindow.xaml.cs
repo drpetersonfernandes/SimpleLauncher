@@ -190,7 +190,10 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 AddNoFilesMessage();
-                MessageBox.Show("No favorite games found for the selected system.", "Favorites", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
+                string favorites = (string)Application.Current.TryFindResource("Favorites") ?? "Favorites";
+                MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, favorites, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         };
             
@@ -235,54 +238,6 @@ public partial class MainWindow : INotifyPropertyChanged
         Closing += MainWindow_Closing;
         AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
     }
-    
-    // private void ApplyLanguage(string cultureCode = null)
-    // {
-    //     try
-    //     {
-    //         // Determine the culture code (default to CurrentUICulture if not provided)
-    //         var culture = string.IsNullOrEmpty(cultureCode)
-    //             ? CultureInfo.CurrentUICulture
-    //             : new CultureInfo(cultureCode);
-    //
-    //         Thread.CurrentThread.CurrentCulture = culture;
-    //         Thread.CurrentThread.CurrentUICulture = culture;
-    //
-    //         // Load the resource dictionary
-    //         var dictionary = new ResourceDictionary
-    //         {
-    //             Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
-    //         };
-    //
-    //         // Replace the current localization dictionary
-    //         var existingDictionary = Resources.MergedDictionaries
-    //             .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
-    //
-    //         if (existingDictionary != null)
-    //         {
-    //             Resources.MergedDictionaries.Remove(existingDictionary);
-    //         }
-    //
-    //         Resources.MergedDictionaries.Add(dictionary);
-    //
-    //         // Apply the culture to the application
-    //         LanguageProperty.OverrideMetadata(
-    //             typeof(FrameworkElement),
-    //             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         MessageBox.Show($"Failed to load language resources: {ex.Message}", "Language Error", MessageBoxButton.OK, MessageBoxImage.Error);
-    //
-    //         // Fallback to English
-    //         var fallbackDictionary = new ResourceDictionary
-    //         {
-    //             Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
-    //         };
-    //
-    //         Resources.MergedDictionaries.Add(fallbackDictionary);
-    //     }
-    // }
     
     private void SetLanguageMenuChecked(string languageCode)
     {
@@ -332,12 +287,14 @@ public partial class MainWindow : INotifyPropertyChanged
             _settings.BaseTheme = detectedTheme.BaseColorScheme;
             _settings.AccentColor = detectedTheme.ColorScheme;
         }
-
         _settings.Save();
     }
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        // Retrieve the dynamic resource string
+        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        
         // Windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
@@ -346,7 +303,7 @@ public partial class MainWindow : INotifyPropertyChanged
         WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
             
         // SelectedSystem and PlayTime
-        SelectedSystem = "No system selected";
+        SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
 
         // Theme settings
@@ -522,6 +479,9 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void AddNoSystemMessage()
     {
+        // Retrieve the dynamic resource string
+        string noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
+
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -529,7 +489,7 @@ public partial class MainWindow : INotifyPropertyChanged
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = "\nPlease select a System",
+                Text = $"\n{noSystemMessage}",
                 Padding = new Thickness(10)
             });
         }
@@ -539,7 +499,7 @@ public partial class MainWindow : INotifyPropertyChanged
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
-                FileName = "Please select a System",
+                FileName = noSystemMessage,
                 MachineDescription = string.Empty
             });
         }
@@ -550,6 +510,9 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void AddNoFilesMessage()
     {
+        // Retrieve the dynamic resource string
+        string noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
+
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -557,7 +520,7 @@ public partial class MainWindow : INotifyPropertyChanged
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = "\nUnfortunately, no games matched your search query or the selected button.",
+                Text = $"\n{noGamesMatched}",
                 Padding = new Thickness(10)
             });
         }
@@ -567,7 +530,7 @@ public partial class MainWindow : INotifyPropertyChanged
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
-                FileName = "Unfortunately, no games matched your search query or the selected button.",
+                FileName = noGamesMatched,
                 MachineDescription = string.Empty
             });
         }
@@ -711,15 +674,23 @@ public partial class MainWindow : INotifyPropertyChanged
 
         var searchQuery = SearchTextBox.Text.Trim();
 
+        // Retrieve the dynamic resource string
+        string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
+        string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
+        
         if (SystemComboBox.SelectedItem == null)
         {
-            MessageBox.Show("Please select a system before searching.", "System Not Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
+        
+        // Retrieve the dynamic resource string
+        string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
+        string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
 
         if (string.IsNullOrEmpty(searchQuery))
         {
-            MessageBox.Show("Please enter a search query.", "Search Query Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -917,8 +888,15 @@ public partial class MainWindow : INotifyPropertyChanged
             }
 
             // Update the UI to reflect the current pagination status and the indices of files being displayed
+            // Retrieve the dynamic resource string
+            string displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
+            string outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
+            string total = (string)Application.Current.TryFindResource("total") ?? "total";
+            string displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
+            string to = (string)Application.Current.TryFindResource("to") ?? "to";
+            
             TotalFilesLabel.Dispatcher.Invoke(() => 
-                TotalFilesLabel.Content = allFiles.Count == 0 ? $"Displaying files 0 to {endIndex} out of {_totalFiles} total" : $"Displaying files {startIndex} to {endIndex} out of {_totalFiles} total"
+                TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
             );
 
             // Reload the FavoritesConfig
@@ -1151,14 +1129,8 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Update the settings
                 _settings.EnableGamePadNavigation = menuItem.IsChecked;
 
-                // Debug message
-                Debug.WriteLine($"Gamepad navigation toggled: {menuItem.IsChecked}");
-
                 // Save the updated settings
                 _settings.Save();
-
-                // Confirm save
-                Debug.WriteLine($"Settings saved. EnableGamePadNavigation: {_settings.EnableGamePadNavigation}");
 
                 // Start or stop the GamePadController
                 if (menuItem.IsChecked)
@@ -1513,7 +1485,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -1625,7 +1598,9 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
-                SelectedSystem = "No system selected";
+                // Retrieve the dynamic resource string
+                string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
                 AddNoSystemMessage();
                 
@@ -1649,7 +1624,9 @@ public partial class MainWindow : INotifyPropertyChanged
                 _selectedSystem = null;
                 PreviewImage.Source = null;
                 SystemComboBox.SelectedItem = null;
-                SelectedSystem = "No system selected";
+                // Retrieve the dynamic resource string
+                string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
                 AddNoSystemMessage();
                 await LoadGameFilesAsync();
@@ -1878,8 +1855,11 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         // Create a context menu for the tray icon
         _trayMenu = new ContextMenuStrip();
-        _trayMenu.Items.Add("Open", null, OnOpen);
-        _trayMenu.Items.Add("Exit", null, OnExit);
+        // Retrieve the dynamic resource string
+        string open = (string)Application.Current.TryFindResource("Open") ?? "Open";
+        string exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
+        _trayMenu.Items.Add(open, null, OnOpen);
+        _trayMenu.Items.Add(exit, null, OnExit);
 
         // Load the embedded icon from resources
         var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico"))?.Stream;
@@ -1921,7 +1901,9 @@ public partial class MainWindow : INotifyPropertyChanged
         if (WindowState == WindowState.Minimized)
         {
             Hide();
-            ShowTrayMessage("Simple Launcher is minimized to the tray.");
+            // Retrieve the dynamic resource string
+            string isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
+            ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
         }
         base.OnStateChanged(e);
     }

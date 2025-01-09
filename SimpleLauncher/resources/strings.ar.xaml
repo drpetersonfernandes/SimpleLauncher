@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     
+    <system:String x:Key="AntivirusWarning">قد تمنع بعض برامج الحماية من الفيروسات أو تقفل استخراج الملفات التي تم تنزيلها حديثاً، مما يسبب مشاكل في الوصول أثناء التثبيت.
+        إذا واجهت أخطاء، حاول تعطيل الحماية في الوقت الفعلي مؤقتاً وقم بتشغيل 'Simple Launcher' بصلاحيات المسؤول.</system:String>
+    <system:String x:Key="InfoTitle">معلومات</system:String>
+    <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
+    <system:String x:Key="TotalSystems">إجمالي عدد الأنظمة:</system:String>
+    <system:String x:Key="TotalEmulators">إجمالي عدد المحاكيات:</system:String>
+    <system:String x:Key="TotalGames">إجمالي عدد الألعاب:</system:String>
+    <system:String x:Key="TotalImages">إجمالي عدد الصور المتطابقة:</system:String>
+    <system:String x:Key="ApplicationFolder">مجلد التطبيق:</system:String>
+    <system:String x:Key="TotalDiskSize">حجم القرص لجميع الألعاب:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">يرجى اختيار نظام</system:String>
+    <system:String x:Key="nogamesmatched">للأسف، لم تطابق أي ألعاب استعلام البحث الخاص بك أو الزر المحدد.</system:String>
+    <system:String x:Key="Displayingfiles0to">عرض الملفات من 0 إلى</system:String>
+    <system:String x:Key="outof">من أصل</system:String>
+    <system:String x:Key="total">إجمالي</system:String>
+    <system:String x:Key="Displayingfiles">عرض الملفات</system:String>
+    <system:String x:Key="to">إلى</system:String>
+    
 </ResourceDictionary>

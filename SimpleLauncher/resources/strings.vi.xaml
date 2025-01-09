@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
     
+    <system:String x:Key="AntivirusWarning">Một số phần mềm diệt virus có thể chặn hoặc khóa việc giải nén các tệp vừa được tải xuống, gây ra vấn đề truy cập trong quá trình cài đặt. 
+        Nếu gặp lỗi, hãy thử tạm thời tắt bảo vệ thời gian thực và chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
+    <system:String x:Key="InfoTitle">Thông tin</system:String>
+    <system:String x:Key="Nosystemselected">Không có hệ thống nào được chọn</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
+    <system:String x:Key="TotalSystems">Tổng số hệ thống:</system:String>
+    <system:String x:Key="TotalEmulators">Tổng số trình giả lập:</system:String>
+    <system:String x:Key="TotalGames">Tổng số trò chơi:</system:String>
+    <system:String x:Key="TotalImages">Tổng số hình ảnh khớp:</system:String>
+    <system:String x:Key="ApplicationFolder">Thư mục ứng dụng:</system:String>
+    <system:String x:Key="TotalDiskSize">Tổng dung lượng đĩa cho tất cả trò chơi:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">Vui lòng chọn một hệ thống</system:String>
+    <system:String x:Key="nogamesmatched">Rất tiếc, không có trò chơi nào phù hợp với tìm kiếm của bạn hoặc nút đã chọn.</system:String>
+    <system:String x:Key="Displayingfiles0to">Hiển thị các tệp từ 0 đến</system:String>
+    <system:String x:Key="outof">trên tổng số</system:String>
+    <system:String x:Key="total">tổng cộng</system:String>
+    <system:String x:Key="Displayingfiles">Hiển thị các tệp</system:String>
+    <system:String x:Key="to">đến</system:String>
+    
 </ResourceDictionary>

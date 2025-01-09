@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     
+    <system:String x:Key="AntivirusWarning">Некоторые антивирусные программы могут блокировать или препятствовать извлечению недавно загруженных файлов, что вызывает проблемы с доступом при установке. 
+        Если вы столкнулись с ошибками, попробуйте временно отключить защиту в реальном времени и запустите 'Simple Launcher' с правами администратора.</system:String>
+    <system:String x:Key="InfoTitle">Информация</system:String>
+    <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
+    <system:String x:Key="TotalSystems">Общее количество систем:</system:String>
+    <system:String x:Key="TotalEmulators">Общее количество эмуляторов:</system:String>
+    <system:String x:Key="TotalGames">Общее количество игр:</system:String>
+    <system:String x:Key="TotalImages">Общее количество совпадающих изображений:</system:String>
+    <system:String x:Key="ApplicationFolder">Папка приложения:</system:String>
+    <system:String x:Key="TotalDiskSize">Объем дискового пространства для всех игр:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">Выберите систему</system:String>
+    <system:String x:Key="nogamesmatched">К сожалению, ни одна игра не соответствует вашему запросу или выбранной кнопке.</system:String>
+    <system:String x:Key="Displayingfiles0to">Отображение файлов с 0 до</system:String>
+    <system:String x:Key="outof">из</system:String>
+    <system:String x:Key="total">всего</system:String>
+    <system:String x:Key="Displayingfiles">Отображение файлов</system:String>
+    <system:String x:Key="to">до</system:String>
+    
 </ResourceDictionary>

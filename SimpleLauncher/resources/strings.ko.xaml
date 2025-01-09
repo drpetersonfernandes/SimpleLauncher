@@ -192,4 +192,24 @@
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
     
+    <system:String x:Key="AntivirusWarning">일부 안티바이러스 프로그램은 최근에 다운로드된 파일의 압축 해제를 차단하거나 잠글 수 있어 설치 중에 액세스 문제가 발생할 수 있습니다. 
+        오류가 발생하면 실시간 보호를 일시적으로 비활성화하고 'Simple Launcher'를 관리자 권한으로 실행해 보세요.</system:String>
+    <system:String x:Key="InfoTitle">정보</system:String>
+    <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
+    <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
+    <system:String x:Key="TotalSystems">전체 시스템 수:</system:String>
+    <system:String x:Key="TotalEmulators">전체 에뮬레이터 수:</system:String>
+    <system:String x:Key="TotalGames">전체 게임 수:</system:String>
+    <system:String x:Key="TotalImages">일치하는 이미지 총 수:</system:String>
+    <system:String x:Key="ApplicationFolder">애플리케이션 폴더:</system:String>
+    <system:String x:Key="TotalDiskSize">모든 게임의 디스크 크기:</system:String>
+    
+    <system:String x:Key="NoSystemMessage">시스템을 선택해 주세요</system:String>
+    <system:String x:Key="nogamesmatched">안타깝게도 검색 또는 선택한 버튼과 일치하는 게임이 없습니다.</system:String>
+    <system:String x:Key="Displayingfiles0to">0에서</system:String>
+    <system:String x:Key="outof">중</system:String>
+    <system:String x:Key="total">총</system:String>
+    <system:String x:Key="Displayingfiles">파일 표시</system:String>
+    <system:String x:Key="to">부터</system:String>
+    
 </ResourceDictionary>
