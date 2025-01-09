@@ -32,28 +32,35 @@ namespace SimpleLauncher
                 Thread.CurrentThread.CurrentCulture = culture;
                 Thread.CurrentThread.CurrentUICulture = culture;
 
-                // Load the resource dictionary
-                var dictionary = new ResourceDictionary
-                {
-                    Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
-                };
+                // Load the embedded resource dictionary
+                string resourceName = $"SimpleLauncher.resources.strings.{culture.Name}.xaml";
 
-                // Replace the current localization dictionary
-                var existingDictionary = Resources.MergedDictionaries
-                    .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
-
-                if (existingDictionary != null)
+                var assembly = typeof(App).Assembly;
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
                 {
-                    Resources.MergedDictionaries.Remove(existingDictionary);
+                    if (stream == null)
+                    {
+                        throw new Exception($"Resource {resourceName} not found.");
+                    }
+
+                    var dictionary = (ResourceDictionary)XamlReader.Load(stream);
+
+                    // Replace the current localization dictionary
+                    var existingDictionary = Resources.MergedDictionaries
+                        .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
+
+                    if (existingDictionary != null)
+                    {
+                        Resources.MergedDictionaries.Remove(existingDictionary);
+                    }
+
+                    Resources.MergedDictionaries.Add(dictionary);
                 }
-
-                Resources.MergedDictionaries.Add(dictionary);
 
                 // Apply the culture to the application
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-
             }
             catch (Exception ex)
             {
@@ -61,12 +68,31 @@ namespace SimpleLauncher
                     "Language Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Fallback to English
-                var fallbackDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
-                };
+                ApplyFallbackLanguage();
+            }
+        }
 
-                Resources.MergedDictionaries.Add(fallbackDictionary);
+        private void ApplyFallbackLanguage()
+        {
+            try
+            {
+                string resourceName = "SimpleLauncher.resources.strings.en.xaml";
+                var assembly = typeof(App).Assembly;
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (stream == null)
+                    {
+                        throw new Exception($"Fallback resource {resourceName} not found.");
+                    }
+
+                    var fallbackDictionary = (ResourceDictionary)XamlReader.Load(stream);
+                    Resources.MergedDictionaries.Add(fallbackDictionary);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load fallback language resources: {ex.Message}",
+                    "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
