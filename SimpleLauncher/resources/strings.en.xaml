@@ -197,7 +197,6 @@
     <system:String x:Key="InfoTitle">Info</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
-    <system:String x:Key="SaveReport">Save Report</system:String>
     <system:String x:Key="TotalSystems">Total Number of Systems:</system:String>
     <system:String x:Key="TotalEmulators">Total Number of Emulators:</system:String>
     <system:String x:Key="TotalGames">Total Number of Games:</system:String>

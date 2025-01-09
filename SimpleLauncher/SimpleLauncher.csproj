@@ -417,38 +417,70 @@
     <None Remove="images\language.png" />
     <Resource Include="images\language.png" />
     <Page Remove="resources\Strings.de.xaml" />
-    <EmbeddedResource Include="resources\strings.de.xaml" />
+    <Content Include="resources\strings.de.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.en.xaml" />
-    <EmbeddedResource Include="resources\strings.en.xaml" />
+    <Content Include="resources\strings.en.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.es.xaml" />
-    <EmbeddedResource Include="resources\strings.es.xaml" />
+    <Content Include="resources\strings.es.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.fr.xaml" />
-    <EmbeddedResource Include="resources\strings.fr.xaml" />
+    <Content Include="resources\strings.fr.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.ja.xaml" />
-    <EmbeddedResource Include="resources\strings.ja.xaml" />
+    <Content Include="resources\strings.ja.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.ko.xaml" />
-    <EmbeddedResource Include="resources\strings.ko.xaml" />
+    <Content Include="resources\strings.ko.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.pt-BR.xaml" />
-    <EmbeddedResource Include="resources\strings.pt-br.xaml" />
+    <Content Include="resources\strings.pt-br.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.pt-PT.xaml" />
     <Page Remove="resources\Strings.ru.xaml" />
-    <EmbeddedResource Include="resources\strings.ru.xaml" />
+    <Content Include="resources\strings.ru.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.zh-Hans.xaml" />
-    <EmbeddedResource Include="resources\strings.zh-hans.xaml" />
+    <Content Include="resources\strings.zh-hans.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\Strings.zh-Hant.xaml" />
-    <EmbeddedResource Include="resources\strings.zh-hant.xaml" />
+    <Content Include="resources\strings.zh-hant.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.ar.xaml" />
-    <EmbeddedResource Include="resources\strings.ar.xaml" />
+    <Content Include="resources\strings.ar.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.hi.xaml" />
-    <EmbeddedResource Include="resources\strings.hi.xaml" />
+    <Content Include="resources\strings.hi.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.it.xaml" />
-    <EmbeddedResource Include="resources\strings.it.xaml" />
+    <Content Include="resources\strings.it.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.nl.xaml" />
-    <EmbeddedResource Include="resources\strings.nl.xaml" />
+    <Content Include="resources\strings.nl.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.tr.xaml" />
-    <EmbeddedResource Include="resources\strings.tr.xaml" />
+    <Content Include="resources\strings.tr.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Page Remove="resources\strings.vi.xaml" />
-    <EmbeddedResource Include="resources\strings.vi.xaml" />
+    <Content Include="resources\strings.vi.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Remove="images\gamepad.png" />
     <Resource Include="images\gamepad.png" />
   </ItemGroup>
