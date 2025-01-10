@@ -1036,28 +1036,9 @@ internal class GameButtonFactory(
                 return;
             }
         }
-        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        MessageBox.Show("There is no flyer file associated with this game.",
-            "Flyer not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
+        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
+        MessageBox.Show(thereisnoflyer2, flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenPcb(string systemName, string fileName)
@@ -1077,8 +1058,9 @@ internal class GameButtonFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no PCB file associated with this game.", 
-            "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
+        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
+        MessageBox.Show(thereisnoPcBfile2,pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
         
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button)
@@ -1192,9 +1174,12 @@ internal class GameButtonFactory(
                 File.Delete(filePath);
                     
                 PlayClick.PlayTrashSound();
-                
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
+                string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
+                string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
+                MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
+                    fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
                     
                 // Remove the button from the UI
                 gameFileGrid.Children.Remove(button);

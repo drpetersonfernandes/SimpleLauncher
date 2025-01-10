@@ -279,8 +279,12 @@
     <system:String x:Key="Walkthroughnotfound">Walkthrough not found</system:String>
     <system:String x:Key="Thereisnocabinetfile">There is no cabinet file associated with this game.</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
-    <system:String x:Key="Info">Info</system:String>
-    <system:String x:Key="Info">Info</system:String>
-    
+    <system:String x:Key="Thereisnoflyer">There is no flyer file associated with this game.</system:String>
+    <system:String x:Key="Flyernotfound">Flyer not found</system:String>
+    <system:String x:Key="ThereisnoPCBfile">There is no PCB file associated with this game.</system:String>
+    <system:String x:Key="PCBnotfound">PCB not found</system:String>
+    <system:String x:Key="Thefile">The file</system:String>
+    <system:String x:Key="hasbeensuccessfullydeleted">has been successfully deleted.</system:String>
+    <system:String x:Key="FileDeleted">File Deleted</system:String>
     
 </ResourceDictionary>
