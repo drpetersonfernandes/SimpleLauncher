@@ -108,9 +108,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
         var launchMenuItem = new MenuItem
         {
-            Header = "Launch Game",
+            Header = launchGame2,
             Icon = launchMenuItemIcon
         };
         launchMenuItem.Click += async (_, _) =>
@@ -126,9 +127,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
         var addToFavorites = new MenuItem
         {
-            Header = "Add To Favorites",
+            Header = addToFavorites2,
             Icon = addToFavoritesIcon
         };
         addToFavorites.Click += (_, _) =>
@@ -144,9 +146,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
         var removeFromFavorites = new MenuItem
         {
-            Header = "Remove From Favorites",
+            Header = removeFromFavorites2,
             Icon = removeFromFavoritesIcon
         };
         removeFromFavorites.Click += (_, _) =>
@@ -162,9 +165,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
         var openVideoLink = new MenuItem
         {
-            Header = "Open Video Link",
+            Header = openVideoLink2,
             Icon = openVideoLinkIcon
         };
         openVideoLink.Click += (_, _) =>
@@ -180,9 +184,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
         var openInfoLink = new MenuItem
         {
-            Header = "Open Info Link",
+            Header = openInfoLink2,
             Icon = openInfoLinkIcon
         };
         openInfoLink.Click += (_, _) =>
@@ -198,9 +203,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
         var openHistoryWindow = new MenuItem
         {
-            Header = "Open ROM History",
+            Header = openRomHistory2,
             Icon = openHistoryIcon
         };
         openHistoryWindow.Click += (_, _) =>
@@ -216,9 +222,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
         var openCover = new MenuItem
         {
-            Header = "Cover",
+            Header = cover2,
             Icon = openCoverIcon
         };
         openCover.Click += (_, _) =>
@@ -234,9 +241,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
         var openTitleSnapshot = new MenuItem
         {
-            Header = "Title Snapshot",
+            Header = titleSnapshot2,
             Icon = openTitleSnapshotIcon
         };
         openTitleSnapshot.Click += (_, _) =>
@@ -252,9 +260,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
         var openGameplaySnapshot = new MenuItem
         {
-            Header = "Gameplay Snapshot",
+            Header = gameplaySnapshot2,
             Icon = openGameplaySnapshotIcon
         };
         openGameplaySnapshot.Click += (_, _) =>
@@ -270,9 +279,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
         var openCart = new MenuItem
         {
-            Header = "Cart",
+            Header = cart2,
             Icon = openCartIcon
         };
         openCart.Click += (_, _) =>
@@ -288,9 +298,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
         var openVideo = new MenuItem
         {
-            Header = "Video",
+            Header = video2,
             Icon = openVideoIcon
         };
         openVideo.Click += (_, _) =>
@@ -306,9 +317,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
         var openManual = new MenuItem
         {
-            Header = "Manual",
+            Header = manual2,
             Icon = openManualIcon
         };
         openManual.Click += (_, _) =>
@@ -324,9 +336,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
         var openWalkthrough = new MenuItem
         {
-            Header = "Walkthrough",
+            Header = walkthrough2,
             Icon = openWalkthroughIcon
         };
         openWalkthrough.Click += (_, _) =>
@@ -342,9 +355,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
         var openCabinet = new MenuItem
         {
-            Header = "Cabinet",
+            Header = cabinet2,
             Icon = openCabinetIcon
         };
         openCabinet.Click += (_, _) =>
@@ -360,9 +374,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
         var openFlyer = new MenuItem
         {
-            Header = "Flyer",
+            Header = flyer2,
             Icon = openFlyerIcon
         };
         openFlyer.Click += (_, _) =>
@@ -378,9 +393,10 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
         var openPcb = new MenuItem
         {
-            Header = "PCB",
+            Header = pCb2,
             Icon = openPcbIcon
         };
         openPcb.Click += (_, _) =>
@@ -396,23 +412,25 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
         var takeScreenshot = new MenuItem
         {
-            Header = "Take Screenshot",
+            Header = takeScreenshot2,
             Icon = takeScreenshotIcon
         };
+        string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
+        string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
+        string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
+        string aselectionwindowwillopenin2 = (string)Application.Current.TryFindResource("Aselectionwindowwillopenin") ?? "A selection window will open in";
+        string allowingyoutochoosethe2 = (string)Application.Current.TryFindResource("allowingyoutochoosethe") ?? "allowing you to choose the desired window to capture.";
+        string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
+
         takeScreenshot.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            MessageBox.Show(
-                "The game will launch now.\n\n" +
-                "Set the game window to non-fullscreen. This is important.\n\n" +
-                "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
-                "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
-                "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
-                "Take Screenshot",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show($"{thegamewilllaunchnow2}\n\n{setthegamewindowto2}\n\n{youshouldchangetheemulatorparameters2}\n\n" +
+                            $"{aselectionwindowwillopenin2} 'Simple Launcher,' {allowingyoutochoosethe2}\n\n{assoonasyouselectawindow2}",
+                takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
                 
             _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
@@ -426,19 +444,20 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
+        string deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
         var deleteGame = new MenuItem
         {
-            Header = "Delete Game",
+            Header = deleteGame2,
             Icon = deleteGameIcon
         };
+        string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+        string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+        string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
         deleteGame.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
-                                         $"This action will delete the file from the HDD and cannot be undone.",
-                "Confirm Deletion",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
+            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
+                confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -505,7 +524,9 @@ public class GameListFactory(
             }
             else
             {
-                MessageBox.Show($"{fileNameWithExtension} is already in favorites.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
+                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+                MessageBox.Show($"{fileNameWithExtension} {isalreadyinfavorites2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
@@ -547,8 +568,10 @@ public class GameListFactory(
             }
             else
             {
-                MessageBox.Show($"{fileNameWithExtension} is not in favorites.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                string isnotinfavorites2 = (string)Application.Current.TryFindResource("isnotinfavorites") ?? "is not in favorites.";
+                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+                MessageBox.Show($"{fileNameWithExtension} {isnotinfavorites2}",
+                    info2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
@@ -676,7 +699,8 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -728,8 +752,9 @@ public class GameListFactory(
         }
         else
         {
-            MessageBox.Show("There is no cover file associated with this game.", 
-                "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
+            string thereisnocoverfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
+            string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
+            MessageBox.Show(thereisnocoverfileassociated2, covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -751,8 +776,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no title snapshot file associated with this game.", 
-            "Title Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot") ?? "There is no title snapshot file associated with this game.";
+        string titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
+        MessageBox.Show(thereisnotitlesnapshot2, titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -773,8 +799,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no gameplay snapshot file associated with this game.", 
-            "Gameplay Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnogameplaysnapshot2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshot") ?? "There is no gameplay snapshot file associated with this game.";
+        string gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
+        MessageBox.Show(thereisnogameplaysnapshot2, gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenCart(string systemName, string fileName)
@@ -795,8 +822,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no cart file associated with this game.", 
-            "Cart not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnocartfile2 = (string)Application.Current.TryFindResource("Thereisnocartfile") ?? "There is no cart file associated with this game.";
+        string cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
+        MessageBox.Show(thereisnocartfile2, cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void PlayVideo(string systemName, string fileName)
@@ -819,8 +847,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no video file associated with this game.", 
-            "Video not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnovideofile2 = (string)Application.Current.TryFindResource("Thereisnovideofile") ?? "There is no video file associated with this game.";
+        string videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
+        MessageBox.Show(thereisnovideofile2, videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenManual(string systemName, string fileName)
@@ -848,19 +877,21 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     string contextMessage = $"There was a problem opening the manual.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
                     MessageBox.Show($"Failed to open the manual.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    $"The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
         }
-
-        MessageBox.Show("There is no manual associated with this file.", 
-            "Manual Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
+        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual Not Found";
+        MessageBox.Show(thereisnomanual2, manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenWalkthrough(string systemName, string fileName)
@@ -899,9 +930,9 @@ public class GameListFactory(
                 }
             }
         }
-
-        MessageBox.Show("There is no walkthrough file associated with this game.", 
-            "Walkthrough not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnowalkthrough2 = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
+        string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
+        MessageBox.Show(thereisnowalkthrough2, walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenCabinet(string systemName, string fileName)
@@ -922,9 +953,9 @@ public class GameListFactory(
                 return;
             }
         }
-
-        MessageBox.Show("There is no cabinet file associated with this game.", 
-            "Cabinet not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
+        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
+        MessageBox.Show(thereisnocabinetfile2, cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenFlyer(string systemName, string fileName)
@@ -945,8 +976,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no flyer file associated with this game.", 
-            "Flyer not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
+        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
+        MessageBox.Show(thereisnoflyer2, flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenPcb(string systemName, string fileName)
@@ -966,8 +998,9 @@ public class GameListFactory(
                 return;
             }
         }
-        MessageBox.Show("There is no PCB file associated with this game.", 
-            "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
+        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
+        MessageBox.Show(thereisnoPcBfile2,pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig)
@@ -1050,8 +1083,7 @@ public class GameListFactory(
             await flashWindow.ShowFlashAsync();
                 
             // Notify the user of success
-            MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}",
-                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            // MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
             // Reload the current Game List
             await mainWindow.LoadGameFilesAsync();
@@ -1065,7 +1097,8 @@ public class GameListFactory(
 
             // Send log error to the developer
             string contextMessage = $"There was a problem saving the screenshot.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -1083,8 +1116,11 @@ public class GameListFactory(
                     
                     PlayClick.PlayTrashSound();
                 
-                    MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                        "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
+                    string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
+                    string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
+                    MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
+                        fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
                     
                     // Reload the current Game List
                     await mainWindow.LoadGameFilesAsync();
@@ -1154,7 +1190,8 @@ public class GameListFactory(
                         
                         // Notify developer
                         string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class." +
-                                              $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                              $"Exception type: {ex.GetType().Name}\n" +
+                                              $"Exception details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
                     }
@@ -1174,7 +1211,8 @@ public class GameListFactory(
                     else
                     {
                         MessageBox.Show("Please reinstall Simple Launcher to fix the error.\n\n" +
-                                        "The application will shutdown now.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        "The application will shutdown now.",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         
                         // Shutdown SimpleLauncher
                         Application.Current.Shutdown();

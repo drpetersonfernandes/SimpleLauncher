@@ -502,7 +502,8 @@ internal class GameButtonFactory(
         deleteGame.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}", confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
+                confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -1160,7 +1161,11 @@ internal class GameButtonFactory(
                             $"The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            Task logTask = LogErrors.LogErrorAsync(ex, "Error capturing screenshot.");
+            // Send log error to the developer
+            string contextMessage = $"There was a problem saving the screenshot.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }

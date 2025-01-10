@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
@@ -67,20 +68,31 @@ public partial class App
             };
 
             Resources.MergedDictionaries.Add(fallbackDictionary);
+            
+            // Notify developer
+            string errorMessage = $"Failed to load language resources\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
         }
-    }
-
-    public static void ChangeTheme(string baseTheme, string accentColor)
-    {
-        ApplyTheme(baseTheme, accentColor);
-        _settings.BaseTheme = baseTheme;
-        _settings.AccentColor = accentColor;
-        _settings.Save();
     }
 
     private static void ApplyTheme(string baseTheme, string accentColor)
     {
-        ThemeManager.Current.ChangeTheme(Application.Current, $"{baseTheme}.{accentColor}");
+        try
+        {
+            ThemeManager.Current.ChangeTheme(Current, $"{baseTheme}.{accentColor}");
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            string errorMessage = $"Failed to Apply Theme\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+        }
     }
 
     public static void ApplyThemeToWindow(Window window)
@@ -88,5 +100,13 @@ public partial class App
         string baseTheme = _settings.BaseTheme;
         string accentColor = _settings.AccentColor;
         ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
+    }
+    
+    public static void ChangeTheme(string baseTheme, string accentColor)
+    {
+        ApplyTheme(baseTheme, accentColor);
+        _settings.BaseTheme = baseTheme;
+        _settings.AccentColor = accentColor;
+        _settings.Save();
     }
 }
