@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">फ़ाइलें दिखा रहा है</system:String>
     <system:String x:Key="to">तक</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">कृपया खोजने से पहले एक सिस्टम चुनें।</system:String>
+    <system:String x:Key="SystemNotSelected">सिस्टम चयनित नहीं है</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">कृपया एक खोज क्वेरी दर्ज करें।</system:String>
+    <system:String x:Key="SearchQueryRequired">खोज क्वेरी आवश्यक है</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">चयनित सिस्टम के लिए कोई पसंदीदा खेल नहीं मिला।</system:String>
+    <system:String x:Key="Open">खोलें</system:String>
+    <system:String x:Key="isminimizedtothetray">ट्रे में न्यूनतम कर दिया गया है।</system:String>
+    
+    <system:String x:Key="SystemFolder">सिस्टम फ़ोल्डर</system:String>
+    <system:String x:Key="SystemImageFolder">सिस्टम छवि फ़ोल्डर</system:String>
+    <system:String x:Key="DefaultImageFolder">[डिफ़ॉल्ट छवि फ़ोल्डर का उपयोग किया जा रहा है]</system:String>
+    <system:String x:Key="SystemIsMame">सिस्टम MAME है?</system:String>
+    <system:String x:Key="FileFormatsToSearch">सिस्टम फ़ोल्डर में खोजने के लिए प्रारूप</system:String>
+    <system:String x:Key="FileFormatsToLaunch">पैकेज निकालने के बाद लॉन्च करने के लिए प्रारूप</system:String>
+    <system:String x:Key="TotalGamesCount">सिस्टम फ़ोल्डर में कुल गेमों की संख्या, उपफ़ोल्डरों में फाइलें शामिल नहीं: {0}</system:String>
+    <system:String x:Key="NumberOfImages">सिस्टम छवि फ़ोल्डर में छवियों की संख्या: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">सिस्टम छवि फ़ोल्डर मौजूद नहीं है या निर्दिष्ट नहीं किया गया है।</system:String>
+    <system:String x:Key="EmulatorName">एमुलेटर का नाम</system:String>
+    <system:String x:Key="EmulatorLocation">एमुलेटर का स्थान</system:String>
+    <system:String x:Key="EmulatorParameters">एमुलेटर के पैरामीटर</system:String>
+    
 </ResourceDictionary>

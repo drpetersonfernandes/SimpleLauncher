@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Dateien anzeigen</system:String>
     <system:String x:Key="to">bis</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Bitte wählen Sie ein System aus, bevor Sie suchen.</system:String>
+    <system:String x:Key="SystemNotSelected">System nicht ausgewählt</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Bitte geben Sie eine Suchanfrage ein.</system:String>
+    <system:String x:Key="SearchQueryRequired">Suchanfrage erforderlich</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Keine Lieblingsspiele für das ausgewählte System gefunden.</system:String>
+    <system:String x:Key="Open">Öffnen</system:String>
+    <system:String x:Key="isminimizedtothetray">wird in die Taskleiste minimiert.</system:String>
+    
+    <system:String x:Key="SystemFolder">Systemordner</system:String>
+    <system:String x:Key="SystemImageFolder">System-Bildordner</system:String>
+    <system:String x:Key="DefaultImageFolder">[Standard-Bildordner wird verwendet]</system:String>
+    <system:String x:Key="SystemIsMame">System ist MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Formate, die im Systemordner durchsucht werden</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Formate, die nach der Extraktion gestartet werden</system:String>
+    <system:String x:Key="TotalGamesCount">Gesamtanzahl der Spiele im Systemordner, ausgenommen Dateien in Unterverzeichnissen: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Anzahl der Bilder im System-Bildordner: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">Der System-Bildordner existiert nicht oder ist nicht angegeben.</system:String>
+    <system:String x:Key="EmulatorName">Name des Emulators</system:String>
+    <system:String x:Key="EmulatorLocation">Speicherort des Emulators</system:String>
+    <system:String x:Key="EmulatorParameters">Parameter des Emulators</system:String>
+    
 </ResourceDictionary>

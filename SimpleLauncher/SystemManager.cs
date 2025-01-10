@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace SimpleLauncher;
 
@@ -22,34 +23,31 @@ public static class SystemManager
             Margin = new Thickness(10)
         };
 
-        // Create and add System Info TextBlock
-        var systemInfoTextBlock = new TextBlock
-        {
-            Text = $"\nSystem Folder: {systemFolder}\n" +
-                   $"System Image Folder: {selectedConfig.SystemImageFolder ?? "[Using default image folder]"}\n" +
-                   $"System is MAME? {selectedConfig.SystemIsMame}\n" +
-                   $"Format to Search in the System Folder: {string.Join(", ", selectedConfig.FileFormatsToSearch)}\n" +
-                   $"Extract File Before Launch? {selectedConfig.ExtractFileBeforeLaunch}\n" +
-                   $"Format to Launch After Extraction: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}\n",
-            Padding = new Thickness(0),
-            TextWrapping = TextWrapping.Wrap
-        };
+        // Create System Info TextBlock with LineBreaks
+        var systemInfoTextBlock = new TextBlock();
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["SystemFolder"]}: {systemFolder}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["SystemImageFolder"]}: {selectedConfig.SystemImageFolder ?? Application.Current.Resources["DefaultImageFolder"]}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["SystemIsMame"]}: {selectedConfig.SystemIsMame}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["FileFormatsToSearch"]}: {string.Join(", ", selectedConfig.FileFormatsToSearch)}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["ExtractFileBeforeLaunch"]}: {selectedConfig.ExtractFileBeforeLaunch}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["FileFormatsToLaunch"]}: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}"));
         verticalStackPanel.Children.Add(systemInfoTextBlock);
 
         // Add the number of games in the system folder
-        var gameCountTextBlock = new TextBlock
-        {
-            Text = $"Total number of games in the System Folder, excluding files in subdirectories: {gameCount}",
-            Padding = new Thickness(0),
-            TextWrapping = TextWrapping.Wrap
-        };
+        var gameCountTextBlock = new TextBlock();
+        gameCountTextBlock.Inlines.Add(new LineBreak());
+        gameCountTextBlock.Inlines.Add(new Run(string.Format(Application.Current.Resources["TotalGamesCount"] as string ?? throw new InvalidOperationException("TotalGamesCount is null"), gameCount)));
         verticalStackPanel.Children.Add(gameCountTextBlock);
 
         // Determine the image folder to search
         string imageFolderPath = selectedConfig.SystemImageFolder;
         if (string.IsNullOrWhiteSpace(imageFolderPath))
         {
-            // Use the default image folder if SystemImageFolder is not set
             imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
         }
 
@@ -59,36 +57,27 @@ public static class SystemManager
             var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" };
             int imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
 
-            var imageCountTextBlock = new TextBlock
-            {
-                Text = $"Number of images in the System Image Folder: {imageCount}",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
+            var imageCountTextBlock = new TextBlock();
+            imageCountTextBlock.Inlines.Add(new Run(string.Format(Application.Current.Resources["NumberOfImages"] as string ?? throw new InvalidOperationException("NumberOfImages is null"), imageCount)));
             verticalStackPanel.Children.Add(imageCountTextBlock);
         }
         else
         {
-            var noImageFolderTextBlock = new TextBlock
-            {
-                Text = "System Image Folder does not exist or is not specified.",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
+            var noImageFolderTextBlock = new TextBlock();
+            noImageFolderTextBlock.Inlines.Add(new Run(Application.Current.Resources["ImageFolderNotExist"] as string));
             verticalStackPanel.Children.Add(noImageFolderTextBlock);
         }
 
         // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
         foreach (var emulator in selectedConfig.Emulators)
         {
-            var emulatorInfoTextBlock = new TextBlock
-            {
-                Text = $"\nEmulator Name: {emulator.EmulatorName}\n" +
-                       $"Emulator Location: {emulator.EmulatorLocation}\n" +
-                       $"Emulator Parameters: {emulator.EmulatorParameters}",
-                Padding = new Thickness(0),
-                TextWrapping = TextWrapping.Wrap
-            };
+            var emulatorInfoTextBlock = new TextBlock();
+            emulatorInfoTextBlock.Inlines.Add(new LineBreak());
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["EmulatorName"]}: {emulator.EmulatorName}"));
+            emulatorInfoTextBlock.Inlines.Add(new LineBreak());
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["EmulatorLocation"]}: {emulator.EmulatorLocation}"));
+            emulatorInfoTextBlock.Inlines.Add(new LineBreak());
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{Application.Current.Resources["EmulatorParameters"]}: {emulator.EmulatorParameters}"));
             verticalStackPanel.Children.Add(emulatorInfoTextBlock);
         }
 

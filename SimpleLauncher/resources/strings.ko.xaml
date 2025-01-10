@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">파일 표시</system:String>
     <system:String x:Key="to">부터</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">검색하기 전에 시스템을 선택하세요.</system:String>
+    <system:String x:Key="SystemNotSelected">시스템이 선택되지 않았습니다</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">검색 쿼리를 입력하세요.</system:String>
+    <system:String x:Key="SearchQueryRequired">검색 쿼리가 필요합니다</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">선택한 시스템에서 즐겨찾는 게임을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Open">열기</system:String>
+    <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
+    
+    <system:String x:Key="SystemFolder">시스템 폴더</system:String>
+    <system:String x:Key="SystemImageFolder">시스템 이미지 폴더</system:String>
+    <system:String x:Key="DefaultImageFolder">[기본 이미지 폴더를 사용 중]</system:String>
+    <system:String x:Key="SystemIsMame">시스템이 MAME입니까?</system:String>
+    <system:String x:Key="FileFormatsToSearch">시스템 폴더에서 검색할 형식</system:String>
+    <system:String x:Key="FileFormatsToLaunch">추출 후 실행할 형식</system:String>
+    <system:String x:Key="TotalGamesCount">시스템 폴더 내 게임 총 개수 (하위 폴더 파일 제외): {0}</system:String>
+    <system:String x:Key="NumberOfImages">시스템 이미지 폴더 내 이미지 수: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">시스템 이미지 폴더가 존재하지 않거나 지정되지 않았습니다.</system:String>
+    <system:String x:Key="EmulatorName">에뮬레이터 이름</system:String>
+    <system:String x:Key="EmulatorLocation">에뮬레이터 위치</system:String>
+    <system:String x:Key="EmulatorParameters">에뮬레이터 매개변수</system:String>
+    
 </ResourceDictionary>

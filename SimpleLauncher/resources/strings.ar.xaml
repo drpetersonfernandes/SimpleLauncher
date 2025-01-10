@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">عرض الملفات</system:String>
     <system:String x:Key="to">إلى</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">يرجى اختيار نظام قبل البحث.</system:String>
+    <system:String x:Key="SystemNotSelected">لم يتم اختيار النظام</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
+    <system:String x:Key="SearchQueryRequired">مطلوب إدخال استعلام بحث</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
+    <system:String x:Key="Open">فتح</system:String>
+    <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
+    
+    <system:String x:Key="SystemFolder">مجلد النظام</system:String>
+    <system:String x:Key="SystemImageFolder">مجلد الصور للنظام</system:String>
+    <system:String x:Key="DefaultImageFolder">[استخدام مجلد الصور الافتراضي]</system:String>
+    <system:String x:Key="SystemIsMame">هل النظام هو MAME؟</system:String>
+    <system:String x:Key="FileFormatsToSearch">تنسيقات الملفات للبحث في مجلد النظام</system:String>
+    <system:String x:Key="FileFormatsToLaunch">تنسيقات الملفات للتشغيل بعد الاستخراج</system:String>
+    <system:String x:Key="TotalGamesCount">إجمالي عدد الألعاب في مجلد النظام، باستثناء الملفات في المجلدات الفرعية: {0}</system:String>
+    <system:String x:Key="NumberOfImages">عدد الصور في مجلد الصور للنظام: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">مجلد الصور للنظام غير موجود أو لم يتم تحديده.</system:String>
+    <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
+    <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
+    <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
+    
 </ResourceDictionary>

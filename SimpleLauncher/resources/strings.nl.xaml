@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Bestanden weergeven</system:String>
     <system:String x:Key="to">tot</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Selecteer alstublieft een systeem voordat u zoekt.</system:String>
+    <system:String x:Key="SystemNotSelected">Systeem niet geselecteerd</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
+    <system:String x:Key="SearchQueryRequired">Zoekopdracht vereist</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
+    <system:String x:Key="Open">Openen</system:String>
+    <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
+    
+    <system:String x:Key="SystemFolder">Systeemmap</system:String>
+    <system:String x:Key="SystemImageFolder">Systeemafbeeldingenmap</system:String>
+    <system:String x:Key="DefaultImageFolder">[Standaard afbeeldingenmap wordt gebruikt]</system:String>
+    <system:String x:Key="SystemIsMame">Is het systeem MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Bestandsformaten om te zoeken in de systeemmap</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Bestandsformaten om te starten na uitpakken</system:String>
+    <system:String x:Key="TotalGamesCount">Totaal aantal spellen in de systeemmap, bestanden in submappen uitgesloten: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Aantal afbeeldingen in de systeemafbeeldingenmap: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">De systeemafbeeldingenmap bestaat niet of is niet opgegeven.</system:String>
+    <system:String x:Key="EmulatorName">Naam van de emulator</system:String>
+    <system:String x:Key="EmulatorLocation">Locatie van de emulator</system:String>
+    <system:String x:Key="EmulatorParameters">Parameters van de emulator</system:String>
+    
 </ResourceDictionary>

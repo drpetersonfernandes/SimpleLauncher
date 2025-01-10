@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Dosyalar görüntüleniyor</system:String>
     <system:String x:Key="to">sonuna kadar</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Lütfen arama yapmadan önce bir sistem seçin.</system:String>
+    <system:String x:Key="SystemNotSelected">Sistem seçilmedi</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
+    <system:String x:Key="SearchQueryRequired">Arama sorgusu gerekli</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Seçilen sistem için favori oyun bulunamadı.</system:String>
+    <system:String x:Key="Open">Aç</system:String>
+    <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
+    
+    <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
+    <system:String x:Key="SystemImageFolder">Sistem Görselleri Klasörü</system:String>
+    <system:String x:Key="DefaultImageFolder">[Varsayılan görsel klasörü kullanılıyor]</system:String>
+    <system:String x:Key="SystemIsMame">Sistem MAME mi?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Sistem klasöründe aranacak dosya formatları</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Çıkarıldıktan sonra çalıştırılacak dosya formatları</system:String>
+    <system:String x:Key="TotalGamesCount">Sistem klasöründeki toplam oyun sayısı (alt klasörlerdeki dosyalar hariç): {0}</system:String>
+    <system:String x:Key="NumberOfImages">Sistem görsel klasöründeki görsel sayısı: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">Sistem görselleri klasörü mevcut değil veya belirtilmemiş.</system:String>
+    <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
+    <system:String x:Key="EmulatorLocation">Emülatör Konumu</system:String>
+    <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
+    
 </ResourceDictionary>

@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Exibindo arquivos</system:String>
     <system:String x:Key="to">até</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Por favor, selecione um sistema antes de pesquisar.</system:String>
+    <system:String x:Key="SystemNotSelected">Sistema não selecionado</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Por favor, insira uma consulta de pesquisa.</system:String>
+    <system:String x:Key="SearchQueryRequired">Consulta de pesquisa necessária</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nenhum jogo favorito encontrado para o sistema selecionado.</system:String>
+    <system:String x:Key="Open">Abrir</system:String>
+    <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
+    
+    <system:String x:Key="SystemFolder">Pasta do Sistema</system:String>
+    <system:String x:Key="SystemImageFolder">Pasta de Imagens do Sistema</system:String>
+    <system:String x:Key="DefaultImageFolder">[Usando a pasta de imagens padrão]</system:String>
+    <system:String x:Key="SystemIsMame">O sistema é MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Formatos de arquivo para buscar na Pasta do Sistema</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Formatos de arquivo para abrir após a extração</system:String>
+    <system:String x:Key="TotalGamesCount">Número total de jogos na Pasta do Sistema, excluindo arquivos em subpastas: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Número de imagens na Pasta de Imagens do Sistema: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">A Pasta de Imagens do Sistema não existe ou não foi especificada.</system:String>
+    <system:String x:Key="EmulatorName">Nome do Emulador</system:String>
+    <system:String x:Key="EmulatorLocation">Localização do Emulador</system:String>
+    <system:String x:Key="EmulatorParameters">Parâmetros do Emulador</system:String>
+    
 </ResourceDictionary>

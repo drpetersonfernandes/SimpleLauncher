@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Отображение файлов</system:String>
     <system:String x:Key="to">до</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Пожалуйста, выберите систему перед поиском.</system:String>
+    <system:String x:Key="SystemNotSelected">Система не выбрана</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
+    <system:String x:Key="SearchQueryRequired">Требуется поисковый запрос</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Для выбранной системы избранные игры не найдены.</system:String>
+    <system:String x:Key="Open">Открыть</system:String>
+    <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
+    
+    <system:String x:Key="SystemFolder">Системная папка</system:String>
+    <system:String x:Key="SystemImageFolder">Папка изображений системы</system:String>
+    <system:String x:Key="DefaultImageFolder">[Используется папка изображений по умолчанию]</system:String>
+    <system:String x:Key="SystemIsMame">Система является MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Форматы файлов для поиска в системной папке</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Форматы файлов для запуска после извлечения</system:String>
+    <system:String x:Key="TotalGamesCount">Общее количество игр в системной папке (без учета файлов в подпапках): {0}</system:String>
+    <system:String x:Key="NumberOfImages">Количество изображений в папке изображений системы: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">Папка изображений системы не существует или не указана.</system:String>
+    <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
+    <system:String x:Key="EmulatorLocation">Местоположение эмулятора</system:String>
+    <system:String x:Key="EmulatorParameters">Параметры эмулятора</system:String>
+    
 </ResourceDictionary>

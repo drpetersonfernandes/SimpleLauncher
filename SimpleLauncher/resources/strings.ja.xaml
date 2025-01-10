@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">ファイルを表示中</system:String>
     <system:String x:Key="to">から</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">検索する前にシステムを選択してください。</system:String>
+    <system:String x:Key="SystemNotSelected">システムが選択されていません</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
+    <system:String x:Key="SearchQueryRequired">検索クエリが必要です</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">選択したシステムにはお気に入りのゲームが見つかりませんでした。</system:String>
+    <system:String x:Key="Open">開く</system:String>
+    <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
+    
+    <system:String x:Key="SystemFolder">システムフォルダ</system:String>
+    <system:String x:Key="SystemImageFolder">システム画像フォルダ</system:String>
+    <system:String x:Key="DefaultImageFolder">[デフォルトの画像フォルダを使用中]</system:String>
+    <system:String x:Key="SystemIsMame">システムはMAMEですか？</system:String>
+    <system:String x:Key="FileFormatsToSearch">システムフォルダ内で検索するフォーマット</system:String>
+    <system:String x:Key="FileFormatsToLaunch">抽出後に起動するフォーマット</system:String>
+    <system:String x:Key="TotalGamesCount">システムフォルダ内のゲームの総数（サブフォルダ内のファイルを除く）：{0}</system:String>
+    <system:String x:Key="NumberOfImages">システム画像フォルダ内の画像数：{0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">システム画像フォルダが存在しないか、指定されていません。</system:String>
+    <system:String x:Key="EmulatorName">エミュレーター名</system:String>
+    <system:String x:Key="EmulatorLocation">エミュレーターの場所</system:String>
+    <system:String x:Key="EmulatorParameters">エミュレーターのパラメーター</system:String>
+    
 </ResourceDictionary>

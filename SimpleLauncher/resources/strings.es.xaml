@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Mostrando archivos</system:String>
     <system:String x:Key="to">a</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Por favor seleccione un sistema antes de buscar.</system:String>
+    <system:String x:Key="SystemNotSelected">Sistema no seleccionado</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Por favor ingrese una consulta de búsqueda.</system:String>
+    <system:String x:Key="SearchQueryRequired">Consulta de búsqueda requerida</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No se encontraron juegos favoritos para el sistema seleccionado.</system:String>
+    <system:String x:Key="Open">Abrir</system:String>
+    <system:String x:Key="isminimizedtothetray">se ha minimizado a la bandeja del sistema.</system:String>
+    
+    <system:String x:Key="SystemFolder">Carpeta del Sistema</system:String>
+    <system:String x:Key="SystemImageFolder">Carpeta de Imágenes del Sistema</system:String>
+    <system:String x:Key="DefaultImageFolder">[Usando carpeta de imágenes predeterminada]</system:String>
+    <system:String x:Key="SystemIsMame">¿El sistema es MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Formatos para buscar en la Carpeta del Sistema</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Formatos para lanzar después de la extracción</system:String>
+    <system:String x:Key="TotalGamesCount">Número total de juegos en la Carpeta del Sistema, excluyendo archivos en subdirectorios: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Número de imágenes en la Carpeta de Imágenes del Sistema: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">La Carpeta de Imágenes del Sistema no existe o no está especificada.</system:String>
+    <system:String x:Key="EmulatorName">Nombre del Emulador</system:String>
+    <system:String x:Key="EmulatorLocation">Ubicación del Emulador</system:String>
+    <system:String x:Key="EmulatorParameters">Parámetros del Emulador</system:String>
+    
 </ResourceDictionary>

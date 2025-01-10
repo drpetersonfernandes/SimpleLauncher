@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Hiển thị các tệp</system:String>
     <system:String x:Key="to">đến</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Vui lòng chọn hệ thống trước khi tìm kiếm.</system:String>
+    <system:String x:Key="SystemNotSelected">Chưa chọn hệ thống</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Vui lòng nhập từ khóa tìm kiếm.</system:String>
+    <system:String x:Key="SearchQueryRequired">Từ khóa tìm kiếm là bắt buộc</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Không tìm thấy trò chơi yêu thích nào cho hệ thống đã chọn.</system:String>
+    <system:String x:Key="Open">Mở</system:String>
+    <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
+    
+    <system:String x:Key="SystemFolder">Thư mục Hệ thống</system:String>
+    <system:String x:Key="SystemImageFolder">Thư mục Ảnh của Hệ thống</system:String>
+    <system:String x:Key="DefaultImageFolder">[Đang sử dụng thư mục ảnh mặc định]</system:String>
+    <system:String x:Key="SystemIsMame">Hệ thống có phải là MAME không?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Định dạng tệp để tìm trong thư mục hệ thống</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Định dạng tệp để khởi chạy sau khi giải nén</system:String>
+    <system:String x:Key="TotalGamesCount">Tổng số trò chơi trong thư mục hệ thống, không bao gồm tệp trong thư mục con: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Số lượng ảnh trong thư mục ảnh của hệ thống: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">Thư mục ảnh của hệ thống không tồn tại hoặc chưa được chỉ định.</system:String>
+    <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
+    <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
+    <system:String x:Key="EmulatorParameters">Tham số của Trình giả lập</system:String>
+    
 </ResourceDictionary>

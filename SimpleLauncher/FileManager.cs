@@ -47,7 +47,8 @@ public abstract class FileManager
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 
@@ -115,7 +116,8 @@ public abstract class FileManager
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             

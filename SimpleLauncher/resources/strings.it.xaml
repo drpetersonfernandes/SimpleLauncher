@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Visualizzazione file</system:String>
     <system:String x:Key="to">a</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Si prega di selezionare un sistema prima di cercare.</system:String>
+    <system:String x:Key="SystemNotSelected">Sistema non selezionato</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Inserisci una query di ricerca.</system:String>
+    <system:String x:Key="SearchQueryRequired">Query di ricerca richiesta</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nessun gioco preferito trovato per il sistema selezionato.</system:String>
+    <system:String x:Key="Open">Apri</system:String>
+    <system:String x:Key="isminimizedtothetray">è stato ridotto a icona nella barra delle applicazioni.</system:String>
+    
+    <system:String x:Key="SystemFolder">Cartella del Sistema</system:String>
+    <system:String x:Key="SystemImageFolder">Cartella Immagini del Sistema</system:String>
+    <system:String x:Key="DefaultImageFolder">[Utilizzando la cartella immagini predefinita]</system:String>
+    <system:String x:Key="SystemIsMame">Il sistema è MAME?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Formati da cercare nella Cartella del Sistema</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Formati da avviare dopo l'estrazione</system:String>
+    <system:String x:Key="TotalGamesCount">Numero totale di giochi nella Cartella del Sistema, escluse le sottocartelle: {0}</system:String>
+    <system:String x:Key="NumberOfImages">Numero di immagini nella Cartella Immagini del Sistema: {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">La Cartella Immagini del Sistema non esiste o non è specificata.</system:String>
+    <system:String x:Key="EmulatorName">Nome dell'Emulatore</system:String>
+    <system:String x:Key="EmulatorLocation">Posizione dell'Emulatore</system:String>
+    <system:String x:Key="EmulatorParameters">Parametri dell'Emulatore</system:String>
+    
 </ResourceDictionary>

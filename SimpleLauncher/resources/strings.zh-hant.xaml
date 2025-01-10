@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">正在顯示檔案</system:String>
     <system:String x:Key="to">至</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">請在搜尋之前選擇一個系統。</system:String>
+    <system:String x:Key="SystemNotSelected">未選擇系統</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">請輸入搜尋查詢。</system:String>
+    <system:String x:Key="SearchQueryRequired">搜尋查詢為必填項</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">未找到選定系統的收藏遊戲。</system:String>
+    <system:String x:Key="Open">打開</system:String>
+    <system:String x:Key="isminimizedtothetray">已縮小至系統匣。</system:String>
+    
+    <system:String x:Key="SystemFolder">系統資料夾</system:String>
+    <system:String x:Key="SystemImageFolder">系統圖片資料夾</system:String>
+    <system:String x:Key="DefaultImageFolder">[使用預設圖片資料夾]</system:String>
+    <system:String x:Key="SystemIsMame">系統是 MAME 嗎？</system:String>
+    <system:String x:Key="FileFormatsToSearch">在系統資料夾中搜索的檔案格式</system:String>
+    <system:String x:Key="FileFormatsToLaunch">解壓後啟動的檔案格式</system:String>
+    <system:String x:Key="TotalGamesCount">系統資料夾中的遊戲總數，不包括子資料夾中的檔案：{0}</system:String>
+    <system:String x:Key="NumberOfImages">系統圖片資料夾中的圖片數量：{0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">系統圖片資料夾不存在或未指定。</system:String>
+    <system:String x:Key="EmulatorName">模擬器名稱</system:String>
+    <system:String x:Key="EmulatorLocation">模擬器位置</system:String>
+    <system:String x:Key="EmulatorParameters">模擬器參數</system:String>
+    
 </ResourceDictionary>

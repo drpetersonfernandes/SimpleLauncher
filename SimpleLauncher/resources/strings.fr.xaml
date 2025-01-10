@@ -212,4 +212,25 @@
     <system:String x:Key="Displayingfiles">Affichage des fichiers</system:String>
     <system:String x:Key="to">à</system:String>
     
+    <system:String x:Key="Pleaseselectasystembeforesearching">Veuillez sélectionner un système avant de rechercher.</system:String>
+    <system:String x:Key="SystemNotSelected">Système non sélectionné</system:String>
+    <system:String x:Key="Pleaseenterasearchquery">Veuillez entrer une requête de recherche.</system:String>
+    <system:String x:Key="SearchQueryRequired">Requête de recherche requise</system:String>
+    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Aucun jeu favori trouvé pour le système sélectionné.</system:String>
+    <system:String x:Key="Open">Ouvrir</system:String>
+    <system:String x:Key="isminimizedtothetray">est réduit dans la barre des tâches.</system:String>
+    
+    <system:String x:Key="SystemFolder">Dossier Système</system:String>
+    <system:String x:Key="SystemImageFolder">Dossier d'Images du Système</system:String>
+    <system:String x:Key="DefaultImageFolder">[Utilisation du dossier d'images par défaut]</system:String>
+    <system:String x:Key="SystemIsMame">Le système est MAME ?</system:String>
+    <system:String x:Key="FileFormatsToSearch">Formats à rechercher dans le dossier système</system:String>
+    <system:String x:Key="FileFormatsToLaunch">Formats à lancer après extraction</system:String>
+    <system:String x:Key="TotalGamesCount">Nombre total de jeux dans le dossier système, en excluant les fichiers dans les sous-répertoires : {0}</system:String>
+    <system:String x:Key="NumberOfImages">Nombre d'images dans le dossier d'images du système : {0}</system:String>
+    <system:String x:Key="ImageFolderNotExist">Le dossier d'images du système n'existe pas ou n'est pas spécifié.</system:String>
+    <system:String x:Key="EmulatorName">Nom de l'Émulateur</system:String>
+    <system:String x:Key="EmulatorLocation">Emplacement de l'Émulateur</system:String>
+    <system:String x:Key="EmulatorParameters">Paramètres de l'Émulateur</system:String>
+    
 </ResourceDictionary>
