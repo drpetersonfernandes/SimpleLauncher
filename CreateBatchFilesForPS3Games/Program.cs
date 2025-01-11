@@ -60,7 +60,7 @@ namespace CreateBatchFilesForPS3Games
             
             MessageBox.Show("All batch files have been successfully created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
-            Application.Run(); // Keeps the application running for the log form to remain open
+            Application.Run(_logForm); // Keeps the application running for the log form to remain open
         }
 
         private static string? SelectFolder()

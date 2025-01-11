@@ -78,7 +78,7 @@ static class Program
             }
         }
         
-        Application.Run(); // Keeps the application running for the log form to remain open
+        Application.Run(_logForm); // Keeps the application running for the log form to remain open
     }
 
     private static string? SelectFile()

@@ -51,7 +51,7 @@ static class Program
         }
         CreateBatchFilesForScummVmGames(rootFolder, scummvmExePath);
         
-        Application.Run(); // Keeps the application running for the log form to remain open
+        Application.Run(_logForm); // Keeps the application running for the log form to remain open
     }
 
     private static string? SelectFolder()

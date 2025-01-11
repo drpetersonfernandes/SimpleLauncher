@@ -52,7 +52,7 @@ static class Program
 
         CreateBatchFilesForModel3Games(romFolder, supermodelExePath);
 
-        Application.Run();
+        Application.Run(_logForm);
     }
 
     private static string? SelectFolder()
