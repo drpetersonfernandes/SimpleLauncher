@@ -45,7 +45,8 @@ public partial class About
         catch (Exception ex)
         {
             string formattedException = $"Error in the CheckForUpdate_Click method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
     }
@@ -54,8 +55,10 @@ public partial class About
     {
         get
         {
+            string version2 = (string)Application.Current.TryFindResource("Version") ?? "Version:";
+            string unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            return "Version: " + (version?.ToString() ?? "Unknown");
+            return $"{version2} " + (version?.ToString() ?? unknown2);
         }
     }
 

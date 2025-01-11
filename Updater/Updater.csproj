@@ -2,13 +2,14 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>net9.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyVersion>2.2.0</AssemblyVersion>
         <FileVersion>2.2.0</FileVersion>
         <IsPackable>false</IsPackable>
+        <LangVersion>13</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

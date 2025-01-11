@@ -272,7 +272,7 @@
                         Grid.Row="6"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}" >
+                        Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}">
                     </Label>
                     <TextBox
                         Margin="0,0,10,10"
@@ -286,7 +286,7 @@
                         Grid.Row="6"
                         Grid.Column="2"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource Useacommatoaddmultipleextensions}" >
+                        Content="{DynamicResource Useacommatoaddmultipleextensions}">
                     </Label>
 
                     <!-- Emulator 1 -->
@@ -308,7 +308,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator1NameRequired}" >
+                                Content="{DynamicResource Emulator1NameRequired}">
                             </Label>
                             <TextBox
                                 Margin="0,10,10,10"
@@ -386,7 +386,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator2NameMaybeRequired}" >
+                                Content="{DynamicResource Emulator2NameMaybeRequired}">
                             </Label>
                             <TextBox
                                 Margin="0,10,10,10"
@@ -464,7 +464,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator3NameMaybeRequired}" >
+                                Content="{DynamicResource Emulator3NameMaybeRequired}">
                             </Label>
                             <TextBox
                                 Margin="0,10,10,10"
@@ -542,7 +542,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator4NameMaybeRequired}" >
+                                Content="{DynamicResource Emulator4NameMaybeRequired}">
                             </Label>
                             <TextBox
                                 Margin="0,10,10,10"
@@ -620,7 +620,7 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator5NameMaybeRequired}" >
+                                Content="{DynamicResource Emulator5NameMaybeRequired}">
                             </Label>
                             <TextBox
                                 Margin="0,10,10,10"

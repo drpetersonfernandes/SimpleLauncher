@@ -36,9 +36,11 @@ public partial class DownloadImagePack
         // Subscribe to the Closed event
         Closed += EditSystemEasyModeAddSystem_Closed;
 
-        MessageBox.Show(TryFindResource("AntivirusWarning") as string ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n" +
-            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.",
-            TryFindResource("InfoTitle") as string ?? "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        string someantivirusprograms2 = (string)Application.Current.TryFindResource("Someantivirusprograms") ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.";
+        string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run";
+        string withadministrativeprivileges2 = (string)Application.Current.TryFindResource("withadministrativeprivileges") ?? "with administrative privileges.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show($"{someantivirusprograms2}\n\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void LoadConfig()
@@ -121,9 +123,10 @@ public partial class DownloadImagePack
                         }
                         else
                         {
-                            MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction",
-                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
+                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
+                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
+                            MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}", extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
                             
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -193,12 +196,14 @@ public partial class DownloadImagePack
                         }
                     }
                     
-                    MessageBox.Show("Image Pack download was canceled.", "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Image Pack download was canceled.",
+                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     string formattedException = $"Error downloading the Image Pack.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the Image Pack.\n\n" +
@@ -259,8 +264,11 @@ public partial class DownloadImagePack
 
     private void ExtrasExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath)
     {
-        MessageBox.Show($"Image pack for {selectedSystem.SystemName} downloaded and extracted successfully.",
-            "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+        string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
+        string downloadedandextracted2 = (string)Application.Current.TryFindResource("downloadedandextracted") ?? "downloaded and extracted successfully.";
+        string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
+        MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextracted2}",
+            downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
         try
@@ -317,7 +325,8 @@ public partial class DownloadImagePack
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             string formattedException = $"The requested file was not available on the server.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("The requested file is not available on the server.\n\n" +

@@ -48,7 +48,6 @@ public static class DownloadAndExtractInMemory
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-       
             throw new Exception(formattedException);
         }
         catch (IOException ex)
@@ -57,7 +56,6 @@ public static class DownloadAndExtractInMemory
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-        
             throw new Exception(formattedException);
         }
         catch (TaskCanceledException ex)
@@ -121,7 +119,8 @@ public static class DownloadAndExtractInMemory
         {
             MessageBox.Show("The downloaded file is not a valid ZIP archive.\n\n" +
                             "This may be due to a network issue or server error.\n\n" +
-                            "Please try again later.", "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Please try again later.",
+                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
             throw;
         }
         catch
