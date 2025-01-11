@@ -40,9 +40,12 @@ public partial class EditSystemEasyModeAddSystem
         // Subscribe to the Closed event
         Closed += EditSystemEasyModeAddSystem_Closed;
 
-        MessageBox.Show(TryFindResource("AntivirusWarning") as string ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.\n" +
-            "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.",
-            TryFindResource("InfoTitle") as string ?? "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        string someantivirusprogramsmaylock2 = (string)Application.Current.TryFindResource("Someantivirusprogramsmaylock") ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.";
+        string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run";
+        string withadministrativeprivileges2 = (string)Application.Current.TryFindResource("withadministrativeprivileges") ?? "with administrative privileges.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show($"{someantivirusprogramsmaylock2}\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}",
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void LoadConfig()
@@ -112,8 +115,12 @@ public partial class EditSystemEasyModeAddSystem
                         Version.TryParse(latestVersionString, out Version latestVersion) &&
                         installedVersion.CompareTo(latestVersion) >= 0)
                     {
-                        MessageBox.Show($"Emulator for {selectedSystem.SystemName} is already installed and up to date.",
-                            "Emulator Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
+                        string isalreadyinstalledanduptodate2 = (string)Application.Current.TryFindResource("isalreadyinstalledanduptodate") ?? "is already installed and up to date.";
+                        string emulatorAlreadyInstalled2 = (string)Application.Current.TryFindResource("EmulatorAlreadyInstalled") ?? "Emulator Already Installed";
+                        MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {isalreadyinstalledanduptodate2}",
+                            emulatorAlreadyInstalled2, MessageBoxButton.OK, MessageBoxImage.Information);
+                        
                         _isEmulatorDownloaded = true;
                         DownloadEmulatorButton.IsEnabled = false;
                         UpdateAddSystemButtonState();
@@ -188,9 +195,10 @@ public partial class EditSystemEasyModeAddSystem
                     {
                         // ignore
                     }
-                    
-                    MessageBox.Show("Emulator download was canceled.",
-                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                   
+                    string emulatordownloadwascanceled2 = (string)Application.Current.TryFindResource("Emulatordownloadwascanceled") ?? "Emulator download was canceled.";
+                    string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
+                    MessageBox.Show(emulatordownloadwascanceled2, downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -201,9 +209,11 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
                     // Offer redirect
-                    MessageBoxResult result = MessageBox.Show($"Error downloading emulator.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    string errordownloadingemulator2 = (string)Application.Current.TryFindResource("Errordownloadingemulator") ?? "Error downloading emulator.";
+                    string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+                    string downloadError2 = (string)Application.Current.TryFindResource("DownloadError") ?? "Download Error";
+                    MessageBoxResult result = MessageBox.Show($"{errordownloadingemulator2}\n\n{wouldyouliketoberedirected2}",
+                        downloadError2, MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -242,9 +252,11 @@ public partial class EditSystemEasyModeAddSystem
     private async Task CallInMemoryDownloadAndExtract(string emulatorDownloadUrl, string destinationPath,
         EasyModeSystemConfig selectedSystem, string downloadFilePath, string finalPath, string latestVersionString)
     {
-        MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                        $"I will try again using in memory download and extraction",
-            "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
+        string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
+        string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
+        MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}",
+            extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
 
         /////////////////////////////////////////////////
         //// In Memory Download and Extract - Start /////
@@ -301,8 +313,11 @@ public partial class EditSystemEasyModeAddSystem
 
     private async Task EmulatorSuccessMessage(EasyModeSystemConfig selectedSystem, string downloadFilePath, string destinationPath2, string latestVersionString)
     {
-        MessageBox.Show($"Emulator for {selectedSystem.SystemName} downloaded and extracted successfully.",
-            "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
+        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
 
         // Clean up the downloaded file only if extraction is successful
         try
@@ -357,8 +372,11 @@ public partial class EditSystemEasyModeAddSystem
                         Version.TryParse(latestVersionString, out Version latestVersion) &&
                         installedVersion.CompareTo(latestVersion) >= 0)
                     {
-                        MessageBox.Show($"Core for {selectedSystem.SystemName} is already installed and up to date.",
-                            "Core Already Installed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        string corefor2 = (string)Application.Current.TryFindResource("Corefor") ?? "Core for";
+                        string isalreadyinstalledanduptodate2 = (string)Application.Current.TryFindResource("isalreadyinstalledanduptodate") ?? "is already installed and up to date.";
+                        string coreAlreadyInstalled2 = (string)Application.Current.TryFindResource("CoreAlreadyInstalled") ?? "Core Already Installed";
+                        MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {isalreadyinstalledanduptodate2}",
+                            coreAlreadyInstalled2, MessageBoxButton.OK, MessageBoxImage.Information);
                         
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
@@ -398,9 +416,11 @@ public partial class EditSystemEasyModeAddSystem
                         }
                         else
                         {
-                            MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction",
-                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
+                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
+                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
+                            MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}",
+                                extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -442,9 +462,11 @@ public partial class EditSystemEasyModeAddSystem
                     else
                     {
                         // Download was incomplete
-                        MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
-                                                                  $"Would you like to be redirected to the download page?",
-                            "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        string downloadwasincompleteandwill2 = (string)Application.Current.TryFindResource("Downloadwasincompleteandwill") ?? "Download was incomplete and will not be extracted.";
+                        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+                        string downloadIncomplete2 = (string)Application.Current.TryFindResource("DownloadIncomplete") ?? "Download Incomplete";
+                        MessageBoxResult result = MessageBox.Show($"{downloadwasincompleteandwill2}\n\n{wouldyouliketoberedirected2}",
+                            downloadIncomplete2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
                             Process.Start(new ProcessStartInfo
@@ -467,8 +489,9 @@ public partial class EditSystemEasyModeAddSystem
                         // ignore
                     }
                     
-                    MessageBox.Show("Core download was canceled.",
-                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string coredownloadwascanceled2 = (string)Application.Current.TryFindResource("Coredownloadwascanceled") ?? "Core download was canceled.";
+                    string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
+                    MessageBox.Show(coredownloadwascanceled2, downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -478,7 +501,8 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\n" +
-                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?",
+                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -517,7 +541,8 @@ public partial class EditSystemEasyModeAddSystem
     {
         // Download and Extraction failed - offer redirect option
         MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} core.\n\n" +
-                                                  $"Would you like to be redirected to the download page?", "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                  $"Would you like to be redirected to the download page?",
+            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
             Process.Start(new ProcessStartInfo
@@ -531,8 +556,11 @@ public partial class EditSystemEasyModeAddSystem
     private async Task CoreExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath,
         string destinationPath2, string latestVersionString)
     {
-        MessageBox.Show($"Core for {selectedSystem.SystemName} downloaded and extracted successfully.",
-            "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        string corefor2 = (string)Application.Current.TryFindResource("Corefor") ?? "Core for";
+        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file
         try
@@ -604,9 +632,11 @@ public partial class EditSystemEasyModeAddSystem
                         }
                         else
                         {
-                            MessageBox.Show($"My first attempt to download and extract the file failed.\n\n" +
-                                            $"I will try again using in memory download and extraction",
-                                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            string myfirstattempttodownloadand2 = (string)Application.Current.TryFindResource("Myfirstattempttodownloadand") ?? "My first attempt to download and extract the file failed.";
+                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
+                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
+                            MessageBox.Show($"{myfirstattempttodownloadand2}\n\n{iwilltryagainusinginmemory2}",
+                                extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
                             
                             /////////////////////////////////////////////////
                             //// In Memory Download and Extract - Start /////
@@ -648,9 +678,11 @@ public partial class EditSystemEasyModeAddSystem
                     else
                     {
                         // Download was incomplete
-                        MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
-                                                                  $"Would you like to be redirected to the download page?",
-                            "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        string downloadwasincomplete2 = (string)Application.Current.TryFindResource("Downloadwasincomplete") ?? "Download was incomplete and will not be extracted.";
+                        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+                        string downloadIncomplete2 = (string)Application.Current.TryFindResource("DownloadIncomplete") ?? "Download Incomplete";
+                        MessageBoxResult result = MessageBox.Show($"{downloadwasincomplete2}\n\n{wouldyouliketoberedirected2}",
+                            downloadIncomplete2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
                             Process.Start(new ProcessStartInfo
@@ -673,8 +705,9 @@ public partial class EditSystemEasyModeAddSystem
                         // ignore
                     }
 
-                    MessageBox.Show("Image Pack download was canceled.",
-                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string imagePackdownloadwascanceled2 = (string)Application.Current.TryFindResource("ImagePackdownloadwascanceled") ?? "Image Pack download was canceled.";
+                    string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
+                    MessageBox.Show(imagePackdownloadwascanceled2, downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -739,8 +772,11 @@ public partial class EditSystemEasyModeAddSystem
 
     private void ExtrasExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath)
     {
-        MessageBox.Show($"Image pack for {selectedSystem.SystemName} downloaded and extracted successfully.",
-            "Download Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+        string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
+        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+        string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
+        MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+            downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
         try
@@ -872,8 +908,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
-                                "You can try again later.",
-                    "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "You can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -989,12 +1024,17 @@ public partial class EditSystemEasyModeAddSystem
                 // Create the necessary folders for the system
                 CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
 
-                MessageBox.Show($"The system {selectedSystem.SystemName} has been added successfully.\n\n" +
-                                $"Put ROMs or ISOs for this system inside '{systemFolder}'\n\n" +
-                                $"Put cover images for this system inside '{fullImageFolderPathForMessage}'.",
-                    "System Added", MessageBoxButton.OK, MessageBoxImage.Information);
-                AddSystemButton.IsEnabled = false;
+                string thesystem2 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+                string hasbeenaddedsuccessfully2 = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
+                string putRoMsorIsOsforthissysteminside2 = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
+                string putcoverimagesforthissysteminside2 = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
+                string systemAdded2 = (string)Application.Current.TryFindResource("SystemAdded") ?? "System Added";
+                MessageBox.Show($"{thesystem2} {selectedSystem.SystemName} {hasbeenaddedsuccessfully2}\n\n" +
+                                $"{putRoMsorIsOsforthissysteminside2} '{systemFolder}'\n\n" +
+                                $"{putcoverimagesforthissysteminside2} '{fullImageFolderPathForMessage}'.",
+                    systemAdded2, MessageBoxButton.OK, MessageBoxImage.Information);
 
+                AddSystemButton.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -1059,9 +1099,11 @@ public partial class EditSystemEasyModeAddSystem
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"The application failed to create the necessary folders for this system.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string theapplicationfailedtocreate2 = (string)Application.Current.TryFindResource("Theapplicationfailedtocreate") ?? "The application failed to create the necessary folders for this system.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{theapplicationfailedtocreate2}\n\n{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
             throw;
         }
     }
@@ -1092,7 +1134,7 @@ public partial class EditSystemEasyModeAddSystem
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         using var dialog = new FolderBrowserDialog();
-        dialog.Description = @"Choose a Folder with ROMs or ISOs for this System";
+        dialog.Description = @"Choose a Folder with 'ROMs' or 'ISOs' for this System";
         dialog.ShowNewFolderButton = true;
 
         if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

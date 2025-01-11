@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
     
-    <system:String x:Key="AntivirusWarning">Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.
-        If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.</system:String>
     <system:String x:Key="InfoTitle">Info</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="System2">System</system:String>
     <system:String x:Key="hasbeendeleted">has been deleted.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.</system:String>
+    <system:String x:Key="Emulatorfor">Emulator for</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">is already installed and up to date.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Emulator Already Installed</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">Emulator download was canceled.</system:String>
+    <system:String x:Key="DownloadCanceled">Download Canceled</system:String>
+    <system:String x:Key="Errordownloadingemulator">Error downloading emulator.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
+    <system:String x:Key="DownloadError">Download Error</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">downloaded and extracted successfully.</system:String>
+    <system:String x:Key="Corefor">Core for</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Core Already Installed</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">Download was incomplete and will not be extracted.</system:String>
+    <system:String x:Key="DownloadIncomplete">Download Incomplete</system:String>
+    <system:String x:Key="Coredownloadwascanceled">Core download was canceled.</system:String>
+    <system:String x:Key="Downloadwasincomplete">Download was incomplete and will not be extracted.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Image Pack download was canceled.</system:String>
+    <system:String x:Key="Thesystem">The system</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">has been added successfully.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Put ROMs or ISOs for this system inside</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Put cover images for this system inside</system:String>
+    <system:String x:Key="SystemAdded">System Added</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">The application failed to create the necessary folders for this system.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer that will try to fix the issue.</system:String>
+    <system:String x:Key="Error">Error</system:String>
     
 </ResourceDictionary>

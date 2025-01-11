@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
     
-    <system:String x:Key="AntivirusWarning">某些防毒軟體可能會阻止或鎖定最近下載的檔案解壓縮，這可能會導致安裝過程中無法訪問這些檔案。 
-        如果您遇到錯誤，請嘗試暫時停用即時保護，並以管理員權限運行“Simple Launcher”。</system:String>
     <system:String x:Key="InfoTitle">資訊</system:String>
     <system:String x:Key="Nosystemselected">未選擇任何系統</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您希望保存包含結果的報告嗎？</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="System2">系統</system:String>
     <system:String x:Key="hasbeendeleted">已刪除。</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">某些防毒軟體可能會阻止或干擾新下載檔案的解壓縮，可能導致安裝過程中出現存取問題。</system:String>
+    <system:String x:Key="Emulatorfor">模擬器適用於</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">已安裝且為最新版本。</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">模擬器已安裝</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">模擬器下載已取消。</system:String>
+    <system:String x:Key="DownloadCanceled">下載已取消</system:String>
+    <system:String x:Key="Errordownloadingemulator">下載模擬器時發生錯誤。</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">是否需要跳轉到下載頁面？</system:String>
+    <system:String x:Key="DownloadError">下載錯誤</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">已成功下載並解壓縮。</system:String>
+    <system:String x:Key="Corefor">核心適用於</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">核心已安裝</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">下載不完整，檔案將不會被解壓縮。</system:String>
+    <system:String x:Key="DownloadIncomplete">下載不完整</system:String>
+    <system:String x:Key="Coredownloadwascanceled">核心下載已取消。</system:String>
+    <system:String x:Key="Downloadwasincomplete">下載不完整，檔案將不會被解壓縮。</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">影像包下載已取消。</system:String>
+    <system:String x:Key="Thesystem">系統</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">已成功新增。</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">將此系統的ROM或ISO檔案放入</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">將此系統的封面圖片放入</system:String>
+    <system:String x:Key="SystemAdded">系統已新增</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">應用程式無法為此系統建立必要的資料夾。</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">錯誤已回報給開發人員，開發人員會嘗試修正問題。</system:String>
+    <system:String x:Key="Error">錯誤</system:String>
     
 </ResourceDictionary>

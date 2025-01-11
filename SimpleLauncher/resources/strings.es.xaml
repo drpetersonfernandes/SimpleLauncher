@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Guardar o actualizar enlaces</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restablecer a valores predeterminados</system:String>
     
-    <system:String x:Key="AntivirusWarning">Algunos programas antivirus pueden bloquear o impedir la extracción de archivos recién descargados, causando problemas de acceso durante la instalación. 
-        Si encuentras errores, intenta desactivar temporalmente la protección en tiempo real y ejecuta 'Simple Launcher' con privilegios de administrador.</system:String>
     <system:String x:Key="InfoTitle">Información</system:String>
     <system:String x:Key="Nosystemselected">No se ha seleccionado ningún sistema</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">¿Te gustaría guardar un informe con los resultados?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Confirmación</system:String>
     <system:String x:Key="System2">Sistema</system:String>
     <system:String x:Key="hasbeendeleted">ha sido eliminado.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Algunos programas antivirus pueden bloquear o impedir la extracción de archivos recién descargados, causando problemas de acceso durante la instalación.</system:String>
+    <system:String x:Key="Emulatorfor">Emulador para</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">ya está instalado y actualizado.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Emulador ya instalado</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">La descarga del emulador fue cancelada.</system:String>
+    <system:String x:Key="DownloadCanceled">Descarga cancelada</system:String>
+    <system:String x:Key="Errordownloadingemulator">Error al descargar el emulador.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">¿Te gustaría ser redirigido a la página de descarga?</system:String>
+    <system:String x:Key="DownloadError">Error de descarga</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">descargado y extraído con éxito.</system:String>
+    <system:String x:Key="Corefor">Núcleo para</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Núcleo ya instalado</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">La descarga estaba incompleta y no será extraída.</system:String>
+    <system:String x:Key="DownloadIncomplete">Descarga incompleta</system:String>
+    <system:String x:Key="Coredownloadwascanceled">La descarga del núcleo fue cancelada.</system:String>
+    <system:String x:Key="Downloadwasincomplete">La descarga estaba incompleta y no será extraída.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">La descarga del paquete de imágenes fue cancelada.</system:String>
+    <system:String x:Key="Thesystem">El sistema</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">se ha añadido con éxito.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Coloca ROMs o ISOs para este sistema dentro de</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Coloca las imágenes de portada para este sistema dentro de</system:String>
+    <system:String x:Key="SystemAdded">Sistema añadido</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">La aplicación no pudo crear las carpetas necesarias para este sistema.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Se informó del error al desarrollador, quien tratará de solucionar el problema.</system:String>
+    <system:String x:Key="Error">Error</system:String>
     
 </ResourceDictionary>

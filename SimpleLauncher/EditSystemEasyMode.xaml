@@ -35,7 +35,7 @@
             HorizontalAlignment="Center"
             Click="DeleteSystemButton_Click"
             Content="{DynamicResource DeleteExistingSystem}" />
-        
+
         <Button
             Margin="10"
             Padding="10"

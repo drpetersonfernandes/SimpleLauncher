@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     
-    <system:String x:Key="AntivirusWarning">Bazı antivirüs yazılımları, yakın zamanda indirilen dosyaların çıkarılmasını engelleyebilir veya kilitleyebilir ve bu da kurulum sırasında erişim sorunlarına neden olabilir. 
-        Hata alırsanız, gerçek zamanlı korumayı geçici olarak devre dışı bırakmayı deneyin ve 'Simple Launcher'ı yönetici yetkileriyle çalıştırın.</system:String>
     <system:String x:Key="InfoTitle">Bilgi</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="System2">Sistem</system:String>
     <system:String x:Key="hasbeendeleted">silindi.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Bazı antivirüs programları, yeni indirilen dosyaların çıkarılmasını engelleyebilir veya durdurabilir ve yükleme sırasında erişim sorunlarına neden olabilir.</system:String>
+    <system:String x:Key="Emulatorfor">Emülatör için</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">zaten yüklü ve güncel.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Emülatör zaten yüklü</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">Emülatör indirme işlemi iptal edildi.</system:String>
+    <system:String x:Key="DownloadCanceled">İndirme iptal edildi</system:String>
+    <system:String x:Key="Errordownloadingemulator">Emülatör indirilirken bir hata oluştu.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">İndirme sayfasına yönlendirilmek ister misiniz?</system:String>
+    <system:String x:Key="DownloadError">İndirme hatası</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">başarıyla indirildi ve çıkarıldı.</system:String>
+    <system:String x:Key="Corefor">Çekirdek (Core) için</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Çekirdek (Core) zaten yüklü</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">İndirme işlemi eksikti ve çıkarılamayacak.</system:String>
+    <system:String x:Key="DownloadIncomplete">İndirme eksik</system:String>
+    <system:String x:Key="Coredownloadwascanceled">Çekirdek (Core) indirme işlemi iptal edildi.</system:String>
+    <system:String x:Key="Downloadwasincomplete">İndirme işlemi eksikti ve çıkarılamayacak.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Görsel paketi indirme işlemi iptal edildi.</system:String>
+    <system:String x:Key="Thesystem">Sistem</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">başarıyla eklendi.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Bu sistem için ROM'ları veya ISO dosyalarını şu klasöre yerleştirin:</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Bu sistem için kapak görsellerini şu klasöre yerleştirin:</system:String>
+    <system:String x:Key="SystemAdded">Sistem eklendi</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">Uygulama, bu sistem için gerekli klasörleri oluşturamadı.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve çözüm için çalışılacaktır.</system:String>
+    <system:String x:Key="Error">Hata</system:String>
     
 </ResourceDictionary>

@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     
-    <system:String x:Key="AntivirusWarning">Sommige antivirusprogramma's kunnen het uitpakken van recent gedownloade bestanden blokkeren of vergrendelen, wat toegang tot die bestanden tijdens de installatie kan verhinderen. 
-        Als je fouten tegenkomt, probeer dan de realtimebeveiliging tijdelijk uit te schakelen en 'Simple Launcher' uit te voeren met beheerdersrechten.</system:String>
     <system:String x:Key="InfoTitle">Informatie</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="System2">Systeem</system:String>
     <system:String x:Key="hasbeendeleted">is verwijderd.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Sommige antivirusprogramma's kunnen deextractie van nieuw gedownloade bestanden blokkeren of voorkomen, wat problemen kan veroorzaken bij de toegang tijdens de installatie.</system:String>
+    <system:String x:Key="Emulatorfor">Emulator voor</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">is al geïnstalleerd en up-to-date.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Emulator is al geïnstalleerd</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">De emulator-download is geannuleerd.</system:String>
+    <system:String x:Key="DownloadCanceled">Download geannuleerd</system:String>
+    <system:String x:Key="Errordownloadingemulator">Fout bij het downloaden van de emulator.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
+    <system:String x:Key="DownloadError">Downloadfout</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">succesvol gedownload en geëxtraheerd.</system:String>
+    <system:String x:Key="Corefor">Core voor</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Core is al geïnstalleerd</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">De download was onvolledig en wordt niet geëxtraheerd.</system:String>
+    <system:String x:Key="DownloadIncomplete">Download onvolledig</system:String>
+    <system:String x:Key="Coredownloadwascanceled">De core-download is geannuleerd.</system:String>
+    <system:String x:Key="Downloadwasincomplete">De download was onvolledig en wordt niet geëxtraheerd.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">De afbeeldingenset-download is geannuleerd.</system:String>
+    <system:String x:Key="Thesystem">Het systeem</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">is succesvol toegevoegd.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Plaats ROMs of ISOs voor dit systeem in</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
+    <system:String x:Key="SystemAdded">Systeem toegevoegd</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">De applicatie kon de noodzakelijke mappen voor dit systeem niet aanmaken.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is gemeld aan de ontwikkelaar, die zal proberen het probleem op te lossen.</system:String>
+    <system:String x:Key="Error">Fout</system:String>
     
 </ResourceDictionary>

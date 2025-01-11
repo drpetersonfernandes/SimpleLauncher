@@ -39,12 +39,13 @@
                 Text="{DynamicResource Pleasechooseasystem}"
                 Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
 
-            <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" SelectionChanged="SystemNameDropdown_SelectionChanged" />
+            <ComboBox x:Name="SystemNameDropdown" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"
+                      SelectionChanged="SystemNameDropdown_SelectionChanged" />
 
             <TextBlock
                 Text="{DynamicResource ChoosefolderwithROMs}"
                 Grid.Row="4" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="10" />
-            
+
             <TextBlock
                 Text="{DynamicResource Ifyouleaveitempty}"
                 Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Justify" Margin="0,0,0,10" />
@@ -54,8 +55,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" x:Name="SystemFolderTextBox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" />
-            <Button Grid.Column="1" Padding="7" Content="{DynamicResource ChooseFolder}" Click="ChooseFolderButton_Click" Margin="10,0,0,0" />
+                <TextBox Grid.Column="0" x:Name="SystemFolderTextBox" HorizontalAlignment="Stretch"
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="1" Padding="7" Content="{DynamicResource ChooseFolder}"
+                        Click="ChooseFolderButton_Click" Margin="10,0,0,0" />
             </Grid>
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Center" Grid.Row="7">
@@ -71,22 +74,31 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource DownloadandInstall}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-         
-                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource 1ststep}" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton" Content="{DynamicResource DownloadEmulator}" HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click" IsEnabled="False" Margin="5" />
-                
-                <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 2ndstep}" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton" Content="{DynamicResource DownloadCore}"
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource DownloadandInstall}"
+                       HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource 1ststep}" VerticalAlignment="Center"
+                       Margin="5" />
+                <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadEmulatorButton"
+                        Content="{DynamicResource DownloadEmulator}" HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click" IsEnabled="False"
+                        Margin="5" />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 2ndstep}" VerticalAlignment="Center"
+                       Margin="5" />
+                <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadCoreButton"
+                        Content="{DynamicResource DownloadCore}"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"
                         Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5" />
-                
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{DynamicResource DownloadandExtractImage}"
-                       HorizontalAlignment="Center" Margin="0,20,10,10"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center" Margin="5" />
-                <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton" Content="{DynamicResource DownloadImagePack}"
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="{DynamicResource DownloadandExtractImage}"
+                       HorizontalAlignment="Center" Margin="0,20,10,10" />
+
+                <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center"
+                       Margin="5" />
+                <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton"
+                        Content="{DynamicResource DownloadImagePack}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" Padding="7" Click="DownloadExtrasButton_Click"
                         IsEnabled="False" Margin="5" />
@@ -94,7 +106,8 @@
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="8">
                 <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Stretch" Height="29" />
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{DynamicResource DownloadProgress}" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Text="{DynamicResource DownloadProgress}" />
             </Grid>
 
             <Button x:Name="StopDownloadButton" Content="{DynamicResource StopDownload}"
@@ -105,18 +118,21 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10"
                     Grid.Row="10" Click="AddSystemButton_Click" IsEnabled="False" />
 
-            <TextBlock Grid.Row="12" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"
+            <TextBlock Grid.Row="12" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       TextWrapping="Wrap"
                        Text="{DynamicResource IncasetheImagePackisnotavailable}" />
-            
+
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="13" Margin="10,0,10,10">
                 <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                RequestNavigate="Hyperlink_RequestNavigate">https://github.com/libretro-thumbnails/libretro-thumbnails</Hyperlink>
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    https://github.com/libretro-thumbnails/libretro-thumbnails
+                </Hyperlink>
             </TextBlock>
-            
+
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="14" Margin="10,0,10,30">
                 <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
             </TextBlock>
-            
+
         </Grid>
     </ScrollViewer>
 

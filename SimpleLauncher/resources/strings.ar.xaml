@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     
-    <system:String x:Key="AntivirusWarning">قد تمنع بعض برامج الحماية من الفيروسات أو تقفل استخراج الملفات التي تم تنزيلها حديثاً، مما يسبب مشاكل في الوصول أثناء التثبيت.
-        إذا واجهت أخطاء، حاول تعطيل الحماية في الوقت الفعلي مؤقتاً وقم بتشغيل 'Simple Launcher' بصلاحيات المسؤول.</system:String>
     <system:String x:Key="InfoTitle">معلومات</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="System2">النظام</system:String>
     <system:String x:Key="hasbeendeleted">تم حذفه.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">قد تمنع بعض برامج مكافحة الفيروسات استخراج الملفات التي تم تنزيلها حديثًا، مما يسبب مشاكل في الوصول أثناء التثبيت.</system:String>
+    <system:String x:Key="Emulatorfor">محاكي لـ</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">تم تثبيته بالفعل وهو محدث.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">المحاكي مثبت بالفعل</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">تم إلغاء تنزيل المحاكي.</system:String>
+    <system:String x:Key="DownloadCanceled">تم إلغاء التنزيل</system:String>
+    <system:String x:Key="Errordownloadingemulator">خطأ أثناء تنزيل المحاكي.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
+    <system:String x:Key="DownloadError">خطأ في التنزيل</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">تم التنزيل والاستخراج بنجاح.</system:String>
+    <system:String x:Key="Corefor">النواة لـ</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">النواة مثبتة بالفعل</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">لم يكتمل التنزيل ولن يتم الاستخراج.</system:String>
+    <system:String x:Key="DownloadIncomplete">تنزيل غير مكتمل</system:String>
+    <system:String x:Key="Coredownloadwascanceled">تم إلغاء تنزيل النواة.</system:String>
+    <system:String x:Key="Downloadwasincomplete">لم يكتمل التنزيل ولن يتم الاستخراج.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">تم إلغاء تنزيل حزمة الصور.</system:String>
+    <system:String x:Key="Thesystem">النظام</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">تمت إضافته بنجاح.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">ضع ملفات ROMs أو ISOs لهذا النظام داخل</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>
+    <system:String x:Key="SystemAdded">تم إضافة النظام</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">فشل التطبيق في إنشاء المجلدات اللازمة لهذا النظام.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ إلى المطور لمحاولة إصلاحه.</system:String>
+    <system:String x:Key="Error">خطأ</system:String>
     
 </ResourceDictionary>

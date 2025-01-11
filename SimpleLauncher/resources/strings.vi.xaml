@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
     
-    <system:String x:Key="AntivirusWarning">Một số phần mềm diệt virus có thể chặn hoặc khóa việc giải nén các tệp vừa được tải xuống, gây ra vấn đề truy cập trong quá trình cài đặt. 
-        Nếu gặp lỗi, hãy thử tạm thời tắt bảo vệ thời gian thực và chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
     <system:String x:Key="InfoTitle">Thông tin</system:String>
     <system:String x:Key="Nosystemselected">Không có hệ thống nào được chọn</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="System2">Hệ thống</system:String>
     <system:String x:Key="hasbeendeleted">đã bị xóa.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Một số chương trình diệt virus có thể chặn hoặc ngăn việc giải nén các tệp vừa tải xuống, gây ra vấn đề truy cập trong quá trình cài đặt.</system:String>
+    <system:String x:Key="Emulatorfor">Trình giả lập cho</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">đã được cài đặt và cập nhật mới nhất.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Trình giả lập đã được cài đặt</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">Quá trình tải xuống trình giả lập đã bị hủy.</system:String>
+    <system:String x:Key="DownloadCanceled">Đã hủy tải xuống</system:String>
+    <system:String x:Key="Errordownloadingemulator">Có lỗi xảy ra khi tải trình giả lập.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
+    <system:String x:Key="DownloadError">Lỗi tải xuống</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">đã được tải xuống và giải nén thành công.</system:String>
+    <system:String x:Key="Corefor">Core cho</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Core đã được cài đặt</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">Quá trình tải xuống không hoàn tất và sẽ không được giải nén.</system:String>
+    <system:String x:Key="DownloadIncomplete">Tải xuống không hoàn tất</system:String>
+    <system:String x:Key="Coredownloadwascanceled">Quá trình tải xuống Core đã bị hủy.</system:String>
+    <system:String x:Key="Downloadwasincomplete">Quá trình tải xuống không hoàn tất và sẽ không được giải nén.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Quá trình tải gói hình ảnh đã bị hủy.</system:String>
+    <system:String x:Key="Thesystem">Hệ thống</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">đã được thêm thành công.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Đặt các tập tin ROM hoặc ISO cho hệ thống này vào</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Đặt hình ảnh bìa cho hệ thống này vào</system:String>
+    <system:String x:Key="SystemAdded">Hệ thống đã được thêm vào</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">Ứng dụng không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển và sẽ được cố gắng khắc phục.</system:String>
+    <system:String x:Key="Error">Lỗi</system:String>
     
 </ResourceDictionary>

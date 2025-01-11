@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
     
-    <system:String x:Key="AntivirusWarning">일부 안티바이러스 프로그램은 최근에 다운로드된 파일의 압축 해제를 차단하거나 잠글 수 있어 설치 중에 액세스 문제가 발생할 수 있습니다. 
-        오류가 발생하면 실시간 보호를 일시적으로 비활성화하고 'Simple Launcher'를 관리자 권한으로 실행해 보세요.</system:String>
     <system:String x:Key="InfoTitle">정보</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="System2">시스템</system:String>
     <system:String x:Key="hasbeendeleted">이 삭제되었습니다.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">일부 안티바이러스 프로그램은 새로 다운로드된 파일의 압축 해제를 차단하거나 방지하여 설치 중에 액세스 문제가 발생할 수 있습니다.</system:String>
+    <system:String x:Key="Emulatorfor">에뮬레이터:</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">이미 설치되어 있으며 최신 상태입니다.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">에뮬레이터가 이미 설치되어 있습니다</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">에뮬레이터 다운로드가 취소되었습니다.</system:String>
+    <system:String x:Key="DownloadCanceled">다운로드가 취소됨</system:String>
+    <system:String x:Key="Errordownloadingemulator">에뮬레이터 다운로드 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
+    <system:String x:Key="DownloadError">다운로드 오류</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">성공적으로 다운로드 및 압축해제되었습니다.</system:String>
+    <system:String x:Key="Corefor">코어:</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">코어가 이미 설치되어 있습니다</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">다운로드가 불완전하여 압축 해제되지 않습니다.</system:String>
+    <system:String x:Key="DownloadIncomplete">다운로드가 불완전합니다</system:String>
+    <system:String x:Key="Coredownloadwascanceled">코어 다운로드가 취소되었습니다.</system:String>
+    <system:String x:Key="Downloadwasincomplete">다운로드가 불완전하여 압축 해제되지 않습니다.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">이미지 팩 다운로드가 취소되었습니다.</system:String>
+    <system:String x:Key="Thesystem">시스템</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">이(가) 성공적으로 추가되었습니다.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">이 시스템의 ROM 또는 ISO를 다음 위치에 넣으세요:</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">이 시스템의 커버 이미지를 다음 위치에 넣으세요:</system:String>
+    <system:String x:Key="SystemAdded">시스템이 추가되었습니다</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">애플리케이션이 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었으며, 문제를 해결하기 위해 시도될 것입니다.</system:String>
+    <system:String x:Key="Error">오류</system:String>
     
 </ResourceDictionary>

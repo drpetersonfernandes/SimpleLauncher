@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Links speichern oder aktualisieren</system:String>
     <system:String x:Key="ReverttoDefaultValues">Auf Standardwerte zurücksetzen</system:String>
     
-    <system:String x:Key="AntivirusWarning">Einige Antivirenprogramme können das Entpacken von neu heruntergeladenen Dateien blockieren oder sperren, was während der Installation zu Zugriffsproblemen führen kann. 
-        Falls Fehler auftreten, versuchen Sie, den Echtzeitschutz vorübergehend zu deaktivieren und führen Sie 'Simple Launcher' mit Administratorrechten aus.</system:String>
     <system:String x:Key="InfoTitle">Information</system:String>
     <system:String x:Key="Nosystemselected">Kein System ausgewählt</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Möchten Sie einen Bericht mit den Ergebnissen speichern?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Bestätigung</system:String>
     <system:String x:Key="System2">System</system:String>
     <system:String x:Key="hasbeendeleted">wurde gelöscht.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Einige Antivirenprogramme können das Entpacken von neu heruntergeladenen Dateien sperren oder verhindern, was während der Installation zu Zugriffsproblemen führen kann.</system:String>
+    <system:String x:Key="Emulatorfor">Emulator für</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">ist bereits installiert und auf dem neuesten Stand.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Emulator bereits installiert</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">Der Emulator-Download wurde abgebrochen.</system:String>
+    <system:String x:Key="DownloadCanceled">Download abgebrochen</system:String>
+    <system:String x:Key="Errordownloadingemulator">Fehler beim Herunterladen des Emulators.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Möchten Sie zur Download-Seite weitergeleitet werden?</system:String>
+    <system:String x:Key="DownloadError">Download-Fehler</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">erfolgreich heruntergeladen und entpackt.</system:String>
+    <system:String x:Key="Corefor">Kern für</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Kern bereits installiert</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">Der Download war unvollständig und wird nicht entpackt.</system:String>
+    <system:String x:Key="DownloadIncomplete">Download unvollständig</system:String>
+    <system:String x:Key="Coredownloadwascanceled">Der Kern-Download wurde abgebrochen.</system:String>
+    <system:String x:Key="Downloadwasincomplete">Der Download war unvollständig und wird nicht entpackt.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Der Image-Pack-Download wurde abgebrochen.</system:String>
+    <system:String x:Key="Thesystem">Das System</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">wurde erfolgreich hinzugefügt.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Legen Sie ROMs oder ISOs für dieses System in</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Legen Sie Coverbilder für dieses System in</system:String>
+    <system:String x:Key="SystemAdded">System hinzugefügt</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">Die Anwendung konnte die notwendigen Ordner für dieses System nicht erstellen.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Der Fehler wurde an den Entwickler gemeldet, der versuchen wird, das Problem zu beheben.</system:String>
+    <system:String x:Key="Error">Fehler</system:String>
     
 </ResourceDictionary>

@@ -192,8 +192,6 @@
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     
-    <system:String x:Key="AntivirusWarning">Некоторые антивирусные программы могут блокировать или препятствовать извлечению недавно загруженных файлов, что вызывает проблемы с доступом при установке. 
-        Если вы столкнулись с ошибками, попробуйте временно отключить защиту в реальном времени и запустите 'Simple Launcher' с правами администратора.</system:String>
     <system:String x:Key="InfoTitle">Информация</system:String>
     <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
@@ -330,5 +328,31 @@
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="System2">Система</system:String>
     <system:String x:Key="hasbeendeleted">была удалена.</system:String>
+    
+    <system:String x:Key="Someantivirusprogramsmaylock">Некоторые антивирусные программы могут блокировать или препятствовать распаковке недавно загруженных файлов, что может вызвать проблемы с доступом во время установки.</system:String>
+    <system:String x:Key="Emulatorfor">Эмулятор для</system:String>
+    <system:String x:Key="isalreadyinstalledanduptodate">уже установлен и обновлен до актуальной версии.</system:String>
+    <system:String x:Key="EmulatorAlreadyInstalled">Эмулятор уже установлен</system:String>
+    <system:String x:Key="Emulatordownloadwascanceled">Загрузка эмулятора была отменена.</system:String>
+    <system:String x:Key="DownloadCanceled">Загрузка отменена</system:String>
+    <system:String x:Key="Errordownloadingemulator">Ошибка при загрузке эмулятора.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Вы хотите быть перенаправлены на страницу загрузки?</system:String>
+    <system:String x:Key="DownloadError">Ошибка загрузки</system:String>
+    <system:String x:Key="downloadedandextractedsuccessfully">успешно загружен и распакован.</system:String>
+    <system:String x:Key="Corefor">Core для</system:String>
+    <system:String x:Key="CoreAlreadyInstalled">Core уже установлен</system:String>
+    <system:String x:Key="Downloadwasincompleteandwill">Загрузка была неполной, поэтому файл не будет распакован.</system:String>
+    <system:String x:Key="DownloadIncomplete">Загрузка неполная</system:String>
+    <system:String x:Key="Coredownloadwascanceled">Загрузка Core была отменена.</system:String>
+    <system:String x:Key="Downloadwasincomplete">Загрузка была неполной, поэтому файл не будет распакован.</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Загрузка пакета изображений была отменена.</system:String>
+    <system:String x:Key="Thesystem">Система</system:String>
+    <system:String x:Key="hasbeenaddedsuccessfully">успешно добавлена.</system:String>
+    <system:String x:Key="PutROMsorISOsforthissysteminside">Поместите ROM или ISO для этой системы в</system:String>
+    <system:String x:Key="Putcoverimagesforthissysteminside">Поместите обложки для этой системы в</system:String>
+    <system:String x:Key="SystemAdded">Система добавлена</system:String>
+    <system:String x:Key="Theapplicationfailedtocreate">Приложению не удалось создать необходимые папки для этой системы.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Ошибка была отправлена разработчику, который попытается её исправить.</system:String>
+    <system:String x:Key="Error">Ошибка</system:String>
     
 </ResourceDictionary>
