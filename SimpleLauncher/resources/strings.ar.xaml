@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">إذا لم تختر مجلدًا، فسيتم استخراج الصور إلى المجلد الافتراضي</system:String>
 
-    <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الأجهزة ضمن كل نظام في 'Simple Launcher'.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">تشغيل اللعبة المحددة</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">فشل التطبيق في إنشاء المجلدات اللازمة لهذا النظام.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ إلى المطور لمحاولة إصلاحه.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">يرجى اختيار مفضلة للإزالة.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">يرجى اختيار لعبة للتشغيل.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">تمت إزالة المفضلة من القائمة.</system:String>
+    <system:String x:Key="FileNotFound">الملف غير موجود</system:String>
+    <system:String x:Key="Thereisnocoverassociated">لا يوجد غلاف مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">لا توجد لقطة عنوان مرتبطة بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">لا توجد لقطة لعب مرتبطة بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">لا توجد خرطوشة مرتبطة بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">لا يوجد ملف فيديو مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">لا يوجد دليل مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Manualnotfound">الدليل غير موجود</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">لا يوجد ملف توجيهات مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">لا يوجد ملف خزانة مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">لا يوجد ملف منشور مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">لا يوجد ملف PCB مرتبط بهذه المفضلة.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">تم حفظ لقطة الشاشة بنجاح في:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">تعذر على التطبيق تشغيل اللعبة المحددة.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">إذا كنت تحاول تشغيل MAME، تأكد من أن مجموعة ROM الخاصة بك متوافقة مع أحدث إصدار من MAME.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">إذا كنت تحاول تشغيل Retroarch، تأكد من تثبيت ملفات BIOS أو الملفات المطلوبة للنواة التي تستخدمها.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">تحقق أيضًا من أن المحاكي الذي تستخدمه تم تكوينه بشكل صحيح. تأكد مما إذا كان يحتاج إلى ملفات BIOS أو ملفات النظام للعمل بشكل صحيح.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">هل تريد فتح الملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">حدث خطأ انتهاك في الوصول إلى الذاكرة أثناء تشغيل هذا المحاكي مع هذا ROM.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">عادةً ما يحدث هذا النوع من الأخطاء عندما يحاول المحاكي الوصول إلى ذاكرة ليس لديه إذن بالقراءة أو الكتابة فيها.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">يمكن أن يحدث ذلك إذا كان هناك عيب في كود المحاكي، مما يعني أن المحاكي غير متوافق تمامًا مع هذا ROM.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">احتمال آخر هو أن ROM أو أي ملفات تابعة (مثل DLLs) مفقودة أو تالفة.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">هل تريد فتح الملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="Failedtostarttheemulator">فشل في تشغيل المحاكي أو لم يتم إنهاؤه كما هو متوقع.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">تحتاج إلى منح المزيد من الامتيازات لـ</system:String>
+    <system:String x:Key="toperformitstask">لأداء مهمته.</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">يرجى تكوينه ليعمل بامتيازات إدارية.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">سبب آخر محتمل للخطأ قد يكون متعلقًا بسلامة المحاكي.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">يرجى إعادة تثبيت المحاكي للتأكد من أنه يعمل بشكل صحيح.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">تعذر على المحاكي فتح اللعبة باستخدام المعلمات المقدمة.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">يحدث هذا النوع من الأخطاء عندما</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">لا يملك الامتيازات اللازمة لتشغيل برنامج خارجي، مثل المحاكي.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الآلات داخل كل نظام تم تكوينه في واجهة المحاكي.</system:String>
     
 </ResourceDictionary>

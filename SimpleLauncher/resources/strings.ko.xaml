@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">폴더를 선택하지 않으면 이미지는 기본 폴더에 추출됩니다</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 'Simple Launcher'에 구성된 각 시스템에서 파일 이름과 기계 설명을 검색합니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="LaunchSelectedGame">선택한 게임 실행</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">애플리케이션이 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었으며, 문제를 해결하기 위해 시도될 것입니다.</system:String>
     <system:String x:Key="Error">오류</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">제거할 즐겨찾기를 선택하세요.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">실행할 게임을 선택하세요.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">즐겨찾기가 목록에서 제거되었습니다.</system:String>
+    <system:String x:Key="FileNotFound">파일을 찾을 수 없습니다</system:String>
+    <system:String x:Key="Thereisnocoverassociated">이 즐겨찾기에 연결된 커버가 없습니다.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">이 즐겨찾기에 연결된 제목 스냅샷이 없습니다.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">이 즐겨찾기에 연결된 게임 플레이 스냅샷이 없습니다.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">이 즐겨찾기에 연결된 카트리지 파일이 없습니다.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">이 즐겨찾기에 연결된 동영상 파일이 없습니다.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">이 즐겨찾기에 연결된 메뉴얼이 없습니다.</system:String>
+    <system:String x:Key="Manualnotfound">메뉴얼을 찾을 수 없습니다</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">이 즐겨찾기에 연결된 공략 가이드 파일이 없습니다.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">이 즐겨찾기에 연결된 캐비닛 파일이 없습니다.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">이 즐겨찾기에 연결된 전단지 파일이 없습니다.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">이 즐겨찾기에 연결된 PCB 파일이 없습니다.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">스크린샷이 성공적으로 저장되었습니다:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">애플리케이션이 선택한 게임을 실행하지 못했습니다.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">MAME를 실행하려고 한다면, ROM 컬렉션이 최신 MAME 버전과 호환되는지 확인하세요.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Retroarch를 실행하려고 한다면, 사용 중인 코어에 필요한 BIOS나 파일들이 설치되었는지 확인하세요.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">사용 중인 에뮬레이터가 올바르게 구성되었는지도 확인하세요. BIOS나 시스템 파일이 필요한지 확인하세요.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">오류를 디버깅하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">이 ROM을 실행할 때 메모리 액세스 위반 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">이 유형의 오류는 에뮬레이터가 읽거나 쓸 수 있는 권한이 없는 메모리에 액세스하려고 할 때 일반적으로 발생합니다.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">에뮬레이터 코드에 버그가 있는 경우 발생할 수 있으며, 이는 에뮬레이터가 이 ROM과 완전히 호환되지 않음을 의미합니다.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">다른 가능한 원인은 ROM 또는 종속 파일(DLL 등)이 손상되었을 수 있습니다.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">오류를 디버깅하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">에뮬레이터를 시작하지 못했거나 예상대로 종료되지 않았습니다.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">작업을 수행하려면 다음에 더 많은 권한을 부여해야 합니다.</system:String>
+    <system:String x:Key="toperformitstask">작업을 수행하기 위해</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">관리자 권한으로 실행되도록 구성하세요.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">오류의 또 다른 가능한 원인은 에뮬레이터의 무결성과 관련이 있습니다.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">에뮬레이터를 재설치하여 올바르게 작동하는지 확인하세요.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">에뮬레이터가 제공된 매개변수로 게임을 열 수 없었습니다.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">이 유형의 오류는 다음 경우에 발생합니다:</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">외부 프로그램(예: 에뮬레이터)을 실행할 권한이 없습니다.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 에뮬레이터 프론트엔드에 설정된 각 시스템의 파일 이름과 머신 설명을 검색합니다.</system:String>
     
 </ResourceDictionary>

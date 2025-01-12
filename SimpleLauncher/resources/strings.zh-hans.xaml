@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">选择解压文件夹</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">如果您未选择文件夹，图像将解压到默认文件夹</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会在“Simple Launcher”配置的每个系统中搜索文件名和机器描述。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="LaunchSelectedGame">启动选定的游戏</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">应用无法为此系统创建所需文件夹。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">错误已报告给开发人员，开发者将努力解决此问题。</system:String>
     <system:String x:Key="Error">错误</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">请选择一个收藏进行删除。</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">请选择一个游戏进行启动。</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">游戏文件不存在！</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">收藏已从列表中移除。</system:String>
+    <system:String x:Key="FileNotFound">文件未找到</system:String>
+    <system:String x:Key="Thereisnocoverassociated">此收藏没有相关的封面文件。</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">此收藏没有相关的标题截图。</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">此收藏没有相关的游戏画面截图。</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">此收藏没有相关的卡带文件。</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">此收藏没有相关的视频文件。</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">此收藏没有相关的操作手册。</system:String>
+    <system:String x:Key="Manualnotfound">操作手册未找到</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">此收藏没有相关的攻略文件。</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">此收藏没有相关的机台文件。</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">此收藏没有相关的宣传单文件。</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">此收藏没有相关的电路板（PCB）文件。</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">截图已成功保存至：</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">应用程序无法启动选定的游戏。</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">如果您尝试运行 MAME，请确认您的 ROM 集合与最新版本的 MAME 兼容。</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">如果您尝试运行 Retroarch，请确认已安装核心所需的 BIOS 或其他必要文件。</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">请确认模拟器配置正确。检查是否需要 BIOS 或系统文件才能正常工作。</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">是否希望打开文件 'error_user.log' 以排查错误？</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">运行此模拟器与该 ROM 时发生内存访问冲突。</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">此类错误通常在模拟器尝试访问无权限读取或写入的内存时发生。</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">如果模拟器代码存在缺陷（bug），即表示模拟器与该 ROM 不完全兼容，这可能会导致此问题。</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">另一种可能性是 ROM 或依赖文件（如 DLL）已损坏。</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">是否希望打开文件 'error_user.log' 以排查错误？</system:String>
+    <system:String x:Key="Failedtostarttheemulator">模拟器启动失败或无法正确结束运行。</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">您需要为</system:String>
+    <system:String x:Key="toperformitstask">提供更多权限才能完成其任务。</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">请将其配置为以管理员权限运行。</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">该错误的另一种可能原因是模拟器的完整性出现问题。</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">请重新安装模拟器以确保其正确运行。</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">模拟器无法使用提供的参数打开游戏。</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">当</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">没有权限启动外部程序（如模拟器）时，会发生此类错误。</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会查找每个系统中已配置的机器的文件名和描述。</system:String>
     
 </ResourceDictionary>

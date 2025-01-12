@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">Wählen Sie den Extraktionsordner aus</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Wenn Sie keinen Ordner auswählen, werden die Bilder in den Standardordner extrahiert</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">Diese Suchmaschine durchsucht Dateinamen und Maschinenbeschreibungen in jedem System, das in 'Simple Launcher' konfiguriert ist.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Sie können logische Operatoren UND / ODER verwenden.</system:String>
     <system:String x:Key="LaunchSelectedGame">Ausgewähltes Spiel starten</system:String>
     <system:String x:Key="PreviewImage">Vorschaubild</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">Die Anwendung konnte die notwendigen Ordner für dieses System nicht erstellen.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Der Fehler wurde an den Entwickler gemeldet, der versuchen wird, das Problem zu beheben.</system:String>
     <system:String x:Key="Error">Fehler</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">Bitte wählen Sie einen Favoriten aus, den Sie entfernen möchten.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">Bitte wählen Sie ein Spiel zum Starten aus.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">Die Spieldatei existiert nicht!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Der Favorit wurde aus der Liste entfernt.</system:String>
+    <system:String x:Key="FileNotFound">Datei nicht gefunden</system:String>
+    <system:String x:Key="Thereisnocoverassociated">Es ist kein Cover mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">Es ist kein Titel-Snapshot mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">Es ist kein Gameplay-Snapshot mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">Es ist keine Cartridge mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">Es ist keine Videodatei mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">Es ist kein Handbuch mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Manualnotfound">Handbuch nicht gefunden</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">Es ist keine Lösung (Walkthrough) mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">Es ist keine Gehäusedatei mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">Es ist keine Flyer-Datei mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">Es ist keine PCB-Datei mit diesem Favoriten verknüpft.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">Screenshot erfolgreich gespeichert unter:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">Die Anwendung konnte das ausgewählte Spiel nicht starten.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">Wenn Sie versuchen, MAME auszuführen, stellen Sie sicher, dass Ihre ROM-Sammlung mit der neuesten Version von MAME kompatibel ist.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Wenn Sie versuchen, Retroarch auszuführen, stellen Sie sicher, dass das BIOS oder die erforderlichen Dateien für den von Ihnen verwendeten Core installiert sind.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">Stellen Sie außerdem sicher, dass der Emulator, den Sie verwenden, ordnungsgemäß konfiguriert ist. Überprüfen Sie, ob er ein BIOS oder Systemdateien benötigt, um ordnungsgemäß zu funktionieren.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">Es gab eine Speicherzugriffsverletzung, als dieser Emulator mit diesem ROM verwendet wurde.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">Dieser Fehler tritt normalerweise auf, wenn der Emulator versucht, auf Speicher zuzugreifen, zu dem er keine Berechtigung hat.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">Dies kann passieren, wenn ein Fehler im Emulatorcode vorliegt, was bedeutet, dass der Emulator nicht vollständig mit diesem ROM kompatibel ist.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">Eine andere Möglichkeit ist, dass das ROM oder eine der Abhängigkeitsdateien (wie DLLs) beschädigt ist.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">Fehler beim Starten des Emulators oder der Emulator hat sich nicht wie erwartet geschlossen.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">Sie müssen mehr Berechtigungen gewähren, um</system:String>
+    <system:String x:Key="toperformitstask">die Aufgabe auszuführen.</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">Bitte konfigurieren Sie es so, dass es mit Administratorrechten ausgeführt wird.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">Eine weitere mögliche Ursache für den Fehler ist die Integrität des Emulators.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">Bitte installieren Sie den Emulator neu, um sicherzustellen, dass er ordnungsgemäß funktioniert.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Der Emulator konnte das Spiel mit den angegebenen Parametern nicht öffnen.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">Dieser Fehler tritt auf, wenn</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">nicht die Berechtigung hat, ein externes Programm wie den Emulator zu starten.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">Diese Suchmaschine durchsucht Dateinamen und Maschinenbeschreibungen in jedem System, das im Emulator-Frontend konfiguriert ist.</system:String>
     
 </ResourceDictionary>

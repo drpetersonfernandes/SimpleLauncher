@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Bir klasör seçmezseniz, görüntüler varsayılan klasöre çıkarılacaktır</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, 'Simple Launcher' ile yapılandırılmış her sistemde dosya adlarını ve makine açıklamalarını arar.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="LaunchSelectedGame">Seçilen Oyunu Başlat</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">Uygulama, bu sistem için gerekli klasörleri oluşturamadı.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve çözüm için çalışılacaktır.</system:String>
     <system:String x:Key="Error">Hata</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">Lütfen kaldırılacak bir favori seçin.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">Lütfen başlatılacak bir oyun seçin.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Favori listeden çıkarıldı.</system:String>
+    <system:String x:Key="FileNotFound">Dosya bulunamadı</system:String>
+    <system:String x:Key="Thereisnocoverassociated">Bu favoriyle ilişkilendirilmiş bir kapak yok.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">Bu favoriyle ilişkilendirilmiş bir başlık görüntüsü yok.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">Bu favoriyle ilişkilendirilmiş bir oyun içi görüntü yok.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">Bu favoriyle ilişkilendirilmiş bir kartuş yok.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">Bu favoriyle ilişkilendirilmiş bir video dosyası yok.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">Bu favoriyle ilişkilendirilmiş bir kılavuz yok.</system:String>
+    <system:String x:Key="Manualnotfound">Kılavuz bulunamadı</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">Bu favoriyle ilişkilendirilmiş bir rehber dosyası yok.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">Bu favoriyle ilişkilendirilmiş bir kabin dosyası yok.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">Bu favoriyle ilişkilendirilmiş bir broşür dosyası yok.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">Bu favoriyle ilişkilendirilmiş bir PCB dosyası yok.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">Ekran görüntüsü başarıyla kaydedildi:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">Uygulama seçilen oyunu başlatamadı.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">MAME çalıştırmaya çalışıyorsanız, ROM koleksiyonunuzun en son MAME sürümüyle uyumlu olduğundan emin olun.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Retroarch çalıştırmaya çalışıyorsanız, kullandığınız çekirdek için gerekli olan BIOS dosyalarının yüklü olduğundan emin olun.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">Emülatörün doğru şekilde yapılandırıldığını kontrol edin. Doğru çalışması için BIOS veya sistem dosyalarına ihtiyaç olup olmadığını kontrol edin.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">Hata ayıklamak için 'error_user.log' dosyasını açmak istiyor musunuz?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">Bu emülatörü bu ROM ile çalıştırırken bir bellek erişimi ihlali meydana geldi.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">Bu tür bir hata genellikle, emülatörün okuma veya yazma yetkisi olmayan bir belleğe erişmeye çalışması durumunda ortaya çıkar.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">Bu, emülatör kodunda bir hata olduğunda meydana gelebilir ve bu durum, emülatörün bu ROM ile tamamen uyumlu olmadığını gösterebilir.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">Bir diğer olasılık da, ROM veya bağımlılık dosyalarının (ör. DLL) bozulmuş olmasıdır.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">Hata ayıklamak için 'error_user.log' dosyasını açmak istiyor musunuz?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">Emülatör başlatılamadı veya beklenildiği gibi sonlandırılamadı.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">Şuna daha fazla yetki vermeniz gerekiyor:</system:String>
+    <system:String x:Key="toperformitstask">görevini gerçekleştirebilmesi için</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">Yönetici yetkileriyle çalıştıracak şekilde yapılandırın.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">Bu hatanın bir diğer olası nedeni emülatörün bütünlüğüyle ilgilidir.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">Emülatörü yeniden kurarak doğru şekilde çalıştığından emin olun.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Emülatör, sağlanan parametrelerle oyunu açamadı.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">Bu tür bir hata şu durumlarda meydana gelir:</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">harici bir programı (ör. emülatör) başlatmak için yetkili değil.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
     
 </ResourceDictionary>

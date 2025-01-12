@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">フォルダーを選択しない場合、画像はデフォルトのフォルダーに抽出されます</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、『Simple Launcher』で設定された各システム内のファイル名とマシンの説明を検索します。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="LaunchSelectedGame">選択したゲームを起動する</system:String>
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">アプリケーションはこのシステムに必要なフォルダーを作成できませんでした。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">エラーは開発者に報告され、修正が試みられます。</system:String>
     <system:String x:Key="Error">エラー</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">削除するお気に入りを選択してください。</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">起動するゲームを選択してください。</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">ゲームファイルが存在しません！</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">お気に入りがリストから削除されました。</system:String>
+    <system:String x:Key="FileNotFound">ファイルが見つかりません</system:String>
+    <system:String x:Key="Thereisnocoverassociated">このお気に入りにはカバーが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">このお気に入りにはタイトルのスナップショットが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">このお気に入りにはプレイ画面のスナップショットが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">このお気に入りにはカートリッジが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">このお気に入りにはビデオファイルが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">このお気に入りにはマニュアルが関連付けられていません。</system:String>
+    <system:String x:Key="Manualnotfound">マニュアルが見つかりません</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">このお気に入りには攻略ファイルが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">このお気に入りにはキャビネットファイルが関連付けられていません。</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">このお気に入りにはフライヤーファイルが関連付けられていません。</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">このお気に入りにはPCBファイルが関連付けられていません。</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">スクリーンショットが正常に保存されました：</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">アプリケーションは選択されたゲームを起動できませんでした。</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">MAMEを実行しようとしている場合は、ROMコレクションがMAMEの最新バージョンと互換性があることを確認してください。</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Retroarchを実行しようとしている場合は、使用しているコアに必要なBIOSや必要ファイルがインストールされていることを確認してください。</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">また、使用しているエミュレーターが正しく構成されていることを確認してください。正しく動作するためにBIOSやシステムファイルが必要かどうかを確認してください。</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">エラーをデバッグするために、「error_user.log」ファイルを開きますか？</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">このROMをこのエミュレーターで実行した際にメモリアクセス違反エラーが発生しました。</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">このタイプのエラーは通常、エミュレーターが読み取りまたは書き込み権限のないメモリにアクセスしようとした場合に発生します。</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">エミュレーターのコードにバグがある場合、つまりそのエミュレーターがこのROMと完全に互換性がない場合に起こる可能性があります。</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">もう1つの可能性として、ROMまたは依存ファイル（DLLなど）が破損している場合があります。</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">エラーをデバッグするために、「error_user.log」ファイルを開きますか？</system:String>
+    <system:String x:Key="Failedtostarttheemulator">エミュレーターの開始に失敗した、または予期されるように終了しませんでした。</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">タスクを実行するには、より多くの権限を付与する必要があります：</system:String>
+    <system:String x:Key="toperformitstask">タスクを実行するために</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">管理者権限で実行するように構成してください。</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">エラーのもう1つの可能性のある原因は、エミュレーターの整合性に関連しています。</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">エミュレーターを再インストールして、正しく動作しているか確認してください。</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">エミュレーターは提供されたパラメーターでゲームを開くことができませんでした。</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">このタイプのエラーは通常以下の場合に発生します：</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">外部プログラム（エミュレーターなど）を起動する権限がありません。</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
     
 </ResourceDictionary>

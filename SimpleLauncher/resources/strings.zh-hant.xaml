@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">選擇解壓縮資料夾</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">如果您未選擇資料夾，圖像將解壓縮至預設資料夾</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">此搜尋引擎會在「Simple Launcher」配置的每個系統中搜尋檔案名稱和機器描述。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
     <system:String x:Key="LaunchSelectedGame">啟動選定的遊戲</system:String>
     <system:String x:Key="PreviewImage">預覽圖片</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">應用程式無法為此系統建立必要的資料夾。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">錯誤已回報給開發人員，開發人員會嘗試修正問題。</system:String>
     <system:String x:Key="Error">錯誤</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">請選擇一個收藏來移除。</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">請選擇一個遊戲來啟動。</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">遊戲檔案不存在！</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">收藏已從列表中移除。</system:String>
+    <system:String x:Key="FileNotFound">未找到檔案</system:String>
+    <system:String x:Key="Thereisnocoverassociated">此收藏未關聯任何封面檔案。</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">此收藏未關聯任何標題截圖。</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">此收藏未關聯任何遊戲畫面截圖。</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">此收藏未關聯任何卡匣檔案。</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">此收藏未關聯任何影片檔案。</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">此收藏未關聯任何使用手冊。</system:String>
+    <system:String x:Key="Manualnotfound">未找到使用手冊</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">此收藏未關聯任何攻略檔案。</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">此收藏未關聯任何機台檔案。</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">此收藏未關聯任何傳單檔案。</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">此收藏未關聯任何印刷電路板（PCB）檔案。</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">截圖已成功儲存於：</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">應用程式無法啟動選定的遊戲。</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">如果您正在嘗試執行 MAME，請確保您的 ROM 集與最新版本的 MAME 相容。</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">如果您正在嘗試執行 Retroarch，請確保已安裝核心所需的 BIOS 或必要檔案。</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">另外，請確認模擬器已正確配置。檢查是否需要 BIOS 或系統檔案以正常運行。</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">是否要開啟檔案 'error_user.log' 來進行錯誤排查？</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">執行此模擬器與該 ROM 時發生了記憶體存取違規。</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">當模擬器嘗試存取其未被授權讀取或寫入的記憶體時，通常會發生這種錯誤。</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">如果模擬器程式碼中存在錯誤，這可能會導致模擬器與此 ROM 不完全相容。</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">另一種可能性是該 ROM 或相關的相依檔案（例如 DLL）已損壞。</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">是否要開啟檔案 'error_user.log' 來進行錯誤排查？</system:String>
+    <system:String x:Key="Failedtostarttheemulator">無法啟動模擬器或模擬器未按預期結束。</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">您需要提供更多權限給</system:String>
+    <system:String x:Key="toperformitstask">以完成其任務。</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">請配置為以管理員權限運行。</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">此錯誤的另一種可能原因與模擬器的完整性有關。</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">請重新安裝模擬器，以確保其能正常運行。</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">模擬器無法使用提供的參數啟動遊戲。</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">當</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">沒有權限啟動外部程式（例如模擬器）時，會發生此類錯誤。</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">此搜尋引擎會尋找每個系統中配置的機器的檔案名稱和描述。</system:String>
     
 </ResourceDictionary>

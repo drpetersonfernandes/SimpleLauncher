@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">निकासी फ़ोल्डर चुनें</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">यदि आप कोई फ़ोल्डर नहीं चुनते हैं, तो छवियों को डिफ़ॉल्ट फ़ोल्डर में निकाला जाएगा</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">यह सर्च इंजन फ़ाइल के नाम और मशीन विवरण की खोज 'Simple Launcher' में कॉन्फ़िगर किए गए प्रत्येक सिस्टम में करता है।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
     <system:String x:Key="LaunchSelectedGame">चुने हुए खेल को शुरू करें</system:String>
     <system:String x:Key="PreviewImage">पूर्वावलोकन छवि</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">एप्लिकेशन इस सिस्टम के लिए आवश्यक फोल्डर बनाने में विफल रहा।</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">त्रुटि को डेवलपर को रिपोर्ट किया गया है जो इसे ठीक करने का प्रयास करेगा।</system:String>
     <system:String x:Key="Error">त्रुटि</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">कृपया हटाने के लिए एक पसंदीदा आइटम चुनें।</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">कृपया शुरू करने के लिए एक खेल चुनें।</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">खेल फ़ाइल मौजूद नहीं है!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">पसंदीदा को सूची से हटा दिया गया है।</system:String>
+    <system:String x:Key="FileNotFound">फ़ाइल नहीं मिली</system:String>
+    <system:String x:Key="Thereisnocoverassociated">इस पसंदीदा के साथ कोई कवर जुड़ा नहीं है।</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">इस पसंदीदा के साथ कोई शीर्षक स्नैपशॉट जुड़ा नहीं है।</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">इस पसंदीदा के साथ कोई गेमप्ले स्नैपशॉट जुड़ा नहीं है।</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">इस पसंदीदा के साथ कोई कार्ट्रिज जुड़ा नहीं है।</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">इस पसंदीदा के साथ कोई वीडियो फ़ाइल जुड़ी नहीं है।</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">इस पसंदीदा के साथ कोई मैनुअल जुड़ा नहीं है।</system:String>
+    <system:String x:Key="Manualnotfound">मैनुअल नहीं मिला</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">इस पसंदीदा के साथ कोई वॉकथ्रू फ़ाइल जुड़ी नहीं है।</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">इस पसंदीदा के साथ कोई कैबिनेट फ़ाइल जुड़ी नहीं है।</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">इस पसंदीदा के साथ कोई फ्लायर फ़ाइल जुड़ी नहीं है।</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">इस पसंदीदा के साथ कोई पीसीबी फ़ाइल जुड़ी नहीं है।</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">स्क्रीनशॉट इस स्थान पर सफलतापूर्वक सहेजा गया:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">एप्लिकेशन चयनित खेल को शुरू करने में विफल रहा।</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">यदि आप MAME चलाने की कोशिश कर रहे हैं, तो सुनिश्चित करें कि आपका ROM संग्रह MAME के नवीनतम संस्करण के अनुकूल है।</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">यदि आप Retroarch चलाने की कोशिश कर रहे हैं, तो सुनिश्चित करें कि आपके द्वारा उपयोग किए जा रहे कोर के लिए BIOS या आवश्यक फ़ाइलें स्थापित हैं।</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">साथ ही, यह सत्यापित करें कि आप जिस एम्युलेटर का उपयोग कर रहे हैं, वह सही तरीके से कॉन्फ़िगर किया गया है। जाँचें कि क्या इसे सही ढंग से काम करने के लिए BIOS या सिस्टम फ़ाइलों की आवश्यकता है।</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">क्या आप 'error_user.log' फ़ाइल को त्रुटि को डिबग करने के लिए खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">इस ROM के साथ इस एम्युलेटर को चलाते समय एक मेमोरी एक्सेस उल्लंघन त्रुटि हुई।</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">इस प्रकार की त्रुटि आमतौर पर तब होती है जब एम्युलेटर ऐसी मेमोरी का उपयोग करने की कोशिश करता है जिसे पढ़ने या लिखने की अनुमति नहीं है।</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">यह तब हो सकता है जब एम्युलेटर कोड में कोई बग हो, जिसका अर्थ है कि एम्युलेटर उस ROM के साथ पूरी तरह से संगत नहीं है।</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">एक और संभावना यह है कि ROM या कोई भी निर्भरता फ़ाइलें (जैसे DLL) क्षतिग्रस्त हैं।</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">क्या आप 'error_user.log' त्रुटि को डिबग करने के लिए खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">एम्युलेटर शुरू करने में विफल रहा या यह अपेक्षित रूप से बंद नहीं हुआ।</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">आपको इसे अधिक विशेषाधिकार प्रदान करने की आवश्यकता है</system:String>
+    <system:String x:Key="toperformitstask">इसके कार्य को पूरा करने के लिए।</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">कृपया इसे प्रशासनिक विशेषाधिकारों के साथ चलाने के लिए कॉन्फ़िगर करें।</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">त्रुटि का एक और संभावित कारण एम्युलेटर की अखंडता से संबंधित है।</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">सुनिश्चित करें कि एम्युलेटर सही ढंग से काम कर रहा है, कृपया उसे पुनः इंस्टॉल करें।</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">एमुलेटर प्रदान किए गए पैरामीटर के साथ खेल को खोलने में विफल रहा।</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">इस प्रकार की त्रुटि तब होती है जब</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">बाहरी प्रोग्राम (जैसे एम्युलेटर) शुरू करने के लिए उसके पास पर्याप्त विशेषाधिकार नहीं हैं।</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">यह सर्च इंजन एम्युलेटर फ्रंटेंड में कॉन्फ़िगर की गई हर प्रणाली के भीतर फ़ाइल नामों और मशीन विवरणों की खोज करता है।</system:String>
     
 </ResourceDictionary>

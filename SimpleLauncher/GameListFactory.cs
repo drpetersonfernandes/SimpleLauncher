@@ -434,7 +434,6 @@ public class GameListFactory(
                 
             _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
-            
         };
             
         // Delete Game Context Menu

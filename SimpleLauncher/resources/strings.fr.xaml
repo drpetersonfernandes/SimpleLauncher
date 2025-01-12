@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">Sélectionnez le dossier d'extraction</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Si vous ne choisissez pas de dossier, les images seront extraites dans le dossier par défaut</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">Ce moteur de recherche recherche les noms de fichiers et les descriptions de machines dans chaque système configuré dans 'Simple Launcher'.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Vous pouvez utiliser les opérateurs logiques AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Lancer le jeu sélectionné</system:String>
     <system:String x:Key="PreviewImage">Aperçu de l'image</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">L'application n'a pas pu créer les dossiers nécessaires pour ce système.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">L'erreur a été signalée au développeur qui essaiera de corriger le problème.</system:String>
     <system:String x:Key="Error">Erreur</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">Veuillez sélectionner un favori à supprimer.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">Veuillez sélectionner un jeu à lancer.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">Le fichier du jeu n'existe pas !</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Le favori a été supprimé de la liste.</system:String>
+    <system:String x:Key="FileNotFound">Fichier introuvable</system:String>
+    <system:String x:Key="Thereisnocoverassociated">Aucune couverture n'est associée à ce favori.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">Aucune capture d'écran de titre n'est associée à ce favori.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">Aucune capture d'écran de gameplay n'est associée à ce favori.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">Aucune cartouche n'est associée à ce favori.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">Aucun fichier vidéo n'est associé à ce favori.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">Aucun manuel n'est associé à ce favori.</system:String>
+    <system:String x:Key="Manualnotfound">Manuel introuvable</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">Aucun fichier de guide (walkthrough) n'est associé à ce favori.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">Aucun fichier de cabinet n'est associé à ce favori.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">Aucun fichier flyer n'est associé à ce favori.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">Aucun fichier PCB n'est associé à ce favori.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">Capture d'écran enregistrée avec succès à :</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">L'application n'a pas pu lancer le jeu sélectionné.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">Si vous essayez d'exécuter MAME, assurez-vous que votre collection de ROMs est compatible avec la dernière version de MAME.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Si vous essayez d'exécuter Retroarch, assurez-vous que le BIOS ou les fichiers nécessaires pour le cœur que vous utilisez sont installés.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">Vérifiez également que l'émulateur que vous utilisez est correctement configuré. Vérifiez s'il nécessite un BIOS ou des fichiers système pour fonctionner correctement.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">Voulez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">Une violation d'accès mémoire s'est produite lors de l'exécution de cet émulateur avec cette ROM.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">Ce type d'erreur se produit généralement lorsque l'émulateur tente d'accéder à une mémoire qu'il n'a pas la permission de lire ou d'écrire.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">Cela peut arriver s'il y a un bug dans le code de l'émulateur, ce qui signifie que l'émulateur n'est pas totalement compatible avec cette ROM.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">Une autre possibilité est que la ROM ou les fichiers de dépendances (par exemple, les DLL) sont corrompus.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">Voulez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">Impossible de démarrer l'émulateur ou il ne s'est pas arrêté comme prévu.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">Vous devez accorder plus de privilèges à</system:String>
+    <system:String x:Key="toperformitstask">pour effectuer sa tâche.</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">Veuillez le configurer pour qu'il s'exécute avec des privilèges administratifs.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">Une autre cause possible de l'erreur est liée à l'intégrité de l'émulateur.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">Veuillez réinstaller l'émulateur pour vous assurer qu'il fonctionne correctement.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">L'émulateur n'a pas pu ouvrir le jeu avec les paramètres fournis.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">Ce type d'erreur survient lorsque</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">n'a pas les privilèges nécessaires pour lancer un programme externe, tel que l'émulateur.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">Ce moteur de recherche effectue une recherche de noms de fichiers et de descriptions de machines dans chaque système configuré dans l'interface de l'émulateur.</system:String>
     
 </ResourceDictionary>

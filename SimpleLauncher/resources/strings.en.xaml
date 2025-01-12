@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">If you do not choose a folder, the images will be extracted to the default folder</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in 'Simple Launcher'.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Launch Selected Game</system:String>
     <system:String x:Key="PreviewImage">Preview Image</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">The application failed to create the necessary folders for this system.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer that will try to fix the issue.</system:String>
     <system:String x:Key="Error">Error</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">Please select a favorite to remove.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">Please select a game to launch.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">The favorite has been removed from the list.</system:String>
+    <system:String x:Key="FileNotFound">File Not Found</system:String>
+    <system:String x:Key="Thereisnocoverassociated">There is no cover associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">There is no title snapshot associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">There is no gameplay snapshot associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">There is no cart associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">There is no video file associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">There is no manual associated with this favorite.</system:String>
+    <system:String x:Key="Manualnotfound">Manual not found</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">There is no walkthrough file associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">There is no cabinet file associated with this favorite.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">There is no flyer file associated with this favorite.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">There is no PCB file associated with this favorite.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">Screenshot saved successfully at:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">The application could not launch the selected game.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">Do you want to open the file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">There was an memory access violation error running this emulator with this ROM.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">Do you want to open file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">Failed to start the emulator or it has not exited as expected.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">You need to give more privileges to</system:String>
+    <system:String x:Key="toperformitstask">to perform its task.</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">Please configure it to run with administrative privileges.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">Another possible cause for the error is related to the integrity of the emulator.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">Please reinstall the emulator to ensure it is working.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">The emulator could not open the game with the provided parameters.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">This type of error happens when</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">does not have the privileges to launch an external program, such as the emulator.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
     
 </ResourceDictionary>

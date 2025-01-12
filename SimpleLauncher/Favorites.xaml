@@ -22,9 +22,11 @@
                HorizontalAlignment="Left"
                Content="{DynamicResource ListofFavorites}" />
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-            <Button Name="RemoveButton" Content="{DynamicResource RemovefromFavorites}" Click="RemoveButton_Click" Padding="5"
+            <Button Name="RemoveButton" Content="{DynamicResource RemovefromFavorites}" Click="RemoveButton_Click"
+                    Padding="5"
                     Margin="0,0,10,0" />
-            <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click" Padding="5" />
+            <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click"
+                    Padding="5" />
         </StackPanel>
         <DataGrid Name="FavoritesDataGrid"
                   CanUserAddRows="False"
@@ -49,7 +51,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10">
-            <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+            <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center"
+                   Margin="0,0,0,10" />
             <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                 <Grid>
                     <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"

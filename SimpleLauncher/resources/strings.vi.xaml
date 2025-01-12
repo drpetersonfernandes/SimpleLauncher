@@ -169,7 +169,6 @@
     <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Nếu bạn không chọn thư mục, hình ảnh sẽ được trích xuất vào thư mục mặc định</system:String>
     
-    <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trên mỗi hệ thống được cấu hình trong 'Simple Launcher'.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Khởi chạy trò chơi đã chọn</system:String>
     <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
@@ -354,5 +353,43 @@
     <system:String x:Key="Theapplicationfailedtocreate">Ứng dụng không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển và sẽ được cố gắng khắc phục.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
+    
+    <system:String x:Key="Pleaseselectafavoritetoremove">Vui lòng chọn một mục yêu thích để xóa.</system:String>
+    <system:String x:Key="Pleaseselectagametolaunch">Vui lòng chọn một trò chơi để khởi chạy.</system:String>
+    <system:String x:Key="Thegamefiledoesnotexist">Tệp trò chơi không tồn tại!</system:String>
+    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Mục yêu thích đã được xóa khỏi danh sách.</system:String>
+    <system:String x:Key="FileNotFound">Không tìm thấy tệp</system:String>
+    <system:String x:Key="Thereisnocoverassociated">Không có ảnh bìa nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnotitlesnapshot2">Không có ảnh tiêu đề nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnogameplaysnapshotassociated">Không có ảnh chụp màn hình gameplay nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnocartassociatedwith">Không có tệp cartridge nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnovideofileassociated">Không có tệp video nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnomanualassociatedwith">Không có tài liệu hướng dẫn nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Manualnotfound">Không tìm thấy tài liệu hướng dẫn</system:String>
+    <system:String x:Key="Thereisnowalkthroughfileassociated">Không có tệp hướng dẫn (walkthrough) nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnocabinetfileassociated">Không có tệp cabinet nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Thereisnoflyerfileassociatedwith">Không có tệp tờ rơi nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="ThereisnoPCBfileassociated">Không có tệp PCB nào được liên kết với mục yêu thích này.</system:String>
+    <system:String x:Key="Screenshotsavedsuccessfullyat">Ảnh chụp màn hình đã được lưu thành công tại:</system:String>
+    <system:String x:Key="Theapplicationcouldnotlaunchtheselectedgame">Ứng dụng không thể khởi chạy trò chơi đã chọn.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAME">Nếu bạn đang cố gắng chạy MAME, hãy đảm bảo bộ sưu tập ROM của bạn tương thích với phiên bản MAME mới nhất.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarch">Nếu bạn đang cố gắng chạy Retroarch, hãy đảm bảo các tệp BIOS hoặc các tệp cần thiết cho lõi mà bạn đang sử dụng đã được cài đặt.</system:String>
+    <system:String x:Key="Alsoverifythattheemulator">Ngoài ra, hãy xác minh rằng trình giả lập được cấu hình chính xác. Kiểm tra xem nó có cần các tệp BIOS hoặc tệp hệ thống để hoạt động không.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefile">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Therewasanmemoryaccessviolation">Đã xảy ra lỗi truy cập bộ nhớ khi chạy trình giả lập này với ROM này.</system:String>
+    <system:String x:Key="Thistypeoferrorusuallyoccurs">Loại lỗi này thường xảy ra khi trình giả lập cố gắng truy cập bộ nhớ mà nó không có quyền đọc hoặc ghi.</system:String>
+    <system:String x:Key="Thiscanhappeniftheresabug">Điều này có thể xảy ra nếu có lỗi (bug) trong mã trình giả lập, có nghĩa là trình giả lập không hoàn toàn tương thích với ROM này.</system:String>
+    <system:String x:Key="AnotherpossibilityistheROM">Một khả năng khác là tệp ROM hoặc các tệp phụ thuộc liên quan (ví dụ: DLL) đã bị lỗi.</system:String>
+    <system:String x:Key="Doyouwanttoopenfile">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Failedtostarttheemulator">Không thể khởi động trình giả lập hoặc trình giả lập không đóng đúng cách.</system:String>
+    <system:String x:Key="Youneedtogivemoreprivilegesto">Bạn cần cung cấp thêm quyền cho</system:String>
+    <system:String x:Key="toperformitstask">để thực hiện tác vụ của nó.</system:String>
+    <system:String x:Key="Pleaseconfigureittorun">Cấu hình để ứng dụng chạy với quyền quản trị viên.</system:String>
+    <system:String x:Key="Anotherpossiblecausefortheerror">Một nguyên nhân khác của lỗi có thể liên quan đến tính toàn vẹn của trình giả lập.</system:String>
+    <system:String x:Key="Pleasereinstalltheemulator">Hãy cài đặt lại trình giả lập để đảm bảo nó hoạt động đúng cách.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
+    <system:String x:Key="Thistypeoferrorhappenswhen">Loại lỗi này xảy ra khi</system:String>
+    <system:String x:Key="doesnothavetheprivilegestolaunch">không có quyền để khởi chạy một chương trình bên ngoài, chẳng hạn như trình giả lập.</system:String>
+    <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trong mỗi hệ thống được cấu hình trong giao diện trình giả lập.</system:String>
     
 </ResourceDictionary>

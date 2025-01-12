@@ -343,7 +343,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -374,7 +375,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -430,7 +432,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -461,7 +464,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -504,7 +508,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             
@@ -537,7 +542,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             
@@ -693,13 +699,19 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
+                string theapplicationcouldnotlaunchtheselectedgame2 = (string)Application.Current.TryFindResource("Theapplicationcouldnotlaunchtheselectedgame") ?? "The application could not launch the selected game.";
+                string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
+                string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
+                string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
+                string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 var result = MessageBox.Show(
-                    "The application could not launch the selected game.\n\n" +
-                    "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.\n\n" +
-                    "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.\n\n" +
-                    "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                    "Do you want to open the file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    $"{theapplicationcouldnotlaunchtheselectedgame2}\n\n" +
+                    $"{ifyouaretryingtorunMame2}\n\n" +
+                    $"{ifyouaretryingtorunRetroarch2}\n\n" +
+                    $"{alsoverifythattheemulator2}\n\n" +
+                    $"{doyouwanttoopenthefile2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -733,13 +745,19 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
+                string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
+                string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
+                string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
+                string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
+                string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
-                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "Do you want to open file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    $"{therewasanmemoryaccessviolation2}\n\n" +
+                    $"{thistypeoferrorusuallyoccurs2}\n\n" +
+                    $"{thiscanhappeniftheresabug2}\n\n" +
+                    $"{anotherpossibilityistheRom2}\n\n" +
+                    $"{doyouwanttoopenfile2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -753,7 +771,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -764,13 +783,22 @@ public static class GameLauncher
             string formattedException = $"InvalidOperationException in the method LaunchRegularEmulator";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
-            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
-                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
-                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
-                            "Please configure it to run with administrative privileges.\n\n" +
-                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
-                            "Please reinstall the emulator to ensure it is working.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+            string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
+            string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
+            string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
+            string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
+            string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
+            string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
+            string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                            $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
+                            $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
+                            $"{pleaseconfigureittorun2}\n\n" +
+                            $"{anotherpossiblecausefortheerror2}\n" +
+                            $"{pleasereinstalltheemulator2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {
@@ -783,14 +811,20 @@ public static class GameLauncher
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-                
+
+            string theemulatorcouldnotopenthegamewiththeprovidedparameters2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegamewiththeprovidedparameters") ?? "The emulator could not open the game with the provided parameters.";
+            string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
+            string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
+            string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
+            string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
-                "The emulator could not open the game with the provided parameters.\n\n" +
-                "If you are trying to run MAME, be sure that your ROM collection is compatible with the latest version of MAME.\n\n" +
-                "If you are trying to run Retroarch, ensure to install bios or required files for the core you are using.\n\n" +
-                "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.\n\n" +
-                "Would you like to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                $"{theemulatorcouldnotopenthegamewiththeprovidedparameters2}\n\n" +
+                $"{ifyouaretryingtorunMame2}\n\n" +
+                $"{ifyouaretryingtorunRetroarch2}\n\n" +
+                $"{alsoverifythattheemulator2}\n\n" +
+                $"{doyouwanttoopenthefile2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -849,7 +883,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             
@@ -1026,7 +1061,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 
@@ -1045,13 +1081,19 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
+                string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
+                string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
+                string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
+                string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
+                string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
-                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "Do you want to open the file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    $"{therewasanmemoryaccessviolation2}\n\n" +
+                    $"{thistypeoferrorusuallyoccurs2}\n\n" +
+                    $"{thiscanhappeniftheresabug2}\n\n" +
+                    $"{anotherpossibilityistheRom2}\n\n" +
+                    $"{doyouwanttoopenfile2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -1065,7 +1107,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -1075,13 +1118,22 @@ public static class GameLauncher
             string formattedException = $"InvalidOperationException in the method LaunchXblaGame";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
-            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
-                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
-                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
-                            "Please configure it to run with administrative privileges.\n\n" +
-                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
-                            "Please reinstall the emulator to ensure it is working.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+            string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
+            string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
+            string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
+            string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
+            string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
+            string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
+            string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                            $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
+                            $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
+                            $"{pleaseconfigureittorun2}\n\n" +
+                            $"{anotherpossiblecausefortheerror2}\n" +
+                            $"{pleasereinstalltheemulator2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {
@@ -1112,7 +1164,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1202,7 +1255,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             
@@ -1385,7 +1439,8 @@ public static class GameLauncher
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("The file 'error_user.log' was not found!",
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 
@@ -1404,13 +1459,19 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
+                string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
+                string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
+                string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
+                string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
+                string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running MAME with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
-                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "Do you want to open file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    $"{therewasanmemoryaccessviolation2}\n\n" +
+                    $"{thistypeoferrorusuallyoccurs2}\n\n" +
+                    $"{thiscanhappeniftheresabug2}\n\n" +
+                    $"{anotherpossibilityistheRom2}\n\n" +
+                    $"{doyouwanttoopenfile2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -1436,13 +1497,23 @@ public static class GameLauncher
             string formattedException = $"InvalidOperationException in the method LaunchMattelAquariusGame";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
-            MessageBox.Show("Failed to start the MAME emulator or it has not exited as expected.\n\n" +
-                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
-                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
-                            "Please configure it to run with administrative privileges.\n\n" +
-                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
-                            "Please reinstall the emulator to ensure it is working.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+            string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
+            string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
+            string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
+            string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
+            string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
+            string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
+            string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                            $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
+                            $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
+                            $"{pleaseconfigureittorun2}\n\n" +
+                            $"{anotherpossiblecausefortheerror2}\n" +
+                            $"{pleasereinstalltheemulator2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            
         }
         catch (Exception ex)
         {
@@ -1474,7 +1545,8 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The file 'error_user.log' was not found!",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1605,7 +1677,8 @@ public static class GameLauncher
                     await LogErrors.LogErrorAsync(exception, errorMessage);
 
                     MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
-                                    "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    "Please go to Expert Mode and fix this system.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -1698,13 +1771,19 @@ public static class GameLauncher
                 Exception ex = new(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
+                string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
+                string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
+                string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
+                string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
+                string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 var result = MessageBox.Show(
-                    "There was an memory access violation error running this emulator with this ROM.\n\n" +
-                    "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.\n\n" +
-                    "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.\n\n" +
-                    "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.\n\n" +
-                    "Do you want to open file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    $"{therewasanmemoryaccessviolation2}\n\n" +
+                    $"{thistypeoferrorusuallyoccurs2}\n\n" +
+                    $"{thiscanhappeniftheresabug2}\n\n" +
+                    $"{anotherpossibilityistheRom2}\n\n" +
+                    $"{doyouwanttoopenfile2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -1756,14 +1835,23 @@ public static class GameLauncher
         {
             string formattedException = $"InvalidOperationException in the method LaunchRegularEmulatorWithoutWarnings";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
-            MessageBox.Show("Failed to start the emulator or it has not exited as expected.\n\n" +
-                            "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as the emulator.\n" +
-                            "You need to give more privileges to 'Simple Launcher' to perform its task.\n" +
-                            "Please configure it to run with administrative privileges.\n\n" +
-                            "Another possible cause for the error is related to the integrity of the emulator.\n" +
-                            "Please reinstall the emulator to ensure it is working.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+            string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
+            string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
+            string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
+            string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
+            string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
+            string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
+            string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                            $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
+                            $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
+                            $"{pleaseconfigureittorun2}\n\n" +
+                            $"{anotherpossiblecausefortheerror2}\n" +
+                            $"{pleasereinstalltheemulator2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {

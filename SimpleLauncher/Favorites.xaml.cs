@@ -156,8 +156,10 @@ public partial class Favorites
         }
         else
         {
-            MessageBox.Show("Please select a favorite to remove.",
-                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
+            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(pleaseselectafavoritetoremove2,
+                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
     
@@ -213,9 +215,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string launchSelectedGame2 = (string)Application.Current.TryFindResource("LaunchSelectedGame") ?? "Launch Selected Game";
                 var launchMenuItem = new MenuItem
                 {
-                    Header = "Launch Selected Game",
+                    Header = launchSelectedGame2,
                     Icon = launchIcon
                 };
                 launchMenuItem.Click += (_, _) =>
@@ -231,9 +234,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
                 var removeMenuItem = new MenuItem
                 {
-                    Header = "Remove from Favorites",
+                    Header = removeFromFavorites2,
                     Icon = removeIcon
                 };
                 removeMenuItem.Click += (_, _) =>
@@ -249,9 +253,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
                 var videoLinkMenuItem = new MenuItem
                 {
-                    Header = "Open Video Link",
+                    Header = openVideoLink2,
                     Icon = videoLinkIcon
                 };
                 videoLinkMenuItem.Click += (_, _) =>
@@ -267,9 +272,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
                 var infoLinkMenuItem = new MenuItem
                 {
-                    Header = "Open Info Link",
+                    Header = openInfoLink2,
                     Icon = infoLinkIcon
                 };
                 infoLinkMenuItem.Click += (_, _) =>
@@ -285,9 +291,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
                 var openHistoryMenuItem = new MenuItem
                 {
-                    Header = "Open ROM History",
+                    Header = openRomHistory2,
                     Icon = openHistoryIcon
                 };
                 openHistoryMenuItem.Click += (_, _) =>
@@ -303,9 +310,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
                 var coverMenuItem = new MenuItem
                 {
-                    Header = "Cover",
+                    Header = cover2,
                     Icon = coverIcon
                 };
                 coverMenuItem.Click += (_, _) =>
@@ -321,9 +329,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
                 var titleSnapshotMenuItem = new MenuItem
                 {
-                    Header = "Title Snapshot",
+                    Header = titleSnapshot2,
                     Icon = titleSnapshotIcon
                 };
                 titleSnapshotMenuItem.Click += (_, _) =>
@@ -339,9 +348,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
                 var gameplaySnapshotMenuItem = new MenuItem
                 {
-                    Header = "Gameplay Snapshot",
+                    Header = gameplaySnapshot2,
                     Icon = gameplaySnapshotIcon
                 };
                 gameplaySnapshotMenuItem.Click += (_, _) =>
@@ -357,9 +367,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
                 var cartMenuItem = new MenuItem
                 {
-                    Header = "Cart",
+                    Header = cart2,
                     Icon = cartIcon
                 };
                 cartMenuItem.Click += (_, _) =>
@@ -375,9 +386,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
                 var videoMenuItem = new MenuItem
                 {
-                    Header = "Video",
+                    Header = video2,
                     Icon = videoIcon
                 };
                 videoMenuItem.Click += (_, _) =>
@@ -393,9 +405,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
                 var manualMenuItem = new MenuItem
                 {
-                    Header = "Manual",
+                    Header = manual2,
                     Icon = manualIcon
                 };
                 manualMenuItem.Click += (_, _) =>
@@ -411,9 +424,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
                 var walkthroughMenuItem = new MenuItem
                 {
-                    Header = "Walkthrough",
+                    Header = walkthrough2,
                     Icon = walkthroughIcon
                 };
                 walkthroughMenuItem.Click += (_, _) =>
@@ -429,9 +443,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
                 var cabinetMenuItem = new MenuItem
                 {
-                    Header = "Cabinet",
+                    Header = cabinet2,
                     Icon = cabinetIcon
                 };
                 cabinetMenuItem.Click += (_, _) =>
@@ -447,9 +462,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
                 var flyerMenuItem = new MenuItem
                 {
-                    Header = "Flyer",
+                    Header = flyer2,
                     Icon = flyerIcon
                 };
                 flyerMenuItem.Click += (_, _) =>
@@ -465,9 +481,10 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
                 var pcbMenuItem = new MenuItem
                 {
-                    Header = "PCB",
+                    Header = pCb2,
                     Icon = pcbIcon
                 };
                 pcbMenuItem.Click += (_, _) =>
@@ -483,21 +500,25 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
                 var takeScreenshot = new MenuItem
                 {
-                    Header = "Take Screenshot",
+                    Header = takeScreenshot2,
                     Icon = takeScreenshotIcon
                 };
+                string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
+                string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
+                string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
+                string aselectionwindowwillopenin2 = (string)Application.Current.TryFindResource("Aselectionwindowwillopenin") ?? "A selection window will open in";
+                string allowingyoutochoosethe2 = (string)Application.Current.TryFindResource("allowingyoutochoosethe") ?? "allowing you to choose the desired window to capture.";
+                string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
+
                 takeScreenshot.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    MessageBox.Show(
-                        "The game will launch now.\n\n" +
-                        "Set the game window to non-fullscreen. This is important.\n\n" +
-                        "You should change the emulator parameters to prevent the emulator from starting in fullscreen.\n\n" +
-                        "A selection window will open in 'Simple Launcher,' allowing you to choose the desired window to capture.\n\n" +
-                        "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.",
-                        "Take Screenshot", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{thegamewilllaunchnow2}\n\n{setthegamewindowto2}\n\n{youshouldchangetheemulatorparameters2}\n\n" +
+                                    $"{aselectionwindowwillopenin2} 'Simple Launcher,' {allowingyoutochoosethe2}\n\n{assoonasyouselectawindow2}",
+                        takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
                 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
                     _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
@@ -510,17 +531,20 @@ public partial class Favorites
                     Width = 16,
                     Height = 16
                 };
+                string deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
                 var deleteGame = new MenuItem
                 {
-                    Header = "Delete Game",
+                    Header = deleteGame2,
                     Icon = deleteGameIcon
                 };
+                string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+                string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
                 deleteGame.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    var result = MessageBox.Show($"Are you sure you want to delete the file \"{fileNameWithExtension}\"?\n\n" +
-                                                 $"This action will delete the file from the HDD and cannot be undone.",
-                        "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
+                        confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -553,7 +577,8 @@ public partial class Favorites
         {
             string formattedException =
                 $"There was an error in the right-click context menu in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
-                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                $"Exception type: {ex.GetType().Name}\n" +
+                $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
@@ -574,14 +599,17 @@ public partial class Favorites
             }
             else
             {
-                MessageBox.Show("Please select a game to launch.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                string pleaseselectagametolaunch2 = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
+                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+                MessageBox.Show(pleaseselectagametolaunch2,
+                    info2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
         {
             string formattedException = $"Error in the LaunchGame_Click method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);            }
     }
 
@@ -592,7 +620,6 @@ public partial class Favorites
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
-
                 string formattedException = $"There was an error in the Favorites window.\n\n" +
                                             $"No system configuration found for the selected favorite.";
                 Exception ex = new(formattedException);
@@ -635,10 +662,12 @@ public partial class Favorites
                     _favoriteList.Remove(favoriteToRemove);
                     _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
                 }
-                    
-                MessageBox.Show("The game file does not exist!\n\n" +
-                                "The favorite has been removed from the list.",
-                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                string thegamefiledoesnotexist2 = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+                string thefavoritehasbeenremovedfromthelist2 = (string)Application.Current.TryFindResource("Thefavoritehasbeenremovedfromthelist") ?? "The favorite has been removed from the list.";
+                string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
+                MessageBox.Show($"{thegamefiledoesnotexist2}\n\n{thefavoritehasbeenremovedfromthelist2}",
+                    fileNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -656,7 +685,10 @@ public partial class Favorites
         catch (Exception ex)
         {
             string formattedException = $"There was an error launching the game from Favorites.\n\n" +
-                                        $"File Path: {fileName}\nSystem Name: {systemName}\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"File Path: {fileName}\n" +
+                                        $"System Name: {systemName}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
             MessageBox.Show($"There was an error launching the game from Favorites.\n\n" +
@@ -691,9 +723,9 @@ public partial class Favorites
         }
         catch (Exception ex)
         {
-                
             string formattedException = $"There was a problem opening the Video Link.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -722,7 +754,8 @@ public partial class Favorites
         catch (Exception ex)
         {
             string formattedException = $"There was a problem opening the Info Link.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -754,7 +787,8 @@ public partial class Favorites
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -796,14 +830,17 @@ public partial class Favorites
                 }
                 else
                 {
-                    MessageBox.Show("There is no cover associated with this favorite.",
-                        "Cover not found", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string thereisnocoverassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverassociated") ?? "There is no cover associated with this favorite.";
+                    string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
+                    MessageBox.Show(thereisnocoverassociated2,
+                        covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (IOException ex)
             {
                 string formattedException = $"IOException in the method OpenCover in the Favorites window.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 Exception exception = new(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
@@ -816,7 +853,8 @@ public partial class Favorites
         catch (Exception ex)
         {
             string formattedException = $"There was an error in the method OpenCover in the Favorites window\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Exception exception = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -844,8 +882,10 @@ public partial class Favorites
             }
         }
 
-        MessageBox.Show("There is no title snapshot associated with this favorite.",
-            "Title Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot2") ?? "There is no title snapshot associated with this favorite.";
+        string titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
+        MessageBox.Show(thereisnotitlesnapshot2,
+            titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -869,8 +909,10 @@ public partial class Favorites
             }
         }
 
-        MessageBox.Show("There is no gameplay snapshot associated with this favorite.",
-            "Gameplay Snapshot not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnogameplaysnapshotassociated2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshotassociated") ?? "There is no gameplay snapshot associated with this favorite.";
+        string gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
+        MessageBox.Show(thereisnogameplaysnapshotassociated2,
+            gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenCart(string systemName, string fileName)
@@ -893,8 +935,10 @@ public partial class Favorites
                 return;
             }
         }
-        MessageBox.Show("There is no cart associated with this favorite.",
-            "Cart not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnocartassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnocartassociatedwith") ?? "There is no cart associated with this favorite.";
+        string cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
+        MessageBox.Show(thereisnocartassociatedwith2,
+            cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void PlayVideo(string systemName, string fileName)
@@ -919,9 +963,10 @@ public partial class Favorites
                 return;
             }
         }
-
-        MessageBox.Show("There is no video file associated with this favorite.",
-            "Video not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnovideofileassociated2 = (string)Application.Current.TryFindResource("Thereisnovideofileassociated") ?? "There is no video file associated with this favorite.";
+        string videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
+        MessageBox.Show(thereisnovideofileassociated2,
+            videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenManual(string systemName, string fileName)
@@ -951,7 +996,8 @@ public partial class Favorites
                 catch (Exception ex)
                 {
                     string formattedException = $"Failed to open the manual in the Favorites window\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     Exception exception = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
@@ -963,8 +1009,10 @@ public partial class Favorites
                 }
             }
         }
-        MessageBox.Show("There is no manual associated with this favorite.",
-            "Manual not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnomanualassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnomanualassociatedwith") ?? "There is no manual associated with this favorite.";
+        string manualnotfound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
+        MessageBox.Show(thereisnomanualassociatedwith2,
+            manualnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenWalkthrough(string systemName, string fileName)
@@ -994,7 +1042,8 @@ public partial class Favorites
                 catch (Exception ex)
                 {
                     string formattedException = $"Failed to open the walkthrough file in the Favorites window\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
@@ -1006,8 +1055,10 @@ public partial class Favorites
             }
         }
 
-        MessageBox.Show("There is no walkthrough file associated with this favorite.",
-            "Walkthrough not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnowalkthroughfileassociated2 = (string)Application.Current.TryFindResource("Thereisnowalkthroughfileassociated") ?? "There is no walkthrough file associated with this favorite.";
+        string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
+        MessageBox.Show(thereisnowalkthroughfileassociated2,
+            walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenCabinet(string systemName, string fileName)
@@ -1031,8 +1082,10 @@ public partial class Favorites
             }
         }
 
-        MessageBox.Show("There is no cabinet file associated with this favorite.",
-            "Cabinet not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnocabinetfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocabinetfileassociated") ?? "There is no cabinet file associated with this favorite.";
+        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
+        MessageBox.Show(thereisnocabinetfileassociated2,
+            cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenFlyer(string systemName, string fileName)
@@ -1055,8 +1108,10 @@ public partial class Favorites
                 return;
             }
         }
-        MessageBox.Show("There is no flyer file associated with this favorite.",
-            "Flyer not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoflyerfileassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnoflyerfileassociatedwith") ?? "There is no flyer file associated with this favorite.";
+        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
+        MessageBox.Show(thereisnoflyerfileassociatedwith2,
+            flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void OpenPcb(string systemName, string fileName)
@@ -1079,8 +1134,10 @@ public partial class Favorites
                 return;
             }
         }
-        MessageBox.Show("There is no PCB file associated with this favorite.",
-            "PCB not found", MessageBoxButton.OK, MessageBoxImage.Information);
+        string thereisnoPcBfileassociated2 = (string)Application.Current.TryFindResource("ThereisnoPCBfileassociated") ?? "There is no PCB file associated with this favorite.";
+        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
+        MessageBox.Show(thereisnoPcBfileassociated2,
+            pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
@@ -1176,8 +1233,10 @@ public partial class Favorites
             await flashWindow.ShowFlashAsync();
                 
             // Notify the user of success
-            MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}",
-                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            string screenshotsavedsuccessfullyat2 = (string)Application.Current.TryFindResource("Screenshotsavedsuccessfullyat") ?? "Screenshot saved successfully at:";
+            string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            MessageBox.Show($"{screenshotsavedsuccessfullyat2}\n{screenshotPath}",
+                success2, MessageBoxButton.OK, MessageBoxImage.Information);
 
             LoadFavorites();
 
@@ -1191,7 +1250,8 @@ public partial class Favorites
 
             // Send log to the developer
             string formattedException = $"There was an error in the TakeScreenshotOfSelectedWindow method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -1206,9 +1266,12 @@ public partial class Favorites
                 File.Delete(filePath);
                     
                 PlayClick.PlayTrashSound();
-                
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" has been successfully deleted.",
-                    "File Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
+                string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
+                string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
+                MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
+                    fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -1244,7 +1307,8 @@ public partial class Favorites
         catch (Exception ex)
         {
             string formattedException = $"There was an error trying to launch a favorite using the MouseDoubleClick method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
             MessageBox.Show($"There was an error trying to launch this favorite.\n\n" +
@@ -1283,8 +1347,10 @@ public partial class Favorites
         }
         else
         {
-            MessageBox.Show("Please select a favorite to remove.",
-                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
+            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(pleaseselectafavoritetoremove2,
+                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
     
