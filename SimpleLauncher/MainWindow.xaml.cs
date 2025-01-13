@@ -316,12 +316,21 @@ public partial class MainWindow : INotifyPropertyChanged
         // Check if application has write access
         if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
+            string itlookslike2 = (string)Application.Current.TryFindResource("Itlookslike") ?? "It looks like";
+            string isinstalledinarestrictedfolder2 = (string)Application.Current.TryFindResource("isinstalledinarestrictedfolder") ?? "is installed in a restricted folder";
+            string whereitdoesnothavewriteaccess2 = (string)Application.Current.TryFindResource("whereitdoesnothavewriteaccess") ?? ", where it does not have write access.";
+            string itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder") ?? "It needs write access to its folder.";
+            string pleasemovetheapplicationfoldertoawritablelocationlike2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfoldertoawritablelocationlike") ?? "Please move the application folder to a writable location like";
+            string orthe2 = (string)Application.Current.TryFindResource("orthe") ?? ", or the";
+            string folder2 = (string)Application.Current.TryFindResource("folder") ?? "folder.";
+            string ifpossiblerunitwithadministrative2 = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
+            string accessIssue2 = (string)Application.Current.TryFindResource("AccessIssue") ?? "Access Issue";
             MessageBox.Show(
-                "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.\n\n" +
-                "It needs write access to its folder.\n\n" +
-                "Please move the application folder to a writable location like 'C:\\SimpleLauncher', 'D:\\SimpleLauncher', or the 'Documents' folder.\n\n" +
-                "If possible, run it with administrative privileges.",
-                "Access Issue", MessageBoxButton.OK, MessageBoxImage.Warning);
+                $"{itlookslike2} 'Simple Launcher' {isinstalledinarestrictedfolder2} (e.g., Program Files){whereitdoesnothavewriteaccess2}\n\n" +
+                $"{itneedswriteaccesstoitsfolder2}\n\n" +
+                $"{pleasemovetheapplicationfoldertoawritablelocationlike2} 'C:\\SimpleLauncher', 'D:\\SimpleLauncher'{orthe2} 'Documents' {folder2}\n\n" +
+                $"{ifpossiblerunitwithadministrative2}",
+                accessIssue2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -576,7 +585,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Previous page button error in the Main window.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             MessageBox.Show("There was an error in this button.\n\n" +
@@ -607,11 +617,13 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Next page button error in the Main window.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             MessageBox.Show("There was an error with this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -634,7 +646,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string errorMessage = $"Error while using the method SearchButton_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
@@ -654,11 +667,15 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method SearchTextBox_KeyDown.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string errorMessage = $"Error while using the method SearchTextBox_KeyDown.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);        }
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async Task ExecuteSearch()
@@ -1305,10 +1322,17 @@ public partial class MainWindow : INotifyPropertyChanged
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("An error occurred while launching 'FindRomCover.exe'.\n\n" +
-                            "This type of error is usually related to low permission settings for Simple Launcher. Try running it with administrative permissions.\n\n" +
-                            "If you want to debug the error yourself, check the file 'error_user.log' inside the 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            string anerroroccurredwhilelaunching2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunching") ?? "An error occurred while launching";
+            string thistypeoferrorisusuallyrelated2 = (string)Application.Current.TryFindResource("Thistypeoferrorisusuallyrelated") ?? "This type of error is usually related to low permission settings for";
+            string tryrunningitwithadministrative2 = (string)Application.Current.TryFindResource("Tryrunningitwithadministrative") ?? "Try running it with administrative permissions.";
+            string ifyouwanttodebugtheerror2 = (string)Application.Current.TryFindResource("Ifyouwanttodebugtheerror") ?? "If you want to debug the error yourself, check the file";
+            string insidethe2 = (string)Application.Current.TryFindResource("insidethe") ?? "inside the";
+            string folder2 = (string)Application.Current.TryFindResource("folder") ?? "folder.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{anerroroccurredwhilelaunching2} 'FindRomCover.exe'.\n\n" +
+                            $"{thistypeoferrorisusuallyrelated2} 'Simple Launcher'. {tryrunningitwithadministrative2}\n\n" +
+                            $"{ifyouwanttodebugtheerror2} 'error_user.log' {insidethe2} 'Simple Launcher' {folder2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1347,7 +1371,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -1393,7 +1418,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
@@ -1439,7 +1465,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 

@@ -108,7 +108,8 @@ public class SettingsConfig
             SetDefaultsAndSave();
 
             string contextMessage = $"Error loading or parsing 'setting.xml' from SettingsConfig class.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 

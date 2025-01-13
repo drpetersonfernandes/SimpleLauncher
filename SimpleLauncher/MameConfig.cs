@@ -45,7 +45,8 @@ public class MameConfig
         catch (Exception ex)
         {
             string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 

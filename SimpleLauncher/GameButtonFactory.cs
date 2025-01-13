@@ -672,7 +672,8 @@ internal class GameButtonFactory(
         catch (Exception ex)
         {
             string formattedException = $"Error in the method RemoveFromFavorites2 in the class GameButtonFactory.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -734,12 +735,14 @@ internal class GameButtonFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the Info Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show($"There was a problem opening the Info Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         

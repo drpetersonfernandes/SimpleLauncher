@@ -54,10 +54,15 @@ public class SystemConfig
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
                             
-                            var restoreResult = MessageBox.Show("I could not find the file system.xml, which is required to start the application.\n\n" +
-                                                                "But I found a backup file.\n\n" +
-                                                                "Would you like to restore the last backup?",
-                                "Restore Backup?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            string icouldnotfindthefile2 = (string)Application.Current.TryFindResource("Icouldnotfindthefile") ?? "I could not find the file";
+                            string whichisrequiredtostart2 = (string)Application.Current.TryFindResource("whichisrequiredtostart") ?? ", which is required to start the application.";
+                            string butIfoundabackupfile2 = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
+                            string wouldyouliketorestore2 = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
+                            string restoreBackup2 = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
+                            var restoreResult = MessageBox.Show($"{icouldnotfindthefile2} 'system.xml'{whichisrequiredtostart2}\n\n" +
+                                                                $"{butIfoundabackupfile2}\n\n" +
+                                                                $"{wouldyouliketorestore2}",
+                                restoreBackup2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                             if (restoreResult == MessageBoxResult.Yes)
                             {
@@ -109,7 +114,8 @@ public class SystemConfig
                 catch (Exception ex)
                 {
                     string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
@@ -142,7 +148,8 @@ public class SystemConfig
                     "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                               $"Exception type: {ex.GetType().Name}\n" +
+                                               $"Exception details: {ex.Message}";
                 
                 Task logTask = LogErrors.LogErrorAsync(ex, errorDetailsDeveloper);
                 logTask.Wait(TimeSpan.FromSeconds(2));
@@ -266,7 +273,8 @@ public class SystemConfig
         catch (Exception ex)
         {
             string contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 

@@ -80,20 +80,26 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
-            string contextMessage = $"An error occurred while loading ROM history.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"An error occurred while loading ROM history.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             MessageBox.Show("An error occurred while loading ROM history." +
-                            " The error was reported to the developer.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            " The error was reported to the developer.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     private void PromptForOnlineSearch()
     {
+        string didnotfindaRoMhistory2 = (string)Application.Current.TryFindResource("didnotfindaROMhistory") ?? "did not find a ROM history in the local database for the selected file.";
+        string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
+        string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
         var result = MessageBox.Show(
-            "Simple Launcher did not find a ROM history in the local database for the selected file.\n\nDo you want to search online for the ROM history?",
-            "ROM History Not Found", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            $"'Simple Launcher' {didnotfindaRoMhistory2}\n\n{doyouwanttosearchonline2}",
+            rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         RomNameTextBox.Text = _romName;
 
@@ -107,8 +113,8 @@ public partial class RomHistoryWindow
         {
             RomDescriptionTextBox.Visibility = Visibility.Collapsed;
         }
-
-        HistoryTextBlock.Text = "No ROM history found in the local database for the selected file.";
+        string noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
+        HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;
 
         if (result == MessageBoxResult.Yes)
         {
@@ -127,11 +133,15 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
-            string contextMessage = $"An error occurred while opening the browser.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+            string contextMessage = $"An error occurred while opening the browser.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
             
-            MessageBox.Show("An error occurred while opening the browser.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An error occurred while opening the browser.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
     

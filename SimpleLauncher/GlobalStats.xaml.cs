@@ -77,8 +77,10 @@ public partial class GlobalStats
         catch (Exception ex)
         {
             string formattedException = $"Error in the GlobalStats_Loaded method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);            }
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+        }
     }
         
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
@@ -194,15 +196,23 @@ public partial class GlobalStats
             try
             {
                 File.WriteAllText(filePath, GenerateReportText(globalStats, systemStats));
-                MessageBox.Show("Report saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                string reportsavedsuccessfully2 = (string)Application.Current.TryFindResource("Reportsavedsuccessfully") ?? "Report saved successfully.";
+                string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+                MessageBox.Show(reportsavedsuccessfully2,
+                    success2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                string formattedException = $"Failed to save the report in the Global Stats window.\n\nException type: {ex.GetType().Name}\nException details: {ex.Message}";
+                string formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                     
-                MessageBox.Show($"Failed to save the report.\n\nThe error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to save the report.\n\n" +
+                                $"The error was reported to the developer that will try to fix the issue.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -240,7 +250,10 @@ public partial class GlobalStats
         }
         else
         {
-            MessageBox.Show("No statistics available to save. Please wait until the data is loaded.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            string nostatisticsavailabletosave2 = (string)Application.Current.TryFindResource("Nostatisticsavailabletosave") ?? "No statistics available to save. Please wait until the data is loaded.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(nostatisticsavailabletosave2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

@@ -495,7 +495,6 @@
                         Margin="0">
                 <Button x:Name="PrevPageButton"
                         Content="{DynamicResource &lt;_Prev}"
-                        Width="100"
                         Height="30"
                         Margin="0,0,10,0"
                         VerticalAlignment="Center"
@@ -503,7 +502,6 @@
                         Click="PrevPageButton_Click" />
                 <Button x:Name="NextPageButton"
                         Content="{DynamicResource Next_&gt;}"
-                        Width="100"
                         Height="30"
                         Margin="0,0,0,0"
                         VerticalAlignment="Center"

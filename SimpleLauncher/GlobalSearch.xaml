@@ -31,7 +31,8 @@
             <TextBox Name="SearchTextBox" Width="300" Height="26" Margin="0,0,10,0" TextAlignment="Left"
                      VerticalAlignment="Center" KeyDown="SearchTextBox_KeyDown" />
             <Button Content="{DynamicResource Search}" Click="SearchButton_Click" Padding="5" />
-            <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click" IsEnabled="False"
+            <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
+                    IsEnabled="False"
                     Padding="5" Margin="10,0,0,0" />
         </StackPanel>
         <DataGrid Name="ResultsDataGrid" Grid.Row="3" Grid.Column="0" Margin="10,10,10,10"
@@ -54,7 +55,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Margin="10">
-            <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+            <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center"
+                   Margin="0,0,0,10" />
             <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
                 <Grid>
                     <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"

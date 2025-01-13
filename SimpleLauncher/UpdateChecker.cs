@@ -83,9 +83,12 @@ public static class UpdateChecker
                 }
                 else
                 {
-                    MessageBox.Show(mainWindow, $"There is no update available.\n\n" +
-                                                $"The current version is {CurrentVersion}",
-                        "No update available", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+                    string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+                    string noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+                    MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
+                                                $"{thecurrentversionis2} {CurrentVersion}",
+                        noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -134,7 +137,7 @@ public static class UpdateChecker
                 
             MessageBox.Show(mainWindow, $"There was an error reinstalling 'Simple Launcher'.\n\n" +
                                         $"The error was reported to the developer that will try to fix the issue.",
-                "Error reinstalling Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
     
@@ -143,12 +146,17 @@ public static class UpdateChecker
     {
         try
         {
-            string message = $"There is a software update available.\n" +
-                             $"The current version is {currentVersion}\n" +
-                             $"The update version is {latestVersion}\n\n" +
-                             "Do you want to download and install the latest version automatically?";
+            string thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+            string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+            string theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+            string doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+            string updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+            string message = $"{thereisasoftwareupdateavailable2}\n" +
+                             $"{thecurrentversionis2} {currentVersion}\n" +
+                             $"{theupdateversionis2} {latestVersion}\n\n" +
+                             $"{doyouwanttodownloadandinstall2}";
             MessageBoxResult result = MessageBox.Show(owner, message,
-                "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -295,9 +303,7 @@ public static class UpdateChecker
                     var messageBoxResult = MessageBox.Show(
                         "There was an error installing the application.\n\n" +
                         "Would you like to be redirected to the download page to install it manually?",
-                        "Installation Error",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Error);
+                        "Installation Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
@@ -373,9 +379,7 @@ public static class UpdateChecker
                 var messageBoxResult = MessageBox.Show(
                     "Updater.exe not found in the application directory.\n\n" +
                     "Would you like to be redirected to the download page to download it manually?",
-                    "Update Error",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error);
+                    "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {

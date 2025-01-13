@@ -1,13 +1,12 @@
-﻿namespace SimpleLauncher
+﻿namespace SimpleLauncher;
+
+public partial class PleaseWaitExtraction
 {
-    public partial class PleaseWaitExtraction
+    public PleaseWaitExtraction()
     {
-        public PleaseWaitExtraction()
-        {
-            InitializeComponent();
+        InitializeComponent();
             
-            // Apply the theme to this window
-            App.ApplyThemeToWindow(this);
-        }
+        // Apply the theme to this window
+        App.ApplyThemeToWindow(this);
     }
 }

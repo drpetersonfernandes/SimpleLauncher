@@ -129,5 +129,4 @@ public static class LogErrors
             _ => $"Unknown Windows Version ({version})"
         };
     }
-        
 }

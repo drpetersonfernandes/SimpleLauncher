@@ -34,7 +34,8 @@ public partial class ImageViewerWindow
         catch (Exception ex)
         {
             string contextMessage = $"Failed to load the image in the Image Viewer window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 

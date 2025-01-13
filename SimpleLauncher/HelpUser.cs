@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
@@ -36,9 +37,10 @@ public static class HelpUser
 
         if (string.IsNullOrEmpty(systemName))
         {
+            string nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
             // Clear the TextBlock and display a default message if no system name is provided
             helpUserTextBlock.Inlines.Clear();
-            helpUserTextBlock.Inlines.Add(new Run("No system name provided."));
+            helpUserTextBlock.Inlines.Add(new Run(nosystemnameprovided2));
             return;
         }
 
@@ -134,7 +136,8 @@ public static class HelpUser
         else
         {
             // Display a message if the system name is not recognized
-            helpUserTextBlock.Inlines.Add(new Run($"No information available for system: {systemName}"));
+            string noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
+            helpUserTextBlock.Inlines.Add(new Run($"{noinformationavailableforsystem2} {systemName}"));
         }
     }
     
@@ -252,7 +255,7 @@ public static class HelpUser
     {
         // Fetch the system details from the configuration
         var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        return system?.SystemHelperText ?? $"No details available for {systemName}.";
+        string nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
+        return system?.SystemHelperText ?? $"{nodetailsavailablefor2} {systemName}.";
     }
-
 }

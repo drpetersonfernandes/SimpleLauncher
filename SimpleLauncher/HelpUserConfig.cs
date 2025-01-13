@@ -103,12 +103,12 @@ public class HelpUserConfig
 
             if (!Systems.Any())
             {
-                string contextMessage = $"Warning: No valid systems found in the file 'helpuser.xml'.";
+                string contextMessage = $"No valid systems found in the file 'helpuser.xml'.";
                 Exception ex = new Exception(contextMessage);
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                var result = MessageBox.Show("Warning: No valid systems found in the file 'helpuser.xml'.\n\n" +
+                var result = MessageBox.Show("No valid systems found in the file 'helpuser.xml'.\n\n" +
                                              "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                 if (result == MessageBoxResult.Yes)
@@ -119,7 +119,7 @@ public class HelpUserConfig
         }
         catch (Exception ex)
         {
-            string contextMessage = $"Unexpected error while loading 'helpuser.xml'.";
+            string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
             
