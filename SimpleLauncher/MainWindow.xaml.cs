@@ -242,11 +242,13 @@ public partial class MainWindow : INotifyPropertyChanged
     private void SetLanguageMenuChecked(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
+        LanguageBengali.IsChecked = languageCode == "bn";
         LanguageGerman.IsChecked = languageCode == "de";
         LanguageEnglish.IsChecked = languageCode == "en";
         LanguageSpanish.IsChecked = languageCode == "es";
         LanguageFrench.IsChecked = languageCode == "fr";
         LanguageHindi.IsChecked = languageCode == "hi";
+        LanguageIndonesianMalay.IsChecked = languageCode == "id";
         LanguageItalian.IsChecked = languageCode == "it";
         LanguageJapanese.IsChecked = languageCode == "ja";
         LanguageKorean.IsChecked = languageCode == "ko";
@@ -254,6 +256,7 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
         LanguageRussian.IsChecked = languageCode == "ru";
         LanguageTurkish.IsChecked = languageCode == "tr";
+        LanguageUrdu.IsChecked = languageCode == "ur";
         LanguageVietnamese.IsChecked = languageCode == "vi";
         LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
