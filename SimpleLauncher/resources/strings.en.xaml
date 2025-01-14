@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Options</system:String>
-
     <system:String x:Key="Language">Language</system:String>
-
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
     <system:String x:Key="Light">Light</system:String>
     <system:String x:Key="Dark">Dark</system:String>
-
     <system:String x:Key="AccentColors">Accent Colors</system:String>
     <system:String x:Key="Red">Red</system:String>
     <system:String x:Key="Green">Green</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Taupe">Taupe</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
-
     <system:String x:Key="SetThumbnailSize">Set Thumbnail Size</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>
     <system:String x:Key="600pixels">600 pixels</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Set Number of Games Per Page</system:String>
     <system:String x:Key="100games">100 games</system:String>
     <system:String x:Key="200games">200 games</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 games</system:String>
     <system:String x:Key="500games">500 games</system:String>
     <system:String x:Key="1000games">1000 games</system:String>
-
     <system:String x:Key="ViewMode">View Mode</system:String>
     <system:String x:Key="GridView">Grid View</system:String>
     <system:String x:Key="ListView">List View</system:String>
-
     <system:String x:Key="ShowGames">Show Games</system:String>
     <system:String x:Key="ShowAllGames">Show All Games</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
-
     <system:String x:Key="EditLinks">Edit Links</system:String>
-
     <system:String x:Key="GamepadSupport">Gamepad Support</system:String>
     <system:String x:Key="Enable">Enable</system:String>
-
     <system:String x:Key="EditSystem">Edit System</system:String>
     <system:String x:Key="EasyMode">Easy Mode</system:String>
     <system:String x:Key="ExpertMode">Expert Mode</system:String>
     <system:String x:Key="DownloadImagePack">Download Image Pack</system:String>
-
     <system:String x:Key="GlobalSearch">Global Search</system:String>
-
     <system:String x:Key="Favorites">Favorites</system:String>
-
     <system:String x:Key="GlobalStats">Global Stats</system:String>
-
     <system:String x:Key="Tools">Tools</system:String>
     <system:String x:Key="OrganizeSystemImages">Organize System Images</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Create Batch Files For PS3 Games</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Create Batch Files For Sega Model3 Games</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Create Batch Files For Windows Games</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox 360 XBLA Games</system:String>
-
     <system:String x:Key="BugReport">Bug Report</system:String>
-
     <system:String x:Key="Donate">Donate</system:String>
-
     <system:String x:Key="About">About</system:String>
-
     <system:String x:Key="Exit">Exit</system:String>
-    
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SelectEmulator">Select Emulator</system:String>
     <system:String x:Key="Search">Search</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Next &gt;</system:String>
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Edit System - Easy Mode</system:String>
     <system:String x:Key="Whatdoyouwanttodo">What do you want to do?</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="EditExistingSystem">Edit Existing System</system:String>
     <system:String x:Key="DeleteExistingSystem">Delete Existing System</system:String>
-    
     <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
     <system:String x:Key="Wealsosupport">We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself.</system:String>
     <system:String x:Key="Pleasechooseasystem">Please choose a system to Add</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1st step</system:String>
     <system:String x:Key="2ndstep">2nd step</system:String>
     <system:String x:Key="3rdstep">3rd step</system:String>
-    
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
     <system:String x:Key="SaveorUpdateSystem">Save or Update System</system:String>
     <system:String x:Key="DeleteSelectedSystem">Delete Selected System</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (May be Required)</system:String>
     <system:String x:Key="Emulator5Location">Emulator 5 Location</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Please select an Image Pack</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">If you do not choose a folder, the images will be extracted to the default folder</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Launch Selected Game</system:String>
     <system:String x:Key="PreviewImage">Preview Image</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">An open source emulator frontend</system:String>
     <system:String x:Key="CheckForUpdate">Check For Update</system:String>
     <system:String x:Key="UpdateHistory">Update History</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
     <system:String x:Key="VideoLinkButton">Video Link Button</system:String>
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
-    
     <system:String x:Key="InfoTitle">Info</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Total Number of Matched Images:</system:String>
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
     <system:String x:Key="TotalDiskSize">Disk Size of all Games:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Please select a System</system:String>
     <system:String x:Key="nogamesmatched">Unfortunately, no games matched your search query or the selected button.</system:String>
     <system:String x:Key="Displayingfiles0to">Displaying files 0 to</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">total</system:String>
     <system:String x:Key="Displayingfiles">Displaying files</system:String>
     <system:String x:Key="to">to</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Please select a system before searching.</system:String>
     <system:String x:Key="SystemNotSelected">System Not Selected</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Please enter a search query.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No favorite games found for the selected system.</system:String>
     <system:String x:Key="Open">Open</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
-    
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemImageFolder">System Image Folder</system:String>
     <system:String x:Key="DefaultImageFolder">[Using default image folder]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Emulator Name</system:String>
     <system:String x:Key="EmulatorLocation">Emulator Location</system:String>
     <system:String x:Key="EmulatorParameters">Emulator Parameters</system:String>
-    
     <system:String x:Key="LaunchGame">Launch Game</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">The file</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">has been successfully deleted.</system:String>
     <system:String x:Key="FileDeleted">File Deleted</system:String>
-    
     <system:String x:Key="Version">Version:</system:String>
     <system:String x:Key="Unknown">Unknown</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Please enter the details of the bug.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="System2">System</system:String>
     <system:String x:Key="hasbeendeleted">has been deleted.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.</system:String>
     <system:String x:Key="Emulatorfor">Emulator for</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">is already installed and up to date.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">The application failed to create the necessary folders for this system.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer that will try to fix the issue.</system:String>
     <system:String x:Key="Error">Error</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Please select a favorite to remove.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Please select a game to launch.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">This type of error happens when</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">does not have the privileges to launch an external program, such as the emulator.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
-
     <system:String x:Key="Pleaseenterasearchterm">Please enter a search term.</system:String>
     <system:String x:Key="Noresultsfound">No results found.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">has been added to favorites.</system:String>
@@ -436,5 +402,5 @@
     <system:String x:Key="UpdateAvailable">Update Available</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="SelectaWindow">Select a Window</system:String>
-    
+
 </ResourceDictionary>

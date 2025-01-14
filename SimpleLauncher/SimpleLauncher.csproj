@@ -417,6 +417,9 @@
     <None Remove="images\language.png" />
     <Resource Include="images\language.png" />
     <Page Remove="resources\Strings.de.xaml" />
+    <Content Include="resources\strings.bn.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\strings.de.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -433,6 +436,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Remove="resources\Strings.ja.xaml" />
+    <Content Include="resources\strings.id.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\strings.ja.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -450,6 +456,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Remove="resources\Strings.zh-Hans.xaml" />
+    <Content Include="resources\strings.ur.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\strings.zh-hans.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

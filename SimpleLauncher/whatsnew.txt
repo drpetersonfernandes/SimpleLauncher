@@ -1,3 +1,18 @@
+release3.8
+------------
+
+01/__/2025
+
+**Multilingual Version – A Major Update!**
+- **Experience the Application in Your Language!** We've added translations for **17 languages**, making the application accessible to users worldwide. Supported languages now include:
+Arabic, Bengali, German, Spanish, French, Hindi, Indonesian (Malay), Italian, Japanese, Korean, Dutch, Portuguese, Russian, Turkish, Urdu, Vietnamese, Simplified Chinese, and Traditional Chinese.
+- Updated to the latest technologies: **.NET Core 9** and **C# 13**, ensuring better performance and stability.
+- Fixed several entries in `'helpuser.xml'` for improved user assistance.
+- Updated all emulators to their **latest releases**.
+- Updated `'mame.xml'` to version **0.273**.
+- Enhanced support for **'Kega Fusion'** and **'Mastergear'**.
+- Added more emulators to `'system_model.xml'`.
+
 release3.7.1
 ------------
 

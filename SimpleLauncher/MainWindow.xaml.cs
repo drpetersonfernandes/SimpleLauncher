@@ -1696,11 +1696,13 @@ public partial class MainWindow : INotifyPropertyChanged
             string selectedLanguage = menuItem.Name switch
             {
                 "LanguageArabic" => "ar",
+                "LanguageBengali" => "bn",
                 "LanguageGerman" => "de",
                 "LanguageEnglish" => "en",
                 "LanguageSpanish" => "es",
                 "LanguageFrench" => "fr",
                 "LanguageHindi" => "hi",
+                "LanguageIndonesianMalay" => "id",
                 "LanguageItalian" => "it",
                 "LanguageJapanese" => "ja",                
                 "LanguageKorean" => "ko",
@@ -1708,6 +1710,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 "LanguagePortugueseBr" => "pt-br",
                 "LanguageRussian" => "ru",
                 "LanguageTurkish" => "tr",
+                "LanguageUrdu" => "ur",
                 "LanguageVietnamese" => "vi",
                 "LanguageChineseSimplified" => "zh-hans",
                 "LanguageChineseTraditional" => "zh-hant",
