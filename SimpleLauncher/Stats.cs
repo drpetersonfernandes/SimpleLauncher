@@ -9,7 +9,8 @@ namespace SimpleLauncher;
 public static class Stats
 {
     private static string _apiKey;
-    private static readonly string ApiUrl = "https://purelogiccode.com/simplelauncher/stats.php";
+    private static readonly string PrimaryApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
+    private static readonly string BackupApiUrl = "https://www.purelogiccode.com/simplelauncher/stats.php";
 
     static Stats()
     {
@@ -42,43 +43,58 @@ public static class Stats
         }
 
         int maxAttempts = 2;
-        int attempt = 0;
-        Exception lastException = null;
 
+        // Try the primary API first
+        if (await TryApiAsync(client, PrimaryApiUrl, maxAttempts))
+        {
+            return; // Success
+        }
+
+        // Fallback to the backup API if the primary API fails
+        if (await TryApiAsync(client, BackupApiUrl, maxAttempts))
+        {
+            return; // Success
+        }
+
+        string finalErrorMessage = "Both primary and backup APIs failed after multiple attempts.";
+        await LogErrors.LogErrorAsync(new Exception(finalErrorMessage), finalErrorMessage);
+    }
+
+    private static async Task<bool> TryApiAsync(HttpClient client, string apiUrl, int maxAttempts)
+    {
+        int attempt = 0;
         while (attempt < maxAttempts)
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(ApiUrl);
+                HttpResponseMessage response = await client.PostAsync(apiUrl, null);
                 response.EnsureSuccessStatusCode();
-                return; // Success, exit method
+                return true; // Success
             }
             catch (HttpRequestException ex)
             {
-                lastException = ex;
                 if (attempt < maxAttempts - 1)
                 {
                     await Task.Delay(2000); // Wait 2 seconds before retrying
                 }
+                else
+                {
+                    string errorMessage = $"There was an error communicating with the stats API at {apiUrl}." +
+                                          $"Exception type: {ex.GetType().Name}" +
+                                          $"Exception details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, errorMessage);
+                }
             }
             catch (Exception ex)
             {
-                lastException = ex;
+                string errorMessage = $"There was an unexpected error in CallApiAsync method while using {apiUrl}." +
+                                      $"Exception type: {ex.GetType().Name}" +
+                                      $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
                 break; // Exit if it's not a HttpRequestException
             }
-
             attempt++;
         }
-
-        if (lastException != null)
-        {
-            string errorMessage = lastException is HttpRequestException
-                ? $"There was an error communicating with the stats API.\n\n" +
-                  $"Exception type: {lastException.GetType().Name}\nException details: {lastException.Message}"
-                : $"There was an unexpected error in CallApiAsync method.\n\n" +
-                  $"Exception type: {lastException.GetType().Name}\nException details: {lastException.Message}";
-
-            await LogErrors.LogErrorAsync(lastException, errorMessage);
-        }
+        return false; // Failed after max attempts
     }
 }
