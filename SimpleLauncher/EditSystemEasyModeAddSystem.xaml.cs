@@ -333,7 +333,14 @@ public partial class EditSystemEasyModeAddSystem
         if (destinationPath2 != null)
         {
             string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
-            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+            try
+            {
+                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
         }
                             
         // Mark as downloaded and disable button
@@ -576,7 +583,14 @@ public partial class EditSystemEasyModeAddSystem
         if (destinationPath2 != null)
         {
             string versionFilePath = Path.Combine(destinationPath2, "version_core.txt");
-            await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+            try
+            {
+                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
         }
                             
         // Mark as downloaded and disable button
