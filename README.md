@@ -60,7 +60,7 @@ You can find more details in our [Wiki](https://github.com/drpetersonfernandes/S
 - **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
 
 ## Technical Details:
-Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 8 Framework.<br>
+Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET Core 9 Framework.<br>
 This program is Windows-only.
 It has been tested on Windows 11.
 
