@@ -159,7 +159,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -354,7 +354,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -516,7 +516,7 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)

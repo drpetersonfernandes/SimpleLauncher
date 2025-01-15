@@ -114,7 +114,7 @@ public partial class DownloadImagePack
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync(downloadFilePath, extractionFolder);
+                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)

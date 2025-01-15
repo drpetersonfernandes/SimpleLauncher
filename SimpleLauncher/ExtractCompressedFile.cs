@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.IO.Compression;
 
 namespace SimpleLauncher;
 
@@ -355,6 +356,66 @@ internal class ExtractCompressedFile
         // ///////////////////////////////////////////////////
         // ///////////////////////////////////////////////////
         // ///////////////////////////////////////////////////
+    }
+    
+    public async Task<bool> ExtractDownloadFilesAsync2(string filePath, string destinationFolder)
+    {
+        if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
+        {
+            string formattedException = $"The downloaded file appears to be empty or corrupted.\n\n" +
+                                        $"Method: ExtractDownloadFilesAsync2";
+            Exception exception = new(formattedException);
+            await LogErrors.LogErrorAsync(exception, formattedException);
+
+            MessageBox.Show("The downloaded file appears to be empty or corrupted.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            return false;
+        }
+
+        if (IsFileLocked(filePath))
+        {
+            string formattedException = $"The downloaded file appears to be locked.\n" +
+                                        $"Method: ExtractDownloadFilesAsync2";
+            Exception exception = new(formattedException);
+            await LogErrors.LogErrorAsync(exception, formattedException);
+
+            MessageBox.Show("The downloaded file appears to be locked.",
+                "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            return false;
+        }
+
+        try
+        {
+            // Create destination folder if it does not exist
+            Directory.CreateDirectory(destinationFolder);
+
+            // Delay for 1 second to allow file system operations
+            await Task.Delay(1000);
+
+            // Extract the ZIP file
+            await Task.Run(() => ZipFile.ExtractToDirectory(filePath, destinationFolder, true));
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"Error extracting the file: {filePath}\n\n" +
+                                        $"Method: ExtractDownloadFilesAsync2\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            MessageBox.Show("Extraction failed!\n\n" +
+                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                            "Temporarily disable your antivirus software and try again.",
+                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            return false;
+        }
     }
         
     private bool IsFileLocked(string filePath)
