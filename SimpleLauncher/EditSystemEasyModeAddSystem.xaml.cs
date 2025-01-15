@@ -44,7 +44,7 @@ public partial class EditSystemEasyModeAddSystem
         string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run";
         string withadministrativeprivileges2 = (string)Application.Current.TryFindResource("withadministrativeprivileges") ?? "with administrative privileges.";
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{someantivirusprogramsmaylock2}\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}",
+        MessageBox.Show($"{someantivirusprogramsmaylock2}\n\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}",
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
