@@ -24,8 +24,6 @@ public partial class EditSystemEasyModeAddSystem
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient = new();
     private bool _isDownloadCompleted;
-    
-    // Unique temp folder within the Windows temp directory
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     public EditSystemEasyModeAddSystem()
@@ -34,7 +32,7 @@ public partial class EditSystemEasyModeAddSystem
             
         App.ApplyThemeToWindow(this);
             
-        LoadConfig();
+        _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
             
         // Subscribe to the Closed event
@@ -46,11 +44,6 @@ public partial class EditSystemEasyModeAddSystem
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{someantivirusprogramsmaylock2}\n\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}",
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private void LoadConfig()
-    {
-        _config = EasyModeConfig.Load();
     }
 
     // Populated System Dropbox only if EmulatorDownloadLink is not null
@@ -81,7 +74,7 @@ public partial class EditSystemEasyModeAddSystem
 
                 // Reset download status
                 _isEmulatorDownloaded = false;
-                _isCoreDownloaded = !DownloadCoreButton.IsEnabled; // Assume downloaded if no download needed
+                _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
 
                 UpdateAddSystemButtonState();
             }
@@ -104,7 +97,7 @@ public partial class EditSystemEasyModeAddSystem
                 string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
+                // string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
                 // Check if the emulator is already installed and up to date
@@ -155,7 +148,6 @@ public partial class EditSystemEasyModeAddSystem
                                     // ignore
                                 }
                             }
-
                             if (!File.Exists(newFilePath))
                             {
                                 // Update the downloadFilePath to the new file path
@@ -172,21 +164,70 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
+                            string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
+                            string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+                            string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+                            MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+                                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            // Clean up the downloaded file only if extraction is successful
+                            try
+                            {
+                                File.Delete(downloadFilePath);
+                            }
+                            catch (Exception)
+                            {
+                                // ignore
+                            }
+                                
+                            // Update the version file if necessary
+                            if (destinationPath != null)
+                            {
+                                string versionFilePath = Path.Combine(destinationPath, "version_emulator.txt");
+                                try
+                                {
+                                    await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                                }
+                                catch (Exception)
+                                {
+                                    // ignore
+                                }
+                            }
+                            
+                            // Mark as downloaded and disable button
+                            _isEmulatorDownloaded = true;
+                            DownloadEmulatorButton.IsEnabled = false;
+                            
+                            // Update AddSystemButton state
+                            UpdateAddSystemButtonState();
                         }
                         else // extraction fail
                         {
-                            await CallInMemoryDownloadAndExtract(emulatorDownloadUrl, destinationPath, selectedSystem, downloadFilePath, finalPath, latestVersionString);
+                            string formattedException = $"Emulator extraction failed.";
+                            Exception ex = new Exception(formattedException);
+                            await LogErrors.LogErrorAsync(ex, formattedException);
+
+                            MessageBox.Show("Emulator extraction failed!\n\n" +
+                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                            "Temporarily disable your antivirus software and try again.",
+                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else // download fail
                     {
-                        await CallInMemoryDownloadAndExtract(emulatorDownloadUrl, destinationPath, selectedSystem, downloadFilePath, finalPath, latestVersionString);
-                    }
+                        string formattedException = $"Emulator download failed.";
+                        Exception ex = new Exception(formattedException);
+                        await LogErrors.LogErrorAsync(ex, formattedException);
+
+                        MessageBox.Show("Emulator download failed!\n\n" +
+                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                        "Temporarily disable your antivirus software and try again.",
+                            "Download Failed", MessageBoxButton.OK, MessageBoxImage.Information);                    }
                 }
                 catch (TaskCanceledException)
                 {
-                    // Delete a partially downloaded file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -227,7 +268,6 @@ public partial class EditSystemEasyModeAddSystem
                 {
                     StopDownloadButton.IsEnabled = false;
 
-                    // Delete temp download file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -241,114 +281,17 @@ public partial class EditSystemEasyModeAddSystem
         }
         catch (Exception ex)
         {
-            // Error downloading
             string formattedException = $"General error downloading the emulator.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Emulator download or extraction failed!\n\n" +
+                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                            "Temporarily disable your antivirus software and try again.",
+                "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);   
         }
-    }
-
-    private async Task CallInMemoryDownloadAndExtract(string emulatorDownloadUrl, string destinationPath,
-        EasyModeSystemConfig selectedSystem, string downloadFilePath, string finalPath, string latestVersionString)
-    {
-        string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
-        string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
-        string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
-        MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}",
-            extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
-
-        /////////////////////////////////////////////////
-        //// In Memory Download and Extract - Start /////
-        /////////////////////////////////////////////////
-        try
-        {
-            bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(emulatorDownloadUrl, destinationPath,
-                _cancellationTokenSource.Token, DownloadProgressBar);
-
-            if (extractionSuccess2)
-            {
-                // Notify Developer
-                string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
-                Exception ex = new Exception(notifyDeveloper);
-                await LogErrors.LogErrorAsync(ex, notifyDeveloper);
-                                    
-                await EmulatorSuccessMessage(selectedSystem, downloadFilePath, finalPath, latestVersionString);
-            }
-            else
-            {
-                // Download and Extraction failed - offer redirect option
-                EmulatorDownloadExtractionFailure(selectedSystem);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify Developer
-            string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-                                
-            EmulatorDownloadExtractionFailure(selectedSystem);                         
-        }
-        /////////////////////////////////////////////////
-        //// In Memory Download and Extract - End  //////
-        /////////////////////////////////////////////////
-    }
-
-    private static void EmulatorDownloadExtractionFailure(EasyModeSystemConfig selectedSystem)
-    {
-        MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} emulator.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                UseShellExecute = true
-            });
-        }
-    }
-
-    private async Task EmulatorSuccessMessage(EasyModeSystemConfig selectedSystem, string downloadFilePath, string destinationPath2, string latestVersionString)
-    {
-        string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
-        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
-        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-        MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
-            success2, MessageBoxButton.OK, MessageBoxImage.Information);
-
-        // Clean up the downloaded file only if extraction is successful
-        try
-        {
-            File.Delete(downloadFilePath);
-        }
-        catch (Exception)
-        {
-            // ignore
-        }
-                                
-        // Update the version file if necessary
-        if (destinationPath2 != null)
-        {
-            string versionFilePath = Path.Combine(destinationPath2, "version_emulator.txt");
-            try
-            {
-                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-                            
-        // Mark as downloaded and disable button
-        _isEmulatorDownloaded = true;
-        DownloadEmulatorButton.IsEnabled = false;
-                            
-        // Update AddSystemButton state
-        UpdateAddSystemButtonState();
     }
 
     private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
@@ -367,7 +310,7 @@ public partial class EditSystemEasyModeAddSystem
                 string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get coreDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-                string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
+                // string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
                 string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
 
                 // Check if the core is already installed and get the installed version
@@ -385,12 +328,9 @@ public partial class EditSystemEasyModeAddSystem
                         MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {isalreadyinstalledanduptodate2}",
                             coreAlreadyInstalled2, MessageBoxButton.OK, MessageBoxImage.Information);
                         
-                        // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
                         DownloadCoreButton.IsEnabled = false;
-                        // Update AddSystemButton state
                         UpdateAddSystemButtonState();
-                        
                         return;
                     }
                 }
@@ -419,74 +359,67 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            await CoreExtractionSuccess(selectedSystem, downloadFilePath, finalPath, latestVersionString);
-                        }
-                        else
-                        {
-                            string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
-                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
-                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
-                            MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}",
-                                extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - Start /////
-                            /////////////////////////////////////////////////
+                            string corefor2 = (string)Application.Current.TryFindResource("Corefor") ?? "Core for";
+                            string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+                            string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+                            MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+                                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+                                
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(coreDownloadUrl, destinationPath, _cancellationTokenSource.Token, DownloadProgressBar);
-                                
-                                if (extractionSuccess2)
-                                {
-                                    // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
-                                    Exception ex = new Exception(notifyDeveloper);
-                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
-                                    
-                                    await CoreExtractionSuccess(selectedSystem, downloadFilePath, finalPath, latestVersionString);
-                                }
-                                else
-                                {
-                                    CoreDownloadExtractionFailure(selectedSystem);
-                                }
+                                File.Delete(downloadFilePath);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
-                                // Notify Developer
-                                string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\n" +
-                                                            $"Exception details: {ex.Message}";
-                                await LogErrors.LogErrorAsync(ex, formattedException);
-                                
-                                CoreDownloadExtractionFailure(selectedSystem);
+                                // ignore
                             }
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - End  //////
-                            /////////////////////////////////////////////////
+                                
+                            // Update the version file if necessary
+                            if (destinationPath != null)
+                            {
+                                string versionFilePath = Path.Combine(destinationPath, "version_core.txt");
+                                try
+                                {
+                                    await File.WriteAllTextAsync(versionFilePath, latestVersionString);
+                                }
+                                catch (Exception)
+                                {
+                                    // ignore
+                                }
+                            }
                             
+                            _isCoreDownloaded = true;
+                            DownloadCoreButton.IsEnabled = false;
+                            UpdateAddSystemButtonState();
+                        }
+                        else // extraction failed
+                        {
+                            string formattedException = $"Core extraction failed.";
+                            Exception ex = new Exception(formattedException);
+                            await LogErrors.LogErrorAsync(ex, formattedException);
+
+                            MessageBox.Show("Core extraction failed!\n\n" +
+                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                            "Temporarily disable your antivirus software and try again.",
+                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
-                    else
+                    else // download failed
                     {
-                        // Download was incomplete
-                        string downloadwasincompleteandwill2 = (string)Application.Current.TryFindResource("Downloadwasincompleteandwill") ?? "Download was incomplete and will not be extracted.";
-                        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-                        string downloadIncomplete2 = (string)Application.Current.TryFindResource("DownloadIncomplete") ?? "Download Incomplete";
-                        MessageBoxResult result = MessageBox.Show($"{downloadwasincompleteandwill2}\n\n{wouldyouliketoberedirected2}",
-                            downloadIncomplete2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
-                                UseShellExecute = true
-                            });
-                        }
+                        string formattedException = $"Core download failed.";
+                        Exception ex = new Exception(formattedException);
+                        await LogErrors.LogErrorAsync(ex, formattedException);
+
+                        MessageBox.Show("Core download failed!\n\n" +
+                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                        "Temporarily disable your antivirus software and try again.",
+                            "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (TaskCanceledException)
                 {
-                    // Delete a partially downloaded file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -508,8 +441,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -522,8 +454,6 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-                    
-                    // Delete temp download file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -537,68 +467,17 @@ public partial class EditSystemEasyModeAddSystem
         }
         catch (Exception ex)
         {
-            string formattedException = $"Generic error downloading the core.\n\n" +
+            string formattedException = $"General error downloading the core.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Core download or extraction failed!\n\n" +
+                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                            "Temporarily disable your antivirus software and try again.",
+                "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);  
         }
-    }
-
-    private static void CoreDownloadExtractionFailure(EasyModeSystemConfig selectedSystem)
-    {
-        // Download and Extraction failed - offer redirect option
-        MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} core.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
-                UseShellExecute = true
-            });
-        }
-    }
-
-    private async Task CoreExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath,
-        string destinationPath2, string latestVersionString)
-    {
-        string corefor2 = (string)Application.Current.TryFindResource("Corefor") ?? "Core for";
-        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
-        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-        MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
-            success2, MessageBoxButton.OK, MessageBoxImage.Information);
-                                
-        // Clean up the downloaded file
-        try
-        {
-            File.Delete(downloadFilePath);
-        }
-        catch (Exception)
-        {
-            // ignore
-        }
-                                
-        // Update the version file if necessary
-        if (destinationPath2 != null)
-        {
-            string versionFilePath = Path.Combine(destinationPath2, "version_core.txt");
-            try
-            {
-                await File.WriteAllTextAsync(versionFilePath, latestVersionString);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-                            
-        // Mark as downloaded and disable button
-        _isCoreDownloaded = true;
-        DownloadCoreButton.IsEnabled = false;
-                            
-        // Update AddSystemButton state
-        UpdateAddSystemButtonState();
     }
 
     private async void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
@@ -642,74 +521,56 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
-                        }
-                        else
-                        {
-                            string myfirstattempttodownloadand2 = (string)Application.Current.TryFindResource("Myfirstattempttodownloadand") ?? "My first attempt to download and extract the file failed.";
-                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
-                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
-                            MessageBox.Show($"{myfirstattempttodownloadand2}\n\n{iwilltryagainusinginmemory2}",
-                                extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
-                            
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - Start /////
-                            /////////////////////////////////////////////////
+                            string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
+                            string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
+                            string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
+                            MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
+                                downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
+                                
                             try
                             {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(extrasDownloadUrl, destinationPath, _cancellationTokenSource.Token, DownloadProgressBar);
-                                
-                                if (extractionSuccess2)
-                                {
-                                    // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.";
-                                    Exception ex = new Exception(notifyDeveloper);
-                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
-                                    
-                                    ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
-                                }
-                                else
-                                {
-                                    ExtrasDownloadExtractFailure(selectedSystem);
-                                }
+                                File.Delete(downloadFilePath);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
-                                // Notify Developer
-                                string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\n" +
-                                                            $"Exception details: {ex.Message}";
-                                await LogErrors.LogErrorAsync(ex, formattedException);
-                                
-                                ExtrasDownloadExtractFailure(selectedSystem);
+                                // ignore
                             }
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - End  //////
-                            /////////////////////////////////////////////////
+                            
+                            // Mark as downloaded and disable button
+                            DownloadExtrasButton.IsEnabled = false;
+                            
+                            // Update AddSystemButton state
+                            UpdateAddSystemButtonState();
+                        }
+                        else // Extraction failed
+                        {
+                            string formattedException = $"Image Pack extraction failed.";
+                            Exception ex = new Exception(formattedException);
+                            await LogErrors.LogErrorAsync(ex, formattedException);
+
+                            MessageBox.Show("Image Pack extraction failed!\n\n" +
+                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                            "Temporarily disable your antivirus software and try again.",
+                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                             
                         }
                     }
-                    else
+                    else // Download Failed
                     {
-                        // Download was incomplete
-                        string downloadwasincomplete2 = (string)Application.Current.TryFindResource("Downloadwasincomplete") ?? "Download was incomplete and will not be extracted.";
-                        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-                        string downloadIncomplete2 = (string)Application.Current.TryFindResource("DownloadIncomplete") ?? "Download Incomplete";
-                        MessageBoxResult result = MessageBox.Show($"{downloadwasincomplete2}\n\n{wouldyouliketoberedirected2}",
-                            downloadIncomplete2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                                UseShellExecute = true
-                            });
-                        }
+                        string formattedException = "Image Pack download failed.";
+                        Exception ex = new Exception(formattedException);
+                        await LogErrors.LogErrorAsync(ex, formattedException);
+
+                        MessageBox.Show("Image Pack download failed!\n\n" +
+                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                        "Temporarily disable your antivirus software and try again.",
+                            "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (TaskCanceledException)
                 {
-                    // Delete a partially downloaded file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -731,8 +592,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the Image Pack.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -746,7 +606,6 @@ public partial class EditSystemEasyModeAddSystem
                 {
                     StopDownloadButton.IsEnabled = false;
                     
-                    // Delete temp download file
                     try
                     {
                         File.Delete(downloadFilePath);
@@ -761,52 +620,17 @@ public partial class EditSystemEasyModeAddSystem
         }
         catch (Exception ex)
         {
-            string formattedException = $"Error downloading the Image Pack.\n\n" +
+            string formattedException = $"General error downloading the Image Pack.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Image Pack download or extraction failed!\n\n" +
+                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                            "Temporarily disable your antivirus software and try again.",
+                "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);  
         }
-    }
-
-    private static void ExtrasDownloadExtractFailure(EasyModeSystemConfig selectedSystem)
-    {
-        // Download and Extraction failed - offer redirect option
-        MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} Image Pack.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                UseShellExecute = true
-            });
-        }
-    }
-
-    private void ExtrasExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath)
-    {
-        string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
-        string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
-        string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
-        MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
-            downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
-                                
-        // Clean up the downloaded file only if extraction is successful
-        try
-        {
-            File.Delete(downloadFilePath);
-        }
-        catch (Exception)
-        {
-            // ignore
-        }
-                            
-        // Mark as downloaded and disable button
-        DownloadExtrasButton.IsEnabled = false;
-                            
-        // Update AddSystemButton state
-        UpdateAddSystemButtonState();
     }
 
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
@@ -867,8 +691,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
-                            "Please try again later.",
-                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Please try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (IOException ex)
         {
@@ -878,16 +701,16 @@ public partial class EditSystemEasyModeAddSystem
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            MessageBox.Show("There was a file read/write error after the file download.\n\n" +
-                            "Some antivirus programs may lock or scan newly downloaded files, causing access issues.\n" +
-                            "Try temporarily disabling real-time protection.",
+            MessageBox.Show("A file read/write error occurred after the file was downloaded.\n\n" +
+                            "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.\n\n" +
+                            "Additionally, grant 'Simple Launcher' administrative access to enable file writing.\n\n" +
+                            "Make sure the 'Simple Launcher' folder is located in a writable directory.",
                 "Read/Write Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (TaskCanceledException ex)
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                // If user canceled, delete the partially downloaded file
                 try
                 {
                     File.Delete(destinationPath);
@@ -896,7 +719,6 @@ public partial class EditSystemEasyModeAddSystem
                 {
                     // ignore
                 }
-                    
                 string formattedException = $"Download was canceled by the user.\n\n" +
                                             $"URL: {downloadUrl}\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
@@ -905,7 +727,6 @@ public partial class EditSystemEasyModeAddSystem
             }
             else
             {
-                // Delete the partially downloaded file
                 try
                 {
                     File.Delete(destinationPath);
@@ -977,8 +798,7 @@ public partial class EditSystemEasyModeAddSystem
                 {
                     // Ask user if they want to overwrite the existing system
                     MessageBoxResult result = MessageBox.Show($"The system {selectedSystem.SystemName} already exists.\n\n" +
-                                                              $"Do you want to overwrite it?",
-                        "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                                              $"Do you want to overwrite it?", "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.No)
                     {
                         return;

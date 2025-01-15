@@ -242,11 +242,9 @@ internal class ExtractCompressedFile
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
                 
-            MessageBox.Show("The downloaded file appears to be locked.\n\n" +
-                            "'Simple Launcher' will not be able to extract the downloaded file using the default method.\n\n" +
-                            "I will try again using in memory download and extraction.",
+            MessageBox.Show("The downloaded file appears to be locked.",
                 "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
-                
+
             return false;
         }
             
