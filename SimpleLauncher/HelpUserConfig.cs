@@ -47,7 +47,7 @@ public class HelpUserConfig
             }
             catch (Exception ex)
             {
-                string contextMessage = $"Unable to load 'helpuser.xml'. The file may be corrupted.";
+                string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 

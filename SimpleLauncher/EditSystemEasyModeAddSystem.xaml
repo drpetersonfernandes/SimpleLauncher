@@ -100,7 +100,7 @@
                 <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadExtrasButton"
                         Content="{DynamicResource DownloadImagePack}"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" Padding="7" Click="DownloadExtrasButton_Click"
+                        VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton_Click"
                         IsEnabled="False" Margin="5" />
             </Grid>
 

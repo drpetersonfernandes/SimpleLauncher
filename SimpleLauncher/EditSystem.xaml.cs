@@ -980,10 +980,10 @@ public partial class EditSystem
                                             $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-                    
+
                 MessageBox.Show($"The application failed to create the necessary folders for this system.\n\n" +
-                                $"Probably the application does not have enough privileges.\n\n" +
-                                $"Try to run the application with administrative privileges.",
+                                $"The application might not have sufficient privileges. Try running it with administrative permissions. " +
+                                $"Additionally, ensure that 'Simple Launcher' is located in a writable folder.",
                     "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

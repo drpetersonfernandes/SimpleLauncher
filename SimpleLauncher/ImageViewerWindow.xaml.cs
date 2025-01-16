@@ -39,9 +39,9 @@ public partial class ImageViewerWindow
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"Failed to load the image in the Image Viewer window.\n\n" +
-                            $"The image may be corrupted or inaccessible." +
-                            $"The error was reported to the developer that will fix the issue.",
+            MessageBox.Show("Failed to load the image in the Image Viewer window.\n\n" +
+                            "The image may be corrupted or inaccessible." +
+                            "The error was reported to the developer that will fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

@@ -86,40 +86,21 @@ public partial class EditSystemEasyModeAddSystem
         try
         {
             _isDownloadCompleted = false;
+            _isEmulatorDownloaded = false;
+            DownloadEmulatorButton.IsEnabled = true;
+            UpdateAddSystemButtonState();
     
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
-                string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
+                // string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
                 string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
                 string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                // string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.EmulatorLocation);
-                string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
-
-                // Check if the emulator is already installed and up to date
-                if (File.Exists(emulatorLocation))
-                {
-                    string installedVersionString = GetInstalledEmulatorVersion(emulatorLocation);
-                    if (Version.TryParse(installedVersionString, out Version installedVersion) &&
-                        Version.TryParse(latestVersionString, out Version latestVersion) &&
-                        installedVersion.CompareTo(latestVersion) >= 0)
-                    {
-                        string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
-                        string isalreadyinstalledanduptodate2 = (string)Application.Current.TryFindResource("isalreadyinstalledanduptodate") ?? "is already installed and up to date.";
-                        string emulatorAlreadyInstalled2 = (string)Application.Current.TryFindResource("EmulatorAlreadyInstalled") ?? "Emulator Already Installed";
-                        MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {isalreadyinstalledanduptodate2}",
-                            emulatorAlreadyInstalled2, MessageBoxButton.OK, MessageBoxImage.Information);
-                        
-                        _isEmulatorDownloaded = true;
-                        DownloadEmulatorButton.IsEnabled = false;
-                        UpdateAddSystemButtonState();
-                        return;
-                    }
-                }
+                // string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
                 try
                 {
@@ -160,6 +141,8 @@ public partial class EditSystemEasyModeAddSystem
                         pleaseWaitWindow.Show();
 
                         bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        
+                        // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -172,21 +155,7 @@ public partial class EditSystemEasyModeAddSystem
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteDownloadFilePath(downloadFilePath);
-                                
-                            // Update the version file if necessary
-                            if (destinationPath != null)
-                            {
-                                string versionFilePath = Path.Combine(destinationPath, "version_emulator.txt");
-                                try
-                                {
-                                    await File.WriteAllTextAsync(versionFilePath, latestVersionString);
-                                }
-                                catch (Exception)
-                                {
-                                    // ignore
-                                }
-                            }
-                            
+                           
                             // Mark as downloaded and disable button
                             _isEmulatorDownloaded = true;
                             DownloadEmulatorButton.IsEnabled = false;
@@ -278,41 +247,21 @@ public partial class EditSystemEasyModeAddSystem
         try
         {
             _isDownloadCompleted = false;
-
+            _isCoreDownloaded = true;
+            DownloadCoreButton.IsEnabled = false;
+            UpdateAddSystemButtonState();
+            
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
-                string coreLocation = selectedSystem.Emulators.Emulator.CoreLocation;
+                // string coreLocation = selectedSystem.Emulators.Emulator.CoreLocation;
                 string coreDownloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
                 string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get coreDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-                // string finalPath = Path.GetDirectoryName(selectedSystem.Emulators.Emulator.CoreLocation);
-                string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
-
-                // Check if the core is already installed and get the installed version
-                if (File.Exists(coreLocation))
-                {
-                    string installedVersionString = GetInstalledCoreVersion(coreLocation);
-                    
-                    if (Version.TryParse(installedVersionString, out Version installedVersion) &&
-                        Version.TryParse(latestVersionString, out Version latestVersion) &&
-                        installedVersion.CompareTo(latestVersion) >= 0)
-                    {
-                        string corefor2 = (string)Application.Current.TryFindResource("Corefor") ?? "Core for";
-                        string isalreadyinstalledanduptodate2 = (string)Application.Current.TryFindResource("isalreadyinstalledanduptodate") ?? "is already installed and up to date.";
-                        string coreAlreadyInstalled2 = (string)Application.Current.TryFindResource("CoreAlreadyInstalled") ?? "Core Already Installed";
-                        MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {isalreadyinstalledanduptodate2}",
-                            coreAlreadyInstalled2, MessageBoxButton.OK, MessageBoxImage.Information);
-                        
-                        _isCoreDownloaded = true;
-                        DownloadCoreButton.IsEnabled = false;
-                        UpdateAddSystemButtonState();
-                        return;
-                    }
-                }
+                // string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
 
                 try
                 {
@@ -334,6 +283,8 @@ public partial class EditSystemEasyModeAddSystem
                         pleaseWaitWindow.Show();
 
                         bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        
+                        // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
@@ -346,20 +297,6 @@ public partial class EditSystemEasyModeAddSystem
                                 
                             DeleteDownloadFilePath(downloadFilePath);
                                 
-                            // Update the version file if necessary
-                            if (destinationPath != null)
-                            {
-                                string versionFilePath = Path.Combine(destinationPath, "version_core.txt");
-                                try
-                                {
-                                    await File.WriteAllTextAsync(versionFilePath, latestVersionString);
-                                }
-                                catch (Exception)
-                                {
-                                    // ignore
-                                }
-                            }
-                            
                             _isCoreDownloaded = true;
                             DownloadCoreButton.IsEnabled = false;
                             UpdateAddSystemButtonState();
@@ -400,13 +337,15 @@ public partial class EditSystemEasyModeAddSystem
                 }
                 catch (Exception ex)
                 {
+                    // Download error - Offer redirect
                     string formattedException = $"Error downloading the core.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     MessageBoxResult result = MessageBox.Show($"Error downloading the core for this system.\n\n" +
-                                                              $"Would you like to be redirected to the download page?", "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                                                              $"Would you like to be redirected to the download page?",
+                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
@@ -438,7 +377,7 @@ public partial class EditSystemEasyModeAddSystem
         }
     }
 
-    private async void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -647,17 +586,7 @@ public partial class EditSystemEasyModeAddSystem
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                if (File.Exists(destinationPath))
-                {
-                    try
-                    {
-                        File.Delete(destinationPath);
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
-                }
+                DeleteDownloadedFile();
                 
                 string formattedException = $"Download was canceled by the user.\n\n" +
                                             $"URL: {downloadUrl}\n" +
@@ -667,17 +596,7 @@ public partial class EditSystemEasyModeAddSystem
             }
             else
             {
-                if (File.Exists(destinationPath))
-                {
-                    try
-                    {
-                        File.Delete(destinationPath);
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
-                }
+                DeleteDownloadedFile();
                     
                 string formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
                                             $"URL: {downloadUrl}\n" +
@@ -686,7 +605,23 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
-                                "You can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "You can try again later.",
+                    "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        void DeleteDownloadedFile()
+        {
+            if (File.Exists(destinationPath))
+            {
+                try
+                {
+                    File.Delete(destinationPath);
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
         }
     }
@@ -924,26 +859,6 @@ public partial class EditSystemEasyModeAddSystem
         }
     }
 
-    private string GetInstalledEmulatorVersion(string emulatorLocation)
-    {
-        string versionFilePath = Path.Combine(Path.GetDirectoryName(emulatorLocation) ?? string.Empty, "version_emulator.txt");
-        if (File.Exists(versionFilePath))
-        {
-            return File.ReadAllText(versionFilePath).Trim();
-        }
-        return null;
-    }
-        
-    private string GetInstalledCoreVersion(string coreLocation)
-    {
-        string versionFilePath = Path.Combine(Path.GetDirectoryName(coreLocation) ?? string.Empty, "version_core.txt");
-        if (File.Exists(versionFilePath))
-        {
-            return File.ReadAllText(versionFilePath).Trim();
-        }
-        return null;
-    }
-        
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });

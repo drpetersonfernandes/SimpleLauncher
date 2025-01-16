@@ -642,12 +642,14 @@ internal class GameButtonFactory(
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show($"An error occurred while removing this game from favorites.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
     
@@ -702,12 +704,13 @@ internal class GameButtonFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the Video Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Video Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Video Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -740,8 +743,8 @@ internal class GameButtonFactory(
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Info Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Info Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -767,12 +770,13 @@ internal class GameButtonFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the History window.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the History window.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -946,8 +950,8 @@ internal class GameButtonFactory(
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the manual.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.", 
+                    MessageBox.Show("Failed to open the manual.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.", 
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -983,12 +987,13 @@ internal class GameButtonFactory(
                 catch (Exception ex)
                 {
                     string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the walkthrough.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                    MessageBox.Show("Failed to open the walkthrough.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1160,8 +1165,8 @@ internal class GameButtonFactory(
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Failed to save screenshot.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("Failed to save screenshot.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Send log error to the developer
@@ -1194,11 +1199,11 @@ internal class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".",
+                MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Notify developer
-                string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
@@ -1207,7 +1212,7 @@ internal class GameButtonFactory(
         }
         else
         {
-            MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+            MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
                 "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -1318,7 +1323,8 @@ internal class GameButtonFactory(
             catch (Exception ex)
             {
                 var formattedException = $"Fail to load the fallback image in the method LoadFallbackImage.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
             }

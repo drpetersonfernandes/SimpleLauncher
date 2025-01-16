@@ -531,12 +531,13 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"An error occurred while adding this game to the favorites.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("An error occurred while adding this game to the favorites.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -576,12 +577,13 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"An error occurred while removing this game from favorites.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("An error occurred while removing this game from favorites.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -603,7 +605,8 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string formattedException = $"An error occurred in the method RemoveFromFavorites2 in the class GameListFactory.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
@@ -633,12 +636,13 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the Video Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Video Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Video Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -667,12 +671,13 @@ public class GameListFactory(
         catch (Exception ex)
         {
             string contextMessage = $"There was a problem opening the Info Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Info Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Info Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -703,8 +708,8 @@ public class GameListFactory(
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the History window.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.", 
+            MessageBox.Show("There was a problem opening the History window.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -881,8 +886,8 @@ public class GameListFactory(
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the manual.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                    MessageBox.Show("Failed to open the manual.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -918,12 +923,13 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\nException details: {ex.Message}";
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the walkthrough.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.", 
+                    MessageBox.Show("Failed to open the walkthrough.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.", 
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1090,8 +1096,8 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Failed to save screenshot.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("Failed to save screenshot.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Send log error to the developer
@@ -1126,12 +1132,12 @@ public class GameListFactory(
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred while trying to delete the file \"{fileNameWithExtension}\".\n\n" +
+                    MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'.\n\n" +
                                     $"The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     // Notify developer
-                    string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
+                    string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -1139,7 +1145,7 @@ public class GameListFactory(
             }
             else
             {
-                MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+                MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
                     "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1188,7 +1194,7 @@ public class GameListFactory(
                         mainWindow.PreviewImage.Source = null;
                         
                         // Notify developer
-                        string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class." +
+                        string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
                                               $"Exception type: {ex.GetType().Name}\n" +
                                               $"Exception details: {ex.Message}";
                         Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
@@ -1210,8 +1216,7 @@ public class GameListFactory(
                     else
                     {
                         MessageBox.Show("Please reinstall Simple Launcher to fix the error.\n\n" +
-                                        "The application will shutdown now.",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        "The application will shutdown now.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         
                         // Shutdown SimpleLauncher
                         Application.Current.Shutdown();

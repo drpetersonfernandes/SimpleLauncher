@@ -691,8 +691,8 @@ public partial class Favorites
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
-            MessageBox.Show($"There was an error launching the game from Favorites.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was an error launching the game from Favorites.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -729,8 +729,8 @@ public partial class Favorites
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Video Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Video Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -759,8 +759,8 @@ public partial class Favorites
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the Info Link.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the Info Link.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -792,8 +792,8 @@ public partial class Favorites
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show($"There was a problem opening the History window.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was a problem opening the History window.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -1002,8 +1002,8 @@ public partial class Favorites
                     Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the manual for this favorite.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                    MessageBox.Show("Failed to open the manual for this favorite.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1047,8 +1047,8 @@ public partial class Favorites
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
-                    MessageBox.Show($"Failed to open the walkthrough file.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                    MessageBox.Show("Failed to open the walkthrough file.\n\n" +
+                                    "The error was reported to the developer that will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1244,8 +1244,8 @@ public partial class Favorites
         catch (Exception ex)
         {
             // Handle any errors
-            MessageBox.Show($"Failed to save screenshot.\n\n" +
-                            $"The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("Failed to save screenshot.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Send log to the developer
@@ -1289,7 +1289,7 @@ public partial class Favorites
         }
         else
         {
-            MessageBox.Show($"The file \"{fileNameWithExtension}\" could not be found.",
+            MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
                 "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

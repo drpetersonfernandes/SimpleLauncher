@@ -64,8 +64,8 @@ public partial class GlobalStats
                                             $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"An error occurred while calculating the Global Statistics.\n\n" +
-                                $"The error was reported to the developer that will try to fix the issue.",
+                MessageBox.Show("An error occurred while calculating the Global Statistics.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -210,8 +210,8 @@ public partial class GlobalStats
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                     
-                MessageBox.Show($"Failed to save the report.\n\n" +
-                                $"The error was reported to the developer that will try to fix the issue.",
+                MessageBox.Show("Failed to save the report.\n\n" +
+                                "The error was reported to the developer that will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

@@ -346,7 +346,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private void CurrentDomain_ProcessExit(object sender, EventArgs e)
     {
         // // Delete generated temp files before close.
-        ExtractCompressedFile.Instance2.Cleanup();
+        ExtractCompressedFile.Instance2.CleanupTempFolders();
         
         // Delete temp folders and files before close.
         CleanSimpleLauncherFolder.CleanupTrash();

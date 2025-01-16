@@ -71,7 +71,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Padding="5"
-                    Click="DownloadExtrasButton_Click"
+                    Click="DownloadImagePackButton_Click"
                     IsEnabled="False"
                     Margin="10,20,10,10" />
 

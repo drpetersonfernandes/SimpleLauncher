@@ -67,7 +67,7 @@ public partial class DownloadImagePack
         }
     }
 
-    private async void DownloadExtrasButton_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -107,11 +107,22 @@ public partial class DownloadImagePack
                         pleaseWaitWindow.Show();
 
                         bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
+                        
+                        // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
 
                         if (extractionSuccess)
                         {
-                            ExtrasExtractionSuccessActions(selectedSystem, downloadFilePath);
+                            string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
+                            string downloadedandextracted2 = (string)Application.Current.TryFindResource("downloadedandextracted") ?? "downloaded and extracted successfully.";
+                            string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
+                            MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextracted2}",
+                                downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
+                                
+                            DeleteDownloadedFile(downloadFilePath);
+               
+                            // Mark as downloaded and disable button
+                            DownloadExtrasButton.IsEnabled = false;
                         }
                         else // Extraction fail
                         {
@@ -141,17 +152,7 @@ public partial class DownloadImagePack
                 }
                 catch (TaskCanceledException)
                 {
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadedFile(downloadFilePath);
                     
                     MessageBox.Show("Image Pack download was canceled.",
                         "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -178,19 +179,7 @@ public partial class DownloadImagePack
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-                    
-                    // Delete temp download file
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadedFile(downloadFilePath);
                 }
             }
         }
@@ -207,31 +196,21 @@ public partial class DownloadImagePack
                             "Temporarily disable your antivirus software and try again.",
                 "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);  
         }
-    }
 
-    private void ExtrasExtractionSuccessActions(EasyModeSystemConfig selectedSystem, string downloadFilePath)
-    {
-        string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
-        string downloadedandextracted2 = (string)Application.Current.TryFindResource("downloadedandextracted") ?? "downloaded and extracted successfully.";
-        string downloadComplete2 = (string)Application.Current.TryFindResource("DownloadComplete") ?? "Download Complete";
-        MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextracted2}",
-            downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
-                                
-        // Clean up the downloaded file only if extraction is successful
-        if (File.Exists(downloadFilePath))
+        void DeleteDownloadedFile(string downloadFilePath)
         {
-            try
+            if (File.Exists(downloadFilePath))
             {
-                File.Delete(downloadFilePath);
-            }
-            catch (Exception)
-            {
-                // ignore
+                try
+                {
+                    File.Delete(downloadFilePath);
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
         }
-               
-        // Mark as downloaded and disable button
-        DownloadExtrasButton.IsEnabled = false;
     }
 
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
@@ -274,7 +253,8 @@ public partial class DownloadImagePack
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             string formattedException = $"The requested file was not available on the server.\n\n" +
-                                        $"URL: {downloadUrl}\nException type: {ex.GetType().Name}\n" +
+                                        $"URL: {downloadUrl}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -291,7 +271,8 @@ public partial class DownloadImagePack
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
-                            "Please try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Please try again later.",
+                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (IOException ex)
         {
@@ -311,19 +292,8 @@ public partial class DownloadImagePack
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                // If user canceled, delete the partially downloaded file
-                if (File.Exists(destinationPath))
-                {
-                    try
-                    {
-                        File.Delete(destinationPath);
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
-                }
-                    
+                DeleteDownloadedFile();
+
                 string formattedException = $"Download was canceled by the user.\n\n" +
                                             $"URL: {downloadUrl}\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
@@ -332,17 +302,7 @@ public partial class DownloadImagePack
             }
             else
             {
-                if (File.Exists(destinationPath))
-                {
-                    try
-                    {
-                        File.Delete(destinationPath);
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
-                }
+                DeleteDownloadedFile();
                     
                 string formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
                                             $"URL: {downloadUrl}\n" +
@@ -351,7 +311,24 @@ public partial class DownloadImagePack
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
-                                "You can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "You can try again later.",
+                    "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        void DeleteDownloadedFile()
+        {
+            // If user canceled, delete the partially downloaded file
+            if (File.Exists(destinationPath))
+            {
+                try
+                {
+                    File.Delete(destinationPath);
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
         }
     }
@@ -375,24 +352,6 @@ public partial class DownloadImagePack
     private void EditSystemEasyModeAddSystem_Closed(object sender, EventArgs e)
     {
         _config = null;
-            
-        // Prepare the process start info
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule != null)
-        {
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = processModule.FileName,
-                UseShellExecute = true
-            };
-
-            // Start the new application instance
-            Process.Start(startInfo);
-
-            // Shutdown the current application instance
-            Application.Current.Shutdown();
-            Environment.Exit(0);
-        }
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

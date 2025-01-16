@@ -18,7 +18,6 @@ internal class ExtractCompressedFile
     public static ExtractCompressedFile Instance2 => Instance.Value;
     private readonly List<string> _tempDirectories = new();
         
-    // Use the Windows default temp directory
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
@@ -58,9 +57,9 @@ internal class ExtractCompressedFile
             
             // Notify user
             MessageBox.Show("Extraction failed!\n\n" +
-                            "'Simple Launcher' could not create the temporary folder needed for extraction.\n" +
-                            "This error is happening because 'Simple Launcher' does not have enough privileges.\n" +
-                            "Try running it with administrative privileges.",
+                            "'Simple Launcher' was unable to create the temporary folder required for extraction.\n\n" +
+                            "This issue may occur if 'Simple Launcher' lacks the necessary privileges. Please try running it with administrative privileges.\n\n" +
+                            "Ensure that 'Simple Launcher' is located in a writable directory, and verify that your antivirus software is not blocking 'Simple Launcher' from performing the extraction.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
             return null;
@@ -142,10 +141,9 @@ internal class ExtractCompressedFile
     private static void ExtractionFailedMessageBox(string archivePath)
     {
         var result = MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
-                                     $"The file {archivePath} may be corrupted.\n" +
-                                     $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
-                                     $"Try to run with administrative privileges.\n\n" +
-                                     $"Do you want to open the file 'error_user.log' to debug the error?",
+                                     $"The file '{archivePath}' might be corrupted.\n" +
+                                     $"Alternatively, 'Simple Launcher' may not have sufficient privileges to run on your system. Please try running it with administrative privileges.\n\n" +
+                                     $"Would you like to open the file 'error_user.log' to investigate the issue?",
             "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
         if (result == MessageBoxResult.Yes)
@@ -200,10 +198,10 @@ internal class ExtractCompressedFile
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
-                MessageBox.Show("Extraction failed!\n\n" +
-                                "'Simple Launcher' could not create the temporary folder needed for extraction.\n" +
-                                "This error is happening because 'Simple Launcher' does not have enough privileges.\n" +
-                                "Try running it with administrative privileges.",
+                MessageBox.Show("Extraction Failed!\n\n" +
+                                "'Simple Launcher' could not create the temporary folder required for extraction.\n\n" +
+                                "This error occurs because 'Simple Launcher' does not have sufficient privileges. Please try running it with administrative privileges.\n\n" +
+                                "Additionally, consider temporarily disabling your antivirus software and try again.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return null;
@@ -257,7 +255,7 @@ internal class ExtractCompressedFile
         }
     }
 
-    public void Cleanup()
+    public void CleanupTempFolders()
     {
         foreach (var dir in _tempDirectories)
         {
@@ -394,8 +392,7 @@ internal class ExtractCompressedFile
 
                 MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                                 $"The file might be corrupted or locked by some other process.\n\n" +
-                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
-                                $"Try to temporarily disable real-time protection.\n\n" +
+                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
                                 $"You can also try to run 'Simple Launcher' with administrative privileges.",
                     "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -413,8 +410,7 @@ internal class ExtractCompressedFile
 
             MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
                             $"The file might be corrupted or locked by some other process.\n\n" +
-                            $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues.\n" +
-                            $"Try to temporarily disable real-time protection.\n\n" +
+                            $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
                             $"You can also try to run 'Simple Launcher' with administrative privileges.",
                 "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
