@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">Đang Cập Nhật</system:String>
     <system:String x:Key="SelectaWindow">Chọn một cửa sổ</system:String>
     
+    <system:String x:Key="alreadyexists">đã tồn tại.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Bạn có muốn ghi đè không?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Hệ thống đã tồn tại</system:String>
+    
 </ResourceDictionary>

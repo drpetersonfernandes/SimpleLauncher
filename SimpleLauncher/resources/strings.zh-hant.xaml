@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">正在更新</system:String>
     <system:String x:Key="SelectaWindow">選擇一個窗口</system:String>
     
+    <system:String x:Key="alreadyexists">已存在。</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">您想覆蓋它嗎？</system:String>
+    <system:String x:Key="SystemAlreadyExists">系統已存在</system:String>
+    
 </ResourceDictionary>

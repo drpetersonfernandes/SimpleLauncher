@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="SelectaWindow">Выберите окно</system:String>
     
+    <system:String x:Key="alreadyexists">уже существует.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Вы хотите перезаписать его?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Система уже существует</system:String>
+    
 </ResourceDictionary>

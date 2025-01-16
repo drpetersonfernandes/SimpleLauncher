@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">Atualizando</system:String>
     <system:String x:Key="SelectaWindow">Selecione uma janela</system:String>
     
+    <system:String x:Key="alreadyexists">já existe.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Você deseja sobrescrevê-lo?</system:String>
+    <system:String x:Key="SystemAlreadyExists">O sistema já existe</system:String>
+    
 </ResourceDictionary>

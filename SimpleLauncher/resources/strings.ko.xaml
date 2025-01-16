@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">업데이트 중</system:String>
     <system:String x:Key="SelectaWindow">창을 선택하세요</system:String>
     
+    <system:String x:Key="alreadyexists">이미 존재합니다.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">덮어쓰시겠습니까?</system:String>
+    <system:String x:Key="SystemAlreadyExists">시스템이 이미 존재합니다</system:String>
+    
 </ResourceDictionary>

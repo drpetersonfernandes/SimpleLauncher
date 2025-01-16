@@ -402,5 +402,9 @@
     <system:String x:Key="UpdateAvailable">Update Available</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="SelectaWindow">Select a Window</system:String>
+    
+    <system:String x:Key="alreadyexists">already exists.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Do you want to overwrite it?</system:String>
+    <system:String x:Key="SystemAlreadyExists">System Already Exists</system:String>
 
 </ResourceDictionary>

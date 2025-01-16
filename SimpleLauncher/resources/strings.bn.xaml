@@ -402,5 +402,9 @@
     <system:String x:Key="UpdateAvailable">আপডেটসহ।</system:String>
     <system:String x:Key="Updating">প্রক্রিয়া।</system:String>
     <system:String x:Key="SelectaWindow">উইন্ডো বাছাই।</system:String>
+    
+    <system:String x:Key="alreadyexists">আগেই বিদ্যমান।</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">আপনি কি এটি ওভাররাইট করতে চান?</system:String>
+    <system:String x:Key="SystemAlreadyExists">সিস্টেমটি ইতিমধ্যেই বিদ্যমান</system:String>
 
 </ResourceDictionary>

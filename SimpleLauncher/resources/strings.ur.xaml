@@ -402,5 +402,9 @@
     <system:String x:Key="UpdateAvailable">اپ ڈیٹ دستیاب ہے</system:String>
     <system:String x:Key="Updating">اپ ڈیٹ ہو رہا ہے</system:String>
     <system:String x:Key="SelectaWindow">ایک ونڈو منتخب کریں</system:String>
+    
+    <system:String x:Key="alreadyexists">پہلے ہی موجود ہے۔</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">کیا آپ اسے اوور رائٹ کرنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="SystemAlreadyExists">سسٹم پہلے ہی موجود ہے۔</system:String>
 
 </ResourceDictionary>

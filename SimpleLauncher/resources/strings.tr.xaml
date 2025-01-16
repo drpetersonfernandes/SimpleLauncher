@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="SelectaWindow">Bir pencere seçin</system:String>
     
+    <system:String x:Key="alreadyexists">zaten mevcut.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Üzerine yazmak istiyor musunuz?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Sistem zaten mevcut</system:String>
+    
 </ResourceDictionary>

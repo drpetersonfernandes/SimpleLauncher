@@ -61,7 +61,7 @@
     <system:String x:Key="EditLinks">Modifier les liens</system:String>
     <system:String x:Key="GamepadSupport">Prise en charge du gamepad</system:String>
     <system:String x:Key="Enable">Activer</system:String>
-   <system:String x:Key="EditSystem">Modifier le système</system:String>
+    <system:String x:Key="EditSystem">Modifier le système</system:String>
     <system:String x:Key="EasyMode">Mode facile</system:String>
     <system:String x:Key="ExpertMode">Mode expert</system:String>
     <system:String x:Key="DownloadImagePack">Télécharger le pack d'images</system:String>
@@ -76,7 +76,7 @@
     <system:String x:Key="CreateBatchFilesForWindowsGames">Créer des fichiers batch pour les jeux Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Créer des fichiers batch pour les jeux Xbox 360 XBLA</system:String>
     <system:String x:Key="BugReport">Signaler un bug</system:String>
-   <system:String x:Key="Donate">Faire un don</system:String>
+    <system:String x:Key="Donate">Faire un don</system:String>
     <system:String x:Key="About">À propos</system:String>
     <system:String x:Key="Exit">Quitter</system:String>
     <system:String x:Key="SelectSystem">Sélectionner le système</system:String>
@@ -402,5 +402,9 @@
     <system:String x:Key="UpdateAvailable">Mise à jour disponible</system:String>
     <system:String x:Key="Updating">Mise à jour en cours</system:String>
     <system:String x:Key="SelectaWindow">Sélectionnez une fenêtre</system:String>
-    
+
+    <system:String x:Key="alreadyexists">existe déjà.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Voulez-vous l'écraser ?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Le système existe déjà</system:String>
+
 </ResourceDictionary>

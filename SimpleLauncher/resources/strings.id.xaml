@@ -402,5 +402,9 @@
     <system:String x:Key="UpdateAvailable">Pembaruan Tersedia</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
     <system:String x:Key="SelectaWindow">Pilih Jendela</system:String>
+    
+    <system:String x:Key="alreadyexists">sudah ada.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Apakah Anda ingin menimpanya?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Sistem sudah ada</system:String>
 
 </ResourceDictionary>

@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">更新中</system:String>
     <system:String x:Key="SelectaWindow">ウィンドウを選択してください</system:String>
     
+    <system:String x:Key="alreadyexists">既に存在します。</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">上書きしますか？</system:String>
+    <system:String x:Key="SystemAlreadyExists">システムは既に存在します</system:String>
+    
 </ResourceDictionary>

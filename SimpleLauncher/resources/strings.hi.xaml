@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">अपडेट किया जा रहा है</system:String>
     <system:String x:Key="SelectaWindow">एक विंडो चुनें</system:String>
     
+    <system:String x:Key="alreadyexists">पहले से मौजूद है।</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">क्या आप इसे ओवरराइट करना चाहते हैं?</system:String>
+    <system:String x:Key="SystemAlreadyExists">सिस्टम पहले से ही मौजूद है</system:String>
+    
 </ResourceDictionary>

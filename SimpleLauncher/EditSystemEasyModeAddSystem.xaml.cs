@@ -833,8 +833,12 @@ public partial class EditSystemEasyModeAddSystem
                 if (existingSystem != null)
                 {
                     // Ask user if they want to overwrite the existing system
-                    MessageBoxResult result = MessageBox.Show($"The system {selectedSystem.SystemName} already exists.\n\n" +
-                                                              $"Do you want to overwrite it?", "System Already Exists", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    string thesystem3 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+                    string alreadyexists2 = (string)Application.Current.TryFindResource("alreadyexists") ?? "already exists.";
+                    string doyouwanttooverwriteit2 = (string)Application.Current.TryFindResource("Doyouwanttooverwriteit") ?? "Do you want to overwrite it?";
+                    string systemAlreadyExists2 = (string)Application.Current.TryFindResource("SystemAlreadyExists") ?? "System Already Exists";
+                    MessageBoxResult result = MessageBox.Show($"{thesystem3} {selectedSystem.SystemName} {alreadyexists2}\n\n" +
+                                                              $"{doyouwanttooverwriteit2}", systemAlreadyExists2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.No)
                     {
                         return;

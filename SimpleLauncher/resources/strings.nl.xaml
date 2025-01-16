@@ -403,4 +403,8 @@
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
     <system:String x:Key="SelectaWindow">Selecteer een venster</system:String>
     
+    <system:String x:Key="alreadyexists">bestaat al.</system:String>
+    <system:String x:Key="Doyouwanttooverwriteit">Wilt u het overschrijven?</system:String>
+    <system:String x:Key="SystemAlreadyExists">Systeem bestaat al</system:String>
+    
 </ResourceDictionary>
