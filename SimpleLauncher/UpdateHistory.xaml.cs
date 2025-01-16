@@ -18,11 +18,11 @@ public partial class UpdateHistory
 
         try
         {
-            WhatsNewTextBox.Text = File.Exists(filePath) ? File.ReadAllText(filePath) : "whatsnew.txt file not found in the application folder.";
+            WhatsNewTextBox.Text = File.Exists(filePath) ? File.ReadAllText(filePath) : "'whatsnew.txt' not found in the application folder.";
         }
         catch (Exception ex)
         {
-            string formattedException = $"whatsnew.txt file not found or could not be loaded in the UpdateHistory window.\n\n" +
+            string formattedException = "'whatsnew.txt' not found or could not be loaded in the UpdateHistory window.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);

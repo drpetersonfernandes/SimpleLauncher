@@ -35,7 +35,6 @@ public static class UpdateChecker
     {
         try
         {
-            // Establish a connection with the GitHub API
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -66,7 +65,6 @@ public static class UpdateChecker
     {
         try
         {
-            // Establish a connection to GitHub API
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -112,7 +110,6 @@ public static class UpdateChecker
             
         try
         {
-            // Establish connection to GitHub API
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -413,11 +410,11 @@ public static class UpdateChecker
         {
             foreach (Window window in Application.Current.Windows)
             {
-                window.Close();  // Close each window manually
+                window.Close();  // Close each window
             }
                             
-            GC.Collect(); // Force garbage collection       
-            GC.WaitForPendingFinalizers(); // Wait for finalizers to complete  
+            GC.Collect(); // Force garbage collection
+            GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
             Application.Current.Shutdown(); // Shutdown the application
             Process.GetCurrentProcess().Kill(); // Forcefully kill the process
         });

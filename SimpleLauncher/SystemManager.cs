@@ -13,7 +13,6 @@ public static class SystemManager
 {
     public static void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig, WrapPanel gameFileGrid)
     {
-        // Clear existing content
         gameFileGrid.Children.Clear();
 
         // Create a StackPanel to hold TextBlocks vertically

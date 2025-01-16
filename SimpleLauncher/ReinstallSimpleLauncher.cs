@@ -9,15 +9,13 @@ public static class ReinstallSimpleLauncher
 {
     public static void StartUpdaterAndShutdown()
     {
-        // Define the path to Updater.exe
         string updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
 
-        // Check if Updater.exe exists, then start it
         if (File.Exists(updaterPath))
         {
             Process.Start(updaterPath);
 
-            // Shutdown SimpleLauncher
+            // Shutdown SimpleLauncher instance
             Application.Current.Shutdown();
             Environment.Exit(0);
         }

@@ -114,9 +114,10 @@ public class SettingsConfig
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             MessageBox.Show(
-                "'Simple Launcher' does not have enough privileges to write to the file 'settings.xml'.\n\n" +
-                "Please grant the application more privileges, or it won't work properly. Grant 'Simple Launcher' administrative access.\n\n" +
-                "Also, ensure the 'Simple Launcher' folder is a writable directory.",
+                "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.\n\n" +
+                "Please grant 'Simple Launcher' administrative access.\n\n" +
+                "Ensure that the 'Simple Launcher' folder is located in a writable directory.\n\n" +
+                "If necessary, temporarily disable your antivirus software.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

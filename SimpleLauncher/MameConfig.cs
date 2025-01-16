@@ -68,8 +68,7 @@ public class MameConfig
         else
         {
             MessageBox.Show("Please reinstall 'Simple Launcher' manually.\n\n" +
-                            "The application will Shutdown",
-                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The application will Shutdown", "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
                     
             // Shutdown the application and exit
             Application.Current.Shutdown();
@@ -89,8 +88,7 @@ public class MameConfig
         else
         {
             MessageBox.Show("Please reinstall 'Simple Launcher' manually.\n\n" +
-                            "The application will Shutdown",
-                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The application will Shutdown", "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
                     
             // Shutdown the application and exit
             Application.Current.Shutdown();

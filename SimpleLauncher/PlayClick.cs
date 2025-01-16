@@ -28,7 +28,7 @@ public static class PlayClick
         catch (Exception ex)
         {
             string contextMessage =
-                $"Error playing the {soundFileName} sound or the audio file could not be found or loaded.\n\n" +
+                $"Error playing '{soundFileName}' sound.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);

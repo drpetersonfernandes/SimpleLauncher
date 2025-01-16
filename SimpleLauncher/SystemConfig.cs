@@ -38,7 +38,6 @@ public class SystemConfig
 
         try
         {
-            // Check for the existence of the system.xml
             if (!File.Exists(XmlPath))
             {
                 // Search for backup files in the application directory
@@ -100,8 +99,7 @@ public class SystemConfig
                                 else
                                 {
                                     MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                                                    "The application will shut down.",
-                                        "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                                    "The application will shut down.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                                     // Shutdown the application and exit
                                     Application.Current.Shutdown();
@@ -119,11 +117,11 @@ public class SystemConfig
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
-                    MessageBox.Show($"'system.xml' is corrupted or could not be opened.\n" +
-                                    $"Please fix it manually or delete it.\n" +
-                                    $"If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
-                                    $"If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                                    $"The application will shut down.",
+                    MessageBox.Show("'system.xml' is corrupted or could not be opened.\n" +
+                                    "Please fix it manually or delete it.\n" +
+                                    "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
+                                    "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                                    "The application will shut down.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     
                     // Shutdown the application and exit
@@ -144,13 +142,11 @@ public class SystemConfig
             {
                 string errorDetails = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                       $"To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
-                MessageBox.Show(errorDetails,
-                    "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errorDetails, "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                                $"Exception type: {ex.GetType().Name}\n" +
                                                $"Exception details: {ex.Message}";
-                
                 Task logTask = LogErrors.LogErrorAsync(ex, errorDetailsDeveloper);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 

@@ -23,7 +23,7 @@ public partial class MainWindow : INotifyPropertyChanged
 {
     public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
         
-    // Logic to update the System Name and PlayTime in the Statusbar
+    // System Name and PlayTime in the Statusbar
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
     private string _playTime;
@@ -90,7 +90,6 @@ public partial class MainWindow : INotifyPropertyChanged
             
         DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
 
-        // Tray icon
         InitializeTrayIcon();
             
         // Load settings.xml
@@ -101,7 +100,6 @@ public partial class MainWindow : INotifyPropertyChanged
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         
         // Apply language
-        // ApplyLanguage(_settings.Language);
         SetLanguageMenuChecked(_settings.Language);
             
         // Load mame.xml
@@ -111,9 +109,7 @@ public partial class MainWindow : INotifyPropertyChanged
         try
         {
             _systemConfigs = SystemConfig.LoadSystemConfigs();
-            // Sort the system names in alphabetical order
             var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
-
             SystemComboBox.ItemsSource = sortedSystemNames;
         }
         catch (Exception ex)
@@ -126,8 +122,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 
             MessageBox.Show("The file 'system.xml' is corrupted.\n\n" +
                             "You need to fix it manually or delete it.\n\n" +
-                            "The application will be shutdown.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "The application will be shutdown.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Shutdown current application instance
             Application.Current.Shutdown();
@@ -146,7 +141,7 @@ public partial class MainWindow : INotifyPropertyChanged
         // Setting the error logger for GamePad
         GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
 
-        // Check if GamePad navigation is enabled in the settings
+        // Start GamePad if enable
         if (_settings.EnableGamePadNavigation)
         {
             GamePadController.Instance2.Start();
@@ -159,11 +154,10 @@ public partial class MainWindow : INotifyPropertyChanged
         // Initialize _gameFileGrid
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
             
-        // Add the StackPanel from LetterNumberMenu to the MainWindow's Grid
         // Initialize LetterNumberMenu and add it to the UI
         _letterNumberMenu = new LetterNumberMenu();
-        LetterNumberMenu.Children.Clear(); // Clear if necessary
-        LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel); // Add the LetterPanel directly
+        LetterNumberMenu.Children.Clear(); // Clear first
+        LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel); // Add the LetterPanel
             
         // Create and integrate LetterNumberMenu
         _letterNumberMenu.OnLetterSelected += async selectedLetter =>
@@ -185,7 +179,7 @@ public partial class MainWindow : INotifyPropertyChanged
             if (favoriteGames.Any())
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
-                await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync with "FAVORITES" query
+                await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
             }
             else
             {
@@ -201,7 +195,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _favoritesManager = new FavoritesManager();
         _favoritesConfig = _favoritesManager.LoadFavorites();
             
-        // Pagination related
+        // Set Pagination
         PrevPageButton.IsEnabled = false;
         NextPageButton.IsEnabled = false;
         _prevPageButton = PrevPageButton;
@@ -219,13 +213,13 @@ public partial class MainWindow : INotifyPropertyChanged
             AddNoSystemMessage();
         }
 
-        // Check for updates using Async Event Handler
+        // Check for Updates
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
             
-        // Stats using Async Event Handler
+        // Call Stats API
         Loaded += async (_, _) => await Stats.CallApiAsync();
 
-        // Check for command-line arguments
+        // Check for Command-line Args
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("whatsnew"))
         {
@@ -262,7 +256,6 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    // Open UpdateHistory window
     private void OpenUpdateHistory()
     {
         var updateHistoryWindow = new UpdateHistory();
@@ -298,7 +291,7 @@ public partial class MainWindow : INotifyPropertyChanged
         // Retrieve the dynamic resource string
         string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         
-        // Windows state
+        // Load windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
         Top = _settings.MainWindowTop;
@@ -313,7 +306,7 @@ public partial class MainWindow : INotifyPropertyChanged
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
             
-        // ViewMode state
+        // ViewMode State
         SetViewMode(_settings.ViewMode);
         
         // Check if application has write access
@@ -339,7 +332,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
-        // Save MainWindow state
         SaveApplicationSettings();
     }
     
@@ -356,7 +348,7 @@ public partial class MainWindow : INotifyPropertyChanged
         GamePadController.Instance2.Dispose();
     }
 
-    // Used in cases that need to reload system.xml or update the pagination settings or update the video and info links 
+    // Used in cases that need to reload system.xml or update the pagination settings
     private void MainWindow_Restart()
     {
         SaveApplicationSettings();
@@ -409,7 +401,6 @@ public partial class MainWindow : INotifyPropertyChanged
             return new List<string>();
         }
 
-        // Get the system folder path
         string systemFolderPath = selectedConfig.SystemFolder;
 
         // Filter the favorites and build the full file path for each favorite game
@@ -421,6 +412,81 @@ public partial class MainWindow : INotifyPropertyChanged
         return favoriteGamePaths;
     }
     
+    private Task ShowPleaseWaitWindowAsync(Window window)
+    {
+        return Task.Run(() =>
+        {
+            window.Dispatcher.Invoke(window.Show);
+        });
+    }
+
+    private Task ClosePleaseWaitWindowAsync(Window window)
+    {
+        return Task.Run(() =>
+        {
+            window.Dispatcher.Invoke(window.Close);
+        });
+    }
+    
+    private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
+        {
+            var gameListViewFactory = new GameListFactory(
+                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
+            );
+            gameListViewFactory.HandleSelectionChanged(selectedItem);
+        }
+    }
+
+    private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
+            {
+                // Delegate the double-click handling to GameListFactory
+                await _gameListFactory.HandleDoubleClick(selectedItem);
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+            MessageBox.Show("There was an error with this method.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private static bool IsWritableDirectory(string path)
+    {
+        try
+        {
+            if (!Directory.Exists(path))
+                return false;
+
+            // Generate a unique temporary file path
+            string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
+
+            // Attempt to create and delete the file
+            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                fs.Close();
+            }
+            File.Delete(testFile);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
     private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         SearchTextBox.Text = ""; // Empty search field
@@ -428,7 +494,7 @@ public partial class MainWindow : INotifyPropertyChanged
         EmulatorComboBox.SelectedIndex = -1; // No emulator selected
         PreviewImage.Source = null; // Empty PreviewImage
             
-        // Reset search results
+        // Clear search results
         _currentSearchResults.Clear();
             
         // Hide ListView
@@ -475,7 +541,6 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Call DeselectLetter to clear any selected letter
                 _letterNumberMenu.DeselectLetter();
                     
-                // Reset pagination controls
                 ResetPaginationButtons();
             }
             else
@@ -491,13 +556,11 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void AddNoSystemMessage()
     {
-        // Retrieve the dynamic resource string
         string noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
 
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
-            // Clear existing content in Grid view and add the message
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
@@ -507,7 +570,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            // For List view, clear existing items in the ObservableCollection instead
+            // For List view, clear existing items in the ObservableCollection
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
@@ -522,7 +585,6 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void AddNoFilesMessage()
     {
-        // Retrieve the dynamic resource string
         string noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
 
         // Check the current view mode
@@ -538,7 +600,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            // For List view, clear existing items in the ObservableCollection instead
+            // For List view, clear existing items in the ObservableCollection
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
@@ -549,208 +611,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Deselect any selected letter when no system is selected
         _letterNumberMenu.DeselectLetter();
-    }
-        
-    #region Pagination
-
-    private void ResetPaginationButtons()
-    {
-        _prevPageButton.IsEnabled = false;
-        _nextPageButton.IsEnabled = false;
-        _currentPage = 1;
-        Scroller.ScrollToTop();
-        TotalFilesLabel.Content = null;
-    }
-    private void InitializePaginationButtons()
-    {
-        _prevPageButton.IsEnabled = _currentPage > 1;
-        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
-        Scroller.ScrollToTop();
-    }
-        
-    private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (_currentPage > 1)
-            {
-                _currentPage--;
-                if (_currentSearchResults.Any())
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Previous page button error in the Main window.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-
-            MessageBox.Show("There was an error in this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private async void NextPageButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            int totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
-
-            if (_currentPage < totalPages)
-            {
-                _currentPage++;
-                if (_currentSearchResults.Any())
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Next page button error in the Main window.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-
-            MessageBox.Show("There was an error with this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-        
-    private void UpdatePaginationButtons()
-    {
-        _prevPageButton.IsEnabled = _currentPage > 1;
-        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
-    }
-        
-    #endregion
-
-    #region MainWindow Search
-        
-    private async void SearchButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            await ExecuteSearch();
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Error while using the method SearchButton_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-    {
-        try
-        {
-            if (e.Key == Key.Enter)
-            {
-                await ExecuteSearch();
-            }
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Error while using the method SearchTextBox_KeyDown.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private async Task ExecuteSearch()
-    {
-        // Pagination reset
-        ResetPaginationButtons();
-            
-        // Reset search results
-        _currentSearchResults.Clear();
-    
-        // Call DeselectLetter to clear any selected letter
-        _letterNumberMenu.DeselectLetter();
-
-        var searchQuery = SearchTextBox.Text.Trim();
-
-        // Retrieve the dynamic resource string
-        string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
-        string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
-        
-        if (SystemComboBox.SelectedItem == null)
-        {
-            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-        
-        // Retrieve the dynamic resource string
-        string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
-        string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
-
-        if (string.IsNullOrEmpty(searchQuery))
-        {
-            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        var pleaseWaitWindow = new PleaseWaitSearch();
-        await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
-
-        var startTime = DateTime.Now;
-
-        try
-        {
-            await LoadGameFilesAsync(null, searchQuery);
-        }
-        finally
-        {
-            var elapsed = DateTime.Now - startTime;
-            var remainingTime = TimeSpan.FromSeconds(1) - elapsed;
-            if (remainingTime > TimeSpan.Zero)
-            {
-                await Task.Delay(remainingTime);
-            }
-            await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
-        }
-    }
-        
-    #endregion
-
-    private Task ShowPleaseWaitWindowAsync(Window window)
-    {
-        return Task.Run(() =>
-        {
-            window.Dispatcher.Invoke(window.Show);
-        });
-    }
-
-    private Task ClosePleaseWaitWindowAsync(Window window)
-    {
-        return Task.Run(() =>
-        {
-            window.Dispatcher.Invoke(window.Close);
-        });
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
@@ -812,10 +672,7 @@ public partial class MainWindow : INotifyPropertyChanged
             // Regular behavior: load files based on startLetter or searchQuery
             else
             {
-                // Get the SystemFolder from the selected configuration
                 string systemFolderPath = selectedConfig.SystemFolder;
-
-                // Extract the file extensions from the selected system configuration
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
 
                 if (!string.IsNullOrWhiteSpace(searchQuery))
@@ -827,8 +684,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     }
                     else
                     {
-                        // List of files with that match the system extensions
-                        // then sort the list alphabetically 
+                        // List of files that match the system extensions
                         allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
 
                         if (!string.IsNullOrWhiteSpace(startLetter))
@@ -849,7 +705,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                 return filenameMatch;
                             }
 
-                            // For MAME systems, additionally check the description for a match
+                            // For MAME systems, additionally check the machine description for a match
                             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                             bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
 
@@ -863,11 +719,9 @@ public partial class MainWindow : INotifyPropertyChanged
                 }
                 else
                 {
-                    // Reset search results if no search query is provided
                     _currentSearchResults?.Clear();
     
                     // List of files with that match the system extensions
-                    // then sort the list alphabetically 
                     allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
@@ -908,7 +762,6 @@ public partial class MainWindow : INotifyPropertyChanged
             }
 
             // Update the UI to reflect the current pagination status and the indices of files being displayed
-            // Retrieve the dynamic resource string
             string displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
             string outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
             string total = (string)Application.Current.TryFindResource("total") ?? "total";
@@ -956,69 +809,9 @@ public partial class MainWindow : INotifyPropertyChanged
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error while loading the game list.\n\n" +
+            MessageBox.Show("There was an error loading the game list.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    
-    private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
-        {
-            var gameListViewFactory = new GameListFactory(
-                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
-            );
-            gameListViewFactory.HandleSelectionChanged(selectedItem);
-        }
-    }
-
-    private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        try
-        {
-            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
-            {
-                // Delegate the double-click handling to GameListFactory
-                await _gameListFactory.HandleDoubleClick(selectedItem);
-            }
-        }
-        catch (Exception ex)
-        {
-            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    
-    private static bool IsWritableDirectory(string path)
-    {
-        try
-        {
-            // Ensure the directory exists
-            if (!Directory.Exists(path))
-                return false;
-
-            // Generate a unique temporary file path
-            string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
-
-            // Attempt to create and delete the file
-            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-            {
-                fs.Close();
-            }
-            File.Delete(testFile);
-
-            return true;
-        }
-        catch
-        {
-            return false;
         }
     }
         
@@ -1140,34 +933,48 @@ public partial class MainWindow : INotifyPropertyChanged
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
         
-    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
+    private async void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
+        try
         {
-            try
+            if (sender is MenuItem menuItem)
             {
-                // Update the settings
-                _settings.EnableGamePadNavigation = menuItem.IsChecked;
-
-                // Save the updated settings
-                _settings.Save();
-
-                // Start or stop the GamePadController
-                if (menuItem.IsChecked)
+                try
                 {
-                    GamePadController.Instance2.Start();
+                    // Update the settings
+                    _settings.EnableGamePadNavigation = menuItem.IsChecked;
+
+                    _settings.Save();
+
+                    // Start or stop the GamePadController
+                    if (menuItem.IsChecked)
+                    {
+                        GamePadController.Instance2.Start();
+                    }
+                    else
+                    {
+                        GamePadController.Instance2.Stop();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    GamePadController.Instance2.Stop();
+                    MessageBox.Show($"Failed to toggle gamepad.\n\n" +
+                                    $"The error was reported to the developer that will try to fix the issue.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                    string formattedException = $"Failed to toggle gamepad.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to toggle gamepad: {ex.Message}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        catch (Exception ex)
+        {
+            string formattedException = $"Failed to toggle gamepad.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);        }
     }
 
     private async void ThumbnailSize_Click(object sender, RoutedEventArgs e)
@@ -1217,10 +1024,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 _settings.Save(); 
                 UpdateMenuCheckMarks2(newPage);
                     
-                // Save Application Settings
                 SaveApplicationSettings();
-                    
-                // Restart Application
                 MainWindow_Restart();
             }
         }
@@ -1670,7 +1474,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error with this method.\n\n" +
+            MessageBox.Show("There was an error while changing the view mode.\n\n" +
                             "The error was reported to the developer that will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -1720,14 +1524,12 @@ public partial class MainWindow : INotifyPropertyChanged
                 _ => "en"
             };
 
-            // Save settings
             _settings.Language = selectedLanguage;
             _settings.Save();
 
             // Update checked status
             SetLanguageMenuChecked(selectedLanguage);
             
-            // Restart Application
             MainWindow_Restart();
         }
     }
@@ -1888,7 +1690,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         // Create a context menu for the tray icon
         _trayMenu = new ContextMenuStrip();
-        // Retrieve the dynamic resource string
+        
         string open = (string)Application.Current.TryFindResource("Open") ?? "Open";
         string exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
         _trayMenu.Items.Add(open, null, OnOpen);
@@ -1902,7 +1704,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             _trayIcon = new NotifyIcon
             {
-                Icon = new Icon(iconStream), // Set icon from stream
+                Icon = new Icon(iconStream),
                 ContextMenuStrip = _trayMenu,
                 Text = @"Simple Launcher",
                 Visible = true
@@ -1941,7 +1743,7 @@ public partial class MainWindow : INotifyPropertyChanged
         base.OnStateChanged(e);
     }
 
-    // Method to display a balloon message on the tray icon
+    // Display a balloon message
     private void ShowTrayMessage(string message)
     {
         _trayIcon.BalloonTipTitle = @"Simple Launcher";
@@ -1955,6 +1757,188 @@ public partial class MainWindow : INotifyPropertyChanged
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
         base.OnClosing(e);
+    }
+        
+    #endregion
+    
+    #region Pagination
+
+    private void ResetPaginationButtons()
+    {
+        _prevPageButton.IsEnabled = false;
+        _nextPageButton.IsEnabled = false;
+        _currentPage = 1;
+        Scroller.ScrollToTop();
+        TotalFilesLabel.Content = null;
+    }
+    private void InitializePaginationButtons()
+    {
+        _prevPageButton.IsEnabled = _currentPage > 1;
+        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+        Scroller.ScrollToTop();
+    }
+        
+    private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (_currentPage > 1)
+            {
+                _currentPage--;
+                if (_currentSearchResults.Any())
+                {
+                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                }
+                else
+                {
+                    await LoadGameFilesAsync(_currentFilter);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Previous page button error in the Main window.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            MessageBox.Show("There was an error in this button.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async void NextPageButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            int totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
+
+            if (_currentPage < totalPages)
+            {
+                _currentPage++;
+                if (_currentSearchResults.Any())
+                {
+                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                }
+                else
+                {
+                    await LoadGameFilesAsync(_currentFilter);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Next page button error in the Main window.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            MessageBox.Show("There was an error with this button.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+        
+    private void UpdatePaginationButtons()
+    {
+        _prevPageButton.IsEnabled = _currentPage > 1;
+        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+    }
+        
+    #endregion
+    
+    #region MainWindow Search
+        
+    private async void SearchButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await ExecuteSearch();
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Error while using the method SearchButton_Click.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+            MessageBox.Show("There was an error with the search engine.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        try
+        {
+            if (e.Key == Key.Enter)
+            {
+                await ExecuteSearch();
+            }
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Error while using the method SearchTextBox_KeyDown.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+            MessageBox.Show("There was an error with the search engine.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async Task ExecuteSearch()
+    {
+        ResetPaginationButtons();
+            
+        _currentSearchResults.Clear();
+    
+        // Call DeselectLetter to clear any selected letter
+        _letterNumberMenu.DeselectLetter();
+
+        var searchQuery = SearchTextBox.Text.Trim();
+
+        string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
+        string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
+        
+        if (SystemComboBox.SelectedItem == null)
+        {
+            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+        
+        string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
+        string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
+
+        if (string.IsNullOrEmpty(searchQuery))
+        {
+            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var pleaseWaitWindow = new PleaseWaitSearch();
+        await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
+
+        var startTime = DateTime.Now;
+
+        try
+        {
+            await LoadGameFilesAsync(null, searchQuery);
+        }
+        finally
+        {
+            var elapsed = DateTime.Now - startTime;
+            var remainingTime = TimeSpan.FromSeconds(1) - elapsed;
+            if (remainingTime > TimeSpan.Zero)
+            {
+                await Task.Delay(remainingTime);
+            }
+            await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
+        }
     }
         
     #endregion
