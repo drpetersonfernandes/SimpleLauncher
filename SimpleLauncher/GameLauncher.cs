@@ -151,39 +151,6 @@ public static class GameLauncher
         }
     }
 
-    private static void CouldNotLaunchGameMessageBox()
-    {
-        string theapplicationcouldnotlaunchtheselectedgame2 = (string)Application.Current.TryFindResource("Theapplicationcouldnotlaunchtheselectedgame") ?? "The application could not launch the selected game.";
-        string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
-        string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
-        string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
-        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show(
-            $"{theapplicationcouldnotlaunchtheselectedgame2}\n\n" +
-            $"{ifyouaretryingtorunMame2}\n\n" +
-            $"{ifyouaretryingtorunRetroarch2}\n\n" +
-            $"{alsoverifythattheemulator2}\n\n" +
-            $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
     private static async Task LaunchBatchFile(string filePath)
     {
         var psi = new ProcessStartInfo
@@ -293,31 +260,6 @@ public static class GameLauncher
         }
     }
 
-    private static void CouldNotLaunchShortcutMessageBox()
-    {
-        var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
-                                     "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                     "Do you want to open the file 'error_user.log' to debug the error?",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
     private static async Task LaunchExecutable(string filePath)
     {
         var psi = new ProcessStartInfo
@@ -362,34 +304,8 @@ public static class GameLauncher
         }
     }
 
-    private static void CouldNotLaunchExeMessageBox()
-    {
-        var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
-                                     "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                     "Do you want to open the file 'error_user.log' to debug the error?",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
     private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
-        
         string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         string selectedSystem = systemComboBox.SelectedItem.ToString();
         
@@ -496,21 +412,6 @@ public static class GameLauncher
                                                     "Method: LaunchRegularEmulator");
             }
 
-            if (process.ExitCode != 0 && process.ExitCode != -1073741819)
-            {
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                CouldNotLaunchGameMessageBox();
-                return;
-            }
-        
             // Memory Access Violation error
             if (process.ExitCode == -1073741819)
             {
@@ -524,6 +425,21 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
                 MemoryAccessViolationErrorMessageBox();
+                return;
+            }
+            
+            if (process.ExitCode != 0)
+            {
+                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+
+                CouldNotLaunchGameMessageBox();
             }
         }
         
@@ -550,181 +466,181 @@ public static class GameLauncher
         }
     }
 
-    private static void EmulatorCouldNotOpenWithProvidedParametersMessageBox()
+    private static async Task LaunchRegularEmulatorWithoutWarnings(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
-        string theemulatorcouldnotopenthegamewiththeprovidedparameters2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegamewiththeprovidedparameters") ?? "The emulator could not open the game with the provided parameters.";
-        string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
-        string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
-        string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
-        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show(
-            $"{theemulatorcouldnotopenthegamewiththeprovidedparameters2}\n\n" +
-            $"{ifyouaretryingtorunMame2}\n\n" +
-            $"{ifyouaretryingtorunRetroarch2}\n\n" +
-            $"{alsoverifythattheemulator2}\n\n" +
-            $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        string selectedSystem = systemComboBox.SelectedItem.ToString();
 
-        if (result == MessageBoxResult.Yes)
+        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+        if (systemConfig == null)
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            string errorMessage = $"systemConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            CouldNotLaunchEmulatorMessageBox();
+            return;
         }
-    }
 
-    private static void InvalidOperationExceptionMessageBox()
-    {
-        string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
-        string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
-        string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
-        string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
-        string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
-        string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
-        string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
-        string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
-                        $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
-                        $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
-                        $"{pleaseconfigureittorun2}\n\n" +
-                        $"{anotherpossiblecausefortheerror2}\n" +
-                        $"{pleasereinstalltheemulator2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-    private static void MemoryAccessViolationErrorMessageBox()
-    {
-        string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
-        string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
-        string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
-        string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
-        string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show(
-            $"{therewasanmemoryaccessviolation2}\n\n" +
-            $"{thistypeoferrorusuallyoccurs2}\n\n" +
-            $"{thiscanhappeniftheresabug2}\n\n" +
-            $"{anotherpossibilityistheRom2}\n\n" +
-            $"{doyouwanttoopenfile2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
+        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        if (emulatorConfig == null)
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
+                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            CouldNotLaunchEmulatorMessageBox();
+            return;
         }
-    }
 
-    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig, string gamePathToLaunch)
-    {
-        string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+        string gamePathToLaunch = filePath;
 
-        // Accept ZIP, 7Z and RAR files
-        if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
+        // Extract File if Needed
+        if (systemConfig.ExtractFileBeforeLaunch)
         {
-            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+            gamePathToLaunch = await ExtractFilesBeforeLaunch(filePath, systemConfig, gamePathToLaunch);
+        }
+        
+        // Check gamePath
+        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
+        {
+            string errorMessage = $"Invalid game path: {gamePathToLaunch}. Cannot launch the game.";
+            Exception ex = new ArgumentNullException(nameof(gamePathToLaunch), errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        // Construct the PSI
+        string programLocation = emulatorConfig.EmulatorLocation;
+        string parameters = emulatorConfig.EmulatorParameters;
+        string arguments = $"{parameters} \"{gamePathToLaunch}\"";
+        
+        // Check programLocation before call it
+        if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
+        {
+            MessageBox.Show("Invalid emulator executable path. Please check the configuration.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = programLocation,
+            Arguments = arguments,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        };
+
+        var process = new Process { StartInfo = psi };
+        StringBuilder output = new();
+        StringBuilder error = new();
+
+        process.OutputDataReceived += (_, args) => {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                output.AppendLine(args.Data);
+            }
+        };
+
+        process.ErrorDataReceived += (_, args) => {
+            if (!string.IsNullOrEmpty(args.Data))
+            {
+                error.AppendLine(args.Data);
+            }
+        };
+
+        try
+        {
+            bool processStarted = process.Start();
+            
+            if (!processStarted)
+            {
+                throw new InvalidOperationException("Failed to start the process.\n" +
+                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
+            }
+            
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
+            
+            if (!process.HasExited)
+            {
+                throw new InvalidOperationException("The process has not exited as expected.\n" +
+                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
+            }
+            
+            if (process.ExitCode == -1073741819)
+            {
+                string errorMessage = $"There was an access violation error running the emulator.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
-            {
-                MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return gamePathToLaunch;
-            }
-
-            if (systemConfig.FileFormatsToLaunch == null)
-            {
-                MessageBox.Show("There is no 'Extension to Launch After Extraction' set in the system configuration.\n\n" +
-                                "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return gamePathToLaunch;
-            }
+                //Do not notify user
                 
-            // Iterate through the formats to launch and find the first file with the specified extension
-            bool fileFound = false;
-            foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
-            {
-                string[] files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}");
-
-                if (files.Length > 0)
-                {
-                    gamePathToLaunch = files[0];
-                    fileFound = true;
-                    break;
-                }
+                return;
             }
+            
+            if (process.ExitCode == 1)
+            {
+                string errorMessage = $"Generic error in the emulator. User was not notified.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            if (string.IsNullOrEmpty(gamePathToLaunch))
-            {
-                MessageBox.Show($"No valid game file found with the specified extension: {string.Join(", ", systemConfig.FileFormatsToLaunch)}",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return gamePathToLaunch;
+                //Do not notify user
+                
+                return;
             }
 
-            if (!fileFound)
+            if (process.ExitCode != 0)
             {
-                string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-                Exception exception = new(errorMessage);
-                await LogErrors.LogErrorAsync(exception, errorMessage);
-
-                MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
-                                "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return gamePathToLaunch;
+                string errorMessage = $"Emulator error. User was not notified.\n\n" +
+                                      $"Exit code: {process.ExitCode}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n" +
+                                      $"Calling parameters: {psi.Arguments}";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                //Do not notify user
             }
         }
-        else
+        
+        catch (InvalidOperationException ex)
         {
-            MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
-                            $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                            $"Please go to Expert Mode and fix this system.", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return gamePathToLaunch;
+            string formattedException = $"InvalidOperationException in the method LaunchRegularEmulatorWithoutWarnings";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            InvalidOperationExceptionMessageBox();
         }
-
-        return gamePathToLaunch;
-    }
-
-    private static void CouldNotLaunchEmulatorMessageBox()
-    {
-        var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                                     "The error was reported to the developer that will try to fix the issue.\n\n" +
-                                     "Do you want to open the file 'error_user.log' to debug the error?",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
+        catch (Exception ex)
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            string formattedException = $"The emulator could not open the game with the provided parameters. User was not notified.\n\n" +
+                                        $"Exit code: {process.ExitCode}\n" +
+                                        $"Emulator: {psi.FileName}\n" +
+                                        $"Emulator output: {output}\n" +
+                                        $"Emulator error: {error}\n" +
+                                        $"Calling parameters: {psi.Arguments}\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            //Do not notify user
         }
     }
 
@@ -915,45 +831,6 @@ public static class GameLauncher
             EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox();
         }
     }
-
-    private static void EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox()
-    {
-        var result = MessageBox.Show(
-            "The emulator could not open the game with the provided parameters.\n\n" +
-            "Do you want to open the file 'error_user.log' to debug the error?",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
-    private static Task<string> FindXblaGamePath(string rootFolderPath)
-    {
-        var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
-        foreach (var directory in directories)
-        {
-            var files = Directory.GetFiles(directory);
-            if (files.Length > 0)
-            {
-                return Task.FromResult(files[0]); // Return the first file found
-            }
-        }
-        return Task.FromResult(string.Empty);
-    }
     
     private static async Task LaunchMattelAquariusGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
@@ -1101,7 +978,6 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(ex, errorMessage);
                 
                 MemoryAccessViolationErrorMessageBox();
-
             }
         }
         
@@ -1128,404 +1004,316 @@ public static class GameLauncher
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private static async Task LaunchRegularEmulatorWithoutWarnings(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig, string gamePathToLaunch)
     {
-        string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        string selectedSystem = systemComboBox.SelectedItem.ToString();
+        string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
-        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        if (systemConfig == null)
+        if (fileExtension == ".ZIP")
         {
-            string errorMessage = $"systemConfig not found for the selected system.\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
-                                         "Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-            
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("The file 'error_user.log' was not found!",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            return;
+            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync2(filePath);
+
+            var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
+            if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
         }
-
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-        if (emulatorConfig == null)
+        else if (fileExtension == ".7Z" || fileExtension == ".RAR")
         {
-            string errorMessage = $"emulatorConfig not found for the selected system.\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            var result = MessageBox.Show("There was an error launching this game.\n\n" +
-                                         "The error was reported to the developer that will try to fix the issue.\n\n" +
-                                         "Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-            
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("The file 'error_user.log' was not found!",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            
-            return;
-        }
-
-        string gamePathToLaunch = filePath;
-
-        // Extract File if Needed
-        if (systemConfig.ExtractFileBeforeLaunch)
-        {
-            string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
-
-            // Accept ZIP, 7Z and RAR files
-            if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
-            {
-                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
                 
-                if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
-                {
-                    MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (systemConfig.FileFormatsToLaunch == null)
-                {
-                    MessageBox.Show("There is no 'Extension to Launch After Extraction' set in the system configuration.\n\n" +
-                                    "Please go to Expert Mode and fix this system.", 
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                
-                // Iterate through the formats to launch and find the first file with the specified extension
-                bool fileFound = false;
-                foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
-                {
-                    string[] files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}");
-
-                    if (files.Length > 0)
-                    {
-                        gamePathToLaunch = files[0];
-                        fileFound = true;
-                        break;
-                    }
-                }
-                
-                if (string.IsNullOrEmpty(gamePathToLaunch))
-                {
-                    MessageBox.Show($"No valid game file found with the specified extension: {string.Join(", ", systemConfig.FileFormatsToLaunch)}",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (!fileFound)
-                {
-                    string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-                    Exception exception = new(errorMessage);
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
-
-                    MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
-                                    "Please go to Expert Mode and fix this system.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
-                                $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                                $"Please go to Expert Mode and fix this system.",
-                    "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
+            if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
+        }else
+        {
+            MessageBox.Show($"The selected file '{filePath}' cannot be extracted.\n\n" +
+                            $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
+                            $"Please go to Expert Mode and fix this system.",
+                "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return gamePathToLaunch;
         }
-        
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
+        return gamePathToLaunch;
+
+        async Task<string> ValidateAndFindGameFile(string tempExtractLocation)
         {
-            string errorMessage = $"Invalid game path: {gamePathToLaunch}. Cannot launch the game.";
-            Exception ex = new ArgumentNullException(nameof(gamePathToLaunch), errorMessage);
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-            
-            MessageBox.Show("Invalid game file path. Please check the file.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
-        // Construct the PSI
-        string programLocation = emulatorConfig.EmulatorLocation;
-        string parameters = emulatorConfig.EmulatorParameters;
-        string arguments = $"{parameters} \"{gamePathToLaunch}\"";
-
-        var psi = new ProcessStartInfo
-        {
-            FileName = programLocation,
-            Arguments = arguments,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
-        };
-
-        var process = new Process { StartInfo = psi };
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
+            if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
-                output.AppendLine(args.Data);
+                MessageBox.Show("Extraction failed. Could not find the temporary extract folder.", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return gamePathToLaunch;
             }
-        };
-
-        process.ErrorDataReceived += (_, args) => {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                error.AppendLine(args.Data);
-            }
-        };
-
-        try
-        {
-            // Attempt to start the process
-            bool processStarted = process.Start();
-            
-            if (!processStarted)
-            {
-                throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
-            }
-            
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            
-            // Wait for the process to exit
-            await process.WaitForExitAsync();
-            
-            // Verify if the process has exited before accessing ExitCode
-            if (!process.HasExited)
-            {
-                throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
-            }
-            
-            // Memory Access Violation error
-            if (process.ExitCode == -1073741819)
-            {
-                string errorMessage = $"There was an access violation error running the emulator.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-                string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
-                string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
-                string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
-                string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
-                string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                var result = MessageBox.Show(
-                    $"{therewasanmemoryaccessviolation2}\n\n" +
-                    $"{thistypeoferrorusuallyoccurs2}\n\n" +
-                    $"{thiscanhappeniftheresabug2}\n\n" +
-                    $"{anotherpossibilityistheRom2}\n\n" +
-                    $"{doyouwanttoopenfile2}",
-                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (systemConfig.FileFormatsToLaunch == null)
+            {
+                MessageBox.Show("There is no 'Extension to Launch After Extraction' set in the system configuration.\n\n" +
+                                "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return gamePathToLaunch;
+            }
+                
+            // Iterate through the formats to launch and find the first file with the specified extension
+            bool fileFound = false;
+            foreach (string formatToLaunch in systemConfig.FileFormatsToLaunch)
+            {
+                string[] files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}");
 
-                if (result == MessageBoxResult.Yes)
+                if (files.Length > 0)
                 {
-                    try
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = LogPath,
-                            UseShellExecute = true
-                        });
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("The file 'error_user.log' was not found!",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    gamePathToLaunch = files[0];
+                    fileFound = true;
+                    break;
                 }
-                return;
             }
-            
-            if (process.ExitCode == 1)
-            {
-                string errorMessage = $"Generic error in the emulator. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-                return;
-            }
-
-            if (process.ExitCode != 0)
+            if (string.IsNullOrEmpty(gamePathToLaunch))
             {
-                string errorMessage = $"Emulator error. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
+                MessageBox.Show($"No valid game file found with the specified extension: {string.Join(", ", systemConfig.FileFormatsToLaunch)}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return gamePathToLaunch;
             }
-        }
-        
-        catch (InvalidOperationException ex)
-        {
-            string formattedException = $"InvalidOperationException in the method LaunchRegularEmulatorWithoutWarnings";
-            await LogErrors.LogErrorAsync(ex, formattedException);
 
-            string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
-            string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
-            string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
-            string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
-            string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
-            string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
-            string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
-            string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
-                            $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
-                            $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
-                            $"{pleaseconfigureittorun2}\n\n" +
-                            $"{anotherpossiblecausefortheerror2}\n" +
-                            $"{pleasereinstalltheemulator2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (Exception ex)
-        {
-            string formattedException = $"Emulator error. User was not notified.\n\n" +
-                                        $"Exit code: {process.ExitCode}\n" +
-                                        $"Emulator: {psi.FileName}\n" +
-                                        $"Emulator output: {output}\n" +
-                                        $"Emulator error: {error}\n" +
-                                        $"Calling parameters: {psi.Arguments}\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            if (!fileFound)
+            {
+                string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+                Exception exception = new(errorMessage);
+                await LogErrors.LogErrorAsync(exception, errorMessage);
+
+                MessageBox.Show("Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n\n" +
+                                "Please go to Expert Mode and fix this system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return gamePathToLaunch;
+            }
+            return null;
         }
     }
+    
+    private static Task<string> FindXblaGamePath(string rootFolderPath)
+    {
+        var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
+        foreach (var directory in directories)
+        {
+            var files = Directory.GetFiles(directory);
+            if (files.Length > 0)
+            {
+                return Task.FromResult(files[0]); // Return the first file found
+            }
+        }
+        return Task.FromResult(string.Empty);
+    }
+    
+    private static void CouldNotLaunchGameMessageBox()
+    {
+        string theapplicationcouldnotlaunchtheselectedgame2 = (string)Application.Current.TryFindResource("Theapplicationcouldnotlaunchtheselectedgame") ?? "The application could not launch the selected game.";
+        string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
+        string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
+        string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
+        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{theapplicationcouldnotlaunchtheselectedgame2}\n\n" +
+            $"{ifyouaretryingtorunMame2}\n\n" +
+            $"{ifyouaretryingtorunRetroarch2}\n\n" +
+            $"{alsoverifythattheemulator2}\n\n" +
+            $"{doyouwanttoopenthefile2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void CouldNotLaunchShortcutMessageBox()
+    {
+        var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
+                                     "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                     "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void CouldNotLaunchExeMessageBox()
+    {
+        var result = MessageBox.Show("There was an error launching the executable file.\n\n" +
+                                     "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.\n\n" +
+                                     "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void EmulatorCouldNotOpenWithProvidedParametersMessageBox()
+    {
+        string theemulatorcouldnotopenthegamewiththeprovidedparameters2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegamewiththeprovidedparameters") ?? "The emulator could not open the game with the provided parameters.";
+        string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
+        string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
+        string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
+        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{theemulatorcouldnotopenthegamewiththeprovidedparameters2}\n\n" +
+            $"{ifyouaretryingtorunMame2}\n\n" +
+            $"{ifyouaretryingtorunRetroarch2}\n\n" +
+            $"{alsoverifythattheemulator2}\n\n" +
+            $"{doyouwanttoopenthefile2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void InvalidOperationExceptionMessageBox()
+    {
+        string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+        string thistypeoferrorhappenswhen2 = (string)Application.Current.TryFindResource("Thistypeoferrorhappenswhen") ?? "This type of error happens when";
+        string doesnothavetheprivilegestolaunch2 = (string)Application.Current.TryFindResource("doesnothavetheprivilegestolaunch") ?? "does not have the privileges to launch an external program, such as the emulator.";
+        string youneedtogivemoreprivilegesto2 = (string)Application.Current.TryFindResource("Youneedtogivemoreprivilegesto") ?? "You need to give more privileges to";
+        string toperformitstask2 = (string)Application.Current.TryFindResource("toperformitstask") ?? "to perform its task.";
+        string pleaseconfigureittorun2 = (string)Application.Current.TryFindResource("Pleaseconfigureittorun") ?? "Please configure it to run with administrative privileges.";
+        string anotherpossiblecausefortheerror2 = (string)Application.Current.TryFindResource("Anotherpossiblecausefortheerror") ?? "Another possible cause for the error is related to the integrity of the emulator.";
+        string pleasereinstalltheemulator2 = (string)Application.Current.TryFindResource("Pleasereinstalltheemulator") ?? "Please reinstall the emulator to ensure it is working.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                        $"{thistypeoferrorhappenswhen2} 'Simple Launcher' {doesnothavetheprivilegestolaunch2}\n" +
+                        $"{youneedtogivemoreprivilegesto2} 'Simple Launcher' {toperformitstask2}\n" +
+                        $"{pleaseconfigureittorun2}\n\n" +
+                        $"{anotherpossiblecausefortheerror2}\n" +
+                        $"{pleasereinstalltheemulator2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    private static void CouldNotLaunchEmulatorMessageBox()
+    {
+        var result = MessageBox.Show("There was an error launching this game.\n\n" +
+                                     "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                     "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void MemoryAccessViolationErrorMessageBox()
+    {
+        string therewasanmemoryaccessviolation2 = (string)Application.Current.TryFindResource("Therewasanmemoryaccessviolation") ?? "There was an memory access violation error running this emulator with this ROM.";
+        string thistypeoferrorusuallyoccurs2 = (string)Application.Current.TryFindResource("Thistypeoferrorusuallyoccurs") ?? "This type of error usually occurs when the emulator attempts to access memory it doesn't have permission to read or write.";
+        string thiscanhappeniftheresabug2 = (string)Application.Current.TryFindResource("Thiscanhappeniftheresabug") ?? "This can happen if there’s a bug in the emulator code, meaning the emulator is not fully compatible with that ROM.";
+        string anotherpossibilityistheRom2 = (string)Application.Current.TryFindResource("AnotherpossibilityistheROM") ?? "Another possibility is the ROM or any dependency files (such as DLLs) are corrupted.";
+        string doyouwanttoopenfile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenfile") ?? "Do you want to open file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{therewasanmemoryaccessviolation2}\n\n" +
+            $"{thistypeoferrorusuallyoccurs2}\n\n" +
+            $"{thiscanhappeniftheresabug2}\n\n" +
+            $"{anotherpossibilityistheRom2}\n\n" +
+            $"{doyouwanttoopenfile2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    private static void EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox()
+    {
+        var result = MessageBox.Show(
+            "The emulator could not open the game with the provided parameters.\n\n" +
+            "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
 }

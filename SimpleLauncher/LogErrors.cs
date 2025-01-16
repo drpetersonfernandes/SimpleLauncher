@@ -66,13 +66,16 @@ public static class LogErrors
             if (await SendLogToApiAsync(errorMessage))
             {
                 // If the log was successfully sent, delete the general log file to clean up.
-                try
+                if (File.Exists(errorLogPath))
                 {
-                    File.Delete(errorLogPath);
-                }
-                catch (Exception)
-                {
-                    // ignore
+                    try
+                    {
+                        File.Delete(errorLogPath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
             }
         }

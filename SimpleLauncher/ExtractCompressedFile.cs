@@ -128,30 +128,8 @@ internal class ExtractCompressedFile
                                   $"Method: ExtractArchiveToTempAsync";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            var result = MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
-                                         $"The file {archivePath} may be corrupted.\n" +
-                                         $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
-                                         $"Try to run with administrative privileges.\n\n" +
-                                         $"Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            ExtractionFailedMessageBox(archivePath);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("The file 'error_user.log' was not found!",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            
             return null;
         }
         finally
@@ -160,7 +138,107 @@ internal class ExtractCompressedFile
             pleaseWaitExtraction.Close();
         }
     }
+
+    private static void ExtractionFailedMessageBox(string archivePath)
+    {
+        var result = MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
+                                     $"The file {archivePath} may be corrupted.\n" +
+                                     $"Or maybe Simple Launcher does not have enough privileges to run in your system.\n" +
+                                     $"Try to run with administrative privileges.\n\n" +
+                                     $"Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file 'error_user.log' was not found!",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+
+    public async Task<string> ExtractArchiveToTempAsync2(string archivePath)
+    {
+        string extension = Path.GetExtension(archivePath)?.ToLower();
+
+        if (extension != ".zip")
+        {
+            MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
+                            "To extract a file, it needs to be a zip file.\n\n" +
+                            "Please go to Edit System - Expert Mode, and edit this system.",
+                "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return null;
+        }
+
+        // Open the Please Wait Window
+        var pleaseWaitExtraction = new PleaseWaitExtraction();
+        pleaseWaitExtraction.Show();
+
+        // Combine temp folder with generated temp folders
+        string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
+
+        try
+        {
+            Directory.CreateDirectory(tempDirectory);
+
+            if (!Directory.Exists(tempDirectory))
+            {
+                // Notify developer
+                string errorMessage = $"'Simple Launcher' could not create the temporary folder needed for extraction.\n\n" +
+                                      $"Temp Location: {tempDirectory}\n" +
+                                      "Method: ExtractArchiveToTempAsync2";
+                Exception ex = new(errorMessage);
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBox.Show("Extraction failed!\n\n" +
+                                "'Simple Launcher' could not create the temporary folder needed for extraction.\n" +
+                                "This error is happening because 'Simple Launcher' does not have enough privileges.\n" +
+                                "Try running it with administrative privileges.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return null;
+            }
+
+            // Keep track of the temp directory
+            _tempDirectories.Add(tempDirectory);
         
+            // Perform the extraction
+            await Task.Run(() => ZipFile.ExtractToDirectory(archivePath, tempDirectory));
+
+            // Ensure at least 2 seconds have passed
+            await Task.Delay(2000);
+
+            return tempDirectory;
+        }
+        catch (Exception ex)
+        {
+            // Log the error
+            string errorMessage = $"Extraction of the compressed file failed.\n\n" +
+                                  $"The file {archivePath} may be corrupted.\n" +
+                                  "Method: ExtractArchiveToTempAsync";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            ExtractionFailedMessageBox(archivePath);
+
+            return null;
+        }
+        finally
+        {
+            // Close the Please Wait Window
+            pleaseWaitExtraction.Close();
+        }
+    }
+
     private string Get7ZipExecutablePath()
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

@@ -20,8 +20,6 @@ public partial class DownloadImagePack
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient = new();
     private bool _isDownloadCompleted;
-    
-    // Unique temp folder within the Windows temp directory
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         
     public DownloadImagePack()
@@ -29,8 +27,7 @@ public partial class DownloadImagePack
         InitializeComponent();
           
         App.ApplyThemeToWindow(this);
-            
-        LoadConfig();
+        _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
             
         // Subscribe to the Closed event
@@ -41,11 +38,6 @@ public partial class DownloadImagePack
         string withadministrativeprivileges2 = (string)Application.Current.TryFindResource("withadministrativeprivileges") ?? "with administrative privileges.";
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{someantivirusprograms2}\n\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private void LoadConfig()
-    {
-        _config = EasyModeConfig.Load();
     }
 
     private void PopulateSystemDropdown()
@@ -119,71 +111,36 @@ public partial class DownloadImagePack
 
                         if (extractionSuccess)
                         {
-                            ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
+                            ExtrasExtractionSuccessActions(selectedSystem, downloadFilePath);
                         }
-                        else
+                        else // Extraction fail
                         {
-                            string myfirstattempttodownload2 = (string)Application.Current.TryFindResource("Myfirstattempttodownload") ?? "My first attempt to download and extract the file failed.";
-                            string iwilltryagainusinginmemory2 = (string)Application.Current.TryFindResource("Iwilltryagainusinginmemory") ?? "I will try again using in memory download and extraction.";
-                            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
-                            MessageBox.Show($"{myfirstattempttodownload2}\n\n{iwilltryagainusinginmemory2}", extractionError2, MessageBoxButton.OK, MessageBoxImage.Warning);
-                            
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - Start /////
-                            /////////////////////////////////////////////////
-                            try
-                            {
-                                bool extractionSuccess2 = await DownloadAndExtractInMemory.DownloadAndExtractInMemoryAsync(extrasDownloadUrl, extractionFolder, _cancellationTokenSource.Token, DownloadProgressBar);
-                                
-                                if (extractionSuccess2)
-                                {
-                                    ExtrasExtractionSuccess(selectedSystem, downloadFilePath);
-                                    
-                                    // Notify Developer
-                                    string notifyDeveloper = "User used DownloadAndExtractInMemory and the result was successful.\n";
-                                    Exception ex = new Exception(notifyDeveloper);
-                                    await LogErrors.LogErrorAsync(ex, notifyDeveloper);
-                                }
-                                else
-                                {
-                                    ExtrasDownloadExtractFailure(selectedSystem);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                // Notify Developer
-                                string formattedException = $"Error in DownloadAndExtractInMemoryAsync method.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\n" +
-                                                            $"Exception details: {ex.Message}";
-                                await LogErrors.LogErrorAsync(ex, formattedException);
-                                
-                                ExtrasDownloadExtractFailure(selectedSystem);
-                            }
-                            /////////////////////////////////////////////////
-                            //// In Memory Download and Extract - End  //////
-                            /////////////////////////////////////////////////
-                            
+                            string formattedException = $"Image Pack extraction failed.";
+                            Exception ex = new Exception(formattedException);
+                            await LogErrors.LogErrorAsync(ex, formattedException);
+
+                            MessageBox.Show("Image Pack extraction failed!\n\n" +
+                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                            "Temporarily disable your antivirus software and try again.",
+                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
-                    else
+                    else // Download fail
                     {
-                        // Download was incomplete
-                        MessageBoxResult result = MessageBox.Show($"Download was incomplete and will not be extracted.\n\n" +
-                                                                  $"Would you like to be redirected to the download page?",
-                            "Download Incomplete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                                UseShellExecute = true
-                            });
-                        }
+                        string formattedException = $"Image Pack download failed.";
+                        Exception ex = new Exception(formattedException);
+                        await LogErrors.LogErrorAsync(ex, formattedException);
+
+                        MessageBox.Show("Image Pack download failed!\n\n" +
+                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                                        "Temporarily disable your antivirus software and try again.",
+                            "Download Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (TaskCanceledException)
                 {
-                    // Delete a partially downloaded file
                     if (File.Exists(downloadFilePath))
                     {
                         try
@@ -243,26 +200,16 @@ public partial class DownloadImagePack
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            MessageBox.Show("Image Pack download or extraction failed!\n\n" +
+                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
+                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
+                            "Temporarily disable your antivirus software and try again.",
+                "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);  
         }
     }
 
-    private static void ExtrasDownloadExtractFailure(EasyModeSystemConfig selectedSystem)
-    {
-        // Download and Extraction failed - offer redirect option
-        MessageBoxResult result = MessageBox.Show($"Download and Extraction failed for {selectedSystem.SystemName} Image Pack.\n\n" +
-                                                  $"Would you like to be redirected to the download page?",
-            "Download and Extraction failed", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                UseShellExecute = true
-            });
-        }
-    }
-
-    private void ExtrasExtractionSuccess(EasyModeSystemConfig selectedSystem, string downloadFilePath)
+    private void ExtrasExtractionSuccessActions(EasyModeSystemConfig selectedSystem, string downloadFilePath)
     {
         string imagepackfor2 = (string)Application.Current.TryFindResource("Imagepackfor") ?? "Image pack for";
         string downloadedandextracted2 = (string)Application.Current.TryFindResource("downloadedandextracted") ?? "downloaded and extracted successfully.";
@@ -271,18 +218,20 @@ public partial class DownloadImagePack
             downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
         // Clean up the downloaded file only if extraction is successful
-        try
+        if (File.Exists(downloadFilePath))
         {
-            File.Delete(downloadFilePath);
-        }
-        catch (Exception)
-        {
-            // ignore
+            try
+            {
+                File.Delete(downloadFilePath);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
         }
                
         // Mark as downloaded and disable button
         DownloadExtrasButton.IsEnabled = false;
-                            
     }
 
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
@@ -352,9 +301,10 @@ public partial class DownloadImagePack
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            MessageBox.Show("There was a file read/write error after the file download.\n\n" +
-                            "Some antivirus programs may lock or scan newly downloaded files, causing access issues.\n" +
-                            "Try temporarily disabling real-time protection.",
+            MessageBox.Show("A file read/write error occurred after the file was downloaded.\n\n" +
+                            "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.\n\n" +
+                            "Additionally, grant 'Simple Launcher' administrative access to enable file writing.\n\n" +
+                            "Make sure the 'Simple Launcher' folder is located in a writable directory.",
                 "Read/Write Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (TaskCanceledException ex)
@@ -382,7 +332,6 @@ public partial class DownloadImagePack
             }
             else
             {
-                // If user canceled, delete the partially downloaded file
                 if (File.Exists(destinationPath))
                 {
                     try
@@ -402,8 +351,7 @@ public partial class DownloadImagePack
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 MessageBox.Show("Download timed out or was canceled unexpectedly.\n\n" +
-                                "You can try again later.",
-                    "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                "You can try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
