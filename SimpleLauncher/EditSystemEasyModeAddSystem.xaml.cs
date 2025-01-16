@@ -171,17 +171,7 @@ public partial class EditSystemEasyModeAddSystem
                                 success2, MessageBoxButton.OK, MessageBoxImage.Information);
 
                             // Clean up the downloaded file only if extraction is successful
-                            if (File.Exists(downloadFilePath))
-                            {
-                                try
-                                {
-                                    File.Delete(downloadFilePath);
-                                }
-                                catch (Exception)
-                                {
-                                    // ignore
-                                }
-                            }
+                            DeleteDownloadFilePath(downloadFilePath);
                                 
                             // Update the version file if necessary
                             if (destinationPath != null)
@@ -232,17 +222,7 @@ public partial class EditSystemEasyModeAddSystem
                 }
                 catch (TaskCanceledException)
                 {
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
                    
                     string emulatordownloadwascanceled2 = (string)Application.Current.TryFindResource("Emulatordownloadwascanceled") ?? "Emulator download was canceled.";
                     string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
@@ -274,18 +254,7 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
                 }
             }
         }
@@ -375,17 +344,7 @@ public partial class EditSystemEasyModeAddSystem
                             MessageBox.Show($"{corefor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
                                 success2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
-                            if (File.Exists(downloadFilePath))
-                            {
-                                try
-                                {
-                                    File.Delete(downloadFilePath);
-                                }
-                                catch (Exception)
-                                {
-                                    // ignore
-                                }
-                            }
+                            DeleteDownloadFilePath(downloadFilePath);
                                 
                             // Update the version file if necessary
                             if (destinationPath != null)
@@ -433,17 +392,7 @@ public partial class EditSystemEasyModeAddSystem
                 }
                 catch (TaskCanceledException)
                 {
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
                     
                     string coredownloadwascanceled2 = (string)Application.Current.TryFindResource("Coredownloadwascanceled") ?? "Core download was canceled.";
                     string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
@@ -470,18 +419,7 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-                    
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
                 }
             }
         }
@@ -547,17 +485,7 @@ public partial class EditSystemEasyModeAddSystem
                             MessageBox.Show($"{imagepackfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
                                 downloadComplete2, MessageBoxButton.OK, MessageBoxImage.Information);
                                 
-                            if (File.Exists(downloadFilePath))
-                            {
-                                try
-                                {
-                                    File.Delete(downloadFilePath);
-                                }
-                                catch (Exception)
-                                {
-                                    // ignore
-                                }
-                            }
+                            DeleteDownloadFilePath(downloadFilePath);
                             
                             // Mark as downloaded and disable button
                             DownloadExtrasButton.IsEnabled = false;
@@ -594,17 +522,7 @@ public partial class EditSystemEasyModeAddSystem
                 }
                 catch (TaskCanceledException)
                 {
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
 
                     string imagePackdownloadwascanceled2 = (string)Application.Current.TryFindResource("ImagePackdownloadwascanceled") ?? "Image Pack download was canceled.";
                     string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
@@ -631,18 +549,7 @@ public partial class EditSystemEasyModeAddSystem
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-                    
-                    if (File.Exists(downloadFilePath))
-                    {
-                        try
-                        {
-                            File.Delete(downloadFilePath);
-                        }
-                        catch (Exception)
-                        {
-                            // ignore
-                        }
-                    }
+                    DeleteDownloadFilePath(downloadFilePath);
                     
                 }
             }
@@ -1041,6 +948,21 @@ public partial class EditSystemEasyModeAddSystem
     {
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
+    }
+    
+    private static void DeleteDownloadFilePath(string downloadFilePath)
+    {
+        if (File.Exists(downloadFilePath))
+        {
+            try
+            {
+                File.Delete(downloadFilePath);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
+        }
     }
 
 }
