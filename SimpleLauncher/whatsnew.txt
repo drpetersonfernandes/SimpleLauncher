@@ -2,8 +2,8 @@ release3.8.1
 ------------
 
 01/__/2025
-- Bug fixes
-- Improved some methods and functions to enhance efficiency and reduce errors
+- Bug fixes.
+- Improved some methods and functions to enhance efficiency and reduce errors.
 
 release3.8
 ------------
