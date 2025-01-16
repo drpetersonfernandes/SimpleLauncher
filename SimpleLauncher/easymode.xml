@@ -21,13 +21,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -93,13 +93,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -130,13 +130,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -204,13 +204,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -353,13 +353,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -389,13 +389,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -426,13 +426,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -463,13 +463,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -540,13 +540,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -577,13 +577,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -618,13 +618,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -655,13 +655,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -730,13 +730,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1004,13 +1004,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1046,13 +1046,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1085,13 +1085,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1122,13 +1122,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1158,13 +1158,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\citra_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\citra_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1244,13 +1244,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1282,13 +1282,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1322,13 +1322,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1359,13 +1359,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1395,13 +1395,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1432,13 +1432,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1504,13 +1504,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1583,13 +1583,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1625,13 +1625,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1770,13 +1770,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1806,13 +1806,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1919,13 +1919,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1956,13 +1956,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -1993,13 +1993,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2069,13 +2069,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2145,13 +2145,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2267,13 +2267,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2304,13 +2304,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2341,13 +2341,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2378,13 +2378,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
@@ -2415,13 +2415,13 @@
                 <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
                 <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20.0</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.19.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
                 <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.20.0</CoreLatestVersion>
+                <CoreLatestVersion>1.19.1</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
 
