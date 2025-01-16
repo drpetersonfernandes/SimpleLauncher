@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">オプション</system:String>
-
     <system:String x:Key="Language">言語</system:String>
-    
     <system:String x:Key="Theme">テーマ</system:String>
     <system:String x:Key="BaseTheme">基本テーマ</system:String>
     <system:String x:Key="Light">ライト</system:String>
     <system:String x:Key="Dark">ダーク</system:String>
-
     <system:String x:Key="AccentColors">アクセントカラー</system:String>
     <system:String x:Key="Red">赤</system:String>
     <system:String x:Key="Green">緑</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">モーヴ</system:String>
     <system:String x:Key="Taupe">トープ</system:String>
     <system:String x:Key="Sienna">シエナ</system:String>
-
     <system:String x:Key="SetThumbnailSize">サムネイルサイズを設定</system:String>
     <system:String x:Key="100pixels">100 ピクセル</system:String>
     <system:String x:Key="150pixels">150 ピクセル</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 ピクセル</system:String>
     <system:String x:Key="550pixels">550 ピクセル</system:String>
     <system:String x:Key="600pixels">600 ピクセル</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">1ページあたりのゲーム数を設定</system:String>
     <system:String x:Key="100games">100 ゲーム</system:String>
     <system:String x:Key="200games">200 ゲーム</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 ゲーム</system:String>
     <system:String x:Key="500games">500 ゲーム</system:String>
     <system:String x:Key="1000games">1000 ゲーム</system:String>
-
     <system:String x:Key="ViewMode">表示モード</system:String>
     <system:String x:Key="GridView">グリッドビュー</system:String>
     <system:String x:Key="ListView">リストビュー</system:String>
-
     <system:String x:Key="ShowGames">ゲームを表示</system:String>
     <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">カバーなしのゲームのみ表示</system:String>
-
     <system:String x:Key="EditLinks">リンクを編集</system:String>
-
     <system:String x:Key="GamepadSupport">ゲームパッドサポート</system:String>
     <system:String x:Key="Enable">有効化</system:String>
-
     <system:String x:Key="EditSystem">システムを編集</system:String>
     <system:String x:Key="EasyMode">簡単モード</system:String>
     <system:String x:Key="ExpertMode">エキスパートモード</system:String>
     <system:String x:Key="DownloadImagePack">画像パックをダウンロード</system:String>
-
     <system:String x:Key="GlobalSearch">グローバル検索</system:String>
-
     <system:String x:Key="Favorites">お気に入り</system:String>
-    
     <system:String x:Key="GlobalStats">グローバル統計</system:String>
-    
     <system:String x:Key="Tools">ツール</system:String>
     <system:String x:Key="OrganizeSystemImages">システム画像を整理</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3ゲーム用バッチファイルを作成</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3ゲーム用バッチファイルを作成</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windowsゲーム用バッチファイルを作成</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLAゲーム用バッチファイルを作成</system:String>
-    
     <system:String x:Key="BugReport">バグ報告</system:String>
-
     <system:String x:Key="Donate">寄付</system:String>
-    
     <system:String x:Key="About">情報</system:String>
-    
     <system:String x:Key="Exit">終了</system:String>
-    
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SelectEmulator">エミュレータを選択</system:String>
     <system:String x:Key="Search">検索</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">システムを編集 - 簡単モード</system:String>
     <system:String x:Key="Whatdoyouwanttodo">何をしたいですか？</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="EditExistingSystem">既存のシステムを編集</system:String>
     <system:String x:Key="DeleteExistingSystem">既存のシステムを削除</system:String>
-
     <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
     <system:String x:Key="Wealsosupport">BIOSやシステムファイルを必要とするシステムもサポートしていますが、それには「エキスパートモード」を使用して手動でインストールする必要があります。</system:String>
     <system:String x:Key="Pleasechooseasystem">追加するシステムを選択してください</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">第1ステップ</system:String>
     <system:String x:Key="2ndstep">第2ステップ</system:String>
     <system:String x:Key="3rdstep">第3ステップ</system:String>
-    
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
     <system:String x:Key="SaveorUpdateSystem">システムを保存または更新</system:String>
     <system:String x:Key="DeleteSelectedSystem">選択したシステムを削除</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator5Location">エミュレーター5の場所</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">画像パックを選択してください</system:String>
     <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">フォルダーを選択しない場合、画像はデフォルトのフォルダーに抽出されます</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="LaunchSelectedGame">選択したゲームを起動する</system:String>
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">オープンソースのエミュレーター用フロントエンド</system:String>
     <system:String x:Key="CheckForUpdate">アップデートを確認</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
     <system:String x:Key="VideoLinkButton">ビデオリンクボタン</system:String>
     <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
     <system:String x:Key="SaveorUpdateLinks">リンクを保存または更新</system:String>
     <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
-    
     <system:String x:Key="InfoTitle">情報</system:String>
     <system:String x:Key="Nosystemselected">システムが選択されていません</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">一致する画像の総数：</system:String>
     <system:String x:Key="ApplicationFolder">アプリケーションフォルダー：</system:String>
     <system:String x:Key="TotalDiskSize">すべてのゲームのディスクサイズ：</system:String>
-    
     <system:String x:Key="NoSystemMessage">システムを選択してください</system:String>
     <system:String x:Key="nogamesmatched">検索条件または選択されたボタンに一致するゲームがありません。</system:String>
     <system:String x:Key="Displayingfiles0to">ファイルを0から</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">合計</system:String>
     <system:String x:Key="Displayingfiles">ファイルを表示中</system:String>
     <system:String x:Key="to">から</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">検索する前にシステムを選択してください。</system:String>
     <system:String x:Key="SystemNotSelected">システムが選択されていません</system:String>
     <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">選択したシステムにはお気に入りのゲームが見つかりませんでした。</system:String>
     <system:String x:Key="Open">開く</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
-    
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemImageFolder">システム画像フォルダ</system:String>
     <system:String x:Key="DefaultImageFolder">[デフォルトの画像フォルダを使用中]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">エミュレーター名</system:String>
     <system:String x:Key="EmulatorLocation">エミュレーターの場所</system:String>
     <system:String x:Key="EmulatorParameters">エミュレーターのパラメーター</system:String>
-    
     <system:String x:Key="LaunchGame">ゲームを起動</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
     <system:String x:Key="RemoveFromFavorites">お気に入りから削除</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">ファイル</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">が正常に削除されました。</system:String>
     <system:String x:Key="FileDeleted">ファイルが削除されました</system:String>
-    
     <system:String x:Key="Version">バージョン:</system:String>
     <system:String x:Key="Unknown">不明</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">バグの詳細を入力してください。</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="System2">システム</system:String>
     <system:String x:Key="hasbeendeleted">が削除されました。</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">一部のウイルス対策ソフトは、新しくダウンロードされたファイルの解凍をブロックまたは防止する可能性があり、インストール中のアクセスに問題を引き起こすことがあります。</system:String>
     <system:String x:Key="Emulatorfor">エミュレーター:</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">は既にインストールされており、最新の状態です。</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">アプリケーションはこのシステムに必要なフォルダーを作成できませんでした。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">エラーは開発者に報告され、修正が試みられます。</system:String>
     <system:String x:Key="Error">エラー</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">削除するお気に入りを選択してください。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">起動するゲームを選択してください。</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ゲームファイルが存在しません！</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">このタイプのエラーは通常以下の場合に発生します：</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">外部プログラム（エミュレーターなど）を起動する権限がありません。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">検索語を入力してください。</system:String>
     <system:String x:Key="Noresultsfound">結果が見つかりませんでした。</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">がお気に入りに追加されました。</system:String>

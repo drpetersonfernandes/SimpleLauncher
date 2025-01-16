@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Опции</system:String>
-    
     <system:String x:Key="Language">Язык</system:String>
-    
     <system:String x:Key="Theme">Тема</system:String>
     <system:String x:Key="BaseTheme">Базовая тема</system:String>
     <system:String x:Key="Light">Светлая</system:String>
     <system:String x:Key="Dark">Темная</system:String>
-
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
     <system:String x:Key="Red">Красный</system:String>
     <system:String x:Key="Green">Зеленый</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="Taupe">Серо-коричневый</system:String>
     <system:String x:Key="Sienna">Охра</system:String>
-
     <system:String x:Key="SetThumbnailSize">Установить размер миниатюр</system:String>
     <system:String x:Key="100pixels">100 пикселей</system:String>
     <system:String x:Key="150pixels">150 пикселей</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 пикселей</system:String>
     <system:String x:Key="550pixels">550 пикселей</system:String>
     <system:String x:Key="600pixels">600 пикселей</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Установить количество игр на странице</system:String>
     <system:String x:Key="100games">100 игр</system:String>
     <system:String x:Key="200games">200 игр</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 игр</system:String>
     <system:String x:Key="500games">500 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
-
     <system:String x:Key="ViewMode">Режим просмотра</system:String>
     <system:String x:Key="GridView">Сеткой</system:String>
     <system:String x:Key="ListView">Списком</system:String>
-
     <system:String x:Key="ShowGames">Показать игры</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Показать только игры без обложки</system:String>
-
     <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
-
     <system:String x:Key="GamepadSupport">Поддержка геймпада</system:String>
     <system:String x:Key="Enable">Включить</system:String>
-
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
     <system:String x:Key="EasyMode">Простой режим</system:String>
     <system:String x:Key="ExpertMode">Экспертный режим</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
-
     <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
-
     <system:String x:Key="Favorites">Избранное</system:String>
-    
     <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
-    
     <system:String x:Key="Tools">Инструменты</system:String>
     <system:String x:Key="OrganizeSystemImages">Организовать изображения системы</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Создать пакеты для игр PS3</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Создать пакеты для игр Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Создать пакеты для игр Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Создать пакеты для игр Xbox 360 XBLA</system:String>
-    
     <system:String x:Key="BugReport">Сообщить об ошибке</system:String>
-
     <system:String x:Key="Donate">Пожертвовать</system:String>
-    
     <system:String x:Key="About">О программе</system:String>
-    
     <system:String x:Key="Exit">Выход</system:String>
-    
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SelectEmulator">Выбрать эмулятор</system:String>
     <system:String x:Key="Search">Поиск</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Следующая &gt;</system:String>
     <system:String x:Key="System">Система:</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Редактировать систему - Упрощённый режим</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Что вы хотите сделать?</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="EditExistingSystem">Редактировать существующую систему</system:String>
     <system:String x:Key="DeleteExistingSystem">Удалить существующую систему</system:String>
-
     <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
     <system:String x:Key="Wealsosupport">Мы также поддерживаем системы, которые требуют эти файлы, но для этого вам нужно будет использовать "Режим эксперта" и установить их вручную.</system:String>
     <system:String x:Key="Pleasechooseasystem">Выберите систему для добавления</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1-й шаг</system:String>
     <system:String x:Key="2ndstep">2-й шаг</system:String>
     <system:String x:Key="3rdstep">3-й шаг</system:String>
-    
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="SaveorUpdateSystem">Сохранить или обновить систему</system:String>
     <system:String x:Key="DeleteSelectedSystem">Удалить выбранную систему</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Название эмулятора 5 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator5Location">Расположение эмулятора 5</system:String>
     <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Пожалуйста, выберите пакет изображений</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Выберите папку для извлечения</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Если вы не выберете папку, изображения будут извлечены в папку по умолчанию</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Запустить выбранную игру</system:String>
     <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">Открытая фронтенд-платформа для эмуляторов</system:String>
     <system:String x:Key="CheckForUpdate">Проверить обновления</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
     <system:String x:Key="VideoLinkButton">Кнопка видеоссылки</system:String>
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
-    
     <system:String x:Key="InfoTitle">Информация</system:String>
     <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Общее количество совпадающих изображений:</system:String>
     <system:String x:Key="ApplicationFolder">Папка приложения:</system:String>
     <system:String x:Key="TotalDiskSize">Объем дискового пространства для всех игр:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Выберите систему</system:String>
     <system:String x:Key="nogamesmatched">К сожалению, ни одна игра не соответствует вашему запросу или выбранной кнопке.</system:String>
     <system:String x:Key="Displayingfiles0to">Отображение файлов с 0 до</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">всего</system:String>
     <system:String x:Key="Displayingfiles">Отображение файлов</system:String>
     <system:String x:Key="to">до</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Пожалуйста, выберите систему перед поиском.</system:String>
     <system:String x:Key="SystemNotSelected">Система не выбрана</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Для выбранной системы избранные игры не найдены.</system:String>
     <system:String x:Key="Open">Открыть</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
-    
     <system:String x:Key="SystemFolder">Системная папка</system:String>
     <system:String x:Key="SystemImageFolder">Папка изображений системы</system:String>
     <system:String x:Key="DefaultImageFolder">[Используется папка изображений по умолчанию]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
     <system:String x:Key="EmulatorLocation">Местоположение эмулятора</system:String>
     <system:String x:Key="EmulatorParameters">Параметры эмулятора</system:String>
-    
     <system:String x:Key="LaunchGame">Запустить игру</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
     <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">Файл</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">успешно удалён.</system:String>
     <system:String x:Key="FileDeleted">Файл удалён</system:String>
-    
     <system:String x:Key="Version">Версия:</system:String>
     <system:String x:Key="Unknown">Неизвестно</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Пожалуйста, введите детали ошибки.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="System2">Система</system:String>
     <system:String x:Key="hasbeendeleted">была удалена.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Некоторые антивирусные программы могут блокировать или препятствовать распаковке недавно загруженных файлов, что может вызвать проблемы с доступом во время установки.</system:String>
     <system:String x:Key="Emulatorfor">Эмулятор для</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">уже установлен и обновлен до актуальной версии.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">Приложению не удалось создать необходимые папки для этой системы.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Ошибка была отправлена разработчику, который попытается её исправить.</system:String>
     <system:String x:Key="Error">Ошибка</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Пожалуйста, выберите избранное для удаления.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Пожалуйста, выберите игру для запуска.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Файл игры не существует!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">Этот тип ошибки возникает, когда</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">не имеет прав для запуска внешней программы, такой как эмулятор.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Этот поисковый механизм ищет имена файлов и описания машин в каждой системе, настроенной в интерфейсе эмулятора.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">Пожалуйста, введите поисковый запрос.</system:String>
     <system:String x:Key="Noresultsfound">Результатов не найдено.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">добавлено в избранное.</system:String>

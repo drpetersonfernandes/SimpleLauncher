@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">옵션</system:String>
-
     <system:String x:Key="Language">언어</system:String>
-    
     <system:String x:Key="Theme">테마</system:String>
     <system:String x:Key="BaseTheme">기본 테마</system:String>
     <system:String x:Key="Light">밝음</system:String>
     <system:String x:Key="Dark">어두움</system:String>
-
     <system:String x:Key="AccentColors">포인트 색상</system:String>
     <system:String x:Key="Red">빨강</system:String>
     <system:String x:Key="Green">초록</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">모브</system:String>
     <system:String x:Key="Taupe">토프</system:String>
     <system:String x:Key="Sienna">시에나</system:String>
-
     <system:String x:Key="SetThumbnailSize">썸네일 크기 설정</system:String>
     <system:String x:Key="100pixels">100 픽셀</system:String>
     <system:String x:Key="150pixels">150 픽셀</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 픽셀</system:String>
     <system:String x:Key="550pixels">550 픽셀</system:String>
     <system:String x:Key="600pixels">600 픽셀</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">페이지당 게임 수 설정</system:String>
     <system:String x:Key="100games">100 게임</system:String>
     <system:String x:Key="200games">200 게임</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 게임</system:String>
     <system:String x:Key="500games">500 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>
-
     <system:String x:Key="ViewMode">보기 모드</system:String>
     <system:String x:Key="GridView">그리드 보기</system:String>
     <system:String x:Key="ListView">리스트 보기</system:String>
-
     <system:String x:Key="ShowGames">게임 보기</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">커버 없는 게임만 보기</system:String>
-
     <system:String x:Key="EditLinks">링크 편집</system:String>
-
     <system:String x:Key="GamepadSupport">게임패드 지원</system:String>
     <system:String x:Key="Enable">활성화</system:String>
-   
     <system:String x:Key="EditSystem">시스템 편집</system:String>
     <system:String x:Key="EasyMode">간단 모드</system:String>
     <system:String x:Key="ExpertMode">전문가 모드</system:String>
     <system:String x:Key="DownloadImagePack">이미지 팩 다운로드</system:String>
-
     <system:String x:Key="GlobalSearch">글로벌 검색</system:String>
-
     <system:String x:Key="Favorites">즐겨찾기</system:String>
-    
     <system:String x:Key="GlobalStats">글로벌 통계</system:String>
-    
     <system:String x:Key="Tools">도구</system:String>
     <system:String x:Key="OrganizeSystemImages">시스템 이미지 정리</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 게임용 배치 파일 생성</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3 게임용 배치 파일 생성</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windows 게임용 배치 파일 생성</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA 게임용 배치 파일 생성</system:String>
-    
     <system:String x:Key="BugReport">버그 신고</system:String>
-
     <system:String x:Key="Donate">기부</system:String>
-    
     <system:String x:Key="About">정보</system:String>
-    
     <system:String x:Key="Exit">종료</system:String>
-    
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SelectEmulator">에뮬레이터 선택</system:String>
     <system:String x:Key="Search">검색</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="System">시스템:</system:String>
     <system:String x:Key="Playtime">플레이 시간:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">시스템 편집 - 간편 모드</system:String>
     <system:String x:Key="Whatdoyouwanttodo">무엇을 하시겠습니까?</system:String>
     <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
     <system:String x:Key="EditExistingSystem">기존 시스템 편집</system:String>
     <system:String x:Key="DeleteExistingSystem">기존 시스템 삭제</system:String>
-
     <system:String x:Key="Inthiswindow">이 창에서 BIOS나 시스템 파일이 필요하지 않은 에뮬레이터를 쉽게 다운로드하고 설치할 수 있습니다.</system:String>
     <system:String x:Key="Wealsosupport">이 파일이 필요한 시스템도 지원하지만, 그런 경우 "전문가 모드"를 사용하여 직접 설치해야 합니다.</system:String>
     <system:String x:Key="Pleasechooseasystem">추가할 시스템을 선택하세요</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1단계</system:String>
     <system:String x:Key="2ndstep">2단계</system:String>
     <system:String x:Key="3rdstep">3단계</system:String>
-    
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="SaveorUpdateSystem">시스템 저장 또는 업데이트</system:String>
     <system:String x:Key="DeleteSelectedSystem">선택한 시스템 삭제</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">에뮬레이터 5 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator5Location">에뮬레이터 5 경로</system:String>
     <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">이미지 팩을 선택해 주세요</system:String>
     <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">폴더를 선택하지 않으면 이미지는 기본 폴더에 추출됩니다</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="LaunchSelectedGame">선택한 게임 실행</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
     <system:String x:Key="CheckForUpdate">업데이트 확인</system:String>
     <system:String x:Key="UpdateHistory">업데이트 기록</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
     <system:String x:Key="VideoLinkButton">비디오 링크 버튼</system:String>
     <system:String x:Key="InfoLinkButton">정보 링크 버튼</system:String>
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
-    
     <system:String x:Key="InfoTitle">정보</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">일치하는 이미지 총 수:</system:String>
     <system:String x:Key="ApplicationFolder">애플리케이션 폴더:</system:String>
     <system:String x:Key="TotalDiskSize">모든 게임의 디스크 크기:</system:String>
-    
     <system:String x:Key="NoSystemMessage">시스템을 선택해 주세요</system:String>
     <system:String x:Key="nogamesmatched">안타깝게도 검색 또는 선택한 버튼과 일치하는 게임이 없습니다.</system:String>
     <system:String x:Key="Displayingfiles0to">0에서</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">총</system:String>
     <system:String x:Key="Displayingfiles">파일 표시</system:String>
     <system:String x:Key="to">부터</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">검색하기 전에 시스템을 선택하세요.</system:String>
     <system:String x:Key="SystemNotSelected">시스템이 선택되지 않았습니다</system:String>
     <system:String x:Key="Pleaseenterasearchquery">검색 쿼리를 입력하세요.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">선택한 시스템에서 즐겨찾는 게임을 찾을 수 없습니다.</system:String>
     <system:String x:Key="Open">열기</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
-    
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemImageFolder">시스템 이미지 폴더</system:String>
     <system:String x:Key="DefaultImageFolder">[기본 이미지 폴더를 사용 중]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">에뮬레이터 이름</system:String>
     <system:String x:Key="EmulatorLocation">에뮬레이터 위치</system:String>
     <system:String x:Key="EmulatorParameters">에뮬레이터 매개변수</system:String>
-    
     <system:String x:Key="LaunchGame">게임 시작</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">파일</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">가 성공적으로 삭제되었습니다.</system:String>
     <system:String x:Key="FileDeleted">파일 삭제됨</system:String>
-    
     <system:String x:Key="Version">버전:</system:String>
     <system:String x:Key="Unknown">알 수 없음</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">버그에 대한 세부 정보를 입력해 주세요.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="System2">시스템</system:String>
     <system:String x:Key="hasbeendeleted">이 삭제되었습니다.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">일부 안티바이러스 프로그램은 새로 다운로드된 파일의 압축 해제를 차단하거나 방지하여 설치 중에 액세스 문제가 발생할 수 있습니다.</system:String>
     <system:String x:Key="Emulatorfor">에뮬레이터:</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">이미 설치되어 있으며 최신 상태입니다.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">애플리케이션이 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었으며, 문제를 해결하기 위해 시도될 것입니다.</system:String>
     <system:String x:Key="Error">오류</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">제거할 즐겨찾기를 선택하세요.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">실행할 게임을 선택하세요.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">이 유형의 오류는 다음 경우에 발생합니다:</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">외부 프로그램(예: 에뮬레이터)을 실행할 권한이 없습니다.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 에뮬레이터 프론트엔드에 설정된 각 시스템의 파일 이름과 머신 설명을 검색합니다.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">검색어를 입력하세요.</system:String>
     <system:String x:Key="Noresultsfound">결과를 찾을 수 없습니다.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">가 즐겨찾기에 추가되었습니다.</system:String>

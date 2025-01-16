@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">选项</system:String>
-
     <system:String x:Key="Language">语言</system:String>
-
     <system:String x:Key="Theme">主题</system:String>
     <system:String x:Key="BaseTheme">基础主题</system:String>
     <system:String x:Key="Light">浅色</system:String>
     <system:String x:Key="Dark">深色</system:String>
-
     <system:String x:Key="AccentColors">强调色</system:String>
     <system:String x:Key="Red">红色</system:String>
     <system:String x:Key="Green">绿色</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="Taupe">褐灰色</system:String>
     <system:String x:Key="Sienna">赭石色</system:String>
-
     <system:String x:Key="SetThumbnailSize">设置缩略图大小</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 像素</system:String>
     <system:String x:Key="550pixels">550 像素</system:String>
     <system:String x:Key="600pixels">600 像素</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">设置每页游戏数量</system:String>
     <system:String x:Key="100games">100 个游戏</system:String>
     <system:String x:Key="200games">200 个游戏</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 个游戏</system:String>
     <system:String x:Key="500games">500 个游戏</system:String>
     <system:String x:Key="1000games">1000 个游戏</system:String>
-
     <system:String x:Key="ViewMode">视图模式</system:String>
     <system:String x:Key="GridView">网格视图</system:String>
     <system:String x:Key="ListView">列表视图</system:String>
-
     <system:String x:Key="ShowGames">显示游戏</system:String>
     <system:String x:Key="ShowAllGames">显示所有游戏</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">仅显示有封面的游戏</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">仅显示无封面的游戏</system:String>
-
     <system:String x:Key="EditLinks">编辑链接</system:String>
-
     <system:String x:Key="GamepadSupport">手柄支持</system:String>
     <system:String x:Key="Enable">启用</system:String>
-
     <system:String x:Key="EditSystem">编辑系统</system:String>
     <system:String x:Key="EasyMode">简单模式</system:String>
     <system:String x:Key="ExpertMode">专家模式</system:String>
     <system:String x:Key="DownloadImagePack">下载图像包</system:String>
-
     <system:String x:Key="GlobalSearch">全局搜索</system:String>
-
     <system:String x:Key="Favorites">收藏夹</system:String>
-
     <system:String x:Key="GlobalStats">全局统计</system:String>
-
     <system:String x:Key="Tools">工具</system:String>
     <system:String x:Key="OrganizeSystemImages">整理系统图像</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">为 PS3 游戏创建批处理文件</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">为 Sega Model3 游戏创建批处理文件</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">为 Windows 游戏创建批处理文件</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">为 Xbox 360 XBLA 游戏创建批处理文件</system:String>
-
     <system:String x:Key="BugReport">错误报告</system:String>
-
     <system:String x:Key="Donate">捐赠</system:String>
-
     <system:String x:Key="About">关于</system:String>
-
     <system:String x:Key="Exit">退出</system:String>
-    
     <system:String x:Key="SelectSystem">选择系统</system:String>
     <system:String x:Key="SelectEmulator">选择模拟器</system:String>
     <system:String x:Key="Search">搜索</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">下一页 &gt;</system:String>
     <system:String x:Key="System">系统：</system:String>
     <system:String x:Key="Playtime">游玩时间：</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">编辑系统 - 简易模式</system:String>
     <system:String x:Key="Whatdoyouwanttodo">您想做什么？</system:String>
     <system:String x:Key="AddNewSystem">添加新系统</system:String>
     <system:String x:Key="EditExistingSystem">编辑现有系统</system:String>
     <system:String x:Key="DeleteExistingSystem">删除现有系统</system:String>
-
     <system:String x:Key="Inthiswindow">在此窗口中，您可以轻松下载和安装不需要 BIOS 或系统文件即可运行的模拟器。</system:String>
     <system:String x:Key="Wealsosupport">我们也支持需要这些文件的系统，但您需要使用“专家模式”并手动安装它们。</system:String>
     <system:String x:Key="Pleasechooseasystem">请选择一个系统添加</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">第1步</system:String>
     <system:String x:Key="2ndstep">第2步</system:String>
     <system:String x:Key="3rdstep">第3步</system:String>
-    
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="SaveorUpdateSystem">保存或更新系统</system:String>
     <system:String x:Key="DeleteSelectedSystem">删除所选系统</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">模拟器5名称（可能需要）</system:String>
     <system:String x:Key="Emulator5Location">模拟器5位置</system:String>
     <system:String x:Key="Emulator5Parameters">模拟器5参数</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">请选择一个图像包</system:String>
     <system:String x:Key="SelecttheExtractionFolder">选择解压文件夹</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">如果您未选择文件夹，图像将解压到默认文件夹</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="LaunchSelectedGame">启动选定的游戏</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">一个开源的仿真器前端</system:String>
     <system:String x:Key="CheckForUpdate">检查更新</system:String>
     <system:String x:Key="UpdateHistory">更新历史</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
     <system:String x:Key="VideoLinkButton">视频链接按钮</system:String>
     <system:String x:Key="InfoLinkButton">信息链接按钮</system:String>
     <system:String x:Key="SaveorUpdateLinks">保存或更新链接</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢复为默认值</system:String>
-    
     <system:String x:Key="InfoTitle">信息</system:String>
     <system:String x:Key="Nosystemselected">未选择任何系统</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您是否希望保存包含结果的报告？</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">匹配的图片总数：</system:String>
     <system:String x:Key="ApplicationFolder">应用程序文件夹：</system:String>
     <system:String x:Key="TotalDiskSize">所有游戏的总磁盘大小：</system:String>
-    
     <system:String x:Key="NoSystemMessage">请选择一个系统</system:String>
     <system:String x:Key="nogamesmatched">很遗憾，没有符合您搜索或选择的按钮的游戏。</system:String>
     <system:String x:Key="Displayingfiles0to">显示文件从 0 到</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">总计</system:String>
     <system:String x:Key="Displayingfiles">正在显示文件</system:String>
     <system:String x:Key="to">到</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">请在搜索之前选择一个系统。</system:String>
     <system:String x:Key="SystemNotSelected">未选择系统</system:String>
     <system:String x:Key="Pleaseenterasearchquery">请输入搜索查询。</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">未找到选定系统的收藏游戏。</system:String>
     <system:String x:Key="Open">打开</system:String>
     <system:String x:Key="isminimizedtothetray">已最小化到托盘。</system:String>
-    
     <system:String x:Key="SystemFolder">系统文件夹</system:String>
     <system:String x:Key="SystemImageFolder">系统图片文件夹</system:String>
     <system:String x:Key="DefaultImageFolder">[使用默认图片文件夹]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">模拟器名称</system:String>
     <system:String x:Key="EmulatorLocation">模拟器位置</system:String>
     <system:String x:Key="EmulatorParameters">模拟器参数</system:String>
-    
     <system:String x:Key="LaunchGame">启动游戏</system:String>
     <system:String x:Key="AddToFavorites">添加到收藏夹</system:String>
     <system:String x:Key="RemoveFromFavorites">从收藏夹中移除</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">文件</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">已成功删除。</system:String>
     <system:String x:Key="FileDeleted">文件已删除</system:String>
-    
     <system:String x:Key="Version">版本:</system:String>
     <system:String x:Key="Unknown">未知</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">请输入错误的详细信息。</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="System2">系统</system:String>
     <system:String x:Key="hasbeendeleted">已删除。</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">某些杀毒软件可能会阻止或干扰新下载文件的解压，可能导致安装过程中出现访问问题。</system:String>
     <system:String x:Key="Emulatorfor">模拟器适用于</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">已安装并为最新版本。</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">应用无法为此系统创建所需文件夹。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">错误已报告给开发人员，开发者将努力解决此问题。</system:String>
     <system:String x:Key="Error">错误</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">请选择一个收藏进行删除。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">请选择一个游戏进行启动。</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">游戏文件不存在！</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">当</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">没有权限启动外部程序（如模拟器）时，会发生此类错误。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会查找每个系统中已配置的机器的文件名和描述。</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">请输入搜索词。</system:String>
     <system:String x:Key="Noresultsfound">未找到结果。</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">已添加到收藏夹。</system:String>

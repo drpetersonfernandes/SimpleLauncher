@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Opções</system:String>
-
     <system:String x:Key="Language">Idioma</system:String>
-    
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="BaseTheme">Tema Base</system:String>
     <system:String x:Key="Light">Claro</system:String>
     <system:String x:Key="Dark">Escuro</system:String>
-
     <system:String x:Key="AccentColors">Cores de Acento</system:String>
     <system:String x:Key="Red">Vermelho</system:String>
     <system:String x:Key="Green">Verde</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Taupe">Taupe</system:String>
     <system:String x:Key="Sienna">Siena</system:String>
-
     <system:String x:Key="SetThumbnailSize">Definir Tamanho das Miniaturas</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>
     <system:String x:Key="600pixels">600 pixels</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Definir Número de Jogos por Página</system:String>
     <system:String x:Key="100games">100 jogos</system:String>
     <system:String x:Key="200games">200 jogos</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 jogos</system:String>
     <system:String x:Key="500games">500 jogos</system:String>
     <system:String x:Key="1000games">1000 jogos</system:String>
-
     <system:String x:Key="ViewMode">Modo de Visualização</system:String>
     <system:String x:Key="GridView">Visualização em Grade</system:String>
     <system:String x:Key="ListView">Visualização em Lista</system:String>
-
     <system:String x:Key="ShowGames">Exibir Jogos</system:String>
     <system:String x:Key="ShowAllGames">Exibir Todos os Jogos</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Exibir Apenas Jogos com Capa</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Exibir Apenas Jogos sem Capa</system:String>
-
     <system:String x:Key="EditLinks">Editar Links</system:String>
-
     <system:String x:Key="GamepadSupport">Suporte para gamepad</system:String>
     <system:String x:Key="Enable">Ativar</system:String>
-
     <system:String x:Key="EditSystem">Editar Sistema</system:String>
     <system:String x:Key="EasyMode">Modo Fácil</system:String>
     <system:String x:Key="ExpertMode">Modo Avançado</system:String>
     <system:String x:Key="DownloadImagePack">Baixar Pacote de Imagens</system:String>
-
     <system:String x:Key="GlobalSearch">Pesquisa Global</system:String>
-    
     <system:String x:Key="Favorites">Favoritos</system:String>
-    
     <system:String x:Key="GlobalStats">Estatísticas Globais</system:String>
-    
     <system:String x:Key="Tools">Ferramentas</system:String>
     <system:String x:Key="OrganizeSystemImages">Organizar Imagens do Sistema</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Criar Arquivos em Lote para Jogos PS3</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Criar Arquivos em Lote para Jogos Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Criar Arquivos em Lote para Jogos Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Criar Arquivos em Lote para Jogos Xbox 360 XBLA</system:String>
-    
     <system:String x:Key="BugReport">Relatar Problema</system:String>
-
     <system:String x:Key="Donate">Doar</system:String>
-    
     <system:String x:Key="About">Sobre</system:String>
-    
     <system:String x:Key="Exit">Sair</system:String>
-    
     <system:String x:Key="SelectSystem">Selecionar Sistema</system:String>
     <system:String x:Key="SelectEmulator">Selecionar Emulador</system:String>
     <system:String x:Key="Search">Pesquisar</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Próximo &gt;</system:String>
     <system:String x:Key="System">Sistema:</system:String>
     <system:String x:Key="Playtime">Tempo de Jogo:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Editar Sistema - Modo Fácil</system:String>
     <system:String x:Key="Whatdoyouwanttodo">O que você deseja fazer?</system:String>
     <system:String x:Key="AddNewSystem">Adicionar Novo Sistema</system:String>
     <system:String x:Key="EditExistingSystem">Editar Sistema Existente</system:String>
     <system:String x:Key="DeleteExistingSystem">Excluir Sistema Existente</system:String>
-
     <system:String x:Key="Inthiswindow">Nesta janela, você pode baixar e instalar facilmente emuladores que não necessitam de arquivos BIOS ou de sistema para funcionar.</system:String>
     <system:String x:Key="Wealsosupport">Também damos suporte a sistemas que necessitam desses arquivos, mas, neste caso, você precisará usar o "Modo Avançado" e instalá-los manualmente.</system:String>
     <system:String x:Key="Pleasechooseasystem">Escolha um sistema para adicionar</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1º passo</system:String>
     <system:String x:Key="2ndstep">2º passo</system:String>
     <system:String x:Key="3rdstep">3º passo</system:String>
-    
     <system:String x:Key="Chooseasystem">Escolha um sistema</system:String>
     <system:String x:Key="SaveorUpdateSystem">Salvar ou atualizar o sistema</system:String>
     <system:String x:Key="DeleteSelectedSystem">Excluir o sistema selecionado</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Nome do emulador 5 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator5Location">Localização do emulador 5</system:String>
     <system:String x:Key="Emulator5Parameters">Parâmetros do emulador 5</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Por favor, selecione um pacote de imagens</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Selecione a pasta de extração</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Se você não selecionar uma pasta, as imagens serão extraídas para a pasta padrão</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">Você pode usar os operadores lógicos AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Iniciar o jogo selecionado</system:String>
     <system:String x:Key="PreviewImage">Pré-visualizar imagem</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">Uma interface de frontend de emuladores de código aberto</system:String>
     <system:String x:Key="CheckForUpdate">Verificar atualizações</system:String>
     <system:String x:Key="UpdateHistory">Histórico de atualizações</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">Você pode definir uma URL personalizada para usar no botão de link do vídeo e no botão de link de informações.</system:String>
     <system:String x:Key="VideoLinkButton">Botão de link do vídeo</system:String>
     <system:String x:Key="InfoLinkButton">Botão de link de informações</system:String>
     <system:String x:Key="SaveorUpdateLinks">Salvar ou atualizar links</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restaurar para os valores padrão</system:String>
-    
     <system:String x:Key="InfoTitle">Informação</system:String>
     <system:String x:Key="Nosystemselected">Nenhum sistema selecionado</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Você gostaria de salvar um relatório com os resultados?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Número total de imagens correspondentes:</system:String>
     <system:String x:Key="ApplicationFolder">Pasta do aplicativo:</system:String>
     <system:String x:Key="TotalDiskSize">Tamanho total do disco para todos os jogos:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Selecione um sistema</system:String>
     <system:String x:Key="nogamesmatched">Infelizmente, nenhum jogo corresponde à sua pesquisa ou botão selecionado.</system:String>
     <system:String x:Key="Displayingfiles0to">Exibindo arquivos de 0 a</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">total</system:String>
     <system:String x:Key="Displayingfiles">Exibindo arquivos</system:String>
     <system:String x:Key="to">até</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Por favor, selecione um sistema antes de pesquisar.</system:String>
     <system:String x:Key="SystemNotSelected">Sistema não selecionado</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Por favor, insira uma consulta de pesquisa.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nenhum jogo favorito encontrado para o sistema selecionado.</system:String>
     <system:String x:Key="Open">Abrir</system:String>
     <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
-    
     <system:String x:Key="SystemFolder">Pasta do Sistema</system:String>
     <system:String x:Key="SystemImageFolder">Pasta de Imagens do Sistema</system:String>
     <system:String x:Key="DefaultImageFolder">[Usando a pasta de imagens padrão]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Nome do Emulador</system:String>
     <system:String x:Key="EmulatorLocation">Localização do Emulador</system:String>
     <system:String x:Key="EmulatorParameters">Parâmetros do Emulador</system:String>
-    
     <system:String x:Key="LaunchGame">Iniciar Jogo</system:String>
     <system:String x:Key="AddToFavorites">Adicionar aos Favoritos</system:String>
     <system:String x:Key="RemoveFromFavorites">Remover dos Favoritos</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">O arquivo</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">foi excluído com sucesso.</system:String>
     <system:String x:Key="FileDeleted">Arquivo Excluído</system:String>
-    
     <system:String x:Key="Version">Versão:</system:String>
     <system:String x:Key="Unknown">Desconhecido</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Por favor, insira os detalhes do erro.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Confirmação</system:String>
     <system:String x:Key="System2">Sistema</system:String>
     <system:String x:Key="hasbeendeleted">foi excluído.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Alguns programas antivírus podem bloquear ou impedir a extração de arquivos recém-baixados, causando problemas de acesso durante a instalação.</system:String>
     <system:String x:Key="Emulatorfor">Emulador para</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">já está instalado e atualizado.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">O aplicativo não conseguiu criar as pastas necessárias para este sistema.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">O erro foi relatado ao desenvolvedor, que tentará corrigi-lo.</system:String>
     <system:String x:Key="Error">Erro</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Selecione um favorito para remover.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Selecione um jogo para iniciar.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">O arquivo do jogo não existe!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">Esse tipo de erro acontece quando</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">não tem privilégios para iniciar um programa externo, como o emulador.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Este mecanismo de busca procura nomes de arquivos e descrições de máquinas dentro de cada sistema configurado na interface do emulador.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">Por favor, insira um termo de pesquisa.</system:String>
     <system:String x:Key="Noresultsfound">Nenhum resultado encontrado.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">foi adicionado aos favoritos.</system:String>

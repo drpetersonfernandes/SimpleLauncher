@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Tùy chọn</system:String>
-
     <system:String x:Key="Language">Ngôn ngữ</system:String>
-
     <system:String x:Key="Theme">Giao diện</system:String>
     <system:String x:Key="BaseTheme">Chủ đề cơ bản</system:String>
     <system:String x:Key="Light">Sáng</system:String>
     <system:String x:Key="Dark">Tối</system:String>
-
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
     <system:String x:Key="Red">Đỏ</system:String>
     <system:String x:Key="Green">Xanh lá</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Hồng nhạt</system:String>
     <system:String x:Key="Taupe">Nâu xám</system:String>
     <system:String x:Key="Sienna">Nâu đất</system:String>
-
     <system:String x:Key="SetThumbnailSize">Đặt kích thước hình thu nhỏ</system:String>
     <system:String x:Key="100pixels">100 pixel</system:String>
     <system:String x:Key="150pixels">150 pixel</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 pixel</system:String>
     <system:String x:Key="550pixels">550 pixel</system:String>
     <system:String x:Key="600pixels">600 pixel</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Đặt số trò chơi mỗi trang</system:String>
     <system:String x:Key="100games">100 trò chơi</system:String>
     <system:String x:Key="200games">200 trò chơi</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 trò chơi</system:String>
     <system:String x:Key="500games">500 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
-
     <system:String x:Key="ViewMode">Chế độ xem</system:String>
     <system:String x:Key="GridView">Dạng lưới</system:String>
     <system:String x:Key="ListView">Dạng danh sách</system:String>
-
     <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
     <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Chỉ hiển thị trò chơi không có bìa</system:String>
-
     <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
-
     <system:String x:Key="GamepadSupport">Hỗ trợ gamepad</system:String>
     <system:String x:Key="Enable">Kích hoạt</system:String>
-    
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
     <system:String x:Key="EasyMode">Chế độ dễ</system:String>
     <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
-
     <system:String x:Key="GlobalSearch">Tìm kiếm toàn cầu</system:String>
-
     <system:String x:Key="Favorites">Yêu thích</system:String>
-
     <system:String x:Key="GlobalStats">Thống kê toàn cầu</system:String>
-
     <system:String x:Key="Tools">Công cụ</system:String>
     <system:String x:Key="OrganizeSystemImages">Sắp xếp hình ảnh hệ thống</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Tạo tệp hàng loạt cho trò chơi PS3</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Tạo tệp hàng loạt cho trò chơi Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Tạo tệp hàng loạt cho trò chơi Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Tạo tệp hàng loạt cho trò chơi Xbox 360 XBLA</system:String>
-
     <system:String x:Key="BugReport">Báo cáo lỗi</system:String>
-
     <system:String x:Key="Donate">Quyên góp</system:String>
-
     <system:String x:Key="About">Giới thiệu</system:String>
-
     <system:String x:Key="Exit">Thoát</system:String>
-    
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SelectEmulator">Chọn Trình Giả Lập</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Chỉnh sửa hệ thống - Chế độ dễ</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Bạn muốn làm gì?</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="EditExistingSystem">Chỉnh sửa hệ thống hiện có</system:String>
     <system:String x:Key="DeleteExistingSystem">Xóa hệ thống hiện có</system:String>
-
     <system:String x:Key="Inthiswindow">Trong cửa sổ này, bạn có thể dễ dàng tải xuống và cài đặt các trình giả lập không yêu cầu tệp BIOS hoặc tệp hệ thống để hoạt động.</system:String>
     <system:String x:Key="Wealsosupport">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu các tệp này, nhưng bạn sẽ cần sử dụng "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
     <system:String x:Key="Pleasechooseasystem">Vui lòng chọn một hệ thống để thêm</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">Bước 1</system:String>
     <system:String x:Key="2ndstep">Bước 2</system:String>
     <system:String x:Key="3rdstep">Bước 3</system:String>
-    
     <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
     <system:String x:Key="SaveorUpdateSystem">Lưu hoặc cập nhật hệ thống</system:String>
     <system:String x:Key="DeleteSelectedSystem">Xóa hệ thống đã chọn</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Location">Vị trí của trình giả lập 5</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Vui lòng chọn một gói hình ảnh</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Nếu bạn không chọn thư mục, hình ảnh sẽ được trích xuất vào thư mục mặc định</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">Khởi chạy trò chơi đã chọn</system:String>
     <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">Một giao diện trình giả lập mã nguồn mở</system:String>
     <system:String x:Key="CheckForUpdate">Kiểm tra cập nhật</system:String>
     <system:String x:Key="UpdateHistory">Lịch sử cập nhật</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
     <system:String x:Key="VideoLinkButton">Nút liên kết video</system:String>
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
-    
     <system:String x:Key="InfoTitle">Thông tin</system:String>
     <system:String x:Key="Nosystemselected">Không có hệ thống nào được chọn</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Tổng số hình ảnh khớp:</system:String>
     <system:String x:Key="ApplicationFolder">Thư mục ứng dụng:</system:String>
     <system:String x:Key="TotalDiskSize">Tổng dung lượng đĩa cho tất cả trò chơi:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Vui lòng chọn một hệ thống</system:String>
     <system:String x:Key="nogamesmatched">Rất tiếc, không có trò chơi nào phù hợp với tìm kiếm của bạn hoặc nút đã chọn.</system:String>
     <system:String x:Key="Displayingfiles0to">Hiển thị các tệp từ 0 đến</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">tổng cộng</system:String>
     <system:String x:Key="Displayingfiles">Hiển thị các tệp</system:String>
     <system:String x:Key="to">đến</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Vui lòng chọn hệ thống trước khi tìm kiếm.</system:String>
     <system:String x:Key="SystemNotSelected">Chưa chọn hệ thống</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Vui lòng nhập từ khóa tìm kiếm.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Không tìm thấy trò chơi yêu thích nào cho hệ thống đã chọn.</system:String>
     <system:String x:Key="Open">Mở</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
-    
     <system:String x:Key="SystemFolder">Thư mục Hệ thống</system:String>
     <system:String x:Key="SystemImageFolder">Thư mục Ảnh của Hệ thống</system:String>
     <system:String x:Key="DefaultImageFolder">[Đang sử dụng thư mục ảnh mặc định]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
     <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
     <system:String x:Key="EmulatorParameters">Tham số của Trình giả lập</system:String>
-    
     <system:String x:Key="LaunchGame">Khởi động trò chơi</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
     <system:String x:Key="RemoveFromFavorites">Xóa khỏi mục yêu thích</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">Tệp</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">đã được xóa thành công.</system:String>
     <system:String x:Key="FileDeleted">Tệp đã xóa</system:String>
-    
     <system:String x:Key="Version">Phiên bản:</system:String>
     <system:String x:Key="Unknown">Không xác định</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Vui lòng nhập chi tiết về lỗi.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="System2">Hệ thống</system:String>
     <system:String x:Key="hasbeendeleted">đã bị xóa.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Một số chương trình diệt virus có thể chặn hoặc ngăn việc giải nén các tệp vừa tải xuống, gây ra vấn đề truy cập trong quá trình cài đặt.</system:String>
     <system:String x:Key="Emulatorfor">Trình giả lập cho</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">đã được cài đặt và cập nhật mới nhất.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">Ứng dụng không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển và sẽ được cố gắng khắc phục.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Vui lòng chọn một mục yêu thích để xóa.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Vui lòng chọn một trò chơi để khởi chạy.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Tệp trò chơi không tồn tại!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">Loại lỗi này xảy ra khi</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">không có quyền để khởi chạy một chương trình bên ngoài, chẳng hạn như trình giả lập.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trong mỗi hệ thống được cấu hình trong giao diện trình giả lập.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">Vui lòng nhập một từ khóa tìm kiếm.</system:String>
     <system:String x:Key="Noresultsfound">Không tìm thấy kết quả.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">đã được thêm vào mục yêu thích.</system:String>

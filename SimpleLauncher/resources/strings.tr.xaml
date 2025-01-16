@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Seçenekler</system:String>
-
     <system:String x:Key="Language">Dil</system:String>
-    
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="BaseTheme">Temel Tema</system:String>
     <system:String x:Key="Light">Açık</system:String>
     <system:String x:Key="Dark">Koyu</system:String>
-
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
     <system:String x:Key="Red">Kırmızı</system:String>
     <system:String x:Key="Green">Yeşil</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Eflatun</system:String>
     <system:String x:Key="Taupe">Toprak</system:String>
     <system:String x:Key="Sienna">Kiremit</system:String>
-
     <system:String x:Key="SetThumbnailSize">Küçük Resim Boyutunu Ayarla</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 piksel</system:String>
     <system:String x:Key="550pixels">550 piksel</system:String>
     <system:String x:Key="600pixels">600 piksel</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Sayfa Başına Oyun Sayısını Ayarla</system:String>
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="200games">200 oyun</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 oyun</system:String>
     <system:String x:Key="500games">500 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
-
     <system:String x:Key="ViewMode">Görünüm Modu</system:String>
     <system:String x:Key="GridView">Izgara Görünümü</system:String>
     <system:String x:Key="ListView">Liste Görünümü</system:String>
-
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Yalnızca Kapaksız Oyunları Göster</system:String>
-
     <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
-
     <system:String x:Key="GamepadSupport">Gamepad desteği</system:String>
     <system:String x:Key="Enable">Etkinleştir</system:String>
-
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
     <system:String x:Key="ExpertMode">Uzman Mod</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
-
     <system:String x:Key="GlobalSearch">Genel Arama</system:String>
-
     <system:String x:Key="Favorites">Favoriler</system:String>
-    
     <system:String x:Key="GlobalStats">Genel İstatistikler</system:String>
-    
     <system:String x:Key="Tools">Araçlar</system:String>
     <system:String x:Key="OrganizeSystemImages">Sistem Görsellerini Düzenle</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windows Oyunları İçin Toplu Dosyalar Oluştur</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA Oyunları İçin Toplu Dosyalar Oluştur</system:String>
-    
     <system:String x:Key="BugReport">Hata Bildir</system:String>
-
     <system:String x:Key="Donate">Bağış Yap</system:String>
-    
     <system:String x:Key="About">Hakkında</system:String>
-    
     <system:String x:Key="Exit">Çıkış</system:String>
-    
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SelectEmulator">Emülatör Seç</system:String>
     <system:String x:Key="Search">Ara</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Sistemi Düzenle - Kolay Mod</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Ne yapmak istiyorsunuz?</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="EditExistingSystem">Mevcut Sistemi Düzenle</system:String>
     <system:String x:Key="DeleteExistingSystem">Mevcut Sistemi Sil</system:String>
-
     <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
     <system:String x:Key="Wealsosupport">Bu tür dosyaları gerektiren sistemleri de destekliyoruz, ancak bu durumda "Uzman Modu"nu kullanarak manuel olarak yüklemeniz gerekiyor.</system:String>
     <system:String x:Key="Pleasechooseasystem">Eklemek istediğiniz sistemi seçin</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1. Adım</system:String>
     <system:String x:Key="2ndstep">2. Adım</system:String>
     <system:String x:Key="3rdstep">3. Adım</system:String>
-    
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="SaveorUpdateSystem">Sistemi kaydet veya güncelle</system:String>
     <system:String x:Key="DeleteSelectedSystem">Seçilen sistemi sil</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Emülatör 5 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator5Location">Emülatör 5 konumu</system:String>
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Lütfen bir görüntü paketi seçin</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Bir klasör seçmezseniz, görüntüler varsayılan klasöre çıkarılacaktır</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="LaunchSelectedGame">Seçilen Oyunu Başlat</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">Açık kaynaklı bir emülatör ön yüzü</system:String>
     <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
     <system:String x:Key="VideoLinkButton">Video Bağlantı Düğmesi</system:String>
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
-    
     <system:String x:Key="InfoTitle">Bilgi</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Eşleşen toplam görsel sayısı:</system:String>
     <system:String x:Key="ApplicationFolder">Uygulama klasörü:</system:String>
     <system:String x:Key="TotalDiskSize">Tüm oyunların toplam disk boyutu:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Lütfen bir sistem seçin</system:String>
     <system:String x:Key="nogamesmatched">Maalesef, aramanız veya seçtiğiniz buton ile eşleşen bir oyun bulunamadı.</system:String>
     <system:String x:Key="Displayingfiles0to">0'dan itibaren dosyalar görüntüleniyor:</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">adet</system:String>
     <system:String x:Key="Displayingfiles">Dosyalar görüntüleniyor</system:String>
     <system:String x:Key="to">sonuna kadar</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Lütfen arama yapmadan önce bir sistem seçin.</system:String>
     <system:String x:Key="SystemNotSelected">Sistem seçilmedi</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Seçilen sistem için favori oyun bulunamadı.</system:String>
     <system:String x:Key="Open">Aç</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
-    
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemImageFolder">Sistem Görselleri Klasörü</system:String>
     <system:String x:Key="DefaultImageFolder">[Varsayılan görsel klasörü kullanılıyor]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
     <system:String x:Key="EmulatorLocation">Emülatör Konumu</system:String>
     <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
-    
     <system:String x:Key="LaunchGame">Oyunu Başlat</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">Dosya</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">başarıyla silindi.</system:String>
     <system:String x:Key="FileDeleted">Dosya Silindi</system:String>
-    
     <system:String x:Key="Version">Sürüm:</system:String>
     <system:String x:Key="Unknown">Bilinmiyor</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Lütfen hatanın detaylarını girin.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="System2">Sistem</system:String>
     <system:String x:Key="hasbeendeleted">silindi.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Bazı antivirüs programları, yeni indirilen dosyaların çıkarılmasını engelleyebilir veya durdurabilir ve yükleme sırasında erişim sorunlarına neden olabilir.</system:String>
     <system:String x:Key="Emulatorfor">Emülatör için</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">zaten yüklü ve güncel.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">Uygulama, bu sistem için gerekli klasörleri oluşturamadı.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve çözüm için çalışılacaktır.</system:String>
     <system:String x:Key="Error">Hata</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Lütfen kaldırılacak bir favori seçin.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Lütfen başlatılacak bir oyun seçin.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">Bu tür bir hata şu durumlarda meydana gelir:</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">harici bir programı (ör. emülatör) başlatmak için yetkili değil.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">Lütfen bir arama terimi girin.</system:String>
     <system:String x:Key="Noresultsfound">Sonuç bulunamadı.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">favorilere eklendi.</system:String>

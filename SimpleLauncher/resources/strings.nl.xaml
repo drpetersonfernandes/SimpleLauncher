@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">Opties</system:String>
-
     <system:String x:Key="Language">Taal</system:String>
-    
     <system:String x:Key="Theme">Thema</system:String>
     <system:String x:Key="BaseTheme">Basisthema</system:String>
     <system:String x:Key="Light">Licht</system:String>
     <system:String x:Key="Dark">Donker</system:String>
-
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
     <system:String x:Key="Red">Rood</system:String>
     <system:String x:Key="Green">Groen</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Taupe">Taupe</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
-
     <system:String x:Key="SetThumbnailSize">Miniatuurformaat instellen</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">500 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>
     <system:String x:Key="600pixels">600 pixels</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">Aantal spellen per pagina instellen</system:String>
     <system:String x:Key="100games">100 spellen</system:String>
     <system:String x:Key="200games">200 spellen</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">400 spellen</system:String>
     <system:String x:Key="500games">500 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
-
     <system:String x:Key="ViewMode">Weergavemodus</system:String>
     <system:String x:Key="GridView">Rasterweergave</system:String>
     <system:String x:Key="ListView">Lijstweergave</system:String>
-
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
-
     <system:String x:Key="EditLinks">Links bewerken</system:String>
-
     <system:String x:Key="GamepadSupport">Gamepad-ondersteuning</system:String>
     <system:String x:Key="Enable">Inschakelen</system:String>
-    
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
     <system:String x:Key="ExpertMode">Expertmodus</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
-
     <system:String x:Key="GlobalSearch">Globaal zoeken</system:String>
-
     <system:String x:Key="Favorites">Favorieten</system:String>
-    
     <system:String x:Key="GlobalStats">Globale statistieken</system:String>
-    
     <system:String x:Key="Tools">Hulpmiddelen</system:String>
     <system:String x:Key="OrganizeSystemImages">Systeemafbeeldingen organiseren</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Batchbestanden maken voor PS3-spellen</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Batchbestanden maken voor Sega Model3-spellen</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Batchbestanden maken voor Windows-spellen</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Batchbestanden maken voor Xbox 360 XBLA-spellen</system:String>
-    
     <system:String x:Key="BugReport">Bugrapport</system:String>
-
     <system:String x:Key="Donate">Doneren</system:String>
-    
     <system:String x:Key="About">Over</system:String>
-    
     <system:String x:Key="Exit">Afsluiten</system:String>
-    
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SelectEmulator">Selecteer Emulator</system:String>
     <system:String x:Key="Search">Zoeken</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">Systeem bewerken - Gemakkelijke modus</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Wat wilt u doen?</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="EditExistingSystem">Bestaand systeem bewerken</system:String>
     <system:String x:Key="DeleteExistingSystem">Bestaand systeem verwijderen</system:String>
-
     <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
     <system:String x:Key="Wealsosupport">We ondersteunen ook systemen die deze bestanden wel nodig hebben, maar daarvoor moet je de "Expertmodus" gebruiken en deze handmatig installeren.</system:String>
     <system:String x:Key="Pleasechooseasystem">Kies een systeem om toe te voegen</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">1e stap</system:String>
     <system:String x:Key="2ndstep">2e stap</system:String>
     <system:String x:Key="3rdstep">3e stap</system:String>
-    
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="SaveorUpdateSystem">Systeem opslaan of bijwerken</system:String>
     <system:String x:Key="DeleteSelectedSystem">Geselecteerd systeem verwijderen</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">Naam van emulator 5 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator5Location">Locatie van emulator 5</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">Selecteer een afbeeldingspakket</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Selecteer de extractiemap</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">Als u geen map kiest, worden de afbeeldingen in de standaardmap geëxtraheerd</system:String>
-    
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="LaunchSelectedGame">Geselecteerd spel starten</system:String>
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
     <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="VideoLinkButton">Videokoppelingsknop</system:String>
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
-    
     <system:String x:Key="InfoTitle">Informatie</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">Totaal aantal overeenkomende afbeeldingen:</system:String>
     <system:String x:Key="ApplicationFolder">Applicatiemap:</system:String>
     <system:String x:Key="TotalDiskSize">Schijfgrootte van alle games:</system:String>
-    
     <system:String x:Key="NoSystemMessage">Selecteer een systeem</system:String>
     <system:String x:Key="nogamesmatched">Helaas, er zijn geen spellen die overeenkomen met uw zoekopdracht of geselecteerde knop.</system:String>
     <system:String x:Key="Displayingfiles0to">Bestanden weergeven van 0 tot</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">totaal</system:String>
     <system:String x:Key="Displayingfiles">Bestanden weergeven</system:String>
     <system:String x:Key="to">tot</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">Selecteer alstublieft een systeem voordat u zoekt.</system:String>
     <system:String x:Key="SystemNotSelected">Systeem niet geselecteerd</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
     <system:String x:Key="Open">Openen</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
-    
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemImageFolder">Systeemafbeeldingenmap</system:String>
     <system:String x:Key="DefaultImageFolder">[Standaard afbeeldingenmap wordt gebruikt]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">Naam van de emulator</system:String>
     <system:String x:Key="EmulatorLocation">Locatie van de emulator</system:String>
     <system:String x:Key="EmulatorParameters">Parameters van de emulator</system:String>
-    
     <system:String x:Key="LaunchGame">Spel starten</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">Het bestand</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">is succesvol verwijderd.</system:String>
     <system:String x:Key="FileDeleted">Bestand verwijderd</system:String>
-    
     <system:String x:Key="Version">Versie:</system:String>
     <system:String x:Key="Unknown">Onbekend</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">Voer de details van de fout in.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="System2">Systeem</system:String>
     <system:String x:Key="hasbeendeleted">is verwijderd.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">Sommige antivirusprogramma's kunnen deextractie van nieuw gedownloade bestanden blokkeren of voorkomen, wat problemen kan veroorzaken bij de toegang tijdens de installatie.</system:String>
     <system:String x:Key="Emulatorfor">Emulator voor</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">is al geïnstalleerd en up-to-date.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">De applicatie kon de noodzakelijke mappen voor dit systeem niet aanmaken.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is gemeld aan de ontwikkelaar, die zal proberen het probleem op te lossen.</system:String>
     <system:String x:Key="Error">Fout</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">Selecteer een favoriet om te verwijderen.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Selecteer een spel om te starten.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Het spelbestand bestaat niet!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">Dit type fout treedt op wanneer</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">geen rechten heeft om een extern programma, zoals de emulator, te starten.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Deze zoekmachine zoekt naar bestandsnamen en beschrijvingen van machines binnen elk systeem dat is geconfigureerd in de emulatorinterface.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">Voer een zoekterm in.</system:String>
     <system:String x:Key="Noresultsfound">Geen resultaten gevonden.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">is toegevoegd aan favorieten.</system:String>

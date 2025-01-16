@@ -3,14 +3,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="Options">الخيارات</system:String>
-
     <system:String x:Key="Language">اللغة</system:String>
-
     <system:String x:Key="Theme">السمة</system:String>
     <system:String x:Key="BaseTheme">السمة الأساسية</system:String>
     <system:String x:Key="Light">فاتح</system:String>
     <system:String x:Key="Dark">داكن</system:String>
-
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
     <system:String x:Key="Red">أحمر</system:String>
     <system:String x:Key="Green">أخضر</system:String>
@@ -35,7 +32,6 @@
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Taupe">رمادي بني</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
-
     <system:String x:Key="SetThumbnailSize">تعيين حجم الصور المصغرة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
@@ -48,7 +44,6 @@
     <system:String x:Key="500pixels">٥٠٠ بكسل</system:String>
     <system:String x:Key="550pixels">٥٥٠ بكسل</system:String>
     <system:String x:Key="600pixels">٦٠٠ بكسل</system:String>
-
     <system:String x:Key="SetNumberOfGamesPerPage">تعيين عدد الألعاب لكل صفحة</system:String>
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="200games">٢٠٠ لعبة</system:String>
@@ -56,32 +51,23 @@
     <system:String x:Key="400games">٤٠٠ لعبة</system:String>
     <system:String x:Key="500games">٥٠٠ لعبة</system:String>
     <system:String x:Key="1000games">١٠٠٠ لعبة</system:String>
-
     <system:String x:Key="ViewMode">وضع العرض</system:String>
     <system:String x:Key="GridView">عرض شبكي</system:String>
     <system:String x:Key="ListView">عرض قائمة</system:String>
-
     <system:String x:Key="ShowGames">عرض الألعاب</system:String>
     <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
-
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
-
     <system:String x:Key="GamepadSupport">دعم وحدة التحكم</system:String>
     <system:String x:Key="Enable">تفعيل</system:String>
-
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
     <system:String x:Key="ExpertMode">الوضع المتقدم</system:String>
     <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
-
     <system:String x:Key="GlobalSearch">بحث شامل</system:String>
-
     <system:String x:Key="Favorites">المفضلة</system:String>
-
     <system:String x:Key="GlobalStats">الإحصائيات العامة</system:String>
-
     <system:String x:Key="Tools">الأدوات</system:String>
     <system:String x:Key="OrganizeSystemImages">تنظيم صور النظام</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">إنشاء ملفات دفعة لألعاب PS3</system:String>
@@ -89,15 +75,10 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">إنشاء ملفات دفعة لألعاب Sega Model 3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">إنشاء ملفات دفعة لألعاب Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">إنشاء ملفات دفعة لألعاب Xbox 360 XBLA</system:String>
-
     <system:String x:Key="BugReport">تقرير الأخطاء</system:String>
-
     <system:String x:Key="Donate">تبرع</system:String>
-
     <system:String x:Key="About">حول</system:String>
-
     <system:String x:Key="Exit">خروج</system:String>
-    
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
     <system:String x:Key="SelectEmulator">اختر المحاكي</system:String>
     <system:String x:Key="Search">بحث</system:String>
@@ -105,13 +86,11 @@
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
-    
     <system:String x:Key="EditSystemEasyMode">تحرير النظام - الوضع السهل</system:String>
     <system:String x:Key="Whatdoyouwanttodo">ماذا تريد أن تفعل؟</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="EditExistingSystem">تحرير النظام الحالي</system:String>
     <system:String x:Key="DeleteExistingSystem">حذف النظام الحالي</system:String>
-
     <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
     <system:String x:Key="Wealsosupport">نحن ندعم أيضًا الأنظمة التي تتطلب هذه الملفات، ولكن بالنسبة لهذه الأنظمة، ستحتاج إلى استخدام "الوضع الخبير" وتثبيتها بنفسك.</system:String>
     <system:String x:Key="Pleasechooseasystem">يرجى اختيار نظام لإضافته</system:String>
@@ -129,7 +108,6 @@
     <system:String x:Key="1ststep">الخطوة الأولى</system:String>
     <system:String x:Key="2ndstep">الخطوة الثانية</system:String>
     <system:String x:Key="3rdstep">الخطوة الثالثة</system:String>
-    
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="SaveorUpdateSystem">حفظ أو تحديث النظام</system:String>
     <system:String x:Key="DeleteSelectedSystem">حذف النظام المحدد</system:String>
@@ -164,11 +142,9 @@
     <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator5Location">موقع المحاكي 5</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
-    
     <system:String x:Key="PleaseselectanImagePack">يرجى اختيار حزمة الصور</system:String>
     <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
     <system:String x:Key="Ifyoudonotchooseafolder">إذا لم تختر مجلدًا، فسيتم استخراج الصور إلى المجلد الافتراضي</system:String>
-
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="LaunchSelectedGame">تشغيل اللعبة المحددة</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
@@ -184,13 +160,11 @@
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
     <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
-    
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="VideoLinkButton">زر رابط الفيديو</system:String>
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
-    
     <system:String x:Key="InfoTitle">معلومات</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
@@ -200,7 +174,6 @@
     <system:String x:Key="TotalImages">إجمالي عدد الصور المتطابقة:</system:String>
     <system:String x:Key="ApplicationFolder">مجلد التطبيق:</system:String>
     <system:String x:Key="TotalDiskSize">حجم القرص لجميع الألعاب:</system:String>
-    
     <system:String x:Key="NoSystemMessage">يرجى اختيار نظام</system:String>
     <system:String x:Key="nogamesmatched">للأسف، لم تطابق أي ألعاب استعلام البحث الخاص بك أو الزر المحدد.</system:String>
     <system:String x:Key="Displayingfiles0to">عرض الملفات من 0 إلى</system:String>
@@ -208,7 +181,6 @@
     <system:String x:Key="total">إجمالي</system:String>
     <system:String x:Key="Displayingfiles">عرض الملفات</system:String>
     <system:String x:Key="to">إلى</system:String>
-    
     <system:String x:Key="Pleaseselectasystembeforesearching">يرجى اختيار نظام قبل البحث.</system:String>
     <system:String x:Key="SystemNotSelected">لم يتم اختيار النظام</system:String>
     <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
@@ -216,7 +188,6 @@
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
     <system:String x:Key="Open">فتح</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
-    
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemImageFolder">مجلد الصور للنظام</system:String>
     <system:String x:Key="DefaultImageFolder">[استخدام مجلد الصور الافتراضي]</system:String>
@@ -229,7 +200,6 @@
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
-    
     <system:String x:Key="LaunchGame">تشغيل اللعبة</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
@@ -283,7 +253,6 @@
     <system:String x:Key="Thefile">الملف</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">تم حذفه بنجاح.</system:String>
     <system:String x:Key="FileDeleted">تم حذف الملف</system:String>
-    
     <system:String x:Key="Version">الإصدار:</system:String>
     <system:String x:Key="Unknown">غير معروف</system:String>
     <system:String x:Key="Pleaseenterthedetailsofthebug">يرجى إدخال تفاصيل المشكلة.</system:String>
@@ -327,7 +296,6 @@
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="System2">النظام</system:String>
     <system:String x:Key="hasbeendeleted">تم حذفه.</system:String>
-    
     <system:String x:Key="Someantivirusprogramsmaylock">قد تمنع بعض برامج مكافحة الفيروسات استخراج الملفات التي تم تنزيلها حديثًا، مما يسبب مشاكل في الوصول أثناء التثبيت.</system:String>
     <system:String x:Key="Emulatorfor">محاكي لـ</system:String>
     <system:String x:Key="isalreadyinstalledanduptodate">تم تثبيته بالفعل وهو محدث.</system:String>
@@ -353,7 +321,6 @@
     <system:String x:Key="Theapplicationfailedtocreate">فشل التطبيق في إنشاء المجلدات اللازمة لهذا النظام.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ إلى المطور لمحاولة إصلاحه.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
-    
     <system:String x:Key="Pleaseselectafavoritetoremove">يرجى اختيار مفضلة للإزالة.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">يرجى اختيار لعبة للتشغيل.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
@@ -391,7 +358,6 @@
     <system:String x:Key="Thistypeoferrorhappenswhen">يحدث هذا النوع من الأخطاء عندما</system:String>
     <system:String x:Key="doesnothavetheprivilegestolaunch">لا يملك الامتيازات اللازمة لتشغيل برنامج خارجي، مثل المحاكي.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الآلات داخل كل نظام تم تكوينه في واجهة المحاكي.</system:String>
-    
     <system:String x:Key="Pleaseenterasearchterm">يرجى إدخال مصطلح البحث.</system:String>
     <system:String x:Key="Noresultsfound">لم يتم العثور على نتائج.</system:String>
     <system:String x:Key="hasbeenaddedtofavorites">تمت إضافته إلى المفضلة.</system:String>
