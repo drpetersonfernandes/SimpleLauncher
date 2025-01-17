@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForSegaMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XblaGames\CreateBatchFilesForXbox360XBLAGames.csproj", "{187F175F-76AB-4A5E-B80C-7D79E6AA0EA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToCHD", "BatchConvertToCHD\BatchConvertToCHD.csproj", "{C268169A-757C-4498-B776-0AD9A02D007B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{187F175F-76AB-4A5E-B80C-7D79E6AA0EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{187F175F-76AB-4A5E-B80C-7D79E6AA0EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{187F175F-76AB-4A5E-B80C-7D79E6AA0EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C268169A-757C-4498-B776-0AD9A02D007B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C268169A-757C-4498-B776-0AD9A02D007B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C268169A-757C-4498-B776-0AD9A02D007B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C268169A-757C-4498-B776-0AD9A02D007B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
