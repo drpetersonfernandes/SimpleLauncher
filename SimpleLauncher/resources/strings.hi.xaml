@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">क्या आप इसे ओवरराइट करना चाहते हैं?</system:String>
     <system:String x:Key="SystemAlreadyExists">सिस्टम पहले से ही मौजूद है</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' अपेक्षित पथ में नहीं मिला।</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">कृपया 'Simple Launcher' को मैन्युअली पुनः इंस्टॉल करें।</system:String>
+    <system:String x:Key="PleaseReinstall">कृपया पुनः इंस्टॉल करें</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">उपयोगकर्ता द्वारा 'FindRomCover.exe' का लॉन्च रद्द कर दिया गया।</system:String>
+    <system:String x:Key="OperationCanceled">ऑपरेशन रद्द कर दिया गया</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' को लॉन्च करने की कोशिश करते समय एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">हो सकता है कि आपके कंप्यूटर ने 'FindRomCover.exe' फ़ाइल को चलाने के लिए 'Simple Launcher' को आवश्यक अनुमति न दी हो। कृपया सुनिश्चित करें कि 'Simple Launcher' के पास आवश्यक प्रशासनिक अधिकार हैं।</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">इसके अलावा, लॉन्च को आपके एंटीवायरस सॉफ़्टवेयर द्वारा ब्लॉक किया जा सकता है। यदि ऐसा है, तो कृपया 'FindRomCover.exe' को चलाने की अनुमति देने के लिए अपने एंटीवायरस सेटिंग्स को कॉन्फ़िगर करें।</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">क्या आप समस्या की जांच करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Thefileerroruserlog">'error_user.log' फ़ाइल नहीं मिली!</system:String>
+    
 </ResourceDictionary>

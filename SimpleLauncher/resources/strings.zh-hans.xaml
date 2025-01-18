@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">您想覆盖它吗？</system:String>
     <system:String x:Key="SystemAlreadyExists">系统已存在</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">您是否想重新安装 'Simple Launcher' 来解决此问题？</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">请手动重新安装 'Simple Launcher'。</system:String>
+    <system:String x:Key="PleaseReinstall">请重新安装</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' 的启动已被用户取消。</system:String>
+    <system:String x:Key="OperationCanceled">操作已取消</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">尝试启动 'FindRomCover.exe' 时发生错误。</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">您的计算机可能未授予 'Simple Launcher' 执行 'FindRomCover.exe' 文件所需的权限。请确保 'Simple Launcher' 具有必要的管理员权限。</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">或者，启动可能已被您的杀毒软件阻止。在这种情况下，请配置您的杀毒软件以允许启动 'FindRomCover.exe'。</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想打开 'error_user.log' 文件来调查此问题？</system:String>
+    <system:String x:Key="Thefileerroruserlog">'error_user.log' 文件未找到！</system:String>
+    
 </ResourceDictionary>

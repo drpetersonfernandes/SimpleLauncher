@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">Üzerine yazmak istiyor musunuz?</system:String>
     <system:String x:Key="SystemAlreadyExists">Sistem zaten mevcut</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">Bu sorunu çözmek için 'Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'ı lütfen manuel olarak yeniden yükleyin.</system:String>
+    <system:String x:Key="PleaseReinstall">Lütfen yeniden yükleyin</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' başlatma işlemi kullanıcı tarafından iptal edildi.</system:String>
+    <system:String x:Key="OperationCanceled">İşlem iptal edildi</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' başlatılırken bir hata meydana geldi.</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">Bilgisayarınız, 'Simple Launcher'ın 'FindRomCover.exe' dosyasını çalıştırması için gereken izinleri vermemiş olabilir. 'Simple Launcher'ın gerekli yönetici izinlerine sahip olduğundan emin olun.</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatif olarak, başlatma işlemi antivirüs yazılımınız tarafından engellenmiş olabilir. Bu durumda, antivirüs yazılımınızı 'FindRomCover.exe'nin çalışmasına izin verecek şekilde yapılandırın.</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
+    <system:String x:Key="Thefileerroruserlog">'error_user.log' dosyası bulunamadı!</system:String>
+    
 </ResourceDictionary>

@@ -406,5 +406,17 @@
     <system:String x:Key="alreadyexists">আগেই বিদ্যমান।</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">আপনি কি এটি ওভাররাইট করতে চান?</system:String>
     <system:String x:Key="SystemAlreadyExists">সিস্টেমটি ইতিমধ্যেই বিদ্যমান</system:String>
+    
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">'Simple Launcher' পুনরায় ইনস্টল করতে চান কি এটি ঠিক করতে?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">দয়া করে 'Simple Launcher' ম্যানুয়ালি পুনরায় ইনস্টল করুন।</system:String>
+    <system:String x:Key="PleaseReinstall">দয়া করে পুনরায় ইনস্টল করুন</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">ব্যবহারকারীর দ্বারা 'FindRomCover.exe' চালু করা বাতিল করা হয়েছে।</system:String>
+    <system:String x:Key="OperationCanceled">অপারেশন বাতিল করা হয়েছে</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' চালু করার চেষ্টা করার সময়ে একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">আপনার কম্পিউটার হয়তো 'Simple Launcher'-কে 'FindRomCover.exe' ফাইলটি চালানোর জন্য প্রয়োজনীয় অনুমতি প্রদান করেনি। নিশ্চিত করুন যে 'Simple Launcher'-এর প্রয়োজনীয় প্রশাসনিক অনুমতিগুলি রয়েছে।</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">অন্যদিকে, এটি হয়তো আপনার অ্যান্টিভাইরাস সফটওয়্যার দ্বারা ব্লক করা হয়েছে। যদি তাই হয়, তবে আপনার অ্যান্টিভাইরাস সেটিংস কনফিগার করুন যাতে 'FindRomCover.exe' চালানো যায়।</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>
+    <system:String x:Key="Thefileerroruserlog">'error_user.log' ফাইল পাওয়া যায়নি!</system:String>
 
 </ResourceDictionary>

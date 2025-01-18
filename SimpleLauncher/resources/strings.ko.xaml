@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">덮어쓰시겠습니까?</system:String>
     <system:String x:Key="SystemAlreadyExists">시스템이 이미 존재합니다</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">문제를 해결하기 위해 'Simple Launcher'를 다시 설치하시겠습니까?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'를 수동으로 다시 설치해 주세요.</system:String>
+    <system:String x:Key="PleaseReinstall">다시 설치해 주세요</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe'의 실행이 사용자에 의해 취소되었습니다.</system:String>
+    <system:String x:Key="OperationCanceled">작업이 취소되었습니다</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe'를 실행하려는 도중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">컴퓨터가 'Simple Launcher'가 'FindRomCover.exe' 파일을 실행할 수 있도록 필요한 권한을 부여하지 않았을 수 있습니다. 'Simple Launcher'에 필요한 관리 권한이 있는지 확인해 주세요.</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">또는 실행이 백신 소프트웨어에 의해 차단되었을 수 있습니다. 이 경우, 백신 설정에서 'FindRomCover.exe'의 실행을 허용하도록 설정해 주세요.</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
+    <system:String x:Key="Thefileerroruserlog">'error_user.log' 파일을 찾을 수 없습니다!</system:String>
+    
 </ResourceDictionary>

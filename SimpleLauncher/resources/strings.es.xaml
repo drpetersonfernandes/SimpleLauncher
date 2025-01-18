@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">¿Quieres sobrescribirlo?</system:String>
     <system:String x:Key="SystemAlreadyExists">El sistema ya existe</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' no se encontró en la ruta esperada.</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">¿Desea reinstalar 'Simple Launcher' para solucionar el problema?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Por favor, reinstale 'Simple Launcher' manualmente.</system:String>
+    <system:String x:Key="PleaseReinstall">Por favor, reinstale</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">El lanzamiento de 'FindRomCover.exe' fue cancelado por el usuario.</system:String>
+    <system:String x:Key="OperationCanceled">Operación cancelada</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Ocurrió un error al intentar iniciar 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">Es posible que su equipo no haya otorgado los permisos necesarios para que 'Simple Launcher' ejecute el archivo 'FindRomCover.exe'. Asegúrese de que 'Simple Launcher' tenga los privilegios administrativos necesarios.</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternativamente, el lanzamiento puede haber sido bloqueado por su software antivirus. Si es así, configure su antivirus para permitir la ejecución de 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">¿Le gustaría abrir el archivo 'error_user.log' para investigar el problema?</system:String>
+    <system:String x:Key="Thefileerroruserlog">¡El archivo 'error_user.log' no se encontró!</system:String>
+    
 </ResourceDictionary>

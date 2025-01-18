@@ -407,4 +407,16 @@
     <system:String x:Key="Doyouwanttooverwriteit">Bạn có muốn ghi đè không?</system:String>
     <system:String x:Key="SystemAlreadyExists">Hệ thống đã tồn tại</system:String>
     
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục vấn đề này không?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công.</system:String>
+    <system:String x:Key="PleaseReinstall">Vui lòng cài đặt lại</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Việc khởi chạy 'FindRomCover.exe' đã bị người dùng hủy.</system:String>
+    <system:String x:Key="OperationCanceled">Tác vụ đã bị hủy</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Đã xảy ra lỗi khi cố khởi chạy 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">Máy tính của bạn có thể không cấp quyền cần thiết cho 'Simple Launcher' để thực thi tệp 'FindRomCover.exe'. Hãy đảm bảo rằng 'Simple Launcher' có đủ quyền quản trị cần thiết.</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Ngoài ra, việc khởi chạy có thể đã bị phần mềm chống virus của bạn chặn. Nếu vậy, vui lòng cấu hình phần mềm chống virus của bạn để cho phép thực thi tệp 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
+    <system:String x:Key="Thefileerroruserlog">Tệp 'error_user.log' không được tìm thấy!</system:String>
+    
 </ResourceDictionary>

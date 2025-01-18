@@ -406,5 +406,17 @@
     <system:String x:Key="alreadyexists">sudah ada.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Apakah Anda ingin menimpanya?</system:String>
     <system:String x:Key="SystemAlreadyExists">Sistem sudah ada</system:String>
+    
+    <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
+    <system:String x:Key="Doyouwanttoreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Silakan instal ulang 'Simple Launcher' secara manual.</system:String>
+    <system:String x:Key="PleaseReinstall">Silakan instal ulang</system:String>
+    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Peluncuran 'FindRomCover.exe' dibatalkan oleh pengguna.</system:String>
+    <system:String x:Key="OperationCanceled">Operasi dibatalkan</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Terjadi kesalahan saat mencoba meluncurkan 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Yourcomputermaynothavegranted">Komputer Anda mungkin tidak memberikan izin yang diperlukan agar 'Simple Launcher' dapat menjalankan file 'FindRomCover.exe'. Pastikan 'Simple Launcher' memiliki hak administratif yang diperlukan.</system:String>
+    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Atau, peluncuran mungkin telah diblokir oleh perangkat lunak antivirus Anda. Jika demikian, konfigurasikan pengaturan antivirus Anda untuk mengizinkan peluncuran 'FindRomCover.exe'.</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
+    <system:String x:Key="Thefileerroruserlog">File 'error_user.log' tidak ditemukan!</system:String>
 
 </ResourceDictionary>

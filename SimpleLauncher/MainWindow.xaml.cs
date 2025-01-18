@@ -83,6 +83,8 @@ public partial class MainWindow : INotifyPropertyChanged
     // Selected Image folder and Rom folder
     private string _selectedImageFolder;
     private string _selectedRomFolder;
+    
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
         
     public MainWindow()
     {
@@ -1094,32 +1096,23 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'FindRomCover.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                string formattedException = "The file 'FindRomCover.exe' is missing.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                FindRomCoverMissingMessageBox();
             }
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
-            MessageBox.Show("The operation was canceled by the user.",
-                "Operation Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
-            
             string formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            FindRomCoverLaunchWasCanceledByUserMessageBox();
         }
         catch (Exception ex)
         {
@@ -1129,17 +1122,70 @@ public partial class MainWindow : INotifyPropertyChanged
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            string anerroroccurredwhilelaunching2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunching") ?? "An error occurred while launching";
-            string thistypeoferrorisusuallyrelated2 = (string)Application.Current.TryFindResource("Thistypeoferrorisusuallyrelated") ?? "This type of error is usually related to low permission settings for";
-            string tryrunningitwithadministrative2 = (string)Application.Current.TryFindResource("Tryrunningitwithadministrative") ?? "Try running it with administrative permissions.";
-            string ifyouwanttodebugtheerror2 = (string)Application.Current.TryFindResource("Ifyouwanttodebugtheerror") ?? "If you want to debug the error yourself, check the file";
-            string insidethe2 = (string)Application.Current.TryFindResource("insidethe") ?? "inside the";
-            string folder2 = (string)Application.Current.TryFindResource("folder") ?? "folder.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{anerroroccurredwhilelaunching2} 'FindRomCover.exe'.\n\n" +
-                            $"{thistypeoferrorisusuallyrelated2} 'Simple Launcher'. {tryrunningitwithadministrative2}\n\n" +
-                            $"{ifyouwanttodebugtheerror2} 'error_user.log' {insidethe2} 'Simple Launcher' {folder2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            FindRomCoverLaunchWasBlockedMessageBox();
+        }
+
+        void FindRomCoverMissingMessageBox()
+        {
+            string findRomCoverexewasnotfound = (string)Application.Current.TryFindResource("FindRomCoverexewasnotfound") ?? "'FindRomCover.exe' was not found in the expected path.";
+            string doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+            string fileNotFound = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
+            MessageBoxResult reinstall = MessageBox.Show(
+                $"{findRomCoverexewasnotfound}\n\n" +
+                $"{doyouwanttoreinstall}",
+                fileNotFound, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (reinstall == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                string pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually.";
+                string pleaseReinstall = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
+                MessageBox.Show(pleasereinstallSimpleLaunchermanually,
+                    pleaseReinstall, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        void FindRomCoverLaunchWasCanceledByUserMessageBox()
+        {
+            string thelaunchofFindRomCoverexewascanceled = (string)Application.Current.TryFindResource("ThelaunchofFindRomCoverexewascanceled") ?? "The launch of 'FindRomCover.exe' was canceled by the user.";
+            string operationCanceled = (string)Application.Current.TryFindResource("OperationCanceled") ?? "Operation Canceled";
+            MessageBox.Show(thelaunchofFindRomCoverexewascanceled,
+                operationCanceled, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        void FindRomCoverLaunchWasBlockedMessageBox()
+        {
+            string anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
+            string yourcomputermaynothavegranted = (string)Application.Current.TryFindResource("Yourcomputermaynothavegranted") ?? "Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.";
+            string alternativelythelaunchmayhavebeenblockedby = (string)Application.Current.TryFindResource("Alternativelythelaunchmayhavebeenblockedby") ?? "Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.";
+            string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
+            string error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show(
+                $"{anerroroccurredwhiletryingtolaunch}\n\n" +
+                $"{yourcomputermaynothavegranted}\n\n" +
+                $"{alternativelythelaunchmayhavebeenblockedby}\n\n" +
+                $"{wouldyouliketoopentheerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    string thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlog,
+                        error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 
@@ -1432,7 +1478,6 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
-                // Retrieve the dynamic resource string
                 string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
