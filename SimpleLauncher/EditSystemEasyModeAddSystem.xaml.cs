@@ -434,7 +434,8 @@ public partial class EditSystemEasyModeAddSystem
                         }
                         else // Extraction failed
                         {
-                            string formattedException = $"Image Pack extraction failed.";
+                            string formattedException = $"Image Pack extraction failed.\n\n" +
+                                                        $"File: {extrasDownloadUrl}";
                             Exception ex = new Exception(formattedException);
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -448,7 +449,8 @@ public partial class EditSystemEasyModeAddSystem
                     }
                     else // Download Failed
                     {
-                        string formattedException = "Image Pack download failed.";
+                        string formattedException = $"Image Pack download failed.\n\n" +
+                                                    $"File: {extrasDownloadUrl}";
                         Exception ex = new Exception(formattedException);
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -566,7 +568,8 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             MessageBox.Show("There was a network error either with your internet access or the server.\n\n" +
-                            "Please try again later.", "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            "Please try again later.",
+                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (IOException ex)
         {
@@ -576,11 +579,7 @@ public partial class EditSystemEasyModeAddSystem
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            MessageBox.Show("A file read/write error occurred after the file was downloaded.\n\n" +
-                            "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.\n\n" +
-                            "Additionally, grant 'Simple Launcher' administrative access to enable file writing.\n\n" +
-                            "Make sure the 'Simple Launcher' folder is located in a writable directory.",
-                "Read/Write Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            IoExceptionMessageBox();
         }
         catch (TaskCanceledException ex)
         {
@@ -588,7 +587,7 @@ public partial class EditSystemEasyModeAddSystem
             {
                 DeleteDownloadedFile();
                 
-                string formattedException = $"Download was canceled by the user.\n\n" +
+                string formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
                                             $"URL: {downloadUrl}\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
@@ -621,6 +620,33 @@ public partial class EditSystemEasyModeAddSystem
                 catch (Exception)
                 {
                     // ignore
+                }
+            }
+        }
+
+        void IoExceptionMessageBox()
+        {
+            var result = MessageBox.Show("A file read/write error occurred after the file was downloaded.\n\n" +
+                                         "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.\n\n" +
+                                         "Additionally, grant 'Simple Launcher' administrative access to enable file writing.\n\n" +
+                                         "Make sure the 'Simple Launcher' folder is located in a writable directory.\n\n" +
+                                         "Would you like to open the 'temp' folder to view the downloaded file?",
+                "Read/Write Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = _tempFolder,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("'Simple Launcher' was unable to open the 'temp' folder due to access issues.\n\n" +
+                                    $"{_tempFolder}",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
