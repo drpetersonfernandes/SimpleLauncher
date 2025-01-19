@@ -1,0 +1,8 @@
+﻿namespace BatchConvertTo7z;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App
+{
+}
