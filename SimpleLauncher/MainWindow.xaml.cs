@@ -1235,6 +1235,147 @@ public partial class MainWindow : INotifyPropertyChanged
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+    
+    private void BatchConvertToCHD_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            string createBatchConvertToChdPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
+
+            if (File.Exists(createBatchConvertToChdPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = createBatchConvertToChdPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'BatchConvertToCHD.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+                
+            MessageBox.Show("An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void BatchConvertTo7z_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            string batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertTo7z", "BatchConvertTo7z.exe");
+
+            if (File.Exists(batchConvertTo7ZPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = batchConvertTo7ZPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'BatchConvertTo7z.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+                
+            MessageBox.Show("An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void BatchConvertToZip_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            string batchConvertToZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToZip", "BatchConvertToZip.exe");
+
+            if (File.Exists(batchConvertToZipPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = batchConvertToZipPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBoxResult reinstall = MessageBox.Show(
+                    "'BatchConvertToZip.exe' was not found in the expected path.\n\n" +
+                    "Do you want to reinstall 'Simple Launcher' to fix it?",
+                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (reinstall == MessageBoxResult.Yes)
+                {
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            string formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+                
+            MessageBox.Show("An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
+                            "The error was reported to the developer that will try to fix the issue.\n\n" +
+                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 
     private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
     {

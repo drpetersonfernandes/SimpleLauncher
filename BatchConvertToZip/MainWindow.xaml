@@ -3,6 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Batch Convert to Zip" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
         <!-- Log Viewer -->
         <TextBox Name="LogViewer"
                  IsReadOnly="True"
@@ -11,14 +16,16 @@
                  Margin="10"
                  TextWrapping="Wrap"
                  FontFamily="Consolas"
-                 FontSize="12"/>
+                 FontSize="12"
+                 Grid.Row="0"/>
 
         <!-- Progress Bar -->
         <ProgressBar Name="ProgressBar"
                      Height="20"
-                     Margin="10"
+                     Margin="10,0,10,10"
                      VerticalAlignment="Bottom"
-                     Visibility="Collapsed"/>
+                     Visibility="Collapsed"
+                     Grid.Row="1"/>
 
         <!-- Cancel Button -->
         <Button Name="CancelButton"
@@ -27,9 +34,10 @@
                 Height="30"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="10"
+                Margin="10,0,10,10"
                 Visibility="Collapsed"
-                Click="CancelButton_Click"/>
+                Click="CancelButton_Click"
+                Grid.Row="1"/>
 
         <!-- Start Button -->
         <Button Name="StartButton"
@@ -38,7 +46,8 @@
                 Height="30"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Margin="10"
-                Click="StartButton_Click"/>
+                Margin="10,0,10,10"
+                Click="StartButton_Click"
+                Grid.Row="1"/>
     </Grid>
 </Window>

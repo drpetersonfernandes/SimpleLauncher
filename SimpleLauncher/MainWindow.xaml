@@ -268,9 +268,22 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource Tools}">
-                <MenuItem Click="OrganizeSystemImages_Click" Header="{DynamicResource OrganizeSystemImages}">
+                <MenuItem Click="BatchConvertToCHD_Click"
+                          Header="{DynamicResource BatchConvertToCHD}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="BatchConvertTo7z_Click"
+                          Header="{DynamicResource BatchConvertTo7z}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="BatchConvertToZip_Click"
+                          Header="{DynamicResource BatchConvertToZip}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"
@@ -301,6 +314,11 @@
                           Header="{DynamicResource CreateBatchFilesForXbox360XBLAGames}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="OrganizeSystemImages_Click" Header="{DynamicResource OrganizeSystemImages}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

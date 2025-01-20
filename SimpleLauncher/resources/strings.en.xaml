@@ -418,5 +418,16 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
     <system:String x:Key="Thefileerroruserlog">The file 'error_user.log' was not found!</system:String>
+    
+    <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Batch Convert To Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Batch Convert To 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Invalid filePath.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Please select a system before launching the game.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Please select an emulator before launching the game.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">There was an error launching the shortcut file.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruser">Do you want to open the file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">The file 'error_user.log' was not found!</system:String>
 
 </ResourceDictionary>

@@ -18,42 +18,48 @@ public static class GameLauncher
     {
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
         {
-            MessageBox.Show("Invalid filePath.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            
-            string contextMessage = "Invalid filePath.\n\n" +
-                                    "Method: HandleButtonClick";
+            string errorMessage = "Invalid filePath.\n\n" +
+                                  "Method: HandleButtonClick";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            string invalidfilePath2 = (string)Application.Current.TryFindResource("InvalidfilePath") ?? "Invalid filePath.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(invalidfilePath2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
 
             return;
         }
         
         if (systemComboBox.SelectedItem == null)
         {
-            MessageBox.Show("Please select a system before launching the game.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            
-            string contextMessage = "Invalid system.\n\n" +
-                                    "Method: HandleButtonClick";
+            string errorMessage = "Invalid system.\n\n" +
+                                  "Method: HandleButtonClick";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            string pleaseselectasystembefore2 = (string)Application.Current.TryFindResource("Pleaseselectasystembefore") ?? "Please select a system before launching the game.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(pleaseselectasystembefore2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Warning);
             
             return;
         }
 
         if (emulatorComboBox.SelectedItem == null)
         {
-            MessageBox.Show("Please select an emulator before launching the game.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            
-            string contextMessage = "Invalid emulator.\n\n" +
-                                    "Method: HandleButtonClick";
+            string errorMessage = "Invalid emulator.\n\n" +
+                                  "Method: HandleButtonClick";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            string pleaseselectanemulatorbefore2 = (string)Application.Current.TryFindResource("Pleaseselectanemulatorbefore") ?? "Please select an emulator before launching the game.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(pleaseselectanemulatorbefore2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Warning);
             
             return;
         }
@@ -264,10 +270,19 @@ public static class GameLauncher
 
         void CouldNotLaunchShortcut()
         {
-            var result = MessageBox.Show("There was an error launching the shortcut file.\n\n" +
-                                         "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.\n\n" +
-                                         "Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            CouldNotLaunchShortcutMessageBox();
+        }
+
+        void CouldNotLaunchShortcutMessageBox()
+        {
+            string therewasanerrorlaunchingtheshortcutfile2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheshortcutfile") ?? "There was an error launching the shortcut file.";
+            string trytoruntheshortcutfileoutside2 = (string)Application.Current.TryFindResource("Trytoruntheshortcutfileoutside") ?? "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.";
+            string doyouwanttoopenthefileerroruser2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruser") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{therewasanerrorlaunchingtheshortcutfile2}\n\n" +
+                                         $"{trytoruntheshortcutfileoutside2}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruser2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -281,8 +296,9 @@ public static class GameLauncher
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string thefileerroruserlogwasnot2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnot") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlogwasnot2,
+                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
