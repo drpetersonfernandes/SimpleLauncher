@@ -427,11 +427,9 @@
     <system:String x:Key="Pleaseselectanemulatorbefore">Please select an emulator before launching the game.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">There was an error launching the shortcut file.</system:String>
     <system:String x:Key="Trytoruntheshortcutfileoutside">Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.</system:String>
-    <system:String x:Key="Doyouwanttoopenthefileerroruser">Do you want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Thefileerroruserlogwasnot">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheexecutable">There was an error launching the executable file.</system:String>
     <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Try to run the executable file outside 'Simple Launcher' to see if it is working properly.</system:String>
-    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Do you want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Invalidgamepath">Invalid game path:</system:String>
     <system:String x:Key="Cannotlaunchthegame">Cannot launch the game.</system:String>
@@ -443,18 +441,14 @@
     <system:String x:Key="PleasegotoEditSystem">Please go to Edit System - Expert Mode and edit this system.</system:String>
     <system:String x:Key="InvalidFile">Invalid File</system:String>
     <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">To launch 'Xbox 360 XBLA' games the compressed file need to be extracted first.</system:String>
-    <system:String x:Key="Pleaseeditthissystemtofixthat">Please edit this system to fix that.</system:String>
     <system:String x:Key="Invalidworkingdirectory">Invalid working directory. Please check the file.</system:String>
     <system:String x:Key="ThereisnoExtension">There is no 'Extension to Launch After Extraction' set in the system configuration.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Please edit this system to fix that.</system:String>
     <system:String x:Key="Novalidgamefilefoundwith">No valid game file found with the specified extension:</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
-    <system:String x:Key="Pleaseeditthissystemtofix">Please edit this system to fix that.</system:String>
     <system:String x:Key="Thefileerroruserlogwas">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">There was an error launching this game.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
-    <system:String x:Key="Doyouwanttoopenthefileerror">Do you want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Thefileerroruser">The file 'error_user.log' was not found!</system:String>
-
 
 </ResourceDictionary>

@@ -253,7 +253,7 @@ public static class GameLauncher
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                         
-                CouldNotLaunchShortcut();
+                CouldNotLaunchShortcutMessageBox();
             }
         }
         catch (Exception ex)
@@ -265,19 +265,15 @@ public static class GameLauncher
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
                         
-            CouldNotLaunchShortcut();
-        }
-
-        void CouldNotLaunchShortcut()
-        {
             CouldNotLaunchShortcutMessageBox();
         }
+
 
         void CouldNotLaunchShortcutMessageBox()
         {
             string therewasanerrorlaunchingtheshortcutfile2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheshortcutfile") ?? "There was an error launching the shortcut file.";
             string trytoruntheshortcutfileoutside2 = (string)Application.Current.TryFindResource("Trytoruntheshortcutfileoutside") ?? "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.";
-            string doyouwanttoopenthefileerroruser2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruser") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string doyouwanttoopenthefileerroruser2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{therewasanerrorlaunchingtheshortcutfile2}\n\n" +
                                          $"{trytoruntheshortcutfileoutside2}\n\n" +
@@ -351,7 +347,7 @@ public static class GameLauncher
         {
             string therewasanerrorlaunchingtheexecutable2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheexecutable") ?? "There was an error launching the executable file.";
             string trytoruntheexecutablefileoutsideSimpleLauncher2 = (string)Application.Current.TryFindResource("TrytoruntheexecutablefileoutsideSimpleLauncher") ?? "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.";
-            string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{therewasanerrorlaunchingtheexecutable2}\n\n" +
                                          $"{trytoruntheexecutablefileoutsideSimpleLauncher2}\n\n" +
@@ -773,7 +769,7 @@ public static class GameLauncher
         else
         {
             string tolaunchXbox360XblAgamesthecompressed2 = (string)Application.Current.TryFindResource("TolaunchXbox360XBLAgamesthecompressed") ?? "To launch 'Xbox 360 XBLA' games the compressed file need to be extracted first.";
-            string pleaseeditthissystemtofixthat2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemtofixthat") ?? "Please edit this system to fix that.";
+            string pleaseeditthissystemtofixthat2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{tolaunchXbox360XblAgamesthecompressed2}\n\n" +
                             pleaseeditthissystemtofixthat2,
@@ -898,19 +894,35 @@ public static class GameLauncher
                 
             EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox();
         }
-    }
 
-    private static void CannotExtractThisFileMessageBox(string filePath)
-    {
-        string theselectedfile2 = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
-        string cannotbeextracted2 = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
-        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-        string pleasegotoEditSystem2 = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
-        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
-        MessageBox.Show($"{theselectedfile2} '{filePath}' {cannotbeextracted2}\n\n" +
-                        $"{toextractafileitneedstobe2}\n\n" +
-                        $"{pleasegotoEditSystem2}", 
-            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        void EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox()
+        {
+            string theemulatorcouldnotopenthegame2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
+            string doyouwanttoopenthefileerror2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show(
+                $"{theemulatorcouldnotopenthegame2}\n\n" +
+                $"{doyouwanttoopenthefileerror2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = LogPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    string thefileerroruser2 = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruser2,
+                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 
     private static async Task LaunchMattelAquariusGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
@@ -1165,7 +1177,7 @@ public static class GameLauncher
                 await LogErrors.LogErrorAsync(exception, errorMessage);
 
                 string couldnotfindafilewiththeextensiondefined2 = (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-                string pleaseeditthissystemtofix2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemtofix") ?? "Please edit this system to fix that.";
+                string pleaseeditthissystemtofix2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{couldnotfindafilewiththeextensiondefined2}\n\n" +
                                 $"{pleaseeditthissystemtofix2}",
@@ -1175,20 +1187,6 @@ public static class GameLauncher
             }
             return null;
         }
-    }
-    
-    private static Task<string> FindXblaGamePath(string rootFolderPath)
-    {
-        var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
-        foreach (var directory in directories)
-        {
-            var files = Directory.GetFiles(directory);
-            if (files.Length > 0)
-            {
-                return Task.FromResult(files[0]); // Return the first file found
-            }
-        }
-        return Task.FromResult(string.Empty);
     }
     
     private static void CouldNotLaunchGameMessageBox()
@@ -1282,10 +1280,9 @@ public static class GameLauncher
     
     private static void CouldNotLaunchEmulatorMessageBox()
     {
-        
         string therewasanerrorlaunchingthisgame2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
         string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-        string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame2}\n\n" +
                                      $"{theerrorwasreportedtothedeveloper2}\n\n" +
@@ -1344,36 +1341,6 @@ public static class GameLauncher
     //     }
     // }
     
-    private static void EmulatorCouldNotOpenWithProvidedParametersSimpleMessageBox()
-    {
-        
-        string theemulatorcouldnotopenthegame2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
-        string doyouwanttoopenthefileerror2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerror") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show(
-            $"{theemulatorcouldnotopenthegame2}\n\n" +
-            $"{doyouwanttoopenthefileerror2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                string thefileerroruser2 = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruser2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-    
     private static async Task InvalidGamePathErrorWithMessageBox(string gamePathToLaunch)
     {
         string invalidgamepath2 = (string)Application.Current.TryFindResource("Invalidgamepath") ?? "Invalid game path:";
@@ -1399,6 +1366,33 @@ public static class GameLauncher
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show(extractionfailedCouldnotfindthetemporary2, 
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    private static void CannotExtractThisFileMessageBox(string filePath)
+    {
+        string theselectedfile2 = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
+        string cannotbeextracted2 = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
+        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        string pleasegotoEditSystem2 = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
+        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
+        MessageBox.Show($"{theselectedfile2} '{filePath}' {cannotbeextracted2}\n\n" +
+                        $"{toextractafileitneedstobe2}\n\n" +
+                        $"{pleasegotoEditSystem2}", 
+            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    private static Task<string> FindXblaGamePath(string rootFolderPath)
+    {
+        var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
+        foreach (var directory in directories)
+        {
+            var files = Directory.GetFiles(directory);
+            if (files.Length > 0)
+            {
+                return Task.FromResult(files[0]); // Return the first file found
+            }
+        }
+        return Task.FromResult(string.Empty);
     }
     
 }
