@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">تم إرسال تقرير المشكلة بنجاح.</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
     <system:String x:Key="Someantivirusprograms">قد تمنع بعض برامج مكافحة الفيروسات استخراج الملفات التي تم تنزيلها حديثًا، مما يتسبب في مشاكل أثناء التثبيت.</system:String>
-    <system:String x:Key="Ifyouencountererrors">إذا واجهت أخطاء، حاول تعطيل الحماية في الوقت الحقيقي مؤقتًا ثم قم بالتشغيل</system:String>
-    <system:String x:Key="withadministrativeprivileges">بصلاحيات المسؤول.</system:String>
     <system:String x:Key="Myfirstattempttodownload">فشلت محاولتي الأولى لتنزيل واستخراج الملف.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">سأحاول مرة أخرى باستخدام التنزيل والاستخراج في الذاكرة.</system:String>
     <system:String x:Key="ExtractionError">خطأ أثناء الاستخراج</system:String>

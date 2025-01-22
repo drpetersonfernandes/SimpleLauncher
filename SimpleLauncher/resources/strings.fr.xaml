@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Rapport de bug envoyé avec succès.</system:String>
     <system:String x:Key="Success">Succès</system:String>
     <system:String x:Key="Someantivirusprograms">Certains programmes antivirus peuvent bloquer ou empêcher l'extraction des fichiers récemment téléchargés, provoquant des problèmes d'accès pendant l'installation.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Si vous rencontrez des erreurs, essayez de désactiver temporairement la protection en temps réel, puis exécutez</system:String>
-    <system:String x:Key="withadministrativeprivileges">avec des privilèges administratifs.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Ma première tentative de téléchargement et d'extraction du fichier a échoué.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Je vais réessayer en utilisant le téléchargement et l'extraction en mémoire.</system:String>
     <system:String x:Key="ExtractionError">Erreur d'extraction</system:String>

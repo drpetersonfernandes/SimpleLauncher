@@ -39,10 +39,10 @@ public partial class EditSystemEasyModeAddSystem
         Closed += EditSystemEasyModeAddSystem_Closed;
 
         string someantivirusprogramsmaylock2 = (string)Application.Current.TryFindResource("Someantivirusprogramsmaylock") ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.";
-        string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run";
-        string withadministrativeprivileges2 = (string)Application.Current.TryFindResource("withadministrativeprivileges") ?? "with administrative privileges.";
+        string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.";
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{someantivirusprogramsmaylock2}\n\n{ifyouencountererrors2} 'Simple Launcher' {withadministrativeprivileges2}",
+        MessageBox.Show($"{someantivirusprogramsmaylock2}\n\n" +
+                        $"{ifyouencountererrors2}",
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 

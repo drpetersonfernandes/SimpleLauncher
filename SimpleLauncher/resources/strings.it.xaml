@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Segnalazione del problema inviata con successo.</system:String>
     <system:String x:Key="Success">Successo</system:String>
     <system:String x:Key="Someantivirusprograms">Alcuni programmi antivirus potrebbero bloccare o impedire l'estrazione dei file appena scaricati, causando problemi durante l'installazione.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Se riscontri errori, prova a disabilitare temporaneamente la protezione in tempo reale e avvia</system:String>
-    <system:String x:Key="withadministrativeprivileges">con privilegi amministrativi.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Il mio primo tentativo di scaricare ed estrarre il file non è riuscito.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Proverò di nuovo utilizzando il download e l'estrazione in memoria.</system:String>
     <system:String x:Key="ExtractionError">Errore di estrazione</system:String>

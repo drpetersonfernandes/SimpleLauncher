@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">错误报告已成功发送。</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="Someantivirusprograms">某些杀毒程序可能会阻止或干扰最近下载的文件的解压，导致安装过程中出现访问问题。</system:String>
-    <system:String x:Key="Ifyouencountererrors">如果遇到错误，请尝试暂时禁用实时保护，并</system:String>
-    <system:String x:Key="withadministrativeprivileges">以管理员权限运行。</system:String>
     <system:String x:Key="Myfirstattempttodownload">我第一次尝试下载并解压文件失败了。</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">我会尝试使用内存中下载和解压方式。</system:String>
     <system:String x:Key="ExtractionError">解压错误</system:String>

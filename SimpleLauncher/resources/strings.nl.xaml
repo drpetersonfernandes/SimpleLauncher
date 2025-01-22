@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Foutrapport succesvol verzonden.</system:String>
     <system:String x:Key="Success">Succes</system:String>
     <system:String x:Key="Someantivirusprograms">Sommige antivirusprogramma's kunnen het extraheren van recent gedownloade bestanden blokkeren of verhinderen, wat kan leiden tot toegankelijkheidsproblemen tijdens de installatie.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Als u fouten tegenkomt, probeer dan tijdelijk realtime beveiliging uit te schakelen en voer uit</system:String>
-    <system:String x:Key="withadministrativeprivileges">met beheerdersrechten.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Mijn eerste poging om het bestand te downloaden en te extraheren is mislukt.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Ik zal opnieuw proberen door in-memory downloaden en extractie te gebruiken.</system:String>
     <system:String x:Key="ExtractionError">Extractiefout</system:String>

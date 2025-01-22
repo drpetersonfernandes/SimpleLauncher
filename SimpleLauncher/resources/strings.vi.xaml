@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Báo cáo lỗi đã được gửi thành công.</system:String>
     <system:String x:Key="Success">Thành công</system:String>
     <system:String x:Key="Someantivirusprograms">Một số chương trình diệt virus có thể chặn hoặc gây trở ngại cho việc giải nén các tập tin vừa tải về, điều này có thể gây ra vấn đề trong việc cài đặt.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Nếu bạn gặp lỗi, hãy thử tạm thời tắt bảo vệ thời gian thực và</system:String>
-    <system:String x:Key="withadministrativeprivileges">chạy với quyền quản trị viên.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Lần đầu tiên thử tải về và giải nén tập tin đã thất bại.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Tôi sẽ thử lại bằng cách sử dụng tải về và giải nén trong bộ nhớ.</system:String>
     <system:String x:Key="ExtractionError">Lỗi Giải Nén</system:String>

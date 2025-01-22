@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">त्रुटि रिपोर्ट सफलतापूर्वक भेज दी गई।</system:String>
     <system:String x:Key="Success">सफलता</system:String>
     <system:String x:Key="Someantivirusprograms">कुछ एंटीवायरस प्रोग्राम नए डाउनलोड किए गए फ़ाइलों को निकालने से रोक सकते हैं, जिससे स्थापना के दौरान एक्सेस समस्याएँ हो सकती हैं।</system:String>
-    <system:String x:Key="Ifyouencountererrors">यदि आपको त्रुटियाँ मिलें, तो अस्थायी रूप से रियल-टाइम सुरक्षा को अक्षम करने का प्रयास करें और इसे</system:String>
-    <system:String x:Key="withadministrativeprivileges">प्रशासनिक विशेषाधिकारों के साथ चलाएँ।</system:String>
     <system:String x:Key="Myfirstattempttodownload">फ़ाइल को डाउनलोड और निकालने का मेरा पहला प्रयास विफल रहा।</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">मैं इन-मेमोरी डाउनलोड और निष्कर्षण का उपयोग कर फिर से प्रयास करूँगा।</system:String>
     <system:String x:Key="ExtractionError">निष्कर्षण त्रुटि</system:String>

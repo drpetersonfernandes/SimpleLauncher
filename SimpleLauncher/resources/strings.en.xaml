@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Bug report sent successfully.</system:String>
     <system:String x:Key="Success">Success</system:String>
     <system:String x:Key="Someantivirusprograms">Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.</system:String>
-    <system:String x:Key="Ifyouencountererrors">If you encounter errors, try temporarily disabling real-time protection and run</system:String>
-    <system:String x:Key="withadministrativeprivileges">with administrative privileges.</system:String>
     <system:String x:Key="Myfirstattempttodownload">My first attempt to download and extract the file failed.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">I will try again using in memory download and extraction.</system:String>
     <system:String x:Key="ExtractionError">Extraction Error</system:String>
@@ -450,5 +448,6 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">There was an error launching this game.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
     <system:String x:Key="Thefileerroruser">The file 'error_user.log' was not found!</system:String>
+    <system:String x:Key="Ifyouencountererrors">If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.</system:String>
 
 </ResourceDictionary>

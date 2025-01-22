@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Laporan bug berhasil dikirim.</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
     <system:String x:Key="Someantivirusprograms">Beberapa program antivirus mungkin mengunci atau mencegah ekstraksi file yang baru diunduh, menyebabkan masalah akses selama instalasi.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Jika Anda mengalami kesalahan, coba nonaktifkan perlindungan waktu nyata sementara dan jalankan</system:String>
-    <system:String x:Key="withadministrativeprivileges">dengan hak administratif.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Upaya pertama saya untuk mengunduh dan mengekstrak file gagal.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Saya akan mencoba lagi menggunakan unduhan dan ekstraksi dalam memori.</system:String>
     <system:String x:Key="ExtractionError">Kesalahan Ekstraksi</system:String>

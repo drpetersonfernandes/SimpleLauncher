@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">バグレポートが正常に送信されました。</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="Someantivirusprograms">一部のウイルス対策ソフトは、ダウンロードしたばかりのファイルの抽出をブロックまたは妨害することがあり、インストール中にアクセスの問題が発生する場合があります。</system:String>
-    <system:String x:Key="Ifyouencountererrors">エラーが発生した場合は、リアルタイム保護を一時的に無効にし、</system:String>
-    <system:String x:Key="withadministrativeprivileges">管理者権限で実行してください。</system:String>
     <system:String x:Key="Myfirstattempttodownload">ファイルをダウンロードして抽出する最初の試みが失敗しました。</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">メモリ内でのダウンロードと抽出を使用して再試行します。</system:String>
     <system:String x:Key="ExtractionError">抽出エラー</system:String>

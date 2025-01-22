@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Relatório de erro enviado com sucesso.</system:String>
     <system:String x:Key="Success">Sucesso</system:String>
     <system:String x:Key="Someantivirusprograms">Alguns programas antivírus podem bloquear ou impedir a extração de arquivos recém-baixados, o que pode causar problemas de acesso durante a instalação.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Se você encontrar erros, tente desativar temporariamente a proteção em tempo real e executar</system:String>
-    <system:String x:Key="withadministrativeprivileges">com privilégios de administrador.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Minha primeira tentativa de baixar e extrair o arquivo falhou.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Vou tentar novamente usando o download e extração em memória.</system:String>
     <system:String x:Key="ExtractionError">Erro na extração</system:String>

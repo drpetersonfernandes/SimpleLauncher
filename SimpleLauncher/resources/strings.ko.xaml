@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">버그 보고가 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="Success">성공</system:String>
     <system:String x:Key="Someantivirusprograms">일부 바이러스 백신 프로그램이 새로 다운로드된 파일의 추출을 차단하여 설치 중 접근 문제를 야기할 수 있습니다.</system:String>
-    <system:String x:Key="Ifyouencountererrors">오류가 발생하면, 실시간 보호를 일시적으로 비활성화하고</system:String>
-    <system:String x:Key="withadministrativeprivileges">관리자 권한으로 실행해 보세요.</system:String>
     <system:String x:Key="Myfirstattempttodownload">파일 다운로드 및 추출을 시도한 첫 번째 시도가 실패했습니다.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">메모리 내 다운로드 및 추출을 사용하여 다시 시도하겠습니다.</system:String>
     <system:String x:Key="ExtractionError">추출 오류</system:String>

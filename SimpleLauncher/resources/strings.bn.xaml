@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">বাগ রিপোর্ট সফলভাবে পাঠানো হয়েছে।</system:String>
     <system:String x:Key="Success">সফল</system:String>
     <system:String x:Key="Someantivirusprograms">কিছু অ্যান্টিভাইরাস প্রোগ্রাম নতুনভাবে ডাউনলোডকৃত ফাইলের নির্যাস (extraction) বা অ্যাকসেস বাধাগ্রস্ত করতে পারে, যা ইনস্টলেশনের সময় সমস্যা সৃষ্টি করে।</system:String>
-    <system:String x:Key="Ifyouencountererrors">যদি আপনি সমস্যার সম্মুখীন হন, রিয়েল-টাইম প্রোটেকশন অস্থায়ীভাবে নিষ্ক্রিয় করুন এবং</system:String>
-    <system:String x:Key="withadministrativeprivileges">অ্যাডমিনিস্ট্রেটিভ অধিকারের সাথে চালান।</system:String>
     <system:String x:Key="Myfirstattempttodownload">আমার প্রথম প্রচেষ্টা ফাইলটি ডাউনলোড এবং এক্সট্র্যাক্ট করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">আমি আবার ইন-মেমরি ডাউনলোড এবং এক্সট্র্যাকশন ব্যবহার করে চেষ্টা করব।</system:String>
     <system:String x:Key="ExtractionError">এক্সট্র্যাকশন সমস্যা</system:String>

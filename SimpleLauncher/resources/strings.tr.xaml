@@ -259,8 +259,6 @@
     <system:String x:Key="Bugreportsent">Hata raporu başarıyla gönderildi.</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
     <system:String x:Key="Someantivirusprograms">Bazı antivirüs programları, indirilen dosyaların çıkarılmasını engelleyebilir veya bozabilir, bu da kurulum sırasında erişim sorunlarına yol açabilir.</system:String>
-    <system:String x:Key="Ifyouencountererrors">Hata alırsanız, gerçek zamanlı korumayı geçici olarak devre dışı bırakmayı ve</system:String>
-    <system:String x:Key="withadministrativeprivileges">yönetici yetkileriyle çalıştırmayı deneyin.</system:String>
     <system:String x:Key="Myfirstattempttodownload">Dosyayı indirme ve çıkarma ilk denemem başarısız oldu.</system:String>
     <system:String x:Key="Iwilltryagainusinginmemory">Bellek içi indirme ve çıkarma kullanarak tekrar deneyeceğim.</system:String>
     <system:String x:Key="ExtractionError">Çıkarma Hatası</system:String>
