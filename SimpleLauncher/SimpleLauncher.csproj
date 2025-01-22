@@ -9,7 +9,9 @@
     <Product>Simple Launcher</Product>
     <LangVersion>13</LangVersion>
     <Nullable>disable</Nullable>
-    <NeutralLanguage></NeutralLanguage>
+    <NeutralLanguage>en-US</NeutralLanguage>
+<!--    <RuntimeIdentifiers>win-arm64</RuntimeIdentifiers>-->
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

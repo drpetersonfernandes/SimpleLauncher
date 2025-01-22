@@ -8,4 +8,14 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+<ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+</ItemGroup>
+
+<ItemGroup>
+  <None Update="extract-xiso.exe">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
 </Project>
