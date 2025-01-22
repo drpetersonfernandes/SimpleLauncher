@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Доступно обновление</system:String>
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="SelectaWindow">Выберите окно</system:String>
-    
     <system:String x:Key="alreadyexists">уже существует.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Вы хотите перезаписать его?</system:String>
     <system:String x:Key="SystemAlreadyExists">Система уже существует</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Вы хотите переустановить 'Simple Launcher', чтобы решить эту проблему?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Пожалуйста, переустановите 'Simple Launcher' вручную.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Кроме того, запуск мог быть заблокирован вашим антивирусным программным обеспечением. В этом случае настройте антивирус для разрешения запуска 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
     <system:String x:Key="Thefileerroruserlog">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Пакетное преобразование в CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Пакетное преобразование в Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Пакетное преобразование в 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Недопустимый путь к файлу.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Выберите систему перед запуском игры.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Выберите эмулятор перед запуском игры.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Произошла ошибка при запуске файла ярлыка.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Попробуйте запустить файл ярлыка вне 'Simple Launcher', чтобы убедиться, что он работает правильно.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Произошла ошибка при запуске исполняемого файла.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Попробуйте запустить исполняемый файл вне 'Simple Launcher', чтобы убедиться, что он работает правильно.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="Invalidgamepath">Недействительный путь к игре:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">Невозможно запустить игру.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Недействительный путь к исполняемому файлу эмулятора. Проверьте настройки.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Ошибка извлечения. Не удалось найти временную папку для извлечения.</system:String>
+    <system:String x:Key="Theselectedfile">Выбранный файл</system:String>
+    <system:String x:Key="cannotbeextracted">не может быть извлечён.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Чтобы извлечь файл, он должен быть формата 7z, zip или rar.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">Откройте 'Редактировать систему - Экспертный режим' для редактирования данной системы.</system:String>
+    <system:String x:Key="InvalidFile">Недопустимый файл</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">Для запуска игр 'Xbox 360 XBLA' сначала нужно распаковать сжатый файл.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Недопустимая рабочая директория. Проверьте файл.</system:String>
+    <system:String x:Key="ThereisnoExtension">В настройках системы не задано расширение в 'Расширение для запуска после извлечения'.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Отредактируйте данную систему, чтобы устранить проблему.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">Не найдено действительных игровых файлов с указанным расширением:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Не удалось найти файл с указанным в 'Расширение для запуска после извлечения' расширением в извлечённой папке.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Произошла ошибка при запуске этой игры.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">Эмулятор не смог открыть игру с указанными параметрами.</system:String>
+    <system:String x:Key="Thefileerroruser">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Если возникают ошибки, временно отключите защиту в реальном времени и запустите 'Simple Launcher' с правами администратора.</system:String>
     
 </ResourceDictionary>

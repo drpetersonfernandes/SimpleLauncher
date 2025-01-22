@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Update Available</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="SelectaWindow">Select a Window</system:String>
-    
     <system:String x:Key="alreadyexists">already exists.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Do you want to overwrite it?</system:String>
     <system:String x:Key="SystemAlreadyExists">System Already Exists</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' was not found in the expected path.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Do you want to reinstall 'Simple Launcher' to fix it?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Please reinstall 'Simple Launcher' manually.</system:String>
@@ -416,7 +414,6 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
     <system:String x:Key="Thefileerroruserlog">The file 'error_user.log' was not found!</system:String>
-    
     <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
     <system:String x:Key="BatchConvertToZip">Batch Convert To Zip</system:String>
     <system:String x:Key="BatchConvertTo7z">Batch Convert To 7z</system:String>

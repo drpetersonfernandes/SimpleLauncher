@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">আপডেটসহ।</system:String>
     <system:String x:Key="Updating">প্রক্রিয়া।</system:String>
     <system:String x:Key="SelectaWindow">উইন্ডো বাছাই।</system:String>
-    
     <system:String x:Key="alreadyexists">আগেই বিদ্যমান।</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">আপনি কি এটি ওভাররাইট করতে চান?</system:String>
     <system:String x:Key="SystemAlreadyExists">সিস্টেমটি ইতিমধ্যেই বিদ্যমান</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Doyouwanttoreinstall">'Simple Launcher' পুনরায় ইনস্টল করতে চান কি এটি ঠিক করতে?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">দয়া করে 'Simple Launcher' ম্যানুয়ালি পুনরায় ইনস্টল করুন।</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">অন্যদিকে, এটি হয়তো আপনার অ্যান্টিভাইরাস সফটওয়্যার দ্বারা ব্লক করা হয়েছে। যদি তাই হয়, তবে আপনার অ্যান্টিভাইরাস সেটিংস কনফিগার করুন যাতে 'FindRomCover.exe' চালানো যায়।</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ফাইল পাওয়া যায়নি!</system:String>
+    <system:String x:Key="BatchConvertToCHD">ব্যাচ কনভার্ট টু CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">ব্যাচ কনভার্ট টু Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">ব্যাচ কনভার্ট টু 7z</system:String>
+    <system:String x:Key="InvalidfilePath">অবৈধ ফাইল পথ।</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">গেম চালানোর আগে একটি সিস্টেম নির্বাচন করুন।</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">গেম চালানোর আগে একটি এমুলেটর নির্বাচন করুন।</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">শর্টকাট ফাইল চালানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">শর্টকাট ফাইলটি 'সিম্পল লঞ্চার'-এর বাইরে চালানোর চেষ্টা করুন এবং দেখুন এটি সঠিকভাবে কাজ করছে কিনা।</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">এক্সিকিউটেবল ফাইল চালানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">এক্সিকিউটেবল ফাইলটি 'সিম্পল লঞ্চার'-এর বাইরে চালানোর চেষ্টা করুন এবং দেখুন এটি সঠিকভাবে কাজ করছে কিনা।</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    <system:String x:Key="Invalidgamepath">গেমের অবৈধ পথ:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">গেম চালু করা যাচ্ছে না।</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">এমুলেটরের এক্সিকিউটেবল ফাইলের পথ অবৈধ। অনুগ্রহ করে কনফিগারেশন পরীক্ষা করুন।</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">এক্সট্র্যাকশন ব্যর্থ হয়েছে। অস্থায়ী এক্সট্র্যাক্ট ফোল্ডার খুঁজে পাওয়া যায়নি।</system:String>
+    <system:String x:Key="Theselectedfile">নির্বাচিত ফাইল</system:String>
+    <system:String x:Key="cannotbeextracted">এক্সট্র্যাক্ট করা যাবে না।</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">একটি ফাইল এক্সট্র্যাক্ট করতে হলে এটি 7z, zip অথবা rar ফাইল হতে হবে।</system:String>
+    <system:String x:Key="PleasegotoEditSystem">অনুগ্রহ করে এডিট সিস্টেম - এক্সপার্ট মোডে যান এবং এই সিস্টেম সম্পাদনা করুন।</system:String>
+    <system:String x:Key="InvalidFile">অবৈধ ফাইল</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">'Xbox 360 XBLA' গেম চালানোর জন্য প্রথমে সংকুচিত ফাইলটি এক্সট্র্যাক্ট করতে হবে।</system:String>
+    <system:String x:Key="Invalidworkingdirectory">অবৈধ ওয়ার্কিং ডিরেক্টরি। অনুগ্রহ করে ফাইলটি পরীক্ষা করুন।</system:String>
+    <system:String x:Key="ThereisnoExtension">সিস্টেম কনফিগারেশনে 'এক্সট্র্যাকশন পর চালানোর জন্য এক্সটেনশন' নির্ধারণ করা হয়নি।</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">অনুগ্রহ করে এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">নির্ধারিত এক্সটেনশনসহ কোনও বৈধ গেম ফাইল খুঁজে পাওয়া যায়নি:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'এক্সট্র্যাকশন পর চালানোর জন্য এক্সটেনশন'-এ সংজ্ঞায়িত এক্সটেনশনসহ কোনও ফাইল এক্সট্র্যাকশন ফোল্ডারের ভিতর খুঁজে পাওয়া যায়নি।</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">এই গেমটি চালানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">ঠিক সরবরাহকৃত প্যারামিটারগুলির সাথে এমুলেটর গেমটি খুলতে পারেনি।</system:String>
+    <system:String x:Key="Thefileerroruser">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    <system:String x:Key="Ifyouencountererrors">যদি ত্রুটি সম্মুখীন হন, তবে রিয়েল-টাইম প্রোটেকশন সাময়িকভাবে নিষ্ক্রিয় করে 'সিম্পল লঞ্চার' প্রশাসনিক অনুমতিতে চালানোর চেষ্টা করুন।</system:String>
 
 </ResourceDictionary>

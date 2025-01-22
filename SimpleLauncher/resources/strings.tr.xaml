@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Güncelleme Mevcut</system:String>
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="SelectaWindow">Bir pencere seçin</system:String>
-    
     <system:String x:Key="alreadyexists">zaten mevcut.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Üzerine yazmak istiyor musunuz?</system:String>
     <system:String x:Key="SystemAlreadyExists">Sistem zaten mevcut</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Bu sorunu çözmek için 'Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'ı lütfen manuel olarak yeniden yükleyin.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatif olarak, başlatma işlemi antivirüs yazılımınız tarafından engellenmiş olabilir. Bu durumda, antivirüs yazılımınızı 'FindRomCover.exe'nin çalışmasına izin verecek şekilde yapılandırın.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Toplu Olarak CHD'ye Dönüştür</system:String>
+    <system:String x:Key="BatchConvertToZip">Toplu Olarak Zip'e Dönüştür</system:String>
+    <system:String x:Key="BatchConvertTo7z">Toplu Olarak 7z'ye Dönüştür</system:String>
+    <system:String x:Key="InvalidfilePath">Geçersiz dosya yolu.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Oyunu başlatmadan önce bir sistem seçin.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Oyunu başlatmadan önce bir emülatör seçin.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Kısayol dosyası başlatılırken bir hata oluştu.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Kısayol dosyasını 'Simple Launcher' dışında çalıştırmayı deneyin, düzgün çalışıp çalışmadığını kontrol edin.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Çalıştırılabilir dosya başlatılırken bir hata oluştu.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Çalıştırılabilir dosyayı 'Simple Launcher' dışında çalıştırmayı deneyin, düzgün çalışıp çalışmadığını kontrol edin.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="Invalidgamepath">Geçersiz oyun yolu:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">Oyun başlatılamıyor.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Geçersiz emülatör çalıştırılabilir dosya yolu. Yapılandırmayı kontrol edin.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Çıkarma başarısız oldu. Geçici çıkarma klasörü bulunamadı.</system:String>
+    <system:String x:Key="Theselectedfile">Seçilen dosya</system:String>
+    <system:String x:Key="cannotbeextracted">çıkarılamıyor.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Bir dosyanın çıkarılabilmesi için 7z, zip veya rar formatında olması gerekir.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">'Sistemi Düzenle - Uzman Modu'na gidin ve bu sistemi düzenleyin.</system:String>
+    <system:String x:Key="InvalidFile">Geçersiz dosya</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">'Xbox 360 XBLA' oyunlarını başlatmak için sıkıştırılmış dosyayı önce çıkarmanız gerekir.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Geçersiz çalışma dizini. Dosyanızı kontrol edin.</system:String>
+    <system:String x:Key="ThereisnoExtension">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' sistem ayarlarında tanımlanmamış.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Sorunu düzeltmek için bu sistemi düzenleyin.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">Belirtilen uzantıya sahip geçerli bir oyun dosyası bulunamadı:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Bu oyun başlatılırken bir hata oluştu.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">Emülatör, sağlanan parametrelerle oyunu açamadı.</system:String>
+    <system:String x:Key="Thefileerroruser">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Bir hata ile karşılaşırsanız, gerçek zamanlı korumayı geçici olarak devre dışı bırakıp 'Simple Launcher'ı yönetici haklarıyla çalıştırmayı deneyin.</system:String>
     
 </ResourceDictionary>

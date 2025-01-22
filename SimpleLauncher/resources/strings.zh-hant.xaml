@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">有更新可用</system:String>
     <system:String x:Key="Updating">正在更新</system:String>
     <system:String x:Key="SelectaWindow">選擇一個窗口</system:String>
-    
     <system:String x:Key="alreadyexists">已存在。</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">您想覆蓋它嗎？</system:String>
     <system:String x:Key="SystemAlreadyExists">系統已存在</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在預期路徑中未找到。</system:String>
     <system:String x:Key="Doyouwanttoreinstall">您是否想重新安裝 'Simple Launcher' 來解決此問題？</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">請手動重新安裝 'Simple Launcher'。</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">或者，啟動可能已被您的防毒軟體阻止。在這種情況下，請設定您的防毒軟體以允許啟動 'FindRomCover.exe'。</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想開啟 'error_user.log' 檔案來調查此問題？</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 檔案未找到！</system:String>
+    <system:String x:Key="BatchConvertToCHD">批量轉換為 CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">批量轉換為 Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">批量轉換為 7z</system:String>
+    <system:String x:Key="InvalidfilePath">無效的檔案路徑。</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">請在啟動遊戲前選擇一個系統。</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">請在啟動遊戲前選擇一個模擬器。</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">啟動快捷方式檔案時發生錯誤。</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">請嘗試在 'Simple Launcher' 外運行快捷方式檔案以檢查其是否正常運作。</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">找不到檔案 'error_user.log'！</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">啟動可執行檔案時發生錯誤。</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">請嘗試在 'Simple Launcher' 外運行可執行檔案以檢查其是否正常運作。</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">找不到檔案 'error_user.log'！</system:String>
+    <system:String x:Key="Invalidgamepath">無效的遊戲路徑：</system:String>
+    <system:String x:Key="Cannotlaunchthegame">無法啟動遊戲。</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">無效的模擬器可執行檔案路徑。請檢查配置。</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">解壓失敗。無法找到臨時解壓資料夾。</system:String>
+    <system:String x:Key="Theselectedfile">選定的檔案</system:String>
+    <system:String x:Key="cannotbeextracted">無法解壓。</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">要解壓檔案，必須是 7z、zip 或 rar 格式。</system:String>
+    <system:String x:Key="PleasegotoEditSystem">請到 '編輯系統 - 高級模式' 編輯此系統。</system:String>
+    <system:String x:Key="InvalidFile">無效的檔案</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">要啟動 'Xbox 360 XBLA' 遊戲，必須先解壓壓縮檔案。</system:String>
+    <system:String x:Key="Invalidworkingdirectory">無效的工作資料夾。請檢查您的檔案。</system:String>
+    <system:String x:Key="ThereisnoExtension">系統設置中未定義 '解壓之後執行的擴展名'。</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">請編輯此系統以修復問題。</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">未找到具有指定擴展名的有效遊戲檔案：</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">無法在解壓資料夾中找到具有 '解壓之後執行的擴展名' 的檔案。</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">找不到檔案 'error_user.log'！</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">啟動此遊戲時發生錯誤。</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">模擬器無法使用提供的參數打開遊戲。</system:String>
+    <system:String x:Key="Thefileerroruser">找不到檔案 'error_user.log'！</system:String>
+    <system:String x:Key="Ifyouencountererrors">如果遇到錯誤，請暫時關閉即時防護並以管理員身份運行 'Simple Launcher'。</system:String>
     
 </ResourceDictionary>

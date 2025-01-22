@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">تحديث متاح</system:String>
     <system:String x:Key="Updating">جارٍ التحديث</system:String>
     <system:String x:Key="SelectaWindow">اختر نافذة</system:String>
-    
     <system:String x:Key="alreadyexists">موجود بالفعل.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">هل تريد الكتابة فوقه؟</system:String>
     <system:String x:Key="SystemAlreadyExists">النظام موجود بالفعل</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">يرجى إعادة تثبيت 'Simple Launcher' يدويًا.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">بدلاً من ذلك، قد يكون التشغيل قد تم حظره بواسطة برنامج مكافحة الفيروسات لديك. إذا كان الأمر كذلك، يرجى تكوين إعدادات مكافحة الفيروسات للسماح بتشغيل 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
     <system:String x:Key="Thefileerroruserlog">ملف 'error_user.log' غير موجود!</system:String>
+    <system:String x:Key="BatchConvertToCHD">التحويل المجمع إلى CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">التحويل المجمع إلى Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">التحويل المجمع إلى 7z</system:String>
+    <system:String x:Key="InvalidfilePath">مسار ملف غير صالح.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">يرجى تحديد نظام قبل تشغيل اللعبة.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">يرجى تحديد محاكي قبل تشغيل اللعبة.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">حدث خطأ أثناء تشغيل ملف الاختصار.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">حاول تشغيل ملف الاختصار خارج 'مشغل بسيط' لمعرفة إذا كان يعمل بشكل صحيح.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">لم يتم العثور على الملف 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">حدث خطأ أثناء تشغيل الملف التنفيذي.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">حاول تشغيل الملف التنفيذي خارج 'مشغل بسيط' لمعرفة إذا كان يعمل بشكل صحيح.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">لم يتم العثور على الملف 'error_user.log'!</system:String>
+    <system:String x:Key="Invalidgamepath">مسار اللعبة غير صالح:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">لا يمكن تشغيل اللعبة.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">مسار الملف التنفيذي للمحاكي غير صالح. يرجى التحقق من الإعدادات.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">فشل الاستخراج. لم يتم العثور على المجلد المؤقت.</system:String>
+    <system:String x:Key="Theselectedfile">الملف المحدد</system:String>
+    <system:String x:Key="cannotbeextracted">لا يمكن استخراجه.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">لاستخراج الملفات، يجب أن تكون بتنسيق 7z أو zip أو rar.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">يرجى الذهاب إلى تحرير النظام - وضع الخبراء وتحرير هذا النظام.</system:String>
+    <system:String x:Key="InvalidFile">ملف غير صالح</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">لتشغيل ألعاب 'Xbox 360 XBLA'، يجب استخراج الملف المضغوط أولاً.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">دليل العمل غير صالح. يرجى التحقق من الملف.</system:String>
+    <system:String x:Key="ThereisnoExtension">لم يتم تعيين 'الامتداد المطلوب تشغيله بعد الاستخراج' في تكوين النظام.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">يرجى تحرير هذا النظام لإصلاح ذلك.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">لم يتم العثور على ملف لعبة صالح بالامتداد المحدد:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">لم يتم العثور على ملف بالامتداد المحدد في 'الامتداد المطلوب تشغيله بعد الاستخراج' داخل المجلد المُستخرج.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">لم يتم العثور على الملف 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">حدث خطأ أثناء تشغيل هذه اللعبة.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
+    <system:String x:Key="Thefileerroruser">لم يتم العثور على الملف 'error_user.log'!</system:String>
+    <system:String x:Key="Ifyouencountererrors">إذا واجهت أخطاء، حاول تعطيل الحماية في الوقت الحقيقي مؤقتاً وتشغيل 'مشغل بسيط' بصلاحيات المسؤول.</system:String>
     
 </ResourceDictionary>

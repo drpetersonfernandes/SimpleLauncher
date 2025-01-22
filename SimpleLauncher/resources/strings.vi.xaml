@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Bản Cập Nhật Có Sẵn</system:String>
     <system:String x:Key="Updating">Đang Cập Nhật</system:String>
     <system:String x:Key="SelectaWindow">Chọn một cửa sổ</system:String>
-    
     <system:String x:Key="alreadyexists">đã tồn tại.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Bạn có muốn ghi đè không?</system:String>
     <system:String x:Key="SystemAlreadyExists">Hệ thống đã tồn tại</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục vấn đề này không?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Ngoài ra, việc khởi chạy có thể đã bị phần mềm chống virus của bạn chặn. Nếu vậy, vui lòng cấu hình phần mềm chống virus của bạn để cho phép thực thi tệp 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
     <system:String x:Key="Thefileerroruserlog">Tệp 'error_user.log' không được tìm thấy!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Chuyển đổi hàng loạt sang CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Chuyển đổi hàng loạt sang Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Chuyển đổi hàng loạt sang 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Đường dẫn tệp không hợp lệ.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Vui lòng chọn một hệ thống trước khi khởi chạy trò chơi.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Vui lòng chọn một trình giả lập trước khi khởi chạy trò chơi.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Đã xảy ra lỗi khi khởi chạy tệp lối tắt.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Hãy thử chạy tệp lối tắt bên ngoài 'Simple Launcher' để kiểm tra xem nó có hoạt động đúng không.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">Không tìm thấy tệp 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Đã xảy ra lỗi khi khởi chạy tệp thực thi.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Hãy thử chạy tệp thực thi bên ngoài 'Simple Launcher' để kiểm tra xem nó có hoạt động đúng không.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">Không tìm thấy tệp 'error_user.log'!</system:String>
+    <system:String x:Key="Invalidgamepath">Đường dẫn trò chơi không hợp lệ:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">Không thể khởi chạy trò chơi.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Đường dẫn tệp thực thi trình giả lập không hợp lệ. Vui lòng kiểm tra cấu hình.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Trích xuất thất bại. Không thể tìm thấy thư mục trích xuất tạm thời.</system:String>
+    <system:String x:Key="Theselectedfile">Tệp được chọn</system:String>
+    <system:String x:Key="cannotbeextracted">không thể được trích xuất.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Để trích xuất tệp, tệp phải là 7z, zip hoặc rar.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">Đi đến 'Chỉnh sửa hệ thống - Chế độ chuyên gia' để chỉnh sửa hệ thống này.</system:String>
+    <system:String x:Key="InvalidFile">Tệp không hợp lệ</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">Để khởi chạy trò chơi 'Xbox 360 XBLA', trước tiên cần phải giải nén tệp nén.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Thư mục làm việc không hợp lệ. Vui lòng kiểm tra tệp của bạn.</system:String>
+    <system:String x:Key="ThereisnoExtension">Không có phần mở rộng được đặt trong 'Phần mở rộng để thực thi sau khi trích xuất' trong cấu hình hệ thống.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Chỉnh sửa hệ thống này để khắc phục vấn đề.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">Không tìm thấy tệp trò chơi hợp lệ nào với phần mở rộng được chỉ định:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Không thể tìm thấy tệp với phần mở rộng được chỉ định trong 'Phần mở rộng để thực thi sau khi trích xuất' trong thư mục đã trích xuất.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">Không tìm thấy tệp 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Đã xảy ra lỗi khi khởi chạy trò chơi này.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
+    <system:String x:Key="Thefileerroruser">Không tìm thấy tệp 'error_user.log'!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Nếu gặp lỗi, tạm thời tắt bảo vệ thời gian thực và chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
     
 </ResourceDictionary>

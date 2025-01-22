@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">업데이트 가능</system:String>
     <system:String x:Key="Updating">업데이트 중</system:String>
     <system:String x:Key="SelectaWindow">창을 선택하세요</system:String>
-    
     <system:String x:Key="alreadyexists">이미 존재합니다.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">덮어쓰시겠습니까?</system:String>
     <system:String x:Key="SystemAlreadyExists">시스템이 이미 존재합니다</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">문제를 해결하기 위해 'Simple Launcher'를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'를 수동으로 다시 설치해 주세요.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">또는 실행이 백신 소프트웨어에 의해 차단되었을 수 있습니다. 이 경우, 백신 설정에서 'FindRomCover.exe'의 실행을 허용하도록 설정해 주세요.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 파일을 찾을 수 없습니다!</system:String>
+    <system:String x:Key="BatchConvertToCHD">배치 변환: CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">배치 변환: Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">배치 변환: 7z</system:String>
+    <system:String x:Key="InvalidfilePath">잘못된 파일 경로입니다.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">게임을 실행하기 전에 시스템을 선택하세요.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">게임을 실행하기 전에 에뮬레이터를 선택하세요.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">바로 가기 파일을 실행하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">바로 가기 파일이 제대로 작동하는지 확인하려면 'Simple Launcher' 외부에서 실행해보세요.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">실행 파일을 실행하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">실행 파일이 제대로 작동하는지 확인하려면 'Simple Launcher' 외부에서 실행해보세요.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Invalidgamepath">잘못된 게임 경로:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">게임을 실행할 수 없습니다.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">잘못된 에뮬레이터 실행 파일 경로입니다. 설정을 확인하세요.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">추출 실패: 임시 추출 폴더를 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Theselectedfile">선택된 파일</system:String>
+    <system:String x:Key="cannotbeextracted">을(를) 추출할 수 없습니다.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">파일을 추출하려면 해당 파일이 7z, zip, 또는 rar 형식이어야 합니다.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">'시스템 편집 - 전문 모드'로 이동하여 이 시스템을 편집하세요.</system:String>
+    <system:String x:Key="InvalidFile">잘못된 파일</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">'Xbox 360 XBLA' 게임을 실행하려면 압축 파일을 먼저 추출해야 합니다.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">잘못된 작업 디렉터리입니다. 파일을 확인하세요.</system:String>
+    <system:String x:Key="ThereisnoExtension">시스템 설정에 '추출 후 실행할 확장자'가 설정되어 있지 않습니다.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">이 문제를 해결하려면 시스템을 편집하세요.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">지정된 확장자를 가진 유효한 게임 파일을 찾을 수 없습니다:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">이 게임을 실행하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">에뮬레이터가 제공된 매개변수를 사용하여 게임을 열 수 없습니다.</system:String>
+    <system:String x:Key="Thefileerroruser">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Ifyouencountererrors">오류가 발생하면 실시간 보호를 일시적으로 비활성화하고 'Simple Launcher'를 관리자 권한으로 실행해보세요.</system:String>
     
 </ResourceDictionary>

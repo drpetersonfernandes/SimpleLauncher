@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">更新が利用可能です</system:String>
     <system:String x:Key="Updating">更新中</system:String>
     <system:String x:Key="SelectaWindow">ウィンドウを選択してください</system:String>
-    
     <system:String x:Key="alreadyexists">既に存在します。</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">上書きしますか？</system:String>
     <system:String x:Key="SystemAlreadyExists">システムは既に存在します</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Doyouwanttoreinstall">問題を解決するために 'Simple Launcher' を再インストールしますか？</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">手動で 'Simple Launcher' を再インストールしてください。</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">または、起動がアンチウイルスソフトウェアによってブロックされた可能性があります。その場合は、'FindRomCover.exe' の実行を許可するようにアンチウイルスソフトウェアを設定してください。</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ファイルが見つかりませんでした！</system:String>
+    <system:String x:Key="BatchConvertToCHD">バッチ変換をCHDに</system:String>
+    <system:String x:Key="BatchConvertToZip">バッチ変換をZipに</system:String>
+    <system:String x:Key="BatchConvertTo7z">バッチ変換を7zに</system:String>
+    <system:String x:Key="InvalidfilePath">無効なファイルパスです。</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">ゲームを起動する前にシステムを選択してください。</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">ゲームを起動する前にエミュレータを選択してください。</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">ショートカットファイルの起動中にエラーが発生しました。</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">ショートカットファイルを『Simple Launcher』の外で実行して、正しく動作するか確認してください。</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">ファイル 'error_user.log' が見つかりませんでした！</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">実行可能ファイルの起動中にエラーが発生しました。</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">実行可能ファイルを『Simple Launcher』の外で実行し、正しく動作するか確認してください。</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">ファイル 'error_user.log' が見つかりませんでした！</system:String>
+    <system:String x:Key="Invalidgamepath">無効なゲームパスです:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">ゲームを起動できません。</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">無効なエミュレータ実行パスです。設定を確認してください。</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">抽出に失敗しました。一時的な抽出フォルダが見つかりません。</system:String>
+    <system:String x:Key="Theselectedfile">選択されたファイル</system:String>
+    <system:String x:Key="cannotbeextracted">は抽出できません。</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">ファイルを抽出するには、7z、zip、またはrarファイルである必要があります。</system:String>
+    <system:String x:Key="PleasegotoEditSystem">『編集システム - エキスパートモード』に移動し、このシステムを編集してください。</system:String>
+    <system:String x:Key="InvalidFile">無効なファイル</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">『Xbox 360 XBLA』ゲームを起動するには、圧縮ファイルを先に抽出する必要があります。</system:String>
+    <system:String x:Key="Invalidworkingdirectory">無効な作業ディレクトリです。ファイルを確認してください。</system:String>
+    <system:String x:Key="ThereisnoExtension">システム設定で『抽出後に起動する拡張子』が設定されていません。</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">これを修正するには、このシステムを編集してください。</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">指定された拡張子の有効なゲームファイルが見つかりませんでした:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">抽出フォルダ内で『抽出後に起動する拡張子』で定義された拡張子のファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">ファイル 'error_user.log' が見つかりませんでした！</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">このゲームの起動中にエラーが発生しました。</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">エミュレータは指定されたパラメータでゲームを開くことができませんでした。</system:String>
+    <system:String x:Key="Thefileerroruser">ファイル 'error_user.log' が見つかりませんでした！</system:String>
+    <system:String x:Key="Ifyouencountererrors">エラーが発生した場合、一時的にリアルタイム保護を無効にし、『Simple Launcher』を管理者権限で実行することを試してください。</system:String>
     
 </ResourceDictionary>

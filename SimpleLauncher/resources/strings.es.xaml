@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Actualización disponible</system:String>
     <system:String x:Key="Updating">Actualizando</system:String>
     <system:String x:Key="SelectaWindow">Seleccione una ventana</system:String>
-    
     <system:String x:Key="alreadyexists">ya existe.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">¿Quieres sobrescribirlo?</system:String>
     <system:String x:Key="SystemAlreadyExists">El sistema ya existe</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' no se encontró en la ruta esperada.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">¿Desea reinstalar 'Simple Launcher' para solucionar el problema?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Por favor, reinstale 'Simple Launcher' manualmente.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternativamente, el lanzamiento puede haber sido bloqueado por su software antivirus. Si es así, configure su antivirus para permitir la ejecución de 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">¿Le gustaría abrir el archivo 'error_user.log' para investigar el problema?</system:String>
     <system:String x:Key="Thefileerroruserlog">¡El archivo 'error_user.log' no se encontró!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Conversión por lotes a CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Conversión por lotes a Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Conversión por lotes a 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Ruta de archivo no válida.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Por favor, seleccione un sistema antes de iniciar el juego.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Por favor, seleccione un emulador antes de iniciar el juego.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Hubo un error al iniciar el archivo de acceso directo.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Intente ejecutar el archivo de acceso directo fuera de 'Simple Launcher' para verificar si funciona correctamente.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">¡No se encontró el archivo 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Hubo un error al iniciar el archivo ejecutable.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Intente ejecutar el archivo ejecutable fuera de 'Simple Launcher' para verificar si funciona correctamente.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">¡No se encontró el archivo 'error_user.log'!</system:String>
+    <system:String x:Key="Invalidgamepath">Ruta de juego no válida:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">No se puede iniciar el juego.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Ruta del archivo ejecutable del emulador no válida. Por favor, revise la configuración.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Extracción fallida. No se pudo encontrar la carpeta temporal de extracción.</system:String>
+    <system:String x:Key="Theselectedfile">El archivo seleccionado</system:String>
+    <system:String x:Key="cannotbeextracted">no se puede extraer.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Para extraer un archivo, debe ser un archivo 7z, zip o rar.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">Por favor, vaya a Editar Sistema - Modo Experto y edite este sistema.</system:String>
+    <system:String x:Key="InvalidFile">Archivo no válido</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">Para iniciar juegos 'Xbox 360 XBLA', primero se debe extraer el archivo comprimido.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Directorio de trabajo no válido. Por favor, revise el archivo.</system:String>
+    <system:String x:Key="ThereisnoExtension">No hay ninguna 'Extensión para iniciar después de la extracción' configurada en la configuración del sistema.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Por favor, edite este sistema para solucionarlo.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">No se encontró ningún archivo de juego válido con la extensión especificada:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">No se pudo encontrar un archivo con la extensión definida en 'Extensión para iniciar después de la extracción' dentro de la carpeta extraída.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">¡No se encontró el archivo 'error_user.log'!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Hubo un error al iniciar este juego.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">El emulador no pudo abrir el juego con los parámetros proporcionados.</system:String>
+    <system:String x:Key="Thefileerroruser">¡No se encontró el archivo 'error_user.log'!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Si encuentra errores, intente desactivar temporalmente la protección en tiempo real y ejecute 'Simple Launcher' con privilegios de administrador.</system:String>
     
 </ResourceDictionary>

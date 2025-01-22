@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Pembaruan Tersedia</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
     <system:String x:Key="SelectaWindow">Pilih Jendela</system:String>
-    
     <system:String x:Key="alreadyexists">sudah ada.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Apakah Anda ingin menimpanya?</system:String>
     <system:String x:Key="SystemAlreadyExists">Sistem sudah ada</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Silakan instal ulang 'Simple Launcher' secara manual.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Atau, peluncuran mungkin telah diblokir oleh perangkat lunak antivirus Anda. Jika demikian, konfigurasikan pengaturan antivirus Anda untuk mengizinkan peluncuran 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
     <system:String x:Key="Thefileerroruserlog">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Konversi Batch ke CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Konversi Batch ke Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Konversi Batch ke 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Path file tidak valid.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Silakan pilih sistem sebelum meluncurkan permainan.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Silakan pilih emulator sebelum meluncurkan permainan.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Terjadi kesalahan saat meluncurkan file pintasan.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Cobalah untuk menjalankan file pintasan di luar 'Simple Launcher' untuk melihat apakah file berfungsi dengan baik.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Terjadi kesalahan saat meluncurkan file eksekusi.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Cobalah menjalankan file eksekusi di luar 'Simple Launcher' untuk memastikan file tersebut berfungsi dengan benar.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="Invalidgamepath">Path permainan tidak valid:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">Permainan tidak dapat diluncurkan.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Path eksekusi emulator tidak valid. Silakan periksa konfigurasi.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Ekstraksi gagal. Folder ekstraksi sementara tidak ditemukan.</system:String>
+    <system:String x:Key="Theselectedfile">File yang dipilih</system:String>
+    <system:String x:Key="cannotbeextracted">tidak dapat diekstraksi.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Untuk mengekstrak file, file tersebut harus berupa file 7z, zip, atau rar.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">Silakan pergi ke Edit System - Mode Ahli dan edit sistem ini.</system:String>
+    <system:String x:Key="InvalidFile">File tidak valid</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">Untuk meluncurkan permainan 'Xbox 360 XBLA', file yang dikompresi harus diekstraksi terlebih dahulu.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Direktori kerja tidak valid. Silakan periksa file Anda.</system:String>
+    <system:String x:Key="ThereisnoExtension">Tidak ada 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' yang diatur dalam konfigurasi sistem.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Silakan edit sistem ini untuk memperbaikinya.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">Tidak ada file permainan yang valid dengan ekstensi yang ditentukan:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Terjadi kesalahan saat meluncurkan permainan ini.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">Emulator tidak dapat membuka permainan dengan parameter yang diberikan.</system:String>
+    <system:String x:Key="Thefileerroruser">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Jika Anda menemui kesalahan, coba nonaktifkan perlindungan waktu nyata sementara dan jalankan 'Simple Launcher' dengan hak administratif.</system:String>
 
 </ResourceDictionary>

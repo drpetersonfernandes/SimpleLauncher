@@ -400,11 +400,9 @@
     <system:String x:Key="UpdateAvailable">Update beschikbaar</system:String>
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
     <system:String x:Key="SelectaWindow">Selecteer een venster</system:String>
-    
     <system:String x:Key="alreadyexists">bestaat al.</system:String>
     <system:String x:Key="Doyouwanttooverwriteit">Wilt u het overschrijven?</system:String>
     <system:String x:Key="SystemAlreadyExists">Systeem bestaat al</system:String>
-    
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Wilt u 'Simple Launcher' opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Installeer 'Simple Launcher' handmatig opnieuw.</system:String>
@@ -416,5 +414,37 @@
     <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Het starten kan ook zijn geblokkeerd door uw antivirussoftware. Als dat zo is, configureer uw antivirusinstellingen om de uitvoering van 'FindRomCover.exe' toe te staan.</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
     <system:String x:Key="Thefileerroruserlog">Het bestand 'error_user.log' werd niet gevonden!</system:String>
+    <system:String x:Key="BatchConvertToCHD">Batch Converteren naar CHD</system:String>
+    <system:String x:Key="BatchConvertToZip">Batch Converteren naar Zip</system:String>
+    <system:String x:Key="BatchConvertTo7z">Batch Converteren naar 7z</system:String>
+    <system:String x:Key="InvalidfilePath">Ongeldig bestandspad.</system:String>
+    <system:String x:Key="Pleaseselectasystembefore">Selecteer een systeem voordat je het spel start.</system:String>
+    <system:String x:Key="Pleaseselectanemulatorbefore">Selecteer een emulator voordat je het spel start.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheshortcutfile">Er is een fout opgetreden bij het starten van het snelkoppelingbestand.</system:String>
+    <system:String x:Key="Trytoruntheshortcutfileoutside">Probeer het snelkoppelingbestand buiten 'Simple Launcher' te starten om te controleren of het correct werkt.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnot">Het bestand 'error_user.log' is niet gevonden!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheexecutable">Er is een fout opgetreden bij het starten van het uitvoerbare bestand.</system:String>
+    <system:String x:Key="TrytoruntheexecutablefileoutsideSimpleLauncher">Probeer het uitvoerbare bestand buiten 'Simple Launcher' te starten om te controleren of het correct werkt.</system:String>
+    <system:String x:Key="Thefileerroruserlogwasnotfound">Het bestand 'error_user.log' is niet gevonden!</system:String>
+    <system:String x:Key="Invalidgamepath">Ongeldig spelpad:</system:String>
+    <system:String x:Key="Cannotlaunchthegame">Kan het spel niet starten.</system:String>
+    <system:String x:Key="Invalidemulatorexecutablepath">Ongeldig uitvoerbaar bestandspad voor emulator. Controleer de configuratie.</system:String>
+    <system:String x:Key="ExtractionfailedCouldnotfindthetemporary">Uitpakken is mislukt. Kan de tijdelijke uitpakmap niet vinden.</system:String>
+    <system:String x:Key="Theselectedfile">Het geselecteerde bestand</system:String>
+    <system:String x:Key="cannotbeextracted">kan niet worden uitgepakt.</system:String>
+    <system:String x:Key="Toextractafileitneedstobe">Om een bestand uit te pakken, moet het een 7z-, zip- of rar-bestand zijn.</system:String>
+    <system:String x:Key="PleasegotoEditSystem">Ga naar 'Systeem Bewerken - Expertmodus' om dit systeem te bewerken.</system:String>
+    <system:String x:Key="InvalidFile">Ongeldig bestand</system:String>
+    <system:String x:Key="TolaunchXbox360XBLAgamesthecompressed">Om 'Xbox 360 XBLA'-spellen te starten, moet het gecomprimeerde bestand eerst worden uitgepakt.</system:String>
+    <system:String x:Key="Invalidworkingdirectory">Ongeldige werkmap. Controleer je bestand.</system:String>
+    <system:String x:Key="ThereisnoExtension">Er is geen extensie ingesteld in 'Uit te voeren extensie na uitpakken' in de systeemconfiguratie.</system:String>
+    <system:String x:Key="Pleaseeditthissystemto">Bewerk dit systeem om het probleem op te lossen.</system:String>
+    <system:String x:Key="Novalidgamefilefoundwith">Geen geldig spelbestand gevonden met de opgegeven extensie:</system:String>
+    <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
+    <system:String x:Key="Thefileerroruserlogwas">Het bestand 'error_user.log' is niet gevonden!</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingthisgame">Er is een fout opgetreden bij het starten van dit spel.</system:String>
+    <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
+    <system:String x:Key="Thefileerroruser">Het bestand 'error_user.log' is niet gevonden!</system:String>
+    <system:String x:Key="Ifyouencountererrors">Als je fouten ondervindt, probeer dan tijdelijk de realtimebescherming uit te schakelen en voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
     
 </ResourceDictionary>
