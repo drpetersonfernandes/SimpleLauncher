@@ -36,17 +36,25 @@ public partial class BugReport
         }
         else
         {
-            string formattedException = $"File appsettings.json is missing in the Bug Report Window.";
+            string formattedException = $"File 'appsettings.json' is missing in the Bug Report Window.";
             Exception exception = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            // Ask the user if they want to automatically reinstall Simple Launcher
+            RequiredFileMissingMessageBox();
+        }
+
+        void RequiredFileMissingMessageBox()
+        {
+            string fileappsettingsjsonismissing2 = (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
+            string theapplicationwillnotbeableto2 = (string)Application.Current.TryFindResource("Theapplicationwillnotbeableto") ?? "The application will not be able to send the Bug Report.";
+            string doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             var messageBoxResult = MessageBox.Show(
-                "File appsettings.json is missing.\n\n" +
-                "The application will not be able to send the Bug Report.\n\n" +
-                "Do you want to automatically reinstall Simple Launcher to fix the problem?",
-                "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                $"{fileappsettingsjsonismissing2}\n\n" +
+                $"{theapplicationwillnotbeableto2}\n\n" +
+                $"{doyouwanttoautomaticallyreinstall2}",
+                warning2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
@@ -54,8 +62,9 @@ public partial class BugReport
             }
             else
             {
-                MessageBox.Show("Please reinstall Simple Launcher to fix the problem.",
-                    "Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
+                string pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' to fix the problem.";
+                MessageBox.Show(pleasereinstallSimpleLauncher2,
+                    warning2, MessageBoxButton.OK,MessageBoxImage.Warning);
             }
         }
     }
@@ -87,7 +96,8 @@ public partial class BugReport
             {
                 string pleaseenterthedetailsofthebug2 = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthebug") ?? "Please enter the details of the bug.";
                 string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                MessageBox.Show(pleaseenterthedetailsofthebug2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(pleaseenterthedetailsofthebug2,
+                    info2, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -129,10 +139,14 @@ public partial class BugReport
             string formattedException = $"API Key is not properly loaded from appsettings.json in the Bug Report Window.";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
-                
-            MessageBox.Show("There was an error in the API Key of this form.\n\n" +
-                            "The developer was informed and will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            string therewasanerrorintheApiKey2 = (string)Application.Current.TryFindResource("TherewasanerrorintheAPIKey") ?? "There was an error in the API Key of this form.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorintheApiKey2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+
             return;
         }
 
@@ -145,6 +159,7 @@ public partial class BugReport
                 string bugreportsent2 = (string)Application.Current.TryFindResource("Bugreportsent") ?? "Bug report sent successfully.";
                 string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
                 MessageBox.Show(bugreportsent2, success2, MessageBoxButton.OK, MessageBoxImage.Information);
+            
                 NameTextBox.Clear();
                 EmailTextBox.Clear();
                 BugReportTextBox.Clear();
@@ -154,10 +169,13 @@ public partial class BugReport
                 string errorMessage = "An error occurred while sending the bug report.";
                 Exception exception = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
-                    
-                MessageBox.Show("An error occurred while sending the bug report.\n\n" +
-                                "The bug was reported to the developer that will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                string anerroroccurredwhilesending2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesending") ?? "An error occurred while sending the bug report.";
+                string thebugwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                MessageBox.Show($"{anerroroccurredwhilesending2}\n\n" +
+                                $"{thebugwasreportedtothedeveloper2}",
+                    error2, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
@@ -165,10 +183,13 @@ public partial class BugReport
             await LogErrors.LogErrorAsync(ex, $"Error sending the bug report from Bug Report Window.\n\n" +
                                               $"Exception type: {ex.GetType().Name}\n" +
                                               $"Exception details: {ex.Message}");
-                
-            MessageBox.Show($"An error occurred while sending the bug report.\n\n" +
-                            $"The bug was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            string anerroroccurredwhilesending2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesending") ?? "An error occurred while sending the bug report.";
+            string thebugwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{anerroroccurredwhilesending2}\n\n" +
+                            $"{thebugwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
     }

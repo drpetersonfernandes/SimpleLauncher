@@ -446,5 +446,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
     <system:String x:Key="Thefileerroruser">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Ifyouencountererrors">If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.</system:String>
+    
+    <system:String x:Key="Failedtoloadlanguageresources">Failed to load language resources.</system:String>
+    <system:String x:Key="LanguageLoadingError">Language Loading Error</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">File 'appsettings.json' is missing.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">The application will not be able to send the Bug Report.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Do you want to automatically reinstall 'Simple Launcher' to fix the problem?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Please reinstall 'Simple Launcher' to fix the problem.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">There was an error in the API Key of this form.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">An error occurred while sending the bug report.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">The bug was reported to the developer that will try to fix the issue.</system:String>
+    <system:String x:Key="Theoperationwascanceled">The operation was canceled by the user.</system:String>
+    <system:String x:Key="OperationCanceled">Operation Canceled</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">The downloaded file is not a valid ZIP archive.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">This may be due to a network issue or server error.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Please try again later.</system:String>
+    <system:String x:Key="ExtractionError">Extraction Error</system:String>
+    <system:String x:Key="ImagePackextractionfailed">Image Pack extraction failed!</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Grant 'Simple Launcher' administrative access and try again.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Temporarily disable your antivirus software and try again.</system:String>
+    <system:String x:Key="ExtractionFailed">Extraction Failed</system:String>
+    <system:String x:Key="ImagePackdownloadfailed">Image Pack download failed!</system:String>
+    <system:String x:Key="DownloadFailed">Download Failed</system:String>
+    <system:String x:Key="ImagePackdownloadwascanceled">Image Pack download was canceled.</system:String>
+    <system:String x:Key="DownloadCanceled">Download Canceled</system:String>
+    <system:String x:Key="ErrordownloadingtheImagePack">Error downloading the Image Pack.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
+    <system:String x:Key="DownloadError">Download Error</system:String>
 
 </ResourceDictionary>

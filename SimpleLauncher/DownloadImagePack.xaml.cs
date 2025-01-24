@@ -127,49 +127,67 @@ public partial class DownloadImagePack
                         }
                         else // Extraction fail
                         {
+                            // Notify developer
                             string formattedException = $"Image Pack extraction failed.\n\n" +
                                                         $"File: {extrasDownloadUrl}";
                             Exception ex = new Exception(formattedException);
                             await LogErrors.LogErrorAsync(ex, formattedException);
-
-                            MessageBox.Show("Image Pack extraction failed!\n\n" +
-                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                                            "Temporarily disable your antivirus software and try again.",
-                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                            
+                            string imagePackextractionfailed2 = (string)Application.Current.TryFindResource("ImagePackextractionfailed") ?? "Image Pack extraction failed!";
+                            string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+                            string ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+                            string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+                            string extractionFailed2 = (string)Application.Current.TryFindResource("ExtractionFailed") ?? "Extraction Failed";
+                            MessageBox.Show($"{imagePackextractionfailed2}\n\n" +
+                                            $"{grantSimpleLauncheradministrative2}\n\n" +
+                                            $"{ensuretheSimpleLauncher2}\n\n" +
+                                            $"{temporarilydisableyourantivirussoftware2}",
+                                extractionFailed2, MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else // Download fail
                     {
+                        // Notify developer
                         string formattedException = $"Image Pack download failed.\n\n" +
                                                     $"File: {extrasDownloadUrl}";
                         Exception ex = new Exception(formattedException);
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
-                        MessageBox.Show("Image Pack download failed!\n\n" +
-                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                                        "Temporarily disable your antivirus software and try again.",
-                            "Download Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        string imagePackdownloadfailed2 = (string)Application.Current.TryFindResource("ImagePackdownloadfailed") ?? "Image Pack download failed!";
+                        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+                        string ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+                        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+                        string downloadFailed2 = (string)Application.Current.TryFindResource("DownloadFailed") ?? "Download Failed";
+                        MessageBox.Show($"{imagePackdownloadfailed2}\n\n" +
+                                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                                        $"{ensuretheSimpleLauncher2}\n\n" +
+                                        $"{temporarilydisableyourantivirussoftware2}",
+                            downloadFailed2, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (TaskCanceledException)
                 {
                     DeleteDownloadedFile(downloadFilePath);
                     
-                    MessageBox.Show("Image Pack download was canceled.",
-                        "Download Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string imagePackdownloadwascanceled2 = (string)Application.Current.TryFindResource("ImagePackdownloadwascanceled") ?? "Image Pack download was canceled.";
+                    string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
+                    MessageBox.Show(imagePackdownloadwascanceled2,
+                        downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string formattedException = $"Error downloading the Image Pack.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
-                    MessageBoxResult result = MessageBox.Show($"Error downloading the Image Pack.\n\n" +
-                                                              $"Would you like to be redirected to the download page?",
-                        "Download Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    string errordownloadingtheImagePack2 = (string)Application.Current.TryFindResource("ErrordownloadingtheImagePack") ?? "Error downloading the Image Pack.";
+                    string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+                    string downloadError2 = (string)Application.Current.TryFindResource("DownloadError") ?? "Download Error";
+                    MessageBoxResult result = MessageBox.Show($"{errordownloadingtheImagePack2}\n\n" +
+                                                              $"{wouldyouliketoberedirected2}",
+                        downloadError2, MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {
                         Process.Start(new ProcessStartInfo
