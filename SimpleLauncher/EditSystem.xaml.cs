@@ -30,7 +30,7 @@ public partial class EditSystem
         PopulateSystemNamesDropdown();
             
         // Attach event handler
-        this.Closing += EditSystem_Closing; 
+        Closing += EditSystem_Closing; 
             
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
@@ -215,7 +215,7 @@ public partial class EditSystem
         MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
         MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
         
-        // Update the HelpUserTextBlock
+        // // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }

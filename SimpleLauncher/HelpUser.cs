@@ -22,6 +22,7 @@ public static class HelpUser
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Failed to load helpuser.xml.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
@@ -29,7 +30,7 @@ public static class HelpUser
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
     }
-    
+
     public static void UpdateHelpUserTextBlock(TextBlock helpUserTextBlock, TextBox systemNameTextBox)
     {
         // Retrieve the system name from the TextBox
@@ -131,7 +132,7 @@ public static class HelpUser
         if (responses.TryGetValue(systemName, out var responseGenerator))
         {
             var text = responseGenerator();
-            SetTextWithLinks(helpUserTextBlock, text);
+            SetTextWithMarkdown(helpUserTextBlock, text);
         }
         else
         {
@@ -218,20 +219,79 @@ public static class HelpUser
     private static string SonyPlayStationVitaDetails() => GetSystemDetails("Sony PlayStation Vita");
     private static string SonyPspDetails() => GetSystemDetails("Sony PSP");
     
-    private static void SetTextWithLinks(TextBlock textBlock, string text)
+    private static string GetSystemDetails(string systemName)
     {
-        var regex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
-        var parts = regex.Split(text);
-        var matches = regex.Matches(text);
+        // Fetch the system details from the configuration
+        var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return system?.SystemHelperText ?? $"No details available for {systemName}.";
+    }
+    
+    private static void SetTextWithMarkdown(TextBlock textBlock, string text)
+    {
+        textBlock.Inlines.Clear();
+
+        // Remove <br> tags
+        text = text.Replace("<br>", "");
+
+        // Regular expressions for bold, italic, and lines starting with ##
+        var markdownRegex = new Regex(@"\*\*(.*?)\*\*|_(.*?)_", RegexOptions.Compiled); // Match bold (**text**) and italic (_text_)
+        var headingRegex = new Regex(@"^##\s*(.*?)$", RegexOptions.Multiline); // Match lines starting with ##
+        var linkRegex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled); // Match URLs
+
+        // Process lines for headings (##)
+        text = headingRegex.Replace(text, match =>
+        {
+            var boldText = match.Groups[1].Value.Trim();
+            return $"**{boldText}**"; // Convert headings to bold syntax
+        });
+
+        int lastIndex = 0;
+
+        foreach (Match match in markdownRegex.Matches(text))
+        {
+            // Add plain text before the match
+            if (match.Index > lastIndex)
+            {
+                var plainText = text.Substring(lastIndex, match.Index - lastIndex);
+                AddTextWithLinks(textBlock, plainText, linkRegex);
+            }
+
+            // Add formatted text
+            if (match.Groups[1].Success) // Bold
+            {
+                textBlock.Inlines.Add(new Bold(new Run(match.Groups[1].Value)));
+            }
+            else if (match.Groups[2].Success) // Italic
+            {
+                textBlock.Inlines.Add(new Italic(new Run(match.Groups[2].Value)));
+            }
+
+            lastIndex = match.Index + match.Length;
+        }
+
+        // Add the remaining text after the last match
+        if (lastIndex < text.Length)
+        {
+            var remainingText = text.Substring(lastIndex);
+            AddTextWithLinks(textBlock, remainingText, linkRegex);
+        }
+    }
+    
+    private static void AddTextWithLinks(TextBlock textBlock, string text, Regex linkRegex)
+    {
+        var parts = linkRegex.Split(text);
+        var matches = linkRegex.Matches(text);
 
         int index = 0;
         foreach (var part in parts)
         {
+            // Add plain text
             textBlock.Inlines.Add(new Run(part));
 
+            // Add hyperlink in bold
             if (index < matches.Count)
             {
-                var hyperlink = new Hyperlink(new Run(matches[index].Value))
+                var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
                 {
                     NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
                         ? matches[index].Value
@@ -250,12 +310,6 @@ public static class HelpUser
             }
         }
     }
-    
-    private static string GetSystemDetails(string systemName)
-    {
-        // Fetch the system details from the configuration
-        var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        string nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
-        return system?.SystemHelperText ?? $"{nodetailsavailablefor2} {systemName}.";
-    }
+
+
 }

@@ -694,11 +694,12 @@
                 Grid.Row="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                FontWeight="Bold"
                 Content="{DynamicResource DeveloperSuggestion}" />
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <TextBlock
                     x:Name="HelpUserTextBlock"
-                    Margin="10"
+                    Margin="10,0,10,10"
                     TextWrapping="Wrap"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch">
