@@ -219,7 +219,7 @@ public partial class DownloadImagePack
 
         void DownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
         {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error.";
             string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
@@ -383,7 +383,7 @@ public partial class DownloadImagePack
 
         void DownloadErrorMessageBox()
         {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error.";
             string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{downloaderror2}\n\n" +
