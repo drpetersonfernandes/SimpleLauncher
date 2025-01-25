@@ -1988,7 +1988,7 @@ Double-check the file and folder locations when entering them into Simple Launch
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-Core documentation can be found at [DuckStation Repository](https://github.com/stenzek/duckstation). Emulator may need BIOS or system files to work properly.
+Emulator documentation can be found at [DuckStation Repository](https://github.com/stenzek/duckstation). Emulator may need BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
