@@ -38,12 +38,6 @@ public partial class EditSystemEasyModeAddSystem
         // Subscribe to the Closed event
         Closed += EditSystemEasyModeAddSystem_Closed;
 
-        string someantivirusprogramsmaylock2 = (string)Application.Current.TryFindResource("Someantivirusprogramsmaylock") ?? "Some antivirus programs may lock or prevent the extraction of newly downloaded files, causing access issues during installation.";
-        string ifyouencountererrors2 = (string)Application.Current.TryFindResource("Ifyouencountererrors") ?? "If you encounter errors, try temporarily disabling real-time protection and run 'Simple Launcher' with administrative privileges.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{someantivirusprogramsmaylock2}\n\n" +
-                        $"{ifyouencountererrors2}",
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     // Populated System Dropbox only if EmulatorDownloadLink is not null
