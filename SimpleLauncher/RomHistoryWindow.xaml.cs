@@ -149,18 +149,42 @@ public partial class RomHistoryWindow
     {
         HistoryTextBlock.Inlines.Clear();
 
-        var regex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
-        var parts = regex.Split(historyText);
-        var matches = regex.Matches(historyText);
+        var regexLink = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
+        var regexBoldLine = new Regex(@"- .* -", RegexOptions.Compiled);
+
+        var parts = regexLink.Split(historyText);
+        var matches = regexLink.Matches(historyText);
 
         int index = 0;
         foreach (var part in parts)
         {
-            HistoryTextBlock.Inlines.Add(new Run(part));
+            // Check if the part contains a bold line pattern
+            if (regexBoldLine.IsMatch(part))
+            {
+                var boldMatches = regexBoldLine.Matches(part);
+                int boldIndex = 0;
 
+                foreach (var subPart in regexBoldLine.Split(part))
+                {
+                    HistoryTextBlock.Inlines.Add(new Run(subPart));
+
+                    // If there's a match for the bold pattern, make it bold
+                    if (boldIndex < boldMatches.Count)
+                    {
+                        HistoryTextBlock.Inlines.Add(new Bold(new Run(boldMatches[boldIndex].Value)));
+                        boldIndex++;
+                    }
+                }
+            }
+            else
+            {
+                HistoryTextBlock.Inlines.Add(new Run(part));
+            }
+
+            // If there's a link, make it bold and clickable
             if (index < matches.Count)
             {
-                var hyperlink = new Hyperlink(new Run(matches[index].Value))
+                var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
                 {
                     NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
                         ? matches[index].Value
@@ -179,4 +203,5 @@ public partial class RomHistoryWindow
             }
         }
     }
+
 }
