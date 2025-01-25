@@ -1648,6 +1648,14 @@ Double-check the file and folder locations when entering them into 'Simple Launc
 Documentation can be found at [PCSX2 Website](https://pcsx2.net/docs/).<br>
 This emulator may require BIOS or system files to work properly.
 
+**Emulator Name:** Retroarch pcsx2<br>
+**Emulator Location (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\pcsx2_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found at [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
+Core may require BIOS files or system files to work properly.
+
 ## Sony PlayStation 3
 
 Double-check the file and folder locations when entering them into 'Simple Launcher', especially in the Parameters field.
