@@ -21,94 +21,131 @@ public partial class MainWindow
     private void WelcomeMessage()
     {
         AppendLog("Welcome to the Batch Convert ISO to XISO program.");
-        AppendLog("This program will convert all [ISO] files in the input folder to Xbox XISO files in the output folder using extract-xiso.");
-        AppendLog("Click on the Start Conversion button below to begin the conversion process.");
+        AppendLog("Convert ISO files to Xbox XISO format using extract-xiso.");
+        AppendLog("Click 'Start Conversion' to begin.");
     }
 
     private async Task PerformBatchConversionAsync(string extractXisoPath, string inputFolder, string outputFolder, bool deleteFiles)
     {
         try
         {
-            AppendLog("Preparing for batch conversion...");
+            AppendLog("Scanning input folder for ISO files...");
+            var isoFiles = Directory.GetFiles(inputFolder, "*.iso", SearchOption.TopDirectoryOnly);
 
-            // Restrict to .iso files only
-            var files = Directory.GetFiles(inputFolder, "*.iso", SearchOption.TopDirectoryOnly).ToArray();
-
-            AppendLog($"Found {files.Length} ISO files to convert.");
-
-            if (files.Length == 0)
+            if (!isoFiles.Any())
             {
-                AppendLog("No ISO files found in the input folder.");
+                AppendLog("No ISO files found in the selected folder.");
                 return;
             }
 
+            AppendLog($"Found {isoFiles.Length} ISO file(s). Starting conversion...");
+
             ProgressBar.Visibility = Visibility.Visible;
             CancelButton.Visibility = Visibility.Visible;
-            ProgressBar.Maximum = files.Length;
+            ProgressBar.Maximum = isoFiles.Length;
 
-            // Create converted folder in the output directory
-            var convertedFolder = Path.Combine(outputFolder, "converted");
-            Directory.CreateDirectory(convertedFolder);
-
-            for (int i = 0; i < files.Length; i++)
+            for (int i = 0; i < isoFiles.Length; i++)
             {
                 if (_cts.Token.IsCancellationRequested)
                 {
-                    AppendLog("Operation canceled by user.");
+                    AppendLog("Conversion canceled.");
                     break;
                 }
 
-                var inputFile = files[i];
-                var outputFile = Path.Combine(outputFolder, Path.GetFileName(inputFile));
+                var isoFile = isoFiles[i];
+                AppendLog($"[{i + 1}/{isoFiles.Length}] Converting: {isoFile}");
 
-                AppendLog($"[{i + 1}/{files.Length}] Converting: {inputFile}");
-                bool success = await ConvertToXisoAsync(extractXisoPath, inputFile);
+                bool success = await ConvertToXisoAsync(extractXisoPath, isoFile);
 
                 if (success)
                 {
-                    AppendLog($"Conversion successful: {inputFile}");
+                    string convertedFileName = Path.GetFileName(isoFile); // Retains the original name with .iso extension
+                    string convertedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, convertedFileName);
+                    string destinationPath = Path.Combine(outputFolder, convertedFileName);
 
-                    if (deleteFiles)
+                    // Move the converted file to the output folder asynchronously
+                    if (File.Exists(convertedFilePath))
                     {
-                        File.Delete(inputFile);
-                        AppendLog($"Deleted original file: {inputFile}");
+                        try
+                        {
+                            await Task.Run(() => File.Move(convertedFilePath, destinationPath, overwrite: true));
+                            AppendLog($"Moved converted file to: {destinationPath}");
+                        }
+                        catch (Exception ex)
+                        {
+                            AppendLog($"Error moving file {convertedFilePath} to {destinationPath}: {ex.Message}");
+                        }
+                    }
+                    else
+                    {
+                        AppendLog($"Expected converted file not found: {convertedFilePath}");
                     }
 
-                    // Move the converted file to the converted folder
-                    var movedFile = Path.Combine(convertedFolder, Path.GetFileName(outputFile));
-                    File.Move(outputFile, movedFile);
-                    AppendLog($"Moved converted file to: {movedFile}");
+                    // Handle the .old file based on deleteFiles parameter asynchronously
+                    string renamedFilePath = isoFile + ".old";
+                    if (File.Exists(renamedFilePath))
+                    {
+                        if (deleteFiles)
+                        {
+                            try
+                            {
+                                await Task.Run(() => File.Delete(renamedFilePath));
+                                AppendLog($"Deleted renamed file: {renamedFilePath}");
+                            }
+                            catch (Exception ex)
+                            {
+                                AppendLog($"Error deleting file {renamedFilePath}: {ex.Message}");
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                await Task.Run(() => File.Move(renamedFilePath, isoFile, overwrite: true));
+                                AppendLog($"Renamed file back to original: {isoFile}");
+                            }
+                            catch (Exception ex)
+                            {
+                                AppendLog($"Error renaming file {renamedFilePath} back to {isoFile}: {ex.Message}");
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    AppendLog($"Conversion failed: {inputFile}");
+                    AppendLog($"Conversion failed: {isoFile}");
                 }
 
                 ProgressBar.Value = i + 1;
             }
 
-            ProgressBar.Visibility = Visibility.Collapsed;
-            CancelButton.Visibility = Visibility.Collapsed;
             AppendLog("Batch conversion completed.");
         }
         catch (Exception ex)
         {
-            AppendLog($"Error during batch conversion: {ex.Message}");
+            AppendLog($"Error: {ex.Message}");
+        }
+        finally
+        {
+            ProgressBar.Visibility = Visibility.Collapsed;
+            CancelButton.Visibility = Visibility.Collapsed;
         }
     }
 
-    private Task<bool> ConvertToXisoAsync(string extractXisoPath, string inputFile)
+    private Task<bool> ConvertToXisoAsync(string extractXisoPath, string isoFile)
     {
         return Task.Run(() =>
         {
             try
             {
+                AppendLog($"Starting conversion for file: {isoFile}");
+
                 var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = extractXisoPath,
-                        Arguments = $"-r \"{inputFile}\"",
+                        Arguments = $"-r \"{isoFile}\"",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         UseShellExecute = false,
@@ -117,13 +154,19 @@ public partial class MainWindow
                 };
 
                 process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
+                AppendLog($"Process output: {output}");
+                AppendLog(process.ExitCode != 0 ? $"Process error: {error}" : "Conversion successful.");
+                
                 return process.ExitCode == 0;
+                
             }
             catch (Exception ex)
             {
-                AppendLog($"Error: {ex.Message}");
+                AppendLog($"Error during conversion: {ex.Message}");
                 return false;
             }
         });
@@ -131,21 +174,23 @@ public partial class MainWindow
 
     private void AppendLog(string message)
     {
-        string timestampedMessage = $"[{DateTime.Now}] {message}";
+        string timestamp = DateTime.Now.ToString("HH:mm:ss");
+        string logMessage = $"[{timestamp}] {message}";
 
-        // Log to console
-        Console.WriteLine(timestampedMessage);
+        // Log to Console
+        Console.WriteLine(logMessage);
 
         // Log to WPF UI
         Dispatcher.Invoke(() =>
         {
-            LogViewer.AppendText($"{timestampedMessage}{Environment.NewLine}");
+            LogViewer.AppendText($"{logMessage}{Environment.NewLine}");
             LogViewer.ScrollToEnd();
         });
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
+        AppendLog("Cancel button clicked. Cancelling the operation...");
         _cts.Cancel();
     }
 
@@ -153,58 +198,65 @@ public partial class MainWindow
     {
         try
         {
-            AppendLog("Starting batch conversion process...");
+            AppendLog("Start button clicked. Initializing conversion process...");
 
-            // Step 1: Use extract-xiso.exe from the application folder
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string extractXisoPath = Path.Combine(appDirectory, "extract-xiso.exe");
             if (!File.Exists(extractXisoPath))
             {
-                AppendLog("extract-xiso.exe not found in the application folder.");
-                MessageBox.Show("extract-xiso.exe is missing from the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                AppendLog("Error: extract-xiso.exe not found in the application folder.");
+                MessageBox.Show("extract-xiso.exe is missing!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            AppendLog($"Using extract-xiso.exe: {extractXisoPath}");
 
-            // Step 2: Prompt for input folder
-            var inputFolderDialog = new FolderBrowserDialog
-            {
-                Description = "Select the folder containing ISO files to convert"
-            };
-            if (inputFolderDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            AppendLog($"Using extract-xiso.exe from: {extractXisoPath}");
+
+            var inputFolder = SelectFolder("Select the folder containing ISO files to convert");
+            if (string.IsNullOrEmpty(inputFolder))
             {
                 AppendLog("Input folder selection canceled.");
                 return;
             }
-            string inputFolder = inputFolderDialog.SelectedPath;
+
             AppendLog($"Input folder selected: {inputFolder}");
 
-            // Step 3: Prompt for output folder
-            var outputFolderDialog = new FolderBrowserDialog
-            {
-                Description = "Select the output folder"
-            };
-            if (outputFolderDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            var outputFolder = SelectFolder("Select the output folder for converted XISO files");
+            if (string.IsNullOrEmpty(outputFolder))
             {
                 AppendLog("Output folder selection canceled.");
                 return;
             }
-            string outputFolder = outputFolderDialog.SelectedPath;
+
             AppendLog($"Output folder selected: {outputFolder}");
 
-            // Step 4: Ask if successfully converted files should be deleted
-            var result = MessageBox.Show("Do you want to delete successfully converted files after conversion?",
-                "Delete Files", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            bool deleteFiles = result == MessageBoxResult.Yes;
-            AppendLog($"Delete files option: {deleteFiles}");
+            var deleteFiles = MessageBox.Show("Delete original ISO files after successful conversion?",
+                "Delete Files", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
 
-            // Step 5: Start batch conversion
+            AppendLog($"Delete original files option: {deleteFiles}");
+
             AppendLog("Starting batch conversion...");
             await PerformBatchConversionAsync(extractXisoPath, inputFolder, outputFolder, deleteFiles);
         }
         catch (Exception ex)
         {
-            AppendLog($"Error: {ex.Message}");
+            AppendLog($"Unexpected error: {ex.Message}");
         }
+    }
+
+    private string SelectFolder(string description)
+    {
+        using var dialog = new FolderBrowserDialog();
+        dialog.Description = description;
+
+        AppendLog($"Opening folder dialog: {description}");
+        var result = dialog.ShowDialog();
+        if (result == System.Windows.Forms.DialogResult.OK)
+        {
+            AppendLog($"Folder selected: {dialog.SelectedPath}");
+            return dialog.SelectedPath;
+        }
+
+        AppendLog("Folder selection canceled.");
+        return string.Empty;
     }
 }
