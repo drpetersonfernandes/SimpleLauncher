@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">エミュレータは指定されたパラメータでゲームを開くことができませんでした。</system:String>
     <system:String x:Key="Thefileerroruser">ファイル 'error_user.log' が見つかりませんでした！</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">言語リソースの読み込みに失敗しました。</system:String>
+    <system:String x:Key="LanguageLoadingError">言語読み込みエラー</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ファイルが見つかりません。</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">アプリケーションはエラーレポートを送信できません。</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">問題を解決するために『Simple Launcher』を再インストールしてください。</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">このフォームの API キーにエラーがあります。</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">エラーレポート送信中にエラーが発生しました。</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">バグが開発者に報告され、修正される予定です。</system:String>
+    <system:String x:Key="Theoperationwascanceled">操作はユーザーによってキャンセルされました。</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">ダウンロードしたファイルは有効な ZIP アーカイブではありません。</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">これはネットワークの問題またはサーバーエラーが原因である可能性があります。</system:String>
+    <system:String x:Key="Pleasetryagainlater">あとでもう一度お試しください。</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">『Simple Launcher』に管理者権限を付与し、再試行してください。</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">アンチウイルスソフトウェアを一時的に無効化し、再試行してください。</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">イメージパックのダウンロードまたは抽出に失敗しました！</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">ダウンロードおよび抽出が成功しました。</system:String>
+    <system:String x:Key="Downloadwascanceled">ダウンロードがキャンセルされました。</system:String>
+    <system:String x:Key="Downloaderror2">ダウンロードエラー。</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">ダウンロード後にファイルの読み書きエラーが発生しました。</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">リアルタイムプロテクションのあるアンチウイルスソフトウェアが新しくダウンロードしたファイルをロックまたはスキャンして、アクセス問題を引き起こしている可能性があります。一時的にリアルタイム保護を無効化してみてください。</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">さらに、『Simple Launcher』に管理者権限を付与して、ファイル書き込み機能を有効にしてください。</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">ダウンロードしたファイルを見るために『temp』フォルダを開きますか？</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">『Simple Launcher』はアクセス関連の問題で『temp』フォルダーを開けませんでした。</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">イメージパックを抽出するフォルダーを選択してください。</system:String>
+    
 </ResourceDictionary>

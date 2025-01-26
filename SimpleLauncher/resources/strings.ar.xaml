@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
     <system:String x:Key="Thefileerroruser">لم يتم العثور على الملف 'error_user.log'!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">فشل في تحميل موارد اللغة.</system:String>
+    <system:String x:Key="LanguageLoadingError">خطأ في تحميل اللغة</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">لن يتمكن التطبيق من إرسال تقرير الخطأ.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">يرجى إعادة تثبيت 'Simple Launcher' لحل المشكلة.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">حدث خطأ في مفتاح API الخاص بهذا النموذج.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">حدث خطأ أثناء إرسال تقرير الخطأ.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
+    <system:String x:Key="Theoperationwascanceled">تم إلغاء العملية من قبل المستخدم.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">الملف الذي تم تنزيله ليس ملف ZIP صالح.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">قد يكون السبب مشكلة في الشبكة أو خطأ في الخادم.</system:String>
+    <system:String x:Key="Pleasetryagainlater">يرجى المحاولة مرة أخرى لاحقًا.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">امنح 'Simple Launcher' صلاحيات المسؤول وحاول مرة أخرى.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' هو دليل قابل للكتابة.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">قم بتعطيل برنامج مكافحة الفيروسات الخاص بك مؤقتًا وحاول مرة أخرى.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">فشل تحميل أو استخراج حزمة الصور!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">تم التحميل والاستخراج بنجاح.</system:String>
+    <system:String x:Key="Downloadwascanceled">تم إلغاء التحميل.</system:String>
+    <system:String x:Key="Downloaderror2">خطأ في التحميل.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">حدث خطأ في قراءة/كتابة الملف بعد التحميل.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">قد يحدث هذا الخطأ إذا كان برنامج مكافحة الفيروسات يقفل أو يفحص الملفات التي تم تنزيلها مؤخرًا، مما يتسبب في مشكلات وصول. حاول تعطيل الحماية في الوقت الفعلي مؤقتًا.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">بالإضافة إلى ذلك، امنح 'Simple Launcher' حقوق المسؤول لتمكين الكتابة على الملفات.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' موجود في دليل قابل للكتابة.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">هل تريد فتح مجلد 'temp' لمعاينة الملف الذي تم تنزيله؟</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' لم يتمكن من فتح مجلد 'temp' بسبب مشكلات في الوصول.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">اختر مجلدًا لاستخراج حزمة الصور</system:String>
+    
 </ResourceDictionary>

@@ -426,5 +426,34 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">اس گیم کو چلانے میں ایک غلطی ہوئی۔</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ایمیولیٹر دیئے گئے پیرامیٹرز کے ساتھ گیم کھولنے میں ناکام رہا۔</system:String>
     <system:String x:Key="Thefileerroruser">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
+    
+    <system:String x:Key="Failedtoloadlanguageresources">زبان کے وسائل لوڈ کرنے میں ناکام۔</system:String>
+    <system:String x:Key="LanguageLoadingError">زبان لوڈنگ کی خرابی</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">ایپلی کیشن خرابی کی رپورٹس نہیں بھیج سکے گی۔</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">کیا آپ 'Simple Launcher' کو خود بخود دوبارہ انسٹال کرنا چاہتے ہیں تاکہ مسئلہ حل ہو سکے؟</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">مسئلہ حل کرنے کے لیے 'Simple Launcher' دوبارہ انسٹال کریں۔</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">اس فارم کی API کلید میں ایک خرابی ہوئی۔</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">خرابی کی رپورٹ بھیجتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">خرابی کو ڈویلپر کو رپورٹ کیا گیا ہے اور اسے حل کیا جائے گا۔</system:String>
+    <system:String x:Key="Theoperationwascanceled">آپریشن صارف کے ذریعہ منسوخ کر دیا گیا۔</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">ڈاؤن لوڈ کی گئی فائل ایک درست ZIP آرکائیو نہیں ہے۔</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">یہ نیٹ ورک کے مسئلے یا سرور کی خرابی کی وجہ سے ہو سکتا ہے۔</system:String>
+    <system:String x:Key="Pleasetryagainlater">براہ کرم بعد میں دوبارہ کوشش کریں۔</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' کو انتظامی اجازت دیں اور دوبارہ کوشش کریں۔</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">یقینی بنائیں کہ 'Simple Launcher' فولڈر ایک ایسی ڈائریکٹری میں موجود ہے جس میں لکھنے کی اجازت ہو۔</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">اپنے اینٹی وائرس سافٹ ویئر کو عارضی طور پر غیر فعال کریں اور دوبارہ کوشش کریں۔</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">امیج پیک کو ڈاؤن لوڈ یا نکالنے میں ناکام!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">ڈاؤن لوڈ یا نکالنے میں ناکامی</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">ڈاؤن لوڈ اور نکالنے کا عمل کامیابی کے ساتھ مکمل ہو گیا۔</system:String>
+    <system:String x:Key="Downloadwascanceled">ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
+    <system:String x:Key="Downloaderror2">ڈاؤن لوڈ کی خرابی۔</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">ڈاؤن لوڈ کے بعد فائل کو پڑھنے/لکھنے میں ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">یہ خرابی اس وقت ہو سکتی ہے جب اینٹی وائرس سافٹ ویئر حال ہی میں ڈاؤن لوڈ کی گئی فائلیں بلاک یا اسکین کرتا ہے، جس کے نتیجے میں رسائی میں مشکلات پیدا ہوتی ہیں۔ حقیقی وقت کی حفاظت کو عارضی طور پر غیر فعال کرنے کی کوشش کریں۔</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">فائلز تک رسائی کے مسئلے کو حل کرنے کے لیے 'Simple Launcher' کو انتظامی اجازتیں بھی دیں۔</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">یقینی بنائیں کہ 'Simple Launcher' فولڈر کسی ایسی ڈائریکٹری میں ہے جس میں لکھنے کی اجازت ہو۔</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">کیا آپ ڈاؤن لوڈ کی گئی فائل کو دیکھنے کے لیے temp فولڈر کھولنا چاہیں گے؟</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' رسائی کی پریشانیوں کی وجہ سے temp فولڈر کھولنے سے قاصر تھا۔</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">امیج پیک کو نکالنے کے لیے ایک فولڈر منتخب کریں۔</system:String>
 
 </ResourceDictionary>

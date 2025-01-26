@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">模拟器无法使用指定的参数打开游戏。</system:String>
     <system:String x:Key="Thefileerroruser">未找到文件 'error_user.log'！</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">无法加载语言资源。</system:String>
+    <system:String x:Key="LanguageLoadingError">语言加载错误</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">应用程序将无法发送错误报告。</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自动重新安装 'Simple Launcher' 来解决问题？</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">请重新安装 'Simple Launcher' 以解决问题。</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">此表单的 API 密钥中存在错误。</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">发送错误报告时发生错误。</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">错误已报告给开发者，并将被修复。</system:String>
+    <system:String x:Key="Theoperationwascanceled">操作已被用户取消。</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">下载的文件不是有效的 ZIP 压缩包。</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">这可能是由网络问题或服务器错误导致。</system:String>
+    <system:String x:Key="Pleasetryagainlater">请稍后重试。</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">请授予 'Simple Launcher' 管理员权限并重试。</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">确保 'Simple Launcher' 文件夹位于具有写入权限的文件目录中。</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">暂时禁用您的杀毒软件并重试。</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">图像包下载或解压失败！</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">下载或解压失败</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">下载和解压已成功完成。</system:String>
+    <system:String x:Key="Downloadwascanceled">下载已取消。</system:String>
+    <system:String x:Key="Downloaderror2">下载错误。</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">下载后发生文件读写错误。</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">如果杀毒软件正在阻止或扫描新下载的文件，可能会导致访问问题。请尝试暂时禁用实时保护。</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">此外，请授予 'Simple Launcher' 管理员权限以修复文件访问的问题。</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">确保 'Simple Launcher' 文件夹位于具有写入权限的目录中。</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">您想打开 'temp' 文件夹以查看下载的文件吗？</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' 因访问问题无法打开 'temp' 文件夹。</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">请选择一个文件夹解压图像包。</system:String>
+    
 </ResourceDictionary>

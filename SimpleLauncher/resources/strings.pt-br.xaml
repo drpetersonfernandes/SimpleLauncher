@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">O emulador não conseguiu abrir o jogo com os parâmetros fornecidos.</system:String>
     <system:String x:Key="Thefileerroruser">O arquivo 'error_user.log' não foi encontrado!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Falha ao carregar os recursos de idioma.</system:String>
+    <system:String x:Key="LanguageLoadingError">Erro ao carregar o idioma</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">O arquivo 'appsettings.json' está faltando.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">O aplicativo não poderá enviar relatórios de erro.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Reinstale o 'Simple Launcher' para resolver o problema.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Houve um erro na chave de API deste formulário.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Ocorreu um erro ao enviar o relatório de erro.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">O erro foi reportado ao desenvolvedor e será corrigido.</system:String>
+    <system:String x:Key="Theoperationwascanceled">A operação foi cancelada pelo usuário.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">O arquivo baixado não é um arquivo ZIP válido.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Isso pode ser devido a um problema de rede ou um erro do servidor.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Por favor, tente novamente mais tarde.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Conceda permissões administrativas ao 'Simple Launcher' e tente novamente.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Certifique-se de que a pasta 'Simple Launcher' está localizada em um diretório com permissão de escrita.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Desative temporariamente o software antivírus e tente novamente.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Falha ao baixar ou extrair o pacote de imagens!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Falha ao baixar ou extrair</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">O download e a extração foram concluídos com sucesso.</system:String>
+    <system:String x:Key="Downloadwascanceled">O download foi cancelado.</system:String>
+    <system:String x:Key="Downloaderror2">Erro ao fazer o download.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Ocorreu um erro de leitura/gravação do arquivo após o download.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Esse erro pode ocorrer se o software antivírus bloquear ou escanear arquivos recém-baixados, causando problemas de acesso. Experimente desativar temporariamente a proteção em tempo real.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Além disso, conceda permissões administrativas ao 'Simple Launcher' para habilitar a capacidade de gravação de arquivos.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Certifique-se de que a pasta 'Simple Launcher' está localizada em um diretório com permissão de gravação.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Você gostaria de abrir a pasta 'temp' para visualizar o arquivo baixado?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">O 'Simple Launcher' não conseguiu abrir a pasta 'temp' devido a problemas de acesso.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Selecione uma pasta para extrair o pacote de imagens.</system:String>
+    
 </ResourceDictionary>

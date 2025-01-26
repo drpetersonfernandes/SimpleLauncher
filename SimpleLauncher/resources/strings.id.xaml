@@ -426,5 +426,34 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Terjadi kesalahan saat meluncurkan permainan ini.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emulator tidak dapat membuka permainan dengan parameter yang diberikan.</system:String>
     <system:String x:Key="Thefileerroruser">File 'error_user.log' tidak ditemukan!</system:String>
+    
+    <system:String x:Key="Failedtoloadlanguageresources">Gagal memuat sumber bahasa.</system:String>
+    <system:String x:Key="LanguageLoadingError">Ralat pemuatan bahasa</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Fail 'appsettings.json' tidak ditemui.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">Aplikasi tidak dapat menghantar laporan ralat.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Sila pasang semula 'Simple Launcher' untuk menyelesaikan masalah ini.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Terdapat kesilapan dengan kunci API untuk borang ini.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Kesilapan berlaku semasa menghantar laporan ralat.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Pepijat telah dilaporkan kepada pembangun, dan mereka akan cuba membetulkannya.</system:String>
+    <system:String x:Key="Theoperationwascanceled">Operasi dibatalkan oleh pengguna.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Fail yang dimuat turun bukan fail ZIP yang sah.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Ini mungkin disebabkan oleh masalah rangkaian atau ralat pelayan.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Sila cuba lagi kemudian.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Berikan keizinan pentadbir kepada 'Simple Launcher' dan cuba lagi.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Pastikan folder 'Simple Launcher' berada dalam direktori yang mempunyai kebenaran menulis.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Matikan sementara perisian antivirus anda dan cuba lagi.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Gagal memuat turun atau mengekstrak pek gambar!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Muat turun dan ekstraksi berjaya.</system:String>
+    <system:String x:Key="Downloadwascanceled">Muat turun telah dibatalkan.</system:String>
+    <system:String x:Key="Downloaderror2">Kesilapan muat turun.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Kesilapan bacaan atau tulis fail berlaku selepas muat turun.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Kesilapan ini mungkin berlaku jika perisian antivirus menyekat atau mengimbas fail yang baru dimuat turun, menyebabkan masalah akses. Cuba nonaktifkan sementara perlindungan masa nyata.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Selain itu, berikan keizinan pentadbir kepada 'Simple Launcher' untuk membolehkan penulisan fail.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Pastikan folder 'Simple Launcher' berada di direktori yang mempunyai kebenaran menulis.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Adakah anda ingin membuka folder 'temp' untuk melihat fail yang dimuat turun?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' tidak dapat membuka folder 'temp' kerana masalah akses.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Pilih folder untuk mengekstrak pek gambar.</system:String>
 
 </ResourceDictionary>

@@ -455,7 +455,5 @@
     <system:String x:Key="Wouldyouliketoopenthetemp">Would you like to open the 'temp' folder to view the downloaded file?</system:String>
     <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' was unable to open the 'temp' folder due to access issues.</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Select a folder to extract the Image Pack</system:String>
-    
-    
 
 </ResourceDictionary>

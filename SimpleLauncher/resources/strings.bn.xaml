@@ -426,5 +426,34 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">এই গেমটি চালানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ঠিক সরবরাহকৃত প্যারামিটারগুলির সাথে এমুলেটর গেমটি খুলতে পারেনি।</system:String>
     <system:String x:Key="Thefileerroruser">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    
+    <system:String x:Key="Failedtoloadlanguageresources">ভাষা সংস্থান লোড করতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="LanguageLoadingError">ভাষা লোডিং ত্রুটি</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ফাইলটি অনুপস্থিত।</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">অ্যাপ্লিকেশনটি বাগ রিপোর্ট পাঠাতে সক্ষম হবে না।</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher' সমস্যা সমাধানের জন্য স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">সমস্যা সমাধানের জন্য 'Simple Launcher' পুনরায় ইনস্টল করুন।</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">এই ফর্মের API কী তে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">বাগ রিপোর্ট পাঠানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">বাগটি ডেভেলপারকে রিপোর্ট করা হয়েছে যিনি সমস্যাটি ঠিক করার চেষ্টা করবেন।</system:String>
+    <system:String x:Key="Theoperationwascanceled">ব্যবহারকারীর দ্বারা অপারেশন বাতিল করা হয়েছে।</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">ডাউনলোড করা ফাইলটি একটি বৈধ ZIP সংরক্ষণাগার নয়।</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">এটি একটি নেটওয়ার্ক সমস্যা বা সার্ভার ত্রুটির কারণে হতে পারে।</system:String>
+    <system:String x:Key="Pleasetryagainlater">অনুগ্রহ করে পরবর্তীতে আবার চেষ্টা করুন।</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' কে প্রশাসনিক অ্যাক্সেস দিন এবং আবার চেষ্টা করুন।</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">নিশ্চিত করুন যে 'Simple Launcher' ফোল্ডারটি লেখার যোগ্য একটি ডিরেক্টরি।</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">আপনার অ্যান্টিভাইরাস সফটওয়্যারটি সাময়িকভাবে বন্ধ করুন এবং আবার চেষ্টা করুন।</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">ইমেজ প্যাক ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">ডাউনলোড এবং এক্সট্র্যাকশন সফল হয়েছে।</system:String>
+    <system:String x:Key="Downloadwascanceled">ডাউনলোড বাতিল করা হয়েছে।</system:String>
+    <system:String x:Key="Downloaderror2">ডাউনলোড ত্রুটি।</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">ফাইলটি ডাউনলোড করার পরে পড়া/লিখার ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">অ্যান্টিভাইরাস প্রোগ্রাম নতুন ডাউনলোড হওয়া ফাইলগুলিকে লক বা স্ক্যান করছে, যার ফলে প্রবেশাধিকারের সমস্যা দেখা দিচ্ছে। রিয়েল-টাইম প্রোটেকশন সাময়িকভাবে নিষ্ক্রিয় করার চেষ্টা করুন।</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">অতিরিক্তভাবে, 'Simple Launcher'-এর ফাইল লেখার সক্ষমতা সক্রিয় করতে প্রশাসনিক অ্যাক্সেস দিন।</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' ফোল্ডারটি লেখার যোগ্য একটি ডিরেক্টরিতে আছে তা নিশ্চিত করুন।</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">ডাউনলোড করা ফাইলটি দেখতে 'temp' ফোল্ডারটি খুলতে চান?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' অ্যাক্সেস সমস্যার কারণে 'temp' ফোল্ডার খুলতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">ইমেজ প্যাক বের করার জন্য একটি ফোল্ডার নির্বাচন করুন</system:String>
 
 </ResourceDictionary>

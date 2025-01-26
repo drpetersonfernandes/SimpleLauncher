@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">El emulador no pudo abrir el juego con los parámetros proporcionados.</system:String>
     <system:String x:Key="Thefileerroruser">¡No se encontró el archivo 'error_user.log'!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Error al cargar los recursos de idioma.</system:String>
+    <system:String x:Key="LanguageLoadingError">Error al cargar el idioma</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Falta el archivo 'appsettings.json'.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">La aplicación no podrá enviar informes de errores.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">¿Desea reinstalar automáticamente 'Simple Launcher' para resolver el problema?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Por favor, reinstale 'Simple Launcher' para resolver el problema.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Hubo un error en la clave API de este formulario.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Ocurrió un error al enviar el informe de errores.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">El error ha sido informado al desarrollador, quien intentará corregirlo.</system:String>
+    <system:String x:Key="Theoperationwascanceled">La operación fue cancelada por el usuario.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">El archivo descargado no es un archivo ZIP válido.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Esto podría deberse a un problema de red o un error del servidor.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Por favor, intente de nuevo más tarde.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Otorgue permisos administrativos a 'Simple Launcher' e intente de nuevo.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Asegúrese de que la carpeta de 'Simple Launcher' esté en un directorio con permisos de escritura.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Desactive temporalmente su software antivirus e intente de nuevo.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">¡Error al descargar o extraer el paquete de imágenes!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Fallo en la descarga o extracción</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">La descarga y extracción fueron exitosas.</system:String>
+    <system:String x:Key="Downloadwascanceled">La descarga fue cancelada.</system:String>
+    <system:String x:Key="Downloaderror2">Error de descarga.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Hubo un error de lectura/escritura del archivo después de la descarga.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Este error puede ocurrir si un programa antivirus bloquea o escanea los archivos recién descargados, lo que causa problemas de acceso. Intente desactivar temporalmente la protección en tiempo real.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Además, otorgue permisos administrativos a 'Simple Launcher' para habilitar la capacidad de escritura de archivos.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Asegúrese de que la carpeta de 'Simple Launcher' esté en un directorio con permisos de escritura.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">¿Desea abrir la carpeta 'temp' para ver el archivo descargado?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' no pudo abrir la carpeta 'temp' debido a problemas de acceso.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Seleccione una carpeta para extraer el paquete de imágenes.</system:String>
+    
 </ResourceDictionary>

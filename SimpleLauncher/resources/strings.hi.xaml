@@ -428,4 +428,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">एमुलेटर दिए गए पैरामीटर्स के साथ गेम को खोलने में असमर्थ था।</system:String>
     <system:String x:Key="Thefileerroruser">फ़ाइल 'error_user.log' नहीं मिली!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">भाषा संसाधन लोड करने में विफल।</system:String>
+    <system:String x:Key="LanguageLoadingError">भाषा लोड करने में त्रुटि</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' फ़ाइल अनुपलब्ध है।</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">एप्लिकेशन बग रिपोर्ट भेजने में सक्षम नहीं होगा।</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः इंस्टॉल करना चाहेंगे समस्या को ठीक करने हेतु?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">समस्या को हल करने के लिए कृपया 'Simple Launcher' पुनः इंस्टॉल करें।</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">इस फॉर्म के API कुंजी में त्रुटि है।</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">बग रिपोर्ट भेजते समय एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">बग को डेवलपर को रिपोर्ट कर दिया गया है, जो इसे ठीक करने का प्रयास करेगा।</system:String>
+    <system:String x:Key="Theoperationwascanceled">ऑपरेशन उपयोगकर्ता द्वारा रद्द कर दिया गया।</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">डाउनलोड की गई फ़ाइल एक मान्य ZIP संग्रह नहीं है।</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">यह नेटवर्क समस्या या सर्वर त्रुटि के कारण हो सकता है।</system:String>
+    <system:String x:Key="Pleasetryagainlater">कृपया बाद में पुनः प्रयास करें।</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' को प्रशासनिक अनुमतियाँ दें और पुनः प्रयास करें।</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लिखने योग्य निर्देशिका में है।</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">अपना एंटीवायरस सॉफ़्टवेयर अस्थायी रूप से अक्षम करें और पुनः प्रयास करें।</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">छवि पैक डाउनलोड या निष्कर्षण में विफलता!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
+    <system:String x:Key="Downloadwascanceled">डाउनलोड रद्द कर दिया गया।</system:String>
+    <system:String x:Key="Downloaderror2">डाउनलोड त्रुटि।</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">डाउनलोड के बाद फ़ाइल पढ़ने/लिखने में त्रुटि हुई।</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">यह त्रुटि तब हो सकती है जब कोई एंटीवायरस प्रोग्राम नई डाउनलोड की गई फाइलों को लॉक या स्कैन कर रहा हो, जिससे पहुंच समस्याएं हो रही हों। अस्थायी रूप से रीयल-टाइम सुरक्षा को अक्षम करने का प्रयास करें।</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">अतिरिक्त रूप से, 'Simple Launcher' को फ़ाइल लिखने की क्षमता सक्षम करने के लिए प्रशासनिक अनुमतियाँ दें।</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लिखने योग्य निर्देशिका में है।</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">डाउनलोड की गई फ़ाइल देखने के लिए क्या आप 'temp' फ़ोल्डर खोलना चाहेंगे?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' एक्सेस समस्याओं के कारण 'temp' फ़ोल्डर खोलने में विफल रहा।</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">छवि पैक निकालने के लिए एक फ़ोल्डर चुनें।</system:String>
+    
 </ResourceDictionary>

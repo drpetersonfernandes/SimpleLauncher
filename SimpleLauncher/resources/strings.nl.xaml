@@ -426,5 +426,34 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Er is een fout opgetreden bij het starten van dit spel.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
     <system:String x:Key="Thefileerroruser">Het bestand 'error_user.log' is niet gevonden!</system:String>
+
+    <system:String x:Key="Failedtoloadlanguageresources">Het laden van taalbronnen is mislukt.</system:String>
+    <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Het bestand 'appsettings.json' ontbreekt.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">De applicatie kan geen foutmeldingen verzenden.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Herinstalleer 'Simple Launcher' om dit probleem op te lossen.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Er is een fout opgetreden met de API-sleutel voor dit formulier.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Er is een fout opgetreden tijdens het verzenden van de foutmelding.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">De bug is gemeld aan de ontwikkelaar en zal worden verholpen.</system:String>
+    <system:String x:Key="Theoperationwascanceled">De bewerking is geannuleerd door de gebruiker.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Het gedownloade bestand is geen geldig ZIP-archief.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Dit kan te wijten zijn aan een netwerkprobleem of een serverfout.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Probeer het later opnieuw.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Schakel uw antivirussoftware tijdelijk uit en probeer het opnieuw.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">De download of extractie van het afbeeldingspakket is mislukt!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">De download en extractie zijn succesvol uitgevoerd.</system:String>
+    <system:String x:Key="Downloadwascanceled">De download is geannuleerd.</system:String>
+    <system:String x:Key="Downloaderror2">Downloadfout.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Er is een lees/schrijffout opgetreden na de download.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Deze fout kan optreden als antivirussoftware het pas gedownloade bestand blokkeert of scant, waardoor er toegangsfouten ontstaan. Probeer realtime bescherming tijdelijk uit te schakelen.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Geef daarnaast 'Simple Launcher' beheerdersrechten om bestandsschrijven mogelijk te maken.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Wilt u de temp-map openen om het gedownloade bestand te bekijken?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' kon de temp-map niet openen vanwege toegangsproblemen.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Selecteer een map om het afbeeldingspakket uit te pakken.</system:String>
     
 </ResourceDictionary>

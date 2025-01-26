@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emülatör, sağlanan parametrelerle oyunu açamadı.</system:String>
     <system:String x:Key="Thefileerroruser">'error_user.log' dosyası bulunamadı!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Dil kaynakları yüklenemedi.</system:String>
+    <system:String x:Key="LanguageLoadingError">Dil Yükleme Hatası</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">Uygulama hata raporları gönderemeyecek.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Sorunu çözmek için 'Simple Launcher'ı yeniden yükleyin.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Bu formun API anahtarında bir hata oluştu.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Hata raporunu gönderirken bir hata oluştu.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve sorunun çözülmesi planlanıyor.</system:String>
+    <system:String x:Key="Theoperationwascanceled">İşlem kullanıcı tarafından iptal edildi.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">İndirilen dosya geçerli bir ZIP arşivi değil.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Bu, bir ağ sorunu veya sunucu hatasından kaynaklanıyor olabilir.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Lütfen daha sonra tekrar deneyin.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher'a yönetici izinleri verin ve tekrar deneyin.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Görsel paketi indirme veya ayıklama işlemi başarısız oldu!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">İndirme ve ayıklama başarıyla tamamlandı.</system:String>
+    <system:String x:Key="Downloadwascanceled">İndirme iptal edildi.</system:String>
+    <system:String x:Key="Downloaderror2">İndirme hatası.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">İndirme sonrası dosya okuma/yazma hatası oluştu.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Bu hata, bir antivirüs yazılımının yeni indirilen dosyaları engellemesi veya taraması sonucunda erişim sorunlarına yol açması durumunda oluşabilir. Gerçek zamanlı korumayı geçici olarak devre dışı bırakmayı deneyin.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Ek olarak, dosya yazma işlevini etkinleştirmek için 'Simple Launcher'a yönetici izinleri verin.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">İndirilen dosyayı görüntülemek için 'temp' klasörünü açmak ister misiniz?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher', erişim sorunu nedeniyle 'temp' klasörünü açamadı.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Görsel paketini ayıklamak için bir klasör seçin.</system:String>
+    
 </ResourceDictionary>

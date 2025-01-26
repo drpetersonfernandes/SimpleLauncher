@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">Der Emulator konnte das Spiel mit den bereitgestellten Parametern nicht öffnen.</system:String>
     <system:String x:Key="Thefileerroruser">Die Datei 'error_user.log' wurde nicht gefunden!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Fehler beim Laden der Sprachressourcen.</system:String>
+    <system:String x:Key="LanguageLoadingError">Fehler beim Laden der Sprache</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Die Datei 'appsettings.json' fehlt.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">Die Anwendung wird keine Fehlerberichte senden können.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu lösen?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Bitte installieren Sie 'Simple Launcher', um das Problem zu beheben.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Es ist ein Fehler im API-Schlüssel dieses Formulars aufgetreten.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Beim Senden des Fehlerberichts ist ein Fehler aufgetreten.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Der Fehler wurde an den Entwickler gemeldet, der versuchen wird, ihn zu korrigieren.</system:String>
+    <system:String x:Key="Theoperationwascanceled">Der Vorgang wurde vom Benutzer abgebrochen.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Die heruntergeladene Datei ist kein gültiges ZIP-Archiv.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Dies könnte an einem Netzwerkproblem oder einem Serverfehler liegen.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Bitte versuchen Sie es später erneut.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Geben Sie 'Simple Launcher' administrative Rechte und versuchen Sie es erneut.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Stellen Sie sicher, dass der 'Simple Launcher'-Ordner in einem beschreibbaren Verzeichnis liegt.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Deaktivieren Sie vorübergehend Ihre Antivirensoftware und versuchen Sie es erneut.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Herunterladen oder Extrahieren des Bildpakets fehlgeschlagen!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Herunterladen oder Extrahieren fehlgeschlagen</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Das Herunterladen und Extrahieren war erfolgreich.</system:String>
+    <system:String x:Key="Downloadwascanceled">Der Download wurde abgebrochen.</system:String>
+    <system:String x:Key="Downloaderror2">Fehler beim Herunterladen.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Nach dem Download ist ein Datei-Lese-/Schreibfehler aufgetreten.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Dieser Fehler kann auftreten, wenn ein Antivirenprogramm neu heruntergeladene Dateien sperrt oder scannt, was zu Zugriffsproblemen führt. Versuchen Sie, den Echtzeitschutz vorübergehend zu deaktivieren.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Erteilen Sie zusätzlich 'Simple Launcher' administrative Rechte, damit Schreibvorgänge auf Dateien möglich werden.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Stellen Sie sicher, dass der 'Simple Launcher'-Ordner sich in einem beschreibbaren Verzeichnis befindet.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Möchten Sie den 'temp'-Ordner öffnen, um die heruntergeladene Datei anzuzeigen?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' konnte den 'temp'-Ordner aufgrund von Zugriffsproblemen nicht öffnen.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Wählen Sie einen Ordner aus, um das Bildpaket zu extrahieren.</system:String>
+    
 </ResourceDictionary>

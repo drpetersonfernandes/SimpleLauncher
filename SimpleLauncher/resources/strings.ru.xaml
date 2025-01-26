@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">Эмулятор не смог открыть игру с указанными параметрами.</system:String>
     <system:String x:Key="Thefileerroruser">Файл 'error_user.log' не найден!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Не удалось загрузить языковые ресурсы.</system:String>
+    <system:String x:Key="LanguageLoadingError">Ошибка загрузки языка</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Файл 'appsettings.json' отсутствует.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">Приложение не сможет отправить отчеты об ошибках.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Переустановите 'Simple Launcher' для устранения проблемы.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">В ключе API этой формы обнаружена ошибка.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Произошла ошибка при отправке отчета об ошибке.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Ошибка была отправлена разработчику и будет исправлена.</system:String>
+    <system:String x:Key="Theoperationwascanceled">Операция была отменена пользователем.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Загруженный файл не является допустимым ZIP-архивом.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Это может быть связано с сетевой проблемой или ошибкой сервера.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Попробуйте снова позже.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Предоставьте 'Simple Launcher' права администратора и попробуйте снова.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Временно отключите антивирусное программное обеспечение и попробуйте снова.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Ошибка при загрузке или извлечении пакета изображений!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Загрузка и извлечение успешно завершены.</system:String>
+    <system:String x:Key="Downloadwascanceled">Загрузка была отменена.</system:String>
+    <system:String x:Key="Downloaderror2">Ошибка загрузки.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Произошла ошибка чтения/записи файла после загрузки.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Эта ошибка может возникнуть, если антивирусное программное обеспечение блокирует или сканирует недавно загруженные файлы, вызывая проблемы с доступом. Попробуйте временно отключить защиту в режиме реального времени.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Кроме того, предоставьте 'Simple Launcher' права администратора для устранения проблем с доступом к файлам.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Хотите открыть папку 'temp', чтобы просмотреть загруженный файл?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' не удалось открыть папку 'temp' из-за проблем с доступом.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Выберите папку для извлечения пакета изображений.</system:String>
+    
 </ResourceDictionary>

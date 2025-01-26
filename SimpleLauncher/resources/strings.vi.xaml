@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
     <system:String x:Key="Thefileerroruser">Không tìm thấy tệp 'error_user.log'!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Không thể tải tài nguyên ngôn ngữ.</system:String>
+    <system:String x:Key="LanguageLoadingError">Lỗi tải ngôn ngữ</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Thiếu tệp 'appsettings.json'.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">Ứng dụng sẽ không thể gửi báo cáo lỗi.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Hãy cài đặt lại 'Simple Launcher' để khắc phục sự cố.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Có lỗi trong khóa API của biểu mẫu này.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Đã xảy ra lỗi khi gửi báo cáo lỗi.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Lỗi đã được báo cáo tới nhà phát triển và sẽ được sửa chữa.</system:String>
+    <system:String x:Key="Theoperationwascanceled">Thao tác đã bị người dùng hủy bỏ.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Tệp được tải xuống không phải là tệp ZIP hợp lệ.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Nguyên nhân có thể là do sự cố mạng hoặc lỗi máy chủ.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Vui lòng thử lại sau.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Hãy cấp quyền quản trị cho 'Simple Launcher' và thử lại.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Tạm thời vô hiệu hóa phần mềm diệt virus của bạn và thử lại.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Không thể tải xuống hoặc giải nén gói hình ảnh!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Việc tải xuống và giải nén đã hoàn tất thành công.</system:String>
+    <system:String x:Key="Downloadwascanceled">Tải xuống đã bị hủy bỏ.</system:String>
+    <system:String x:Key="Downloaderror2">Lỗi tải xuống.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Đã xảy ra lỗi đọc/ghi tệp sau khi tải xuống.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Lỗi này có thể xảy ra nếu phần mềm diệt virus chặn hoặc quét các tệp vừa tải xuống, dẫn đến sự cố truy cập. Hãy thử tạm thời vô hiệu hóa bảo vệ theo thời gian thực.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Ngoài ra, hãy cấp quyền quản trị cho 'Simple Launcher' để kích hoạt khả năng ghi tệp.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Bạn có muốn mở thư mục 'temp' để xem tệp đã tải xuống không?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' không thể mở thư mục 'temp' do sự cố truy cập.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Hãy chọn một thư mục để giải nén gói hình ảnh.</system:String>
+    
 </ResourceDictionary>

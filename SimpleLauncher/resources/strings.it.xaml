@@ -427,4 +427,33 @@
     <system:String x:Key="Theemulatorcouldnotopenthegame">L'emulatore non è riuscito ad aprire il gioco con i parametri forniti.</system:String>
     <system:String x:Key="Thefileerroruser">Il file 'error_user.log' non è stato trovato!</system:String>
     
+    <system:String x:Key="Failedtoloadlanguageresources">Caricamento delle risorse linguistiche non riuscito.</system:String>
+    <system:String x:Key="LanguageLoadingError">Errore nel caricamento della lingua</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Il file 'appsettings.json' è mancante.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">L'applicazione non sarà in grado di inviare report di errori.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Reinstalla 'Simple Launcher' per risolvere il problema.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">C'è stato un errore nella chiave API per questo modulo.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Si è verificato un errore durante l'invio del report di errore.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Il bug è stato segnalato allo sviluppatore che cercherà di risolverlo.</system:String>
+    <system:String x:Key="Theoperationwascanceled">L'operazione è stata annullata dall'utente.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Il file scaricato non è un archivio ZIP valido.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Questo potrebbe essere dovuto a un problema di rete o a un errore del server.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Riprova più tardi.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Concedi i permessi di amministratore a 'Simple Launcher' e riprova.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Assicurati che la cartella 'Simple Launcher' si trovi in una directory scrivibile.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Disattiva temporaneamente il software antivirus e riprova.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Scaricamento o estrazione del pacchetto immagini non riuscito!</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Scaricamento o estrazione fallito</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Scaricamento ed estrazione riusciti.</system:String>
+    <system:String x:Key="Downloadwascanceled">Lo scaricamento è stato annullato.</system:String>
+    <system:String x:Key="Downloaderror2">Errore durante lo scaricamento.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Si è verificato un errore di lettura/scrittura del file dopo lo scaricamento.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Questo errore può verificarsi se un software antivirus blocca o esegue la scansione dei file appena scaricati, causando problemi di accesso. Prova a disabilitare temporaneamente la protezione in tempo reale.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">Inoltre, concedi i permessi di amministratore a 'Simple Launcher' per abilitare le capacità di scrittura dei file.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Assicurati che la cartella 'Simple Launcher' si trovi in una directory scrivibile.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Desideri aprire la cartella 'temp' per vedere il file scaricato?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' non è stato in grado di aprire la cartella 'temp' a causa di problemi di accesso.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Seleziona una cartella per estrarre il pacchetto immagini.</system:String>
+    
 </ResourceDictionary>

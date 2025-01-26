@@ -426,5 +426,34 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Une erreur est survenue lors du lancement de ce jeu.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">L'émulateur n'a pas pu ouvrir le jeu avec les paramètres fournis.</system:String>
     <system:String x:Key="Thefileerroruser">Le fichier 'error_user.log' est introuvable !</system:String>
+    
+    <system:String x:Key="Failedtoloadlanguageresources">Échec du chargement des ressources linguistiques.</system:String>
+    <system:String x:Key="LanguageLoadingError">Erreur de chargement de la langue</system:String>
+    <system:String x:Key="Fileappsettingsjsonismissing">Le fichier 'appsettings.json' est manquant.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeableto">L'application ne pourra pas envoyer de rapports de bogues.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticallyreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Veuillez réinstaller 'Simple Launcher' pour résoudre le problème.</system:String>
+    <system:String x:Key="TherewasanerrorintheAPIKey">Une erreur s'est produite avec la clé API de ce formulaire.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesending">Une erreur est survenue lors de l'envoi du rapport de bogues.</system:String>
+    <system:String x:Key="Thebugwasreportedtothedeveloper">Le bogue a été signalé au développeur qui essaiera de le corriger.</system:String>
+    <system:String x:Key="Theoperationwascanceled">L'opération a été annulée par l'utilisateur.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalid">Le fichier téléchargé n'est pas une archive ZIP valide.</system:String>
+    <system:String x:Key="Thismaybeduetoanetwork">Cela peut être dû à un problème réseau ou à une erreur du serveur.</system:String>
+    <system:String x:Key="Pleasetryagainlater">Veuillez réessayer plus tard.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrative">Donnez les droits administratifs à 'Simple Launcher' et réessayez.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncher">Assurez-vous que le dossier 'Simple Launcher' se trouve dans un répertoire accessible en écriture.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirussoftware">Désactivez temporairement votre logiciel antivirus et réessayez.</system:String>
+    <system:String x:Key="ImagePackdownloadorextraction">Échec du téléchargement ou de l'extraction du pack d'images !</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Échec du téléchargement ou de l'extraction</system:String>
+    <system:String x:Key="Thedownloadandextractionweresuccessful">Le téléchargement et l'extraction ont réussi.</system:String>
+    <system:String x:Key="Downloadwascanceled">Le téléchargement a été annulé.</system:String>
+    <system:String x:Key="Downloaderror2">Erreur de téléchargement.</system:String>
+    <system:String x:Key="Afilereadwriteerroroccurred">Une erreur de lecture/écriture s'est produite après le téléchargement du fichier.</system:String>
+    <system:String x:Key="Thiserrormayoccurifanantivirus">Cette erreur peut se produire si un programme antivirus verrouille ou analyse les fichiers récemment téléchargés, ce qui cause des problèmes d'accès. Essayez de désactiver temporairement la protection en temps réel.</system:String>
+    <system:String x:Key="AdditionallygrantSimpleLauncher">De plus, donnez les droits administratifs à 'Simple Launcher' pour activer les capacités d'écriture des fichiers.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncher">Assurez-vous que le dossier 'Simple Launcher' se trouve dans un répertoire accessible en écriture.</system:String>
+    <system:String x:Key="Wouldyouliketoopenthetemp">Voulez-vous ouvrir le dossier 'temp' pour voir le fichier téléchargé ?</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' n'a pas pu ouvrir le dossier 'temp' en raison de problèmes d'accès.</system:String>
+    <system:String x:Key="SelectafoldertoextracttheImagePack">Sélectionnez un dossier pour extraire le pack d'images.</system:String>
 
 </ResourceDictionary>
