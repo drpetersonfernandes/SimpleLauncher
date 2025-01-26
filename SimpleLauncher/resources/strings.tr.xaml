@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemImageFolder">Sistem Görselleri Klasörü</system:String>
     <system:String x:Key="DefaultImageFolder">[Varsayılan görsel klasörü kullanılıyor]</system:String>
-    <system:String x:Key="SystemIsMame">Sistem MAME mi?</system:String>
     <system:String x:Key="FileFormatsToSearch">Sistem klasöründe aranacak dosya formatları</system:String>
     <system:String x:Key="FileFormatsToLaunch">Çıkarıldıktan sonra çalıştırılacak dosya formatları</system:String>
     <system:String x:Key="TotalGamesCount">Sistem klasöründeki toplam oyun sayısı (alt klasörlerdeki dosyalar hariç): {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Lütfen hatanın detaylarını girin.</system:String>
     <system:String x:Key="Bugreportsent">Hata raporu başarıyla gönderildi.</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
-    <system:String x:Key="Someantivirusprograms">Bazı antivirüs programları, indirilen dosyaların çıkarılmasını engelleyebilir veya bozabilir, bu da kurulum sırasında erişim sorunlarına yol açabilir.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Dosyayı indirme ve çıkarma ilk denemem başarısız oldu.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Bellek içi indirme ve çıkarma kullanarak tekrar deneyeceğim.</system:String>
     <system:String x:Key="ExtractionError">Çıkarma Hatası</system:String>
     <system:String x:Key="Imagepackfor">Görsel paketi:</system:String>
-    <system:String x:Key="downloadedandextracted">başarıyla indirildi ve çıkarıldı.</system:String>
     <system:String x:Key="DownloadComplete">İndirme Tamamlandı</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Bağlantılar başarıyla kaydedildi.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Bağlantılar varsayılan değerlere sıfırlandı.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="System2">Sistem</system:String>
     <system:String x:Key="hasbeendeleted">silindi.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Bazı antivirüs programları, yeni indirilen dosyaların çıkarılmasını engelleyebilir veya durdurabilir ve yükleme sırasında erişim sorunlarına neden olabilir.</system:String>
     <system:String x:Key="Emulatorfor">Emülatör için</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">zaten yüklü ve güncel.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Emülatör zaten yüklü</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">Emülatör indirme işlemi iptal edildi.</system:String>
     <system:String x:Key="DownloadCanceled">İndirme iptal edildi</system:String>
     <system:String x:Key="Errordownloadingemulator">Emülatör indirilirken bir hata oluştu.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">İndirme hatası</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">başarıyla indirildi ve çıkarıldı.</system:String>
     <system:String x:Key="Corefor">Çekirdek (Core) için</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Çekirdek (Core) zaten yüklü</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">İndirme işlemi eksikti ve çıkarılamayacak.</system:String>
-    <system:String x:Key="DownloadIncomplete">İndirme eksik</system:String>
     <system:String x:Key="Coredownloadwascanceled">Çekirdek (Core) indirme işlemi iptal edildi.</system:String>
-    <system:String x:Key="Downloadwasincomplete">İndirme işlemi eksikti ve çıkarılamayacak.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">Görsel paketi indirme işlemi iptal edildi.</system:String>
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">başarıyla eklendi.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Kaydedilecek istatistik yok. Veriler yüklenene kadar bekleyin.</system:String>
     <system:String x:Key="Nosystemnameprovided">Sistem adı belirtilmedi.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Sistem için kullanılabilir bilgi yok:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">İçin ayrıntı bulunmamaktadır:</system:String>
     <system:String x:Key="Itlookslike">Görünüşe göre</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">kısıtlı bir klasöre yüklenmiş</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">ve bu klasöre yazma izni yok.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">klasöre taşıyın.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Mümkünse yönetici yetkisiyle çalıştırın.</system:String>
     <system:String x:Key="AccessIssue">Erişim Sorunu</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Başlatma sırasında bir hata oluştu</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Bu tür bir hata genellikle düşük yetkilendirme ayarlarıyla ilgilidir:</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Yönetici yetkisiyle çalıştırmayı deneyin.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Hata ayıklama işlemini kendiniz yapmak istiyorsanız, şu dosyayı kontrol edin:</system:String>
-    <system:String x:Key="insidethe">klasörünün içinde</system:String>
     <system:String x:Key="PleaseWait">Lütfen bekleyin</system:String>
     <system:String x:Key="Extractingcompressed">Sıkıştırılmış dosya çıkarılıyor, lütfen bekleyin...</system:String>
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Bu oyun başlatılırken bir hata oluştu.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emülatör, sağlanan parametrelerle oyunu açamadı.</system:String>
     <system:String x:Key="Thefileerroruser">'error_user.log' dosyası bulunamadı!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Bir hata ile karşılaşırsanız, gerçek zamanlı korumayı geçici olarak devre dışı bırakıp 'Simple Launcher'ı yönetici haklarıyla çalıştırmayı deneyin.</system:String>
     
 </ResourceDictionary>

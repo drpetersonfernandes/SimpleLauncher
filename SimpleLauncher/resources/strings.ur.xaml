@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">سسٹم فولڈر</system:String>
     <system:String x:Key="SystemImageFolder">سسٹم امیج فولڈر</system:String>
     <system:String x:Key="DefaultImageFolder">[ڈیفالٹ امیج فولڈر استعمال ہو رہا ہے]</system:String>
-    <system:String x:Key="SystemIsMame">سسٹم کیا MAME ہے؟</system:String>
     <system:String x:Key="FileFormatsToSearch">سسٹم فولڈر میں تلاش کرنے کے فارمیٹ</system:String>
     <system:String x:Key="FileFormatsToLaunch">ایکسٹریکشن کے بعد لانچ کرنے کے فارمیٹ</system:String>
     <system:String x:Key="TotalGamesCount">سسٹم فولڈر میں گیمز کی کل تعداد (ذیلی ڈائریکٹریز کو چھوڑ کر): {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">براہ کرم بگ کی تفصیلات درج کریں۔</system:String>
     <system:String x:Key="Bugreportsent">بگ رپورٹ کامیابی کے ساتھ بھیج دی گئی۔</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
-    <system:String x:Key="Someantivirusprograms">کچھ اینٹی وائرس پروگرام نئے ڈاؤن لوڈ کردہ فائلوں کی تنصیب کے دوران انہیں لاک یا روک سکتے ہیں۔</system:String>
-    <system:String x:Key="Myfirstattempttodownload">میری پہلی کوشش ناکام رہی۔</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">میں دوبارہ کوشش کروں گا۔</system:String>
     <system:String x:Key="ExtractionError">ایکسٹریکشن کی خرابی</system:String>
     <system:String x:Key="Imagepackfor">امیج پیک کے لئے</system:String>
-    <system:String x:Key="downloadedandextracted">ڈاؤن لوڈ اور ایکسٹریکٹ کیا گیا۔</system:String>
     <system:String x:Key="DownloadComplete">ڈاؤن لوڈ مکمل</system:String>
     <system:String x:Key="Linkssavedsuccessfully">لنکس کامیابی سے محفوظ ہو گئے۔</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">لنکس ڈیفالٹ پر واپس کر دیے گئے۔</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">تصدیق</system:String>
     <system:String x:Key="System2">سسٹم</system:String>
     <system:String x:Key="hasbeendeleted">حذف کر دیا گیا ہے۔</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">کچھ اینٹی وائرس پروگرام نئے ڈاؤن لوڈ کردہ فائلوں کو لاک یا روک سکتے ہیں، جس سے انسٹالیشن کے دوران مسائل پیدا ہو سکتے ہیں۔</system:String>
     <system:String x:Key="Emulatorfor">کے لیے ایمولیٹر</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">پہلے ہی انسٹال کیا گیا ہے اور اپ ڈیٹ ہے۔</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">ایمولیٹر پہلے سے انسٹال ہے</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">ایمولیٹر ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
     <system:String x:Key="DownloadCanceled">ڈاؤن لوڈ منسوخ</system:String>
     <system:String x:Key="Errordownloadingemulator">ایمولیٹر ڈاؤن لوڈ کرنے میں خرابی۔</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">ڈاؤن لوڈ کی خرابی</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">کامیابی سے ڈاؤن لوڈ اور ایکسٹریکٹ کیا گیا۔</system:String>
     <system:String x:Key="Corefor">کے لیے کور</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">کور پہلے سے انسٹال ہے</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">ڈاؤن لوڈ نامکمل تھا اور ایکسٹریکٹ نہیں کیا جائے گا۔</system:String>
-    <system:String x:Key="DownloadIncomplete">ڈاؤن لوڈ نامکمل</system:String>
     <system:String x:Key="Coredownloadwascanceled">کور ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
-    <system:String x:Key="Downloadwasincomplete">ڈاؤن لوڈ نامکمل تھا اور ایکسٹریکٹ نہیں کیا جائے گا۔</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">امیج پیک ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
     <system:String x:Key="Thesystem">سسٹم</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">کامیابی سے شامل کر دیا گیا ہے۔</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">محفوظ کرنے کے لیے کوئی اعداد و شمار دستیاب نہیں۔ براہ کرم ڈیٹا لوڈ ہونے تک انتظار کریں۔</system:String>
     <system:String x:Key="Nosystemnameprovided">کوئی سسٹم کا نام فراہم نہیں کیا گیا۔</system:String>
     <system:String x:Key="Noinformationavailableforsystem">سسٹم کے لیے کوئی معلومات دستیاب نہیں ہیں:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">کے لیے کوئی تفصیلات دستیاب نہیں ہیں۔</system:String>
     <system:String x:Key="Itlookslike">ایسا لگتا ہے کہ</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">ایک محدود فولڈر میں انسٹال ہے</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, جہاں اس کے پاس لکھنے کی رسائی نہیں ہے۔</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">فولڈر۔</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">اگر ممکن ہو تو، اسے انتظامی مراعات کے ساتھ چلائیں۔</system:String>
     <system:String x:Key="AccessIssue">رسائی کا مسئلہ</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">لانچ کرتے وقت ایک خرابی پیش آئی</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">یہ خرابی عام طور پر کم اجازتوں کی وجہ سے ہوتی ہے</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">اسے انتظامی اجازتوں کے ساتھ چلانے کی کوشش کریں۔</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">اگر آپ خود خرابی کو ٹھیک کرنا چاہتے ہیں، تو فائل چیک کریں</system:String>
-    <system:String x:Key="insidethe">کے اندر</system:String>
     <system:String x:Key="PleaseWait">براہ کرم انتظار کریں</system:String>
     <system:String x:Key="Extractingcompressed">کمپریسڈ فائل نکالی جا رہی ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="Searchingpleasewait">تلاش ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">اس گیم کو چلانے میں ایک غلطی ہوئی۔</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ایمیولیٹر دیئے گئے پیرامیٹرز کے ساتھ گیم کھولنے میں ناکام رہا۔</system:String>
     <system:String x:Key="Thefileerroruser">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
-    <system:String x:Key="Ifyouencountererrors">اگر آپ کو کوئی غلطی نظر آتی ہے، تو حقیقی وقت کی حفاظتی خصوصیت کو عارضی طور پر غیر فعال کریں اور 'سمپل لانچر' کو ایڈمنسٹریٹر موڈ میں چلانے کی کوشش کریں۔</system:String>
 
 </ResourceDictionary>

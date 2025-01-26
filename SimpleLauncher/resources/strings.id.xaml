@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Folder Sistem</system:String>
     <system:String x:Key="SystemImageFolder">Folder Gambar Sistem</system:String>
     <system:String x:Key="DefaultImageFolder">[Menggunakan folder gambar default]</system:String>
-    <system:String x:Key="SystemIsMame">Apakah Sistem MAME?</system:String>
     <system:String x:Key="FileFormatsToSearch">Format Berkas untuk Dicari di Folder Sistem</system:String>
     <system:String x:Key="FileFormatsToLaunch">Format untuk Diluncurkan Setelah Ekstraksi</system:String>
     <system:String x:Key="TotalGamesCount">Jumlah total game di Folder Sistem, tidak termasuk file di subdirektori: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Silakan masukkan detail bug.</system:String>
     <system:String x:Key="Bugreportsent">Laporan bug berhasil dikirim.</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
-    <system:String x:Key="Someantivirusprograms">Beberapa program antivirus mungkin mengunci atau mencegah ekstraksi file yang baru diunduh, menyebabkan masalah akses selama instalasi.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Upaya pertama saya untuk mengunduh dan mengekstrak file gagal.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Saya akan mencoba lagi menggunakan unduhan dan ekstraksi dalam memori.</system:String>
     <system:String x:Key="ExtractionError">Kesalahan Ekstraksi</system:String>
     <system:String x:Key="Imagepackfor">Paket gambar untuk</system:String>
-    <system:String x:Key="downloadedandextracted">berhasil diunduh dan diekstrak.</system:String>
     <system:String x:Key="DownloadComplete">Unduhan Selesai</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Tautan berhasil disimpan.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Tautan dikembalikan ke nilai default.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
     <system:String x:Key="System2">Sistem</system:String>
     <system:String x:Key="hasbeendeleted">telah dihapus.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Beberapa program antivirus mungkin mengunci atau mencegah ekstraksi file yang baru diunduh, menyebabkan masalah akses selama instalasi.</system:String>
     <system:String x:Key="Emulatorfor">Emulator untuk</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">sudah terinstal dan diperbarui.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Emulator Sudah Terinstal</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">Unduhan emulator dibatalkan.</system:String>
     <system:String x:Key="DownloadCanceled">Unduhan Dibatalkan</system:String>
     <system:String x:Key="Errordownloadingemulator">Kesalahan saat mengunduh emulator.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">Kesalahan Unduhan</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">berhasil diunduh dan diekstrak.</system:String>
     <system:String x:Key="Corefor">Core untuk</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Core Sudah Terinstal</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">Unduhan tidak lengkap dan tidak akan diekstrak.</system:String>
-    <system:String x:Key="DownloadIncomplete">Unduhan Tidak Lengkap</system:String>
     <system:String x:Key="Coredownloadwascanceled">Unduhan core dibatalkan.</system:String>
-    <system:String x:Key="Downloadwasincomplete">Unduhan tidak lengkap dan tidak akan diekstrak.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">Unduhan Paket Gambar dibatalkan.</system:String>
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">telah berhasil ditambahkan.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Tidak ada statistik yang tersedia untuk disimpan. Harap tunggu hingga data dimuat.</system:String>
     <system:String x:Key="Nosystemnameprovided">Tidak ada nama sistem yang diberikan.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Tidak ada informasi yang tersedia untuk sistem:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="Itlookslike">Sepertinya</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">diinstal di folder terbatas</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, di mana tidak memiliki akses tulis.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">folder.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Jika memungkinkan, jalankan dengan hak administratif.</system:String>
     <system:String x:Key="AccessIssue">Masalah Akses</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Kesalahan terjadi saat meluncurkan</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Jenis kesalahan ini biasanya terkait dengan pengaturan izin rendah untuk</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Coba jalankan dengan izin administratif.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Jika Anda ingin memeriksa kesalahan sendiri, periksa file</system:String>
-    <system:String x:Key="insidethe">di dalam folder</system:String>
     <system:String x:Key="PleaseWait">Harap Tunggu</system:String>
     <system:String x:Key="Extractingcompressed">Mengekstrak file terkompresi, harap tunggu...</system:String>
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Terjadi kesalahan saat meluncurkan permainan ini.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emulator tidak dapat membuka permainan dengan parameter yang diberikan.</system:String>
     <system:String x:Key="Thefileerroruser">File 'error_user.log' tidak ditemukan!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Jika Anda menemui kesalahan, coba nonaktifkan perlindungan waktu nyata sementara dan jalankan 'Simple Launcher' dengan hak administratif.</system:String>
 
 </ResourceDictionary>

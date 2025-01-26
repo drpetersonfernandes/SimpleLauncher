@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemImageFolder">مجلد الصور للنظام</system:String>
     <system:String x:Key="DefaultImageFolder">[استخدام مجلد الصور الافتراضي]</system:String>
-    <system:String x:Key="SystemIsMame">هل النظام هو MAME؟</system:String>
     <system:String x:Key="FileFormatsToSearch">تنسيقات الملفات للبحث في مجلد النظام</system:String>
     <system:String x:Key="FileFormatsToLaunch">تنسيقات الملفات للتشغيل بعد الاستخراج</system:String>
     <system:String x:Key="TotalGamesCount">إجمالي عدد الألعاب في مجلد النظام، باستثناء الملفات في المجلدات الفرعية: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">يرجى إدخال تفاصيل المشكلة.</system:String>
     <system:String x:Key="Bugreportsent">تم إرسال تقرير المشكلة بنجاح.</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
-    <system:String x:Key="Someantivirusprograms">قد تمنع بعض برامج مكافحة الفيروسات استخراج الملفات التي تم تنزيلها حديثًا، مما يتسبب في مشاكل أثناء التثبيت.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">فشلت محاولتي الأولى لتنزيل واستخراج الملف.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">سأحاول مرة أخرى باستخدام التنزيل والاستخراج في الذاكرة.</system:String>
     <system:String x:Key="ExtractionError">خطأ أثناء الاستخراج</system:String>
     <system:String x:Key="Imagepackfor">حزمة الصور لـ</system:String>
-    <system:String x:Key="downloadedandextracted">تم تنزيلها واستخراجها بنجاح.</system:String>
     <system:String x:Key="DownloadComplete">اكتمل التنزيل</system:String>
     <system:String x:Key="Linkssavedsuccessfully">تم حفظ الروابط بنجاح.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">تمت إعادة الروابط إلى القيم الافتراضية.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="System2">النظام</system:String>
     <system:String x:Key="hasbeendeleted">تم حذفه.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">قد تمنع بعض برامج مكافحة الفيروسات استخراج الملفات التي تم تنزيلها حديثًا، مما يسبب مشاكل في الوصول أثناء التثبيت.</system:String>
     <system:String x:Key="Emulatorfor">محاكي لـ</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">تم تثبيته بالفعل وهو محدث.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">المحاكي مثبت بالفعل</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">تم إلغاء تنزيل المحاكي.</system:String>
     <system:String x:Key="DownloadCanceled">تم إلغاء التنزيل</system:String>
     <system:String x:Key="Errordownloadingemulator">خطأ أثناء تنزيل المحاكي.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">خطأ في التنزيل</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">تم التنزيل والاستخراج بنجاح.</system:String>
     <system:String x:Key="Corefor">النواة لـ</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">النواة مثبتة بالفعل</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">لم يكتمل التنزيل ولن يتم الاستخراج.</system:String>
-    <system:String x:Key="DownloadIncomplete">تنزيل غير مكتمل</system:String>
     <system:String x:Key="Coredownloadwascanceled">تم إلغاء تنزيل النواة.</system:String>
-    <system:String x:Key="Downloadwasincomplete">لم يكتمل التنزيل ولن يتم الاستخراج.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">تم إلغاء تنزيل حزمة الصور.</system:String>
     <system:String x:Key="Thesystem">النظام</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">تمت إضافته بنجاح.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">لا توجد إحصائيات للحفظ. يرجى الانتظار حتى يتم تحميل البيانات.</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">لا توجد معلومات متاحة للنظام:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="Itlookslike">يبدو أن</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">مثبت في مجلد مقيد</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">، حيث لا يملك أذونات الكتابة.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">المجلد.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">إذا أمكن، قم بتشغيله بصلاحيات إدارية.</system:String>
     <system:String x:Key="AccessIssue">مشكلة في الوصول</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">حدث خطأ أثناء الإطلاق</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">غالبًا ما يكون هذا النوع من الأخطاء مرتبطًا بإعدادات أذونات منخفضة لـ</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">حاول تشغيله بصلاحيات إدارية.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">إذا كنت ترغب في تصحيح الخطأ بنفسك، تحقق من الملف</system:String>
-    <system:String x:Key="insidethe">بداخل</system:String>
     <system:String x:Key="PleaseWait">يرجى الانتظار</system:String>
     <system:String x:Key="Extractingcompressed">جارٍ استخراج الملف المضغوط، يرجى الانتظار...</system:String>
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">حدث خطأ أثناء تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
     <system:String x:Key="Thefileerroruser">لم يتم العثور على الملف 'error_user.log'!</system:String>
-    <system:String x:Key="Ifyouencountererrors">إذا واجهت أخطاء، حاول تعطيل الحماية في الوقت الحقيقي مؤقتاً وتشغيل 'مشغل بسيط' بصلاحيات المسؤول.</system:String>
     
 </ResourceDictionary>

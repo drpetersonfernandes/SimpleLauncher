@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">सिस्टम फ़ोल्डर</system:String>
     <system:String x:Key="SystemImageFolder">सिस्टम छवि फ़ोल्डर</system:String>
     <system:String x:Key="DefaultImageFolder">[डिफ़ॉल्ट छवि फ़ोल्डर का उपयोग किया जा रहा है]</system:String>
-    <system:String x:Key="SystemIsMame">सिस्टम MAME है?</system:String>
     <system:String x:Key="FileFormatsToSearch">सिस्टम फ़ोल्डर में खोजने के लिए प्रारूप</system:String>
     <system:String x:Key="FileFormatsToLaunch">पैकेज निकालने के बाद लॉन्च करने के लिए प्रारूप</system:String>
     <system:String x:Key="TotalGamesCount">सिस्टम फ़ोल्डर में कुल गेमों की संख्या, उपफ़ोल्डरों में फाइलें शामिल नहीं: {0}</system:String>
@@ -257,12 +256,9 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">कृपया त्रुटि का विवरण दर्ज करें।</system:String>
     <system:String x:Key="Bugreportsent">त्रुटि रिपोर्ट सफलतापूर्वक भेज दी गई।</system:String>
     <system:String x:Key="Success">सफलता</system:String>
-    <system:String x:Key="Someantivirusprograms">कुछ एंटीवायरस प्रोग्राम नए डाउनलोड किए गए फ़ाइलों को निकालने से रोक सकते हैं, जिससे स्थापना के दौरान एक्सेस समस्याएँ हो सकती हैं।</system:String>
-    <system:String x:Key="Myfirstattempttodownload">फ़ाइल को डाउनलोड और निकालने का मेरा पहला प्रयास विफल रहा।</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">मैं इन-मेमोरी डाउनलोड और निष्कर्षण का उपयोग कर फिर से प्रयास करूँगा।</system:String>
+    <system:String x:Key="">कुछ एंटीवायरस प्रोग्राम नए डाउनलोड किए गए फ़ाइलों को निकालने से रोक सकते हैं, जिससे स्थापना के दौरान एक्सेस समस्याएँ हो सकती हैं।</system:String>
     <system:String x:Key="ExtractionError">निष्कर्षण त्रुटि</system:String>
     <system:String x:Key="Imagepackfor">इसका इमेज पैक</system:String>
-    <system:String x:Key="downloadedandextracted">सफलतापूर्वक डाउनलोड और निष्कर्षण किया गया।</system:String>
     <system:String x:Key="DownloadComplete">डाउनलोड पूरा</system:String>
     <system:String x:Key="Linkssavedsuccessfully">लिंक्स सफलतापूर्वक सहेज लिए गए।</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">लिंक्स को डिफ़ॉल्ट मानों पर वापस सेट कर दिया गया है।</system:String>
@@ -293,10 +289,7 @@
     <system:String x:Key="Confirmation">पुष्टि</system:String>
     <system:String x:Key="System2">सिस्टम</system:String>
     <system:String x:Key="hasbeendeleted">हटा दिया गया है।</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">कुछ एंटीवायरस प्रोग्राम नई डाउनलोड की गई फाइलों को अनलॉक करने या निकालने से रोक सकते हैं, जिससे इंस्टॉलेशन के दौरान एक्सेस में समस्या हो सकती है।</system:String>
     <system:String x:Key="Emulatorfor">एमुलेटर के लिए</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">पहले से ही इंस्टॉल है और यह अपडेट है।</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">एमुलेटर पहले से इंस्टॉल है</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">एमुलेटर डाउनलोड रद्द कर दिया गया।</system:String>
     <system:String x:Key="DownloadCanceled">डाउनलोड रद्द</system:String>
     <system:String x:Key="Errordownloadingemulator">एमुलेटर डाउनलोड करने में त्रुटि।</system:String>
@@ -304,11 +297,7 @@
     <system:String x:Key="DownloadError">डाउनलोड त्रुटि</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">सफलतापूर्वक डाउनलोड और एक्सट्रैक्ट कर दिया गया।</system:String>
     <system:String x:Key="Corefor">कोर के लिए</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">कोर पहले से इंस्टॉल है</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">डाउनलोड अधूरा था और इसे निकाला नहीं जाएगा।</system:String>
-    <system:String x:Key="DownloadIncomplete">डाउनलोड अधूरा</system:String>
     <system:String x:Key="Coredownloadwascanceled">कोर डाउनलोड रद्द कर दिया गया।</system:String>
-    <system:String x:Key="Downloadwasincomplete">डाउनलोड अधूरा था और इसे निकाला नहीं जाएगा।</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">इमेज पैक डाउनलोड रद्द कर दिया गया।</system:String>
     <system:String x:Key="Thesystem">सिस्टम</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">सफलतापूर्वक जोड़ दिया गया है।</system:String>
@@ -362,7 +351,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">सहेजने के लिए कोई आँकड़े उपलब्ध नहीं हैं। कृपया प्रतीक्षा करें जब तक डेटा लोड हो।</system:String>
     <system:String x:Key="Nosystemnameprovided">कोई सिस्टम नाम प्रदान नहीं किया गया।</system:String>
     <system:String x:Key="Noinformationavailableforsystem">सिस्टम के लिए कोई जानकारी उपलब्ध नहीं है:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">के लिए कोई विवरण उपलब्ध नहीं है</system:String>
     <system:String x:Key="Itlookslike">ऐसा लगता है कि</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">एक प्रतिबंधित फोल्डर में इंस्टॉल किया गया है</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, जहाँ इसे लिखने की अनुमति नहीं है।</system:String>
@@ -372,11 +360,6 @@
     <system:String x:Key="folder">।</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">यदि संभव हो, तो इसे प्रशासनिक अनुमति के साथ चलाएं।</system:String>
     <system:String x:Key="AccessIssue">पहुंच समस्या</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">लॉन्च करते समय एक त्रुटि हुई</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">इस प्रकार की त्रुटि आमतौर पर निम्न स्तर की अनुमतियों से संबंधित होती है</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">इसे प्रशासनिक अनुमति के साथ चलाने की कोशिश करें।</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">यदि आप स्वयं त्रुटि को डिबग करना चाहते हैं, तो फाइल की जाँच करें</system:String>
-    <system:String x:Key="insidethe">अंदर</system:String>
     <system:String x:Key="PleaseWait">कृपया प्रतीक्षा करें</system:String>
     <system:String x:Key="Extractingcompressed">कंप्रेस्ड फाइल निकाल रहे हैं, कृपया प्रतीक्षा करें...</system:String>
     <system:String x:Key="Searchingpleasewait">खोज रहे हैं, कृपया प्रतीक्षा करें...</system:String>
@@ -444,6 +427,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">इस गेम को लॉन्च करने में त्रुटि हुई।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">एमुलेटर दिए गए पैरामीटर्स के साथ गेम को खोलने में असमर्थ था।</system:String>
     <system:String x:Key="Thefileerroruser">फ़ाइल 'error_user.log' नहीं मिली!</system:String>
-    <system:String x:Key="Ifyouencountererrors">यदि आप त्रुटियों का सामना करते हैं, तो अस्थायी रूप से रीयल-टाइम प्रोटेक्शन को अक्षम करने का प्रयास करें और 'सिंपल लॉन्चर' को प्रशासनिक विशेषाधिकारों के साथ चलाएं।</system:String>
     
 </ResourceDictionary>

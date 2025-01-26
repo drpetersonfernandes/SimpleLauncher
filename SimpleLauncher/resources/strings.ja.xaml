@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemImageFolder">システム画像フォルダ</system:String>
     <system:String x:Key="DefaultImageFolder">[デフォルトの画像フォルダを使用中]</system:String>
-    <system:String x:Key="SystemIsMame">システムはMAMEですか？</system:String>
     <system:String x:Key="FileFormatsToSearch">システムフォルダ内で検索するフォーマット</system:String>
     <system:String x:Key="FileFormatsToLaunch">抽出後に起動するフォーマット</system:String>
     <system:String x:Key="TotalGamesCount">システムフォルダ内のゲームの総数（サブフォルダ内のファイルを除く）：{0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">バグの詳細を入力してください。</system:String>
     <system:String x:Key="Bugreportsent">バグレポートが正常に送信されました。</system:String>
     <system:String x:Key="Success">成功</system:String>
-    <system:String x:Key="Someantivirusprograms">一部のウイルス対策ソフトは、ダウンロードしたばかりのファイルの抽出をブロックまたは妨害することがあり、インストール中にアクセスの問題が発生する場合があります。</system:String>
-    <system:String x:Key="Myfirstattempttodownload">ファイルをダウンロードして抽出する最初の試みが失敗しました。</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">メモリ内でのダウンロードと抽出を使用して再試行します。</system:String>
     <system:String x:Key="ExtractionError">抽出エラー</system:String>
     <system:String x:Key="Imagepackfor">次の画像パック:</system:String>
-    <system:String x:Key="downloadedandextracted">が正常にダウンロードされ、抽出されました。</system:String>
     <system:String x:Key="DownloadComplete">ダウンロード完了</system:String>
     <system:String x:Key="Linkssavedsuccessfully">リンクが正常に保存されました。</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">リンクがデフォルト値にリセットされました。</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="System2">システム</system:String>
     <system:String x:Key="hasbeendeleted">が削除されました。</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">一部のウイルス対策ソフトは、新しくダウンロードされたファイルの解凍をブロックまたは防止する可能性があり、インストール中のアクセスに問題を引き起こすことがあります。</system:String>
     <system:String x:Key="Emulatorfor">エミュレーター:</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">は既にインストールされており、最新の状態です。</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">エミュレーターは既にインストールされています</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">エミュレーターのダウンロードがキャンセルされました。</system:String>
     <system:String x:Key="DownloadCanceled">ダウンロードがキャンセルされました</system:String>
     <system:String x:Key="Errordownloadingemulator">エミュレーターのダウンロード中にエラーが発生しました。</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">ダウンロードエラー</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">が正常にダウンロードおよび解凍されました。</system:String>
     <system:String x:Key="Corefor">コア:</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">コアは既にインストールされています</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">ダウンロードが不完全だったため、解凍されません。</system:String>
-    <system:String x:Key="DownloadIncomplete">ダウンロードが不完全です</system:String>
     <system:String x:Key="Coredownloadwascanceled">コアのダウンロードがキャンセルされました。</system:String>
-    <system:String x:Key="Downloadwasincomplete">ダウンロードが不完全だったため、解凍されません。</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">画像パックのダウンロードがキャンセルされました。</system:String>
     <system:String x:Key="Thesystem">システム</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">が正常に追加されました。</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">保存する統計情報がありません。データが読み込まれるまでお待ちください。</system:String>
     <system:String x:Key="Nosystemnameprovided">システム名が指定されていません。</system:String>
     <system:String x:Key="Noinformationavailableforsystem">このシステムに関する情報はありません：</system:String>
-    <system:String x:Key="Nodetailsavailablefor">詳細情報がありません：</system:String>
     <system:String x:Key="Itlookslike">次のようです：</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">制限付きフォルダーにインストールされています</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">、そこには書き込み権限がありません。</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">フォルダー。</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">可能であれば、管理者権限で実行してください。</system:String>
     <system:String x:Key="AccessIssue">アクセスの問題</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">起動中にエラーが発生しました</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">この種のエラーは通常、次のような低権限設定に関連しています：</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">管理者権限で実行してみてください。</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">エラーを自分でデバッグしたい場合は、次のファイルを確認してください：</system:String>
-    <system:String x:Key="insidethe">フォルダー内</system:String>
     <system:String x:Key="PleaseWait">お待ちください</system:String>
     <system:String x:Key="Extractingcompressed">圧縮ファイルを抽出中です。お待ちください...</system:String>
     <system:String x:Key="Searchingpleasewait">検索中です。お待ちください...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">このゲームの起動中にエラーが発生しました。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">エミュレータは指定されたパラメータでゲームを開くことができませんでした。</system:String>
     <system:String x:Key="Thefileerroruser">ファイル 'error_user.log' が見つかりませんでした！</system:String>
-    <system:String x:Key="Ifyouencountererrors">エラーが発生した場合、一時的にリアルタイム保護を無効にし、『Simple Launcher』を管理者権限で実行することを試してください。</system:String>
     
 </ResourceDictionary>

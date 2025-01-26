@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Pasta do Sistema</system:String>
     <system:String x:Key="SystemImageFolder">Pasta de Imagens do Sistema</system:String>
     <system:String x:Key="DefaultImageFolder">[Usando a pasta de imagens padrão]</system:String>
-    <system:String x:Key="SystemIsMame">O sistema é MAME?</system:String>
     <system:String x:Key="FileFormatsToSearch">Formatos de arquivo para buscar na Pasta do Sistema</system:String>
     <system:String x:Key="FileFormatsToLaunch">Formatos de arquivo para abrir após a extração</system:String>
     <system:String x:Key="TotalGamesCount">Número total de jogos na Pasta do Sistema, excluindo arquivos em subpastas: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Por favor, insira os detalhes do erro.</system:String>
     <system:String x:Key="Bugreportsent">Relatório de erro enviado com sucesso.</system:String>
     <system:String x:Key="Success">Sucesso</system:String>
-    <system:String x:Key="Someantivirusprograms">Alguns programas antivírus podem bloquear ou impedir a extração de arquivos recém-baixados, o que pode causar problemas de acesso durante a instalação.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Minha primeira tentativa de baixar e extrair o arquivo falhou.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Vou tentar novamente usando o download e extração em memória.</system:String>
     <system:String x:Key="ExtractionError">Erro na extração</system:String>
     <system:String x:Key="Imagepackfor">Pacote de imagem para</system:String>
-    <system:String x:Key="downloadedandextracted">baixado e extraído com sucesso.</system:String>
     <system:String x:Key="DownloadComplete">Download concluído</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Links salvos com sucesso.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Links revertidos para os valores padrão.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Confirmação</system:String>
     <system:String x:Key="System2">Sistema</system:String>
     <system:String x:Key="hasbeendeleted">foi excluído.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Alguns programas antivírus podem bloquear ou impedir a extração de arquivos recém-baixados, causando problemas de acesso durante a instalação.</system:String>
     <system:String x:Key="Emulatorfor">Emulador para</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">já está instalado e atualizado.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Emulador já instalado</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">O download do emulador foi cancelado.</system:String>
     <system:String x:Key="DownloadCanceled">Download cancelado</system:String>
     <system:String x:Key="Errordownloadingemulator">Erro ao baixar o emulador.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">Erro de download</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">baixado e extraído com sucesso.</system:String>
     <system:String x:Key="Corefor">Core para</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Core já instalado</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">O download foi incompleto e não será extraído.</system:String>
-    <system:String x:Key="DownloadIncomplete">Download incompleto</system:String>
     <system:String x:Key="Coredownloadwascanceled">O download do core foi cancelado.</system:String>
-    <system:String x:Key="Downloadwasincomplete">O download foi incompleto e não será extraído.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">O download do pacote de imagens foi cancelado.</system:String>
     <system:String x:Key="Thesystem">O sistema</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">foi adicionado com sucesso.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Não há estatísticas disponíveis para salvar. Aguarde enquanto os dados são carregados.</system:String>
     <system:String x:Key="Nosystemnameprovided">Nenhum nome de sistema fornecido.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Nenhuma informação disponível para o sistema:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">Nenhum detalhe disponível para</system:String>
     <system:String x:Key="Itlookslike">Parece que</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">está instalado em uma pasta restrita</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, onde não tem permissão de gravação.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Caso seja possível, execute-o com privilégios de administrador.</system:String>
     <system:String x:Key="AccessIssue">Problema de Acesso</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Ocorreu um erro ao iniciar</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Este tipo de erro geralmente está relacionado a permissões baixas em</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Tente executá-lo com privilégios de administrador.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Se quiser depurar o erro você mesmo, verifique o arquivo</system:String>
-    <system:String x:Key="insidethe">dentro da pasta</system:String>
     <system:String x:Key="PleaseWait">Aguarde</system:String>
     <system:String x:Key="Extractingcompressed">Extraindo o arquivo compactado, aguarde...</system:String>
     <system:String x:Key="Searchingpleasewait">Procurando, aguarde...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Ocorreu um erro ao iniciar este jogo.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">O emulador não conseguiu abrir o jogo com os parâmetros fornecidos.</system:String>
     <system:String x:Key="Thefileerroruser">O arquivo 'error_user.log' não foi encontrado!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Se você encontrar erros, tente desativar temporariamente a proteção em tempo real e executar o 'Simple Launcher' como administrador.</system:String>
     
 </ResourceDictionary>

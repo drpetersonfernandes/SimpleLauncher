@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">系统文件夹</system:String>
     <system:String x:Key="SystemImageFolder">系统图片文件夹</system:String>
     <system:String x:Key="DefaultImageFolder">[使用默认图片文件夹]</system:String>
-    <system:String x:Key="SystemIsMame">系统是 MAME 吗？</system:String>
     <system:String x:Key="FileFormatsToSearch">在系统文件夹中搜索的文件格式</system:String>
     <system:String x:Key="FileFormatsToLaunch">解压后启动的文件格式</system:String>
     <system:String x:Key="TotalGamesCount">系统文件夹中的游戏总数，不包括子文件夹中的文件：{0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">请输入错误的详细信息。</system:String>
     <system:String x:Key="Bugreportsent">错误报告已成功发送。</system:String>
     <system:String x:Key="Success">成功</system:String>
-    <system:String x:Key="Someantivirusprograms">某些杀毒程序可能会阻止或干扰最近下载的文件的解压，导致安装过程中出现访问问题。</system:String>
-    <system:String x:Key="Myfirstattempttodownload">我第一次尝试下载并解压文件失败了。</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">我会尝试使用内存中下载和解压方式。</system:String>
     <system:String x:Key="ExtractionError">解压错误</system:String>
     <system:String x:Key="Imagepackfor">图片包</system:String>
-    <system:String x:Key="downloadedandextracted">已成功下载并解压。</system:String>
     <system:String x:Key="DownloadComplete">下载完成</system:String>
     <system:String x:Key="Linkssavedsuccessfully">链接已成功保存。</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">链接已恢复为默认值。</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="System2">系统</system:String>
     <system:String x:Key="hasbeendeleted">已删除。</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">某些杀毒软件可能会阻止或干扰新下载文件的解压，可能导致安装过程中出现访问问题。</system:String>
     <system:String x:Key="Emulatorfor">模拟器适用于</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">已安装并为最新版本。</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">模拟器已安装</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">模拟器下载已取消。</system:String>
     <system:String x:Key="DownloadCanceled">下载已取消</system:String>
     <system:String x:Key="Errordownloadingemulator">下载模拟器时发生错误。</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">下载错误</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">已成功下载并解压。</system:String>
     <system:String x:Key="Corefor">核心适用于</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">核心已安装</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">下载未完成，文件将不会被解压。</system:String>
-    <system:String x:Key="DownloadIncomplete">下载未完成</system:String>
     <system:String x:Key="Coredownloadwascanceled">核心文件下载已取消。</system:String>
-    <system:String x:Key="Downloadwasincomplete">下载未完成，文件将不会被解压。</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">图像包下载已取消。</system:String>
     <system:String x:Key="Thesystem">系统</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">已成功添加。</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">没有统计数据可保存。请等待数据加载完成。</system:String>
     <system:String x:Key="Nosystemnameprovided">未提供系统名称。</system:String>
     <system:String x:Key="Noinformationavailableforsystem">没有可用的系统信息：</system:String>
-    <system:String x:Key="Nodetailsavailablefor">没有可用的详细信息：</system:String>
     <system:String x:Key="Itlookslike">看起来</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">安装在受限制的文件夹中</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">，没有写入权限。</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">。</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">如果可能，请以管理员权限运行。</system:String>
     <system:String x:Key="AccessIssue">访问问题</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">启动时发生错误</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">此类错误通常与权限设置较低相关</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">尝试以管理员权限运行。</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">如果您希望自己调试错误，请检查文件</system:String>
-    <system:String x:Key="insidethe">位于文件夹内</system:String>
     <system:String x:Key="PleaseWait">请稍候</system:String>
     <system:String x:Key="Extractingcompressed">正在解压缩文件，请稍候...</system:String>
     <system:String x:Key="Searchingpleasewait">正在搜索，请稍候...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">启动此游戏时发生错误。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">模拟器无法使用指定的参数打开游戏。</system:String>
     <system:String x:Key="Thefileerroruser">未找到文件 'error_user.log'！</system:String>
-    <system:String x:Key="Ifyouencountererrors">如果遇到错误，请暂时关闭实时保护并以管理员身份运行 'Simple Launcher'。</system:String>
     
 </ResourceDictionary>

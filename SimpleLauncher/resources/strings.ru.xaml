@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Системная папка</system:String>
     <system:String x:Key="SystemImageFolder">Папка изображений системы</system:String>
     <system:String x:Key="DefaultImageFolder">[Используется папка изображений по умолчанию]</system:String>
-    <system:String x:Key="SystemIsMame">Система является MAME?</system:String>
     <system:String x:Key="FileFormatsToSearch">Форматы файлов для поиска в системной папке</system:String>
     <system:String x:Key="FileFormatsToLaunch">Форматы файлов для запуска после извлечения</system:String>
     <system:String x:Key="TotalGamesCount">Общее количество игр в системной папке (без учета файлов в подпапках): {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Пожалуйста, введите детали ошибки.</system:String>
     <system:String x:Key="Bugreportsent">Отчет об ошибке успешно отправлен.</system:String>
     <system:String x:Key="Success">Успех</system:String>
-    <system:String x:Key="Someantivirusprograms">Некоторые антивирусные программы могут блокировать или препятствовать извлечению недавно загруженных файлов, что может вызвать проблемы с доступом во время установки.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Первая попытка загрузить и извлечь файл не удалась.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Я попробую снова, используя загрузку и извлечение в памяти.</system:String>
     <system:String x:Key="ExtractionError">Ошибка извлечения</system:String>
     <system:String x:Key="Imagepackfor">Пакет изображений для</system:String>
-    <system:String x:Key="downloadedandextracted">успешно загружен и извлечен.</system:String>
     <system:String x:Key="DownloadComplete">Загрузка завершена</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Ссылки успешно сохранены.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Ссылки возвращены к значениям по умолчанию.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="System2">Система</system:String>
     <system:String x:Key="hasbeendeleted">была удалена.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Некоторые антивирусные программы могут блокировать или препятствовать распаковке недавно загруженных файлов, что может вызвать проблемы с доступом во время установки.</system:String>
     <system:String x:Key="Emulatorfor">Эмулятор для</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">уже установлен и обновлен до актуальной версии.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Эмулятор уже установлен</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">Загрузка эмулятора была отменена.</system:String>
     <system:String x:Key="DownloadCanceled">Загрузка отменена</system:String>
     <system:String x:Key="Errordownloadingemulator">Ошибка при загрузке эмулятора.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">Ошибка загрузки</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">успешно загружен и распакован.</system:String>
     <system:String x:Key="Corefor">Core для</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Core уже установлен</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">Загрузка была неполной, поэтому файл не будет распакован.</system:String>
-    <system:String x:Key="DownloadIncomplete">Загрузка неполная</system:String>
     <system:String x:Key="Coredownloadwascanceled">Загрузка Core была отменена.</system:String>
-    <system:String x:Key="Downloadwasincomplete">Загрузка была неполной, поэтому файл не будет распакован.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">Загрузка пакета изображений была отменена.</system:String>
     <system:String x:Key="Thesystem">Система</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">успешно добавлена.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Нет доступной статистики для сохранения. Пожалуйста, дождитесь загрузки данных.</system:String>
     <system:String x:Key="Nosystemnameprovided">Название системы не указано.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Нет информации о системе:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="Itlookslike">Кажется, что</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">установлено в папке с ограниченным доступом</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, где нет прав на запись.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Если возможно, запустите с привилегиями администратора.</system:String>
     <system:String x:Key="AccessIssue">Проблема с доступом</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Произошла ошибка при запуске</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Такого рода ошибка обычно связана с низким уровнем разрешений для</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Попробуйте запустить с правами администратора.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Если вы хотите самостоятельно устранить ошибку, проверьте файл</system:String>
-    <system:String x:Key="insidethe">в папке</system:String>
     <system:String x:Key="PleaseWait">Пожалуйста, подождите</system:String>
     <system:String x:Key="Extractingcompressed">Извлечение сжатого файла, пожалуйста, подождите...</system:String>
     <system:String x:Key="Searchingpleasewait">Поиск в процессе, пожалуйста, подождите...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Произошла ошибка при запуске этой игры.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Эмулятор не смог открыть игру с указанными параметрами.</system:String>
     <system:String x:Key="Thefileerroruser">Файл 'error_user.log' не найден!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Если возникают ошибки, временно отключите защиту в реальном времени и запустите 'Simple Launcher' с правами администратора.</system:String>
     
 </ResourceDictionary>

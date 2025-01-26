@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemImageFolder">Systeemafbeeldingenmap</system:String>
     <system:String x:Key="DefaultImageFolder">[Standaard afbeeldingenmap wordt gebruikt]</system:String>
-    <system:String x:Key="SystemIsMame">Is het systeem MAME?</system:String>
     <system:String x:Key="FileFormatsToSearch">Bestandsformaten om te zoeken in de systeemmap</system:String>
     <system:String x:Key="FileFormatsToLaunch">Bestandsformaten om te starten na uitpakken</system:String>
     <system:String x:Key="TotalGamesCount">Totaal aantal spellen in de systeemmap, bestanden in submappen uitgesloten: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Voer de details van de fout in.</system:String>
     <system:String x:Key="Bugreportsent">Foutrapport succesvol verzonden.</system:String>
     <system:String x:Key="Success">Succes</system:String>
-    <system:String x:Key="Someantivirusprograms">Sommige antivirusprogramma's kunnen het extraheren van recent gedownloade bestanden blokkeren of verhinderen, wat kan leiden tot toegankelijkheidsproblemen tijdens de installatie.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Mijn eerste poging om het bestand te downloaden en te extraheren is mislukt.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Ik zal opnieuw proberen door in-memory downloaden en extractie te gebruiken.</system:String>
     <system:String x:Key="ExtractionError">Extractiefout</system:String>
     <system:String x:Key="Imagepackfor">Beeldpakket voor</system:String>
-    <system:String x:Key="downloadedandextracted">succesvol gedownload en geëxtraheerd.</system:String>
     <system:String x:Key="DownloadComplete">Download voltooid</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Links succesvol opgeslagen.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Links teruggezet naar standaardwaarden.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="System2">Systeem</system:String>
     <system:String x:Key="hasbeendeleted">is verwijderd.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Sommige antivirusprogramma's kunnen deextractie van nieuw gedownloade bestanden blokkeren of voorkomen, wat problemen kan veroorzaken bij de toegang tijdens de installatie.</system:String>
     <system:String x:Key="Emulatorfor">Emulator voor</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">is al geïnstalleerd en up-to-date.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Emulator is al geïnstalleerd</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">De emulator-download is geannuleerd.</system:String>
     <system:String x:Key="DownloadCanceled">Download geannuleerd</system:String>
     <system:String x:Key="Errordownloadingemulator">Fout bij het downloaden van de emulator.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">Downloadfout</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">succesvol gedownload en geëxtraheerd.</system:String>
     <system:String x:Key="Corefor">Core voor</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Core is al geïnstalleerd</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">De download was onvolledig en wordt niet geëxtraheerd.</system:String>
-    <system:String x:Key="DownloadIncomplete">Download onvolledig</system:String>
     <system:String x:Key="Coredownloadwascanceled">De core-download is geannuleerd.</system:String>
-    <system:String x:Key="Downloadwasincomplete">De download was onvolledig en wordt niet geëxtraheerd.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">De afbeeldingenset-download is geannuleerd.</system:String>
     <system:String x:Key="Thesystem">Het systeem</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">is succesvol toegevoegd.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Geen statistieken beschikbaar om op te slaan. Wacht tot de gegevens zijn geladen.</system:String>
     <system:String x:Key="Nosystemnameprovided">Geen systeemnaam opgegeven.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Geen informatie beschikbaar voor het systeem:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="Itlookslike">Het lijkt erop dat</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">is geïnstalleerd in een beperkte map</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, waar het geen schrijfrechten heeft.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Voer de applicatie indien mogelijk uit met beheerdersrechten.</system:String>
     <system:String x:Key="AccessIssue">Toegangsprobleem</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Er is een fout opgetreden tijdens het starten</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Dit type fout heeft meestal te maken met lage machtigingsinstellingen voor</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Probeer het uit te voeren met beheerdersrechten.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Als je de fout zelf wilt debuggen, controleer dan het bestand</system:String>
-    <system:String x:Key="insidethe">in de map</system:String>
     <system:String x:Key="PleaseWait">Even geduld</system:String>
     <system:String x:Key="Extractingcompressed">Bezig met uitpakken van gecomprimeerd bestand, een moment geduld...</system:String>
     <system:String x:Key="Searchingpleasewait">Bezig met zoeken, een moment geduld...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Er is een fout opgetreden bij het starten van dit spel.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
     <system:String x:Key="Thefileerroruser">Het bestand 'error_user.log' is niet gevonden!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Als je fouten ondervindt, probeer dan tijdelijk de realtimebescherming uit te schakelen en voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
     
 </ResourceDictionary>

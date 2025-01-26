@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemImageFolder">시스템 이미지 폴더</system:String>
     <system:String x:Key="DefaultImageFolder">[기본 이미지 폴더를 사용 중]</system:String>
-    <system:String x:Key="SystemIsMame">시스템이 MAME입니까?</system:String>
     <system:String x:Key="FileFormatsToSearch">시스템 폴더에서 검색할 형식</system:String>
     <system:String x:Key="FileFormatsToLaunch">추출 후 실행할 형식</system:String>
     <system:String x:Key="TotalGamesCount">시스템 폴더 내 게임 총 개수 (하위 폴더 파일 제외): {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">버그에 대한 세부 정보를 입력해 주세요.</system:String>
     <system:String x:Key="Bugreportsent">버그 보고가 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="Success">성공</system:String>
-    <system:String x:Key="Someantivirusprograms">일부 바이러스 백신 프로그램이 새로 다운로드된 파일의 추출을 차단하여 설치 중 접근 문제를 야기할 수 있습니다.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">파일 다운로드 및 추출을 시도한 첫 번째 시도가 실패했습니다.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">메모리 내 다운로드 및 추출을 사용하여 다시 시도하겠습니다.</system:String>
     <system:String x:Key="ExtractionError">추출 오류</system:String>
     <system:String x:Key="Imagepackfor">이미지 팩:</system:String>
-    <system:String x:Key="downloadedandextracted">정상적으로 다운로드 및 추출되었습니다.</system:String>
     <system:String x:Key="DownloadComplete">다운로드 완료</system:String>
     <system:String x:Key="Linkssavedsuccessfully">링크가 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">링크가 기본값으로 초기화되었습니다.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="System2">시스템</system:String>
     <system:String x:Key="hasbeendeleted">이 삭제되었습니다.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">일부 안티바이러스 프로그램은 새로 다운로드된 파일의 압축 해제를 차단하거나 방지하여 설치 중에 액세스 문제가 발생할 수 있습니다.</system:String>
     <system:String x:Key="Emulatorfor">에뮬레이터:</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">이미 설치되어 있으며 최신 상태입니다.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">에뮬레이터가 이미 설치되어 있습니다</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">에뮬레이터 다운로드가 취소되었습니다.</system:String>
     <system:String x:Key="DownloadCanceled">다운로드가 취소됨</system:String>
     <system:String x:Key="Errordownloadingemulator">에뮬레이터 다운로드 중 오류가 발생했습니다.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">다운로드 오류</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">성공적으로 다운로드 및 압축해제되었습니다.</system:String>
     <system:String x:Key="Corefor">코어:</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">코어가 이미 설치되어 있습니다</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">다운로드가 불완전하여 압축 해제되지 않습니다.</system:String>
-    <system:String x:Key="DownloadIncomplete">다운로드가 불완전합니다</system:String>
     <system:String x:Key="Coredownloadwascanceled">코어 다운로드가 취소되었습니다.</system:String>
-    <system:String x:Key="Downloadwasincomplete">다운로드가 불완전하여 압축 해제되지 않습니다.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">이미지 팩 다운로드가 취소되었습니다.</system:String>
     <system:String x:Key="Thesystem">시스템</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">이(가) 성공적으로 추가되었습니다.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">저장할 수 있는 통계가 없습니다. 데이터가 로드될 때까지 기다려주세요.</system:String>
     <system:String x:Key="Nosystemnameprovided">시스템 이름이 제공되지 않았습니다.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">시스템에 대한 정보가 제공되지 않았습니다:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">에 대한 세부 정보가 없습니다:</system:String>
     <system:String x:Key="Itlookslike">다음과 같은 것 같습니다:</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">제한된 폴더에 설치되어 있습니다</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, 이 폴더에는 쓰기 권한이 없습니다.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">폴더로 이동하세요.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">가능하면 관리자 권한으로 실행하십시오.</system:String>
     <system:String x:Key="AccessIssue">액세스 문제</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">시작 중 오류가 발생했습니다</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">이 유형의 오류는 일반적으로 다음과 같은 낮은 권한 설정과 관련이 있습니다:</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">관리자 권한으로 실행해보세요.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">오류를 직접 디버깅하려면, 다음 파일을 확인하세요:</system:String>
-    <system:String x:Key="insidethe">내에 위치함</system:String>
     <system:String x:Key="PleaseWait">잠시만 기다려주세요</system:String>
     <system:String x:Key="Extractingcompressed">압축 파일을 추출 중입니다. 잠시만 기다려주세요...</system:String>
     <system:String x:Key="Searchingpleasewait">검색 중입니다. 잠시만 기다려주세요...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">이 게임을 실행하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">에뮬레이터가 제공된 매개변수를 사용하여 게임을 열 수 없습니다.</system:String>
     <system:String x:Key="Thefileerroruser">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
-    <system:String x:Key="Ifyouencountererrors">오류가 발생하면 실시간 보호를 일시적으로 비활성화하고 'Simple Launcher'를 관리자 권한으로 실행해보세요.</system:String>
     
 </ResourceDictionary>

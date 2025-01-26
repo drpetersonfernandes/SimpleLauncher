@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">Thư mục Hệ thống</system:String>
     <system:String x:Key="SystemImageFolder">Thư mục Ảnh của Hệ thống</system:String>
     <system:String x:Key="DefaultImageFolder">[Đang sử dụng thư mục ảnh mặc định]</system:String>
-    <system:String x:Key="SystemIsMame">Hệ thống có phải là MAME không?</system:String>
     <system:String x:Key="FileFormatsToSearch">Định dạng tệp để tìm trong thư mục hệ thống</system:String>
     <system:String x:Key="FileFormatsToLaunch">Định dạng tệp để khởi chạy sau khi giải nén</system:String>
     <system:String x:Key="TotalGamesCount">Tổng số trò chơi trong thư mục hệ thống, không bao gồm tệp trong thư mục con: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">Vui lòng nhập chi tiết về lỗi.</system:String>
     <system:String x:Key="Bugreportsent">Báo cáo lỗi đã được gửi thành công.</system:String>
     <system:String x:Key="Success">Thành công</system:String>
-    <system:String x:Key="Someantivirusprograms">Một số chương trình diệt virus có thể chặn hoặc gây trở ngại cho việc giải nén các tập tin vừa tải về, điều này có thể gây ra vấn đề trong việc cài đặt.</system:String>
-    <system:String x:Key="Myfirstattempttodownload">Lần đầu tiên thử tải về và giải nén tập tin đã thất bại.</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">Tôi sẽ thử lại bằng cách sử dụng tải về và giải nén trong bộ nhớ.</system:String>
     <system:String x:Key="ExtractionError">Lỗi Giải Nén</system:String>
     <system:String x:Key="Imagepackfor">Gói hình ảnh cho</system:String>
-    <system:String x:Key="downloadedandextracted">đã được tải về và giải nén thành công.</system:String>
     <system:String x:Key="DownloadComplete">Tải về Hoàn tất</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Liên kết đã được lưu thành công.</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Liên kết đã được khôi phục về giá trị mặc định.</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="System2">Hệ thống</system:String>
     <system:String x:Key="hasbeendeleted">đã bị xóa.</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">Một số chương trình diệt virus có thể chặn hoặc ngăn việc giải nén các tệp vừa tải xuống, gây ra vấn đề truy cập trong quá trình cài đặt.</system:String>
     <system:String x:Key="Emulatorfor">Trình giả lập cho</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">đã được cài đặt và cập nhật mới nhất.</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">Trình giả lập đã được cài đặt</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">Quá trình tải xuống trình giả lập đã bị hủy.</system:String>
     <system:String x:Key="DownloadCanceled">Đã hủy tải xuống</system:String>
     <system:String x:Key="Errordownloadingemulator">Có lỗi xảy ra khi tải trình giả lập.</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">Lỗi tải xuống</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">đã được tải xuống và giải nén thành công.</system:String>
     <system:String x:Key="Corefor">Core cho</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">Core đã được cài đặt</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">Quá trình tải xuống không hoàn tất và sẽ không được giải nén.</system:String>
-    <system:String x:Key="DownloadIncomplete">Tải xuống không hoàn tất</system:String>
     <system:String x:Key="Coredownloadwascanceled">Quá trình tải xuống Core đã bị hủy.</system:String>
-    <system:String x:Key="Downloadwasincomplete">Quá trình tải xuống không hoàn tất và sẽ không được giải nén.</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">Quá trình tải gói hình ảnh đã bị hủy.</system:String>
     <system:String x:Key="Thesystem">Hệ thống</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">đã được thêm thành công.</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">Không có số liệu thống kê nào để lưu. Vui lòng đợi cho đến khi dữ liệu được tải.</system:String>
     <system:String x:Key="Nosystemnameprovided">Không có tên hệ thống được cung cấp.</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Không có thông tin nào cho hệ thống:</system:String>
-    <system:String x:Key="Nodetailsavailablefor">Không có chi tiết nào cho</system:String>
     <system:String x:Key="Itlookslike">Có vẻ như</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">được cài đặt trong thư mục bị hạn chế</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">, nơi không có quyền ghi.</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Nếu có thể, hãy chạy với quyền quản trị.</system:String>
     <system:String x:Key="AccessIssue">Vấn Đề Truy Cập</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">Đã xảy ra lỗi khi khởi động</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">Loại lỗi này thường liên quan đến cài đặt quyền hạn thấp trên</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">Hãy thử chạy ứng dụng với quyền quản trị.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">Nếu bạn muốn tự gỡ lỗi, hãy kiểm tra tệp</system:String>
-    <system:String x:Key="insidethe">trong thư mục</system:String>
     <system:String x:Key="PleaseWait">Vui lòng đợi</system:String>
     <system:String x:Key="Extractingcompressed">Đang giải nén tệp nén, vui lòng đợi...</system:String>
     <system:String x:Key="Searchingpleasewait">Đang tìm kiếm, vui lòng đợi...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Đã xảy ra lỗi khi khởi chạy trò chơi này.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
     <system:String x:Key="Thefileerroruser">Không tìm thấy tệp 'error_user.log'!</system:String>
-    <system:String x:Key="Ifyouencountererrors">Nếu gặp lỗi, tạm thời tắt bảo vệ thời gian thực và chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
     
 </ResourceDictionary>

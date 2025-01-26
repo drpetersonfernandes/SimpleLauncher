@@ -190,7 +190,6 @@
     <system:String x:Key="SystemFolder">সিস্টেম ফোল্ডার</system:String>
     <system:String x:Key="SystemImageFolder">সিস্টেম ইমেজ ফোল্ডার</system:String>
     <system:String x:Key="DefaultImageFolder">[ডিফল্ট ইমেজ ফোল্ডার ব্যবহার করা হচ্ছে]</system:String>
-    <system:String x:Key="SystemIsMame">কি সিস্টেম MAME?</system:String>
     <system:String x:Key="FileFormatsToSearch">সিস্টেম ফোল্ডারে অনুসন্ধানের ফাইল ফরম্যাট</system:String>
     <system:String x:Key="FileFormatsToLaunch">এক্সট্রাকশনের পরে চালানোর ফাইল ফরম্যাট</system:String>
     <system:String x:Key="TotalGamesCount">সিস্টেম ফোল্ডারে উপ-ডিরেক্টরিতে থাকা ফাইল ছাড়া গেম সংখ্যা: {0}</system:String>
@@ -257,12 +256,8 @@
     <system:String x:Key="Pleaseenterthedetailsofthebug">দয়া করে বাগের বিবরণ প্রদান করুন।</system:String>
     <system:String x:Key="Bugreportsent">বাগ রিপোর্ট সফলভাবে পাঠানো হয়েছে।</system:String>
     <system:String x:Key="Success">সফল</system:String>
-    <system:String x:Key="Someantivirusprograms">কিছু অ্যান্টিভাইরাস প্রোগ্রাম নতুনভাবে ডাউনলোডকৃত ফাইলের নির্যাস (extraction) বা অ্যাকসেস বাধাগ্রস্ত করতে পারে, যা ইনস্টলেশনের সময় সমস্যা সৃষ্টি করে।</system:String>
-    <system:String x:Key="Myfirstattempttodownload">আমার প্রথম প্রচেষ্টা ফাইলটি ডাউনলোড এবং এক্সট্র্যাক্ট করতে ব্যর্থ হয়েছে।</system:String>
-    <system:String x:Key="Iwilltryagainusinginmemory">আমি আবার ইন-মেমরি ডাউনলোড এবং এক্সট্র্যাকশন ব্যবহার করে চেষ্টা করব।</system:String>
     <system:String x:Key="ExtractionError">এক্সট্র্যাকশন সমস্যা</system:String>
     <system:String x:Key="Imagepackfor">ইমেজ প্যাক</system:String>
-    <system:String x:Key="downloadedandextracted">সফলভাবে ডাউনলোড এবং এক্সট্র্যাক্ট করা হয়েছে।</system:String>
     <system:String x:Key="DownloadComplete">ডাউনলোড সম্পূর্ণ</system:String>
     <system:String x:Key="Linkssavedsuccessfully">লিঙ্কগুলি সফলভাবে সংরক্ষিত হয়েছে।</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">লিঙ্কগুলি ডিফল্ট মানে পুনরুদ্ধার করা হয়েছে।</system:String>
@@ -293,10 +288,7 @@
     <system:String x:Key="Confirmation">নিশ্চিতকরণ</system:String>
     <system:String x:Key="System2">সিস্টেম</system:String>
     <system:String x:Key="hasbeendeleted">মুছে ফেলা হয়েছে।</system:String>
-    <system:String x:Key="Someantivirusprogramsmaylock">কিছু অ্যান্টিভাইরাস প্রোগ্রাম ফাইল এক্সট্র্যাকশন প্রতিরোধ করতে পারে।</system:String>
     <system:String x:Key="Emulatorfor">ইমুলেটর</system:String>
-    <system:String x:Key="isalreadyinstalledanduptodate">ইতিমধ্যে ইনস্টল এবং আপডেট আছে।</system:String>
-    <system:String x:Key="EmulatorAlreadyInstalled">ইমুলেটর ইতিমধ্যে ইনস্টল</system:String>
     <system:String x:Key="Emulatordownloadwascanceled">ইমুলেটরের ডাউনলোড বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="DownloadCanceled">ডাউনলোড বাতিল</system:String>
     <system:String x:Key="Errordownloadingemulator">ইমুলেটর ডাউনলোড করতে সমস্যা হয়েছে।</system:String>
@@ -304,11 +296,7 @@
     <system:String x:Key="DownloadError">ডাউনলোড ত্রুটি</system:String>
     <system:String x:Key="downloadedandextractedsuccessfully">সফলভাবে ডাউনলোড এবং এক্সট্র্যাক্ট হয়েছে।</system:String>
     <system:String x:Key="Corefor">কোর</system:String>
-    <system:String x:Key="CoreAlreadyInstalled">কোর ইতিমধ্যে ইনস্টল</system:String>
-    <system:String x:Key="Downloadwasincompleteandwill">ডাউনলোড অসম্পূর্ণ ছিল এবং এক্সট্র্যাক্ট করা হবে না।</system:String>
-    <system:String x:Key="DownloadIncomplete">ডাউনলোড অসম্পূর্ণ</system:String>
     <system:String x:Key="Coredownloadwascanceled">কোর ডাউনলোড বাতিল করা হয়েছে।</system:String>
-    <system:String x:Key="Downloadwasincomplete">ডাউনলোড অসম্পূর্ণ এবং এক্সট্র্যাক্ট করা হবে না।</system:String>
     <system:String x:Key="ImagePackdownloadwascanceled">ইমেজ প্যাক ডাউনলোড বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="Thesystem">সিস্টেম</system:String>
     <system:String x:Key="hasbeenaddedsuccessfully">সফলভাবে যোগ করা হয়েছে।</system:String>
@@ -362,7 +350,6 @@
     <system:String x:Key="Nostatisticsavailabletosave">পরিসংখ্যান সংরক্ষণের জন্য নয়।</system:String>
     <system:String x:Key="Nosystemnameprovided">কোনও সিস্টেম নাম পাওয়া যায়নি।</system:String>
     <system:String x:Key="Noinformationavailableforsystem">সিস্টেমের জন্য কোনো তথ্য নেই।</system:String>
-    <system:String x:Key="Nodetailsavailablefor">তথ্য সীমিত।</system:String>
     <system:String x:Key="Itlookslike">দেখা যাচ্ছে</system:String>
     <system:String x:Key="isinstalledinarestrictedfolder">সংরক্ষণ সীমাবদ্ধ ফোল্ডারে।</system:String>
     <system:String x:Key="whereitdoesnothavewriteaccess">যেখানে সংরক্ষণ করা সামগ্রী সীমাবদ্ধ।</system:String>
@@ -372,11 +359,6 @@
     <system:String x:Key="folder">ফোল্ডার।</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">প্রশাসনিক অনুমতিপত্র সাহায্যে কোড চলমান করুন।</system:String>
     <system:String x:Key="AccessIssue">প্রবেশাধিকার সমস্যা</system:String>
-    <system:String x:Key="Anerroroccurredwhilelaunching">ত্রুটি নিরাকরণ সমস্যা</system:String>
-    <system:String x:Key="Thistypeoferrorisusuallyrelated">একটি অনুমোদনের কারণে।</system:String>
-    <system:String x:Key="Tryrunningitwithadministrative">ত্রুটির সমস্যা ক্ষণপূরণ করার অনুমতি দিন।</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerror">তেরো সমস্যা ডিবাগের জন্য</system:String>
-    <system:String x:Key="insidethe">ফোল্ডার ভেতরে চেক করুন।</system:String>
     <system:String x:Key="PleaseWait">দয়া করে অপেক্ষা করুন</system:String>
     <system:String x:Key="Extractingcompressed">এক্সট্রাকশন প্রগ্রেস।</system:String>
     <system:String x:Key="Searchingpleasewait">অনুসন্ধান প্রগ্রেস...</system:String>
@@ -444,6 +426,5 @@
     <system:String x:Key="Therewasanerrorlaunchingthisgame">এই গেমটি চালানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ঠিক সরবরাহকৃত প্যারামিটারগুলির সাথে এমুলেটর গেমটি খুলতে পারেনি।</system:String>
     <system:String x:Key="Thefileerroruser">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
-    <system:String x:Key="Ifyouencountererrors">যদি ত্রুটি সম্মুখীন হন, তবে রিয়েল-টাইম প্রোটেকশন সাময়িকভাবে নিষ্ক্রিয় করে 'সিম্পল লঞ্চার' প্রশাসনিক অনুমতিতে চালানোর চেষ্টা করুন।</system:String>
 
 </ResourceDictionary>
