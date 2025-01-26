@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">收藏夹</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
     <system:String x:Key="FileDeleted">文件已删除</system:String>
-    <system:String x:Key="FileFormatsToLaunch">解压后启动的文件格式</system:String>
-    <system:String x:Key="FileFormatsToSearch">在系统文件夹中搜索的文件格式</system:String>
     <system:String x:Key="FileNotFound">文件未找到</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">您需要为</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">您的计算机可能未授予 'Simple Launcher' 执行 'FindRomCover.exe' 文件所需的权限。请确保 'Simple Launcher' 具有必要的管理员权限。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">提取后启动的扩展</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">在系统文件夹中搜索的扩展</system:String>
     
 </ResourceDictionary>

@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">Favorit</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Fail 'appsettings.json' tidak ditemui.</system:String>
     <system:String x:Key="FileDeleted">File Dihapus</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Format untuk Diluncurkan Setelah Ekstraksi</system:String>
-    <system:String x:Key="FileFormatsToSearch">Format Berkas untuk Dicari di Folder Sistem</system:String>
     <system:String x:Key="FileNotFound">File Tidak Ditemukan</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">Anda perlu memberikan lebih banyak hak istimewa kepada</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Komputer Anda mungkin tidak memberikan izin yang diperlukan agar 'Simple Launcher' dapat menjalankan file 'FindRomCover.exe'. Pastikan 'Simple Launcher' memiliki hak administratif yang diperlukan.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Ekstensi untuk diluncurkan setelah ekstraksi</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Ekstensi untuk mencari di folder sistem</system:String>
     
 </ResourceDictionary>

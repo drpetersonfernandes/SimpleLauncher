@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">المفضلة</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
     <system:String x:Key="FileDeleted">تم حذف الملف</system:String>
-    <system:String x:Key="FileFormatsToLaunch">تنسيقات الملفات للتشغيل بعد الاستخراج</system:String>
-    <system:String x:Key="FileFormatsToSearch">تنسيقات الملفات للبحث في مجلد النظام</system:String>
     <system:String x:Key="FileNotFound">الملف غير موجود</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">تحتاج إلى منح المزيد من الامتيازات لـ</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">قد لا يكون جهاز الكمبيوتر الخاص بك قد منح الأذونات اللازمة لـ 'Simple Launcher' لتنفيذ ملف 'FindRomCover.exe'. يرجى التأكد من أن 'Simple Launcher' لديه الامتيازات الإدارية المطلوبة.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">الامتداد للتشغيل بعد الاستخراج</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">الامتداد للبحث في مجلد النظام</system:String>
     
 </ResourceDictionary>

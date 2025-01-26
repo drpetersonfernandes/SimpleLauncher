@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">Favoriten</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Die Datei 'appsettings.json' fehlt.</system:String>
     <system:String x:Key="FileDeleted">Datei gelöscht</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Formate, die nach der Extraktion gestartet werden</system:String>
-    <system:String x:Key="FileFormatsToSearch">Formate, die im Systemordner durchsucht werden</system:String>
     <system:String x:Key="FileNotFound">Datei nicht gefunden</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' wurde nicht im erwarteten Pfad gefunden.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">Sie müssen mehr Berechtigungen gewähren, um</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Ihr Computer hat möglicherweise nicht die erforderlichen Berechtigungen erteilt, damit 'Simple Launcher' die Datei 'FindRomCover.exe' ausführen kann. Bitte stellen Sie sicher, dass 'Simple Launcher' über die erforderlichen Administratorrechte verfügt.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Sie sollten die Emulatorparameter ändern, um zu verhindern, dass der Emulator im Vollbild startet.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Erweiterung zum Starten nach der Extraktion</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Erweiterung zum Suchen im Systemordner</system:String>
     
 </ResourceDictionary>

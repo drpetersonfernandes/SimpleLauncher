@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">Избранное</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Файл 'appsettings.json' отсутствует.</system:String>
     <system:String x:Key="FileDeleted">Файл удалён</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Форматы файлов для запуска после извлечения</system:String>
-    <system:String x:Key="FileFormatsToSearch">Форматы файлов для поиска в системной папке</system:String>
     <system:String x:Key="FileNotFound">Файл не найден</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">Вам нужно предоставить больше прав</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Возможно, вашему компьютеру не были выданы необходимые разрешения для выполнения файла 'FindRomCover.exe' с помощью 'Simple Launcher'. Убедитесь, что у 'Simple Launcher' есть необходимые права администратора.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Расширение для запуска после извлечения</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Расширение для поиска в системной папке</system:String>
     
 </ResourceDictionary>

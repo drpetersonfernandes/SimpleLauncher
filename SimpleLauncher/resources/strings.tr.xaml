@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">Favoriler</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
     <system:String x:Key="FileDeleted">Dosya Silindi</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Çıkarıldıktan sonra çalıştırılacak dosya formatları</system:String>
-    <system:String x:Key="FileFormatsToSearch">Sistem klasöründe aranacak dosya formatları</system:String>
     <system:String x:Key="FileNotFound">Dosya bulunamadı</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">Şuna daha fazla yetki vermeniz gerekiyor:</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Bilgisayarınız, 'Simple Launcher'ın 'FindRomCover.exe' dosyasını çalıştırması için gereken izinleri vermemiş olabilir. 'Simple Launcher'ın gerekli yönetici izinlerine sahip olduğundan emin olun.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Çıkarımdan sonra başlatılacak uzantı</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Sistem klasöründe aranacak uzantı</system:String>
     
 </ResourceDictionary>

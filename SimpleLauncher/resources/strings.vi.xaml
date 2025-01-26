@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">Yêu thích</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Thiếu tệp 'appsettings.json'.</system:String>
     <system:String x:Key="FileDeleted">Tệp đã xóa</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Định dạng tệp để khởi chạy sau khi giải nén</system:String>
-    <system:String x:Key="FileFormatsToSearch">Định dạng tệp để tìm trong thư mục hệ thống</system:String>
     <system:String x:Key="FileNotFound">Không tìm thấy tệp</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">Bạn cần cung cấp thêm quyền cho</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Máy tính của bạn có thể không cấp quyền cần thiết cho 'Simple Launcher' để thực thi tệp 'FindRomCover.exe'. Hãy đảm bảo rằng 'Simple Launcher' có đủ quyền quản trị cần thiết.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Phần mở rộng để khởi chạy sau khi giải nén</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Phần mở rộng để tìm kiếm trong thư mục hệ thống</system:String>
     
 </ResourceDictionary>

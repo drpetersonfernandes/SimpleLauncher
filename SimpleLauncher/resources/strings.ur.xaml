@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">پسندیدہ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
     <system:String x:Key="FileDeleted">فائل حذف ہو گئی</system:String>
-    <system:String x:Key="FileFormatsToLaunch">ایکسٹریکشن کے بعد لانچ کرنے کے فارمیٹ</system:String>
-    <system:String x:Key="FileFormatsToSearch">سسٹم فولڈر میں تلاش کرنے کے فارمیٹ</system:String>
     <system:String x:Key="FileNotFound">فائل نہیں ملی</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">آپ کو مزید مراعات دینی ہوں گی</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">آپ کے کمپیوٹر نے 'Simple Launcher' کو 'FindRomCover.exe' فائل چلانے کے لیے مطلوبہ اجازت فراہم نہیں کی ہو سکتی۔ براہ کرم یقینی بنائیں کہ 'Simple Launcher' کے پاس مطلوبہ منتظم کے حقوق موجود ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">ایکسٹریکشن کے بعد شروع کرنے کے لیے توسیع</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">سسٹم فولڈر میں تلاش کرنے کے لیے توسیع</system:String>
     
 </ResourceDictionary>

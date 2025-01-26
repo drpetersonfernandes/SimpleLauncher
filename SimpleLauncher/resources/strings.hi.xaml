@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">पसंदीदा</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' फ़ाइल अनुपलब्ध है।</system:String>
     <system:String x:Key="FileDeleted">फ़ाइल हटाई गई</system:String>
-    <system:String x:Key="FileFormatsToLaunch">पैकेज निकालने के बाद लॉन्च करने के लिए प्रारूप</system:String>
-    <system:String x:Key="FileFormatsToSearch">सिस्टम फ़ोल्डर में खोजने के लिए प्रारूप</system:String>
     <system:String x:Key="FileNotFound">फ़ाइल नहीं मिली</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' अपेक्षित पथ में नहीं मिला।</system:String>
     <system:String x:Key="Flyer">फ्लायर</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">आपको इसे अधिक विशेषाधिकार प्रदान करने की आवश्यकता है</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">हो सकता है कि आपके कंप्यूटर ने 'FindRomCover.exe' फ़ाइल को चलाने के लिए 'Simple Launcher' को आवश्यक अनुमति न दी हो। कृपया सुनिश्चित करें कि 'Simple Launcher' के पास आवश्यक प्रशासनिक अधिकार हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">सिस्टम फ़ोल्डर में खोजने के लिए एक्सटेंशन</system:String>
     
 </ResourceDictionary>

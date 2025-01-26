@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">お気に入り</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ファイルが見つかりません。</system:String>
     <system:String x:Key="FileDeleted">ファイルが削除されました</system:String>
-    <system:String x:Key="FileFormatsToLaunch">抽出後に起動するフォーマット</system:String>
-    <system:String x:Key="FileFormatsToSearch">システムフォルダ内で検索するフォーマット</system:String>
     <system:String x:Key="FileNotFound">ファイルが見つかりません</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">タスクを実行するには、より多くの権限を付与する必要があります：</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">コンピューターが 'Simple Launcher' に 'FindRomCover.exe' を実行する必要な権限を与えていない可能性があります。'Simple Launcher' に必要な管理権限が付与されていることを確認してください。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">抽出後に起動する拡張機能</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">システムフォルダ内を検索する拡張機能</system:String>
     
 </ResourceDictionary>

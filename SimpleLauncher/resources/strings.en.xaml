@@ -149,9 +149,9 @@
     <system:String x:Key="Exit">Exit</system:String>
     <system:String x:Key="ExpertMode">Expert Mode</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.</system:String>
-    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extension to Launch After Extraction</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Extension to Launch After Extraction (May be Required)</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder">'Extension to Search in the System Folder' cannot be empty or contain only spaces.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extension to Launch After Extraction</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extension to Search in the System Folder</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Extension to Search in the System Folder (Required)</system:String>
     <system:String x:Key="ExtractFileBeforeLaunch">Extract File Before Launch?</system:String>

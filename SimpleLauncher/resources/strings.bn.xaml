@@ -161,8 +161,6 @@
     <system:String x:Key="Favorites">প্রিয়সমূহ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="FileDeleted">ফাইল মুছে ফেলা হয়েছে</system:String>
-    <system:String x:Key="FileFormatsToLaunch">এক্সট্রাকশনের পরে চালানোর ফাইল ফরম্যাট</system:String>
-    <system:String x:Key="FileFormatsToSearch">সিস্টেম ফোল্ডারে অনুসন্ধানের ফাইল ফরম্যাট</system:String>
     <system:String x:Key="FileNotFound">ফাইল পাওয়া যায়নি</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
@@ -454,5 +452,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">আপনাকে এই অ্যাপলিকেশন ব্যবহারের জন্য আরও অনুমতি দিতে হবে</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">আপনার কম্পিউটার হয়তো 'Simple Launcher'-কে 'FindRomCover.exe' ফাইলটি চালানোর জন্য প্রয়োজনীয় অনুমতি প্রদান করেনি। নিশ্চিত করুন যে 'Simple Launcher'-এর প্রয়োজনীয় প্রশাসনিক অনুমতিগুলি রয়েছে।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">এক্সট্রাকশনের পরে চালানোর জন্য এক্সটেনশন</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">সিস্টেম ফোল্ডারে খোঁজার জন্য এক্সটেনশন</system:String>
     
 </ResourceDictionary>
