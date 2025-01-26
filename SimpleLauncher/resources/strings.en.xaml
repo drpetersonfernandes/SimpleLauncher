@@ -454,5 +454,7 @@
     <system:String x:Key="Youneedtogivemoreprivilegesto">You need to give more privileges to</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
 
 </ResourceDictionary>

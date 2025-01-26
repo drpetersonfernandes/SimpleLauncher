@@ -268,6 +268,12 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource Tools}">
+                <MenuItem Click="BatchConvertIsoToXiso_Click"
+                          Header="{DynamicResource BatchConvertIsoToXiso}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Click="BatchConvertToCHD_Click"
                           Header="{DynamicResource BatchConvertToCHD}">
                     <MenuItem.Icon>

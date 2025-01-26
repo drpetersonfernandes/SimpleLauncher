@@ -1236,6 +1236,46 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
     
+    private void BatchConvertIsoToXiso_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            string createBatchConvertIsoToXisoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
+
+            if (File.Exists(createBatchConvertIsoToXisoPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = createBatchConvertIsoToXisoPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                // Notify developer
+                string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            string formattedException = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+                
+            // Notify user
+            ErrorLaunchingToolMessageBox();
+        }
+    }
+
     private void BatchConvertToCHD_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -2128,5 +2168,39 @@ public partial class MainWindow : INotifyPropertyChanged
     }
         
     #endregion
+    
+    private static void ErrorLaunchingToolMessageBox()
+    {
+        var result = MessageBox.Show("An error occurred while launching the selected tool.\n\n" +
+                                     "The error was reported to the developer that will try to fix the issue.\n\n" +
+                                     "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = LogPath,
+                UseShellExecute = true
+            });
+        }
+    }
+
+    private static void SelectedToolNotFoundMessageBox()
+    {
+        MessageBoxResult reinstall = MessageBox.Show(
+            "The selected tool was not found in the expected path.\n\n" +
+            "Do you want to reinstall 'Simple Launcher' to fix it?",
+            "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (reinstall == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
+                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 
 }
