@@ -190,11 +190,11 @@
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemImageFolder">System Image Folder</system:String>
-    <system:String x:Key="DefaultImageFolder">[Using default image folder]</system:String>
+    <system:String x:Key="DefaultImageFolder">Using default image folder</system:String>
     <system:String x:Key="SystemIsMame">System is MAME?</system:String>
-    <system:String x:Key="FileFormatsToSearch">Format to Search in the System Folder</system:String>
-    <system:String x:Key="FileFormatsToLaunch">Format to Launch After Extraction</system:String>
-    <system:String x:Key="TotalGamesCount">Total number of games in the System Folder, excluding files in subdirectories: {0}</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extension to Search in the System Folder</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extension to Launch After Extraction</system:String>
+    <system:String x:Key="TotalGamesCount">Number of games in the System Folder: {0}</system:String>
     <system:String x:Key="NumberOfImages">Number of images in the System Image Folder: {0}</system:String>
     <system:String x:Key="ImageFolderNotExist">System Image Folder does not exist or is not specified.</system:String>
     <system:String x:Key="EmulatorName">Emulator Name</system:String>
@@ -480,6 +480,7 @@
     <system:String x:Key="Wouldyouliketoopenthetemp">Would you like to open the 'temp' folder to view the downloaded file?</system:String>
     <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' was unable to open the 'temp' folder due to access issues.</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Select a folder to extract the Image Pack</system:String>
+    
     
 
 </ResourceDictionary>

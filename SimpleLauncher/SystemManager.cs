@@ -24,17 +24,11 @@ public static class SystemManager
 
         string systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";
         string systemImageFolder2 = (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
-        string defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "";
-        string systemIsMame2 = (string)Application.Current.TryFindResource("SystemIsMame") ?? "";
-        string fileFormatsToSearch2 = (string)Application.Current.TryFindResource("FileFormatsToSearch") ?? "";
-        string extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "";
-        string fileFormatsToLaunch2 = (string)Application.Current.TryFindResource("FileFormatsToLaunch") ?? "";
-        string totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "";
-        string numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "";
-        string imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "";
-        string emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "";
-        string emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorLocation") ?? "";
-        string emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "";
+        string defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
+        string isthesystemMamEbased2 = (string)Application.Current.TryFindResource("IsthesystemMAMEbased") ?? "Is the system MAME-based?";
+        string extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder2") ?? "Extension to Search in the System Folder";
+        string extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "Extract File Before Launch?";
+        string extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ?? "Extension to Launch After Extraction";
 
         // Create System Info TextBlock with LineBreaks
         var systemInfoTextBlock = new TextBlock();
@@ -42,15 +36,17 @@ public static class SystemManager
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedConfig.SystemImageFolder ?? defaultImageFolder2}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemIsMame2}: {selectedConfig.SystemIsMame}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{isthesystemMamEbased2}: {selectedConfig.SystemIsMame}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{fileFormatsToSearch2}: {string.Join(", ", selectedConfig.FileFormatsToSearch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedConfig.FileFormatsToSearch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extractFileBeforeLaunch2}: {selectedConfig.ExtractFileBeforeLaunch}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{fileFormatsToLaunch2}: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}"));
         verticalStackPanel.Children.Add(systemInfoTextBlock);
-
+        
+        string totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
+        
         // Add the number of games in the system folder
         var gameCountTextBlock = new TextBlock();
         gameCountTextBlock.Inlines.Add(new LineBreak());
@@ -64,6 +60,9 @@ public static class SystemManager
             imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
         }
 
+        string numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
+        string imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
+        
         // Add the number of images in the system's image folder
         if (Directory.Exists(imageFolderPath))
         {
@@ -81,6 +80,10 @@ public static class SystemManager
             verticalStackPanel.Children.Add(noImageFolderTextBlock);
         }
 
+        string emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
+        string emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorLocation") ?? "Emulator Location";
+        string emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
+        
         // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
         foreach (var emulator in selectedConfig.Emulators)
         {
