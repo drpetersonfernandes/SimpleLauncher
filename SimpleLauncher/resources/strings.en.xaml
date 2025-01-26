@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
-    <system:String x:Key="InfoTitle">Info</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
     <system:String x:Key="TotalSystems">Total Number of Systems:</system:String>

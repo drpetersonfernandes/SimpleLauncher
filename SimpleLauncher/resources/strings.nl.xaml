@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
-    <system:String x:Key="InfoTitle">Informatie</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
     <system:String x:Key="TotalSystems">Totaal aantal systemen:</system:String>

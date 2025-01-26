@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">信息連結按鈕</system:String>
     <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
-    <system:String x:Key="InfoTitle">資訊</system:String>
     <system:String x:Key="Nosystemselected">未選擇任何系統</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您希望保存包含結果的報告嗎？</system:String>
     <system:String x:Key="TotalSystems">系統總數：</system:String>

@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Info-Link-Schaltfläche</system:String>
     <system:String x:Key="SaveorUpdateLinks">Links speichern oder aktualisieren</system:String>
     <system:String x:Key="ReverttoDefaultValues">Auf Standardwerte zurücksetzen</system:String>
-    <system:String x:Key="InfoTitle">Information</system:String>
     <system:String x:Key="Nosystemselected">Kein System ausgewählt</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Möchten Sie einen Bericht mit den Ergebnissen speichern?</system:String>
     <system:String x:Key="TotalSystems">Gesamtanzahl der Systeme:</system:String>

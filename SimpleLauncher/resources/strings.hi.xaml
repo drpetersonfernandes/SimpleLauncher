@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">जानकारी लिंक बटन</system:String>
     <system:String x:Key="SaveorUpdateLinks">लिंक सहेजें या अपडेट करें</system:String>
     <system:String x:Key="ReverttoDefaultValues">डिफ़ॉल्ट मानों पर पुनर्स्थापित करें</system:String>
-    <system:String x:Key="InfoTitle">जानकारी</system:String>
     <system:String x:Key="Nosystemselected">कोई सिस्टम चयनित नहीं है</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">क्या आप परिणामों के साथ एक रिपोर्ट सहेजना चाहेंगे?</system:String>
     <system:String x:Key="TotalSystems">संपूर्ण सिस्टम की संख्या:</system:String>

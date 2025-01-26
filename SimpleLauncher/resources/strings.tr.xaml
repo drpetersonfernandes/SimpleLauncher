@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
-    <system:String x:Key="InfoTitle">Bilgi</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
     <system:String x:Key="TotalSystems">Toplam sistem sayısı:</system:String>

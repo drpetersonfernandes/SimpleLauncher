@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
     <system:String x:Key="SaveorUpdateLinks">Simpan atau Perbarui Tautan</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
-    <system:String x:Key="InfoTitle">Info</system:String>
     <system:String x:Key="Nosystemselected">Tidak ada sistem yang dipilih</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Apakah Anda ingin menyimpan laporan dengan hasilnya?</system:String>
     <system:String x:Key="TotalSystems">Jumlah Total Sistem:</system:String>

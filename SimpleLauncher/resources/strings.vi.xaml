@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
-    <system:String x:Key="InfoTitle">Thông tin</system:String>
     <system:String x:Key="Nosystemselected">Không có hệ thống nào được chọn</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
     <system:String x:Key="TotalSystems">Tổng số hệ thống:</system:String>

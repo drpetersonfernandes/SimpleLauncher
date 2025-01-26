@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
-    <system:String x:Key="InfoTitle">Информация</system:String>
     <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
     <system:String x:Key="TotalSystems">Общее количество систем:</system:String>

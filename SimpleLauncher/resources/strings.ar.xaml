@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
-    <system:String x:Key="InfoTitle">معلومات</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
     <system:String x:Key="TotalSystems">إجمالي عدد الأنظمة:</system:String>

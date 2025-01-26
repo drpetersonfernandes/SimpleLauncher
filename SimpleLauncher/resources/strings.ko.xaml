@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">정보 링크 버튼</system:String>
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
-    <system:String x:Key="InfoTitle">정보</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
     <system:String x:Key="TotalSystems">전체 시스템 수:</system:String>

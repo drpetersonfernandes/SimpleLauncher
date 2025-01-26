@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">معلومات لنک بٹن</system:String>
     <system:String x:Key="SaveorUpdateLinks">لنکس محفوظ کریں یا اپ ڈیٹ کریں</system:String>
     <system:String x:Key="ReverttoDefaultValues">ڈیفالٹ ویلیوز پر واپس جائیں</system:String>
-    <system:String x:Key="InfoTitle">معلومات</system:String>
     <system:String x:Key="Nosystemselected">کوئی سسٹم منتخب نہیں ہوا</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">کیا آپ نتائج کے ساتھ ایک رپورٹ محفوظ کرنا چاہیں گے؟</system:String>
     <system:String x:Key="TotalSystems">سسٹمز کی کل تعداد:</system:String>

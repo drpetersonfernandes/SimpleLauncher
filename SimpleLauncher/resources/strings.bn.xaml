@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">তথ্য লিংক বোতাম</system:String>
     <system:String x:Key="SaveorUpdateLinks">লিংক সংরক্ষণ বা আপডেট করুন</system:String>
     <system:String x:Key="ReverttoDefaultValues">ডিফল্ট মানে পুনঃস্থাপন করুন</system:String>
-    <system:String x:Key="InfoTitle">তথ্য</system:String>
     <system:String x:Key="Nosystemselected">কোনো সিস্টেম নির্বাচিত হয়নি</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">আপনি কি ফলাফল সহ একটি রিপোর্ট সংরক্ষণ করতে চান?</system:String>
     <system:String x:Key="TotalSystems">মোট সিস্টেম সংখ্যা:</system:String>

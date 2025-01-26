@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Bouton de lien d'informations</system:String>
     <system:String x:Key="SaveorUpdateLinks">Enregistrer ou mettre à jour les liens</system:String>
     <system:String x:Key="ReverttoDefaultValues">Réinitialiser aux valeurs par défaut</system:String>
-    <system:String x:Key="InfoTitle">Informations</system:String>
     <system:String x:Key="Nosystemselected">Aucun système sélectionné</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Souhaitez-vous enregistrer un rapport avec les résultats ?</system:String>
     <system:String x:Key="TotalSystems">Nombre total de systèmes :</system:String>

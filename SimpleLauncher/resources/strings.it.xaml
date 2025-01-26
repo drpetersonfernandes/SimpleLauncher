@@ -165,7 +165,6 @@
     <system:String x:Key="InfoLinkButton">Pulsante collegamento informazioni</system:String>
     <system:String x:Key="SaveorUpdateLinks">Salva o aggiorna collegamenti</system:String>
     <system:String x:Key="ReverttoDefaultValues">Ripristina ai valori predefiniti</system:String>
-    <system:String x:Key="InfoTitle">Informazioni</system:String>
     <system:String x:Key="Nosystemselected">Nessun sistema selezionato</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Vuoi salvare un rapporto con i risultati?</system:String>
     <system:String x:Key="TotalSystems">Numero totale di sistemi:</system:String>
