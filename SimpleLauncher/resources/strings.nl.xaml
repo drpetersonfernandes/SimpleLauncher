@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>
-    <system:String x:Key="folder">.</system:String>
     <system:String x:Key="GamepadSupport">Gamepad-ondersteuning</system:String>
     <system:String x:Key="GameplaySnapshot">Gameplay-momentopname</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Gameplaymomentopname niet gevonden</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Ongeldig spelpad:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Ongeldige werkmap. Controleer je bestand.</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">is geïnstalleerd in een beperkte map</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
     <system:String x:Key="isnotinfavorites">staat niet in de favorieten.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
-    <system:String x:Key="Itlookslike">Het lijkt erop dat</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Het heeft schrijfrechten nodig voor de map.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Andere extensies worden niet geaccepteerd.</system:String>
     <system:String x:Key="Language">Taal</system:String>
     <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Opties</system:String>
     <system:String x:Key="Orange">Oranje</system:String>
     <system:String x:Key="OrganizeSystemImages">Systeemafbeeldingen organiseren</system:String>
-    <system:String x:Key="orthe">of de map</system:String>
     <system:String x:Key="outof">van</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Los dit op om verder te gaan.</system:String>
     <system:String x:Key="Pleasefixthisfield">Corrigeer dit veld alstublieft.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Ga naar 'Systeem Bewerken - Expertmodus' om dit systeem te bewerken.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Verplaats de applicatiemap naar een locatie waar schrijven is toegestaan, zoals</system:String>
     <system:String x:Key="PleaseReinstall">Installeer opnieuw</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Herinstalleer 'Simple Launcher' om dit probleem op te lossen.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Installeer 'Simple Launcher' handmatig opnieuw.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">We ondersteunen ook systemen die deze bestanden wel nodig hebben, maar daarvoor moet je de "Expertmodus" gebruiken en deze handmatig installeren.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Wat wilt u doen?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Als 'Bestand extraheren vóór starten' is ingeschakeld, moet de 'Extensie om te zoeken in de systeemmap' 'zip', '7z' of 'rar' bevatten.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, waar het geen schrijfrechten heeft.</system:String>
     <system:String x:Key="whichisrequiredtostart">, dat nodig is om de applicatie te starten.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensie om te starten na extractie</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extensie om in de systeemmap te zoeken</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Batchconversie van ISO naar XISO</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">Het bestand 'system.xml' is beschadigd.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Je moet het handmatig repareren of verwijderen.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">De applicatie wordt afgesloten.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beveiligde map (bijvoorbeeld Program Files) zonder schrijfrechten.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Het heeft schrijfrechten nodig voor zijn map.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Verplaats de applicatiemap naar een locatie met schrijfrechten, zoals de map 'Documenten'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Er is een fout opgetreden bij deze methode.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Er is een fout opgetreden bij het laden van de systeemconfiguratie voor dit systeem.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Er is een fout opgetreden bij het laden van de lijst met spellen.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Er is een fout opgetreden bij het openen van de donatielink.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Het schakelen van de gamepad is mislukt.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Er is een fout opgetreden bij het wijzigen van de weergavemodus.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Er is een fout opgetreden in de navigatieknop.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Er is een fout opgetreden in de zoekmachine.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Er is een fout opgetreden bij het starten van het geselecteerde hulpmiddel.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">Het geselecteerde hulpmiddel is niet gevonden op het verwachte pad.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wil je 'Simple Launcher' opnieuw installeren om dit probleem op te lossen?</system:String>
     
 </ResourceDictionary>

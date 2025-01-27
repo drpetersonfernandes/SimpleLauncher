@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>
-    <system:String x:Key="folder">。</system:String>
     <system:String x:Key="GamepadSupport">手柄支持</system:String>
     <system:String x:Key="GameplaySnapshot">游戏截图</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">未找到游戏截图</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">无效的游戏路径：</system:String>
     <system:String x:Key="Invalidworkingdirectory">无效的工作目录。请检查您的文件。</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">安装在受限制的文件夹中</system:String>
     <system:String x:Key="isminimizedtothetray">已最小化到托盘。</system:String>
     <system:String x:Key="isnotinfavorites">不在收藏夹中。</system:String>
     <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
     <system:String x:Key="isusedmultipletimes">已被多次使用。每个模拟器名称必须是唯一的。</system:String>
-    <system:String x:Key="Itlookslike">看起来</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">需要对其文件夹的写入权限。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">不接受其他扩展名。</system:String>
     <system:String x:Key="Language">语言</system:String>
     <system:String x:Key="LanguageLoadingError">语言加载错误</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">选项</system:String>
     <system:String x:Key="Orange">橙色</system:String>
     <system:String x:Key="OrganizeSystemImages">整理系统图像</system:String>
-    <system:String x:Key="orthe">或文件夹</system:String>
     <system:String x:Key="outof">共计</system:String>
     <system:String x:Key="PCB">电路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">未找到电路板（PCB）</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">请修正它们以继续。</system:String>
     <system:String x:Key="Pleasefixthisfield">请修正此字段。</system:String>
     <system:String x:Key="PleasegotoEditSystem">请前往 '编辑系统 - 高级模式' 来编辑此系统。</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">请将应用程序文件夹移动到可写位置，例如</system:String>
     <system:String x:Key="PleaseReinstall">请重新安装</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">请重新安装 'Simple Launcher' 以解决问题。</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">请手动重新安装 'Simple Launcher'。</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">我们也支持需要这些文件的系统，但您需要使用“专家模式”并手动安装它们。</system:String>
     <system:String x:Key="Whatdoyouwanttodo">您想做什么？</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">当启用了“启动前解压文件”时，“在系统文件夹中搜索的扩展名”必须包含“zip”、“7z”或“rar”。</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">，没有写入权限。</system:String>
     <system:String x:Key="whichisrequiredtostart">，该文件是启动此应用程序所需的。</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">是否需要跳转到下载页面？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想打开 'error_user.log' 文件来调查此问题？</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">提取后启动的扩展</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">在系统文件夹中搜索的扩展</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">批量将ISO转换为XISO</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">文件“system.xml”已损坏。</system:String>
+    <system:String x:Key="Youneedtofixitmanually">您需要手动修复或删除该文件。</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">应用程序将被关闭。</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">看起来“Simple Launcher”已安装在受保护的文件夹（例如：Program Files）中，且无写入权限。</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">程序需要对此文件夹的写入权限。</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">请将应用程序文件夹移动到允许写入的路径，例如“文档”文件夹。</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">此方法出现错误。</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">加载系统配置时出现错误。</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">加载游戏列表时出现错误。</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">打开捐赠链接时出现错误。</system:String>
+    <system:String x:Key="Failedtotogglegamepad">切换游戏手柄状态失败。</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">更改视图模式时出现错误。</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">导航按钮出现错误。</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">搜索引擎出现错误。</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">启动所选工具时出现错误。</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打开文件“error_user.log”以调试错误？</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">未在预期位置找到所选工具。</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否想重新安装“Simple Launcher”以解决此问题？</system:String>
     
 </ResourceDictionary>

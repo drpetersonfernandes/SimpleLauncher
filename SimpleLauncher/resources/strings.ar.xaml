@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
-    <system:String x:Key="folder">المجلد.</system:String>
     <system:String x:Key="GamepadSupport">دعم وحدة التحكم</system:String>
     <system:String x:Key="GameplaySnapshot">لقطة اللعب</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">لقطة اللعب غير موجودة</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">مسار اللعبة غير صالح:</system:String>
     <system:String x:Key="Invalidworkingdirectory">دليل العمل غير صالح. يرجى التحقق من الملف.</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">مثبت في مجلد مقيد</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
     <system:String x:Key="isnotinfavorites">غير موجود في المفضلة.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
-    <system:String x:Key="Itlookslike">يبدو أن</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">يحتاج إلى أذونات الكتابة لمجلده.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">لن يقبل الامتدادات الأخرى.</system:String>
     <system:String x:Key="Language">اللغة</system:String>
     <system:String x:Key="LanguageLoadingError">خطأ في تحميل اللغة</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">الخيارات</system:String>
     <system:String x:Key="Orange">برتقالي</system:String>
     <system:String x:Key="OrganizeSystemImages">تنظيم صور النظام</system:String>
-    <system:String x:Key="orthe">أو</system:String>
     <system:String x:Key="outof">من أصل</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">يرجى تصحيحها للمتابعة.</system:String>
     <system:String x:Key="Pleasefixthisfield">يرجى تصحيح هذا الحقل.</system:String>
     <system:String x:Key="PleasegotoEditSystem">يرجى الذهاب إلى تحرير النظام - وضع الخبراء وتحرير هذا النظام.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">يرجى نقل مجلد التطبيق إلى موقع يمكن الكتابة فيه مثل</system:String>
     <system:String x:Key="PleaseReinstall">يرجى إعادة التثبيت</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">يرجى إعادة تثبيت 'Simple Launcher' لحل المشكلة.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">يرجى إعادة تثبيت 'Simple Launcher' يدويًا.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">نحن ندعم أيضًا الأنظمة التي تتطلب هذه الملفات، ولكن بالنسبة لهذه الأنظمة، ستحتاج إلى استخدام "الوضع الخبير" وتثبيتها بنفسك.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">ماذا تريد أن تفعل؟</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">، حيث لا يملك أذونات الكتابة.</system:String>
     <system:String x:Key="whichisrequiredtostart">، المطلوب لبدء التطبيق.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">الامتداد للتشغيل بعد الاستخراج</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">الامتداد للبحث في مجلد النظام</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">تحويل دفعة من ملفات Iso إلى Xiso</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">ملف 'system.xml' تالف.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">عليك إصلاحه يدويًا أو حذفه.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">سيتم إغلاق التطبيق.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحيات الكتابة.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">يحتاج إلى صلاحيات الكتابة في مجلده.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">يرجى نقل مجلد التطبيق إلى موقع يمكن الكتابة فيه مثل مجلد 'Documents'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">حدث خطأ في هذه الطريقة.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">حدث خطأ أثناء تحميل إعدادات النظام لهذا النظام.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">حدث خطأ أثناء تحميل قائمة الألعاب.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">حدث خطأ أثناء فتح رابط التبرع.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">فشل في تبديل وضعية جهاز التحكم.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">حدث خطأ أثناء تغيير وضع العرض.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">حدث خطأ في زر التنقل.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">حدث خطأ في محرك البحث.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">حدث خطأ أثناء تشغيل الأداة المحددة.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">لم يتم العثور على الأداة المحددة في المسار المتوقع.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     
 </ResourceDictionary>

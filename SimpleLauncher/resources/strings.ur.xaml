@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>
-    <system:String x:Key="folder">فولڈر۔</system:String>
     <system:String x:Key="GamepadSupport">گیم پیڈ تعاون</system:String>
     <system:String x:Key="GameplaySnapshot">گیم پلے اسنیپ شاٹ</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">گیم پلے اسنیپ شاٹ نہیں ملا</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">غلط گیم کا راستہ:</system:String>
     <system:String x:Key="Invalidworkingdirectory">غلط ورکنگ ڈائریکٹری۔ اپنے فائل پر نظر ڈالیں۔</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">ایک محدود فولڈر میں انسٹال ہے</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
     <system:String x:Key="isnotinfavorites">پسندیدہ میں موجود نہیں ہے۔</system:String>
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
-    <system:String x:Key="Itlookslike">ایسا لگتا ہے کہ</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">اسے اپنے فولڈر تک لکھنے کی رسائی کی ضرورت ہے۔</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">دیگر ایکسٹینشن قبول نہیں ہوں گے۔</system:String>
     <system:String x:Key="Language">زبان</system:String>
     <system:String x:Key="LanguageLoadingError">زبان لوڈنگ کی خرابی</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">اختیارات</system:String>
     <system:String x:Key="Orange">نارنجی</system:String>
     <system:String x:Key="OrganizeSystemImages">سسٹم تصاویر ترتیب دیں</system:String>
-    <system:String x:Key="orthe">، یا</system:String>
     <system:String x:Key="outof">میں سے</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">براہ کرم انہیں درست کریں۔</system:String>
     <system:String x:Key="Pleasefixthisfield">براہ کرم اس فیلڈ کو درست کریں۔</system:String>
     <system:String x:Key="PleasegotoEditSystem">اس سسٹم کو ایڈٹ کرنے کیلئے براہ کرم 'سسٹم ایڈٹ کریں - ایڈوانسڈ موڈ' پر جائیں۔</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">براہ کرم ایپلیکیشن فولڈر کو قابل لکھائی جگہ پر منتقل کریں، جیسے</system:String>
     <system:String x:Key="PleaseReinstall">براہ کرم دوبارہ انسٹال کریں</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">مسئلہ حل کرنے کے لیے 'Simple Launcher' دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">براہ کرم 'Simple Launcher' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">ہم ان سسٹمز کو بھی سپورٹ کرتے ہیں جنہیں ان فائلوں کی ضرورت ہوتی ہے، لیکن ان کے لیے آپ کو 'ایکسپرٹ موڈ' کا استعمال کرتے ہوئے انسٹال کرنا ہوگا۔</system:String>
     <system:String x:Key="Whatdoyouwanttodo">آپ کیا کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">جب ایکسٹریکشن سے پہلے لانچ کیا جائے، 'zip', '7z', یا 'rar' ضروری ہے۔</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, جہاں اس کے پاس لکھنے کی رسائی نہیں ہے۔</system:String>
     <system:String x:Key="whichisrequiredtostart">, جو ایپلیکیشن شروع کرنے کے لیے ضروری ہے۔</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">کیا آپ ڈاؤن لوڈ صفحے پر ری ڈائریکٹ ہونا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">کیا آپ اس مسئلے کو دیکھنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">ایکسٹریکشن کے بعد شروع کرنے کے لیے توسیع</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">سسٹم فولڈر میں تلاش کرنے کے لیے توسیع</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">ISO کو XISO میں بیچ کنورٹ کریں</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' فائل خراب ہو گئی ہے۔</system:String>
+    <system:String x:Key="Youneedtofixitmanually">آپ کو اسے دستی طور پر ٹھیک کرنا یا حذف کرنا ہوگا۔</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">ایپلیکیشن بند کر دی جائے گی۔</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">لگتا ہے کہ 'Simple Launcher' کسی محفوظ فولڈر (جیسے Program Files) میں انسٹال ہے جس میں لکھنے کی اجازت نہیں ہے۔</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">اس فولڈر کے لیے لکھنے کی اجازت درکار ہے۔</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">براہ کرم ایپلیکیشن کے فولڈر کو کسی ایسے مقام پر منتقل کریں جہاں لکھنے کی اجازت ہو، جیسے 'Documents' فولڈر۔</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">اس طریقے میں ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">سسٹم کنفیگریشن کو لوڈ کرتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">گیم کی فہرست کو لوڈ کرتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">ڈونیشن لنک کو کھولتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Failedtotogglegamepad">گیم پیڈ کو ٹوگل کرنے میں ناکامی ہوئی۔</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">ویو موڈ کو تبدیل کرتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">نیویگیشن بٹن میں ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">سرچ انجن میں ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">منتخب شدہ ٹول کو لانچ کرتے وقت ایک خرابی پیش آئی۔</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">کیا آپ خرابی کو ڈیبگ کرنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">منتخب شدہ ٹول متوقع مقام پر نہیں ملا۔</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">کیا آپ اس مسئلے کو حل کرنے کے لیے 'Simple Launcher' کو دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     
 </ResourceDictionary>

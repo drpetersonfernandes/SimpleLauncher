@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>
-    <system:String x:Key="folder">フォルダー。</system:String>
     <system:String x:Key="GamepadSupport">ゲームパッドサポート</system:String>
     <system:String x:Key="GameplaySnapshot">ゲームプレイのスクリーンショット</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">ゲームプレイのスクリーンショットが見つかりません</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">無効なゲームパスです:</system:String>
     <system:String x:Key="Invalidworkingdirectory">無効な作業ディレクトリです。ファイルを確認してください。</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">制限付きフォルダーにインストールされています</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
     <system:String x:Key="isnotinfavorites">はお気に入りに登録されていません。</system:String>
     <system:String x:Key="IsthesystemMAMEbased">システムはMAMEベースですか？</system:String>
     <system:String x:Key="isusedmultipletimes">は複数回使用されています。エミュレーター名は一意である必要があります。</system:String>
-    <system:String x:Key="Itlookslike">次のようです：</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">このフォルダーには書き込み権限が必要です。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">他の拡張子は受け付けません。</system:String>
     <system:String x:Key="Language">言語</system:String>
     <system:String x:Key="LanguageLoadingError">言語読み込みエラー</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">オプション</system:String>
     <system:String x:Key="Orange">オレンジ</system:String>
     <system:String x:Key="OrganizeSystemImages">システム画像を整理</system:String>
-    <system:String x:Key="orthe">または</system:String>
     <system:String x:Key="outof">のうち</system:String>
     <system:String x:Key="PCB">基板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">これらを修正して続行してください。</system:String>
     <system:String x:Key="Pleasefixthisfield">このフィールドを修正してください。</system:String>
     <system:String x:Key="PleasegotoEditSystem">『編集システム - エキスパートモード』に移動し、このシステムを編集してください。</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">アプリケーションフォルダーを次のような書き込み可能な場所に移動してください：</system:String>
     <system:String x:Key="PleaseReinstall">再インストールしてください</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">問題を解決するために『Simple Launcher』を再インストールしてください。</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">手動で 'Simple Launcher' を再インストールしてください。</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">BIOSやシステムファイルを必要とするシステムもサポートしていますが、それには「エキスパートモード」を使用して手動でインストールする必要があります。</system:String>
     <system:String x:Key="Whatdoyouwanttodo">何をしたいですか？</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">「起動前にファイルを抽出」がオンの場合、「システムフォルダー内で検索する拡張子」には「zip」、「7z」、または「rar」を含める必要があります。</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">、そこには書き込み権限がありません。</system:String>
     <system:String x:Key="whichisrequiredtostart">、これはアプリケーションを開始するために必要です。</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">ダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">抽出後に起動する拡張機能</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">システムフォルダ内を検索する拡張機能</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">ISO を XISO に一括変換</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">ファイル 'system.xml' が破損しています。</system:String>
+    <system:String x:Key="Youneedtofixitmanually">手動で修正するか削除する必要があります。</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">アプリケーションは終了します。</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher' が書き込み権限のない制限されたフォルダー (例: Program Files) にインストールされているようです。</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">フォルダーへの書き込み権限が必要です。</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">アプリケーションフォルダーを 'Documents' フォルダーのような書き込みが許可されている場所に移動してください。</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">このメソッドでエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">このシステムのシステム設定を読み込む際にエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">ゲームリストを読み込む際にエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">寄付リンクを開く際にエラーが発生しました。</system:String>
+    <system:String x:Key="Failedtotogglegamepad">ゲームパッドの切り替えに失敗しました。</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">表示モードを変更する際にエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">ナビゲーションボタンでエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">検索エンジンでエラーが発生しました。</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">選択したツールを起動する際にエラーが発生しました。</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">選択したツールが想定されたパスに見つかりませんでした。</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' を再インストールして問題を解決しますか？</system:String>
     
 </ResourceDictionary>

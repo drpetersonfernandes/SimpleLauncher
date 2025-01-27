@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>
-    <system:String x:Key="folder">folder.</system:String>
     <system:String x:Key="GamepadSupport">Dukungan Gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Snapshot Gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Snapshot Gameplay tidak ditemukan</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Path permainan tidak valid:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Direktori kerja tidak valid. Silakan periksa file Anda.</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">diinstal di folder terbatas</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
     <system:String x:Key="isnotinfavorites">tidak ada di favorit.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">digunakan beberapa kali. Setiap nama emulator harus unik.</system:String>
-    <system:String x:Key="Itlookslike">Sepertinya</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Ini membutuhkan akses tulis ke foldernya.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Tidak akan menerima ekstensi lain.</system:String>
     <system:String x:Key="Language">Bahasa</system:String>
     <system:String x:Key="LanguageLoadingError">Ralat pemuatan bahasa</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Pilihan</system:String>
     <system:String x:Key="Orange">Oranye</system:String>
     <system:String x:Key="OrganizeSystemImages">Atur Gambar Sistem</system:String>
-    <system:String x:Key="orthe">atau folder</system:String>
     <system:String x:Key="outof">dari</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Harap perbaiki untuk melanjutkan.</system:String>
     <system:String x:Key="Pleasefixthisfield">Harap perbaiki bidang ini.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Silakan pergi ke Edit System - Mode Ahli dan edit sistem ini.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Harap pindahkan folder aplikasi ke lokasi yang dapat ditulis seperti</system:String>
     <system:String x:Key="PleaseReinstall">Silakan instal ulang</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Sila pasang semula 'Simple Launcher' untuk menyelesaikan masalah ini.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Silakan instal ulang 'Simple Launcher' secara manual.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Kami juga mendukung sistem yang membutuhkan berkas tersebut, tetapi untuk itu Anda harus menggunakan 'Mode Ahli' dan menginstalnya sendiri.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Apa yang ingin Anda lakukan?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true, "Ekstensi untuk Dicari di Folder Sistem" harus mencakup 'zip', '7z', atau 'rar'.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, di mana tidak memiliki akses tulis.</system:String>
     <system:String x:Key="whichisrequiredtostart">, yang diperlukan untuk memulai aplikasi.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Apakah Anda ingin diarahkan ke halaman unduhan?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Ekstensi untuk diluncurkan setelah ekstraksi</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Ekstensi untuk mencari di folder sistem</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Konversi massal dari Iso ke Xiso</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">File 'system.xml' rusak.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Anda perlu memperbaikinya secara manual atau menghapusnya.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">Aplikasi akan ditutup.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Sepertinya 'Simple Launcher' terinstal di folder yang dibatasi (misalnya, Program Files) tanpa izin menulis.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Aplikasi ini memerlukan izin menulis di foldernya.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Silakan pindahkan folder aplikasi ke lokasi dengan izin menulis, seperti folder 'Documents'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Terjadi kesalahan dengan metode ini.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Terjadi kesalahan saat memuat konfigurasi sistem untuk sistem ini.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Terjadi kesalahan saat memuat daftar game.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Terjadi kesalahan saat membuka tautan donasi.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Gagal mengalihkan gamepad.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Terjadi kesalahan saat mengubah mode tampilan.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Terjadi kesalahan pada tombol navigasi.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Terjadi kesalahan pada mesin pencari.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Terjadi kesalahan saat meluncurkan alat yang dipilih.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">Alat yang dipilih tidak ditemukan di jalur yang diharapkan.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     
 </ResourceDictionary>

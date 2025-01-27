@@ -477,20 +477,20 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            ErrorInMouseDoubleClickMessageBox();
-        }
-
-        void ErrorInMouseDoubleClickMessageBox()
-        {
-            string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MethodErrorMessageBox();
         }
     }
-    
+
+    private static void MethodErrorMessageBox()
+    {
+        string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
     private static bool IsWritableDirectory(string path)
     {
         try
@@ -1077,17 +1077,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            SetThumbnailSizeErrorMessageBox();
-        }
-
-        void SetThumbnailSizeErrorMessageBox()
-        {
-            string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MethodErrorMessageBox();
         }
     }
         

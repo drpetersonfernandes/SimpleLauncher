@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
     <system:String x:Key="Flyernotfound">Không tìm thấy tờ rơi</system:String>
-    <system:String x:Key="folder">.</system:String>
     <system:String x:Key="GamepadSupport">Hỗ trợ gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Ảnh chụp chơi game</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Không tìm thấy ảnh chụp chơi game</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Đường dẫn trò chơi không hợp lệ:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Thư mục làm việc không hợp lệ. Vui lòng kiểm tra tệp của bạn.</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">được cài đặt trong thư mục bị hạn chế</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
     <system:String x:Key="isnotinfavorites">không có trong mục yêu thích.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Hệ thống có dựa trên MAME không?</system:String>
     <system:String x:Key="isusedmultipletimes">được sử dụng nhiều lần. Mỗi tên trình giả lập phải là duy nhất.</system:String>
-    <system:String x:Key="Itlookslike">Có vẻ như</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Cần quyền ghi để truy cập vào thư mục này.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Không chấp nhận các phần mở rộng khác.</system:String>
     <system:String x:Key="Language">Ngôn ngữ</system:String>
     <system:String x:Key="LanguageLoadingError">Lỗi tải ngôn ngữ</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Tùy chọn</system:String>
     <system:String x:Key="Orange">Cam</system:String>
     <system:String x:Key="OrganizeSystemImages">Sắp xếp hình ảnh hệ thống</system:String>
-    <system:String x:Key="orthe">hoặc thư mục</system:String>
     <system:String x:Key="outof">trên tổng số</system:String>
     <system:String x:Key="PCB">Mạch in (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Vui lòng sửa chúng để tiếp tục.</system:String>
     <system:String x:Key="Pleasefixthisfield">Vui lòng sửa trường này.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Đi đến 'Chỉnh sửa hệ thống - Chế độ chuyên gia' để chỉnh sửa hệ thống này.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Vui lòng di chuyển thư mục ứng dụng đến một vị trí có thể ghi, chẳng hạn như</system:String>
     <system:String x:Key="PleaseReinstall">Vui lòng cài đặt lại</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Hãy cài đặt lại 'Simple Launcher' để khắc phục sự cố.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu các tệp này, nhưng bạn sẽ cần sử dụng "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Bạn muốn làm gì?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, nơi không có quyền ghi.</system:String>
     <system:String x:Key="whichisrequiredtostart">, tệp này cần thiết để khởi động ứng dụng.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Phần mở rộng để khởi chạy sau khi giải nén</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Phần mở rộng để tìm kiếm trong thư mục hệ thống</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Chuyển đổi hàng loạt từ ISO sang XISO</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">Tệp 'system.xml' bị hỏng.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Bạn cần sửa thủ công hoặc xóa tệp này.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">Ứng dụng sẽ bị tắt.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Có vẻ như 'Simple Launcher' được cài đặt trong một thư mục được bảo vệ (ví dụ: Program Files) mà không có quyền ghi.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Ứng dụng cần quyền ghi vào thư mục của nó.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Vui lòng di chuyển thư mục ứng dụng đến một vị trí có quyền ghi, chẳng hạn như thư mục 'Documents'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Đã xảy ra lỗi với phương pháp này.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Đã xảy ra lỗi khi tải cấu hình hệ thống.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Đã xảy ra lỗi khi tải danh sách trò chơi.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Đã xảy ra lỗi khi mở liên kết quyên góp.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Không thể chuyển đổi trạng thái của bộ điều khiển trò chơi.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Đã xảy ra lỗi khi thay đổi chế độ hiển thị.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Đã xảy ra lỗi với nút điều hướng.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Đã xảy ra lỗi với công cụ tìm kiếm.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Đã xảy ra lỗi khi khởi chạy công cụ đã chọn.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">Không tìm thấy công cụ đã chọn tại vị trí dự kiến.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     
 </ResourceDictionary>

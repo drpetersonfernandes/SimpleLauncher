@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
     <system:String x:Key="Flyernotfound">ফ্লায়ার পাওয়া যায়নি</system:String>
-    <system:String x:Key="folder">ফোল্ডার।</system:String>
     <system:String x:Key="GamepadSupport">গেমপ্যাড সমর্থন</system:String>
     <system:String x:Key="GameplaySnapshot">গেমপ্লে স্ন্যাপশট</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">গেমপ্লে স্ন্যাপশট পাওয়া যায়নি</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">গেমের অবৈধ পথ:</system:String>
     <system:String x:Key="Invalidworkingdirectory">অবৈধ ওয়ার্কিং ডিরেক্টরি। অনুগ্রহ করে ফাইলটি পরীক্ষা করুন।</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">সংরক্ষণ সীমাবদ্ধ ফোল্ডারে।</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
     <system:String x:Key="isnotinfavorites">প্রিয়তে নেই</system:String>
     <system:String x:Key="IsthesystemMAMEbased">সিস্টেমটি কি MAME ভিত্তিক?</system:String>
     <system:String x:Key="isusedmultipletimes">ইতিমধ্যে একাধিকবার ব্যবহৃত হয়েছে। প্রতিটি ইমুলেটর নাম আলাদা হতে হবে।</system:String>
-    <system:String x:Key="Itlookslike">দেখা যাচ্ছে</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">লেখার অনুমতি অনুরোধ করে।</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">এটি অন্যান্য এক্সটেনশন গ্রহণ করবে না।</system:String>
     <system:String x:Key="Language">ভাষা</system:String>
     <system:String x:Key="LanguageLoadingError">ভাষা লোডিং ত্রুটি</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">বিকল্প</system:String>
     <system:String x:Key="Orange">কমলা</system:String>
     <system:String x:Key="OrganizeSystemImages">সিস্টেম ইমেজ সাজান</system:String>
-    <system:String x:Key="orthe">অথবা</system:String>
     <system:String x:Key="outof">এর মধ্যে</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">অনুগ্রহ করে এই সমস্যাগুলি সমাধান করুন।</system:String>
     <system:String x:Key="Pleasefixthisfield">দয়া করে এই ক্ষেত্রটি সংশোধন করুন।</system:String>
     <system:String x:Key="PleasegotoEditSystem">অনুগ্রহ করে এডিট সিস্টেম - এক্সপার্ট মোডে যান এবং এই সিস্টেম সম্পাদনা করুন।</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">একটি যোগ্য অবস্থানে মুভ করুন</system:String>
     <system:String x:Key="PleaseReinstall">দয়া করে পুনরায় ইনস্টল করুন</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">সমস্যা সমাধানের জন্য 'Simple Launcher' পুনরায় ইনস্টল করুন।</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">দয়া করে 'Simple Launcher' ম্যানুয়ালি পুনরায় ইনস্টল করুন।</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">আমরা এমন সিস্টেমগুলিকেও সমর্থন করি যেগুলির জন্য এই ফাইলগুলি প্রয়োজন, তবে সেগুলির জন্য আপনাকে 'এক্সপার্ট মোড' ব্যবহার করতে হবে এবং নিজে নিজে ইনস্টল করতে হবে।</system:String>
     <system:String x:Key="Whatdoyouwanttodo">আপনি কি করতে চান?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">যেখানে সংরক্ষণ করা সামগ্রী সীমাবদ্ধ।</system:String>
     <system:String x:Key="whichisrequiredtostart">যা আরম্ভ ফাইল।</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">আপনি কি ডাউনলোড পেজে যেতে চান?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">এক্সট্রাকশনের পরে চালানোর জন্য এক্সটেনশন</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">সিস্টেম ফোল্ডারে খোঁজার জন্য এক্সটেনশন</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">ব্যাচ কনভার্ট Iso থেকে Xiso</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' ফাইলটি ক্ষতিগ্রস্ত হয়েছে।</system:String>
+    <system:String x:Key="Youneedtofixitmanually">আপনাকে এটি ম্যানুয়ালি ঠিক করতে হবে অথবা মুছে ফেলতে হবে।</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">অ্যাপ্লিকেশনটি বন্ধ হয়ে যাবে।</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">এটি মনে হচ্ছে 'Simple Launcher' একটি সীমাবদ্ধ ফোল্ডারে (যেমন Program Files) ইনস্টল করা হয়েছে, যেখানে লেখার অনুমতি নেই।</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">এটি ফোল্ডারে লেখার অনুমতি প্রয়োজন।</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">অনুগ্রহ করে অ্যাপ্লিকেশন ফোল্ডারটি এমন কোনো অবস্থানে সরান যেখানে লেখা যায়, যেমন 'Documents' ফোল্ডার।</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">এই পদ্ধতিতে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">এই সিস্টেমের জন্য সিস্টেম কনফিগারেশন লোড করার সময় একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">গেম তালিকা লোড করার সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">দান লিঙ্কটি খুলতে সমস্যা হয়েছে।</system:String>
+    <system:String x:Key="Failedtotogglegamepad">গেমপ্যাড পরিবর্তন করতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">ভিউ মোড পরিবর্তন করার সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">নেভিগেশান বোতামে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">অনুসন্ধান প্রক্রিয়ার মধ্যে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">নির্বাচিত টুল চালু করার সময় একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' ফাইলটি ডিবাগ করার জন্য কি আপনি এটি খুলতে চান?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">নির্বাচিত টুলটি প্রত্যাশিত স্থানে পাওয়া যায়নি।</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' পুনঃইনস্টল করতে চান কি এটি ঠিক করার জন্য?</system:String>
     
 </ResourceDictionary>

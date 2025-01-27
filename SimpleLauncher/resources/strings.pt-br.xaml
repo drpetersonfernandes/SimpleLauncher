@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' não foi encontrado no caminho esperado.</system:String>
     <system:String x:Key="Flyer">Panfleto</system:String>
     <system:String x:Key="Flyernotfound">Panfleto não encontrado</system:String>
-    <system:String x:Key="folder">.</system:String>
     <system:String x:Key="GamepadSupport">Suporte para gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Captura de Tela do Gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Captura de Tela do Gameplay não encontrada</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Caminho do jogo inválido:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Diretório de trabalho inválido. Verifique seu arquivo.</system:String>
     <system:String x:Key="isalreadyinfavorites">já está nos favoritos.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">está instalado em uma pasta restrita</system:String>
     <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
     <system:String x:Key="isnotinfavorites">não está nos favoritos.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">O sistema é baseado em MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">é usado várias vezes. O nome de cada emulador deve ser único.</system:String>
-    <system:String x:Key="Itlookslike">Parece que</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Ele precisa de permissão de gravação para esta pasta.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Outras extensões não serão aceitas.</system:String>
     <system:String x:Key="Language">Idioma</system:String>
     <system:String x:Key="LanguageLoadingError">Erro ao carregar o idioma</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Opções</system:String>
     <system:String x:Key="Orange">Laranja</system:String>
     <system:String x:Key="OrganizeSystemImages">Organizar Imagens do Sistema</system:String>
-    <system:String x:Key="orthe">ou na pasta</system:String>
     <system:String x:Key="outof">de</system:String>
     <system:String x:Key="PCB">Placa de Circuito (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB não encontrada</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Corrija-os para continuar.</system:String>
     <system:String x:Key="Pleasefixthisfield">Por favor, corrija este campo.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Acesse 'Editar Sistema - Modo Avançado' para editar este sistema.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Mova a pasta do aplicativo para um local onde seja possível gravar, como</system:String>
     <system:String x:Key="PleaseReinstall">Por favor, reinstale</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Reinstale o 'Simple Launcher' para resolver o problema.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Por favor, reinstale o 'Simple Launcher' manualmente.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Também damos suporte a sistemas que necessitam desses arquivos, mas, neste caso, você precisará usar o "Modo Avançado" e instalá-los manualmente.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">O que você deseja fazer?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Quando "Extrair arquivo antes da execução" estiver ativado, a "Extensão para pesquisar na pasta do sistema" deve incluir "zip", "7z" ou "rar".</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, onde não tem permissão de gravação.</system:String>
     <system:String x:Key="whichisrequiredtostart">, necessário para iniciar o aplicativo.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Gostaria de ser redirecionado para a página de download?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Você gostaria de abrir o arquivo 'error_user.log' para investigar este problema?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensão para iniciar após a extração</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extensão para buscar na pasta do sistema</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Conversão em lote de ISO para XISO</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">O arquivo 'system.xml' está corrompido.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Você precisa corrigi-lo manualmente ou excluí-lo.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">O aplicativo será encerrado.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Parece que o 'Simple Launcher' está instalado em uma pasta protegida (como Program Files) sem permissões de escrita.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Ele precisa de permissões de escrita para sua pasta.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Mova a pasta do aplicativo para um local com permissões de escrita, como a pasta 'Documentos'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Ocorreu um erro com este método.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Ocorreu um erro ao carregar a configuração do sistema para este sistema.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Ocorreu um erro ao carregar a lista de jogos.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Ocorreu um erro ao abrir o link de doação.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Falha ao alternar o estado do gamepad.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Ocorreu um erro ao alterar o modo de visualização.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Ocorreu um erro no botão de navegação.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Ocorreu um erro no mecanismo de busca.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Ocorreu um erro ao iniciar a ferramenta selecionada.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Deseja abrir o arquivo 'error_user.log' para depurar o erro?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">A ferramenta selecionada não foi encontrada no caminho esperado.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Deseja reinstalar o 'Simple Launcher' para resolver o problema?</system:String>
     
 </ResourceDictionary>

@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
-    <system:String x:Key="folder">klasöre taşıyın.</system:String>
     <system:String x:Key="GamepadSupport">Gamepad desteği</system:String>
     <system:String x:Key="GameplaySnapshot">Oynanış Görüntüsü</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Oynanış Görüntüsü Bulunamadı</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Geçersiz oyun yolu:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Geçersiz çalışma dizini. Dosyanızı kontrol edin.</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">kısıtlı bir klasöre yüklenmiş</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
     <system:String x:Key="isnotinfavorites">favorilerde değil.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
     <system:String x:Key="isusedmultipletimes">birden fazla kez kullanılıyor. Her emülatör adı benzersiz olmalıdır.</system:String>
-    <system:String x:Key="Itlookslike">Görünüşe göre</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Bu klasöre yazma yetkisi gereklidir.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Diğer uzantılar kabul edilmez.</system:String>
     <system:String x:Key="Language">Dil</system:String>
     <system:String x:Key="LanguageLoadingError">Dil Yükleme Hatası</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Seçenekler</system:String>
     <system:String x:Key="Orange">Turuncu</system:String>
     <system:String x:Key="OrganizeSystemImages">Sistem Görsellerini Düzenle</system:String>
-    <system:String x:Key="orthe">veya şu</system:String>
     <system:String x:Key="outof">toplam</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Lütfen devam etmek için bunları düzeltin.</system:String>
     <system:String x:Key="Pleasefixthisfield">Lütfen bu alanı düzeltin.</system:String>
     <system:String x:Key="PleasegotoEditSystem">'Sistemi Düzenle - Uzman Modu'na gidin ve bu sistemi düzenleyin.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Lütfen uygulama klasörünü aşağıdaki gibi yazılabilir bir konuma taşıyın:</system:String>
     <system:String x:Key="PleaseReinstall">Lütfen yeniden yükleyin</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Sorunu çözmek için 'Simple Launcher'ı yeniden yükleyin.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'ı lütfen manuel olarak yeniden yükleyin.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Bu tür dosyaları gerektiren sistemleri de destekliyoruz, ancak bu durumda "Uzman Modu"nu kullanarak manuel olarak yüklemeniz gerekiyor.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Ne yapmak istiyorsunuz?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘Başlatmadan Önce Dosyayı Çıkar’ etkinse, ‘Sistem Klasöründe Aranacak Uzantı’ ‘zip’, ‘7z’ veya ‘rar’ içermelidir.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">ve bu klasöre yazma izni yok.</system:String>
     <system:String x:Key="whichisrequiredtostart">, bu dosya uygulamayı başlatmak için gereklidir.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">İndirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Çıkarımdan sonra başlatılacak uzantı</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Sistem klasöründe aranacak uzantı</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">ISO dosyalarını toplu olarak XISO'ya dönüştür</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' dosyası bozulmuş.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Manuel olarak düzeltmeniz veya silmeniz gerekiyor.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">Uygulama kapatılacak.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher' programının Program Files gibi korumalı bir klasöre kurulu olduğu ve yazma izni olmadığı görünüyor.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Bu programın klasörü için yazma iznine ihtiyacı var.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Lütfen uygulama klasörünü 'Belgeler' gibi yazma izni olan bir yere taşıyın.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Bu yöntemde bir hata oluştu.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Sistem yapılandırması yüklenirken bir hata meydana geldi.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Oyun listesini yüklerken bir hata oluştu.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Bağış bağlantısını açarken bir hata meydana geldi.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Gamepad değiştirme işlemi başarısız oldu.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Görünüm modu değiştirilirken bir hata oluştu.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Gezinme düğmesinde bir hata oluştu.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Arama motorunda bir hata meydana geldi.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Seçilen aracı başlatırken bir hata oluştu.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">Seçilen araç beklenen konumda bulunamadı.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' programını yeniden kurarak bu sorunu çözmek ister misiniz?</system:String>
     
 </ResourceDictionary>

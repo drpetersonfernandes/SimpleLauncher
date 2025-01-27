@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' n'a pas été trouvé dans le chemin attendu.</system:String>
     <system:String x:Key="Flyer">Prospectus</system:String>
     <system:String x:Key="Flyernotfound">Prospectus introuvable</system:String>
-    <system:String x:Key="folder">.</system:String>
     <system:String x:Key="GamepadSupport">Prise en charge du gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Capture d'écran de gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Capture de gameplay introuvable</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Chemin du jeu invalide :</system:String>
     <system:String x:Key="Invalidworkingdirectory">Répertoire de travail invalide. Veuillez vérifier le fichier.</system:String>
     <system:String x:Key="isalreadyinfavorites">est déjà dans les favoris.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">est installé dans un dossier restreint</system:String>
     <system:String x:Key="isminimizedtothetray">est réduit dans la barre des tâches.</system:String>
     <system:String x:Key="isnotinfavorites">n'est pas dans les favoris.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Le système est-il basé sur MAME ?</system:String>
     <system:String x:Key="isusedmultipletimes">est utilisé plusieurs fois. Chaque nom d'émulateur doit être unique.</system:String>
-    <system:String x:Key="Itlookslike">Il semble que</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Il a besoin d'un accès en écriture dans son dossier.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Il n'acceptera pas d'autres extensions.</system:String>
     <system:String x:Key="Language">Langue</system:String>
     <system:String x:Key="LanguageLoadingError">Erreur de chargement de la langue</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Options</system:String>
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="OrganizeSystemImages">Organiser les images du système</system:String>
-    <system:String x:Key="orthe">ou dans le dossier</system:String>
     <system:String x:Key="outof">sur</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB introuvable</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Veuillez les corriger pour continuer.</system:String>
     <system:String x:Key="Pleasefixthisfield">Veuillez corriger ce champ.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Veuillez aller dans 'Modifier Système - Mode Expert' et modifier ce système.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Veuillez déplacer le dossier de l'application vers un emplacement où l'écriture est autorisée, comme</system:String>
     <system:String x:Key="PleaseReinstall">Veuillez réinstaller</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Veuillez réinstaller 'Simple Launcher' pour résoudre le problème.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Veuillez réinstaller 'Simple Launcher' manuellement.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Nous prenons également en charge les systèmes qui nécessitent ces fichiers, mais pour ceux-là, vous devrez utiliser le "Mode Expert" et les installer vous-même.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Que voulez-vous faire ?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Lorsque 'Extraire le fichier avant le lancement' est activé, l''Extension à rechercher dans le dossier système' doit inclure 'zip', '7z' ou 'rar'.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, où il n'a pas accès en écriture.</system:String>
     <system:String x:Key="whichisrequiredtostart">, qui est requis pour démarrer l'application.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Souhaitez-vous être redirigé vers la page de téléchargement ?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour enquêter sur le problème ?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Vous devriez modifier les paramètres de l'émulateur pour éviter qu'il ne démarre en plein écran.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extension à lancer après extraction</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extension pour rechercher dans le dossier système</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Conversion massive de Iso à Xiso</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">Le fichier 'system.xml' est corrompu.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Vous devez le réparer manuellement ou le supprimer.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">L'application va se fermer.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Il semble que 'Simple Launcher' soit installé dans un dossier restreint (par exemple, Program Files) où l'accès en écriture n'est pas autorisé.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Il nécessite un accès en écriture à son dossier.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Veuillez déplacer le dossier de l'application vers un emplacement autorisant l'écriture, comme le dossier 'Documents'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Une erreur s'est produite avec cette méthode.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Une erreur s'est produite lors du chargement de la configuration du système pour ce système.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Une erreur s'est produite lors du chargement de la liste des jeux.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Une erreur s'est produite lors de l'ouverture du lien de don.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Échec du basculement du gamepad.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Une erreur s'est produite lors du changement du mode d'affichage.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Une erreur s'est produite dans le bouton de navigation.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Une erreur s'est produite avec le moteur de recherche.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Une erreur s'est produite lors du lancement de l'outil sélectionné.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">L'outil sélectionné n'a pas été trouvé à l'emplacement attendu.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Souhaitez-vous réinstaller 'Simple Launcher' pour résoudre le problème ?</system:String>
     
 </ResourceDictionary>

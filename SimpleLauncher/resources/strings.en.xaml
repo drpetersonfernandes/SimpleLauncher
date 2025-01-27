@@ -167,7 +167,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' was not found in the expected path.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer not found</system:String>
-    <system:String x:Key="folder">folder.</system:String>
     <system:String x:Key="GamepadSupport">Gamepad Support</system:String>
     <system:String x:Key="GameplaySnapshot">Gameplay Snapshot</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Gameplay Snapshot not found</system:String>
@@ -202,13 +201,10 @@
     <system:String x:Key="Invalidgamepath">Invalid game path:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Invalid working directory. Please check the file.</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">is installed in a restricted folder</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
     <system:String x:Key="isnotinfavorites">is not in favorites.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
-    <system:String x:Key="Itlookslike">It looks like</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">It needs write access to its folder.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">It will not accept other extensions.</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="LanguageLoadingError">Language Loading Error</system:String>
@@ -251,7 +247,6 @@
     <system:String x:Key="Options">Options</system:String>
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="OrganizeSystemImages">Organize System Images</system:String>
-    <system:String x:Key="orthe">, or the</system:String>
     <system:String x:Key="outof">out of</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
@@ -266,7 +261,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Please fix them to proceed.</system:String>
     <system:String x:Key="Pleasefixthisfield">Please fix this field.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Please go to Edit System - Expert Mode and edit this system.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Please move the application folder to a writable location like</system:String>
     <system:String x:Key="PleaseReinstall">Please Reinstall</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Please reinstall 'Simple Launcher' to fix the problem.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Please reinstall 'Simple Launcher' manually.</system:String>
@@ -439,7 +433,6 @@
     <system:String x:Key="Wealsosupport">We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">What do you want to do?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, where it does not have write access.</system:String>
     <system:String x:Key="whichisrequiredtostart">, which is required to start the application.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
@@ -456,5 +449,23 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">The file 'system.xml' is corrupted.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">You need to fix it manually or delete it.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">The application will be shutdown.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">It needs write access to its folder.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Please move the application folder to a writable location like the 'Documents' folder.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">There was an error with this method.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">There was an error while loading the system configuration for this system.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">There was an error loading the game list.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">There was an error opening the Donation Link.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Failed to toggle gamepad.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">There was an error while changing the view mode.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">There was an error in the navigation button.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">There was an error with the search engine.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">An error occurred while launching the selected tool.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">The selected tool was not found in the expected path.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix it?</system:String>
 
 </ResourceDictionary>

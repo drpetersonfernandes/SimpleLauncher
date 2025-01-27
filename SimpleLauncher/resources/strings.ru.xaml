@@ -165,7 +165,6 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>
-    <system:String x:Key="folder">.</system:String>
     <system:String x:Key="GamepadSupport">Поддержка геймпада</system:String>
     <system:String x:Key="GameplaySnapshot">Скриншот игрового процесса</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Скриншот игрового процесса не найден</system:String>
@@ -200,13 +199,10 @@
     <system:String x:Key="Invalidgamepath">Недействительный путь к игре:</system:String>
     <system:String x:Key="Invalidworkingdirectory">Недопустимая рабочая директория. Проверьте файл.</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
-    <system:String x:Key="isinstalledinarestrictedfolder">установлено в папке с ограниченным доступом</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
     <system:String x:Key="isnotinfavorites">не находится в избранном.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">используется несколько раз. Имя каждого эмулятора должно быть уникальным.</system:String>
-    <system:String x:Key="Itlookslike">Кажется, что</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder">Требуется доступ на запись в папку.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Другие расширения не принимаются.</system:String>
     <system:String x:Key="Language">Язык</system:String>
     <system:String x:Key="LanguageLoadingError">Ошибка загрузки языка</system:String>
@@ -249,7 +245,6 @@
     <system:String x:Key="Options">Опции</system:String>
     <system:String x:Key="Orange">Оранжевый</system:String>
     <system:String x:Key="OrganizeSystemImages">Организовать изображения системы</system:String>
-    <system:String x:Key="orthe">или в папку</system:String>
     <system:String x:Key="outof">из</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
@@ -264,7 +259,6 @@
     <system:String x:Key="Pleasefixthemtoproceed">Исправьте их, чтобы продолжить.</system:String>
     <system:String x:Key="Pleasefixthisfield">Пожалуйста, исправьте это поле.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Откройте 'Редактировать систему - Экспертный режим' для редактирования данной системы.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfoldertoawritablelocationlike">Переместите папку приложения в место с правами на запись, например,</system:String>
     <system:String x:Key="PleaseReinstall">Пожалуйста, переустановите</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Переустановите 'Simple Launcher' для устранения проблемы.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Пожалуйста, переустановите 'Simple Launcher' вручную.</system:String>
@@ -437,7 +431,6 @@
     <system:String x:Key="Wealsosupport">Мы также поддерживаем системы, которые требуют эти файлы, но для этого вам нужно будет использовать "Режим эксперта" и установить их вручную.</system:String>
     <system:String x:Key="Whatdoyouwanttodo">Что вы хотите сделать?</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Если включено «Извлечение файла перед запуском», «Расширение для поиска в системной папке» должно содержать «zip», «7z» или «rar».</system:String>
-    <system:String x:Key="whereitdoesnothavewriteaccess">, где нет прав на запись.</system:String>
     <system:String x:Key="whichisrequiredtostart">, который необходим для запуска приложения.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Вы хотите быть перенаправлены на страницу загрузки?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
@@ -454,5 +447,25 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Расширение для запуска после извлечения</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Расширение для поиска в системной папке</system:String>
+    
+    <system:String x:Key="BatchConvertIsoToXiso">Пакетное преобразование ISO в XISO</system:String>
+    <system:String x:Key="Thefilesystemxmliscorrupted">Файл 'system.xml' поврежден.</system:String>
+    <system:String x:Key="Youneedtofixitmanually">Необходимо вручную исправить или удалить этот файл.</system:String>
+    <system:String x:Key="Theapplicationwillbeshutdown">Приложение будет завершено.</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncheris2">Похоже, что 'Simple Launcher' установлен в защищенную папку (например, Program Files) без прав на запись.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Необходимы права на запись в папку приложения.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder2">Переместите папку приложения в место, где разрешена запись, например, в папку 'Документы'.</system:String>
+    <system:String x:Key="Therewasanerrorwiththismethod">Произошла ошибка в этом методе.</system:String>
+    <system:String x:Key="Therewasanerrorwhileloading">Произошла ошибка при загрузке конфигурации системы.</system:String>
+    <system:String x:Key="Therewasanerrorloadingthegame">Произошла ошибка при загрузке списка игр.</system:String>
+    <system:String x:Key="Therewasanerroropeningthedonation">Произошла ошибка при открытии ссылки на пожертвование.</system:String>
+    <system:String x:Key="Failedtotogglegamepad">Не удалось переключить состояние геймпада.</system:String>
+    <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Произошла ошибка при изменении режима отображения.</system:String>
+    <system:String x:Key="Therewasanerrorinthenavigationbutton">Произошла ошибка в кнопке навигации.</system:String>
+    <system:String x:Key="Therewasanerrorwiththesearchengine">Произошла ошибка в поисковой системе.</system:String>
+    <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Произошла ошибка при запуске выбранного инструмента.</system:String>
+    <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
+    <system:String x:Key="Theselectedtoolwasnotfound">Выбранный инструмент не найден в предполагаемом месте.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     
 </ResourceDictionary>
