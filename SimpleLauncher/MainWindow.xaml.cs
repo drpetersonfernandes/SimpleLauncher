@@ -116,15 +116,15 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"'system.xml' is corrupted.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("The file 'system.xml' is corrupted.\n\n" +
-                            "You need to fix it manually or delete it.\n\n" +
-                            "The application will be shutdown.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            SystemXmlCorruptedMessageBox();
 
             // Shutdown current application instance
             Application.Current.Shutdown();
@@ -186,10 +186,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 AddNoFilesMessage();
-                
-                string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
-                string favorites = (string)Application.Current.TryFindResource("Favorites") ?? "Favorites";
-                MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, favorites, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                NoFavoriteFoundMessageBox();
             }
         };
             
@@ -233,6 +231,26 @@ public partial class MainWindow : INotifyPropertyChanged
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
         AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+
+        void SystemXmlCorruptedMessageBox()
+        {
+            string thefilesystemxmliscorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmliscorrupted") ?? "The file 'system.xml' is corrupted.";
+            string youneedtofixitmanually2 = (string)Application.Current.TryFindResource("Youneedtofixitmanually") ?? "You need to fix it manually or delete it.";
+            string theapplicationwillbeshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillbeshutdown") ?? "The application will be shutdown.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{thefilesystemxmliscorrupted2}\n\n" +
+                            $"{youneedtofixitmanually2}\n\n" +
+                            $"{theapplicationwillbeshutdown2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        void NoFavoriteFoundMessageBox()
+        {
+            string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
+            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, 
+                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
     
     private void SetLanguageMenuChecked(string languageCode)
@@ -290,16 +308,14 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        // Retrieve the dynamic resource string
-        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        
         // Load windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
         Top = _settings.MainWindowTop;
         Left = _settings.MainWindowLeft;
         WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
-            
+
+        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         // SelectedSystem and PlayTime
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
@@ -314,19 +330,20 @@ public partial class MainWindow : INotifyPropertyChanged
         // Check if application has write access
         if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
-            string itlookslike2 = (string)Application.Current.TryFindResource("Itlookslike") ?? "It looks like";
-            string isinstalledinarestrictedfolder2 = (string)Application.Current.TryFindResource("isinstalledinarestrictedfolder") ?? "is installed in a restricted folder";
-            string whereitdoesnothavewriteaccess2 = (string)Application.Current.TryFindResource("whereitdoesnothavewriteaccess") ?? ", where it does not have write access.";
-            string itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder") ?? "It needs write access to its folder.";
-            string pleasemovetheapplicationfoldertoawritablelocationlike2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfoldertoawritablelocationlike") ?? "Please move the application folder to a writable location like";
-            string orthe2 = (string)Application.Current.TryFindResource("orthe") ?? ", or the";
-            string folder2 = (string)Application.Current.TryFindResource("folder") ?? "folder.";
+            MoveToWritableFolderMessageBox();
+        }
+
+        void MoveToWritableFolderMessageBox()
+        {
+            string itlookslikeSimpleLauncherisinstalled2 = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncheris2") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
+            string itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder2") ?? "It needs write access to its folder.";
+            string pleasemovetheapplicationfolder2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder2") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
             string ifpossiblerunitwithadministrative2 = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
             string accessIssue2 = (string)Application.Current.TryFindResource("AccessIssue") ?? "Access Issue";
             MessageBox.Show(
-                $"{itlookslike2} 'Simple Launcher' {isinstalledinarestrictedfolder2} (e.g., Program Files){whereitdoesnothavewriteaccess2}\n\n" +
+                $"{itlookslikeSimpleLauncherisinstalled2}\n\n" +
                 $"{itneedswriteaccesstoitsfolder2}\n\n" +
-                $"{pleasemovetheapplicationfoldertoawritablelocationlike2} 'C:\\SimpleLauncher', 'D:\\SimpleLauncher'{orthe2} 'Documents' {folder2}\n\n" +
+                $"{pleasemovetheapplicationfolder2}\n\n" +
                 $"{ifpossiblerunitwithadministrative2}",
                 accessIssue2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
@@ -453,14 +470,24 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            // Notify developer
             string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            ErrorInMouseDoubleClickMessageBox();
+        }
+
+        void ErrorInMouseDoubleClickMessageBox()
+        {
+            string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
     
@@ -559,7 +586,6 @@ public partial class MainWindow : INotifyPropertyChanged
     private void AddNoSystemMessage()
     {
         string noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
-
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -588,7 +614,6 @@ public partial class MainWindow : INotifyPropertyChanged
     private void AddNoFilesMessage()
     {
         string noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
-
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -655,13 +680,15 @@ public partial class MainWindow : INotifyPropertyChanged
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
             if (selectedConfig == null)
             {
-                string errorMessage = "Error while loading the selected system configuration in the Main window, using the method LoadGameFilesAsync.";
+                // Notify developer
+                string errorMessage = "Invalid system configuration.\n\n" +
+                                      "Method: LoadGameFilesAsync";
                 Exception ex = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                MessageBox.Show("There was an error while loading the system configuration for this system.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Notify user
+                InvalidSystemConfigMessageBox();
+
                 return;
             }
             List<string> allFiles;
@@ -806,14 +833,34 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method LoadGameFilesAsync in the Main window.\n\n" +
+            // Notify developer
+            string errorMessage = $"Error in the method LoadGameFilesAsync.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
-            MessageBox.Show("There was an error loading the game list.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorMethodLoadGameFilesAsyncMessageBox();
+        }
+
+        void InvalidSystemConfigMessageBox()
+        {
+            string therewasanerrorwhileloading2 = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorwhileloading2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        void ErrorMethodLoadGameFilesAsyncMessageBox()
+        {
+            string therewasanerrorloadingthegame2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorloadingthegame2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -867,15 +914,25 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was an error opening the Donation Link.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            ErrorOpeningDonationLinkMessageBox();
+        }
+
+        void ErrorOpeningDonationLinkMessageBox()
+        {
+            string therewasanerroropeningthedonation2 = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerroropeningthedonation2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -960,23 +1017,35 @@ public partial class MainWindow : INotifyPropertyChanged
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Failed to toggle gamepad.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                
+                    // Notify developer
                     string formattedException = $"Failed to toggle gamepad.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
+                    
+                    // Notify user
+                    ToggleGamepadFailureMessageBox();
                 }
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Failed to toggle gamepad.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);        }
+            await LogErrors.LogErrorAsync(ex, formattedException);
+        }
+
+        void ToggleGamepadFailureMessageBox()
+        {
+            string failedtotogglegamepad2 = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtotogglegamepad2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async void ThumbnailSize_Click(object sender, RoutedEventArgs e)
@@ -1001,14 +1070,24 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method ThumbnailSize_Click.\n\n" +
+            // Notify developer
+            string errorMessage = $"Error in method ThumbnailSize_Click.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with this method.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            SetThumbnailSizeErrorMessageBox();
+        }
+
+        void SetThumbnailSizeErrorMessageBox()
+        {
+            string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1096,32 +1175,38 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
+                // Notify developer
                 string formattedException = "The file 'FindRomCover.exe' is missing.";
                 Exception ex = new Exception(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
+                // Notify user
                 FindRomCoverMissingMessageBox();
             }
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
+            // Notify developer
             string formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-            
+
+            // Notify user
             FindRomCoverLaunchWasCanceledByUserMessageBox();
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
+            // Notify user
             FindRomCoverLaunchWasBlockedMessageBox();
         }
 
@@ -1205,34 +1290,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'CreateBatchFilesForPS3Games.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
     
@@ -1292,34 +1370,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'BatchConvertToCHD.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'BatchConvertToCHD.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
     
@@ -1339,34 +1410,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'BatchConvertTo7z.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'BatchConvertTo7z.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
     
@@ -1386,34 +1450,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'BatchConvertToZip.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'BatchConvertToZip.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
 
@@ -1433,34 +1490,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'CreateBatchFilesForScummVMGames.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
         
@@ -1480,34 +1530,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'CreateBatchFilesForSegaModel3Games.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
 
@@ -1527,34 +1570,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'CreateBatchFilesForWindowsGames.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
     
@@ -1574,34 +1610,27 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                MessageBoxResult reinstall = MessageBox.Show(
-                    "'CreateBatchFilesForXbox360XBLAGames.exe' was not found in the expected path.\n\n" +
-                    "Do you want to reinstall 'Simple Launcher' to fix it?",
-                    "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (reinstall == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                        "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                // Notify developer
+                string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
+                Exception ex = new Exception(formattedException);
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.\n\n" +
-                            "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ErrorLaunchingToolMessageBox();
         }
     }
         
@@ -1652,16 +1681,20 @@ public partial class MainWindow : INotifyPropertyChanged
 
                 // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
+                
                 // Clear SearchTextBox
                 SearchTextBox.Text = "";
+                
                 // Update current filter
                 _currentFilter = null;
+                
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
                 string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
+
                 AddNoSystemMessage();
                 
             }
@@ -1676,33 +1709,49 @@ public partial class MainWindow : INotifyPropertyChanged
 
                 // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
+
                 // Clear SearchTextBox
                 SearchTextBox.Text = "";
+                
                 // Update current filter
                 _currentFilter = null;
+                
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 PreviewImage.Source = null;
                 SystemComboBox.SelectedItem = null;
-                // Retrieve the dynamic resource string
+                
+                // Set selected system
                 string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
+                
                 AddNoSystemMessage();
+                
                 await LoadGameFilesAsync();
             }
             _settings.Save(); // Save the updated ViewMode
         }
         catch (Exception ex)
         {
+            // Notify developer
             string errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error while changing the view mode.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            ErrorChangingViewModeMessageBox();
+        }
+
+        void ErrorChangingViewModeMessageBox()
+        {
+            string therewasanerrorwhilechangingtheviewmode2 = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -2023,15 +2072,25 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Previous page button error in the Main window.\n\n" +
+            // Notify developer
+            string errorMessage = $"Previous page button error.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show("There was an error in this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            NavigationButtonErrorMessageBox();
         }
+    }
+
+    private static void NavigationButtonErrorMessageBox()
+    {
+        string therewasanerrorinthenavigationbutton2 = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorinthenavigationbutton2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private async void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -2055,14 +2114,14 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Next page button error in the Main window.\n\n" +
+            // Notify developer
+            string errorMessage = $"Next page button error.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            MessageBox.Show("There was an error with this button.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            NavigationButtonErrorMessageBox();
         }
     }
         
@@ -2084,15 +2143,25 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method SearchButton_Click.\n\n" +
+            // Notify developer
+            string errorMessage = $"Error in the method SearchButton_Click.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with the search engine.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MainWindowSearchEngineErrorMessageBox();
         }
+    }
+
+    private static void MainWindowSearchEngineErrorMessageBox()
+    {
+        string therewasanerrorwiththesearchengine2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththesearchengine2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -2106,14 +2175,14 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error while using the method SearchTextBox_KeyDown.\n\n" +
+            // Notify developer
+            string errorMessage = $"Error in the method SearchTextBox_KeyDown.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-            MessageBox.Show("There was an error with the search engine.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+ 
+            // Notify user
+            MainWindowSearchEngineErrorMessageBox();
         }
     }
 
@@ -2128,21 +2197,19 @@ public partial class MainWindow : INotifyPropertyChanged
 
         var searchQuery = SearchTextBox.Text.Trim();
 
-        string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
-        string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
-        
         if (SystemComboBox.SelectedItem == null)
         {
-            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            SelectSystemBeforeSearchMessageBox();
+
             return;
         }
         
-        string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
-        string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
-
         if (string.IsNullOrEmpty(searchQuery))
         {
-            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            EnterSearchQueryMessageBox();
+
             return;
         }
 
@@ -2165,32 +2232,64 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
+
+        void SelectSystemBeforeSearchMessageBox()
+        {
+            string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
+            string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
+            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        void EnterSearchQueryMessageBox()
+        {
+            string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
+            string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
+            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
         
     #endregion
     
     private static void ErrorLaunchingToolMessageBox()
     {
-        var result = MessageBox.Show("An error occurred while launching the selected tool.\n\n" +
-                                     "The error was reported to the developer that will try to fix the issue.\n\n" +
-                                     "If you want to debug the error yourself check the file 'error_user.log' inside 'Simple Launcher' folder",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        string anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
+                                     $"{theerrorwasreportedtothedeveloper2}\n\n" +
+                                     $"{dowanttoopenthefileerroruserlog2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = LogPath,
-                UseShellExecute = true
-            });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = LogPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                // Notify user
+                string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwasnotfound2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
     }
 
     private static void SelectedToolNotFoundMessageBox()
     {
+        string theselectedtoolwasnotfound2 = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
+        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+        string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
         MessageBoxResult reinstall = MessageBox.Show(
-            "The selected tool was not found in the expected path.\n\n" +
-            "Do you want to reinstall 'Simple Launcher' to fix it?",
-            "File Not Found", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            $"{theselectedtoolwasnotfound2}\n\n" +
+            $"{doyouwanttoreinstallSimpleLauncher2}",
+            fileNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
         if (reinstall == MessageBoxResult.Yes)
         {
@@ -2198,8 +2297,10 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually.",
-                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually.";
+            string pleaseReinstall2 = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
+            MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
+                pleaseReinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
