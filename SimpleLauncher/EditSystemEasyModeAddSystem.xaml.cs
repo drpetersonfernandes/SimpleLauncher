@@ -91,7 +91,7 @@ public partial class EditSystemEasyModeAddSystem
                 string emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 string emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
-                string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get emulatorDownloadUrl"));
+                string downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get emulatorDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 string destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
                 // string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
@@ -141,11 +141,8 @@ public partial class EditSystemEasyModeAddSystem
 
                         if (extractionSuccess)
                         {
-                            string emulatorfor2 = (string)Application.Current.TryFindResource("Emulatorfor") ?? "Emulator for";
-                            string downloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("downloadedandextractedsuccessfully") ?? "downloaded and extracted successfully.";
-                            string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-                            MessageBox.Show($"{emulatorfor2} {selectedSystem.SystemName} {downloadedandextractedsuccessfully2}",
-                                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Notify user
+                            DownloadAndExtrationWereSuccessfulMessageBox();
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteDownloadFilePath(downloadFilePath);
@@ -159,60 +156,46 @@ public partial class EditSystemEasyModeAddSystem
                         }
                         else // extraction fail
                         {
-                            string formattedException = $"Emulator extraction failed.";
+                            // Notify developer
+                            string formattedException = $"Emulator extraction failed.\n\n" +
+                                                        $"File: {downloadFilePath}";
                             Exception ex = new Exception(formattedException);
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
-                            MessageBox.Show("Emulator extraction failed!\n\n" +
-                                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                                            "Temporarily disable your antivirus software and try again.",
-                                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Notify user
+                            ExtractionFailedMessageBox();
                         }
                     }
                     else // download fail
                     {
-                        string formattedException = $"Emulator download failed.";
+                        // Notify developer
+                        string formattedException = $"Emulator download failed.\n\n" +
+                                                    $"File: {downloadFilePath}";
                         Exception ex = new Exception(formattedException);
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
-                        MessageBox.Show("Emulator download failed!\n\n" +
-                                        "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                                        "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                                        "Temporarily disable your antivirus software and try again.",
-                            "Download Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Notify user
+                        DownloadFailedMessageBox();
                     }
                 }
-                catch (TaskCanceledException)
+                catch (TaskCanceledException) // Download canceled
                 {
                     DeleteDownloadFilePath(downloadFilePath);
-                   
-                    string emulatordownloadwascanceled2 = (string)Application.Current.TryFindResource("Emulatordownloadwascanceled") ?? "Emulator download was canceled.";
-                    string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
-                    MessageBox.Show(emulatordownloadwascanceled2, downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Notify user
+                    DownloadCanceledMessageBox();
                 }
-                catch (Exception ex)
+                catch (Exception ex) //Error downloading
                 {
-                    // Error downloading
+                    // Notify developer
                     string formattedException = $"Error downloading emulator.\n\n" +
+                                                $"File: {downloadFilePath}" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
-                    // Offer redirect
-                    string errordownloadingemulator2 = (string)Application.Current.TryFindResource("Errordownloadingemulator") ?? "Error downloading emulator.";
-                    string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-                    string downloadError2 = (string)Application.Current.TryFindResource("DownloadError") ?? "Download Error";
-                    MessageBoxResult result = MessageBox.Show($"{errordownloadingemulator2}\n\n{wouldyouliketoberedirected2}",
-                        downloadError2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                            UseShellExecute = true
-                        });
-                    }
+                    // Notify user
+                    await EmulatorDownloadErrorMessageBox(selectedSystem, ex);
                 }
                 finally
                 {
@@ -223,18 +206,55 @@ public partial class EditSystemEasyModeAddSystem
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"General error downloading the emulator.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
-            MessageBox.Show("Emulator download or extraction failed!\n\n" +
-                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                            "Temporarily disable your antivirus software and try again.",
-                "Download or Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);   
+
+            // Notify user
+            DownloadExtractionFailedMessageBox();
+        }
+
+        async Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+        {
+            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
+                                                      $"{wouldyouliketoberedirected2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex2)
+                {
+                    // Notify developer
+                    string formattedException2 = $"Error opening the download link.\n\n" +
+                                                 $"Exception type: {ex.GetType().Name}\n" +
+                                                 $"Exception details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex2, formattedException2);
+                            
+                    // Notify user
+                    string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                    string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                    MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                                    $"{theerrorwasreportedtothedeveloper2}",
+                        error3, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
+
+    
 
     private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
     {
@@ -898,6 +918,64 @@ public partial class EditSystemEasyModeAddSystem
                 // ignore
             }
         }
+    }
+    
+    private static void DownloadExtractionFailedMessageBox()
+    {
+        string downloadorextractionfailed2 = (string)Application.Current.TryFindResource("Downloadorextractionfailed") ?? "Download or extraction failed!";
+        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadorextractionfailed2}\n\n" +
+                        $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    private static void DownloadCanceledMessageBox()
+    {
+        string downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(downloadwascanceled2,
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private static void DownloadFailedMessageBox()
+    {
+        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed!";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadfailed2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private static void ExtractionFailedMessageBox()
+    {
+        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed!";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{extractionfailed2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private static void DownloadAndExtrationWereSuccessfulMessageBox()
+    {
+        string downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{downloadingandextractionweresuccessful2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
 }
