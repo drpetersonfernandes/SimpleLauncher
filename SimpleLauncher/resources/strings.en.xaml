@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Cobalt</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirm Deletion</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Core download was canceled.</system:String>
-    <system:String x:Key="Corefor">Core for</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
     <system:String x:Key="Cover">Cover</system:String>
     <system:String x:Key="Covernotfound">Cover not found</system:String>
@@ -96,14 +94,11 @@
     <system:String x:Key="DownloadandExtractImage">Download and Extract Image Pack (If Available)</system:String>
     <system:String x:Key="DownloadandInstall">Download and Install Emulator and Core</system:String>
     <system:String x:Key="DownloadCanceled">Download Canceled</system:String>
-    <system:String x:Key="DownloadComplete">Download Complete</system:String>
     <system:String x:Key="DownloadCore">Download Core</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">downloaded and extracted successfully.</system:String>
     <system:String x:Key="DownloadEmulator">Download Emulator</system:String>
-    <system:String x:Key="DownloadError">Download Error</system:String>
     <system:String x:Key="Downloaderror2">Download error.</system:String>
     <system:String x:Key="DownloadImagePack">Download Image Pack</system:String>
-    <system:String x:Key="DownloadorExtractionFailed">Download or Extraction Failed</system:String>
+    <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="DownloadProgress">Download Progress</system:String>
     <system:String x:Key="Downloadwascanceled">Download was canceled.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Do you want to automatically reinstall 'Simple Launcher' to fix the problem?</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Emulator 5 Location</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (May be Required)</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Emulator download was canceled.</system:String>
-    <system:String x:Key="Emulatorfor">Emulator for</system:String>
     <system:String x:Key="EmulatorLocation">Emulator Location</system:String>
     <system:String x:Key="EmulatorName">Emulator Name</system:String>
     <system:String x:Key="EmulatorParameters">Emulator Parameters</system:String>
     <system:String x:Key="Enable">Enable</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
     <system:String x:Key="Error">Error</system:String>
-    <system:String x:Key="Errordownloadingemulator">Error downloading emulator.</system:String>
     <system:String x:Key="Exit">Exit</system:String>
     <system:String x:Key="ExpertMode">Expert Mode</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.</system:String>
@@ -188,8 +180,6 @@
     <system:String x:Key="Ifyouleaveitempty">If you leave it empty, the application will create a folder for this system inside the 'roms' folder.</system:String>
     <system:String x:Key="ImageFolderNotExist">System Image Folder does not exist or is not specified.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Image Pack download or extraction failed!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Image Pack download was canceled.</system:String>
-    <system:String x:Key="Imagepackfor">Image pack for</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">In case the Image Pack is not available you can download Images for this system in the following websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
@@ -467,5 +457,21 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">The selected tool was not found in the expected path.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix it?</system:String>
+    
+    <system:String x:Key="Downloaderror">Download error.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
+    <system:String x:Key="Afilereadwriteerror">A file read/write error occurred after the file was downloaded.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Make sure the 'Simple Launcher' folder is located in a writable directory.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' was unable to open the 'temp' folder due to access issues.</system:String>
+    <system:String x:Key="Downloadfailed">Download failed.</system:String>
+    <system:String x:Key="Therewasanerroradding">There was an error adding this system.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Choose a folder with 'ROMs' or 'ISOs' for this system</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Grant 'Simple Launcher' administrative access and try again.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Temporarily disable your antivirus software and try again.</system:String>
+    <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">Downloading and extraction were successful.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Add System into 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">4th step</system:String>
 
 </ResourceDictionary>

@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">鈷藍色</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="ConfirmDeletion">確認刪除</system:String>
-    <system:String x:Key="Coredownloadwascanceled">核心下載已取消。</system:String>
-    <system:String x:Key="Corefor">核心適用於</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">無法在解壓資料夾中找到具有 '解壓之後執行的擴展名' 的檔案。</system:String>
     <system:String x:Key="Cover">封面</system:String>
     <system:String x:Key="Covernotfound">找不到封面</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">下載並解壓影像包（如果可用）</system:String>
     <system:String x:Key="DownloadandInstall">下載並安裝模擬器及核心</system:String>
     <system:String x:Key="DownloadCanceled">下載已取消</system:String>
-    <system:String x:Key="DownloadComplete">下載完成</system:String>
     <system:String x:Key="DownloadCore">下載核心</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">已成功下載並解壓縮。</system:String>
     <system:String x:Key="DownloadEmulator">下載模擬器</system:String>
-    <system:String x:Key="DownloadError">下載錯誤</system:String>
     <system:String x:Key="Downloaderror2">下載錯誤。</system:String>
     <system:String x:Key="DownloadImagePack">下載圖像包</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">模擬器5位置</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">模擬器5名稱（可能需要）</system:String>
     <system:String x:Key="Emulator5Parameters">模擬器5參數</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">模擬器下載已取消。</system:String>
-    <system:String x:Key="Emulatorfor">模擬器適用於</system:String>
     <system:String x:Key="EmulatorLocation">模擬器位置</system:String>
     <system:String x:Key="EmulatorName">模擬器名稱</system:String>
     <system:String x:Key="EmulatorParameters">模擬器參數</system:String>
     <system:String x:Key="Enable">啟用</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">確保 'Simple Launcher' 資料夾位於具有寫入權限的目錄中。</system:String>
     <system:String x:Key="Error">錯誤</system:String>
-    <system:String x:Key="Errordownloadingemulator">下載模擬器時發生錯誤。</system:String>
     <system:String x:Key="Exit">退出</system:String>
     <system:String x:Key="ExpertMode">專家模式</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">當「啟動前解壓縮文件」已啟用時，「解壓縮後啟動的擴展名」是必需的。</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">如果您留空，應用程式將在「roms」資料夾中為此系統創建一個資料夾。</system:String>
     <system:String x:Key="ImageFolderNotExist">系統圖片資料夾不存在或未指定。</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">圖像包下載或解壓失敗！</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">影像包下載已取消。</system:String>
-    <system:String x:Key="Imagepackfor">圖像包</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">如果影像包不可用，您可以通過以下網站下載該系統的影像：</system:String>
     <system:String x:Key="Indigo">靛藍色</system:String>
     <system:String x:Key="Info">資訊</system:String>

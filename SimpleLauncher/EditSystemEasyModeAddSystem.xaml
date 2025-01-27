@@ -24,8 +24,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock
@@ -68,6 +66,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -102,6 +102,16 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton_Click"
                         IsEnabled="False" Margin="5" />
+                
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="{DynamicResource AddSystemIntoSimpleLauncher}"
+                       HorizontalAlignment="Center" Margin="0,20,10,10" />
+
+                <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource 4thstep}" VerticalAlignment="Center"
+                       Margin="5" />
+                <Button Grid.Row="6" Grid.Column="1" x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="5"
+                        Click="AddSystemButton_Click" IsEnabled="False" />
             </Grid>
 
             <Grid Margin="10,20,10,10" HorizontalAlignment="Stretch" Grid.Row="8">
@@ -111,25 +121,21 @@
             </Grid>
 
             <Button x:Name="StopDownloadButton" Content="{DynamicResource StopDownload}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10,10,10,0"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10,10,10,10"
                     Grid.Row="9" Click="StopDownloadButton_Click" IsEnabled="False" />
 
-            <Button x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Margin="10"
-                    Grid.Row="10" Click="AddSystemButton_Click" IsEnabled="False" />
-
-            <TextBlock Grid.Row="12" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left"
+            <TextBlock Grid.Row="10" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left"
                        TextWrapping="Wrap"
                        Text="{DynamicResource IncasetheImagePackisnotavailable}" />
 
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="13" Margin="10,0,10,10">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="11" Margin="10,0,10,10">
                 <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
                            RequestNavigate="Hyperlink_RequestNavigate">
                     https://github.com/libretro-thumbnails/libretro-thumbnails
                 </Hyperlink>
             </TextBlock>
 
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="14" Margin="10,0,10,30">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="12" Margin="10,0,10,30">
                 <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
             </TextBlock>
 

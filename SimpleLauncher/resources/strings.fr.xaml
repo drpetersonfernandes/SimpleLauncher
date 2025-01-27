@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Cobalt</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmer la suppression</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Le téléchargement du noyau a été annulé.</system:String>
-    <system:String x:Key="Corefor">Noyau pour</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossible de trouver un fichier avec l'extension définie dans 'Extension à lancer après extraction' dans le dossier extrait.</system:String>
     <system:String x:Key="Cover">Couverture</system:String>
     <system:String x:Key="Covernotfound">Couverture introuvable</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Télécharger et extraire le pack d'images (si disponible)</system:String>
     <system:String x:Key="DownloadandInstall">Télécharger et installer l'émulateur ainsi que le noyau</system:String>
     <system:String x:Key="DownloadCanceled">Téléchargement annulé</system:String>
-    <system:String x:Key="DownloadComplete">Téléchargement terminé</system:String>
     <system:String x:Key="DownloadCore">Télécharger le noyau</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">téléchargé et extrait avec succès.</system:String>
     <system:String x:Key="DownloadEmulator">Télécharger l'émulateur</system:String>
-    <system:String x:Key="DownloadError">Erreur de téléchargement</system:String>
     <system:String x:Key="Downloaderror2">Erreur de téléchargement.</system:String>
     <system:String x:Key="DownloadImagePack">Télécharger le pack d'images</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Échec du téléchargement ou de l'extraction</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Emplacement de l'émulateur 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nom de l'émulateur 5 (peut être obligatoire)</system:String>
     <system:String x:Key="Emulator5Parameters">Paramètres de l'émulateur 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Le téléchargement de l'émulateur a été annulé.</system:String>
-    <system:String x:Key="Emulatorfor">Émulateur pour</system:String>
     <system:String x:Key="EmulatorLocation">Emplacement de l'Émulateur</system:String>
     <system:String x:Key="EmulatorName">Nom de l'Émulateur</system:String>
     <system:String x:Key="EmulatorParameters">Paramètres de l'Émulateur</system:String>
     <system:String x:Key="Enable">Activer</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Assurez-vous que le dossier 'Simple Launcher' se trouve dans un répertoire accessible en écriture.</system:String>
     <system:String x:Key="Error">Erreur</system:String>
-    <system:String x:Key="Errordownloadingemulator">Erreur lors du téléchargement de l'émulateur.</system:String>
     <system:String x:Key="Exit">Quitter</system:String>
     <system:String x:Key="ExpertMode">Mode expert</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">L''Extension à lancer après l'extraction' est requise lorsque 'Extraire le fichier avant le lancement' est activé.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Le dossier d'images du système n'existe pas ou n'est pas spécifié.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Échec du téléchargement ou de l'extraction du pack d'images !</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Le téléchargement du pack d'images a été annulé.</system:String>
-    <system:String x:Key="Imagepackfor">Pack d'images pour</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Dans le cas où le pack d'images n'est pas disponible, vous pouvez télécharger les images pour ce système sur les sites suivants :</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>

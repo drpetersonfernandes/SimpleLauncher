@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="ConfirmDeletion">Подтвердите удаление</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Загрузка Core была отменена.</system:String>
-    <system:String x:Key="Corefor">Core для</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Не удалось найти файл с указанным в 'Расширение для запуска после извлечения' расширением в извлечённой папке.</system:String>
     <system:String x:Key="Cover">Обложка</system:String>
     <system:String x:Key="Covernotfound">Обложка не найдена</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Скачать и извлечь пакет изображений (если доступно)</system:String>
     <system:String x:Key="DownloadandInstall">Скачать и установить эмулятор и ядро</system:String>
     <system:String x:Key="DownloadCanceled">Загрузка отменена</system:String>
-    <system:String x:Key="DownloadComplete">Загрузка завершена</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">успешно загружен и распакован.</system:String>
     <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
-    <system:String x:Key="DownloadError">Ошибка загрузки</system:String>
     <system:String x:Key="Downloaderror2">Ошибка загрузки.</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Расположение эмулятора 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Название эмулятора 5 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Загрузка эмулятора была отменена.</system:String>
-    <system:String x:Key="Emulatorfor">Эмулятор для</system:String>
     <system:String x:Key="EmulatorLocation">Местоположение эмулятора</system:String>
     <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
     <system:String x:Key="EmulatorParameters">Параметры эмулятора</system:String>
     <system:String x:Key="Enable">Включить</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
     <system:String x:Key="Error">Ошибка</system:String>
-    <system:String x:Key="Errordownloadingemulator">Ошибка при загрузке эмулятора.</system:String>
     <system:String x:Key="Exit">Выход</system:String>
     <system:String x:Key="ExpertMode">Экспертный режим</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">«Расширение для запуска после извлечения» требуется, если «Извлечение файла перед запуском» включено.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Если оставить поле пустым, приложение создаст папку для этой системы внутри папки 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Папка изображений системы не существует или не указана.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Ошибка при загрузке или извлечении пакета изображений!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Загрузка пакета изображений была отменена.</system:String>
-    <system:String x:Key="Imagepackfor">Пакет изображений для</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Если пакет изображений недоступен, вы можете скачать изображения для этой системы с следующих веб-сайтов:</system:String>
     <system:String x:Key="Indigo">Индиго</system:String>
     <system:String x:Key="Info">Информация</system:String>

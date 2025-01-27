@@ -78,8 +78,8 @@ public class GamePadController : IDisposable
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
 
-            MessageBox.Show("There was an error in the GamePad Controller.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+            MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
+                            "Running 'Simple Launcher' with administrative access may fix this problem.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
             Instance2.Stop();

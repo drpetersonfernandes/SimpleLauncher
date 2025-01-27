@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Cô-ban</system:String>
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="ConfirmDeletion">Xác nhận việc xóa</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Quá trình tải xuống Core đã bị hủy.</system:String>
-    <system:String x:Key="Corefor">Core cho</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Không thể tìm thấy tệp với phần mở rộng được chỉ định trong 'Phần mở rộng để thực thi sau khi trích xuất' trong thư mục đã trích xuất.</system:String>
     <system:String x:Key="Cover">Bìa</system:String>
     <system:String x:Key="Covernotfound">Không tìm thấy bìa</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Tải xuống và giải nén gói hình ảnh (nếu có)</system:String>
     <system:String x:Key="DownloadandInstall">Tải xuống và cài đặt trình giả lập và lõi</system:String>
     <system:String x:Key="DownloadCanceled">Đã hủy tải xuống</system:String>
-    <system:String x:Key="DownloadComplete">Tải về Hoàn tất</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">đã được tải xuống và giải nén thành công.</system:String>
     <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
-    <system:String x:Key="DownloadError">Lỗi tải xuống</system:String>
     <system:String x:Key="Downloaderror2">Lỗi tải xuống.</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Vị trí của trình giả lập 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Quá trình tải xuống trình giả lập đã bị hủy.</system:String>
-    <system:String x:Key="Emulatorfor">Trình giả lập cho</system:String>
     <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
     <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
     <system:String x:Key="EmulatorParameters">Tham số của Trình giả lập</system:String>
     <system:String x:Key="Enable">Kích hoạt</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
-    <system:String x:Key="Errordownloadingemulator">Có lỗi xảy ra khi tải trình giả lập.</system:String>
     <system:String x:Key="Exit">Thoát</system:String>
     <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Phần mở rộng để khởi động sau khi giải nén" là bắt buộc khi "Giải nén tệp trước khi khởi động" được bật.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Thư mục ảnh của hệ thống không tồn tại hoặc chưa được chỉ định.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Không thể tải xuống hoặc giải nén gói hình ảnh!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Quá trình tải gói hình ảnh đã bị hủy.</system:String>
-    <system:String x:Key="Imagepackfor">Gói hình ảnh cho</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Trong trường hợp gói hình ảnh không khả dụng, bạn có thể tải xuống hình ảnh cho hệ thống này tại các trang web sau:</system:String>
     <system:String x:Key="Indigo">Chàm</system:String>
     <system:String x:Key="Info">Thông tin</system:String>

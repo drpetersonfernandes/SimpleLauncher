@@ -91,7 +91,11 @@ public partial class GlobalStats
         {
             // Asynchronous file count and base filenames of ROMs/ISOs
             var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
-            var romFileBaseNames = romFiles.Select(Path.GetFileNameWithoutExtension).ToHashSet();
+            
+            // Create a case-insensitive HashSet for ROM base filenames
+            var romFileBaseNames = new HashSet<string>(
+                romFiles.Select(Path.GetFileNameWithoutExtension), 
+                StringComparer.OrdinalIgnoreCase);
 
             // Calculate the total disk size for the ROM/ISO files
             long totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
@@ -104,6 +108,8 @@ public partial class GlobalStats
             int numberOfImages = 0;
             if (Directory.Exists(systemImagePath))
             {
+                await RenameImagesToMatchRomCaseAsync(systemImagePath, romFileBaseNames);
+                
                 // Get image files with .png, .jpg, .jpeg extensions
                 var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
                     .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
@@ -256,4 +262,41 @@ public partial class GlobalStats
                 error2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+    
+    private async Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
+    {
+        if (!Directory.Exists(systemImagePath))
+            return;
+        
+        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                           file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                           file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        foreach (var imageFile in imageFiles)
+        {
+            var imageFileName = Path.GetFileNameWithoutExtension(imageFile);
+            var matchedRomName = romFileBaseNames.FirstOrDefault(rom =>
+                string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
+
+            if (matchedRomName != null && !matchedRomName.Equals(imageFileName))
+            {
+                var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
+                    matchedRomName + Path.GetExtension(imageFile));
+                try
+                {
+                    File.Move(imageFile, newImagePath);
+                }
+                catch (Exception ex)
+                {
+                    string formattedException = $"Error renaming image file: {imageFile}\n" +
+                                                $"New file name: {newImagePath}\n" +
+                                                $"Exception: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, formattedException);
+                }
+            }
+        }
+    }
+
 }

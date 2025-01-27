@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">コバルト</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="ConfirmDeletion">削除を確認</system:String>
-    <system:String x:Key="Coredownloadwascanceled">コアのダウンロードがキャンセルされました。</system:String>
-    <system:String x:Key="Corefor">コア:</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">抽出フォルダ内で『抽出後に起動する拡張子』で定義された拡張子のファイルが見つかりませんでした。</system:String>
     <system:String x:Key="Cover">カバー</system:String>
     <system:String x:Key="Covernotfound">カバーが見つかりません</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">イメージパックをダウンロードして抽出する（利用可能な場合）</system:String>
     <system:String x:Key="DownloadandInstall">エミュレーターとコアをダウンロードおよびインストールする</system:String>
     <system:String x:Key="DownloadCanceled">ダウンロードがキャンセルされました</system:String>
-    <system:String x:Key="DownloadComplete">ダウンロード完了</system:String>
     <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">が正常にダウンロードおよび解凍されました。</system:String>
     <system:String x:Key="DownloadEmulator">エミュレーターをダウンロード</system:String>
-    <system:String x:Key="DownloadError">ダウンロードエラー</system:String>
     <system:String x:Key="Downloaderror2">ダウンロードエラー。</system:String>
     <system:String x:Key="DownloadImagePack">画像パックをダウンロード</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">エミュレーター5の場所</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">エミュレーターのダウンロードがキャンセルされました。</system:String>
-    <system:String x:Key="Emulatorfor">エミュレーター:</system:String>
     <system:String x:Key="EmulatorLocation">エミュレーターの場所</system:String>
     <system:String x:Key="EmulatorName">エミュレーター名</system:String>
     <system:String x:Key="EmulatorParameters">エミュレーターのパラメーター</system:String>
     <system:String x:Key="Enable">有効化</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
     <system:String x:Key="Error">エラー</system:String>
-    <system:String x:Key="Errordownloadingemulator">エミュレーターのダウンロード中にエラーが発生しました。</system:String>
     <system:String x:Key="Exit">終了</system:String>
     <system:String x:Key="ExpertMode">エキスパートモード</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">「抽出後に起動する拡張子」は、「起動前にファイルを抽出」がオンになっている場合に必要です。</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">空のままにすると、アプリケーションがこのシステム用のフォルダーを「roms」フォルダー内に作成します。</system:String>
     <system:String x:Key="ImageFolderNotExist">システム画像フォルダが存在しないか、指定されていません。</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">イメージパックのダウンロードまたは抽出に失敗しました！</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">画像パックのダウンロードがキャンセルされました。</system:String>
-    <system:String x:Key="Imagepackfor">次の画像パック:</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">イメージパックが利用できない場合は、以下のウェブサイトからこのシステム用のイメージをダウンロードできます：</system:String>
     <system:String x:Key="Indigo">インディゴ</system:String>
     <system:String x:Key="Info">情報</system:String>

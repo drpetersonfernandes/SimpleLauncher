@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">कोबाल्ट</system:String>
     <system:String x:Key="Confirmation">पुष्टि</system:String>
     <system:String x:Key="ConfirmDeletion">हटाने की पुष्टि करें</system:String>
-    <system:String x:Key="Coredownloadwascanceled">कोर डाउनलोड रद्द कर दिया गया।</system:String>
-    <system:String x:Key="Corefor">कोर के लिए</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' में परिभाषित एक्सटेंशन वाली फ़ाइल एक्सट्रैक्टेड फ़ोल्डर के अंदर नहीं मिली।</system:String>
     <system:String x:Key="Cover">कवर</system:String>
     <system:String x:Key="Covernotfound">कवर नहीं मिला</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">इमेज पैक डाउनलोड और निकालें (यदि उपलब्ध हो)</system:String>
     <system:String x:Key="DownloadandInstall">एमुलेटर और कोर डाउनलोड और इंस्टॉल करें</system:String>
     <system:String x:Key="DownloadCanceled">डाउनलोड रद्द</system:String>
-    <system:String x:Key="DownloadComplete">डाउनलोड पूरा</system:String>
     <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">सफलतापूर्वक डाउनलोड और एक्सट्रैक्ट कर दिया गया।</system:String>
     <system:String x:Key="DownloadEmulator">एमुलेटर डाउनलोड करें</system:String>
-    <system:String x:Key="DownloadError">डाउनलोड त्रुटि</system:String>
     <system:String x:Key="Downloaderror2">डाउनलोड त्रुटि।</system:String>
     <system:String x:Key="DownloadImagePack">इमेज पैक डाउनलोड करें</system:String>
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">एमुलेटर 5 का स्थान</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">एमुलेटर 5 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator5Parameters">एमुलेटर 5 पैरामीटर</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">एमुलेटर डाउनलोड रद्द कर दिया गया।</system:String>
-    <system:String x:Key="Emulatorfor">एमुलेटर के लिए</system:String>
     <system:String x:Key="EmulatorLocation">एमुलेटर का स्थान</system:String>
     <system:String x:Key="EmulatorName">एमुलेटर का नाम</system:String>
     <system:String x:Key="EmulatorParameters">एमुलेटर के पैरामीटर</system:String>
     <system:String x:Key="Enable">सक्षम करें</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लिखने योग्य निर्देशिका में है।</system:String>
     <system:String x:Key="Error">त्रुटि</system:String>
-    <system:String x:Key="Errordownloadingemulator">एमुलेटर डाउनलोड करने में त्रुटि।</system:String>
     <system:String x:Key="Exit">बाहर जाएं</system:String>
     <system:String x:Key="ExpertMode">विशेषज्ञ मोड</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"'लॉन्च के बाद एक्सट्रैक्ट करने का एक्सटेंशन" आवश्यक है जब 'लॉन्च से पहले फ़ाइल को एक्सट्रैक्ट करें’ चालू है।</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">यदि आप इसे खाली छोड़ देते हैं, तो एप्लिकेशन इस सिस्टम के लिए 'roms' फोल्डर के अंदर एक फोल्डर बनाएगी।</system:String>
     <system:String x:Key="ImageFolderNotExist">सिस्टम छवि फ़ोल्डर मौजूद नहीं है या निर्दिष्ट नहीं किया गया है।</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">छवि पैक डाउनलोड या निष्कर्षण में विफलता!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">इमेज पैक डाउनलोड रद्द कर दिया गया।</system:String>
-    <system:String x:Key="Imagepackfor">इसका इमेज पैक</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">यदि इमेज पैक उपलब्ध नहीं है तो आप इस सिस्टम के लिए इमेज निम्नलिखित वेबसाइटों से डाउनलोड कर सकते हैं:</system:String>
     <system:String x:Key="Indigo">इंडिगो</system:String>
     <system:String x:Key="Info">जानकारी</system:String>

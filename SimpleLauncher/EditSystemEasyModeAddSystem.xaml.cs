@@ -624,7 +624,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            DownloadErrorMessageBox();
+            DownloadFailedMessageBox2();
         }
         catch (HttpRequestException ex)
         {
@@ -636,7 +636,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            DownloadErrorMessageBox();
+            DownloadFailedMessageBox2();
         }
         catch (IOException ex)
         {
@@ -680,7 +680,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 // Notify user
-                DownloadErrorMessageBox();
+                DownloadFailedMessageBox2();
             }
         }
 
@@ -732,16 +732,16 @@ public partial class EditSystemEasyModeAddSystem
                 }
             }
         }
-    }
 
-    private static void DownloadErrorMessageBox()
-    {
-        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloadfailed2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        void DownloadFailedMessageBox2()
+        {
+            string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{downloadfailed2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
@@ -999,7 +999,7 @@ public partial class EditSystemEasyModeAddSystem
         
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        string chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a Folder with 'ROMs' or 'ISOs' for this System";
+        string chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
         using var dialog = new FolderBrowserDialog();
         dialog.Description = chooseaFolderwithRoMsorIsOs2;
         dialog.ShowNewFolderButton = true;
@@ -1033,7 +1033,7 @@ public partial class EditSystemEasyModeAddSystem
     
     private static void DownloadExtractionFailedMessageBox()
     {
-        string downloadorextractionfailed2 = (string)Application.Current.TryFindResource("Downloadorextractionfailed") ?? "Download or extraction failed!";
+        string downloadorextractionfailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
         string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
@@ -1055,7 +1055,7 @@ public partial class EditSystemEasyModeAddSystem
 
     private static void DownloadFailedMessageBox()
     {
-        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed!";
+        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
         string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
@@ -1069,7 +1069,7 @@ public partial class EditSystemEasyModeAddSystem
 
     private static void ExtractionFailedMessageBox()
     {
-        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed!";
+        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
         string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
@@ -1088,5 +1088,4 @@ public partial class EditSystemEasyModeAddSystem
         MessageBox.Show($"{downloadingandextractionweresuccessful2}",
             success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
-
 }

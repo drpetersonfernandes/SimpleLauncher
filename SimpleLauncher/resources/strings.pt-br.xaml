@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Cobalto</system:String>
     <system:String x:Key="Confirmation">Confirmação</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmar Exclusão</system:String>
-    <system:String x:Key="Coredownloadwascanceled">O download do core foi cancelado.</system:String>
-    <system:String x:Key="Corefor">Core para</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Não foi possível encontrar um arquivo com a extensão definida em 'Extensão para Executar Após Extração' na pasta extraída.</system:String>
     <system:String x:Key="Cover">Capa</system:String>
     <system:String x:Key="Covernotfound">Capa não encontrada</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Baixar e extrair pacote de imagens (se disponível)</system:String>
     <system:String x:Key="DownloadandInstall">Baixar e instalar o emulador e o núcleo</system:String>
     <system:String x:Key="DownloadCanceled">Download cancelado</system:String>
-    <system:String x:Key="DownloadComplete">Download concluído</system:String>
     <system:String x:Key="DownloadCore">Baixar núcleo</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">baixado e extraído com sucesso.</system:String>
     <system:String x:Key="DownloadEmulator">Baixar emulador</system:String>
-    <system:String x:Key="DownloadError">Erro de download</system:String>
     <system:String x:Key="Downloaderror2">Erro ao fazer o download.</system:String>
     <system:String x:Key="DownloadImagePack">Baixar Pacote de Imagens</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Falha ao baixar ou extrair</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Localização do emulador 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nome do emulador 5 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator5Parameters">Parâmetros do emulador 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">O download do emulador foi cancelado.</system:String>
-    <system:String x:Key="Emulatorfor">Emulador para</system:String>
     <system:String x:Key="EmulatorLocation">Localização do Emulador</system:String>
     <system:String x:Key="EmulatorName">Nome do Emulador</system:String>
     <system:String x:Key="EmulatorParameters">Parâmetros do Emulador</system:String>
     <system:String x:Key="Enable">Ativar</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Certifique-se de que a pasta 'Simple Launcher' está localizada em um diretório com permissão de escrita.</system:String>
     <system:String x:Key="Error">Erro</system:String>
-    <system:String x:Key="Errordownloadingemulator">Erro ao baixar o emulador.</system:String>
     <system:String x:Key="Exit">Sair</system:String>
     <system:String x:Key="ExpertMode">Modo Avançado</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">A "Extensão para executar após a extração" é obrigatória quando "Extrair arquivo antes da execução" está ativado.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Se deixado em branco, o aplicativo criará uma pasta para este sistema dentro da pasta 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">A Pasta de Imagens do Sistema não existe ou não foi especificada.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Falha ao baixar ou extrair o pacote de imagens!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">O download do pacote de imagens foi cancelado.</system:String>
-    <system:String x:Key="Imagepackfor">Pacote de imagem para</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Caso o pacote de imagens não esteja disponível, você pode baixar imagens para este sistema nos sites a seguir:</system:String>
     <system:String x:Key="Indigo">Índigo</system:String>
     <system:String x:Key="Info">Informações</system:String>

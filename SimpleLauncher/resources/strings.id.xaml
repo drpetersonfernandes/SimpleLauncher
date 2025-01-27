@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Unduhan core dibatalkan.</system:String>
-    <system:String x:Key="Corefor">Core untuk</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
     <system:String x:Key="Cover">Sampul</system:String>
     <system:String x:Key="Covernotfound">Sampul tidak ditemukan</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Unduh dan Ekstrak Paket Gambar (Jika Tersedia)</system:String>
     <system:String x:Key="DownloadandInstall">Unduh dan Instal Emulator serta Core</system:String>
     <system:String x:Key="DownloadCanceled">Unduhan Dibatalkan</system:String>
-    <system:String x:Key="DownloadComplete">Unduhan Selesai</system:String>
     <system:String x:Key="DownloadCore">Unduh Core</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">berhasil diunduh dan diekstrak.</system:String>
     <system:String x:Key="DownloadEmulator">Unduh Emulator</system:String>
-    <system:String x:Key="DownloadError">Kesalahan Unduhan</system:String>
     <system:String x:Key="Downloaderror2">Kesilapan muat turun.</system:String>
     <system:String x:Key="DownloadImagePack">Unduh Paket Gambar</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Lokasi Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nama Emulator 5 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Unduhan emulator dibatalkan.</system:String>
-    <system:String x:Key="Emulatorfor">Emulator untuk</system:String>
     <system:String x:Key="EmulatorLocation">Lokasi Emulator</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
     <system:String x:Key="EmulatorParameters">Parameter Emulator</system:String>
     <system:String x:Key="Enable">Aktifkan</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Pastikan folder 'Simple Launcher' berada dalam direktori yang mempunyai kebenaran menulis.</system:String>
     <system:String x:Key="Error">Kesalahan</system:String>
-    <system:String x:Key="Errordownloadingemulator">Kesalahan saat mengunduh emulator.</system:String>
     <system:String x:Key="Exit">Keluar</system:String>
     <system:String x:Key="ExpertMode">Mode Ahli</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Ekstensi untuk Diluncurkan Setelah Ekstraksi" diperlukan jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Jika Anda membiarkan kosong, aplikasi akan membuat folder untuk sistem ini di dalam folder 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Folder Gambar Sistem tidak ada atau tidak ditentukan.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Gagal memuat turun atau mengekstrak pek gambar!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Unduhan Paket Gambar dibatalkan.</system:String>
-    <system:String x:Key="Imagepackfor">Paket gambar untuk</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Jika Paket Gambar tidak tersedia, Anda dapat mengunduh gambar untuk sistem ini di situs berikut:</system:String>
     <system:String x:Key="Indigo">Nila</system:String>
     <system:String x:Key="Info">Info</system:String>

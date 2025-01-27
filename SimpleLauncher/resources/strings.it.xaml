@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Cobalto</system:String>
     <system:String x:Key="Confirmation">Conferma</system:String>
     <system:String x:Key="ConfirmDeletion">Conferma eliminazione</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Il download del core è stato annullato.</system:String>
-    <system:String x:Key="Corefor">Core per</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossibile trovare un file con l'estensione definita in 'Estensione da Avviare Dopo l'Estrazione' nella cartella estratta.</system:String>
     <system:String x:Key="Cover">Copertina</system:String>
     <system:String x:Key="Covernotfound">Copertina non trovata</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Scarica ed estrai il pacchetto di immagini (se disponibile)</system:String>
     <system:String x:Key="DownloadandInstall">Scarica e installa l'emulatore e il core</system:String>
     <system:String x:Key="DownloadCanceled">Download annullato</system:String>
-    <system:String x:Key="DownloadComplete">Download completato</system:String>
     <system:String x:Key="DownloadCore">Scarica core</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">scaricato ed estratto con successo.</system:String>
     <system:String x:Key="DownloadEmulator">Scarica emulatore</system:String>
-    <system:String x:Key="DownloadError">Errore di download</system:String>
     <system:String x:Key="Downloaderror2">Errore durante lo scaricamento.</system:String>
     <system:String x:Key="DownloadImagePack">Scarica pacchetto immagini</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Scaricamento o estrazione fallito</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Posizione emulatore 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nome emulatore 5 (potrebbe essere obbligatorio)</system:String>
     <system:String x:Key="Emulator5Parameters">Parametri emulatore 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Il download dell'emulatore è stato annullato.</system:String>
-    <system:String x:Key="Emulatorfor">Emulatore per</system:String>
     <system:String x:Key="EmulatorLocation">Posizione dell'Emulatore</system:String>
     <system:String x:Key="EmulatorName">Nome dell'Emulatore</system:String>
     <system:String x:Key="EmulatorParameters">Parametri dell'Emulatore</system:String>
     <system:String x:Key="Enable">Abilita</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Assicurati che la cartella 'Simple Launcher' si trovi in una directory scrivibile.</system:String>
     <system:String x:Key="Error">Errore</system:String>
-    <system:String x:Key="Errordownloadingemulator">Errore durante il download dell'emulatore.</system:String>
     <system:String x:Key="Exit">Esci</system:String>
     <system:String x:Key="ExpertMode">Modalità esperto</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">L''Estensione da lanciare dopo l'estrazione' è obbligatoria quando 'Estrai il file prima di lanciare' è attivato.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Se lo lasci vuoto, l'applicazione creerà una cartella per questo sistema all'interno della cartella 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">La Cartella Immagini del Sistema non esiste o non è specificata.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Scaricamento o estrazione del pacchetto immagini non riuscito!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Il download del pacchetto di immagini è stato annullato.</system:String>
-    <system:String x:Key="Imagepackfor">Pacchetto di immagini per</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Nel caso in cui il pacchetto di immagini non sia disponibile, puoi scaricare immagini per questo sistema dai seguenti siti web:</system:String>
     <system:String x:Key="Indigo">Indaco</system:String>
     <system:String x:Key="Info">Informazioni</system:String>

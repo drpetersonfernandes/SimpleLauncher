@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="Confirmation">Bestätigung</system:String>
     <system:String x:Key="ConfirmDeletion">Löschung bestätigen</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Der Kern-Download wurde abgebrochen.</system:String>
-    <system:String x:Key="Corefor">Kern für</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Es konnte keine Datei mit der in 'Erweiterung zum Starten nach der Extraktion' definierten Erweiterung im extrahierten Ordner gefunden werden.</system:String>
     <system:String x:Key="Cover">Cover</system:String>
     <system:String x:Key="Covernotfound">Cover nicht gefunden</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Bildpaket herunterladen und extrahieren (falls verfügbar)</system:String>
     <system:String x:Key="DownloadandInstall">Emulator und Core herunterladen und installieren</system:String>
     <system:String x:Key="DownloadCanceled">Download abgebrochen</system:String>
-    <system:String x:Key="DownloadComplete">Download abgeschlossen</system:String>
     <system:String x:Key="DownloadCore">Core herunterladen</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">erfolgreich heruntergeladen und entpackt.</system:String>
     <system:String x:Key="DownloadEmulator">Emulator herunterladen</system:String>
-    <system:String x:Key="DownloadError">Download-Fehler</system:String>
     <system:String x:Key="Downloaderror2">Fehler beim Herunterladen.</system:String>
     <system:String x:Key="DownloadImagePack">Bildpaket herunterladen</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Herunterladen oder Extrahieren fehlgeschlagen</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Emulator 5 Speicherort</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (kann erforderlich sein)</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameter</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Der Emulator-Download wurde abgebrochen.</system:String>
-    <system:String x:Key="Emulatorfor">Emulator für</system:String>
     <system:String x:Key="EmulatorLocation">Speicherort des Emulators</system:String>
     <system:String x:Key="EmulatorName">Name des Emulators</system:String>
     <system:String x:Key="EmulatorParameters">Parameter des Emulators</system:String>
     <system:String x:Key="Enable">Aktivieren</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Stellen Sie sicher, dass der 'Simple Launcher'-Ordner in einem beschreibbaren Verzeichnis liegt.</system:String>
     <system:String x:Key="Error">Fehler</system:String>
-    <system:String x:Key="Errordownloadingemulator">Fehler beim Herunterladen des Emulators.</system:String>
     <system:String x:Key="Exit">Beenden</system:String>
     <system:String x:Key="ExpertMode">Expertenmodus</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Erweiterung zum Starten nach der Extraktion" ist erforderlich, wenn "Datei vor dem Start extrahieren" auf "Wahr" gesetzt ist.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Wenn Sie ihn leer lassen, erstellt die Anwendung einen Ordner für dieses System im Ordner 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Der System-Bildordner existiert nicht oder ist nicht angegeben.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Herunterladen oder Extrahieren des Bildpakets fehlgeschlagen!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Der Image-Pack-Download wurde abgebrochen.</system:String>
-    <system:String x:Key="Imagepackfor">Bildpaket für</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Falls das Bildpaket nicht verfügbar ist, können Sie Bilder für dieses System auf den folgenden Webseiten herunterladen:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>

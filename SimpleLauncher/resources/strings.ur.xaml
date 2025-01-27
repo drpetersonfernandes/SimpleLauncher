@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">کوبالٹ</system:String>
     <system:String x:Key="Confirmation">تصدیق</system:String>
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
-    <system:String x:Key="Coredownloadwascanceled">کور ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
-    <system:String x:Key="Corefor">کے لیے کور</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'ایکسٹریکشن کے بعد چلائی جانے والی ایکسٹینشنز' کے تحت دی گئی ایکسٹینشن کے ساتھ فائل ایکسٹریکٹ کردہ فولڈر میں نہیں ملی۔</system:String>
     <system:String x:Key="Cover">کور</system:String>
     <system:String x:Key="Covernotfound">کور نہیں ملا</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">امیج پیک ڈاؤنلوڈ اور ایکسٹریکٹ کریں (اگر دستیاب ہو)</system:String>
     <system:String x:Key="DownloadandInstall">ایمولیٹر اور کور ڈاؤنلوڈ اور انسٹال کریں</system:String>
     <system:String x:Key="DownloadCanceled">ڈاؤن لوڈ منسوخ</system:String>
-    <system:String x:Key="DownloadComplete">ڈاؤن لوڈ مکمل</system:String>
     <system:String x:Key="DownloadCore">کور ڈاؤنلوڈ کریں</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">کامیابی سے ڈاؤن لوڈ اور ایکسٹریکٹ کیا گیا۔</system:String>
     <system:String x:Key="DownloadEmulator">ایمولیٹر ڈاؤنلوڈ کریں</system:String>
-    <system:String x:Key="DownloadError">ڈاؤن لوڈ کی خرابی</system:String>
     <system:String x:Key="Downloaderror2">ڈاؤن لوڈ کی خرابی۔</system:String>
     <system:String x:Key="DownloadImagePack">امیج پیک ڈاؤن لوڈ کریں</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ڈاؤن لوڈ یا نکالنے میں ناکامی</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">ایمولیٹر 5 لوکیشن</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">ایمولیٹر 5 کا نام (شاید ضروری ہو)</system:String>
     <system:String x:Key="Emulator5Parameters">ایمولیٹر 5 پیرامیٹرز</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">ایمولیٹر ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
-    <system:String x:Key="Emulatorfor">کے لیے ایمولیٹر</system:String>
     <system:String x:Key="EmulatorLocation">ایمولیٹر کا مقام</system:String>
     <system:String x:Key="EmulatorName">ایمولیٹر کا نام</system:String>
     <system:String x:Key="EmulatorParameters">ایمولیٹر کے پیرامیٹرز</system:String>
     <system:String x:Key="Enable">فعال کریں</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">یقینی بنائیں کہ 'Simple Launcher' فولڈر ایک ایسی ڈائریکٹری میں موجود ہے جس میں لکھنے کی اجازت ہو۔</system:String>
     <system:String x:Key="Error">خرابی</system:String>
-    <system:String x:Key="Errordownloadingemulator">ایمولیٹر ڈاؤن لوڈ کرنے میں خرابی۔</system:String>
     <system:String x:Key="Exit">خروج</system:String>
     <system:String x:Key="ExpertMode">ماہر موڈ</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">ایکسٹریکشن کے بعد لانچ کرنے کا ایکسٹینشن ضروری ہے۔</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">اگر آپ اسے خالی چھوڑ دیتے ہیں تو، ایپلیکیشن اس نظام کے لیے 'roms' فولڈر کے اندر ایک فولڈر خود بنائے گی۔</system:String>
     <system:String x:Key="ImageFolderNotExist">سسٹم امیج فولڈر موجود نہیں یا مخصوص نہیں ہے۔</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">امیج پیک کو ڈاؤن لوڈ یا نکالنے میں ناکام!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">امیج پیک ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
-    <system:String x:Key="Imagepackfor">امیج پیک کے لئے</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">اگر امیج پیک دستیاب نہیں ہے، تو آپ درج ذیل ویب سائٹس سے اس نظام کے تصاویر ڈاؤنلوڈ کر سکتے ہیں:</system:String>
     <system:String x:Key="Indigo">نیلا جامنی</system:String>
     <system:String x:Key="Info">معلومات</system:String>

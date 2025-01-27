@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
-    <system:String x:Key="Coredownloadwascanceled">Çekirdek (Core) indirme işlemi iptal edildi.</system:String>
-    <system:String x:Key="Corefor">Çekirdek (Core) için</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
     <system:String x:Key="Cover">Kapak</system:String>
     <system:String x:Key="Covernotfound">Kapak bulunamadı</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Görüntü paketini indir ve çıkar (uygunsa)</system:String>
     <system:String x:Key="DownloadandInstall">Emülatörü ve çekirdeği indirip yükle</system:String>
     <system:String x:Key="DownloadCanceled">İndirme iptal edildi</system:String>
-    <system:String x:Key="DownloadComplete">İndirme Tamamlandı</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">başarıyla indirildi ve çıkarıldı.</system:String>
     <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
-    <system:String x:Key="DownloadError">İndirme hatası</system:String>
     <system:String x:Key="Downloaderror2">İndirme hatası.</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Emülatör 5 konumu</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emülatör 5 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">Emülatör indirme işlemi iptal edildi.</system:String>
-    <system:String x:Key="Emulatorfor">Emülatör için</system:String>
     <system:String x:Key="EmulatorLocation">Emülatör Konumu</system:String>
     <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
     <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
     <system:String x:Key="Enable">Etkinleştir</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="Error">Hata</system:String>
-    <system:String x:Key="Errordownloadingemulator">Emülatör indirilirken bir hata oluştu.</system:String>
     <system:String x:Key="Exit">Çıkış</system:String>
     <system:String x:Key="ExpertMode">Uzman Mod</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘Çıkarmadan Sonra Başlatılacak Uzantı’, ‘Başlatmadan Önce Dosyayı Çıkar’ etkin olduğunda gereklidir.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Boş bırakırsanız, uygulama bu sistem için 'roms' klasörünün içine bir klasör oluşturacaktır.</system:String>
     <system:String x:Key="ImageFolderNotExist">Sistem görselleri klasörü mevcut değil veya belirtilmemiş.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Görsel paketi indirme veya ayıklama işlemi başarısız oldu!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">Görsel paketi indirme işlemi iptal edildi.</system:String>
-    <system:String x:Key="Imagepackfor">Görsel paketi:</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Görüntü paketi mevcut değilse, bu sistem için görüntüleri şu web sitelerinden indirebilirsiniz:</system:String>
     <system:String x:Key="Indigo">Çivit Mavisi</system:String>
     <system:String x:Key="Info">Bilgi</system:String>

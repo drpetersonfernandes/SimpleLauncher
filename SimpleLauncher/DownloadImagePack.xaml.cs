@@ -193,7 +193,7 @@ public partial class DownloadImagePack
             string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
             string ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
             string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
-            string downloadorExtractionFailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or Extraction Failed";
+            string downloadorExtractionFailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
             MessageBox.Show($"{imagePackdownloadorextraction2}\n\n" +
                             $"{grantSimpleLauncheradministrative2}\n\n" +
                             $"{ensuretheSimpleLauncher2}\n\n" +
@@ -219,7 +219,7 @@ public partial class DownloadImagePack
 
         void DownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
         {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error.";
+            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
             string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
@@ -383,7 +383,7 @@ public partial class DownloadImagePack
 
         void DownloadErrorMessageBox()
         {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error.";
+            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
             string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{downloaderror2}\n\n" +

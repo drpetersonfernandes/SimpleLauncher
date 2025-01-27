@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">كوبالت</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
-    <system:String x:Key="Coredownloadwascanceled">تم إلغاء تنزيل النواة.</system:String>
-    <system:String x:Key="Corefor">النواة لـ</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">لم يتم العثور على ملف بالامتداد المحدد في 'الامتداد المطلوب تشغيله بعد الاستخراج' داخل المجلد المُستخرج.</system:String>
     <system:String x:Key="Cover">الغلاف</system:String>
     <system:String x:Key="Covernotfound">الغلاف غير موجود</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">تنزيل واستخراج حزمة الصور (إن وجدت)</system:String>
     <system:String x:Key="DownloadandInstall">تنزيل وتثبيت المحاكي والنواة</system:String>
     <system:String x:Key="DownloadCanceled">تم إلغاء التنزيل</system:String>
-    <system:String x:Key="DownloadComplete">اكتمل التنزيل</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">تم التنزيل والاستخراج بنجاح.</system:String>
     <system:String x:Key="DownloadEmulator">تنزيل المحاكي</system:String>
-    <system:String x:Key="DownloadError">خطأ في التنزيل</system:String>
     <system:String x:Key="Downloaderror2">خطأ في التحميل.</system:String>
     <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">موقع المحاكي 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">تم إلغاء تنزيل المحاكي.</system:String>
-    <system:String x:Key="Emulatorfor">محاكي لـ</system:String>
     <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
     <system:String x:Key="Enable">تفعيل</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' هو دليل قابل للكتابة.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
-    <system:String x:Key="Errordownloadingemulator">خطأ أثناء تنزيل المحاكي.</system:String>
     <system:String x:Key="Exit">خروج</system:String>
     <system:String x:Key="ExpertMode">الوضع المتقدم</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'الامتداد المطلوب تشغيله بعد الاستخراج' مطلوب عند تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">إذا تركته فارغًا، سيقوم التطبيق بإنشاء مجلد لهذا النظام داخل مجلد 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">مجلد الصور للنظام غير موجود أو لم يتم تحديده.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">فشل تحميل أو استخراج حزمة الصور!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">تم إلغاء تنزيل حزمة الصور.</system:String>
-    <system:String x:Key="Imagepackfor">حزمة الصور لـ</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">في حال عدم توفر حزمة الصور، يمكنك تنزيل الصور لهذا النظام من المواقع الإلكترونية التالية:</system:String>
     <system:String x:Key="Indigo">نيلي</system:String>
     <system:String x:Key="Info">معلومات</system:String>

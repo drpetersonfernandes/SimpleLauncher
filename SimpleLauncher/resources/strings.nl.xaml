@@ -69,8 +69,6 @@
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
-    <system:String x:Key="Coredownloadwascanceled">De core-download is geannuleerd.</system:String>
-    <system:String x:Key="Corefor">Core voor</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
     <system:String x:Key="Cover">Voorblad</system:String>
     <system:String x:Key="Covernotfound">Voorblad niet gevonden</system:String>
@@ -96,11 +94,8 @@
     <system:String x:Key="DownloadandExtractImage">Download en pak het afbeeldingspakket uit (indien beschikbaar)</system:String>
     <system:String x:Key="DownloadandInstall">Download en installeer de emulator en de kern</system:String>
     <system:String x:Key="DownloadCanceled">Download geannuleerd</system:String>
-    <system:String x:Key="DownloadComplete">Download voltooid</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
-    <system:String x:Key="downloadedandextractedsuccessfully">succesvol gedownload en geëxtraheerd.</system:String>
     <system:String x:Key="DownloadEmulator">Download emulator</system:String>
-    <system:String x:Key="DownloadError">Downloadfout</system:String>
     <system:String x:Key="Downloaderror2">Downloadfout.</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
@@ -137,15 +132,12 @@
     <system:String x:Key="Emulator5Location">Locatie van emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Naam van emulator 5 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
-    <system:String x:Key="Emulatordownloadwascanceled">De emulator-download is geannuleerd.</system:String>
-    <system:String x:Key="Emulatorfor">Emulator voor</system:String>
     <system:String x:Key="EmulatorLocation">Locatie van de emulator</system:String>
     <system:String x:Key="EmulatorName">Naam van de emulator</system:String>
     <system:String x:Key="EmulatorParameters">Parameters van de emulator</system:String>
     <system:String x:Key="Enable">Inschakelen</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
     <system:String x:Key="Error">Fout</system:String>
-    <system:String x:Key="Errordownloadingemulator">Fout bij het downloaden van de emulator.</system:String>
     <system:String x:Key="Exit">Afsluiten</system:String>
     <system:String x:Key="ExpertMode">Expertmodus</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">De 'Extensie om na extractie te starten' is vereist wanneer 'Bestand extraheren vóór starten' is ingeschakeld.</system:String>
@@ -186,8 +178,6 @@
     <system:String x:Key="Ifyouleaveitempty">Als je dit leeg laat, maakt de applicatie een map aan voor dit systeem in de map 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">De systeemafbeeldingenmap bestaat niet of is niet opgegeven.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">De download of extractie van het afbeeldingspakket is mislukt!</system:String>
-    <system:String x:Key="ImagePackdownloadwascanceled">De afbeeldingenset-download is geannuleerd.</system:String>
-    <system:String x:Key="Imagepackfor">Beeldpakket voor</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Als het afbeeldingspakket niet beschikbaar is, kun je afbeeldingen voor dit systeem downloaden via de volgende websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Informatie</system:String>
