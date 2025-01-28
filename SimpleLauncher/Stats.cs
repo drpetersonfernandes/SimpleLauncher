@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -9,12 +11,13 @@ namespace SimpleLauncher;
 public static class Stats
 {
     private static string _apiKey;
-    private static readonly string PrimaryApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
-    private static readonly string BackupApiUrl = "https://www.purelogiccode.com/simplelauncher/stats.php";
+    private static readonly string ApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
+    private static HttpClient _httpClient;
 
     static Stats()
     {
         LoadConfiguration();
+        InitializeHttpClient();
     }
 
     private static void LoadConfiguration()
@@ -24,77 +27,82 @@ public static class Stats
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
             _apiKey = config["ApiKey"]?.ToString();
-        }
-    }
-
-    public static async Task CallApiAsync()
-    {
-        using var client = new HttpClient();
-        if (!string.IsNullOrEmpty(_apiKey))
-        {
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
+            if (string.IsNullOrEmpty(_apiKey))
+            {
+                throw new InvalidOperationException("API Key is missing or empty in the configuration file.");
+            }
         }
         else
         {
-            string errorMessage = "API Key is missing in the CallApiAsync method.";
-            Exception ex = new Exception(errorMessage);
-            await LogErrors.LogErrorAsync(ex, errorMessage);
-            return;
+            throw new FileNotFoundException($"Configuration file not found: {configFile}");
         }
-
-        int maxAttempts = 2;
-
-        // Try the primary API first
-        if (await TryApiAsync(client, PrimaryApiUrl, maxAttempts))
-        {
-            return; // Success
-        }
-
-        // Fallback to the backup API if the primary API fails
-        if (await TryApiAsync(client, BackupApiUrl, maxAttempts))
-        {
-            return; // Success
-        }
-
-        string finalErrorMessage = "Both primary and backup APIs failed after multiple attempts.";
-        await LogErrors.LogErrorAsync(new Exception(finalErrorMessage), finalErrorMessage);
     }
 
-    private static async Task<bool> TryApiAsync(HttpClient client, string apiUrl, int maxAttempts)
+    private static void InitializeHttpClient()
     {
-        int attempt = 0;
-        while (attempt < maxAttempts)
+        _httpClient = new HttpClient();
+        if (!string.IsNullOrEmpty(_apiKey))
         {
-            try
-            {
-                HttpResponseMessage response = await client.PostAsync(apiUrl, null);
-                response.EnsureSuccessStatusCode();
-                return true; // Success
-            }
-            catch (HttpRequestException ex)
-            {
-                if (attempt < maxAttempts - 1)
-                {
-                    await Task.Delay(2000); // Wait 2 seconds before retrying
-                }
-                else
-                {
-                    string errorMessage = $"There was an error communicating with the stats API at {apiUrl}." +
-                                          $"Exception type: {ex.GetType().Name}" +
-                                          $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, errorMessage);
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = $"There was an unexpected error in CallApiAsync method while using {apiUrl}." +
-                                      $"Exception type: {ex.GetType().Name}" +
-                                      $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-                break; // Exit if it's not a HttpRequestException
-            }
-            attempt++;
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
-        return false; // Failed after max attempts
+    }
+
+    public static async Task CallApiAsync(string emulatorName = null)
+    {
+        if (await TryApiAsync(ApiUrl, emulatorName))
+        {
+            return; // Success
+        }
+
+        // Notify developer
+        string finalErrorMessage = "API request failed.";
+        Exception ex = new HttpRequestException(finalErrorMessage);
+        await LogErrors.LogErrorAsync(ex, finalErrorMessage);
+    }
+
+    private static async Task<bool> TryApiAsync(string apiUrl, string emulatorName)
+    {
+        try
+        {
+            // Prepare the request content
+            var requestData = new
+            {
+                emulatorName = emulatorName ?? "Unknown" // Default to "Unknown" if null
+            };
+            var jsonContent = new StringContent(
+                JsonSerializer.Serialize(requestData),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            // Send the POST request
+            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = $"API responded with an error. Status Code: {response.StatusCode}. " +
+                                      $"EmulatorName: {emulatorName ?? "Unknown"}.";
+                await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
+                return false;
+            }
+
+            return true; // Success
+        }
+        catch (HttpRequestException ex)
+        {
+            string errorMessage = $"Error communicating with the API at {apiUrl}. " +
+                                  $"EmulatorName: {emulatorName ?? "Unknown"}. " +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+        }
+        catch (Exception ex)
+        {
+            string errorMessage = $"Unexpected error while using {apiUrl}. " +
+                                  $"EmulatorName: {emulatorName ?? "Unknown"}. " +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+        }
+
+        return false; // Failed after exception
     }
 }

@@ -161,6 +161,12 @@ public static class GameLauncher
             {
                 mainWindow.PlayTime = systemPlayTime.PlayTime; // Update PlayTime property in MainWindow
             }
+            
+            // Send Emulator Usage Stats
+            if (emulatorComboBox.SelectedItem is not null)
+            {
+                _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString().ToLowerInvariant());
+            }
         }
 
         void InvalidFilePathMessageBox()
