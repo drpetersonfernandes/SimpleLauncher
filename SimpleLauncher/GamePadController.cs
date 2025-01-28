@@ -1,4 +1,5 @@
-﻿using SharpDX.XInput;
+﻿using SharpDX.DirectInput;
+using SharpDX.XInput;
 using System;
 using System.Threading;
 using System.Windows;
@@ -14,12 +15,12 @@ public class GamePadController : IDisposable
     // Add an Action for error logging
     public Action<Exception, string> ErrorLogger { get; set; }
 
-    //private readonly Action<Exception, string> _errorLogger;
     private const int RefreshRate = 60;
     private const float MaxThumbValue = 32767.0f;  // Maximum thumbstick value for normalization.
 
     private readonly Timer _timer;
-    private readonly Controller _controller;
+    private Controller _xboxController;
+    private Joystick _playStationController;
     private readonly IMouseSimulator _mouseSimulator;
 
     private bool _wasADown;
@@ -33,57 +34,168 @@ public class GamePadController : IDisposable
 
     private GamePadController()
     {
-        _controller = new Controller(UserIndex.One);
+        // Initialize Xbox Controller
+        _xboxController = new Controller(UserIndex.One);
+
+        // Initialize PlayStation Controller using DirectInput
+        var directInput = new DirectInput();
+        var devices = directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+        if (devices.Count > 0)
+        {
+            _playStationController = new Joystick(directInput, devices[0].InstanceGuid);
+            _playStationController.Acquire();
+        }
+
         _mouseSimulator = new InputSimulator().Mouse;
         _timer = new Timer(_ => Update());
     }
 
     public void Start()
     {
-        _timer.Change(0, 1000 / RefreshRate);
-        IsRunning = true;
+        try
+        {
+            if (_isDisposed)
+            {
+                // Reinitialize Xbox controller only if null or disconnected
+                if (_xboxController == null || !_xboxController.IsConnected)
+                {
+                    _xboxController = new Controller(UserIndex.One);
+                }
+
+                // Reinitialize PlayStation controller
+                if (_playStationController == null)
+                {
+                    var directInput = new DirectInput();
+                    var devices = directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+                    if (devices.Count > 0)
+                    {
+                        _playStationController = new Joystick(directInput, devices[0].InstanceGuid);
+                        _playStationController.Acquire();
+                    }
+                }
+
+                _isDisposed = false;
+            }
+
+            _timer.Change(0, 1000 / RefreshRate);
+            IsRunning = true;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            ErrorLogger?.Invoke(ex, $"Error in GamePadController Start method.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
+
+            // Notify user
+            GamePadErrorMessageBox();
+        }
     }
 
     public void Stop()
     {
-        IsRunning = false;
-        if (_timer != null && !_isDisposed)
-            _timer.Change(Timeout.Infinite, Timeout.Infinite);
+        try
+        {
+            IsRunning = false;
+            if (_timer != null && !_isDisposed)
+                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            ErrorLogger?.Invoke(ex, $"Error in GamePadController Stop method.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
+
+            // Notify user
+            GamePadErrorMessageBox();
+        }
     }
 
     public void Dispose()
     {
-        if (_isDisposed) return;
+        try
+        {
+            if (_isDisposed) return;
 
+            Stop();
+            _timer?.Dispose();
+            _playStationController?.Unacquire();
+            _playStationController = null;
+
+            _isDisposed = true;
+
+            GC.SuppressFinalize(this);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            ErrorLogger?.Invoke(ex, $"Error in GamePadController Dispose method.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
+
+            // Notify user
+            GamePadErrorMessageBox();
+        }
+    }
+    
+    private void Restart()
+    {
         Stop();
-        _timer?.Dispose();
-        _isDisposed = true;
-
-        GC.SuppressFinalize(this);
+        Dispose();
+        Start();
     }
 
     private void Update()
     {
         try
         {
-            _controller.GetState(out var state);
-            HandleMovement(state);
-            HandleScroll(state);
-            HandleLeftButton(state);
-            HandleRightButton(state);
+            if (_xboxController.IsConnected)
+            {
+                // Handle Xbox Controller Input
+                _xboxController.GetState(out var state);
+                HandleMovement(state);
+                HandleScroll(state);
+                HandleLeftButton(state);
+                HandleRightButton(state);
+            }
+            else if (_playStationController != null)
+            {
+                // Handle PlayStation Controller Input
+                var state = _playStationController.GetCurrentState();
+                HandlePlayStationMovement(state);
+                HandlePlayStationButtons(state);
+            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
 
-            MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
-                            "Running 'Simple Launcher' with administrative access may fix this problem.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                
-            Instance2.Stop();
+            // Notify user
+            GamePadErrorWithRestartMessageBox();
+
+            // Restart GamePad instance
+            Restart();
         }
+
+        void GamePadErrorWithRestartMessageBox()
+        {
+            MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
+                            "Running 'Simple Launcher' with administrative access may fix this problem.\n\n" +
+                            "'Simple Launcher' will restart the GamePad instance",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private static void GamePadErrorMessageBox()
+    {
+        MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
+                        "Running 'Simple Launcher' with administrative access may fix this problem.\n\n" +
+                        "The error was reported to the developer that will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private void HandleRightButton(State state)
@@ -113,6 +225,23 @@ public class GamePadController : IDisposable
     {
         var (x, y) = ProcessThumbStick(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, _deadZoneX, _deadZoneY);
         _mouseSimulator.MoveMouseBy((int)x, -(int)y);
+    }
+    
+    private void HandlePlayStationMovement(JoystickState state)
+    {
+        // Map PlayStation thumbstick inputs
+        var x = state.X / MaxThumbValue;
+        var y = state.Y / MaxThumbValue;
+        _mouseSimulator.MoveMouseBy((int)x, -(int)y);
+    }
+    
+    private void HandlePlayStationButtons(JoystickState state)
+    {
+        // Map PlayStation buttons
+        if (state.Buttons[0]) _mouseSimulator.LeftButtonDown();  // Cross Button
+        if (!state.Buttons[0]) _mouseSimulator.LeftButtonUp();
+        if (state.Buttons[1]) _mouseSimulator.RightButtonDown(); // Circle Button
+        if (!state.Buttons[1]) _mouseSimulator.RightButtonUp();
     }
 
     private static (float, float) ProcessThumbStick(short thumbX, short thumbY, float dzX, float dzY)
