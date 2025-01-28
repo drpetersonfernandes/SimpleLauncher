@@ -481,16 +481,6 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private static void MethodErrorMessageBox()
-    {
-        string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
     private static bool IsWritableDirectory(string path)
     {
         try
@@ -2292,6 +2282,16 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
                 pleaseReinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+    
+    private static void MethodErrorMessageBox()
+    {
+        string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
 }
