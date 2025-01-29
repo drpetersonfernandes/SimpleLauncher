@@ -191,7 +191,7 @@ public class GamePadController : IDisposable
             //                         $"Exception type: {ex.GetType().Name}\n" +
             //                         $"Exception details: {ex.Message}");
 
-            // ReconnectControllers();
+            ReconnectControllers();
 
             // // Notify user
             // GamePadErrorMessageBox();
@@ -225,11 +225,11 @@ public class GamePadController : IDisposable
                         _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
                         found = true;
                         
-                        // Notify user of reconnection
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                        });
+                        // // Notify user of reconnection
+                        // Application.Current.Dispatcher.Invoke(() =>
+                        // {
+                        //     MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // });
                        
                         break;
                     }
@@ -237,23 +237,23 @@ public class GamePadController : IDisposable
 
                 if (!found)
                 {
-                    _directInputController = null;
-                    _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
-                    
-                    // Notify user of disconnection and ask for action
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        var result = MessageBox.Show(
-                            $"Controller was disconnected and 'Simple Launcher' could not automatic reconnect.\n\n" +
-                            $"Do you want to restart 'Simple Launcher' or ignore the error?",
-                            "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning );
+                    // _directInputController = null;
+                    // _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
 
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            // Restart the application
-                            RestartApplication();
-                        }
-                    });
+                    // // Notify user of disconnection and ask for action
+                    // Application.Current.Dispatcher.Invoke(() =>
+                    // {
+                    //     var result = MessageBox.Show(
+                    //         $"Controller was disconnected.\n\n" +
+                    //         $"Do you want to restart 'Simple Launcher'?",
+                    //         "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning );
+                    //
+                    //     if (result == MessageBoxResult.Yes)
+                    //     {
+                    //         // Restart the application
+                    //         RestartApplication();
+                    //     }
+                    // });
                 }
             }
         }
