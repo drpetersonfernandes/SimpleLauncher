@@ -49,8 +49,6 @@ public class GamePadController : IDisposable
     private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
     private DateTime _lastReconnectAttempt = DateTime.MinValue; // Track the last reconnection attempt
     private const int ReconnectDelayMilliseconds = 5000; // Delay between reconnection attempts
-    private int _retryCount;
-    private const int MaxRetryAttempts = 3;
 
     private GamePadController()
     {
@@ -186,14 +184,14 @@ public class GamePadController : IDisposable
                 HandleDirectInputScroll(state);
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
+            // // Notify developer
+            // ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
+            //                         $"Exception type: {ex.GetType().Name}\n" +
+            //                         $"Exception details: {ex.Message}");
 
-            ReconnectControllers();
+            // ReconnectControllers();
 
             // // Notify user
             // GamePadErrorMessageBox();
@@ -204,10 +202,6 @@ public class GamePadController : IDisposable
     {
         try
         {
-            // Prevent overlapping attempts
-            if (_retryCount >= MaxRetryAttempts)
-                return;
-            
             // Reinitialize Xbox controller
             _xinputController = new Controller(UserIndex.One);
 
@@ -231,9 +225,6 @@ public class GamePadController : IDisposable
                         _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
                         found = true;
                         
-                        // Reset retry count on successful reconnection
-                        _retryCount = 0;
-                        
                         // Notify user of reconnection
                         Application.Current.Dispatcher.Invoke(() =>
                         {
@@ -246,54 +237,35 @@ public class GamePadController : IDisposable
 
                 if (!found)
                 {
-                    // _directInputController = null;
-                    // _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
+                    _directInputController = null;
+                    _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
                     
                     // Notify user of disconnection and ask for action
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        if (_retryCount < MaxRetryAttempts)
-                        {
-                            var result = MessageBox.Show(
-                                $"Controller disconnected. Retry {_retryCount + 1}/{MaxRetryAttempts}.\n\n" +
-                                $"Click Yes to retry reconnecting or No to restart 'Simple Launcher'.",
-                                "Controller Status", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning
-                            );
+                        var result = MessageBox.Show(
+                            $"Controller was disconnected and 'Simple Launcher' could not automatic reconnect.\n\n" +
+                            $"Do you want to restart 'Simple Launcher' or ignore the error?",
+                            "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning );
 
-                            if (result == MessageBoxResult.Yes)
-                            {
-                                // Increment retry count and wait before retrying
-                                _retryCount++;
-                                ReconnectControllers();
-                            }
-                            else if (result == MessageBoxResult.No)
-                            {
-                                // Restart the application
-                                RestartApplication();
-                            }
-                            // If Cancel, do nothing (user stopped retrying)
-                        }
-                        else
+                        if (result == MessageBoxResult.Yes)
                         {
-                            // Retry limit reached
-                            MessageBox.Show(
-                                "Maximum retry attempts reached. Please check your controller connection and restart the application.",
-                                "Controller Status", MessageBoxButton.OK, MessageBoxImage.Error
-                            );
+                            // Restart the application
+                            RestartApplication();
                         }
                     });
                 }
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
+            // // Notify developer
+            // ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
+            //                         $"Exception type: {ex.GetType().Name}\n" +
+            //                         $"Exception details: {ex.Message}");
 
-            // Notify user
-            GamePadErrorMessageBox();
+            // // Notify user
+            // GamePadErrorMessageBox();
         }
     }
     
