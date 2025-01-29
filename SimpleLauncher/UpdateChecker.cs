@@ -25,7 +25,8 @@ public static class UpdateChecker
             }
             catch
             {
-                return "Unknown";
+                string unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+                return unknown2;
             }
         }
     }
@@ -53,6 +54,7 @@ public static class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify user
             string contextMessage = $"Error checking for updates.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
@@ -81,25 +83,41 @@ public static class UpdateChecker
                 }
                 else
                 {
-                    string thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
-                    string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-                    string noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
-                    MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
-                                                $"{thecurrentversionis2} {CurrentVersion}",
-                        noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Notify user
+                    ThereIsNoUpdateAvailableMessageBox();
                 }
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"Error checking for updates.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
-                
-            MessageBox.Show(mainWindow, $"There was an error checking for updates.\n\n" +
-                                        $"Maybe there is a problem with your internet access or the GitHub server is offline.",
-                "Error checking for updates", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            // Notify user
+            ErrorCheckingForUpdatesMessageBox();
+        }
+
+        void ThereIsNoUpdateAvailableMessageBox()
+        {
+            string thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+            string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+            string noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+            MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
+                                        $"{thecurrentversionis2} {CurrentVersion}",
+                noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        void ErrorCheckingForUpdatesMessageBox()
+        {
+            string therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
+            string maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates2}\n\n" +
+                                        $"{maybethereisaproblemwithyourinternet2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 
@@ -127,14 +145,24 @@ public static class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"Error reinstalling 'Simple Launcher'.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
-                
-            MessageBox.Show(mainWindow, $"There was an error reinstalling 'Simple Launcher'.\n\n" +
-                                        $"The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            // Notify user
+            ErrorReinstallingSimpleLauncherMessageBox();
+        }
+
+        void ErrorReinstallingSimpleLauncherMessageBox()
+        {
+            string therewasanerrorreinstallingSimpleLauncher2 = (string)Application.Current.TryFindResource("TherewasanerrorreinstallingSimpleLauncher") ?? "There was an error reinstalling 'Simple Launcher'.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(mainWindow, $"{therewasanerrorreinstallingSimpleLauncher2}\n\n" +
+                                        $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
     
@@ -143,17 +171,23 @@ public static class UpdateChecker
     {
         try
         {
-            string thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
-            string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-            string theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
-            string doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
-            string updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
-            string message = $"{thereisasoftwareupdateavailable2}\n" +
-                             $"{thecurrentversionis2} {currentVersion}\n" +
-                             $"{theupdateversionis2} {latestVersion}\n\n" +
-                             $"{doyouwanttodownloadandinstall2}";
-            MessageBoxResult result = MessageBox.Show(owner, message,
-                updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
+            var result = DoYouWantToUpdateMessageBox();
+            
+            MessageBoxResult DoYouWantToUpdateMessageBox()
+            {
+                string thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+                string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+                string theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+                string doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+                string updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+                string message = $"{thereisasoftwareupdateavailable2}\n" +
+                                 $"{thecurrentversionis2} {currentVersion}\n" +
+                                 $"{theupdateversionis2} {latestVersion}\n\n" +
+                                 $"{doyouwanttodownloadandinstall2}";
+                MessageBoxResult messageBoxResult1 = MessageBox.Show(owner, message,
+                    updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                return messageBoxResult1;
+            }
 
             if (result == MessageBoxResult.Yes)
             {
@@ -203,38 +237,27 @@ public static class UpdateChecker
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string contextMessage = $"There was an error updating the application.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, contextMessage);
-                    
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        var messageBoxResult = MessageBox.Show(
-                            "There was an error updating the application.\n\n" +
-                            "Would you like to be redirected to the download page to update it manually?",
-                            "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                        if (messageBoxResult == MessageBoxResult.Yes)
-                        {
-                            string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
-                            Process.Start(new ProcessStartInfo
-                            {
-                                FileName = downloadPageUrl,
-                                UseShellExecute = true
-                            });
-                        }
+                        // Notify user
+                        InstallUpdateManuallyMessageBox();
 
                         logWindow.Log("There was an error updating the application.");
                         logWindow.Log("Please update it manually.");
                         logWindow.Close();
-                        
                     });
                 }
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was an error updating the application.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
@@ -290,6 +313,7 @@ public static class UpdateChecker
             }
             catch (Exception ex)
             {
+                // Notify developer
                 string contextMessage = $"There was an error installing the application.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
@@ -297,20 +321,8 @@ public static class UpdateChecker
                     
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var messageBoxResult = MessageBox.Show(
-                        "There was an error installing the application.\n\n" +
-                        "Would you like to be redirected to the download page to install it manually?",
-                        "Installation Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = downloadPageUrl,
-                            UseShellExecute = true
-                        });
-                    }
+                    // Notify user
+                    InstallUpdateManuallyMessageBox();
 
                     logWindow.Log("There was an error updating the application.");
                     logWindow.Log("Please update it manually.");
@@ -319,6 +331,7 @@ public static class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was an error installing the application.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
@@ -373,19 +386,27 @@ public static class UpdateChecker
             Application.Current.Dispatcher.Invoke(() =>
             {
                 // Ask the user if they want to be redirected to the download page
-                var messageBoxResult = MessageBox.Show(
-                    "Updater.exe not found in the application directory.\n\n" +
-                    "Would you like to be redirected to the download page to download it manually?",
-                    "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                DownloadManuallyMessageBox();
 
-                if (messageBoxResult == MessageBoxResult.Yes)
+                void DownloadManuallyMessageBox()
                 {
-                    string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
-                    Process.Start(new ProcessStartInfo
+                    string updaterexenotfoundintheapplication2 = (string)Application.Current.TryFindResource("Updaterexenotfoundintheapplication") ?? "'Updater.exe' not found in the application directory.";
+                    string wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2 = (string)Application.Current.TryFindResource("WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage") ?? "Would you like to be redirected to the 'Simple Launcher' download page to download it manually?";
+                    string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                    var messageBoxResult = MessageBox.Show(
+                        $"{updaterexenotfoundintheapplication2}\n\n" +
+                        $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2}",
+                        error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        FileName = downloadPageUrl,
-                        UseShellExecute = true
-                    });
+                        string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = downloadPageUrl,
+                            UseShellExecute = true
+                        });
+                    }
                 }
 
                 logWindow.Close();
@@ -487,5 +508,26 @@ public static class UpdateChecker
     {
         Exception exception = new(message);
         _ = LogErrors.LogErrorAsync(exception, message);
+    }
+    
+    private static void InstallUpdateManuallyMessageBox()
+    {
+        string therewasanerrorinstallingorupdating2 = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
+        string wouldyouliketoberedirectedtothedownloadpage2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var messageBoxResult = MessageBox.Show(
+            $"{therewasanerrorinstallingorupdating2}\n\n" +
+            $"{wouldyouliketoberedirectedtothedownloadpage2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (messageBoxResult == MessageBoxResult.Yes)
+        {
+            string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = downloadPageUrl,
+                UseShellExecute = true
+            });
+        }
     }
 }
