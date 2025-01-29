@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace SimpleLauncher;
@@ -31,34 +32,67 @@ public class EasyModeConfig
         }
         catch (InvalidOperationException ex)
         {
-            ShowErrorMessage("The file 'easymode.xml' is corrupted or invalid. Please reinstall 'Simple Launcher'.", ex);
+            // Notify developer
+            string errorMessage = "The file 'easymode.xml' is corrupted or invalid.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Error Details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            ErrorLoadingEasyModeXmlMessageBox();
         }
-        catch (FileNotFoundException)
+        catch (FileNotFoundException ex)
         {
-            ShowErrorMessage($"The file 'easymode.xml' was not found. Please reinstall 'Simple Launcher'.");
+            // Notify developer
+            string errorMessage = "The file 'easymode.xml' was not found.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Error Details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            ErrorLoadingEasyModeXmlMessageBox();
         }
         catch (Exception ex)
         {
-            ShowErrorMessage("An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
-                             "The error was reported to the developer that will try to fix the issue.", ex);
+            // Notify developer
+            string errorMessage = "An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Error Details: {ex.Message}";
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            ErrorLoadingEasyModeXmlMessageBox();
         }
 
         // Return an empty config to avoid further null reference issues
         return new EasyModeConfig { Systems = [] };
+
+        void ErrorLoadingEasyModeXmlMessageBox()
+        {
+            string errorloadingthefileeasymodexml2 = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{errorloadingthefileeasymodexml2}\n\n" +
+                                         $"{theerrorwasreportedtothedeveloper2}\n" +
+                                         $"{doyouwanttoreinstallSimpleLauncher2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                MessageBox.Show(pleasereinstallSimpleLaunchermanually2, 
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 
-    private static void ShowErrorMessage(string message, Exception ex = null)
-    {
-        string errorDetails = ex != null ? $"{message}\n\n" +
-                                           $"Exception type: {ex.GetType().Name}\n" +
-                                           $"Error Details: {ex.Message}" : string.Empty;
-        Task logTask = LogErrors.LogErrorAsync(ex, errorDetails);
-        logTask.Wait(TimeSpan.FromSeconds(2));
-    }
-
-    /// <summary>
-    /// Validates the list of systems and excludes invalid ones.
-    /// </summary>
     public void Validate()
     {
         Systems = Systems?.Where(system => system.IsValid()).ToList() ?? new List<EasyModeSystemConfig>();
@@ -94,9 +128,6 @@ public class EasyModeSystemConfig
     [XmlElement("Emulators")]
     public EmulatorsConfig Emulators { get; set; }
 
-    /// <summary>
-    /// Validates the system configuration.
-    /// </summary>
     public bool IsValid()
     {
         // Validate only SystemName; Emulators and nested Emulator can be null.
