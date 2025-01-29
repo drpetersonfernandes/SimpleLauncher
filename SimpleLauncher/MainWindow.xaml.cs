@@ -368,7 +368,7 @@ public partial class MainWindow : INotifyPropertyChanged
     }
 
     // Used in cases that need to reload system.xml or update the pagination settings
-    private void MainWindow_Restart()
+    public void MainWindow_Restart()
     {
         SaveApplicationSettings();
 

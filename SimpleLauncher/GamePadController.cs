@@ -1,6 +1,7 @@
 ﻿using SharpDX.DirectInput;
 using SharpDX.XInput;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using WindowsInput;
@@ -48,6 +49,8 @@ public class GamePadController : IDisposable
     private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
     private DateTime _lastReconnectAttempt = DateTime.MinValue; // Track the last reconnection attempt
     private const int ReconnectDelayMilliseconds = 5000; // Delay between reconnection attempts
+    private int _retryCount;
+    private const int MaxRetryAttempts = 3;
 
     private GamePadController()
     {
@@ -201,6 +204,10 @@ public class GamePadController : IDisposable
     {
         try
         {
+            // Prevent overlapping attempts
+            if (_retryCount >= MaxRetryAttempts)
+                return;
+            
             // Reinitialize Xbox controller
             _xinputController = new Controller(UserIndex.One);
 
@@ -224,25 +231,56 @@ public class GamePadController : IDisposable
                         _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
                         found = true;
                         
+                        // Reset retry count on successful reconnection
+                        _retryCount = 0;
+                        
                         // Notify user of reconnection
                         Application.Current.Dispatcher.Invoke(() =>
                         {
                             MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
                         });
-                        
+                       
                         break;
                     }
                 }
 
                 if (!found)
                 {
-                    _directInputController = null;
-                    _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
+                    // _directInputController = null;
+                    // _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
                     
-                    // Notify user of disconnection
+                    // Notify user of disconnection and ask for action
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show("Controller disconnected. Attempting to reconnect...", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        if (_retryCount < MaxRetryAttempts)
+                        {
+                            var result = MessageBox.Show(
+                                $"Controller disconnected. Retry {_retryCount + 1}/{MaxRetryAttempts}.\n\n" +
+                                $"Click Yes to retry reconnecting or No to restart 'Simple Launcher'.",
+                                "Controller Status", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning
+                            );
+
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                // Increment retry count and wait before retrying
+                                _retryCount++;
+                                ReconnectControllers();
+                            }
+                            else if (result == MessageBoxResult.No)
+                            {
+                                // Restart the application
+                                RestartApplication();
+                            }
+                            // If Cancel, do nothing (user stopped retrying)
+                        }
+                        else
+                        {
+                            // Retry limit reached
+                            MessageBox.Show(
+                                "Maximum retry attempts reached. Please check your controller connection and restart the application.",
+                                "Controller Status", MessageBoxButton.OK, MessageBoxImage.Error
+                            );
+                        }
                     });
                 }
             }
@@ -257,6 +295,14 @@ public class GamePadController : IDisposable
             // Notify user
             GamePadErrorMessageBox();
         }
+    }
+    
+    private void RestartApplication()
+    {
+        // Restart the application
+        var currentExecutable = Process.GetCurrentProcess().MainModule?.FileName;
+        Process.Start(currentExecutable ?? throw new InvalidOperationException("Could not restart 'Simple Launcher'"));
+        Application.Current.Shutdown();
     }
     
     private static void GamePadErrorMessageBox()
