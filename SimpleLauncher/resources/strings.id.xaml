@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Buat Berkas Batch untuk Permainan Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Buat Berkas Batch untuk Permainan Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Buat Berkas Batch untuk Permainan Xbox 360 XBLA</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">membuat folder gambar untuk Sistem ini di</system:String>
     <system:String x:Key="Crimson">Merah Tua</system:String>
     <system:String x:Key="Cyan">Sian</system:String>
     <system:String x:Key="Dark">Gelap</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Unduhan Dibatalkan</system:String>
     <system:String x:Key="DownloadCore">Unduh Core</system:String>
     <system:String x:Key="DownloadEmulator">Unduh Emulator</system:String>
-    <system:String x:Key="Downloaderror2">Kesilapan muat turun.</system:String>
     <system:String x:Key="DownloadImagePack">Unduh Paket Gambar</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
     <system:String x:Key="DownloadProgress">Progres Unduhan</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">telah ditambahkan ke favorit.</system:String>
     <system:String x:Key="hasbeendeleted">telah dihapus.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">berhasil dihapus.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">Saya juga membuat folder untuk</system:String>
     <system:String x:Key="Icouldnotfindthefile">Saya tidak dapat menemukan file</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Jika memungkinkan, jalankan dengan hak administratif.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">Jika Anda mencoba menjalankan MAME, pastikan koleksi ROM Anda kompatibel dengan versi terbaru MAME.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">Anda dapat menambahkan sistem baru sekarang.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">Anda dapat menempatkan gambar sampul untuk Sistem ini di dalam folder ini.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Anda perlu memberikan lebih banyak hak istimewa kepada</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Komputer Anda mungkin tidak memberikan izin yang diperlukan agar 'Simple Launcher' dapat menjalankan file 'FindRomCover.exe'. Pastikan 'Simple Launcher' memiliki hak administratif yang diperlukan.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Alat yang dipilih tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
+    
+    <system:String x:Key="Downloaderror">Kesalahan unduhan.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Terjadi kesalahan baca/tulis file setelah unduhan.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' tidak dapat membuka folder 'temp' karena masalah akses.</system:String>
+    <system:String x:Key="Downloadfailed">Unduhan gagal.</system:String>
+    <system:String x:Key="Therewasanerroradding">Terjadi kesalahan saat menambahkan sistem ini.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Berikan akses administratif ke 'Simple Launcher' dan coba lagi.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Nonaktifkan antivirus Anda sementara dan coba lagi.</system:String>
+    <system:String x:Key="Extractionfailed">Ekstraksi gagal.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">Pengunduhan dan ekstraksi berhasil.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Tambahkan sistem ke 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">Langkah ke-4</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Kesalahan saat memuat file 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Silakan mulai ulang 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Jika itu tidak berhasil, instal ulang 'Simple Launcher'.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Silakan pilih folder sistem.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Silakan pilih folder gambar sistem.</system:String>
+    <system:String x:Key="SelectEmulator1">Pilih Emulator 1.</system:String>
+    <system:String x:Key="SelectEmulator2">Pilih Emulator 2.</system:String>
+    <system:String x:Key="SelectEmulator3">Pilih Emulator 3.</system:String>
+    <system:String x:Key="SelectEmulator4">Pilih Emulator 4.</system:String>
+    <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">Folder juga telah dibuat untuk</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">Aplikasi mungkin tidak memiliki izin yang cukup. Coba jalankan dengan hak administratif.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Selain itu, pastikan 'Simple Launcher' berada di folder yang dapat ditulis.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Sistem yang dipilih tidak ditemukan dalam dokumen XML!</system:String>
+    <system:String x:Key="Alert">Peringatan</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Terjadi kesalahan saat memeriksa pembaruan.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Terjadi kesalahan saat menginstal ulang 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Terjadi kesalahan saat menginstal atau memperbarui aplikasi.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan untuk menginstal atau memperbarui secara manual?</system:String>
     
 </ResourceDictionary>

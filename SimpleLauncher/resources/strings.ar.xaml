@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">إنشاء ملفات دفعة لألعاب Sega Model 3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">إنشاء ملفات دفعة لألعاب Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">إنشاء ملفات دفعة لألعاب Xbox 360 XBLA</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">تم إنشاء مجلد للصور لهذا النظام في</system:String>
     <system:String x:Key="Crimson">أحمر داكن</system:String>
     <system:String x:Key="Cyan">سماوي</system:String>
     <system:String x:Key="Dark">داكن</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">تم إلغاء التنزيل</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
     <system:String x:Key="DownloadEmulator">تنزيل المحاكي</system:String>
-    <system:String x:Key="Downloaderror2">خطأ في التحميل.</system:String>
     <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
     <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">تمت إضافته إلى المفضلة.</system:String>
     <system:String x:Key="hasbeendeleted">تم حذفه.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">تم حذفه بنجاح.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">كما قمت بإنشاء مجلدات لـ</system:String>
     <system:String x:Key="Icouldnotfindthefile">لم أتمكن من العثور على الملف</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">إذا أمكن، قم بتشغيله بصلاحيات إدارية.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">إذا كنت تحاول تشغيل MAME، تأكد من أن مجموعة ROM الخاصة بك متوافقة مع أحدث إصدار من MAME.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">يمكنك الآن إضافة نظام جديد.</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">تحتاج إلى منح المزيد من الامتيازات لـ</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">قد لا يكون جهاز الكمبيوتر الخاص بك قد منح الأذونات اللازمة لـ 'Simple Launcher' لتنفيذ ملف 'FindRomCover.exe'. يرجى التأكد من أن 'Simple Launcher' لديه الامتيازات الإدارية المطلوبة.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">لم يتم العثور على الأداة المحددة في المسار المتوقع.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
+    
+    <system:String x:Key="Downloaderror">خطأ في التنزيل.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
+    <system:String x:Key="Afilereadwriteerror">حدث خطأ في قراءة/كتابة الملف بعد تنزيله.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">تأكد من أن مجلد "Simple Launcher" موجود في دليل قابل للكتابة.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">تعذر على "Simple Launcher" فتح مجلد "temp" بسبب مشاكل في الوصول.</system:String>
+    <system:String x:Key="Downloadfailed">فشل التنزيل.</system:String>
+    <system:String x:Key="Therewasanerroradding">حدث خطأ أثناء إضافة هذا النظام.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">اختر مجلدًا يحتوي على "ROMs" أو "ISOs" لهذا النظام.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح "Simple Launcher" صلاحيات إدارية وحاول مرة أخرى.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">تأكد من أن مجلد "Simple Launcher" مجلد قابل للكتابة.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">قم بتعطيل برنامج مكافحة الفيروسات مؤقتًا وحاول مرة أخرى.</system:String>
+    <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">تم التنزيل والاستخراج بنجاح.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى "Simple Launcher"</system:String>
+    <system:String x:Key="4thstep">الخطوة الرابعة</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">حدث خطأ أثناء تحميل ملف "easymode.xml".</system:String>
+    <system:String x:Key="systemxmlnotfound">لم يتم العثور على "system.xml" داخل مجلد التطبيق.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">يرجى إعادة تشغيل "Simple Launcher".</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">إذا لم ينجح ذلك، يرجى إعادة تثبيت "Simple Launcher".</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">يرجى اختيار مجلد النظام.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">يرجى اختيار مجلد صور النظام.</system:String>
+    <system:String x:Key="SelectEmulator1">اختر المحاكي 1</system:String>
+    <system:String x:Key="SelectEmulator2">اختر المحاكي 2</system:String>
+    <system:String x:Key="SelectEmulator3">اختر المحاكي 3</system:String>
+    <system:String x:Key="SelectEmulator4">اختر المحاكي 4</system:String>
+    <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام "Simple Launcher" بإنشاء مجلد صور لهذا النظام في</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">كما قام بإنشاء مجلدات لـ</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل "Simple Launcher" في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">قد لا يكون للتطبيق صلاحيات كافية. حاول تشغيله بصلاحيات إدارية.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">بالإضافة إلى ذلك، تأكد من أن "Simple Launcher" موجود في مجلد قابل للكتابة.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">لم يتم العثور على النظام المحدد في مستند XML!</system:String>
+    <system:String x:Key="Alert">تنبيه</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">حدث خطأ أثناء التحقق من التحديثات.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">حدث خطأ أثناء إعادة تثبيت "Simple Launcher".</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">لم يتم العثور على "Updater.exe" في مجلد التطبيق.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل "Simple Launcher" لتحميله يدويًا؟</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">حدث خطأ أثناء تثبيت أو تحديث التطبيق.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
     
 </ResourceDictionary>

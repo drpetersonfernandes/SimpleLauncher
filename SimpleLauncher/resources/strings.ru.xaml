@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Создать пакеты для игр Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Создать пакеты для игр Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Создать пакеты для игр Xbox 360 XBLA</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">Создана папка изображений для этой системы в</system:String>
     <system:String x:Key="Crimson">Малиновый</system:String>
     <system:String x:Key="Cyan">Голубой</system:String>
     <system:String x:Key="Dark">Темная</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Загрузка отменена</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
     <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
-    <system:String x:Key="Downloaderror2">Ошибка загрузки.</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">добавлено в избранное.</system:String>
     <system:String x:Key="hasbeendeleted">была удалена.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">успешно удалён.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">Я также создал папки для</system:String>
     <system:String x:Key="Icouldnotfindthefile">Не удалось найти файл</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Если возможно, запустите с привилегиями администратора.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с последней версией MAME.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">Теперь вы можете добавить новую систему.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">Вы можете разместить обложки этой системы в этой папке.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Вам нужно предоставить больше прав</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Возможно, вашему компьютеру не были выданы необходимые разрешения для выполнения файла 'FindRomCover.exe' с помощью 'Simple Launcher'. Убедитесь, что у 'Simple Launcher' есть необходимые права администратора.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Выбранный инструмент не найден в предполагаемом месте.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
+    
+    <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Произошла ошибка чтения/записи файла после загрузки.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Убедитесь, что папка 'Simple Launcher' находится в директории с правами на запись.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">Программа 'Simple Launcher' не смогла открыть папку 'temp' из-за проблем с доступом.</system:String>
+    <system:String x:Key="Downloadfailed">Загрузка не удалась.</system:String>
+    <system:String x:Key="Therewasanerroradding">Произошла ошибка при добавлении этой системы.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Выберите папку с файлами 'ROMs' или 'ISOs' для этой системы.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Убедитесь, что папка 'Simple Launcher' находится в директории с правами на запись.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Временно отключите антивирус и попробуйте снова.</system:String>
+    <system:String x:Key="Extractionfailed">Распаковка не удалась.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">Загрузка и распаковка успешно завершены.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Добавить систему в 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">Шаг 4</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Ошибка при загрузке файла 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">Файл 'system.xml' не найден в папке приложения.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Пожалуйста, перезапустите 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Если это не поможет, переустановите 'Simple Launcher'.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Выберите папку системы.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Выберите папку с изображениями системы.</system:String>
+    <system:String x:Key="SelectEmulator1">Выберите Эмулятор 1.</system:String>
+    <system:String x:Key="SelectEmulator2">Выберите Эмулятор 2.</system:String>
+    <system:String x:Key="SelectEmulator3">Выберите Эмулятор 3.</system:String>
+    <system:String x:Key="SelectEmulator4">Выберите Эмулятор 4.</system:String>
+    <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">Также были созданы папки для:</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">У приложения может не быть достаточных прав. Попробуйте запустить его с правами администратора.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Также убедитесь, что папка 'Simple Launcher' находится в директории с правами на запись.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Выбранная система не найдена в XML-документе!</system:String>
+    <system:String x:Key="Alert">Предупреждение</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Произошла ошибка при проверке обновлений.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Произошла ошибка при переустановке 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">Файл 'Updater.exe' не найден в папке приложения.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу скачивания 'Simple Launcher' для ручной загрузки?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Произошла ошибка при установке или обновлении приложения.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
     
 </ResourceDictionary>

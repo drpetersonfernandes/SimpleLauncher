@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Create Batch Files For Sega Model3 Games</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Create Batch Files For Windows Games</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox 360 XBLA Games</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">created a image folder for this System at</system:String>
     <system:String x:Key="Crimson">Crimson</system:String>
     <system:String x:Key="Cyan">Cyan</system:String>
     <system:String x:Key="Dark">Dark</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Download Canceled</system:String>
     <system:String x:Key="DownloadCore">Download Core</system:String>
     <system:String x:Key="DownloadEmulator">Download Emulator</system:String>
-    <system:String x:Key="Downloaderror2">Download error.</system:String>
     <system:String x:Key="DownloadImagePack">Download Image Pack</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="DownloadProgress">Download Progress</system:String>
@@ -171,7 +169,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">has been added to favorites.</system:String>
     <system:String x:Key="hasbeendeleted">has been deleted.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">has been successfully deleted.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">I also created folders for</system:String>
     <system:String x:Key="Icouldnotfindthefile">I could not find the file</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">If possible, run it with administrative privileges.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.</system:String>
@@ -433,7 +430,6 @@
     <system:String x:Key="Youcanaddanewsystem">You can add a new system now.</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">You may place the cover images for this System inside this folder.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">You need to give more privileges to</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
@@ -473,5 +469,31 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Downloading and extraction were successful.</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">Add System into 'Simple Launcher'</system:String>
     <system:String x:Key="4thstep">4th step</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Error loading the file 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' not found inside the application folder.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Please restart 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">If that does not work, please reinstall 'Simple Launcher'.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Please select the System Folder</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Please select the System Image Folder</system:String>
+    <system:String x:Key="SelectEmulator1">Select Emulator 1</system:String>
+    <system:String x:Key="SelectEmulator2">Select Emulator 2</system:String>
+    <system:String x:Key="SelectEmulator3">Select Emulator 3</system:String>
+    <system:String x:Key="SelectEmulator4">Select Emulator 4</system:String>
+    <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">It also created folders for</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">The application might not have sufficient privileges. Try running it with administrative permissions.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Additionally, ensure that 'Simple Launcher' is located in a writable folder.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Selected system not found in the XML document!</system:String>
+    <system:String x:Key="Alert">Alert</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">There was an error checking for updates.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Maybe there is a problem with your internet access or the GitHub server is offline.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">There was an error reinstalling 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' not found in the application directory.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Would you like to be redirected to the 'Simple Launcher' download page to download it manually?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">There was an error installing or updating the application.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
 
 </ResourceDictionary>

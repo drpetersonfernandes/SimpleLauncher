@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Batchbestanden maken voor Sega Model3-spellen</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Batchbestanden maken voor Windows-spellen</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Batchbestanden maken voor Xbox 360 XBLA-spellen</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">Er is een afbeeldingsmap voor dit systeem aangemaakt op</system:String>
     <system:String x:Key="Crimson">Karmozijn</system:String>
     <system:String x:Key="Cyan">Cyaan</system:String>
     <system:String x:Key="Dark">Donker</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Download geannuleerd</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
     <system:String x:Key="DownloadEmulator">Download emulator</system:String>
-    <system:String x:Key="Downloaderror2">Downloadfout.</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">is toegevoegd aan favorieten.</system:String>
     <system:String x:Key="hasbeendeleted">is verwijderd.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">is succesvol verwijderd.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">Ik heb ook mappen aangemaakt voor</system:String>
     <system:String x:Key="Icouldnotfindthefile">Ik kon het bestand niet vinden</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Voer de applicatie indien mogelijk uit met beheerdersrechten.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">Als je MAME probeert uit te voeren, zorg er dan voor dat je ROM-collectie compatibel is met de nieuwste versie van MAME.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">U kunt nu een nieuw systeem toevoegen.</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Je moet meer machtigingen geven aan</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Uw computer heeft 'Simple Launcher' mogelijk niet de benodigde rechten gegeven om het bestand 'FindRomCover.exe' uit te voeren. Zorg ervoor dat 'Simple Launcher' over de vereiste beheerdersrechten beschikt.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Het geselecteerde hulpmiddel is niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wil je 'Simple Launcher' opnieuw installeren om dit probleem op te lossen?</system:String>
+    
+    <system:String x:Key="Downloaderror">Downloadfout.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Er is een lees-/schrijffout opgetreden bij het bestand na de download.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Zorg ervoor dat de map 'Simple Launcher' zich in een beschrijfbare directory bevindt.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' kon de map 'temp' niet openen vanwege toegangsproblemen.</system:String>
+    <system:String x:Key="Downloadfailed">Download mislukt.</system:String>
+    <system:String x:Key="Therewasanerroradding">Er is een fout opgetreden bij het toevoegen van dit systeem.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Kies een map met 'ROMs' of 'ISO's voor dit systeem.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Zorg ervoor dat de map 'Simple Launcher' zich in een beschrijfbare directory bevindt.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Schakel tijdelijk uw antivirus uit en probeer het opnieuw.</system:String>
+    <system:String x:Key="Extractionfailed">Uitpakken mislukt.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">Downloaden en uitpakken was succesvol.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Systeem toevoegen aan 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">Stap 4</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Fout bij het laden van het bestand 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' kan niet worden gevonden in de applicatiemap.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Start 'Simple Launcher' opnieuw op.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Als dat niet werkt, installeer 'Simple Launcher' opnieuw.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Selecteer de systeemmap.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Selecteer de systeemafbeeldingsmap.</system:String>
+    <system:String x:Key="SelectEmulator1">Selecteer Emulator 1.</system:String>
+    <system:String x:Key="SelectEmulator2">Selecteer Emulator 2.</system:String>
+    <system:String x:Key="SelectEmulator3">Selecteer Emulator 3.</system:String>
+    <system:String x:Key="SelectEmulator4">Selecteer Emulator 4.</system:String>
+    <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">De toepassing heeft mogelijk niet voldoende rechten. Probeer het te starten met beheerdersrechten.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Zorg er daarnaast voor dat 'Simple Launcher' zich in een beschrijfbare map bevindt.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Het geselecteerde systeem is niet gevonden in het XML-document!</system:String>
+    <system:String x:Key="Alert">Waarschuwing</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Er is een fout opgetreden bij het controleren op updates.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Er is een fout opgetreden bij het opnieuw installeren van 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' kon niet worden gevonden in de applicatiemap.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u doorverwezen worden naar de downloadpagina van 'Simple Launcher' om deze handmatig te downloaden?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Er was een fout bij het installeren of bijwerken van de toepassing.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
     
 </ResourceDictionary>

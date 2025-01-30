@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model 3 खेलों के लिए बैच फाइलें बनाएं</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windows खेलों के लिए बैच फाइलें बनाएं</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA खेलों के लिए बैच फाइलें बनाएं</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">इस सिस्टम के लिए एक इमेज फ़ोल्डर बनाया गया है</system:String>
     <system:String x:Key="Crimson">गहरा लाल</system:String>
     <system:String x:Key="Cyan">सियान</system:String>
     <system:String x:Key="Dark">गहरा</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">डाउनलोड रद्द</system:String>
     <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
     <system:String x:Key="DownloadEmulator">एमुलेटर डाउनलोड करें</system:String>
-    <system:String x:Key="Downloaderror2">डाउनलोड त्रुटि।</system:String>
     <system:String x:Key="DownloadImagePack">इमेज पैक डाउनलोड करें</system:String>
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
     <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">को पसंदीदा में जोड़ा गया है।</system:String>
     <system:String x:Key="hasbeendeleted">हटा दिया गया है।</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">सफलतापूर्वक हटा दी गई है।</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">मैंने इसके लिए फ़ोल्डर भी बनाए हैं</system:String>
     <system:String x:Key="Icouldnotfindthefile">मैं फाइल को खोज नहीं पाया</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">यदि संभव हो, तो इसे प्रशासनिक अनुमति के साथ चलाएं।</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">यदि आप MAME चलाने की कोशिश कर रहे हैं, तो सुनिश्चित करें कि आपका ROM संग्रह MAME के नवीनतम संस्करण के अनुकूल है।</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">अब आप एक नया सिस्टम जोड़ सकते हैं।</system:String>
     <system:String x:Key="YoucandefinecustomURL">आप वीडियो लिंक बटन और जानकारी लिंक बटन में उपयोग करने के लिए एक कस्टम URL परिभाषित कर सकते हैं।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">आप इस सिस्टम के लिए कवर इमेज को इस फ़ोल्डर में रख सकते हैं।</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">आपको इसे अधिक विशेषाधिकार प्रदान करने की आवश्यकता है</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">हो सकता है कि आपके कंप्यूटर ने 'FindRomCover.exe' फ़ाइल को चलाने के लिए 'Simple Launcher' को आवश्यक अनुमति न दी हो। कृपया सुनिश्चित करें कि 'Simple Launcher' के पास आवश्यक प्रशासनिक अधिकार हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">क्या आप 'error_user.log' फ़ाइल को त्रुटि डिबग करने के लिए खोलना चाहते हैं?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">चयनित टूल अपेक्षित स्थान पर नहीं मिला।</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' को फिर से इंस्टॉल करना चाहते हैं ताकि यह समस्या ठीक हो सके?</system:String>
+    
+    <system:String x:Key="Downloaderror">डाउनलोड में त्रुटि।</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">डाउनलोड लिंक खोलने में त्रुटि।</system:String>
+    <system:String x:Key="Afilereadwriteerror">फ़ाइल डाउनलोड के बाद पढ़ने/लिखने में त्रुटि हुई।</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लेखनीय डायरेक्टरी में है।</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' एक्सेस समस्याओं के कारण 'temp' फ़ोल्डर खोलने में असमर्थ था।</system:String>
+    <system:String x:Key="Downloadfailed">डाउनलोड विफल हो गया।</system:String>
+    <system:String x:Key="Therewasanerroradding">इस सिस्टम को जोड़ने में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">इस सिस्टम के लिए 'ROMs' या 'ISOs' के साथ एक फ़ोल्डर चुनें।</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लेखनीय डायरेक्टरी में है।</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">अपने एंटीवायरस को अस्थायी रूप से निष्क्रिय करें और फिर प्रयास करें।</system:String>
+    <system:String x:Key="Extractionfailed">निष्कर्षण विफल हुआ।</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' में सिस्टम जोड़ें।</system:String>
+    <system:String x:Key="4thstep">चौथा चरण</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' फ़ाइल लोड करते समय त्रुटि हुई।</system:String>
+    <system:String x:Key="systemxmlnotfound">ऐप्लिकेशन फ़ोल्डर के अंदर 'system.xml' नहीं मिला।</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">कृपया 'Simple Launcher' को पुनः प्रारंभ करें।</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">यदि यह काम नहीं करता है, तो 'Simple Launcher' को पुनः स्थापित करें।</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">कृपया सिस्टम फ़ोल्डर चुनें।</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">कृपया सिस्टम की छवि फ़ोल्डर का चयन करें।</system:String>
+    <system:String x:Key="SelectEmulator1">इम्यूलेटर 1 का चयन करें।</system:String>
+    <system:String x:Key="SelectEmulator2">इम्यूलेटर 2 का चयन करें।</system:String>
+    <system:String x:Key="SelectEmulator3">इम्यूलेटर 3 का चयन करें।</system:String>
+    <system:String x:Key="SelectEmulator4">इम्यूलेटर 4 का चयन करें।</system:String>
+    <system:String x:Key="SelectEmulator5">इम्यूलेटर 5 का चयन करें।</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ने इस सिस्टम के लिए एक छवि फ़ोल्डर बनाया</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">इसने अतिरिक्त फ़ोल्डर भी बनाए</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
+    <system:String x:Key="Theapplicationmightnothave">ऐप्लिकेशन के पास शायद पर्याप्त अनुमतियां नहीं हैं। इसे प्रशासनिक अनुमतियों के साथ चलाने का प्रयास करें।</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">इसके अलावा, सुनिश्चित करें कि 'Simple Launcher' किसी लेखनीय फ़ोल्डर में है।</system:String>
+    <system:String x:Key="Selectedsystemnotfound">चयनित सिस्टम XML दस्तावेज़ में नहीं मिला!</system:String>
+    <system:String x:Key="Alert">चेतावनी</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">अपडेट की जाँच करते समय त्रुटि हुई।</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">शायद आपके इंटरनेट कनेक्शन में कोई समस्या है या GitHub सर्वर ऑफ़लाइन है।</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher' को पुनः स्थापित करते समय त्रुटि हुई।</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">ऐप्लिकेशन डायरेक्टरी में 'Updater.exe' नहीं मिला।</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' को मैन्युअली डाउनलोड करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">ऐप्लिकेशन को इंस्टॉल या अपडेट करते समय त्रुटि हुई।</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">इसे मैन्युअली इंस्टॉल या अपडेट करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
     
 </ResourceDictionary>

@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">為 Sega Model3 遊戲建立批次檔案</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">為 Windows 遊戲建立批次檔案</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">為 Xbox 360 XBLA 遊戲建立批次檔案</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">已在以下位置為此系統創建一個圖像文件夾：</system:String>
     <system:String x:Key="Crimson">深紅色</system:String>
     <system:String x:Key="Cyan">青色</system:String>
     <system:String x:Key="Dark">深色</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">下載已取消</system:String>
     <system:String x:Key="DownloadCore">下載核心</system:String>
     <system:String x:Key="DownloadEmulator">下載模擬器</system:String>
-    <system:String x:Key="Downloaderror2">下載錯誤。</system:String>
     <system:String x:Key="DownloadImagePack">下載圖像包</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
     <system:String x:Key="DownloadProgress">下載進度</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">已加入至收藏。</system:String>
     <system:String x:Key="hasbeendeleted">已刪除。</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">已成功刪除。</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">我還為以下內容創建了文件夾：</system:String>
     <system:String x:Key="Icouldnotfindthefile">無法找到文件</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">如果可能，請以管理員權限執行。</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">如果您正在嘗試執行 MAME，請確保您的 ROM 集與最新版本的 MAME 相容。</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">現在，您可以新增一個新的系統。</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自訂一個 URL，用於視頻連結按鈕和信息連結按鈕。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">您可以將此系統的封面圖片放置在此文件夾中。</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">您需要提供更多權限給</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">您的電腦可能未授予 'Simple Launcher' 執行 'FindRomCover.exe' 檔案所需的權限。請確保 'Simple Launcher' 具有必要的管理員權限。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您應該更改模擬器的參數，使其不會以全螢幕模式啟動。</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打開檔案“error_user.log”以進行錯誤調試？</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">未在預期位置找到所選工具。</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否想重新安裝“Simple Launcher”以解決此問題？</system:String>
+    
+    <system:String x:Key="Downloaderror">下載錯誤。</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">打開下載連結時發生錯誤。</system:String>
+    <system:String x:Key="Afilereadwriteerror">下載後發生檔案讀取/寫入錯誤。</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">請確保 'Simple Launcher' 資料夾位於具備寫入權限的目錄中。</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">由於權限問題，'Simple Launcher' 無法打開 'temp' 資料夾。</system:String>
+    <system:String x:Key="Downloadfailed">下載失敗。</system:String>
+    <system:String x:Key="Therewasanerroradding">新增此系統時發生錯誤。</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">為此系統選擇一個包含 'ROM' 或 'ISO' 檔案的資料夾。</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">請賦予 'Simple Launcher' 管理員權限後重試。</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">請確保 'Simple Launcher' 資料夾位於一個具備寫入權限的目錄中。</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">請暫時停用您的防毒軟件後再試。</system:String>
+    <system:String x:Key="Extractionfailed">解壓縮失敗。</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">下載和解壓縮成功完成。</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">將系統新增至 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">第 4 步</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">載入 'easymode.xml' 檔案時發生錯誤。</system:String>
+    <system:String x:Key="systemxmlnotfound">未在應用程式資料夾中找到 'system.xml'。</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">請重新啟動 'Simple Launcher'。</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">若仍無法解決，請重新安裝 'Simple Launcher'。</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">請選擇系統資料夾。</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">請選擇系統圖片資料夾。</system:String>
+    <system:String x:Key="SelectEmulator1">選擇模擬器 1。</system:String>
+    <system:String x:Key="SelectEmulator2">選擇模擬器 2。</system:String>
+    <system:String x:Key="SelectEmulator3">選擇模擬器 3。</system:String>
+    <system:String x:Key="SelectEmulator4">選擇模擬器 4。</system:String>
+    <system:String x:Key="SelectEmulator5">選擇模擬器 5。</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 為此系統創建了一個圖片資料夾：</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">同時也建立了以下資料夾：</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 未能為此系統創建所需資料夾。</system:String>
+    <system:String x:Key="Theapplicationmightnothave">應用程式可能沒有足夠的權限。請嘗試以管理員模式運行。</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">此外，請確保 'Simple Launcher' 資料夾位於具備寫入權限的目錄中。</system:String>
+    <system:String x:Key="Selectedsystemnotfound">在 XML 文件中找不到所選系統！</system:String>
+    <system:String x:Key="Alert">警告</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">檢查更新時出現錯誤。</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">您的網路連線可能出現問題，或 GitHub 伺服器目前無法使用。</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">重新安裝 'Simple Launcher' 時出現錯誤。</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">在應用程式資料夾中未找到 'Updater.exe'。</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您是否希望跳轉到 'Simple Launcher' 下載頁面以手動下載？</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">安裝或更新應用程式時出現錯誤。</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳轉到下載頁面以手動安裝或更新？</system:String>
     
 </ResourceDictionary>

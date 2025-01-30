@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windows Oyunları İçin Toplu Dosyalar Oluştur</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA Oyunları İçin Toplu Dosyalar Oluştur</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">Bu sistem için bir görsel klasörü şu konumda oluşturuldu:</system:String>
     <system:String x:Key="Crimson">Kızıl</system:String>
     <system:String x:Key="Cyan">Camgöbeği</system:String>
     <system:String x:Key="Dark">Koyu</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">İndirme iptal edildi</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
     <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
-    <system:String x:Key="Downloaderror2">İndirme hatası.</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">favorilere eklendi.</system:String>
     <system:String x:Key="hasbeendeleted">silindi.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">başarıyla silindi.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">Ayrıca aşağıdakiler için klasörler oluşturdum:</system:String>
     <system:String x:Key="Icouldnotfindthefile">Şu dosya bulunamadı:</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Mümkünse yönetici yetkisiyle çalıştırın.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">MAME çalıştırmaya çalışıyorsanız, ROM koleksiyonunuzun en son MAME sürümüyle uyumlu olduğundan emin olun.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">Artık yeni bir sistem ekleyebilirsiniz.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">Bu klasöre bu sisteme ait kapak görsellerini yerleştirebilirsiniz.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Şuna daha fazla yetki vermeniz gerekiyor:</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Bilgisayarınız, 'Simple Launcher'ın 'FindRomCover.exe' dosyasını çalıştırması için gereken izinleri vermemiş olabilir. 'Simple Launcher'ın gerekli yönetici izinlerine sahip olduğundan emin olun.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Seçilen araç beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' programını yeniden kurarak bu sorunu çözmek ister misiniz?</system:String>
+    
+    <system:String x:Key="Downloaderror">İndirme hatası.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Dosya indirmeden sonra bir okuma/yazma hatası oluştu.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' erişim sorunları nedeniyle 'temp' klasörünü açamadı.</system:String>
+    <system:String x:Key="Downloadfailed">İndirme başarısız oldu.</system:String>
+    <system:String x:Key="Therewasanerroradding">Bu sistemi eklerken bir hata oluştu.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Bu sistem için 'ROM' veya 'ISO' içeren bir klasör seçin.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Antivirüsünüzü geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
+    <system:String x:Key="Extractionfailed">Arşivden çıkarma başarısız oldu.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">İndirme ve arşivden çıkarma işlemleri başarıyla tamamlandı.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'a Sistem Ekle</system:String>
+    <system:String x:Key="4thstep">4. Adım</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' dosyasını yüklerken hata oluştu.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml', uygulama klasöründe bulunamadı.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher'ı yeniden başlatın.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Eğer bu işe yaramazsa, 'Simple Launcher'ı yeniden yükleyin.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Sistem klasörünü seçin.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Sistem resim klasörünü seçin.</system:String>
+    <system:String x:Key="SelectEmulator1">1. Emülatörü Seçin.</system:String>
+    <system:String x:Key="SelectEmulator2">2. Emülatörü Seçin.</system:String>
+    <system:String x:Key="SelectEmulator3">3. Emülatörü Seçin.</system:String>
+    <system:String x:Key="SelectEmulator4">4. Emülatörü Seçin.</system:String>
+    <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">Ayrıca şu klasörler de oluşturuldu:</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">Uygulama yeterli yetkilere sahip olmayabilir. Yönetici izinleriyle çalıştırmayı deneyin.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Ayrıca, 'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Seçili sistem XML belgesinde bulunamadı!</system:String>
+    <system:String x:Key="Alert">Uyarı</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Güncellemeleri kontrol ederken bir hata oluştu.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher' tekrar yüklenirken bir hata oluştu.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe', uygulama dizininde bulunamadı.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'ı manuel olarak indirmek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Uygulamayı yüklerken veya güncellerken bir hata oluştu.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Manuel olarak yüklemek veya güncellemek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     
 </ResourceDictionary>

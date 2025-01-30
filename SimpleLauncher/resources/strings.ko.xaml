@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Sega Model3 게임용 배치 파일 생성</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Windows 게임용 배치 파일 생성</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA 게임용 배치 파일 생성</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">다음 위치에 이 시스템을 위한 이미지 폴더가 생성되었습니다:</system:String>
     <system:String x:Key="Crimson">진홍색</system:String>
     <system:String x:Key="Cyan">청록</system:String>
     <system:String x:Key="Dark">어두움</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">다운로드가 취소됨</system:String>
     <system:String x:Key="DownloadCore">코어 다운로드</system:String>
     <system:String x:Key="DownloadEmulator">에뮬레이터 다운로드</system:String>
-    <system:String x:Key="Downloaderror2">다운로드 오류.</system:String>
     <system:String x:Key="DownloadImagePack">이미지 팩 다운로드</system:String>
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">가 즐겨찾기에 추가되었습니다.</system:String>
     <system:String x:Key="hasbeendeleted">이 삭제되었습니다.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">가 성공적으로 삭제되었습니다.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">다음에 대한 폴더도 생성했습니다:</system:String>
     <system:String x:Key="Icouldnotfindthefile">파일을 찾을 수 없습니다:</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">가능하면 관리자 권한으로 실행하십시오.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">MAME를 실행하려고 한다면, ROM 컬렉션이 최신 MAME 버전과 호환되는지 확인하세요.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">이제 새 시스템을 추가할 수 있습니다.</system:String>
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">이 폴더에 이 시스템의 커버 이미지를 배치할 수 있습니다.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">작업을 수행하려면 다음에 더 많은 권한을 부여해야 합니다.</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">컴퓨터가 'Simple Launcher'가 'FindRomCover.exe' 파일을 실행할 수 있도록 필요한 권한을 부여하지 않았을 수 있습니다. 'Simple Launcher'에 필요한 관리 권한이 있는지 확인해 주세요.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">선택한 도구가 예상 경로에 없습니다.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher'를 다시 설치하여 이 문제를 해결하시겠습니까?</system:String>
+    
+    <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Afilereadwriteerror">다운로드 후 파일 읽기/쓰기 오류가 발생했습니다.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리에 있는지 확인하세요.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher'는 접근 문제로 인해 'temp' 폴더를 열 수 없었습니다.</system:String>
+    <system:String x:Key="Downloadfailed">다운로드에 실패했습니다.</system:String>
+    <system:String x:Key="Therewasanerroradding">이 시스템을 추가하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">이 시스템에 대해 'ROMs' 또는 'ISOs'가 포함된 폴더를 선택하세요.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'에 관리자 권한을 부여하고 다시 시도하세요.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리에 있는지 확인하세요.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">안티바이러스를 일시적으로 비활성화하고 다시 시도하세요.</system:String>
+    <system:String x:Key="Extractionfailed">압축 해제에 실패했습니다.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">다운로드와 압축 해제가 성공적으로 완료되었습니다.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'에 시스템 추가</system:String>
+    <system:String x:Key="4thstep">4단계</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' 파일을 로드하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="systemxmlnotfound">애플리케이션 폴더 내에 'system.xml'을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher'를 다시 시작하세요.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">그래도 안된다면 'Simple Launcher'를 다시 설치하세요.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">시스템 폴더를 선택하세요.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">시스템 이미지 폴더를 선택하세요.</system:String>
+    <system:String x:Key="SelectEmulator1">에뮬레이터 1을 선택하세요.</system:String>
+    <system:String x:Key="SelectEmulator2">에뮬레이터 2를 선택하세요.</system:String>
+    <system:String x:Key="SelectEmulator3">에뮬레이터 3을 선택하세요.</system:String>
+    <system:String x:Key="SelectEmulator4">에뮬레이터 4를 선택하세요.</system:String>
+    <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">또한 다음을 위한 폴더도 생성되었습니다:</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">애플리케이션에 충분한 권한이 없을 수 있습니다. 관리자 권한으로 실행해 보세요.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">또한, 'Simple Launcher'가 쓰기 가능한 폴더에 있는지 확인하세요.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">선택한 시스템이 XML 문서에서 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Alert">경고</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">업데이트 확인 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">인터넷 연결에 문제가 있거나 GitHub 서버가 오프라인일 수 있습니다.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher'를 다시 설치하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe'가 애플리케이션 디렉토리에서 찾을 수 없습니다.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'를 수동으로 다운로드하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">애플리케이션 설치 또는 업데이트 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     
 </ResourceDictionary>

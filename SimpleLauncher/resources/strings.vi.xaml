@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Tạo tệp hàng loạt cho trò chơi Sega Model3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Tạo tệp hàng loạt cho trò chơi Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Tạo tệp hàng loạt cho trò chơi Xbox 360 XBLA</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">Đã tạo một thư mục hình ảnh cho hệ thống này tại</system:String>
     <system:String x:Key="Crimson">Đỏ thẫm</system:String>
     <system:String x:Key="Cyan">Xanh lơ</system:String>
     <system:String x:Key="Dark">Tối</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Đã hủy tải xuống</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
     <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
-    <system:String x:Key="Downloaderror2">Lỗi tải xuống.</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
     <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">đã được thêm vào mục yêu thích.</system:String>
     <system:String x:Key="hasbeendeleted">đã bị xóa.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">đã được xóa thành công.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">Tôi cũng đã tạo các thư mục cho</system:String>
     <system:String x:Key="Icouldnotfindthefile">Không thể tìm thấy tệp</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Nếu có thể, hãy chạy với quyền quản trị.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">Nếu bạn đang cố gắng chạy MAME, hãy đảm bảo bộ sưu tập ROM của bạn tương thích với phiên bản MAME mới nhất.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">Bây giờ bạn có thể thêm một hệ thống mới.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">Bạn có thể đặt các hình bìa cho hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Bạn cần cung cấp thêm quyền cho</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Máy tính của bạn có thể không cấp quyền cần thiết cho 'Simple Launcher' để thực thi tệp 'FindRomCover.exe'. Hãy đảm bảo rằng 'Simple Launcher' có đủ quyền quản trị cần thiết.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
@@ -457,5 +453,47 @@
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Không tìm thấy công cụ đã chọn tại vị trí dự kiến.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
+    
+    <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Đã xảy ra lỗi đọc/ghi tệp sau khi tải xuống.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Hãy đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' không thể mở thư mục 'temp' do gặp vấn đề về quyền truy cập.</system:String>
+    <system:String x:Key="Downloadfailed">Tải xuống thất bại.</system:String>
+    <system:String x:Key="Therewasanerroradding">Đã xảy ra lỗi khi thêm hệ thống này.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Chọn một thư mục chứa các tệp 'ROM' hoặc 'ISO' cho hệ thống này.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Cấp quyền quản trị viên cho 'Simple Launcher' và thử lại.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Hãy đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Tạm thời tắt phần mềm diệt virus của bạn và thử lại.</system:String>
+    <system:String x:Key="Extractionfailed">Giải nén thất bại.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">Tải xuống và giải nén đã hoàn tất thành công.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Thêm hệ thống vào 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">Bước 4</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Lỗi khi tải tệp 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' không tìm thấy trong thư mục ứng dụng.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Vui lòng khởi động lại 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Nếu vẫn không hoạt động, hãy cài đặt lại 'Simple Launcher'.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Vui lòng chọn thư mục hệ thống.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Vui lòng chọn thư mục ảnh hệ thống.</system:String>
+    <system:String x:Key="SelectEmulator1">Chọn Trình giả lập 1.</system:String>
+    <system:String x:Key="SelectEmulator2">Chọn Trình giả lập 2.</system:String>
+    <system:String x:Key="SelectEmulator3">Chọn Trình giả lập 3.</system:String>
+    <system:String x:Key="SelectEmulator4">Chọn Trình giả lập 4.</system:String>
+    <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' đã tạo một thư mục ảnh cho hệ thống này tại:</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">Nó cũng đã tạo các thư mục cho:</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">Ứng dụng có thể không có đủ quyền. Hãy thử chạy ứng dụng với quyền quản trị.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Ngoài ra, hãy đảm bảo rằng 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">Hệ thống được chọn không tìm thấy trong tệp XML!</system:String>
+    <system:String x:Key="Alert">Cảnh báo</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Đã xảy ra lỗi khi kiểm tra bản cập nhật.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Có thể có vấn đề với kết nối internet của bạn hoặc máy chủ GitHub đang ngoại tuyến.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Đã xảy ra lỗi khi cài đặt lại 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' không tìm thấy trong thư mục ứng dụng.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống 'Simple Launcher' để tải về thủ công không?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Đã xảy ra lỗi khi cài đặt hoặc cập nhật ứng dụng.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
     
 </ResourceDictionary>

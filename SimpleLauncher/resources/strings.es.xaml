@@ -77,7 +77,6 @@
     <system:String x:Key="CreateBatchFilesForSegaModel3Games">Crear archivos por lotes para juegos Sega Model 3</system:String>
     <system:String x:Key="CreateBatchFilesForWindowsGames">Crear archivos por lotes para juegos de Windows</system:String>
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Crear archivos por lotes para juegos Xbox 360 XBLA</system:String>
-    <system:String x:Key="createdaimagefolderforthisSystemat">Se creó una carpeta de imágenes para este sistema en</system:String>
     <system:String x:Key="Crimson">Carmesí</system:String>
     <system:String x:Key="Cyan">Cian</system:String>
     <system:String x:Key="Dark">Oscuro</system:String>
@@ -96,7 +95,6 @@
     <system:String x:Key="DownloadCanceled">Descarga cancelada</system:String>
     <system:String x:Key="DownloadCore">Descargar núcleo</system:String>
     <system:String x:Key="DownloadEmulator">Descargar emulador</system:String>
-    <system:String x:Key="Downloaderror2">Error de descarga.</system:String>
     <system:String x:Key="DownloadImagePack">Descargar paquete de imágenes</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Fallo en la descarga o extracción</system:String>
     <system:String x:Key="DownloadProgress">Progreso de descarga</system:String>
@@ -169,7 +167,6 @@
     <system:String x:Key="hasbeenaddedtofavorites">ha sido añadido a favoritos.</system:String>
     <system:String x:Key="hasbeendeleted">ha sido eliminado.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">ha sido eliminado exitosamente.</system:String>
-    <system:String x:Key="Ialsocreatedfoldersfor">También creé carpetas para</system:String>
     <system:String x:Key="Icouldnotfindthefile">No pude encontrar el archivo</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Si es posible, ejecútelo con privilegios de administrador.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAME">Si está intentando ejecutar MAME, asegúrese de que su colección de ROMs sea compatible con la última versión de MAME.</system:String>
@@ -431,7 +428,6 @@
     <system:String x:Key="Youcanaddanewsystem">Ahora puedes agregar un nuevo sistema.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Puede definir una URL personalizada para usar en el botón de enlace de video y el botón de enlace de información.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puedes usar los operadores lógicos AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthis">Puedes colocar las imágenes de portada para este sistema dentro de esta carpeta.</system:String>
     <system:String x:Key="Youneedtogivemoreprivilegesto">Debe otorgar más privilegios a</system:String>
     <system:String x:Key="Yourcomputermaynothavegranted">Es posible que su equipo no haya otorgado los permisos necesarios para que 'Simple Launcher' ejecute el archivo 'FindRomCover.exe'. Asegúrese de que 'Simple Launcher' tenga los privilegios administrativos necesarios.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Deberías cambiar los parámetros del emulador para evitar que este se inicie en pantalla completa.</system:String>
@@ -458,4 +454,46 @@
     <system:String x:Key="Theselectedtoolwasnotfound">No se encontró la herramienta seleccionada en la ruta esperada.</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">¿Desea reinstalar 'Simple Launcher' para solucionar el problema?</system:String>
 
+    <system:String x:Key="Downloaderror">Error de descarga.</system:String>
+    <system:String x:Key="Erroropeningthedownloadlink">Error al abrir el enlace de descarga.</system:String>
+    <system:String x:Key="Afilereadwriteerror">Se produjo un error de lectura/escritura del archivo después de la descarga.</system:String>
+    <system:String x:Key="MakesuretheSimpleLauncherfolder">Asegúrate de que la carpeta 'Simple Launcher' esté en un directorio con permisos de escritura.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletoopen">'Simple Launcher' no pudo abrir la carpeta 'temp' debido a problemas de acceso.</system:String>
+    <system:String x:Key="Downloadfailed">La descarga falló.</system:String>
+    <system:String x:Key="Therewasanerroradding">Hubo un error al añadir este sistema.</system:String>
+    <system:String x:Key="ChooseaFolderwithROMsorISOs">Selecciona una carpeta con 'ROMs' o 'ISOs' para este sistema.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Concede acceso administrativo a 'Simple Launcher' e inténtalo nuevamente.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">Asegúrate de que la carpeta 'Simple Launcher' sea un directorio con permisos de escritura.</system:String>
+    <system:String x:Key="Temporarilydisableyourantivirus">Desactiva temporalmente tu antivirus e inténtalo de nuevo.</system:String>
+    <system:String x:Key="Extractionfailed">La extracción falló.</system:String>
+    <system:String x:Key="Downloadingandextractionweresuccessful">La descarga y la extracción se realizaron correctamente.</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">Añadir sistema a 'Simple Launcher'</system:String>
+    <system:String x:Key="4thstep">Cuarto paso</system:String>
+    <system:String x:Key="Errorloadingthefileeasymodexml">Error al cargar el archivo 'easymode.xml'.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' no se encontró en la carpeta de la aplicación.</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">Por favor, reinicia 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">Si esto no funciona, reinstala 'Simple Launcher'.</system:String>
+    <system:String x:Key="PleaseselecttheSystemFolder">Por favor, selecciona la carpeta del sistema.</system:String>
+    <system:String x:Key="PleaseselecttheSystemImage">Por favor, selecciona la carpeta de imágenes del sistema.</system:String>
+    <system:String x:Key="SelectEmulator1">Selecciona el emulador 1.</system:String>
+    <system:String x:Key="SelectEmulator2">Selecciona el emulador 2.</system:String>
+    <system:String x:Key="SelectEmulator3">Selecciona el emulador 3.</system:String>
+    <system:String x:Key="SelectEmulator4">Selecciona el emulador 4.</system:String>
+    <system:String x:Key="SelectEmulator5">Selecciona el emulador 5.</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' creó una carpeta de imágenes para este sistema en</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puedes colocar las imágenes de portada para este sistema dentro de esta carpeta.</system:String>
+    <system:String x:Key="Italsocreatedfoldersfor">También creó carpetas para</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' no pudo crear las carpetas necesarias para este sistema.</system:String>
+    <system:String x:Key="Theapplicationmightnothave">La aplicación podría no tener privilegios suficientes. Intenta ejecutarla con permisos de administrador.</system:String>
+    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Además, asegúrate de que 'Simple Launcher' esté en una carpeta con permisos de escritura.</system:String>
+    <system:String x:Key="Selectedsystemnotfound">¡No se encontró el sistema seleccionado en el documento XML!</system:String>
+    <system:String x:Key="Alert">Alerta</system:String>
+    <system:String x:Key="Therewasanerrorcheckingforupdates">Hubo un error al buscar actualizaciones.</system:String>
+    <system:String x:Key="Maybethereisaproblemwithyourinternet">Tal vez haya un problema con tu conexión a internet o el servidor de GitHub esté fuera de servicio.</system:String>
+    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Hubo un error al reinstalar 'Simple Launcher'.</system:String>
+    <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' no se encontró en el directorio de la aplicación.</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">¿Te gustaría ser redirigido a la página de descarga de 'Simple Launcher' para descargarlo manualmente?</system:String>
+    <system:String x:Key="Therewasanerrorinstallingorupdating">Hubo un error al instalar o actualizar la aplicación.</system:String>
+    <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">¿Te gustaría ser redirigido a la página de descarga para instalarlo o actualizarlo manualmente?</system:String>
+    
 </ResourceDictionary>
