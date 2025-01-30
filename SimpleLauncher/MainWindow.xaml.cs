@@ -102,7 +102,8 @@ public partial class MainWindow : INotifyPropertyChanged
         _controllerCheckTimer.Tick += ControllerCheckTimer_Tick;
         _controllerCheckTimer.Start();
             
-        DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
+        // Ensure the DataContext is set to the current MainWindow instance for binding
+        DataContext = this;
 
         InitializeTrayIcon();
             
