@@ -1,7 +1,6 @@
 ﻿using SharpDX.DirectInput;
 using SharpDX.XInput;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using WindowsInput;
@@ -197,14 +196,14 @@ public class GamePadController : IDisposable
             // GamePadErrorMessageBox();
         }
     }
-    
+
     private void ReconnectControllers()
     {
         try
         {
             // Reinitialize Xbox controller
             _xinputController = new Controller(UserIndex.One);
-
+            
             // Reinitialize PlayStation controller if it was previously connected
             if (_directInputController != null || _wasPlayStationConnected)
             {
@@ -268,15 +267,7 @@ public class GamePadController : IDisposable
             // GamePadErrorMessageBox();
         }
     }
-    
-    private void RestartApplication()
-    {
-        // Restart the application
-        var currentExecutable = Process.GetCurrentProcess().MainModule?.FileName;
-        Process.Start(currentExecutable ?? throw new InvalidOperationException("Could not restart 'Simple Launcher'"));
-        Application.Current.Shutdown();
-    }
-    
+
     private static void GamePadErrorMessageBox()
     {
         MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
