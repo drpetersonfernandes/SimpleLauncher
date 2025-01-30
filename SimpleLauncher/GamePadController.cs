@@ -44,7 +44,6 @@ public class GamePadController : IDisposable
     public bool IsRunning { get; private set; }
 
     // Handle DirectInput reconnection
-    private bool _wasPlayStationConnected;
     private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
     private DateTime _lastReconnectAttempt = DateTime.MinValue; // Track the last reconnection attempt
     private const int ReconnectDelayMilliseconds = 5000; // Delay between reconnection attempts
@@ -83,7 +82,6 @@ public class GamePadController : IDisposable
                 {
                     _directInputController = new Joystick(directInput, devices[0].InstanceGuid);
                     _directInputController.Acquire();
-                    _wasPlayStationConnected = _directInputController != null;
                 }
                 _isDisposed = false;
             }
@@ -159,7 +157,7 @@ public class GamePadController : IDisposable
                 // Attempt to reconnect controllers if not already attempting
                 if ((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)
                 {
-                    ReconnectControllers();
+                    CheckAndReconnectControllers();
                     _lastReconnectAttempt = DateTime.Now;
                 }
                 return; // Exit Update to avoid further processing until next cycle.
@@ -183,85 +181,32 @@ public class GamePadController : IDisposable
                 HandleDirectInputScroll(state);
             }
         }
-        catch (Exception)
+        catch (SharpDX.SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
         {
-            // // Notify developer
-            // ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
-            //                         $"Exception type: {ex.GetType().Name}\n" +
-            //                         $"Exception details: {ex.Message}");
-
-            ReconnectControllers();
-
-            // // Notify user
-            // GamePadErrorMessageBox();
+            // Ignore this specific error (DIERR_INPUTLOST)
+            // No need to log or notify the developer
+            CheckAndReconnectControllers(); // Attempt to reconnect the controller
         }
-    }
-
-    private void ReconnectControllers()
-    {
-        try
+        catch (NullReferenceException)
         {
-            // Reinitialize Xbox controller
-            _xinputController = new Controller(UserIndex.One);
-            
-            // Reinitialize PlayStation controller if it was previously connected
-            if (_directInputController != null || _wasPlayStationConnected)
-            {
-                var directInput = new DirectInput();
-                var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
-
-                bool found = false;
-                foreach (var deviceInstance in devices)
-                {
-                    // Check if the device matches the previously connected controller's GUID
-                    if (_playStationControllerGuid == Guid.Empty || deviceInstance.InstanceGuid == _playStationControllerGuid)
-                    {
-                        _directInputController?.Unacquire();
-                        _directInputController?.Dispose();
-
-                        _directInputController = new Joystick(directInput, deviceInstance.InstanceGuid);
-                        _directInputController.Acquire();
-                        _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
-                        found = true;
-                        
-                        // // Notify user of reconnection
-                        // Application.Current.Dispatcher.Invoke(() =>
-                        // {
-                        //     MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                        // });
-                       
-                        break;
-                    }
-                }
-
-                if (!found)
-                {
-                    // _directInputController = null;
-                    // _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
-
-                    // // Notify user of disconnection and ask for action
-                    // Application.Current.Dispatcher.Invoke(() =>
-                    // {
-                    //     var result = MessageBox.Show(
-                    //         $"Controller was disconnected.\n\n" +
-                    //         $"Do you want to restart 'Simple Launcher'?",
-                    //         "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning );
-                    //
-                    //     if (result == MessageBoxResult.Yes)
-                    //     {
-                    //         // Restart the application
-                    //         RestartApplication();
-                    //     }
-                    // });
-                }
-            }
+            // Ignore NullReferenceException
+            // No need to log or notify the developer
+            CheckAndReconnectControllers(); // Attempt to reconnect the controller
+        }
+        catch (SharpDX.SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
+        {
+            // Ignore this specific error (DIERR_NOTACQUIRED)
+            // No need to log or notify the developer
+            CheckAndReconnectControllers(); // Attempt to reconnect the controller
         }
         catch (Exception ex)
         {
             // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
+            ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
+
+            CheckAndReconnectControllers();
 
             // // Notify user
             // GamePadErrorMessageBox();
@@ -275,7 +220,7 @@ public class GamePadController : IDisposable
             if (!GamePadController.Instance2.IsRunning || _isDisposed) return;
 
             // Reinitialize Xbox controller
-            GamePadController.Instance2.ReconnectControllers();
+            _xinputController = new Controller(UserIndex.One);
 
             // Check if the PlayStation controller is connected
             var directInput = new DirectInput();
