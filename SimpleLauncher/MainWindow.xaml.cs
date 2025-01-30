@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Threading;
 using ControlzEx.Theming;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -21,6 +22,9 @@ namespace SimpleLauncher;
 
 public partial class MainWindow : INotifyPropertyChanged
 {
+    // DirectInput Controller
+    private readonly DispatcherTimer _controllerCheckTimer;
+
     public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
         
     // System Name and PlayTime in the Statusbar
@@ -89,6 +93,14 @@ public partial class MainWindow : INotifyPropertyChanged
     public MainWindow()
     {
         InitializeComponent();
+        
+        // Initialize the timer for periodic controller checks
+        _controllerCheckTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(5) // Check every 5 seconds
+        };
+        _controllerCheckTimer.Tick += ControllerCheckTimer_Tick;
+        _controllerCheckTimer.Start();
             
         DataContext = this; // Ensure the DataContext is set to the current MainWindow instance for binding
 
@@ -253,6 +265,11 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
     
+    private void ControllerCheckTimer_Tick(object sender, EventArgs e)
+    {
+        GamePadController.Instance2.CheckAndReconnectControllers();
+    }
+    
     private void SetLanguageMenuChecked(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
@@ -368,7 +385,7 @@ public partial class MainWindow : INotifyPropertyChanged
     }
 
     // Used in cases that need to reload system.xml or update the pagination settings
-    public void MainWindow_Restart()
+    private void MainWindow_Restart()
     {
         SaveApplicationSettings();
 

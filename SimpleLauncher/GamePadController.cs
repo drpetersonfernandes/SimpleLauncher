@@ -256,15 +256,73 @@ public class GamePadController : IDisposable
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // // Notify developer
-            // ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
-            //                         $"Exception type: {ex.GetType().Name}\n" +
-            //                         $"Exception details: {ex.Message}");
+            // Notify developer
+            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
 
             // // Notify user
             // GamePadErrorMessageBox();
+        }
+    }
+    
+    public void CheckAndReconnectControllers()
+    {
+        try
+        {
+            if (!GamePadController.Instance2.IsRunning || _isDisposed) return;
+
+            // Reinitialize Xbox controller
+            GamePadController.Instance2.ReconnectControllers();
+
+            // Check if the PlayStation controller is connected
+            var directInput = new DirectInput();
+            var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
+
+            bool found = false;
+            foreach (var deviceInstance in devices)
+            {
+                // Check if the device matches the previously connected controller's GUID
+                if (_playStationControllerGuid == Guid.Empty || deviceInstance.InstanceGuid == _playStationControllerGuid)
+                {
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+
+                    _directInputController = new Joystick(directInput, deviceInstance.InstanceGuid);
+                    _directInputController.Acquire();
+                    _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
+                    found = true;
+
+                    // // Notify user of reconnection
+                    // Application.Current.Dispatcher.Invoke(() =>
+                    // {
+                    //     MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // });
+
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                _directInputController = null;
+                _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
+
+                // // Notify user of disconnection
+                // Application.Current.Dispatcher.Invoke(() =>
+                // {
+                //     MessageBox.Show("Controller is disconnected.", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Warning);
+                // });
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the error
+            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
         }
     }
 
