@@ -16,7 +16,11 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+     
+        // Load settings
         _settings = new SettingsConfig();
+        
+        // Apply theme
         ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
         ApplyLanguage(_settings.Language);
     }
@@ -73,7 +77,6 @@ public partial class App
             {
                 Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
             };
-
             Resources.MergedDictionaries.Add(fallbackDictionary);
         }
 

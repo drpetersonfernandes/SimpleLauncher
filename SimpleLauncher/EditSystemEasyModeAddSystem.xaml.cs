@@ -29,10 +29,13 @@ public partial class EditSystemEasyModeAddSystem
     public EditSystemEasyModeAddSystem()
     {
         InitializeComponent();
-            
+
+        // Apply Theme
         App.ApplyThemeToWindow(this);
-            
+
+        // Load Config
         _config = EasyModeConfig.Load();
+        
         PopulateSystemDropdown();
             
         // Subscribe to the Closed event
@@ -40,15 +43,14 @@ public partial class EditSystemEasyModeAddSystem
 
     }
 
-    // Populated System Dropbox only if EmulatorDownloadLink is not null
     private void PopulateSystemDropdown()
     {
         if (_config?.Systems != null)
         {
             var sortedSystemNames = _config.Systems
-                .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
+                .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink)) // only if EmulatorDownloadLink is not null
                 .Select(system => system.SystemName)
-                .OrderBy(name => name)
+                .OrderBy(name => name) // order by name
                 .ToList();
 
             SystemNameDropdown.ItemsSource = sortedSystemNames;
@@ -383,7 +385,7 @@ public partial class EditSystemEasyModeAddSystem
             // Notify user
             DownloadExtractionFailedMessageBox();
         }
-        
+
         async Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
         {
             string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";

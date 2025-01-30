@@ -12,14 +12,12 @@ namespace SimpleLauncher;
 internal class ExtractCompressedFile
 {
     
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-
     private static readonly Lazy<ExtractCompressedFile> Instance = new(() => new ExtractCompressedFile());
     public static ExtractCompressedFile Instance2 => Instance.Value;
+
     private readonly List<string> _tempDirectories = new();
-        
+    
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        
     private ExtractCompressedFile() { } // Private constructor to enforce a singleton pattern
 
     public async Task<string> ExtractArchiveToTempAsync(string archivePath)
@@ -28,23 +26,36 @@ internal class ExtractCompressedFile
 
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
-            MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
-                            $"To extract a file, it needs to be a 7z, zip, or rar file.\n\n" +
-                            $"Please go to Edit System - Expert Mode, and edit this system.",
-                "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            FileNeedToBeCompressedMessageBox();
+            
             return null;
         }
             
-        // Choose the correct 7z executable path based on user environment (x64, x86 or arm64)
+        // Choose the correct 7z executable path based on user environment (x64 or x86)
         string sevenZipPath = Get7ZipExecutablePath();
             
-        // Open the Please Wait Window
+        // Show the Please Wait Window
         var pleaseWaitExtraction = new PleaseWaitExtraction();
         pleaseWaitExtraction.Show();
 
-        // Combine temp folder with generated temp folders
+        // Create temp folders
         string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
-        Directory.CreateDirectory(tempDirectory);
+        try
+        {
+            Directory.CreateDirectory(tempDirectory);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            string errorMessage = $"'Simple Launcher' could not create the temporary folder needed for extraction.\n\n" +
+                                  $"Temp Location: {tempDirectory}\n" +
+                                  $"Method: ExtractArchiveToTempAsync";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            // Notify user
+            ExtractionFailedMessageBox();
+        }
         
         if (string.IsNullOrEmpty(tempDirectory) || !Directory.Exists(tempDirectory))
         {
@@ -56,12 +67,8 @@ internal class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
             
             // Notify user
-            MessageBox.Show("Extraction failed!\n\n" +
-                            "'Simple Launcher' was unable to create the temporary folder required for extraction.\n\n" +
-                            "This issue may occur if 'Simple Launcher' lacks the necessary privileges. Please try running it with administrative privileges.\n\n" +
-                            "Ensure that 'Simple Launcher' is located in a writable directory, and verify that your antivirus software is not blocking 'Simple Launcher' from performing the extraction.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            
+            ExtractionFailedMessageBox();
+
             return null;
         }
 
@@ -99,6 +106,7 @@ internal class ExtractCompressedFile
 
                 if (process.ExitCode != 0)
                 {
+                    // Notify developer
                     string errorMessage = $"Extraction of the compressed file failed.\n\n" +
                                           $"Method: ExtractArchiveToTempAsync\n" +
                                           $"Exit code: {process.ExitCode}\n" +
@@ -121,46 +129,20 @@ internal class ExtractCompressedFile
         }
         catch (Exception ex)
         {
-            // Log the error
+            // Notify developer
             string errorMessage = $"Extraction of the compressed file failed.\n\n" +
-                                  $"The file {archivePath} may be corrupted.\n" +
+                                  $"The file '{archivePath}' may be corrupted.\n" +
                                   $"Method: ExtractArchiveToTempAsync";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            ExtractionFailedMessageBox(archivePath);
+            // Notify user
+            ExtractionFailedMessageBox();
 
             return null;
         }
         finally
         {
-            // Close the Please Wait Window
             pleaseWaitExtraction.Close();
-        }
-    }
-
-    private static void ExtractionFailedMessageBox(string archivePath)
-    {
-        var result = MessageBox.Show($"Extraction of the compressed file failed!\n\n" +
-                                     $"The file '{archivePath}' might be corrupted.\n" +
-                                     $"Alternatively, 'Simple Launcher' may not have sufficient privileges to run on your system. Please try running it with administrative privileges.\n\n" +
-                                     $"Would you like to open the file 'error_user.log' to investigate the issue?",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The file 'error_user.log' was not found!",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
     }
 
@@ -170,20 +152,18 @@ internal class ExtractCompressedFile
 
         if (extension != ".zip")
         {
-            MessageBox.Show($"The selected file '{archivePath}' cannot be extracted.\n\n" +
-                            "To extract a file, it needs to be a zip file.\n\n" +
-                            "Please go to Edit System - Expert Mode, and edit this system.",
-                "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            FileNeedToBeCompressedMessageBox();
+
             return null;
         }
 
-        // Open the Please Wait Window
+        // Show Please Wait Window
         var pleaseWaitExtraction = new PleaseWaitExtraction();
         pleaseWaitExtraction.Show();
 
-        // Combine temp folder with generated temp folders
+        // Create temp folders
         string tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
-
         try
         {
             Directory.CreateDirectory(tempDirectory);
@@ -198,11 +178,7 @@ internal class ExtractCompressedFile
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
-                MessageBox.Show("Extraction Failed!\n\n" +
-                                "'Simple Launcher' could not create the temporary folder required for extraction.\n\n" +
-                                "This error occurs because 'Simple Launcher' does not have sufficient privileges. Please try running it with administrative privileges.\n\n" +
-                                "Additionally, consider temporarily disabling your antivirus software and try again.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ExtractionFailedMessageBox();
 
                 return null;
             }
@@ -220,13 +196,14 @@ internal class ExtractCompressedFile
         }
         catch (Exception ex)
         {
-            // Log the error
+            // Notify developer
             string errorMessage = $"Extraction of the compressed file failed.\n\n" +
                                   $"The file {archivePath} may be corrupted.\n" +
                                   "Method: ExtractArchiveToTempAsync";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            ExtractionFailedMessageBox(archivePath);
+            // Notify user
+            ExtractionFailedMessageBox();
 
             return null;
         }
@@ -243,16 +220,15 @@ internal class ExtractCompressedFile
 
         if (RuntimeInformation.ProcessArchitecture == Architecture.X64)
         {
-            return Path.Combine(baseDirectory, "7z.exe"); // Default for 64-bit
+            return Path.Combine(baseDirectory, "7z.exe");
         }
-        else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+
+        if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
         {
             return Path.Combine(baseDirectory, "7z_x86.exe");
         }
-        else
-        {
-            throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
-        }
+
+        throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
     }
 
     public void CleanupTempFolders()
@@ -278,7 +254,6 @@ internal class ExtractCompressedFile
         
     public async Task<bool> ExtractDownloadFilesAsync(string filePath, string destinationFolder)
     {
-        
         // ///////////////////////////////////////////////////
         // ///////////////////////////////////////////////////
         // ///////////////////////////////////////////////////
@@ -301,26 +276,30 @@ internal class ExtractCompressedFile
         
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
+            // Notify developer
             string formattedException = $"The downloaded file appears to be empty or corrupted.\n\n" +
+                                        $"File: {filePath}\n" +
                                         $"Method: ExtractDownloadFilesAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
-                
-            MessageBox.Show("The downloaded file appears to be empty or corrupted.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+            // Notify user
+            DownloadErrorMessageBox();
+            
             return false;
         }
             
         if (IsFileLocked(filePath))
         {
+            // Notify developer
             string formattedException = $"The downloaded file appears to be locked.\n" +
+                                        $"File: {filePath}\n" +
                                         $"Method: ExtractDownloadFilesAsync";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
-                
-            MessageBox.Show("The downloaded file appears to be locked.",
-                "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            // Notify user
+            DownloadErrorMessageBox();
 
             return false;
         }
@@ -332,32 +311,32 @@ internal class ExtractCompressedFile
 
             if (!File.Exists(sevenZipPath))
             {
-                string formattedException = $"The required 7z executable was not found in the application folder.";
+                // Notify developer
+                string formattedException = "The required 7z executable was not found in the application folder.";
                 Exception exception = new(formattedException);
                 await LogErrors.LogErrorAsync(exception, formattedException);
                     
-                // Ask the user if they want to automatically reinstall Simple Launcher
-                var messageBoxResult = MessageBox.Show(
-                    "The appropriate version of '7z.exe' was not found in the application folder!\n\n" +
-                    "'Simple Launcher' will not be able to extract compressed files.\n\n" +
-                    "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
-                    "Extraction Error", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                // Notify user
+                DecompressorAppIsNotAvailableMessageBox();
 
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    MessageBox.Show("Please reinstall 'Simple Launcher' to fix the problem.",
-                        "Warning", MessageBoxButton.OK,MessageBoxImage.Warning);
-                }
-                    
                 return false;
             }
                 
             // Create destination folder if it does not exist
-            Directory.CreateDirectory(destinationFolder);
+            try
+            {
+                Directory.CreateDirectory(destinationFolder);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                string formattedException = "'Simple Launcher' could not create the destination folder.\n" +
+                                            "Method: ExtractDownloadFilesAsync";
+                await LogErrors.LogErrorAsync(ex, formattedException);
+ 
+                // Notify user
+                ExtractionFailedMessageBox();
+            }
             
             // Delay for 1 second
             // Give time to file unlock and also create destinationFolder
@@ -384,17 +363,15 @@ internal class ExtractCompressedFile
 
             if (process.ExitCode != 0)
             {
+                // Notify developer
                 string formattedException = $"Error extracting the file: {filePath}\n\n" +
                                             $"Error message: {error}\n\n" +
                                             $"Method: ExtractDownloadFilesAsync";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
-                                $"The file might be corrupted or locked by some other process.\n\n" +
-                                $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
-                                $"You can also try to run 'Simple Launcher' with administrative privileges.",
-                    "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Notify user
+                ExtractionFailedMessageBox();
 
                 return false;
             }
@@ -402,17 +379,15 @@ internal class ExtractCompressedFile
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Error extracting the file: {filePath}\n\n" +
                                         $"Method: ExtractDownloadFilesAsync\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            MessageBox.Show($"Error extracting the file: {filePath}\n\n" +
-                            $"The file might be corrupted or locked by some other process.\n\n" +
-                            $"Some antivirus programs may lock, block extraction or scan newly downloaded files, causing access issues. Try to temporarily disable real-time protection.\n\n" +
-                            $"You can also try to run 'Simple Launcher' with administrative privileges.",
-                "Extraction Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ExtractionFailedMessageBox();
 
             return false;
         }
@@ -431,62 +406,56 @@ internal class ExtractCompressedFile
         // ///////////////////////////////////////////////////
         // ///////////////////////////////////////////////////
     }
-    
+
     public async Task<bool> ExtractDownloadFilesAsync2(string filePath, string destinationFolder)
     {
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
+            // Notify developer
             string formattedException = $"The downloaded file appears to be empty or corrupted.\n\n" +
                                         $"Method: ExtractDownloadFilesAsync2";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
 
-            MessageBox.Show("The downloaded file appears to be empty or corrupted.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Download Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            DownloadErrorMessageBox();
 
             return false;
         }
 
         if (IsFileLocked(filePath))
         {
+            // Notify developer
             string formattedException = $"The downloaded file appears to be locked.\n" +
                                         $"Method: ExtractDownloadFilesAsync2";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
 
-            MessageBox.Show("The downloaded file appears to be locked.",
-                "Downloaded File is Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            DownloadErrorMessageBox();
 
             return false;
         }
 
         try
         {
-            // Create destination folder if it does not exist
             Directory.CreateDirectory(destinationFolder);
 
-            // Delay for 1 second to allow file system operations
-            await Task.Delay(1000);
-
-            // Extract the ZIP file
             await Task.Run(() => ZipFile.ExtractToDirectory(filePath, destinationFolder, true));
 
             return true;
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Error extracting the file: {filePath}\n\n" +
                                         $"Method: ExtractDownloadFilesAsync2\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            MessageBox.Show("Extraction failed!\n\n" +
-                            "Grant 'Simple Launcher' administrative access and try again.\n\n" +
-                            "Ensure the 'Simple Launcher' folder is a writable directory.\n\n" +
-                            "Temporarily disable your antivirus software and try again.",
-                "Extraction Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Notify user
+            ExtractionFailedMessageBox();
 
             return false;
         }
@@ -510,5 +479,67 @@ internal class ExtractCompressedFile
         {
             return true;
         }
+    }
+    
+    private static void ExtractionFailedMessageBox()
+    {
+        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
+        string ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
+        string grantadministrativeaccesstoSimple2 = (string)Application.Current.TryFindResource("GrantadministrativeaccesstoSimple") ?? "Grant administrative access to 'Simple Launcher'.";
+        string ensureSimpleLauncherisinawritable2 = (string)Application.Current.TryFindResource("EnsureSimpleLauncherisinawritable") ?? "Ensure 'Simple Launcher' is in a writable folder.";
+        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{extractionfailed2}\n\n" +
+                        $"{ensurethefileisnotcorrupted2}\n" +
+                        $"{grantadministrativeaccesstoSimple2}\n" +
+                        $"{ensureSimpleLauncherisinawritable2}\n" +
+                        $"{temporarilydisableyourantivirussoftware2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    private static void FileNeedToBeCompressedMessageBox()
+    {
+        string theselectedfilecannotbe2 = (string)Application.Current.TryFindResource("Theselectedfilecannotbe") ?? "The selected file cannot be extracted.";
+        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        string pleasefixthatintheEditwindow2 = (string)Application.Current.TryFindResource("PleasefixthatintheEditwindow") ?? "Please fix that in the Edit window.";
+        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
+        MessageBox.Show($"{theselectedfilecannotbe2}\n\n" +
+                        $"{toextractafileitneedstobe2}\n\n" +
+                        $"{pleasefixthatintheEditwindow2}",
+            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    private static void DecompressorAppIsNotAvailableMessageBox()
+    {
+        string theappropriateversionof7Zexe2 = (string)Application.Current.TryFindResource("Theappropriateversionof7zexe") ?? "The appropriate version of '7z.exe' was not found in the application folder!";
+        string simpleLauncherwillnotbeabletoextract2 = (string)Application.Current.TryFindResource("SimpleLauncherwillnotbeabletoextract") ?? "'Simple Launcher' will not be able to extract compressed files.";
+        string doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var messageBoxResult = MessageBox.Show($"{theappropriateversionof7Zexe2}\n\n" +
+                                               $"{simpleLauncherwillnotbeabletoextract2}\n\n" +
+                                               $"{doyouwanttoautomaticallyreinstall2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (messageBoxResult == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually.";
+            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
+                warning2, MessageBoxButton.OK,MessageBoxImage.Warning);
+        }
+    }
+    
+    private static void DownloadErrorMessageBox()
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloaderror2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

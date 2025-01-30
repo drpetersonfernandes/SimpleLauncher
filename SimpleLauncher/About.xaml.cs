@@ -11,7 +11,8 @@ public partial class About
     public About()
     {
         InitializeComponent();
-            
+
+        // Apply theme
         App.ApplyThemeToWindow(this);
             
         // Set the data context for data binding
@@ -44,6 +45,7 @@ public partial class About
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Error in the CheckForUpdate_Click method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";

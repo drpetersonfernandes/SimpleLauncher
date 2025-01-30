@@ -102,7 +102,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton_Click"
                         IsEnabled="False" Margin="5" />
-                
+
                 <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                        Content="{DynamicResource AddSystemIntoSimpleLauncher}"
                        HorizontalAlignment="Center" Margin="0,20,10,10" />

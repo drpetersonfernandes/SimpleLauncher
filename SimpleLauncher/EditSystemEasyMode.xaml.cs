@@ -9,9 +9,11 @@ public partial class EditSystemEasyMode
     public EditSystemEasyMode(SettingsConfig settings)
     {
         InitializeComponent();
-            
+
+        // Load Settings
         _settings = settings;
 
+        // Apply Theme
         App.ApplyThemeToWindow(this);
     }
 

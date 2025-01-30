@@ -25,8 +25,11 @@ public partial class EditSystem
     public EditSystem(SettingsConfig settings)
     {
         InitializeComponent();
+        
+        // Load Settings
         _settings = settings;
         LoadXml();
+        
         PopulateSystemNamesDropdown();
             
         // Attach event handler
@@ -34,7 +37,8 @@ public partial class EditSystem
             
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
-            
+        
+        // Apply theme
         App.ApplyThemeToWindow(this);
     }
 
@@ -42,6 +46,7 @@ public partial class EditSystem
     {
         if (!File.Exists(_xmlFilePath))
         {
+            // Notify user
             SystemXmlNotFoundMessageBox();
                 
             // Shutdown SimpleLauncher
@@ -417,7 +422,6 @@ public partial class EditSystem
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
-        
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -428,7 +432,8 @@ public partial class EditSystem
 
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = false;
-            
+
+        // Notify user
         YouCanAddANewSystemMessageBox();
 
         void YouCanAddANewSystemMessageBox()
@@ -597,8 +602,8 @@ public partial class EditSystem
         // Add Emulator1 details to XML and check uniqueness
         if (!emulatorNames.Add(emulator1NameText))
         {
+            // Notify user
             EmulatorNameMustBeUniqueMessageBox();
-
             void EmulatorNameMustBeUniqueMessageBox()
             {
                 string thename2 = (string)Application.Current.TryFindResource("Thename") ?? "The name";
@@ -632,8 +637,8 @@ public partial class EditSystem
                 // Make the emulator name required if related data is provided
                 if (string.IsNullOrEmpty(emulatorName))
                 {
+                    // Notify user
                     EmulatorNameRequiredMessageBox();
-
                     void EmulatorNameRequiredMessageBox()
                     {
                         string emulator2 = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
@@ -654,8 +659,8 @@ public partial class EditSystem
                 // Check for uniqueness
                 if (!emulatorNames.Add(emulatorName))
                 {
+                    // Notify user
                     EmulatorNameMustBeUniqueMessageBox();
-
                     void EmulatorNameMustBeUniqueMessageBox()
                     {
                         string thename2 = (string)Application.Current.TryFindResource("Thename") ?? "The name";
@@ -706,8 +711,8 @@ public partial class EditSystem
         // Select a value from Dropbox
         SystemNameDropdown.SelectedItem = systemNameText;
 
+        // Notify user
         SystemSavedSuccessfullyMessageBox();
-
         void SystemSavedSuccessfullyMessageBox()
         {
             string systemsavedsuccessfully2 = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ?? "System saved successfully.";
@@ -812,8 +817,8 @@ public partial class EditSystem
         if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
             !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
         {
+            // Notify user
             PathOrParameterInvalidMessageBox();
-
             void PathOrParameterInvalidMessageBox()
             {
                 string oneormorepathsorparameters2 = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ?? "One or more paths or parameters are invalid.";
@@ -831,8 +836,8 @@ public partial class EditSystem
     {
         if (string.IsNullOrEmpty(emulator1NameText))
         {
+            // Notify user
             Emulator1RequiredMessageBox();
-
             void Emulator1RequiredMessageBox()
             {
                 string emulator1Nameisrequired2 = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ?? "'Emulator 1 Name' is required.";
@@ -843,7 +848,6 @@ public partial class EditSystem
 
             return true;
         }
-
         return false;
     }
 
@@ -856,8 +860,8 @@ public partial class EditSystem
             .ToList();
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
+            // Notify user
             ExtensionToLaunchIsRequiredMessageBox();
-
             void ExtensionToLaunchIsRequiredMessageBox()
             {
                 string extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ?? "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
@@ -880,8 +884,8 @@ public partial class EditSystem
             .ToList();
         if (formatsToSearch.Count == 0)
         {
+            // Notify user
             ExtensionToSearchIsRequiredMessageBox();
-
             void ExtensionToSearchIsRequiredMessageBox()
             {
                 string extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ?? "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
@@ -894,8 +898,8 @@ public partial class EditSystem
         }
         if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
         {
+            // Notify user
             FileMustBeCompressedMessageBox();
-
             void FileMustBeCompressedMessageBox()
             {
                 string whenExtractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ?? "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
@@ -939,8 +943,8 @@ public partial class EditSystem
         
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
+            // Notify user
             SystemImageFolderCanNotBeEmptyMessageBox();
-
             void SystemImageFolderCanNotBeEmptyMessageBox()
             {
                 string systemImageFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ?? "'System Image Folder' cannot be empty or contain only spaces.";
@@ -952,7 +956,6 @@ public partial class EditSystem
 
             return true;
         }
-
         return false;
     }
 
@@ -985,8 +988,8 @@ public partial class EditSystem
 
         if (string.IsNullOrEmpty(systemFolderText))
         {
+            // Notify user
             SystemFolderCanNotBeEmptyMessageBox();
-
             void SystemFolderCanNotBeEmptyMessageBox()
             {
                 string systemFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ?? "'System Folder' cannot be empty or contain only spaces.";
@@ -1005,8 +1008,8 @@ public partial class EditSystem
     {
         if (string.IsNullOrEmpty(systemNameText))
         {
+            // Notify user
             SystemNameCanNotBeEmptyMessageBox();
-
             void SystemNameCanNotBeEmptyMessageBox()
             {
                 string systemNamecannotbeemptyor2 = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ?? "'System Name' cannot be empty or contain only spaces.";
@@ -1060,8 +1063,8 @@ public partial class EditSystem
                     Directory.CreateDirectory(newFolderPath);
                     if (folderName == "images")
                     {
+                        // Notify user
                         FolderCreatedMessageBox();
-
                         void FolderCreatedMessageBox()
                         {
                             string simpleLaunchercreatedaimagefolder2 = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
@@ -1087,7 +1090,6 @@ public partial class EditSystem
 
                 // Notify user
                 FolderCreationFailedMessageBox();
-
                 void FolderCreationFailedMessageBox()
                 {
                     string simpleLauncherfailedtocreatethe2 = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
@@ -1121,8 +1123,8 @@ public partial class EditSystem
         
         if (SystemNameDropdown.SelectedItem == null)
         {
+            // Notify user
             SelectASystemToDeleteMessageBox();
-
             void SelectASystemToDeleteMessageBox()
             {
                 string pleaseselectasystemtodelete2 = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ?? "Please select a system to delete.";
@@ -1143,7 +1145,6 @@ public partial class EditSystem
         {
             //Ask user if he really wants to delete the system
             DoYouWanToDeleteSystemMessageBox();
-
             void DoYouWanToDeleteSystemMessageBox()
             {
                 string areyousureyouwanttodeletethis2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
@@ -1167,6 +1168,7 @@ public partial class EditSystem
         }
         else
         {
+            // Notify user
             SystemNotFoundInTheXmlMessageBox();
         }
 

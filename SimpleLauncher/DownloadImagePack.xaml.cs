@@ -25,9 +25,13 @@ public partial class DownloadImagePack
     public DownloadImagePack()
     {
         InitializeComponent();
-          
+
+        // Apply Theme
         App.ApplyThemeToWindow(this);
+        
+        // Load Config
         _config = EasyModeConfig.Load();
+        
         PopulateSystemDropdown();
             
         // Subscribe to the Closed event
@@ -43,7 +47,7 @@ public partial class DownloadImagePack
             var systemsWithImagePacks = _config.Systems
                 .Where(system => !string.IsNullOrEmpty(system.Emulators.Emulator.ExtrasDownloadLink))
                 .Select(system => system.SystemName)
-                .OrderBy(name => name)
+                .OrderBy(name => name) // Order by system name
                 .ToList();
 
             SystemNameDropdown.ItemsSource = systemsWithImagePacks;
@@ -122,7 +126,8 @@ public partial class DownloadImagePack
                                                         $"File: {extrasDownloadUrl}";
                             Exception ex = new Exception(formattedException);
                             await LogErrors.LogErrorAsync(ex, formattedException);
-                            
+
+                            // Notify user
                             ImagePackDownloadExtractionFailedMessageBox();
                         }
                     }
@@ -134,6 +139,7 @@ public partial class DownloadImagePack
                         Exception ex = new Exception(formattedException);
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
+                        // Notify user
                         ImagePackDownloadExtractionFailedMessageBox();
                     }
                 }
@@ -141,6 +147,7 @@ public partial class DownloadImagePack
                 {
                     DeleteDownloadedFile(downloadFilePath);
 
+                    // Notify user
                     DownloadCanceledMessageBox();
                 }
                 catch (Exception ex)
@@ -152,6 +159,7 @@ public partial class DownloadImagePack
                                                 $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
+                    // Notify user
                     DownloadErrorOfferRedirectMessageBox(selectedSystem);
                 }
                 finally
@@ -168,7 +176,8 @@ public partial class DownloadImagePack
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
+            // Notify user
             ImagePackDownloadExtractionFailedMessageBox();
         }
 
@@ -275,32 +284,38 @@ public partial class DownloadImagePack
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
+            // Notify developer
             string formattedException = $"The requested file was not available on the server.\n\n" +
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
+            // Notify user
             DownloadErrorMessageBox();
         }
         catch (HttpRequestException ex)
         {
+            // Notify developer
             string formattedException = $"Network error during file download.\n\n" +
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
+            // Notify user
             DownloadErrorMessageBox();
         }
         catch (IOException ex)
         {
+            // Notify developer
             string formattedException = $"File read/write error after file download.\n\n" +
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
+            // Notify user
             IoExceptionMessageBox();
         }
         catch (TaskCanceledException ex)
@@ -326,7 +341,6 @@ public partial class DownloadImagePack
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
                 DeleteDownloadedFile();
-                    
                 DownloadErrorMessageBox();
             }
         }
@@ -413,6 +427,7 @@ public partial class DownloadImagePack
 
     private void EditSystemEasyModeAddSystem_Closed(object sender, EventArgs e)
     {
+        // Empty EasyMode Config
         _config = null;
     }
 

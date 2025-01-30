@@ -33,7 +33,8 @@
                 <Hyperlink NavigateUri="https://purelogiccode.com" RequestNavigate="Hyperlink_RequestNavigate">https://purelogiccode.com</Hyperlink>
             </TextBlock>
             <TextBlock Margin="0,10,0,10">
-                <Hyperlink NavigateUri="https://github.com/drpetersonfernandes/SimpleLauncher" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://github.com/drpetersonfernandes/SimpleLauncher"
+                           RequestNavigate="Hyperlink_RequestNavigate">
                     https://github.com/drpetersonfernandes/SimpleLauncher
                 </Hyperlink>
             </TextBlock>

@@ -11,9 +11,15 @@ public partial class EditLinks
     public EditLinks(SettingsConfig settingsConfig)
     {
         InitializeComponent();
+        
+        // Load Config
         _settingsConfig = settingsConfig;
+        
+        // Load Links
         LoadLinks();
-        this.Closing += EditLinks_Closing; // attach event handler
+        
+        // attach event handler
+        this.Closing += EditLinks_Closing; 
     }
 
     private void LoadLinks()
@@ -33,9 +39,16 @@ public partial class EditLinks
             : EncodeForXml(InfoLinkTextBox.Text);
 
         _settingsConfig.Save();
-        string linkssavedsuccessfully2 = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(linkssavedsuccessfully2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        LinksSavedMessageBox();
+
+        void LinksSavedMessageBox()
+        {
+            string linkssavedsuccessfully2 = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
+            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show(linkssavedsuccessfully2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
@@ -47,9 +60,15 @@ public partial class EditLinks
         InfoLinkTextBox.Text = _settingsConfig.InfoUrl;
 
         _settingsConfig.Save();
-        string linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(linksreverted2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+        LinksRevertedMessageBox();
+
+        void LinksRevertedMessageBox()
+        {
+            string linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
+            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show(linksreverted2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
     private string EncodeForXml(string input)

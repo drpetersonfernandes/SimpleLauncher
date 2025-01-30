@@ -44,6 +44,7 @@ public static class DownloadAndExtractInMemory
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
+            // Notify developer
             string formattedException = $"The requested file was not available on the server.\n\n" +
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
@@ -52,6 +53,7 @@ public static class DownloadAndExtractInMemory
         }
         catch (IOException ex)
         {
+            // Notify developer
             string formattedException = $"Error during in-memory extraction.\n\n" +
                                         $"URL: {downloadUrl}\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
@@ -60,11 +62,6 @@ public static class DownloadAndExtractInMemory
         }
         catch (TaskCanceledException ex)
         {
-            string theoperationwascanceled2 = (string)Application.Current.TryFindResource("Theoperationwascanceled") ?? "The operation was canceled by the user.";
-            string operationCanceled2 = (string)Application.Current.TryFindResource("OperationCanceled") ?? "Operation Canceled";
-            MessageBox.Show(theoperationwascanceled2,
-                operationCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
-
             // Notify developer
             string formattedException = "The operation was canceled by the user.\n\n" +
                                         $"URL: {downloadUrl}\n" +
@@ -120,14 +117,20 @@ public static class DownloadAndExtractInMemory
         }
         catch (InvalidDataException)
         {
-            string thedownloadedfileisnotavalid2 = (string)Application.Current.TryFindResource("Thedownloadedfileisnotavalid") ?? "The downloaded file is not a valid ZIP archive.";
-            string thismaybeduetoanetwork2 = (string)Application.Current.TryFindResource("Thismaybeduetoanetwork") ?? "This may be due to a network issue or server error.";
-            string pleasetryagainlater2 = (string)Application.Current.TryFindResource("Pleasetryagainlater") ?? "Please try again later.";
-            string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
-            MessageBox.Show($"{thedownloadedfileisnotavalid2}\n\n" +
-                            $"{thismaybeduetoanetwork2}\n\n" +
-                            $"{pleasetryagainlater2}",
-                extractionError2, MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            FileIsNotACompressedFileMessageBox();
+            void FileIsNotACompressedFileMessageBox()
+            {
+                string thedownloadedfileisnotavalid2 = (string)Application.Current.TryFindResource("Thedownloadedfileisnotavalidcompressedfile") ?? "The downloaded file is not a valid compressed file.";
+                string thismaybeduetoanetwork2 = (string)Application.Current.TryFindResource("Thismaybeduetoanetwork") ?? "This may be due to a network issue or server error.";
+                string pleasetryagainlater2 = (string)Application.Current.TryFindResource("Pleasetryagainlater") ?? "Please try again later.";
+                string extractionError2 = (string)Application.Current.TryFindResource("ExtractionError") ?? "Extraction Error";
+                MessageBox.Show($"{thedownloadedfileisnotavalid2}\n\n" +
+                                $"{thismaybeduetoanetwork2}\n\n" +
+                                $"{pleasetryagainlater2}",
+                    extractionError2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             throw;
         }
         catch
