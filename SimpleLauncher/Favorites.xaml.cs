@@ -28,6 +28,7 @@ public partial class Favorites
     {
         InitializeComponent();
  
+        // Apply theme to the window
         App.ApplyThemeToWindow(this);
             
         _favoritesManager = new FavoritesManager();
@@ -41,9 +42,8 @@ public partial class Favorites
         Closing += Favorites_Closing; 
     }
         
-    private void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
-        // Prepare the process start info
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule != null)
         {
@@ -98,7 +98,7 @@ public partial class Favorites
         return FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
     }
     
-    private string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
+    private static string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
     {
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
     
@@ -110,6 +110,20 @@ public partial class Favorites
     
         string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+        // First try to find the image in the specific directory
+        if (TryFindImage(systemImageFolder, out var foundImagePath))
+        {
+            return foundImagePath;
+        }
+        // If not found, try the global directory
+        if (TryFindImage(globalDirectory, out foundImagePath))
+        {
+            return foundImagePath;
+        }
+
+        // If not found, use default image
+        return Path.Combine(baseDirectory, "images", "default.png");
 
         // Search for the image file
         bool TryFindImage(string directory, out string foundPath)
@@ -126,22 +140,6 @@ public partial class Favorites
             foundPath = null;
             return false;
         }
-
-        // First try to find the image in the specific directory
-        if (TryFindImage(systemImageFolder, out var foundImagePath))
-        {
-            return foundImagePath;
-        }
-        // If not found, try the global directory
-        else if (TryFindImage(globalDirectory, out foundImagePath))
-        {
-            return foundImagePath;
-        }
-        else
-        {
-            // If not found, use default image
-            return Path.Combine(baseDirectory, "images", "default.png");
-        }
     }
 
     private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -156,6 +154,12 @@ public partial class Favorites
         }
         else
         {
+            // Notify user
+            SelectAFavoriteToRemoveMessageBox();
+        }
+
+        void SelectAFavoriteToRemoveMessageBox()
+        {
             string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
             string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             MessageBox.Show(pleaseselectafavoritetoremove2,
@@ -167,22 +171,30 @@ public partial class Favorites
     {
         try
         {
-            
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
                 if (selectedFavorite.FileName == null)
                 {
-                    string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
-                                                $"No FileName found for the selected favorite.";
+                    // Notify developer
+                    string formattedException = $"Favorite filename is null";
                     Exception ex = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                   
-                    MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    // Notify user
+                    FavoriteFilenameIsNullMessageBox();
                     
                     return;
+
+                    void FavoriteFilenameIsNullMessageBox()
+                    {
+                        string therewasanerrorloadingtheinfo2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingtheinfo") ?? "There was an error loading the info for this favorite.";
+                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                        MessageBox.Show($"{therewasanerrorloadingtheinfo2}\n\n" +
+                                        $"{theerrorwasreportedtothedeveloper2}",
+                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 
                 string fileNameWithExtension = selectedFavorite.FileName;
@@ -191,15 +203,23 @@ public partial class Favorites
                 var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (systemConfig == null)
                 {
-                    const string formattedException = $"There was an error in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
-                                                      $"No system configuration found for the selected favorite.";
+                    // Notify developer
+                    string formattedException = $"systemConfig is null for the selected favorite";
                     Exception ex = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                   
-                    MessageBox.Show("There was an error loading the system configuration for this favorite.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Notify user
+                    SystemConfigIsNullMessageBox();
+                    void SystemConfigIsNullMessageBox()
+                    {
+                        string therewasanerrorloadingthesystem2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthesystem") ?? "There was an error loading the system configuration for this favorite.";
+                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                        MessageBox.Show($"{therewasanerrorloadingthesystem2}\n\n" +
+                                        $"{theerrorwasreportedtothedeveloper2}",
+                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     
                     return;
                 }
@@ -506,24 +526,32 @@ public partial class Favorites
                     Header = takeScreenshot2,
                     Icon = takeScreenshotIcon
                 };
-                string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
-                string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
-                string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-                string aselectionwindowwillopenin2 = (string)Application.Current.TryFindResource("Aselectionwindowwillopenin") ?? "A selection window will open in";
-                string allowingyoutochoosethe2 = (string)Application.Current.TryFindResource("allowingyoutochoosethe") ?? "allowing you to choose the desired window to capture.";
-                string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
 
                 takeScreenshot.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    MessageBox.Show($"{thegamewilllaunchnow2}\n\n{setthegamewindowto2}\n\n{youshouldchangetheemulatorparameters2}\n\n" +
-                                    $"{aselectionwindowwillopenin2} 'Simple Launcher,' {allowingyoutochoosethe2}\n\n{assoonasyouselectawindow2}",
-                        takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
-                
+                    
+                    // Notify user
+                    TakeScreenShotMessageBox();
+                    void TakeScreenShotMessageBox()
+                    {
+                        string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
+                        string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
+                        string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
+                        string aselectionwindowwillopeninSimpleLauncherallowingyou2 = (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ?? "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
+                        string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
+                        MessageBox.Show($"{thegamewilllaunchnow2}\n\n" +
+                                        $"{setthegamewindowto2}\n\n" +
+                                        $"{youshouldchangetheemulatorparameters2}\n\n" +
+                                        $"{aselectionwindowwillopeninSimpleLauncherallowingyou2}\n\n" +
+                                        $"{assoonasyouselectawindow2}",
+                            takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
                     _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
                 };
-            
+
                 // Delete Game Context Menu
                 var deleteGameIcon = new Image
                 {
@@ -537,19 +565,25 @@ public partial class Favorites
                     Header = deleteGame2,
                     Icon = deleteGameIcon
                 };
-                string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
-                string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-                string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
                 deleteGame.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
-                        confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
+                    
+                    DoYouWanToDeleteMessageBox();
+                    void DoYouWanToDeleteMessageBox()
                     {
-                        DeleteFile(filePath, fileNameWithExtension);
-                        RemoveFromFavorites(selectedFavorite);
+                        string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+                        string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                        string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+                        var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n" +
+                                                     $"{thisactionwilldelete2}",
+                            confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            DeleteFile(filePath, fileNameWithExtension);
+                            RemoveFromFavorites(selectedFavorite);
+                        }
                     }
                 };
 
@@ -575,16 +609,24 @@ public partial class Favorites
         }
         catch (Exception ex)
         {
-            string formattedException =
-                $"There was an error in the right-click context menu in the FavoritesDataGrid_MouseRightButtonUp method.\n\n" +
-                $"Exception type: {ex.GetType().Name}\n" +
-                $"Exception details: {ex.Message}";
+            // Notify developer
+            string formattedException = $"There was an error in the right-click context menu.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("There was an error in the right-click context menu.\n\n" +
-                            "The error was reported to the developer, who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ContextMenuErrorMessageBox();
+            void ContextMenuErrorMessageBox()
+            {
+                string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper2}",
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
       

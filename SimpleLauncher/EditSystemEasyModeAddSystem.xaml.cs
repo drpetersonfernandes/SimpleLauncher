@@ -18,6 +18,9 @@ namespace SimpleLauncher;
 
 public partial class EditSystemEasyModeAddSystem
 {
+    // Create instance of ExtractCompressedFile
+    private readonly ExtractCompressedFile _extractCompressedFile = new();
+
     private EasyModeConfig _config;
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
@@ -119,7 +122,8 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await _extractCompressedFile
+                            .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
                         
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
@@ -305,7 +309,8 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await _extractCompressedFile
+                            .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
                         
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
@@ -460,7 +465,8 @@ public partial class EditSystemEasyModeAddSystem
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        bool extractionSuccess = await _extractCompressedFile
+                            .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
 
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();

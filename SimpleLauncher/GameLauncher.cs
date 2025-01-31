@@ -854,7 +854,9 @@ public static class GameLauncher
             // Accept ZIP, 7Z and RAR files
             if (fileExtension == ".ZIP" || fileExtension == ".7Z" || fileExtension == ".RAR")
             {
-                string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+                // Create Instance of ExtractCompressedFile
+                ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
+                string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
                 
                 if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
                 {
@@ -1278,7 +1280,9 @@ public static class GameLauncher
         if (fileExtension == ".ZIP")
         {
             // Use a native .net library to extract
-            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync2(filePath);
+            // Create Instance of ExtractCompressedFile
+            ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
+            string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
 
             var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
             if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
@@ -1286,7 +1290,9 @@ public static class GameLauncher
         else if (fileExtension == ".7Z" || fileExtension == ".RAR")
         {
             // Use 7z to extract
-            string tempExtractLocation = await ExtractCompressedFile.Instance2.ExtractArchiveToTempAsync(filePath);
+            // Create Instance of ExtractCompressedFile
+            ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
+            string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
                 
             var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
             if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;

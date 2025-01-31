@@ -16,6 +16,9 @@ namespace SimpleLauncher;
 
 public partial class DownloadImagePack
 {
+    // Create instance of ExtractCompressedFile
+    private readonly ExtractCompressedFile _extractCompressedFile = new();
+    
     private EasyModeConfig _config;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient = new();
@@ -105,7 +108,8 @@ public partial class DownloadImagePack
                         PleaseWaitExtraction pleaseWaitWindow = new PleaseWaitExtraction();
                         pleaseWaitWindow.Show();
 
-                        bool extractionSuccess = await ExtractCompressedFile.Instance2.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
+                        bool extractionSuccess = await _extractCompressedFile.
+                            ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
                         
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();

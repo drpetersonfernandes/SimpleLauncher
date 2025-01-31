@@ -243,7 +243,6 @@ public partial class MainWindow : INotifyPropertyChanged
         // Attach the Load and Close event handler.
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
-        AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
         void SystemXmlCorruptedMessageBox()
         {
@@ -370,12 +369,6 @@ public partial class MainWindow : INotifyPropertyChanged
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
         SaveApplicationSettings();
-    }
-    
-    private void CurrentDomain_ProcessExit(object sender, EventArgs e)
-    {
-        // // Delete generated temp files before close.
-        ExtractCompressedFile.Instance2.CleanupTempFolders();
         
         // Delete temp folders and files before close.
         CleanSimpleLauncherFolder.CleanupTrash();
