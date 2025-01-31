@@ -1069,7 +1069,6 @@ internal class GameButtonFactory(
 
         // Notify user
         ThereIsNoManualMessageBox();
-
         void CouldNotOpenManualMessageBox()
         {
             string failedtoopenthemanual2 = (string)Application.Current.TryFindResource("Failedtoopenthemanual") ?? "Failed to open the manual.";
@@ -1129,7 +1128,6 @@ internal class GameButtonFactory(
 
         // Notify user
         ThereIsNoWalkthroughMessageBox();
-
         void CouldNotOpenWalkthroughMessageBox()
         {
             string failedtoopenthewalkthrough2 = (string)Application.Current.TryFindResource("Failedtoopenthewalkthrough") ?? "Failed to open the walkthrough.";
@@ -1166,9 +1164,15 @@ internal class GameButtonFactory(
             }
         }
         
-        string thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
-        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
-        MessageBox.Show(thereisnocabinetfile2, cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        // Notify user
+        ThereIsNoCabinetMessageBox();
+        void ThereIsNoCabinetMessageBox()
+        {
+            string thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
+            string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
+            MessageBox.Show(thereisnocabinetfile2,
+                cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
     private void OpenFlyer(string systemName, string fileName)
@@ -1188,9 +1192,16 @@ internal class GameButtonFactory(
                 return;
             }
         }
-        string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
-        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
-        MessageBox.Show(thereisnoflyer2, flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        ThereIsNoFlyerMessageBox();
+        void ThereIsNoFlyerMessageBox()
+        {
+            string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
+            string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
+            MessageBox.Show(thereisnoflyer2,
+                flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
     private void OpenPcb(string systemName, string fileName)
@@ -1210,9 +1221,16 @@ internal class GameButtonFactory(
                 return;
             }
         }
-        string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
-        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
-        MessageBox.Show(thereisnoPcBfile2,pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        ThereIsNoPcbMessageBox();
+        void ThereIsNoPcbMessageBox()
+        {
+            string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
+            string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
+            MessageBox.Show(thereisnoPcBfile2,
+                pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
         
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button)
@@ -1308,16 +1326,24 @@ internal class GameButtonFactory(
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Failed to save screenshot.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Send log error to the developer
+            // Notify developer
             string contextMessage = $"There was a problem saving the screenshot.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            CouldNotSaveScreenshotMessageBox();
+        }
+        void CouldNotSaveScreenshotMessageBox()
+        {
+            string failedtosavescreenshot2 = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtosavescreenshot2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1331,38 +1357,57 @@ internal class GameButtonFactory(
                     
                 PlayClick.PlayTrashSound();
 
-                string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-                string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-                string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
-                MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
-                    fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
-                    
+                // Notify user
+                FileSuccessfullyDeletedMessageBox();
+
                 // Remove the button from the UI
                 gameFileGrid.Children.Remove(button);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
                 // Notify developer
                 string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                FileCouldNotBeDeletedMessageBox();
             }
         }
         else
         {
-            MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
-                "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify developer
+            string errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
+            Exception ex = new FileNotFoundException(errorMessage);
+            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            FileCouldNotBeDeletedMessageBox();
+        }
+
+        void FileSuccessfullyDeletedMessageBox()
+        {
+            string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
+            string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
+            string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
+            MessageBox.Show($"{thefile2} '{fileNameWithExtension}' {hasbeensuccessfullydeleted2}",
+                fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        void FileCouldNotBeDeletedMessageBox()
+        {
+            string anerroroccurredwhiletryingtodelete2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ?? "An error occurred while trying to delete the file";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{anerroroccurredwhiletryingtodelete2} '{fileNameWithExtension}'.",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
     {
-        // Determine base image directory
         string baseImageDirectory;
         if (string.IsNullOrEmpty(systemConfig?.SystemImageFolder))
         {
@@ -1431,10 +1476,19 @@ internal class GameButtonFactory(
             // This uses the dispatcher to ensure UI elements are accessed on the UI thread
             imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, defaultImagePath));
             
-            MessageBox.Show($"Unable to load image: {Path.GetFileName(imagePath)}.\n\n" +
-                            $"This image may be corrupted.\n\n" +
-                            $"The default image will be displayed instead.",
-                "Image Loading Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            UnableToLoadImageMessageBox();
+        }
+        void UnableToLoadImageMessageBox()
+        {
+            string unabletoloadimage2 = (string)Application.Current.TryFindResource("Unabletoloadimage") ?? "Unable to load image";
+            string thisimagemaybecorrupted2 = (string)Application.Current.TryFindResource("Thisimagemaybecorrupted") ?? "This image may be corrupted.";
+            string thedefaultimagewillbedisplayed2 = (string)Application.Current.TryFindResource("Thedefaultimagewillbedisplayed") ?? "The default image will be displayed instead.";
+            string imageloadingerror2 = (string)Application.Current.TryFindResource("Imageloadingerror") ?? "Image loading error";
+            MessageBox.Show($"{unabletoloadimage2} '{Path.GetFileName(imagePath)}'.\n\n" +
+                            $"{thisimagemaybecorrupted2}\n\n" +
+                            $"{thedefaultimagewillbedisplayed2}",
+                imageloadingerror2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -1465,6 +1519,7 @@ internal class GameButtonFactory(
             }
             catch (Exception ex)
             {
+                // Notify developer
                 var formattedException = $"Fail to load the fallback image in the method LoadFallbackImage.\n\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
@@ -1474,10 +1529,18 @@ internal class GameButtonFactory(
         }
         else
         {
+            // Notify user
             // If even the global default image is not found, handle accordingly
-            var reinstall = MessageBox.Show("No 'default.png' file found in the images folder.\n\n" +
-                                            "Do you want to reinstall 'Simple Launcher' to fix the issue?",
-                "Image Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            DefaultImageNotFoundMessageBox();
+        }
+        void DefaultImageNotFoundMessageBox()
+        {
+            string nodefaultpngfilefoundintheimages2 = (string)Application.Current.TryFindResource("Nodefaultpngfilefoundintheimages") ?? "No 'default.png' file found in the images folder.";
+            string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var reinstall = MessageBox.Show($"{nodefaultpngfilefoundintheimages2}\n\n" +
+                                            $"{doyouwanttoreinstallSimpleLauncher2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (reinstall == MessageBoxResult.Yes)
             {
@@ -1485,9 +1548,11 @@ internal class GameButtonFactory(
             }
             else
             {
-                MessageBox.Show("Please reinstall 'Simple Launcher' to fix the issue.\n\n" +
-                                "The application will shutdown.",
-                    "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                MessageBox.Show($"{pleasereinstallSimpleLauncher2}\n\n" +
+                                $"{theapplicationwillshutdown2}",
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 Application.Current.Shutdown();
                 Environment.Exit(0);
