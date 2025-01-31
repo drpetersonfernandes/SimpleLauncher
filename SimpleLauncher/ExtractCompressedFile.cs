@@ -52,6 +52,7 @@ public class ExtractCompressedFile
             return null;
         }
 
+        // Construct the call
         ProcessStartInfo processStartInfo = new()
         {
             FileName = sevenZipPath,
@@ -64,7 +65,7 @@ public class ExtractCompressedFile
 
         try
         {
-            // Run on background task
+            // Run on a background task
             string result = await Task.Run(() =>
             {
                 using Process process = new();
@@ -147,7 +148,7 @@ public class ExtractCompressedFile
 
         try
         {
-            // Run on background task
+            // Run on a background task
             await Task.Run(() => ZipFile.ExtractToDirectory(archivePath, tempDirectory));
 
             return tempDirectory;
@@ -178,7 +179,7 @@ public class ExtractCompressedFile
     // 'Simple Launcher' folder needs to be writable
     public async Task<bool> ExtractDownloadFilesAsync2(string filePath, string destinationFolder)
     {
-        // Check if downloaded file exists
+        // Check if the downloaded file exists
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
             // Notify developer
@@ -229,7 +230,7 @@ public class ExtractCompressedFile
         }
         
         // Check file extension
-        // File need to be a compressed file to be extracted
+        // File needs to be a compressed file to be extracted
         string extension = Path.GetExtension(filePath).ToLower();
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
@@ -258,7 +259,7 @@ public class ExtractCompressedFile
             return false;
         }
 
-        // Extract download file using native .net library
+        // Extract the download file using native .net library
         try
         {
             // Run in a background task
