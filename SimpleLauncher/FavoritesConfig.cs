@@ -9,17 +9,17 @@ namespace SimpleLauncher;
 public class FavoritesConfig
 {
     [XmlElement("Favorite")]
-    public ObservableCollection<Favorite> FavoriteList { get; set; } = new ObservableCollection<Favorite>();
+    public ObservableCollection<Favorite> FavoriteList { get; set; } = new();
 
     public static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.xml");
 }
 
 public class Favorite
 {
-    public string FileName { get; set; }
-    public string SystemName { get; set; }
-    public string MachineDescription { get; set; }
-    public string CoverImage { get; set; }
+    public string FileName { get; init; }
+    public string SystemName { get; init; }
+    public string MachineDescription { get; init; }
+    public string CoverImage { get; init; }
 }
 
 public class FavoritesManager

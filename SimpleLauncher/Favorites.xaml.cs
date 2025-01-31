@@ -496,6 +496,7 @@ public partial class Favorites
                 deleteGame.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
+                    
                     DoYouWanToDeleteMessageBox();
                     void DoYouWanToDeleteMessageBox()
                     {

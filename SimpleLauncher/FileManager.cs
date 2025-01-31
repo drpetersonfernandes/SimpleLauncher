@@ -10,7 +10,8 @@ namespace SimpleLauncher;
 
 public abstract class FileManager
 {
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    
     public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
         return await Task.Run(async () =>
@@ -26,14 +27,26 @@ public abstract class FileManager
             }
             catch (Exception ex)
             {
-                string errorMessage = $"There was an error using the method GetFilesAsync in the Main window.\n\n" +
+                // Notify developer
+                string errorMessage = $"There was an error using the method GetFilesAsync.\n\n" +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
-                var result = MessageBox.Show("There was an error finding the game files.\n\n" +
-                                             "Do you want to open the file 'error_user.log' to debug the error?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                // Notify user
+                ErrorFindingGameFilesMessageBox();
+
+                return new List<string>(); // Return an empty list
+            }
+            
+            void ErrorFindingGameFilesMessageBox()
+            {
+                string therewasanerrorfinding2 = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
+                string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                var result = MessageBox.Show($"{therewasanerrorfinding2}\n\n" +
+                                             $"{doyouwanttoopenthefileerroruserlog2}",
+                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
                 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -47,12 +60,12 @@ public abstract class FileManager
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The file 'error_user.log' was not found!",
-                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // Notify user
+                        string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                        MessageBox.Show(thefileerroruserlogwas2,
+                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                
-                return new List<string>();
             }
         });
     }
@@ -94,15 +107,26 @@ public abstract class FileManager
         }
         catch (Exception ex)
         {
-            string contextMessage = "An error occurred while counting files in the Main window.\n\n" +
+            // Notify developer
+            string contextMessage = "An error occurred while counting files.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            var result = MessageBox.Show("An error occurred while counting files.\n\n" +
-                                         "Do you want to open the file 'error_user.log' to debug the error?",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            // Notify user
+            ErrorWhileCountingFilesMessageBox();
+
+            return 0; // return 0 if an error occurs
+        }
+        void ErrorWhileCountingFilesMessageBox()
+        {
+            string anerroroccurredwhilecounting2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ?? "An error occurred while counting files.";
+            string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{anerroroccurredwhilecounting2}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog2}",
+                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
                 
             if (result == MessageBoxResult.Yes)
             {
@@ -116,12 +140,11 @@ public abstract class FileManager
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("The file 'error_user.log' was not found!",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string thefileerroruserlog2 = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlog2,
+                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            
-            return 0;
         }
     }
 }
