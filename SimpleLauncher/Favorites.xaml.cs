@@ -28,21 +28,21 @@ public partial class Favorites
     {
         InitializeComponent();
  
-        // Apply theme to the window
-        App.ApplyThemeToWindow(this);
-            
         _favoritesManager = new FavoritesManager();
         _settings = settings;
         _systemConfigs = systemConfigs;
         _machines = machines;
         _mainWindow = mainWindow;
         
+        App.ApplyThemeToWindow(this);
+
         LoadFavorites();
             
         // Attach event handler
         Closing += Favorites_Closing; 
     }
-        
+
+    // Restart 'Simple Launcher'
     private static void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
@@ -84,60 +84,16 @@ public partial class Favorites
         }
 
         FavoritesDataGrid.ItemsSource = _favoriteList;
-    }
-
-    private string GetCoverImagePath(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        if (systemConfig == null)
+        
+        string GetCoverImagePath(string systemName, string fileName)
         {
-            return Path.Combine(baseDirectory, "images", "default.png");
-        }
-        return FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
-    }
-    
-    private static string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
-    {
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-    
-        // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-        }
-    
-        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // First try to find the image in the specific directory
-        if (TryFindImage(systemImageFolder, out var foundImagePath))
-        {
-            return foundImagePath;
-        }
-        // If not found, try the global directory
-        if (TryFindImage(globalDirectory, out foundImagePath))
-        {
-            return foundImagePath;
-        }
-
-        // If not found, use default image
-        return Path.Combine(baseDirectory, "images", "default.png");
-
-        // Search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
             {
-                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (File.Exists(imagePath))
-                {
-                    foundPath = imagePath;
-                    return true;
-                }
+                return Path.Combine(baseDirectory, "images", "default.png");
             }
-            foundPath = null;
-            return false;
+            return FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
         }
     }
 
@@ -156,14 +112,6 @@ public partial class Favorites
             // Notify user
             SelectAFavoriteToRemoveMessageBox();
         }
-
-        void SelectAFavoriteToRemoveMessageBox()
-        {
-            string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
-            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            MessageBox.Show(pleaseselectafavoritetoremove2,
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
     }
     
     private void FavoritesDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -181,19 +129,9 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
                     // Notify user
-                    FavoriteFilenameIsNullMessageBox();
+                    RightClickContextMenuErrorMessageBox();
                     
                     return;
-
-                    void FavoriteFilenameIsNullMessageBox()
-                    {
-                        string therewasanerrorloadingtheinfo2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingtheinfo") ?? "There was an error loading the info for this favorite.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                        MessageBox.Show($"{therewasanerrorloadingtheinfo2}\n\n" +
-                                        $"{theerrorwasreportedtothedeveloper2}",
-                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
                 }
                 
                 string fileNameWithExtension = selectedFavorite.FileName;
@@ -209,16 +147,7 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
-                    SystemConfigIsNullMessageBox();
-                    void SystemConfigIsNullMessageBox()
-                    {
-                        string therewasanerrorloadingthesystem2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthesystem") ?? "There was an error loading the system configuration for this favorite.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                        MessageBox.Show($"{therewasanerrorloadingthesystem2}\n\n" +
-                                        $"{theerrorwasreportedtothedeveloper2}",
-                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    RightClickContextMenuErrorMessageBox();
                     
                     return;
                 }
@@ -567,7 +496,6 @@ public partial class Favorites
                 deleteGame.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    
                     DoYouWanToDeleteMessageBox();
                     void DoYouWanToDeleteMessageBox()
                     {
@@ -616,16 +544,17 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            ContextMenuErrorMessageBox();
-            void ContextMenuErrorMessageBox()
-            {
-                string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            RightClickContextMenuErrorMessageBox();
+        }
+        
+        void RightClickContextMenuErrorMessageBox()
+        {
+            string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         
         string GetFullPath(string path)
@@ -673,6 +602,9 @@ public partial class Favorites
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            // Notify user
+            CouldNotLaunchThisGameMessageBox();
         }
     }
 
@@ -729,11 +661,6 @@ public partial class Favorites
             // Check if the file exists
             if (!File.Exists(fullPath))
             {
-                // Notify developer
-                string formattedException = $"Favorite file does not exist: {fullPath}";
-                Exception exception = new(formattedException);
-                await LogErrors.LogErrorAsync(exception, formattedException);
-                    
                 // Auto remove the favorite from the list since the file no longer exists
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
                 if (favoriteToRemove != null)
@@ -741,6 +668,11 @@ public partial class Favorites
                     _favoriteList.Remove(favoriteToRemove);
                     _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
                 }
+                
+                // Notify developer
+                string formattedException = $"Favorite file does not exist: {fullPath}";
+                Exception exception = new(formattedException);
+                await LogErrors.LogErrorAsync(exception, formattedException);
 
                 // Notify user
                 GameFileDoesNotExistMessageBox();
@@ -787,7 +719,7 @@ public partial class Favorites
     {
         _favoriteList.Remove(selectedFavorite);
         _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-            
+
         PreviewImage.Source = null;
     }
 
@@ -912,77 +844,43 @@ public partial class Favorites
 
     private void OpenCover(string systemName, string fileName)
     {
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var systemConfig = _systemConfigs?.FirstOrDefault(config =>
+            config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+        if (systemConfig == null)
+        {
+            // Notify developer
+            const string formattedException = "systemConfig is null.";
+            Exception exception = new(formattedException);
+            Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
+            logTask.Wait(TimeSpan.FromSeconds(2));
+
+            // Notify user
+            ErrorOpeningCoverImageMessageBox();
+
+            return;
+        }
+
         try
         {
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var systemConfig = _systemConfigs?.FirstOrDefault(config =>
-                config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
-            if (systemConfig == null)
+            string imagePath = FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
+            if (!imagePath.EndsWith("default.png"))
             {
-                // Notify developer
-                const string formattedException = "systemConfig is null.";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-
-                // Notify user
-                ErrorOpeningCoverImageMessageBox();
-                void ErrorOpeningCoverImageMessageBox()
-                {
-                    string therewasanerrortryingtoopen2 = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopen") ?? "There was an error trying to open the cover image.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                    string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show($"{therewasanerrortryingtoopen2}\n\n" +
-                                    $"{theerrorwasreportedtothedeveloper2}",
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                return;
+                var imageViewerWindow = new ImageViewerWindow();
+                imageViewerWindow.LoadImage(imagePath);
+                imageViewerWindow.Show();
             }
-
-            try
+            else
             {
-                string imagePath = FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
-                if (!imagePath.EndsWith("default.png"))
-                {
-                    var imageViewerWindow = new ImageViewerWindow();
-                    imageViewerWindow.LoadImage(imagePath);
-                    imageViewerWindow.Show();
-                }
-                else
-                {
-                    // Notify user
-                    ThereIsNoCoverMessageBox();
-                    void ThereIsNoCoverMessageBox()
-                    {
-                        string thereisnocoverassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverassociated") ?? "There is no cover associated with this favorite.";
-                        string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
-                        MessageBox.Show(thereisnocoverassociated2,
-                            covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-            catch (IOException ex)
-            {
-                // Notify developer
-                string formattedException = $"IOException.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                Exception exception = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
-
                 // Notify user
-                ErrorOpeningCoverImageMessageBox();
-                void ErrorOpeningCoverImageMessageBox()
+                ThereIsNoCoverMessageBox();
+                void ThereIsNoCoverMessageBox()
                 {
-                    string therewasanerrortryingtoopenthe2 = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                    string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show($"{therewasanerrortryingtoopenthe2}\n\n" +
-                                    $"{theerrorwasreportedtothedeveloper2}",
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    string thereisnocoverassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverassociated") ?? "There is no cover associated with this favorite.";
+                    string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
+                    MessageBox.Show(thereisnocoverassociated2,
+                        covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -995,6 +893,18 @@ public partial class Favorites
             Exception exception = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            ErrorOpeningCoverImageMessageBox();
+        }
+        void ErrorOpeningCoverImageMessageBox()
+        {
+            string therewasanerrortryingtoopenthe2 = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrortryingtoopenthe2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1015,6 +925,7 @@ public partial class Favorites
                 var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(titleSnapshotPath);
                 imageViewerWindow.Show();
+                
                 return;
             }
         }
@@ -1036,7 +947,6 @@ public partial class Favorites
         string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
         string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in gameplaySnapshotExtensions)
@@ -1047,6 +957,7 @@ public partial class Favorites
                 var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(gameplaySnapshotPath);
                 imageViewerWindow.Show();
+
                 return;
             }
         }
@@ -1068,7 +979,6 @@ public partial class Favorites
         string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
         string[] cartExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in cartExtensions)
@@ -1079,6 +989,7 @@ public partial class Favorites
                 var imageViewerWindow = new ImageViewerWindow();
                 imageViewerWindow.LoadImage(cartPath);
                 imageViewerWindow.Show();
+
                 return;
             }
         }
@@ -1099,7 +1010,6 @@ public partial class Favorites
         string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
         string[] videoExtensions = [".mp4", ".avi", ".mkv"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in videoExtensions)
@@ -1112,6 +1022,7 @@ public partial class Favorites
                     FileName = videoPath,
                     UseShellExecute = true
                 });
+
                 return;
             }
         }
@@ -1131,7 +1042,6 @@ public partial class Favorites
         string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
         string[] manualExtensions = [".pdf"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in manualExtensions)
@@ -1147,6 +1057,7 @@ public partial class Favorites
                         FileName = manualPath,
                         UseShellExecute = true
                     });
+
                     return;
                 }
                 catch (Exception ex)
@@ -1192,7 +1103,6 @@ public partial class Favorites
         string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
         string[] walkthroughExtensions = [".pdf"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in walkthroughExtensions)
@@ -1252,7 +1162,6 @@ public partial class Favorites
         string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
         string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in cabinetExtensions)
@@ -1283,7 +1192,6 @@ public partial class Favorites
         string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
         string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in flyerExtensions)
@@ -1313,7 +1221,6 @@ public partial class Favorites
         string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
         string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Remove the original file extension
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 
         foreach (var extension in pcbExtensions)
@@ -1546,17 +1453,7 @@ public partial class Favorites
             CouldNotLaunchThisGameMessageBox();
         }
     }
-    
-    private void CouldNotLaunchThisGameMessageBox()
-    {
-        string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-        
+       
     private void FavoritesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
@@ -1582,15 +1479,70 @@ public partial class Favorites
             else
             {
                 SelectAFavoriteToRemoveMessageBox();
-                void SelectAFavoriteToRemoveMessageBox()
-                {
-                    string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
-                    string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-                    MessageBox.Show(pleaseselectafavoritetoremove2,
-                        warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
             }
         }
+    }
+    
+    private static string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
+    {
+        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+    
+        // Ensure the systemImageFolder considers both absolute and relative paths
+        if (!Path.IsPathRooted(systemImageFolder))
+        {
+            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+        }
+    
+        string globalDirectory = Path.Combine(baseDirectory, "images", systemName);
+        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+
+        // First try to find the image in the specific directory
+        if (TryFindImage(systemImageFolder, out var foundImagePath))
+        {
+            return foundImagePath;
+        }
+        // If not found, try the global directory
+        if (TryFindImage(globalDirectory, out foundImagePath))
+        {
+            return foundImagePath;
+        }
+
+        // If not found, use default image
+        return Path.Combine(baseDirectory, "images", "default.png");
+
+        // Search for the image file
+        bool TryFindImage(string directory, out string foundPath)
+        {
+            foreach (var extension in imageExtensions)
+            {
+                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                if (File.Exists(imagePath))
+                {
+                    foundPath = imagePath;
+                    return true;
+                }
+            }
+            foundPath = null;
+            return false;
+        }
+    }
+    
+    private void SelectAFavoriteToRemoveMessageBox()
+    {
+        string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
+        string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        MessageBox.Show(pleaseselectafavoritetoremove2,
+            warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    private void CouldNotLaunchThisGameMessageBox()
+    {
+        string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
 }
