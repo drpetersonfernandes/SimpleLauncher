@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Bu oyun favorilere eklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Bu oyun favorilerden çıkarılırken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Video bağlantısını açarken bir sorun oluştu.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Bilgi bağlantısını açarken bir sorun oluştu.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">Geçmiş penceresini açarken bir sorun oluştu.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kılavuz açılamadı.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Kılavuz açılamadı.</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">Resim yüklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Görseller klasöründe 'default.png' dosyası bulunamadı.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Uygulama kapatılacak.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Bilgi Bağlantısı açılırken bir sorun oluştu.</system:String>
     
 </ResourceDictionary>

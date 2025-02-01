@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van deze game aan favorieten.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van deze game uit favorieten.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Er was een probleem bij het openen van de videolink.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Er was een probleem bij het openen van de informatie-link.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">Er was een probleem bij het openen van het geschiedenisvenster.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Het is niet gelukt om de handleiding te openen.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Het is niet gelukt om het stappenplan te openen.</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">Er is een fout opgetreden bij het laden van de afbeelding.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Er is geen 'default.png'-bestand gevonden in de afbeeldingsmap.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Er is een probleem opgetreden bij het openen van de Info Link.</system:String>
     
 </ResourceDictionary>

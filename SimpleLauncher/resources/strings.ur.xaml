@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">اس گیم کو فیورٹ میں شامل کرنے کے دوران ایک غلطی پیش آئی۔</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">اس گیم کو فیورٹ سے ہٹانے کے دوران ایک غلطی پیش آئی۔</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ویڈیو لنک کھولنے میں ایک مسئلہ ہوا۔</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">معلوماتی لنک کھولنے میں ایک مسئلہ ہوا۔</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">تاریخ ونڈو کھولنے میں ایک مسئلہ ہوا۔</system:String>
     <system:String x:Key="Failedtoopenthemanual">ہدایت نامہ کھولنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">واک تھرو کھولنے میں ناکامی۔</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">امیج لوڈ کرنے میں ایک غلطی پیش آئی۔</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">امیجز فولڈر میں 'default.png' فائل نہیں ملی۔</system:String>
     <system:String x:Key="Theapplicationwillshutdown">ایپلیکیشن بند ہو جائے گی۔</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">معلوماتی لنک کھولنے میں ایک مسئلہ پیش آیا۔</system:String>
     
 </ResourceDictionary>

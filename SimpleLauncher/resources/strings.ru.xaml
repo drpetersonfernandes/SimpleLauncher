@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Возникла ошибка при добавлении этой игры в избранное.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Возникла ошибка при удалении этой игры из избранного.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Возникла проблема при открытии ссылки на видео.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Возникла проблема при открытии информационной ссылки.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">Возникла проблема при открытии окна истории.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Не удалось открыть руководство.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Не удалось открыть пошаговую инструкцию.</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">Возникла ошибка при загрузке изображения.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">В папке изображений не найден файл 'default.png'.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Приложение будет завершено.</system:String>
-    
+    <system:String x:Key="Therewasaproblemopeningthe">Возникла проблема при открытии ссылки с информацией.</system:String>
+
 </ResourceDictionary>

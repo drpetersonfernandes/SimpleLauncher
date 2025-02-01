@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">このゲームをお気に入りに追加する際にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">このゲームをお気に入りから削除する際にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ビデオリンクを開く際に問題が発生しました。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">情報リンクを開く際に問題が発生しました。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">履歴ウィンドウを開く際に問題が発生しました。</system:String>
     <system:String x:Key="Failedtoopenthemanual">マニュアルを開けませんでした。</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">ガイドを開けませんでした。</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">画像の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">画像フォルダーに「default.png」ファイルが見つかりませんでした。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">アプリケーションが終了します。</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">情報リンクを開く際に問題が発生しました。</system:String>
     
 </ResourceDictionary>

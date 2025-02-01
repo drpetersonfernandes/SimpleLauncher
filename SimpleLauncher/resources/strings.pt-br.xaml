@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Ocorreu um erro ao adicionar este jogo aos favoritos.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Ocorreu um erro ao remover este jogo dos favoritos.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Houve um problema ao abrir o link do vídeo.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Houve um problema ao abrir o link de informação.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">Houve um problema ao abrir a janela de histórico.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Não foi possível abrir o manual.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Não foi possível abrir o guia.</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">Ocorreu um erro ao carregar a imagem.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Nenhum arquivo 'default.png' foi encontrado na pasta de imagens.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">O aplicativo será encerrado.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Houve um problema ao abrir o link de informações.</system:String>
     
 </ResourceDictionary>

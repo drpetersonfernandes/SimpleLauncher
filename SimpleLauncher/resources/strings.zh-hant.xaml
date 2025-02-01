@@ -518,7 +518,6 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">將此遊戲添加到收藏夾時發生錯誤。</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">將此遊戲從收藏夾中移除時發生錯誤。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">打開影片連結時發生問題。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">打開資訊連結時發生問題。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">打開歷史記錄視窗時發生問題。</system:String>
     <system:String x:Key="Failedtoopenthemanual">無法打開手冊。</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">無法打開操作說明。</system:String>
@@ -530,5 +529,6 @@
     <system:String x:Key="Imageloadingerror">加載圖片時發生錯誤。</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">在圖片資料夾中未找到 'default.png' 檔案。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">應用程式將會關閉。</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">打開資訊連結時出現問題。</system:String>
     
 </ResourceDictionary>
