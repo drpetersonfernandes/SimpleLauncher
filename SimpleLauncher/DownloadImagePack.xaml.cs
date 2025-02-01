@@ -402,7 +402,7 @@ public partial class DownloadImagePack
         void DownloadErrorMessageBox()
         {
             string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{downloaderror2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",

@@ -158,7 +158,7 @@ public static class UpdateChecker
         void ErrorReinstallingSimpleLauncherMessageBox()
         {
             string therewasanerrorreinstallingSimpleLauncher2 = (string)Application.Current.TryFindResource("TherewasanerrorreinstallingSimpleLauncher") ?? "There was an error reinstalling 'Simple Launcher'.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(mainWindow, $"{therewasanerrorreinstallingSimpleLauncher2}\n\n" +
                                         $"{theerrorwasreportedtothedeveloper2}",
@@ -381,7 +381,7 @@ public static class UpdateChecker
         if (!File.Exists(updaterExePath))
         {
             logWindow.Log("Updater.exe not found in the application directory.");
-            logWindow.Log("Please reinstall 'Simple Launcher' manually.");
+            logWindow.Log("Please reinstall 'Simple Launcher' manually to fix the issue.");
     
             Application.Current.Dispatcher.Invoke(() =>
             {

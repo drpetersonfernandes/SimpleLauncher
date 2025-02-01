@@ -333,7 +333,7 @@
     <system:String x:Key="Thedownloadedfileisnotavalid">The downloaded file is not a valid ZIP archive.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">The emulator could not open the game with the provided parameters.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer that will try to fix the issue.</system:String>
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer who will try to fix the issue.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">The favorite has been removed from the list.</system:String>
     <system:String x:Key="Thefile">The file</system:String>
     <system:String x:Key="Thefileerroruser">The file 'error_user.log' was not found!</system:String>
@@ -496,4 +496,9 @@
     <system:String x:Key="Therewasanerrorinstallingorupdating">There was an error installing or updating the application.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
 
+    Theerrorwasreportedtothedeveloper The error was reported to the developer who will try to fix the issue.
+    PleasereinstallSimpleLauncher Please reinstall 'Simple Launcher' manually to fix the issue.
+    DoyouwanttoreinstallSimpleLauncher Do you want to reinstall 'Simple Launcher' to fix the issue?
+    PleasereinstallSimpleLaunchermanually Please reinstall 'Simple Launcher' manually to fix the issue.
+    Manualnotfound Manual not found
 </ResourceDictionary>

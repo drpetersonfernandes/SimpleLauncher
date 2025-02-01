@@ -1505,7 +1505,7 @@ public static class GameLauncher
     private static void CouldNotLaunchRegularEmulatorMessageBox()
     {
         string therewasanerrorlaunchingthisgame2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame2}\n\n" +

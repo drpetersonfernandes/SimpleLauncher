@@ -551,7 +551,7 @@ public partial class Favorites
         void RightClickContextMenuErrorMessageBox()
         {
             string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -754,7 +754,7 @@ public partial class Favorites
             void CouldNotOpenVideoLinkMessageBox()
             {
                 string therewasaproblemopeningtheVideoLink2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideoLink") ?? "There was a problem opening the Video Link.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{therewasaproblemopeningtheVideoLink2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",
@@ -793,7 +793,7 @@ public partial class Favorites
             void CouldNotOpenInfoLinkMessageBox()
             {
                 string therewasaproblemopeningtheInfoLink2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheInfoLink") ?? "There was a problem opening the Info Link.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{therewasaproblemopeningtheInfoLink2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",
@@ -834,7 +834,7 @@ public partial class Favorites
             void CouldNotOpenHistoryWindowMessageBox()
             {
                 string therewasaproblemopeningtheHistorywindow2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{therewasaproblemopeningtheHistorywindow2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",
@@ -1076,7 +1076,7 @@ public partial class Favorites
                     void CouldNotOpenManualMessageBox()
                     {
                         string failedtoopenthemanualfor2 = (string)Application.Current.TryFindResource("Failedtoopenthemanualfor") ?? "Failed to open the manual for this favorite.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                         MessageBox.Show($"{failedtoopenthemanualfor2}\n\n" +
                                         $"{theerrorwasreportedtothedeveloper2}",
@@ -1135,7 +1135,7 @@ public partial class Favorites
                     void CouldNotOpenWalkthroughMessageBox()
                     {
                         string failedtoopenthewalkthroughfile2 = (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ?? "Failed to open the walkthrough file.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                         MessageBox.Show($"{failedtoopenthewalkthroughfile2}\n\n" +
                                         $"{theerrorwasreportedtothedeveloper2}",
@@ -1367,7 +1367,7 @@ public partial class Favorites
         void TakeScreenShotErrorMessageBox()
         {
             string simpleLaunchercouldnottakethescreenshot2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnottakethescreenshot") ?? "'Simple Launcher' could not take the screenshot.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
             MessageBox.Show($"{simpleLaunchercouldnottakethescreenshot2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1424,7 +1424,7 @@ public partial class Favorites
         void CouldNotDeleteTheFileMessageBox()
         {
             string anerroroccurredwhiletrying2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletrying") ?? "An error occurred while trying to delete the file.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{anerroroccurredwhiletrying2}" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1539,7 +1539,7 @@ public partial class Favorites
     private void CouldNotLaunchThisGameMessageBox()
     {
         string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",

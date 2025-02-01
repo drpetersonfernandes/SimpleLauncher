@@ -196,7 +196,7 @@ public class ExtractCompressedFile
             void DownloadedFileIsMissingMessageBox()
             {
                 string downloadedfileismissing2 = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{downloadedfileismissing2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",
@@ -221,7 +221,7 @@ public class ExtractCompressedFile
             void FileIsLockedMessageBox()
             {
                 string downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{downloadedfileislocked2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",

@@ -233,7 +233,7 @@ public partial class EditSystemEasyModeAddSystem
                             
                     // Notify user
                     string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                     string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                     MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
                                     $"{theerrorwasreportedtothedeveloper2}",
@@ -419,7 +419,7 @@ public partial class EditSystemEasyModeAddSystem
                             
                     // Notify user
                     string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                     string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                     MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
                                     $"{theerrorwasreportedtothedeveloper2}",
@@ -575,7 +575,7 @@ public partial class EditSystemEasyModeAddSystem
                             
                     // Notify user
                     string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                     string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                     MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
                                     $"{theerrorwasreportedtothedeveloper2}",
@@ -744,7 +744,7 @@ public partial class EditSystemEasyModeAddSystem
         void DownloadFailedMessageBox2()
         {
             string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{downloadfailed2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -909,7 +909,7 @@ public partial class EditSystemEasyModeAddSystem
         void AddSystemFailedMessageBox()
         {
             string therewasanerroradding2 = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerroradding2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -975,7 +975,7 @@ public partial class EditSystemEasyModeAddSystem
         void FolderCreationFailedMessageBox()
         {
             string theapplicationfailedtocreate2 = (string)Application.Current.TryFindResource("Theapplicationfailedtocreate") ?? "The application failed to create the necessary folders for this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{theapplicationfailedtocreate2}\n\n{theerrorwasreportedtothedeveloper2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);

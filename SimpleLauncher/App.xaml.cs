@@ -83,7 +83,7 @@ public partial class App
         void FailedToLoadLanguageResourceMessageBox()
         {
             string failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
             MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",

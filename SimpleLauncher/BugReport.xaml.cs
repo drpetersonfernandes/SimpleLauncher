@@ -65,7 +65,7 @@ public partial class BugReport
             }
             else
             {
-                string pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' to fix the problem.";
+                string pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
                 MessageBox.Show(pleasereinstallSimpleLauncher2,
                     warning2, MessageBoxButton.OK,MessageBoxImage.Warning);
             }
@@ -159,7 +159,7 @@ public partial class BugReport
             void ApiKeyErrorMessageBox()
             {
                 string therewasanerrorintheApiKey2 = (string)Application.Current.TryFindResource("TherewasanerrorintheAPIKey") ?? "There was an error in the API Key of this form.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 MessageBox.Show($"{therewasanerrorintheApiKey2}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper2}",

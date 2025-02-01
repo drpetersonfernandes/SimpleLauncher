@@ -619,7 +619,7 @@ internal class GameButtonFactory(
         void ErrorWhileAddingFavoritesMessageBox()
         {
             string anerroroccurredwhileaddingthisgame2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileaddingthisgame") ?? "An error occurred while adding this game to the favorites.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{anerroroccurredwhileaddingthisgame2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -690,7 +690,7 @@ internal class GameButtonFactory(
         void ErrorWhileRemovingGameFromFavoriteMessageBox()
         {
             string anerroroccurredwhileremoving2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileremoving") ?? "An error occurred while removing this game from favorites.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{anerroroccurredwhileremoving2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -762,7 +762,7 @@ internal class GameButtonFactory(
         void ErrorOpeningVideoLinkMessageBox()
         {
             string therewasaproblemopeningtheVideo2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideo") ?? "There was a problem opening the Video Link.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasaproblemopeningtheVideo2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -805,7 +805,7 @@ internal class GameButtonFactory(
         void ProblemOpeningInfoLinkMessageBox()
         {
             string therewasaproblemopeningthe2 = (string)Application.Current.TryFindResource("Therewasaproblemopeningthe") ?? "There was a problem opening the Info Link.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasaproblemopeningthe2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -846,7 +846,7 @@ internal class GameButtonFactory(
         void ProblemOpeningHistoryWindowMessageBox()
         {
             string therewasaproblemopeningtheHistory2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistory") ?? "There was a problem opening the History window.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasaproblemopeningtheHistory2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1072,7 +1072,7 @@ internal class GameButtonFactory(
         void CouldNotOpenManualMessageBox()
         {
             string failedtoopenthemanual2 = (string)Application.Current.TryFindResource("Failedtoopenthemanual") ?? "Failed to open the manual.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{failedtoopenthemanual2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}", 
@@ -1131,7 +1131,7 @@ internal class GameButtonFactory(
         void CouldNotOpenWalkthroughMessageBox()
         {
             string failedtoopenthewalkthrough2 = (string)Application.Current.TryFindResource("Failedtoopenthewalkthrough") ?? "Failed to open the walkthrough.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{failedtoopenthewalkthrough2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1339,7 +1339,7 @@ internal class GameButtonFactory(
         void CouldNotSaveScreenshotMessageBox()
         {
             string failedtosavescreenshot2 = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{failedtosavescreenshot2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",

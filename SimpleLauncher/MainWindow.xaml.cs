@@ -847,7 +847,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void InvalidSystemConfigMessageBox()
         {
             string therewasanerrorwhileloading2 = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerrorwhileloading2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -857,7 +857,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void ErrorMethodLoadGameFilesAsyncMessageBox()
         {
             string therewasanerrorloadingthegame2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerrorloadingthegame2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -929,7 +929,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void ErrorOpeningDonationLinkMessageBox()
         {
             string therewasanerroropeningthedonation2 = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerroropeningthedonation2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1041,7 +1041,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void ToggleGamepadFailureMessageBox()
         {
             string failedtotogglegamepad2 = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{failedtotogglegamepad2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -1204,7 +1204,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void FindRomCoverMissingMessageBox()
         {
             string findRomCoverexewasnotfound = (string)Application.Current.TryFindResource("FindRomCoverexewasnotfound") ?? "'FindRomCover.exe' was not found in the expected path.";
-            string doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+            string doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
             string fileNotFound = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
             MessageBoxResult reinstall = MessageBox.Show(
                 $"{findRomCoverexewasnotfound}\n\n" +
@@ -1217,7 +1217,7 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             else
             {
-                string pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually.";
+                string pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
                 string pleaseReinstall = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
                 MessageBox.Show(pleasereinstallSimpleLaunchermanually,
                     pleaseReinstall, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1738,7 +1738,7 @@ public partial class MainWindow : INotifyPropertyChanged
         void ErrorChangingViewModeMessageBox()
         {
             string therewasanerrorwhilechangingtheviewmode2 = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode2}\n\n" +
                             $"{theerrorwasreportedtothedeveloper2}",
@@ -2077,7 +2077,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static void NavigationButtonErrorMessageBox()
     {
         string therewasanerrorinthenavigationbutton2 = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{therewasanerrorinthenavigationbutton2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",
@@ -2148,7 +2148,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static void MainWindowSearchEngineErrorMessageBox()
     {
         string therewasanerrorwiththesearchengine2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{therewasanerrorwiththesearchengine2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",
@@ -2244,7 +2244,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static void ErrorLaunchingToolMessageBox()
     {
         string anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
@@ -2275,7 +2275,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static void SelectedToolNotFoundMessageBox()
     {
         string theselectedtoolwasnotfound2 = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
-        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
         string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
         MessageBoxResult reinstall = MessageBox.Show(
             $"{theselectedtoolwasnotfound2}\n\n" +
@@ -2288,7 +2288,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually.";
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
             string pleaseReinstall2 = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
             MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
                 pleaseReinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2298,7 +2298,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static void MethodErrorMessageBox()
     {
         string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer that will try to fix the issue.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",

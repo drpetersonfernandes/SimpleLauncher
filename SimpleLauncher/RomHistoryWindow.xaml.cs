@@ -140,7 +140,7 @@ public partial class RomHistoryWindow
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             MessageBox.Show("An error occurred while opening the browser.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

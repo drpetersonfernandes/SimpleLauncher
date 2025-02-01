@@ -537,7 +537,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("An error occurred while adding this game to the favorites.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -583,7 +583,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("An error occurred while removing this game from favorites.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -642,7 +642,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the Video Link.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -677,7 +677,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the Info Link.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -709,7 +709,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the History window.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", 
+                            "The error was reported to the developer who will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -887,14 +887,14 @@ public class GameListFactory(
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
                     MessageBox.Show("Failed to open the manual.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
+                                    "The error was reported to the developer who will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
         }
         string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual Not Found";
+        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual not found";
         MessageBox.Show(thereisnomanual2, manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
@@ -929,7 +929,7 @@ public class GameListFactory(
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
                     MessageBox.Show("Failed to open the walkthrough.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.", 
+                                    "The error was reported to the developer who will try to fix the issue.", 
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1097,7 +1097,7 @@ public class GameListFactory(
         catch (Exception ex)
         {
             MessageBox.Show("Failed to save screenshot.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Send log error to the developer
@@ -1133,7 +1133,7 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'.\n\n" +
-                                    $"The error was reported to the developer that will try to fix the issue.",
+                                    $"The error was reported to the developer who will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     // Notify developer
@@ -1207,7 +1207,7 @@ public class GameListFactory(
                     mainWindow.PreviewImage.Source = null;
                     
                     var result = MessageBox.Show("I could not get a valid image to preview, not even a default image.\n\n" +
-                                                 "Do you want to reinstall 'Simple Launcher' to fix it?",
+                                                 "Do you want to reinstall 'Simple Launcher' to fix the issue?",
                         "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (result == MessageBoxResult.Yes)
                     {

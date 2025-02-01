@@ -88,7 +88,7 @@ public partial class GlobalSearch
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
                 MessageBox.Show("There was an error using the Global Search.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
+                                "The error was reported to the developer who will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
@@ -317,7 +317,7 @@ public partial class GlobalSearch
                 await LogErrors.LogErrorAsync(ex, formattedException);
                                         
                 MessageBox.Show("There was an error launching the selected game.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
+                                "The error was reported to the developer who will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -330,7 +330,7 @@ public partial class GlobalSearch
                 await LogErrors.LogErrorAsync(exception, formattedException);
                     
                 MessageBox.Show("There was an error launching the selected game.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
+                                "The error was reported to the developer who will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -353,7 +353,7 @@ public partial class GlobalSearch
             await LogErrors.LogErrorAsync(ex, formattedException);
                 
             MessageBox.Show("There was an error launching the selected game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -382,7 +382,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             MessageBox.Show("There was an error launching the selected game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -407,7 +407,7 @@ public partial class GlobalSearch
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     MessageBox.Show("There was an error loading the systemConfig.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
+                                    "The error was reported to the developer who will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     return;
@@ -837,7 +837,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("An error occurred while adding the game to the favorites.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", 
+                            "The error was reported to the developer who will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -921,7 +921,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the Info Link.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", 
+                            "The error was reported to the developer who will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -953,7 +953,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the History window.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.", 
+                            "The error was reported to the developer who will try to fix the issue.", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -970,7 +970,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             MessageBox.Show("There was a problem opening the Cover Image for this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
@@ -1162,14 +1162,14 @@ public partial class GlobalSearch
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
                     MessageBox.Show("Failed to open the manual for this game.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
+                                    "The error was reported to the developer who will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
         }
         string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual Not Found";
+        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual not found";
         MessageBox.Show(thereisnomanual2, manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
@@ -1206,7 +1206,7 @@ public partial class GlobalSearch
                     logTask.Wait(TimeSpan.FromSeconds(2));
                         
                     MessageBox.Show("Failed to open the walkthrough file for this game.\n\n" +
-                                    "The error was reported to the developer that will try to fix the issue.",
+                                    "The error was reported to the developer who will try to fix the issue.",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -1309,7 +1309,7 @@ public partial class GlobalSearch
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 MessageBox.Show("There was a problem getting the systemConfig for this game.\n\n" +
-                                "The error was reported to the developer that will try to fix the issue.",
+                                "The error was reported to the developer who will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -1394,7 +1394,7 @@ public partial class GlobalSearch
         {
             // Handle any errors
             MessageBox.Show("Failed to save screenshot.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Send log to the developer
@@ -1428,7 +1428,7 @@ public partial class GlobalSearch
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                $"The error was reported to the developer that will try to fix the issue.",
+                                $"The error was reported to the developer who will try to fix the issue.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Notify developer
@@ -1465,7 +1465,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             MessageBox.Show("The application could not launch this game.\n\n" +
-                            "The error was reported to the developer that will try to fix the issue.",
+                            "The error was reported to the developer who will try to fix the issue.",
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

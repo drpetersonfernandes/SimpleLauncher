@@ -275,7 +275,7 @@ public class GamePadController : IDisposable
     {
         MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
                         "Running 'Simple Launcher' with administrative access may fix this problem.\n\n" +
-                        "The error was reported to the developer that will try to fix the issue.",
+                        "The error was reported to the developer who will try to fix the issue.",
             "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
