@@ -206,8 +206,6 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Make sure the 'Simple Launcher' folder is located in a writable directory.</system:String>
     <system:String x:Key="Manual">Manual</system:String>
-    <system:String x:Key="Manualnotfound">Manual not found</system:String>
-    <system:String x:Key="ManualNotFound">Manual Not Found</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">name is required because related data has been provided.</system:String>
     <system:String x:Key="Nameoptional">Name (optional)</system:String>
@@ -249,8 +247,6 @@
     <system:String x:Key="Pleasefixthisfield">Please fix this field.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Please go to Edit System - Expert Mode and edit this system.</system:String>
     <system:String x:Key="PleaseReinstall">Please Reinstall</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Please reinstall 'Simple Launcher' to fix the problem.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Please reinstall 'Simple Launcher' manually.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Please reinstall the emulator to ensure it is working.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Please select a favorite to remove.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Please select a game to launch.</system:String>
@@ -330,10 +326,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">The bug was reported to the developer that will try to fix the issue.</system:String>
     <system:String x:Key="Thecurrentversionis">The current version is</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">The download and extraction were successful.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">The downloaded file is not a valid ZIP archive.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">The emulator could not open the game with the provided parameters.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer who will try to fix the issue.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">The favorite has been removed from the list.</system:String>
     <system:String x:Key="Thefile">The file</system:String>
     <system:String x:Key="Thefileerroruser">The file 'error_user.log' was not found!</system:String>
@@ -346,7 +340,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">The launch of 'FindRomCover.exe' was canceled by the user.</system:String>
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="Thename">The name</system:String>
-    <system:String x:Key="Theoperationwascanceled">The operation was canceled by the user.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">There is a software update available.</system:String>
     <system:String x:Key="Thereisnocabinetfile">There is no cabinet file associated with this game.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">There is no cabinet file associated with this favorite.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">An error occurred while launching the selected tool.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">The selected tool was not found in the expected path.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix it?</system:String>
     
     <system:String x:Key="Downloaderror">Download error.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
@@ -495,10 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Would you like to be redirected to the 'Simple Launcher' download page to download it manually?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">There was an error installing or updating the application.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
-
-    Theerrorwasreportedtothedeveloper The error was reported to the developer who will try to fix the issue.
-    PleasereinstallSimpleLauncher Please reinstall 'Simple Launcher' manually to fix the issue.
-    DoyouwanttoreinstallSimpleLauncher Do you want to reinstall 'Simple Launcher' to fix the issue?
-    PleasereinstallSimpleLaunchermanually Please reinstall 'Simple Launcher' manually to fix the issue.
-    Manualnotfound Manual not found
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer who will try to fix the issue.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix the issue?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
+    <system:String x:Key="Manualnotfound">Manual not found</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">The downloaded file is not a valid compressed file.</system:String>
+    <system:String x:Key="Downloadedfileismissing">Downloaded file is missing.</system:String>
+    <system:String x:Key="Downloadedfileislocked">Downloaded file is locked.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Ensure the file is not corrupted.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Grant administrative access to 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Ensure 'Simple Launcher' is in a writable folder.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">The selected file cannot be extracted.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Please fix that in the Edit window.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">There was an error in the right-click context menu.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">There was a problem opening the Video Link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">There was a problem opening the Info Link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">There was a problem opening the History window.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">There was an error trying to open the cover image.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Failed to open the manual for this favorite.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Failed to open the walkthrough file.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' could not take the screenshot.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">An error occurred while trying to delete the file.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">There was an error finding the game files.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Do you want to open the file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">An error occurred while counting files.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">An error occurred while adding this game to the favorites.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">An error occurred while removing this game from favorites.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">There was a problem opening the Video Link.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">There was a problem opening the Info Link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">There was a problem opening the History window.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Failed to open the manual.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Failed to open the walkthrough.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">Failed to save screenshot.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">An error occurred while trying to delete the file</system:String>
+    <system:String x:Key="Unabletoloadimage">Unable to load image</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">This image may be corrupted.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">The default image will be displayed instead.</system:String>
+    <system:String x:Key="Imageloadingerror">Image loading error</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">No 'default.png' file found in the images folder.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">The application will shutdown.</system:String>
+     
 </ResourceDictionary>

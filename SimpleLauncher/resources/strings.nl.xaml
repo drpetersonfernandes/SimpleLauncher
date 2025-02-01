@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
     <system:String x:Key="Manual">Handleiding</system:String>
-    <system:String x:Key="Manualnotfound">Handleiding niet gevonden</system:String>
-    <system:String x:Key="ManualNotFound">Handleiding niet gevonden</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
     <system:String x:Key="Nameoptional">Naam (optioneel)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">Corrigeer dit veld alstublieft.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Ga naar 'Systeem Bewerken - Expertmodus' om dit systeem te bewerken.</system:String>
     <system:String x:Key="PleaseReinstall">Installeer opnieuw</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Herinstalleer 'Simple Launcher' om dit probleem op te lossen.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Installeer 'Simple Launcher' handmatig opnieuw.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Installeer de emulator opnieuw om ervoor te zorgen dat deze correct werkt.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Selecteer een favoriet om te verwijderen.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Selecteer een spel om te starten.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">De bug is gemeld aan de ontwikkelaar en zal worden verholpen.</system:String>
     <system:String x:Key="Thecurrentversionis">De huidige versie is</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">De download en extractie zijn succesvol uitgevoerd.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">Het gedownloade bestand is geen geldig ZIP-archief.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is gemeld aan de ontwikkelaar, die zal proberen het probleem op te lossen.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">De favoriet is verwijderd uit de lijst.</system:String>
     <system:String x:Key="Thefile">Het bestand</system:String>
     <system:String x:Key="Thefileerroruser">Het bestand 'error_user.log' is niet gevonden!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Het starten van 'FindRomCover.exe' is door de gebruiker geannuleerd.</system:String>
     <system:String x:Key="Theme">Thema</system:String>
     <system:String x:Key="Thename">De naam</system:String>
-    <system:String x:Key="Theoperationwascanceled">De bewerking is geannuleerd door de gebruiker.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Er is een software-update beschikbaar.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Er is geen kastbestand aan dit spel gekoppeld.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">Er is geen kabinet-bestand gekoppeld aan deze favoriet.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Er is een fout opgetreden bij het starten van het geselecteerde hulpmiddel.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Het geselecteerde hulpmiddel is niet gevonden op het verwachte pad.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wil je 'Simple Launcher' opnieuw installeren om dit probleem op te lossen?</system:String>
     
     <system:String x:Key="Downloaderror">Downloadfout.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u doorverwezen worden naar de downloadpagina van 'Simple Launcher' om deze handmatig te downloaden?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Er was een fout bij het installeren of bijwerken van de toepassing.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is aan de ontwikkelaar gerapporteerd, die het probleem zal proberen op te lossen.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
+    <system:String x:Key="Manualnotfound">Handleiding niet gevonden.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">Het gedownloade bestand is geen geldig gecomprimeerd bestand.</system:String>
+    <system:String x:Key="Downloadedfileismissing">Het gedownloade bestand ontbreekt.</system:String>
+    <system:String x:Key="Downloadedfileislocked">Het gedownloade bestand is vergrendeld.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Zorg ervoor dat het bestand niet beschadigd is.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Verleen administratieve toegang aan 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Zorg ervoor dat 'Simple Launcher' zich in een beschrijfbare map bevindt.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">Het geselecteerde bestand kan niet worden uitgepakt.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Corrigeer dit in het venster Bewerken.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Er wordt een selectievenster geopend in 'Simple Launcher', waarmee u het gewenste venster kunt selecteren om vast te leggen.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Er is een fout opgetreden in het contextmenu (rechtermuisklik).</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Er was een probleem bij het openen van de videolink.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Er was een probleem bij het openen van de informatie-link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Er was een probleem bij het openen van het geschiedenisvenster.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Er is een fout opgetreden bij het openen van de omslagafbeelding.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Het is niet gelukt om de handleiding voor deze favoriet te openen.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Het is niet gelukt om het stappenplanbestand te openen.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">‘Simple Launcher’ kon geen screenshot maken.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Er is een fout opgetreden bij het proberen om het bestand te verwijderen.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">‘Simple Launcher’ kon deze game niet starten.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Er is een fout opgetreden bij het zoeken naar de gamebestanden.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">Er is een fout opgetreden bij het tellen van de bestanden.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van deze game aan favorieten.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van deze game uit favorieten.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Er was een probleem bij het openen van de videolink.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Er was een probleem bij het openen van de informatie-link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Er was een probleem bij het openen van het geschiedenisvenster.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Het is niet gelukt om de handleiding te openen.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Het is niet gelukt om het stappenplan te openen.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">Het is niet gelukt om de screenshot op te slaan.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Er is een fout opgetreden bij het proberen om het bestand te verwijderen.</system:String>
+    <system:String x:Key="Unabletoloadimage">Het is niet gelukt om de afbeelding te laden.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">Deze afbeelding kan beschadigd zijn.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">De standaardafbeelding wordt weergegeven.</system:String>
+    <system:String x:Key="Imageloadingerror">Er is een fout opgetreden bij het laden van de afbeelding.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">Er is geen 'default.png'-bestand gevonden in de afbeeldingsmap.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>
     
 </ResourceDictionary>

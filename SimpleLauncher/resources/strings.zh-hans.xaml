@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">洋红色</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">确保 'Simple Launcher' 文件夹位于具有写入权限的目录中。</system:String>
     <system:String x:Key="Manual">手册</system:String>
-    <system:String x:Key="Manualnotfound">操作手册未找到</system:String>
-    <system:String x:Key="ManualNotFound">未找到手册</system:String>
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因为提供了相关数据。</system:String>
     <system:String x:Key="Nameoptional">姓名（可选）</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">请修正此字段。</system:String>
     <system:String x:Key="PleasegotoEditSystem">请前往 '编辑系统 - 高级模式' 来编辑此系统。</system:String>
     <system:String x:Key="PleaseReinstall">请重新安装</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">请重新安装 'Simple Launcher' 以解决问题。</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">请手动重新安装 'Simple Launcher'。</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">请重新安装模拟器以确保其正确运行。</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">请选择一个收藏进行删除。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">请选择一个游戏进行启动。</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">错误已报告给开发者，并将被修复。</system:String>
     <system:String x:Key="Thecurrentversionis">当前版本是</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">下载和解压已成功完成。</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">下载的文件不是有效的 ZIP 压缩包。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">模拟器无法使用指定的参数打开游戏。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">模拟器无法使用提供的参数打开游戏。</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">错误已报告给开发人员，开发者将努力解决此问题。</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">收藏已从列表中移除。</system:String>
     <system:String x:Key="Thefile">文件</system:String>
     <system:String x:Key="Thefileerroruser">未找到文件 'error_user.log'！</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' 的启动已被用户取消。</system:String>
     <system:String x:Key="Theme">主题</system:String>
     <system:String x:Key="Thename">名称</system:String>
-    <system:String x:Key="Theoperationwascanceled">操作已被用户取消。</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">有可用的软件更新。</system:String>
     <system:String x:Key="Thereisnocabinetfile">此游戏没有关联的机柜文件。</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">此收藏没有相关的机台文件。</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">启动所选工具时出现错误。</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打开文件“error_user.log”以调试错误？</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">未在预期位置找到所选工具。</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否想重新安装“Simple Launcher”以解决此问题？</system:String>
     
     <system:String x:Key="Downloaderror">下载错误。</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">打开下载链接时出错。</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您是否希望跳转到 'Simple Launcher' 下载页面以手动下载？</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">安装或更新应用程序时出错。</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳转到下载页面以手动安装或更新？</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">错误已报告给开发者，他们将尝试修复它。</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">请手动重新安装 'Simple Launcher' 以解决问题。</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否希望重新安装 'Simple Launcher' 以解决问题？</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">请手动重新安装 'Simple Launcher' 以解决问题。</system:String>
+    <system:String x:Key="Manualnotfound">未找到手册。</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">下载的文件不是有效的压缩文件。</system:String>
+    <system:String x:Key="Downloadedfileismissing">下载的文件丢失。</system:String>
+    <system:String x:Key="Downloadedfileislocked">下载的文件已被锁定。</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">确保文件未损坏。</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">授予 'Simple Launcher' 管理权限。</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">确保 'Simple Launcher' 位于一个可写的文件夹中。</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">所选文件无法解压。</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">请在编辑窗口中修复它。</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">‘Simple Launcher’ 将打开一个选择窗口，允许您选择要捕获的窗口。</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">右键点击菜单中出现了一个错误。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">打开视频链接时出现了问题。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">打开信息链接时出现了问题。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">打开历史记录窗口时出现了问题。</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">尝试打开封面图片时出现了错误。</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">无法打开此收藏项的手册。</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">无法打开使用说明文件。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">‘Simple Launcher’ 无法截图。</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">尝试删除文件时出现错误。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">‘Simple Launcher’ 无法启动此游戏。</system:String>
+    <system:String x:Key="Therewasanerrorfinding">查找游戏文件时出现了错误。</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">您是否要打开 'error_user.log' 文件以调试错误？</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">统计文件时发生错误。</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">将此游戏添加到收藏夹时发生错误。</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">从收藏夹中移除此游戏时发生错误。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">打开视频链接时出现了问题。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">打开信息链接时出现了问题。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">打开历史记录窗口时出现了问题。</system:String>
+    <system:String x:Key="Failedtoopenthemanual">无法打开手册。</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">无法打开使用说明。</system:String>
+    <system:String x:Key="Failedtosavescreenshot">无法保存截图。</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">尝试删除文件时发生错误。</system:String>
+    <system:String x:Key="Unabletoloadimage">无法加载图片。</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">此图片可能已损坏。</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">将显示默认图片。</system:String>
+    <system:String x:Key="Imageloadingerror">加载图片时出现错误。</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">在图片文件夹中未找到 'default.png' 文件。</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">应用程序将会关闭。</system:String>
     
 </ResourceDictionary>

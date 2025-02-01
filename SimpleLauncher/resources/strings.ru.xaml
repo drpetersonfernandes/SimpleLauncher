@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">Пурпурный</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
     <system:String x:Key="Manual">Руководство</system:String>
-    <system:String x:Key="Manualnotfound">Руководство не найдено</system:String>
-    <system:String x:Key="ManualNotFound">Руководство не найдено</system:String>
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
     <system:String x:Key="Nameoptional">Имя (необязательно)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">Пожалуйста, исправьте это поле.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Откройте 'Редактировать систему - Экспертный режим' для редактирования данной системы.</system:String>
     <system:String x:Key="PleaseReinstall">Пожалуйста, переустановите</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Переустановите 'Simple Launcher' для устранения проблемы.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Пожалуйста, переустановите 'Simple Launcher' вручную.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Переустановите эмулятор, чтобы убедиться, что он работает правильно.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Пожалуйста, выберите избранное для удаления.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Пожалуйста, выберите игру для запуска.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">Ошибка была отправлена разработчику и будет исправлена.</system:String>
     <system:String x:Key="Thecurrentversionis">Текущая версия:</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">Загрузка и извлечение успешно завершены.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">Загруженный файл не является допустимым ZIP-архивом.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Эмулятор не смог открыть игру с указанными параметрами.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Эмулятор не смог открыть игру с предоставленными параметрами.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">Ошибка была отправлена разработчику, который попытается её исправить.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Избранное было удалено из списка.</system:String>
     <system:String x:Key="Thefile">Файл</system:String>
     <system:String x:Key="Thefileerroruser">Файл 'error_user.log' не найден!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Запуск 'FindRomCover.exe' был отменен пользователем.</system:String>
     <system:String x:Key="Theme">Тема</system:String>
     <system:String x:Key="Thename">Имя</system:String>
-    <system:String x:Key="Theoperationwascanceled">Операция была отменена пользователем.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Доступно обновление программного обеспечения.</system:String>
     <system:String x:Key="Thereisnocabinetfile">С этой игрой не связан файл кабинета.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">Файл кабинета не связан с этим избранным.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Произошла ошибка при запуске выбранного инструмента.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Выбранный инструмент не найден в предполагаемом месте.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     
     <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу скачивания 'Simple Launcher' для ручной загрузки?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Произошла ошибка при установке или обновлении приложения.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Ошибка была отправлена разработчику, который попытается её устранить.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Пожалуйста, переустановите 'Simple Launcher' вручную, чтобы устранить проблему.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Вы хотите переустановить 'Simple Launcher', чтобы устранить проблему?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Пожалуйста, переустановите 'Simple Launcher' вручную, чтобы устранить проблему.</system:String>
+    <system:String x:Key="Manualnotfound">Руководство не найдено.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">Загруженный файл не является допустимым сжатым файлом.</system:String>
+    <system:String x:Key="Downloadedfileismissing">Загруженный файл отсутствует.</system:String>
+    <system:String x:Key="Downloadedfileislocked">Загруженный файл заблокирован.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Убедитесь, что файл не повреждён.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Предоставьте административный доступ 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Убедитесь, что 'Simple Launcher' находится в папке с разрешением на запись.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">Выбранный файл невозможно распаковать.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Исправьте это в окне редактирования.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">В 'Simple Launcher' откроется окно выбора, позволяющее выбрать окно для захвата.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Возникла ошибка в контекстном меню (правая кнопка мыши).</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Возникла проблема при открытии ссылки на видео.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Возникла проблема при открытии информационной ссылки.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Возникла проблема при открытии окна истории.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Возникла ошибка при попытке открыть обложку изображения.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Не удалось открыть руководство для этого избранного.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Не удалось открыть файл с пошаговой инструкцией.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' не смог сделать снимок экрана.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Возникла ошибка при попытке удалить файл.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не смог запустить эту игру.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Возникла ошибка при поиске файлов игры.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">Возникла ошибка при подсчёте файлов.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Возникла ошибка при добавлении этой игры в избранное.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Возникла ошибка при удалении этой игры из избранного.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Возникла проблема при открытии ссылки на видео.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Возникла проблема при открытии информационной ссылки.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Возникла проблема при открытии окна истории.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Не удалось открыть руководство.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Не удалось открыть пошаговую инструкцию.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">Не удалось сохранить снимок экрана.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Возникла ошибка при попытке удалить файл.</system:String>
+    <system:String x:Key="Unabletoloadimage">Не удалось загрузить изображение.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">Это изображение может быть повреждено.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">Будет отображено изображение по умолчанию.</system:String>
+    <system:String x:Key="Imageloadingerror">Возникла ошибка при загрузке изображения.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">В папке изображений не найден файл 'default.png'.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">Приложение будет завершено.</system:String>
     
 </ResourceDictionary>

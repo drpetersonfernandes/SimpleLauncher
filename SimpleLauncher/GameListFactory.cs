@@ -894,8 +894,9 @@ public class GameListFactory(
             }
         }
         string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        string manualNotFound2 = (string)Application.Current.TryFindResource("ManualNotFound") ?? "Manual not found";
-        MessageBox.Show(thereisnomanual2, manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        string manualNotFound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
+        MessageBox.Show(thereisnomanual2, 
+            manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     private void OpenWalkthrough(string systemName, string fileName)

@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Pastikan folder 'Simple Launcher' berada di direktori yang mempunyai kebenaran menulis.</system:String>
     <system:String x:Key="Manual">Manual</system:String>
-    <system:String x:Key="Manualnotfound">Manual tidak ditemukan</system:String>
-    <system:String x:Key="ManualNotFound">Manual Tidak Ditemukan</system:String>
     <system:String x:Key="Mauve">Ungu Muda</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">nama diperlukan karena data terkait telah disediakan.</system:String>
     <system:String x:Key="Nameoptional">Nama (opsional)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">Harap perbaiki bidang ini.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Silakan pergi ke Edit System - Mode Ahli dan edit sistem ini.</system:String>
     <system:String x:Key="PleaseReinstall">Silakan instal ulang</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Sila pasang semula 'Simple Launcher' untuk menyelesaikan masalah ini.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Silakan instal ulang 'Simple Launcher' secara manual.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Harap instal ulang emulator untuk memastikan itu berfungsi.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Silakan pilih favorit untuk dihapus.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Silakan pilih game untuk diluncurkan.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">Pepijat telah dilaporkan kepada pembangun, dan mereka akan cuba membetulkannya.</system:String>
     <system:String x:Key="Thecurrentversionis">Versi saat ini adalah</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">Muat turun dan ekstraksi berjaya.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">Fail yang dimuat turun bukan fail ZIP yang sah.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emulator tidak dapat membuka permainan dengan parameter yang diberikan.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Emulator tidak dapat membuka game dengan parameter yang diberikan.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">Kesalahan telah dilaporkan kepada pengembang yang akan mencoba memperbaiki masalah ini.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Favorit telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefile">File</system:String>
     <system:String x:Key="Thefileerroruser">File 'error_user.log' tidak ditemukan!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Peluncuran 'FindRomCover.exe' dibatalkan oleh pengguna.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">Nama</system:String>
-    <system:String x:Key="Theoperationwascanceled">Operasi dibatalkan oleh pengguna.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Ada pembaruan perangkat lunak yang tersedia.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Tidak ada file kabinet yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">Tidak ada file kabinet yang terkait dengan favorit ini.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Terjadi kesalahan saat meluncurkan alat yang dipilih.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Alat yang dipilih tidak ditemukan di jalur yang diharapkan.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     
     <system:String x:Key="Downloaderror">Kesalahan unduhan.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Terjadi kesalahan saat menginstal atau memperbarui aplikasi.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan untuk menginstal atau memperbarui secara manual?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Kesalahan telah dilaporkan kepada pengembang yang akan mencoba memperbaiki masalah ini.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Harap instal ulang 'Simple Launcher' secara manual untuk memperbaiki masalah ini.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Harap instal ulang 'Simple Launcher' secara manual untuk memperbaiki masalah ini.</system:String>
+    <system:String x:Key="Manualnotfound">Panduan tidak ditemukan.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">File yang diunduh bukan file terkompresi yang valid.</system:String>
+    <system:String x:Key="Downloadedfileismissing">File yang diunduh hilang.</system:String>
+    <system:String x:Key="Downloadedfileislocked">File yang diunduh terkunci.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Pastikan file tidak rusak.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Berikan akses administratif ke 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Pastikan 'Simple Launcher' berada di folder yang dapat ditulis.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">File yang dipilih tidak dapat diekstraksi.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Jendela seleksi akan terbuka di 'Simple Launcher', memungkinkan Anda memilih jendela yang diinginkan untuk diambil.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Terjadi kesalahan pada menu klik kanan.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Terjadi masalah saat membuka tautan video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Terjadi masalah saat membuka tautan informasi.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Terjadi masalah saat membuka jendela riwayat.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Terjadi kesalahan saat mencoba membuka gambar sampul.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Gagal membuka panduan untuk favorit ini.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Gagal membuka file panduan.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' tidak dapat mengambil tangkapan layar.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Terjadi kesalahan saat mencoba menghapus file.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Terjadi kesalahan saat mencari file game.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk memperbaiki kesalahan?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">Terjadi kesalahan saat menghitung file.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Terjadi kesalahan saat menambahkan game ini ke favorit.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Terjadi kesalahan saat menghapus game ini dari favorit.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Terjadi masalah saat membuka tautan video.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Terjadi masalah saat membuka tautan informasi.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Terjadi masalah saat membuka jendela riwayat.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Gagal membuka panduan.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Gagal membuka panduan.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">Gagal menyimpan tangkapan layar.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Terjadi kesalahan saat mencoba menghapus file.</system:String>
+    <system:String x:Key="Unabletoloadimage">Tidak dapat memuat gambar.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">Gambar ini mungkin rusak.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">Gambar default akan ditampilkan sebagai gantinya.</system:String>
+    <system:String x:Key="Imageloadingerror">Kesalahan saat memuat gambar.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">Tidak ada file 'default.png' yang ditemukan di folder gambar.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">Aplikasi akan ditutup.</system:String>
     
 </ResourceDictionary>

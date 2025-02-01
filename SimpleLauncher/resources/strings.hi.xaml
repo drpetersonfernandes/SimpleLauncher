@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">मैजेंटा</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लिखने योग्य निर्देशिका में है।</system:String>
     <system:String x:Key="Manual">मैनुअल</system:String>
-    <system:String x:Key="Manualnotfound">मैनुअल नहीं मिला</system:String>
-    <system:String x:Key="ManualNotFound">मैनुअल नहीं मिला</system:String>
     <system:String x:Key="Mauve">मॉव</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">आवश्यक है क्योंकि संबंधित डेटा प्रदान किया गया है।</system:String>
     <system:String x:Key="Nameoptional">नाम (वैकल्पिक)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">कृपया इस फ़ील्ड को ठीक करें।</system:String>
     <system:String x:Key="PleasegotoEditSystem">कृपया 'एडिट सिस्टम - एक्सपर्ट मोड' पर जाएं और इस सिस्टम को संपादित करें।</system:String>
     <system:String x:Key="PleaseReinstall">कृपया पुनः इंस्टॉल करें</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">समस्या को हल करने के लिए कृपया 'Simple Launcher' पुनः इंस्टॉल करें।</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">कृपया 'Simple Launcher' को मैन्युअली पुनः इंस्टॉल करें।</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">सुनिश्चित करें कि एम्युलेटर सही ढंग से काम कर रहा है, कृपया उसे पुनः इंस्टॉल करें।</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">कृपया हटाने के लिए एक पसंदीदा आइटम चुनें।</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">कृपया शुरू करने के लिए एक खेल चुनें।</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">बग को डेवलपर को रिपोर्ट कर दिया गया है, जो इसे ठीक करने का प्रयास करेगा।</system:String>
     <system:String x:Key="Thecurrentversionis">वर्तमान संस्करण है</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">डाउनलोड की गई फ़ाइल एक मान्य ZIP संग्रह नहीं है।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">एमुलेटर दिए गए पैरामीटर्स के साथ गेम को खोलने में असमर्थ था।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">एमुलेटर प्रदान किए गए पैरामीटर के साथ खेल को खोलने में विफल रहा।</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">त्रुटि को डेवलपर को रिपोर्ट किया गया है जो इसे ठीक करने का प्रयास करेगा।</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">पसंदीदा को सूची से हटा दिया गया है।</system:String>
     <system:String x:Key="Thefile">फ़ाइल</system:String>
     <system:String x:Key="Thefileerroruser">फ़ाइल 'error_user.log' नहीं मिली!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">उपयोगकर्ता द्वारा 'FindRomCover.exe' का लॉन्च रद्द कर दिया गया।</system:String>
     <system:String x:Key="Theme">थीम</system:String>
     <system:String x:Key="Thename">नाम</system:String>
-    <system:String x:Key="Theoperationwascanceled">ऑपरेशन उपयोगकर्ता द्वारा रद्द कर दिया गया।</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">एक सॉफ़्टवेयर अपडेट उपलब्ध है।</system:String>
     <system:String x:Key="Thereisnocabinetfile">इस खेल के साथ कोई केबिनेट फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">इस पसंदीदा के साथ कोई कैबिनेट फ़ाइल जुड़ी नहीं है।</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">चयनित टूल को लॉन्च करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">क्या आप 'error_user.log' फ़ाइल को त्रुटि डिबग करने के लिए खोलना चाहते हैं?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">चयनित टूल अपेक्षित स्थान पर नहीं मिला।</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' को फिर से इंस्टॉल करना चाहते हैं ताकि यह समस्या ठीक हो सके?</system:String>
     
     <system:String x:Key="Downloaderror">डाउनलोड में त्रुटि।</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">डाउनलोड लिंक खोलने में त्रुटि।</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' को मैन्युअली डाउनलोड करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">ऐप्लिकेशन को इंस्टॉल या अपडेट करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">इसे मैन्युअली इंस्टॉल या अपडेट करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">इस त्रुटि को डिवेलपर को रिपोर्ट किया गया है, जो इस समस्या को हल करने का प्रयास करेंगे।</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">समस्या को ठीक करने के लिए कृपया 'Simple Launcher' को मैन्युअली पुनः इंस्टॉल करें।</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">समस्या को ठीक करने के लिए कृपया 'Simple Launcher' को मैन्युअली पुनः इंस्टॉल करें।</system:String>
+    <system:String x:Key="Manualnotfound">मैन्युअल नहीं मिला।</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">डाउनलोड किया गया फ़ाइल एक वैध कंप्रेस्ड फ़ाइल नहीं है।</system:String>
+    <system:String x:Key="Downloadedfileismissing">डाउनलोड की गई फ़ाइल गुम है।</system:String>
+    <system:String x:Key="Downloadedfileislocked">डाउनलोड की गई फ़ाइल लॉक है।</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">सुनिश्चित करें कि फ़ाइल क्षतिग्रस्त नहीं है।</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">'Simple Launcher' को प्रशासनिक एक्सेस प्रदान करें।</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">'Simple Launcher' एक लिखने योग्य फ़ोल्डर में हो, यह सुनिश्चित करें।</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">चयनित फ़ाइल को एक्सट्रैक्ट नहीं किया जा सकता है।</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">कृपया इसे संपादन विंडो में ठीक करें।</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' में एक चयन विंडो खुलेगी, जो आपको कार्रवाई के लिए वांछित विंडो का चयन करने देगी।</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">राइट-क्लिक मेनू में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">वीडियो लिंक खोलने में समस्या आई।</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">जानकारी लिंक खोलने में समस्या आई।</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">इतिहास विंडो खोलने में समस्या आई।</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">कवर इमेज खोलने के प्रयास में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">इस पसंदीदा का मैनुअल खोलने में विफल।</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">वॉकथ्रू फ़ाइल खोलने में विफल।</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' स्क्रीनशॉट नहीं ले सका।</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' इस गेम को लॉन्च नहीं कर सका।</system:String>
+    <system:String x:Key="Therewasanerrorfinding">गेम फाइलों को खोजने में त्रुटि हुई।</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">क्या आप त्रुटि का निवारण करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">फ़ाइलों को गिनने में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">इस गेम को पसंदीदा में जोड़ने में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">इस गेम को पसंदीदा से हटाने में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">वीडियो लिंक खोलने में समस्या आई।</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">जानकारी लिंक खोलने में समस्या आई।</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">इतिहास विंडो खोलने में समस्या आई।</system:String>
+    <system:String x:Key="Failedtoopenthemanual">मैनुअल खोलने में विफल।</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">वॉकथ्रू खोलने में विफल।</system:String>
+    <system:String x:Key="Failedtosavescreenshot">स्क्रीनशॉट सहेजने में विफल।</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Unabletoloadimage">इमेज लोड करने में असमर्थ।</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">यह इमेज क्षतिग्रस्त हो सकती है।</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">इसके बजाय डिफ़ॉल्ट इमेज प्रदर्शित की जाएगी।</system:String>
+    <system:String x:Key="Imageloadingerror">इमेज लोडिंग के समय त्रुटि हुई।</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">इमेज फ़ोल्डर में 'default.png' फ़ाइल नहीं मिली।</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">एप्लिकेशन बंद हो जाएगा।</system:String>
     
 </ResourceDictionary>

@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">マゼンタ</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
     <system:String x:Key="Manual">マニュアル</system:String>
-    <system:String x:Key="Manualnotfound">マニュアルが見つかりません</system:String>
-    <system:String x:Key="ManualNotFound">マニュアルが見つかりません</system:String>
     <system:String x:Key="Mauve">モーヴ</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">関連するデータが提供されているため、名前が必要です。</system:String>
     <system:String x:Key="Nameoptional">名前 (任意)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">このフィールドを修正してください。</system:String>
     <system:String x:Key="PleasegotoEditSystem">『編集システム - エキスパートモード』に移動し、このシステムを編集してください。</system:String>
     <system:String x:Key="PleaseReinstall">再インストールしてください</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">問題を解決するために『Simple Launcher』を再インストールしてください。</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">手動で 'Simple Launcher' を再インストールしてください。</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">エミュレーターを再インストールして、正しく動作しているか確認してください。</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">削除するお気に入りを選択してください。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">起動するゲームを選択してください。</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">バグが開発者に報告され、修正される予定です。</system:String>
     <system:String x:Key="Thecurrentversionis">現在のバージョンは</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">ダウンロードおよび抽出が成功しました。</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">ダウンロードしたファイルは有効な ZIP アーカイブではありません。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">エミュレータは指定されたパラメータでゲームを開くことができませんでした。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">エミュレーターは提供されたパラメーターでゲームを開くことができませんでした。</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">エラーは開発者に報告され、修正が試みられます。</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">お気に入りがリストから削除されました。</system:String>
     <system:String x:Key="Thefile">ファイル</system:String>
     <system:String x:Key="Thefileerroruser">ファイル 'error_user.log' が見つかりませんでした！</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' の起動がユーザーによってキャンセルされました。</system:String>
     <system:String x:Key="Theme">テーマ</system:String>
     <system:String x:Key="Thename">名前</system:String>
-    <system:String x:Key="Theoperationwascanceled">操作はユーザーによってキャンセルされました。</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">ソフトウェアの更新が利用可能です。</system:String>
     <system:String x:Key="Thereisnocabinetfile">このゲームにはキャビネットファイルが関連付けられていません。</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">このお気に入りにはキャビネットファイルが関連付けられていません。</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">選択したツールを起動する際にエラーが発生しました。</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">選択したツールが想定されたパスに見つかりませんでした。</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' を再インストールして問題を解決しますか？</system:String>
     
     <system:String x:Key="Downloaderror">ダウンロードエラー。</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ダウンロードリンクの開封中にエラーが発生しました。</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">手動でダウンロードするために "Simple Launcher" のダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">アプリケーションのインストールまたはアップデート中にエラーが発生しました。</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">手動でインストールまたは更新するためにダウンロードページにリダイレクトしますか？</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">エラーが開発者に報告されました。この問題を解決するために対応します。</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">問題を解決するには、手動で「Simple Launcher」を再インストールしてください。</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">問題を解決するために「Simple Launcher」を再インストールしますか？</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">問題を解決するには、手動で「Simple Launcher」を再インストールしてください。</system:String>
+    <system:String x:Key="Manualnotfound">マニュアルが見つかりません。</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">ダウンロードしたファイルは有効な圧縮ファイルではありません。</system:String>
+    <system:String x:Key="Downloadedfileismissing">ダウンロードしたファイルが見つかりません。</system:String>
+    <system:String x:Key="Downloadedfileislocked">ダウンロードしたファイルがロックされています。</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">ファイルが破損していないことを確認してください。</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">「Simple Launcher」に管理者権限を付与してください。</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">「Simple Launcher」が書き込み可能なフォルダにあることを確認してください。</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">選択されたファイルを解凍できません。</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">編集ウィンドウで修正してください。</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">「Simple Launcher」で選択ウィンドウが開き、キャプチャしたいウィンドウを選択できます。</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">右クリックメニューでエラーが発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">ビデオリンクを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">情報リンクを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">履歴ウィンドウを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">カバー画像を開く際にエラーが発生しました。</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">このお気に入りのマニュアルを開けませんでした。</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">ガイドのファイルを開けませんでした。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">「Simple Launcher」でスクリーンショットを撮ることができませんでした。</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">ファイルを削除しようとした際にエラーが発生しました。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">「Simple Launcher」でこのゲームを起動できませんでした。</system:String>
+    <system:String x:Key="Therewasanerrorfinding">ゲームファイルを見つける際にエラーが発生しました。</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">「error_user.log」ファイルを開いてエラーのデバッグを行いますか？</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">ファイルをカウントする際にエラーが発生しました。</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">このゲームをお気に入りに追加する際にエラーが発生しました。</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">このゲームをお気に入りから削除する際にエラーが発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">ビデオリンクを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">情報リンクを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">履歴ウィンドウを開く際に問題が発生しました。</system:String>
+    <system:String x:Key="Failedtoopenthemanual">マニュアルを開けませんでした。</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">ガイドを開けませんでした。</system:String>
+    <system:String x:Key="Failedtosavescreenshot">スクリーンショットを保存できませんでした。</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">ファイルを削除しようとした際にエラーが発生しました。</system:String>
+    <system:String x:Key="Unabletoloadimage">画像を読み込むことができませんでした。</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">画像が破損している可能性があります。</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">代わりにデフォルト画像が表示されます。</system:String>
+    <system:String x:Key="Imageloadingerror">画像の読み込み中にエラーが発生しました。</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">画像フォルダーに「default.png」ファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">アプリケーションが終了します。</system:String>
     
 </ResourceDictionary>

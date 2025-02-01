@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">قرمزي</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' موجود في دليل قابل للكتابة.</system:String>
     <system:String x:Key="Manual">الدليل</system:String>
-    <system:String x:Key="Manualnotfound">الدليل غير موجود</system:String>
-    <system:String x:Key="ManualNotFound">الدليل غير موجود</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
     <system:String x:Key="Nameoptional">الاسم (اختياري)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">يرجى تصحيح هذا الحقل.</system:String>
     <system:String x:Key="PleasegotoEditSystem">يرجى الذهاب إلى تحرير النظام - وضع الخبراء وتحرير هذا النظام.</system:String>
     <system:String x:Key="PleaseReinstall">يرجى إعادة التثبيت</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">يرجى إعادة تثبيت 'Simple Launcher' لحل المشكلة.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">يرجى إعادة تثبيت 'Simple Launcher' يدويًا.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">يرجى إعادة تثبيت المحاكي للتأكد من أنه يعمل بشكل صحيح.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">يرجى اختيار مفضلة للإزالة.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">يرجى اختيار لعبة للتشغيل.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
     <system:String x:Key="Thecurrentversionis">الإصدار الحالي هو</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">تم التحميل والاستخراج بنجاح.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">الملف الذي تم تنزيله ليس ملف ZIP صالح.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">تعذر على المحاكي فتح اللعبة باستخدام المعلمات المقدمة.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ إلى المطور لمحاولة إصلاحه.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">تمت إزالة المفضلة من القائمة.</system:String>
     <system:String x:Key="Thefile">الملف</system:String>
     <system:String x:Key="Thefileerroruser">لم يتم العثور على الملف 'error_user.log'!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">تم إلغاء تشغيل 'FindRomCover.exe' بواسطة المستخدم.</system:String>
     <system:String x:Key="Theme">السمة</system:String>
     <system:String x:Key="Thename">الاسم</system:String>
-    <system:String x:Key="Theoperationwascanceled">تم إلغاء العملية من قبل المستخدم.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">يتوفر تحديث للبرنامج.</system:String>
     <system:String x:Key="Thereisnocabinetfile">لا يوجد ملف خزانة مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">لا يوجد ملف خزانة مرتبط بهذه المفضلة.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">حدث خطأ أثناء تشغيل الأداة المحددة.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">لم يتم العثور على الأداة المحددة في المسار المتوقع.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     
     <system:String x:Key="Downloaderror">خطأ في التنزيل.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل "Simple Launcher" لتحميله يدويًا؟</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">حدث خطأ أثناء تثبيت أو تحديث التطبيق.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
+    <system:String x:Key="Manualnotfound">لم يتم العثور على الدليل.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">الملف الذي تم تنزيله ليس ملفًا مضغوطًا صالحًا.</system:String>
+    <system:String x:Key="Downloadedfileismissing">الملف الذي تم تنزيله مفقود.</system:String>
+    <system:String x:Key="Downloadedfileislocked">الملف الذي تم تنزيله مقفل.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">تأكد من أن الملف غير تالف.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">امنح صلاحيات إدارية لـ 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">تأكد من وجود 'Simple Launcher' في مجلد قابل للكتابة.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">لا يمكن استخراج الملف المحدد.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">ستفتح نافذة اختيار في 'Simple Launcher'، مما يتيح لك اختيار النافذة المطلوبة للالتقاط.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">حدث خطأ في قائمة النقر بزر الماوس الأيمن.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">حدثت مشكلة أثناء فتح رابط الفيديو.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">حدثت مشكلة أثناء فتح رابط المعلومات.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">حدثت مشكلة أثناء فتح نافذة السجل.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">حدث خطأ أثناء محاولة فتح صورة الغلاف.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">فشل في فتح الدليل لهذا المفضل.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">فشل في فتح ملف الإرشادات.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">لم يتمكن 'Simple Launcher' من التقاط لقطة الشاشة.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">حدث خطأ أثناء محاولة حذف الملف.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">حدث خطأ أثناء العثور على ملفات اللعبة.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">حدث خطأ أثناء عد الملفات.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">حدث خطأ أثناء إضافة هذه اللعبة إلى المفضلات.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">حدث خطأ أثناء إزالة هذه اللعبة من المفضلات.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">حدثت مشكلة أثناء فتح رابط الفيديو.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">حدثت مشكلة أثناء فتح رابط المعلومات.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">حدثت مشكلة أثناء فتح نافذة السجل.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">فشل في فتح الدليل.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">فشل في فتح الإرشادات.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">فشل في حفظ لقطة الشاشة.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
+    <system:String x:Key="Unabletoloadimage">تعذر تحميل الصورة.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">قد تكون هذه الصورة تالفة.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">سيتم عرض الصورة الافتراضية بدلاً من ذلك.</system:String>
+    <system:String x:Key="Imageloadingerror">خطأ في تحميل الصورة.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">لم يتم العثور على ملف 'default.png' في مجلد الصور.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">سيتم إغلاق التطبيق.</system:String>
     
 </ResourceDictionary>

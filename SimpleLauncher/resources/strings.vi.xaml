@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">Đỏ tím</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="Manual">Hướng dẫn</system:String>
-    <system:String x:Key="Manualnotfound">Không tìm thấy tài liệu hướng dẫn</system:String>
-    <system:String x:Key="ManualNotFound">Không tìm thấy hướng dẫn</system:String>
     <system:String x:Key="Mauve">Hồng nhạt</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">là bắt buộc vì có liên quan đến dữ liệu được cung cấp.</system:String>
     <system:String x:Key="Nameoptional">Tên (không bắt buộc)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">Vui lòng sửa trường này.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Đi đến 'Chỉnh sửa hệ thống - Chế độ chuyên gia' để chỉnh sửa hệ thống này.</system:String>
     <system:String x:Key="PleaseReinstall">Vui lòng cài đặt lại</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Hãy cài đặt lại 'Simple Launcher' để khắc phục sự cố.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Hãy cài đặt lại trình giả lập để đảm bảo nó hoạt động đúng cách.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Vui lòng chọn một mục yêu thích để xóa.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Vui lòng chọn một trò chơi để khởi chạy.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">Lỗi đã được báo cáo tới nhà phát triển và sẽ được sửa chữa.</system:String>
     <system:String x:Key="Thecurrentversionis">Phiên bản hiện tại là</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">Việc tải xuống và giải nén đã hoàn tất thành công.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">Tệp được tải xuống không phải là tệp ZIP hợp lệ.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển và sẽ được cố gắng khắc phục.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Mục yêu thích đã được xóa khỏi danh sách.</system:String>
     <system:String x:Key="Thefile">Tệp</system:String>
     <system:String x:Key="Thefileerroruser">Không tìm thấy tệp 'error_user.log'!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Việc khởi chạy 'FindRomCover.exe' đã bị người dùng hủy.</system:String>
     <system:String x:Key="Theme">Giao diện</system:String>
     <system:String x:Key="Thename">Tên</system:String>
-    <system:String x:Key="Theoperationwascanceled">Thao tác đã bị người dùng hủy bỏ.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Có một bản cập nhật phần mềm khả dụng.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Không có tệp tủ nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">Không có tệp cabinet nào được liên kết với mục yêu thích này.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Đã xảy ra lỗi khi khởi chạy công cụ đã chọn.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Không tìm thấy công cụ đã chọn tại vị trí dự kiến.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống 'Simple Launcher' để tải về thủ công không?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Đã xảy ra lỗi khi cài đặt hoặc cập nhật ứng dụng.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển, họ sẽ cố gắng khắc phục.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Vui lòng cài đặt lại 'Simple Launcher' thủ công để khắc phục sự cố.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công để khắc phục sự cố.</system:String>
+    <system:String x:Key="Manualnotfound">Không tìm thấy hướng dẫn sử dụng.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">Tệp đã tải xuống không phải là tệp nén hợp lệ.</system:String>
+    <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
+    <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Đảm bảo rằng tệp không bị hỏng.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Cấp quyền quản trị cho 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Đảm bảo rằng 'Simple Launcher' nằm trong một thư mục có thể ghi.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">Tệp đã chọn không thể giải nén.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa điều này trong cửa sổ chỉnh sửa.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ cần chụp.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Đã xảy ra lỗi trong menu nhấp chuột phải.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Có sự cố khi mở liên kết video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Có sự cố khi mở liên kết thông tin.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Có sự cố khi mở cửa sổ lịch sử.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Đã xảy ra lỗi khi cố mở ảnh bìa.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Không thể mở hướng dẫn sử dụng cho mục yêu thích này.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Không thể mở tệp chỉ dẫn.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' không thể chụp màn hình.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Đã xảy ra lỗi khi cố gắng xóa tệp.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Đã xảy ra lỗi khi tìm kiếm các tệp trò chơi.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">Đã xảy ra lỗi khi đếm tệp.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Đã xảy ra lỗi khi thêm trò chơi này vào mục yêu thích.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Đã xảy ra lỗi khi xóa trò chơi này khỏi mục yêu thích.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Có sự cố khi mở liên kết video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Có sự cố khi mở liên kết thông tin.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Có sự cố khi mở cửa sổ lịch sử.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Không thể mở hướng dẫn sử dụng.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Không thể mở chỉ dẫn.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">Không thể lưu ảnh chụp màn hình.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Đã xảy ra lỗi khi cố gắng xóa tệp.</system:String>
+    <system:String x:Key="Unabletoloadimage">Không thể tải hình ảnh.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">Hình ảnh này có thể bị hỏng.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">Hình ảnh mặc định sẽ được hiển thị.</system:String>
+    <system:String x:Key="Imageloadingerror">Đã xảy ra lỗi khi tải hình ảnh.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">Không tìm thấy tệp 'default.png' trong thư mục hình ảnh.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ tắt.</system:String>
     
 </ResourceDictionary>

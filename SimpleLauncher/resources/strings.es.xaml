@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">Asegúrese de que la carpeta de 'Simple Launcher' esté en un directorio con permisos de escritura.</system:String>
     <system:String x:Key="Manual">Manual</system:String>
-    <system:String x:Key="Manualnotfound">Manual no encontrado</system:String>
-    <system:String x:Key="ManualNotFound">Manual no encontrado</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">es necesario porque se han proporcionado datos relacionados.</system:String>
     <system:String x:Key="Nameoptional">Nombre (opcional)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">Por favor, corrige este campo.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Por favor, vaya a Editar Sistema - Modo Experto y edite este sistema.</system:String>
     <system:String x:Key="PleaseReinstall">Por favor, reinstale</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Por favor, reinstale 'Simple Launcher' para resolver el problema.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Por favor, reinstale 'Simple Launcher' manualmente.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">Por favor reinstale el emulador para asegurarse de que esté funcionando correctamente.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Por favor seleccione un favorito para eliminar.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Por favor seleccione un juego para iniciar.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">El error ha sido informado al desarrollador, quien intentará corregirlo.</system:String>
     <system:String x:Key="Thecurrentversionis">La versión actual es</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">La descarga y extracción fueron exitosas.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">El archivo descargado no es un archivo ZIP válido.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">El emulador no pudo abrir el juego con los parámetros proporcionados.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">El emulador no pudo abrir el juego con los parámetros proporcionados.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">Se informó del error al desarrollador, quien tratará de solucionar el problema.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">El favorito ha sido eliminado de la lista.</system:String>
     <system:String x:Key="Thefile">El archivo</system:String>
     <system:String x:Key="Thefileerroruser">¡No se encontró el archivo 'error_user.log'!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">El lanzamiento de 'FindRomCover.exe' fue cancelado por el usuario.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">El nombre</system:String>
-    <system:String x:Key="Theoperationwascanceled">La operación fue cancelada por el usuario.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Hay una actualización de software disponible.</system:String>
     <system:String x:Key="Thereisnocabinetfile">No hay un archivo de gabinete asociado con este juego.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">No hay un archivo de gabinete asociado con este favorito.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Ocurrió un error al iniciar la herramienta seleccionada.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">¿Desea abrir el archivo 'error_user.log' para depurar el error?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">No se encontró la herramienta seleccionada en la ruta esperada.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">¿Desea reinstalar 'Simple Launcher' para solucionar el problema?</system:String>
 
     <system:String x:Key="Downloaderror">Error de descarga.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Error al abrir el enlace de descarga.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">¿Te gustaría ser redirigido a la página de descarga de 'Simple Launcher' para descargarlo manualmente?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Hubo un error al instalar o actualizar la aplicación.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">¿Te gustaría ser redirigido a la página de descarga para instalarlo o actualizarlo manualmente?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">El error fue reportado al desarrollador, quien intentará solucionar el problema.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Por favor, reinstale 'Simple Launcher' manualmente para solucionar el problema.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">¿Desea reinstalar 'Simple Launcher' para solucionar el problema?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Por favor, reinstale 'Simple Launcher' manualmente para solucionar el problema.</system:String>
+    <system:String x:Key="Manualnotfound">Manual no encontrado.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">El archivo descargado no es un archivo comprimido válido.</system:String>
+    <system:String x:Key="Downloadedfileismissing">El archivo descargado está faltando.</system:String>
+    <system:String x:Key="Downloadedfileislocked">El archivo descargado está bloqueado.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">Asegúrese de que el archivo no esté dañado.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Otorgue acceso administrativo a 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Asegúrese de que 'Simple Launcher' esté en una carpeta con permisos de escritura.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">El archivo seleccionado no se puede extraer.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Por favor, solucione eso en la ventana de edición.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Se abrirá una ventana de selección en 'Simple Launcher', permitiéndole elegir la ventana deseada para capturar.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Se produjo un error en el menú contextual (clic derecho).</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Hubo un problema al abrir el enlace del video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Hubo un problema al abrir el enlace de información.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Hubo un problema al abrir la ventana de historial.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Hubo un error al intentar abrir la imagen de portada.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">No se pudo abrir el manual para este favorito.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">No se pudo abrir el archivo del tutorial.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' no pudo capturar la captura de pantalla.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Se produjo un error al intentar eliminar el archivo.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' no pudo iniciar este juego.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Se produjo un error al buscar los archivos del juego.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">¿Desea abrir el archivo 'error_user.log' para depurar el error?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">Se produjo un error al contar los archivos.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Se produjo un error al agregar este juego a los favoritos.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Se produjo un error al eliminar este juego de los favoritos.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Hubo un problema al abrir el enlace del video.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Hubo un problema al abrir el enlace de información.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Hubo un problema al abrir la ventana de historial.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">No se pudo abrir el manual.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">No se pudo abrir el tutorial.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">No se pudo guardar la captura de pantalla.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Se produjo un error al intentar eliminar el archivo.</system:String>
+    <system:String x:Key="Unabletoloadimage">No se pudo cargar la imagen.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">Esta imagen podría estar dañada.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">Se mostrará la imagen predeterminada en su lugar.</system:String>
+    <system:String x:Key="Imageloadingerror">Error al cargar la imagen.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">No se encontró el archivo 'default.png' en la carpeta de imágenes.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">La aplicación se cerrará.</system:String>
     
 </ResourceDictionary>

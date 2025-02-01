@@ -204,8 +204,6 @@
     <system:String x:Key="Magenta">마젠타</system:String>
     <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' 폴더가 쓰기 가능한 디렉터리에 있는지 확인하십시오.</system:String>
     <system:String x:Key="Manual">매뉴얼</system:String>
-    <system:String x:Key="Manualnotfound">메뉴얼을 찾을 수 없습니다</system:String>
-    <system:String x:Key="ManualNotFound">매뉴얼을 찾을 수 없습니다</system:String>
     <system:String x:Key="Mauve">모브</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
     <system:String x:Key="Nameoptional">이름 (선택 사항)</system:String>
@@ -247,8 +245,6 @@
     <system:String x:Key="Pleasefixthisfield">이 필드를 수정해 주세요.</system:String>
     <system:String x:Key="PleasegotoEditSystem">'시스템 편집 - 전문 모드'로 이동하여 이 시스템을 편집하세요.</system:String>
     <system:String x:Key="PleaseReinstall">다시 설치해 주세요</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">문제를 해결하려면 'Simple Launcher'를 다시 설치하십시오.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">'Simple Launcher'를 수동으로 다시 설치해 주세요.</system:String>
     <system:String x:Key="Pleasereinstalltheemulator">에뮬레이터를 재설치하여 올바르게 작동하는지 확인하세요.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">제거할 즐겨찾기를 선택하세요.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">실행할 게임을 선택하세요.</system:String>
@@ -328,10 +324,8 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">버그가 개발자에게 보고되었으며 문제를 해결할 예정입니다.</system:String>
     <system:String x:Key="Thecurrentversionis">현재 버전은 다음과 같습니다:</system:String>
     <system:String x:Key="Thedownloadandextractionweresuccessful">다운로드 및 추출이 성공적으로 완료되었습니다.</system:String>
-    <system:String x:Key="Thedownloadedfileisnotavalid">다운로드된 파일이 유효한 ZIP 아카이브가 아닙니다.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">에뮬레이터가 제공된 매개변수를 사용하여 게임을 열 수 없습니다.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegamewiththeprovidedparameters">에뮬레이터가 제공된 매개변수로 게임을 열 수 없었습니다.</system:String>
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었으며, 문제를 해결하기 위해 시도될 것입니다.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">즐겨찾기가 목록에서 제거되었습니다.</system:String>
     <system:String x:Key="Thefile">파일</system:String>
     <system:String x:Key="Thefileerroruser">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
@@ -344,7 +338,6 @@
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe'의 실행이 사용자에 의해 취소되었습니다.</system:String>
     <system:String x:Key="Theme">테마</system:String>
     <system:String x:Key="Thename">이름</system:String>
-    <system:String x:Key="Theoperationwascanceled">작업이 사용자가 취소했습니다.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">소프트웨어 업데이트가 가능합니다.</system:String>
     <system:String x:Key="Thereisnocabinetfile">이 게임과 연결된 캐비닛 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnocabinetfileassociated">이 즐겨찾기에 연결된 캐비닛 파일이 없습니다.</system:String>
@@ -452,7 +445,6 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">선택한 도구를 실행하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">선택한 도구가 예상 경로에 없습니다.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher'를 다시 설치하여 이 문제를 해결하시겠습니까?</system:String>
     
     <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
@@ -495,5 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'를 수동으로 다운로드하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">애플리케이션 설치 또는 업데이트 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
+    
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었습니다. 문제를 해결하기 위해 노력할 것입니다.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">문제를 해결하려면 ‘Simple Launcher’를 수동으로 다시 설치하세요.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">문제를 해결하기 위해 ‘Simple Launcher’를 다시 설치하시겠습니까?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">문제를 해결하려면 ‘Simple Launcher’를 수동으로 다시 설치하세요.</system:String>
+    <system:String x:Key="Manualnotfound">매뉴얼을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">다운로드된 파일이 유효한 압축 파일이 아닙니다.</system:String>
+    <system:String x:Key="Downloadedfileismissing">다운로드된 파일이 없습니다.</system:String>
+    <system:String x:Key="Downloadedfileislocked">다운로드된 파일이 잠겨 있습니다.</system:String>
+    <system:String x:Key="Ensurethefileisnotcorrupted">파일이 손상되지 않았는지 확인하세요.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">'Simple Launcher'에 관리자 권한을 부여하세요.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">‘Simple Launcher’가 쓰기 가능한 폴더에 있는지 확인하세요.</system:String>
+    <system:String x:Key="Theselectedfilecannotbe">선택한 파일을 압축 해제할 수 없습니다.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">편집 창에서 이 문제를 수정하세요.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">‘Simple Launcher’에서 창 선택 화면이 열리고 캡처하려는 창을 선택할 수 있습니다.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">오른쪽 클릭 메뉴에서 오류가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">비디오 링크를 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">정보 링크를 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">히스토리 창을 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">표지 이미지를 여는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">이 즐겨찾기의 매뉴얼을 열지 못했습니다.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">가이드 파일을 열지 못했습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">‘Simple Launcher’에서 스크린샷을 캡처하지 못했습니다.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">파일을 삭제하려는 동안 오류가 발생했습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">‘Simple Launcher’에서 이 게임을 실행하지 못했습니다.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">게임 파일을 찾는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">‘error_user.log’ 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
+    <system:String x:Key="Anerroroccurredwhilecounting">파일 개수를 계산하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">이 게임을 즐겨찾기에 추가하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">이 게임을 즐겨찾기에서 제거하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">비디오 링크를 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">정보 링크를 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">히스토리 창을 여는 중 문제가 발생했습니다.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">매뉴얼을 열지 못했습니다.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">가이드를 열지 못했습니다.</system:String>
+    <system:String x:Key="Failedtosavescreenshot">스크린샷을 저장하지 못했습니다.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">파일을 삭제하려는 동안 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Unabletoloadimage">이미지를 로드할 수 없습니다.</system:String>
+    <system:String x:Key="Thisimagemaybecorrupted">이 이미지가 손상되었을 수 있습니다.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">대신 기본 이미지가 표시됩니다.</system:String>
+    <system:String x:Key="Imageloadingerror">이미지를 로드하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Nodefaultpngfilefoundintheimages">이미지 폴더에 'default.png' 파일이 없습니다.</system:String>
+    <system:String x:Key="Theapplicationwillshutdown">응용 프로그램이 종료됩니다.</system:String>
     
 </ResourceDictionary>
