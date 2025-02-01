@@ -511,14 +511,15 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">Het is niet gelukt om het stappenplanbestand te openen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">‘Simple Launcher’ kon geen screenshot maken.</system:String>
     <system:String x:Key="Anerroroccurredwhiletrying">Er is een fout opgetreden bij het proberen om het bestand te verwijderen.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">‘Simple Launcher’ kon deze game niet starten.</system:String>
-    <system:String x:Key="Therewasanerrorfinding">Er is een fout opgetreden bij het zoeken naar de gamebestanden.</system:String>
-    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">‘Simple Launcher’ kon dit spel niet starten.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Er is een fout opgetreden bij het zoeken naar de spelbestanden.</system:String>
+    <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om het probleem te debuggen?</system:String>
     <system:String x:Key="Anerroroccurredwhilecounting">Er is een fout opgetreden bij het tellen van de bestanden.</system:String>
-    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van deze game aan favorieten.</system:String>
-    <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van deze game uit favorieten.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van dit spel aan de favorieten.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van dit spel uit de favorieten.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Er was een probleem bij het openen van de videolink.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Er was een probleem bij het openen van het geschiedenisvenster.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Er was een probleem bij het openen van de informatie-link.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Er was een probleem bij het openen van het geschiedenisvenster.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Het is niet gelukt om de handleiding te openen.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Het is niet gelukt om het stappenplan te openen.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Het is niet gelukt om de screenshot op te slaan.</system:String>
@@ -529,6 +530,5 @@
     <system:String x:Key="Imageloadingerror">Er is een fout opgetreden bij het laden van de afbeelding.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Er is geen 'default.png'-bestand gevonden in de afbeeldingsmap.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthe">Er is een probleem opgetreden bij het openen van de Info Link.</system:String>
     
 </ResourceDictionary>

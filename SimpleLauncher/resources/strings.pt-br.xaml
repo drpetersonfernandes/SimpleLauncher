@@ -501,24 +501,25 @@
     <system:String x:Key="EnsureSimpleLauncherisinawritable">Certifique-se de que o 'Simple Launcher' está em uma pasta com permissão de escrita.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">O arquivo selecionado não pode ser descompactado.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Corrija isso na janela de edição.</system:String>
-    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Uma janela de seleção será aberta no 'Simple Launcher', permitindo que você selecione a janela que deseja capturar.</system:String>
-    <system:String x:Key="Therewasanerrorintherightclick">Ocorreu um erro no menu do botão direito.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Uma janela de seleção será aberta no 'Simple Launcher', permitindo que você escolha a janela desejada para capturar.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Ocorreu um erro no menu de contexto do botão direito.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideoLink">Houve um problema ao abrir o link do vídeo.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Houve um problema ao abrir o link de informação.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Houve um problema ao abrir o link de informações.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Houve um problema ao abrir a janela de histórico.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Ocorreu um erro ao tentar abrir a imagem de capa.</system:String>
-    <system:String x:Key="Failedtoopenthemanualfor">Falha ao abrir o manual para este favorito.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Não foi possível abrir o manual para este favorito.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Não foi possível abrir o arquivo do guia.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">O 'Simple Launcher' não conseguiu capturar a captura de tela.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">O 'Simple Launcher' não conseguiu tirar a captura de tela.</system:String>
     <system:String x:Key="Anerroroccurredwhiletrying">Ocorreu um erro ao tentar excluir o arquivo.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">O 'Simple Launcher' não conseguiu iniciar este jogo.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">O 'Simple Launcher' não conseguiu lançar este jogo.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Ocorreu um erro ao localizar os arquivos do jogo.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Você deseja abrir o arquivo 'error_user.log' para depurar o erro?</system:String>
     <system:String x:Key="Anerroroccurredwhilecounting">Ocorreu um erro ao contar os arquivos.</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Ocorreu um erro ao adicionar este jogo aos favoritos.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Ocorreu um erro ao remover este jogo dos favoritos.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Houve um problema ao abrir o link do vídeo.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Houve um problema ao abrir a janela de histórico.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Houve um problema ao abrir o link de informações.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Houve um problema ao abrir a janela de histórico.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Não foi possível abrir o manual.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Não foi possível abrir o guia.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Não foi possível salvar a captura de tela.</system:String>
@@ -529,6 +530,5 @@
     <system:String x:Key="Imageloadingerror">Ocorreu um erro ao carregar a imagem.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Nenhum arquivo 'default.png' foi encontrado na pasta de imagens.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">O aplicativo será encerrado.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthe">Houve um problema ao abrir o link de informações.</system:String>
     
 </ResourceDictionary>

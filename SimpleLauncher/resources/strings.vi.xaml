@@ -518,6 +518,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Đã xảy ra lỗi khi thêm trò chơi này vào mục yêu thích.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Đã xảy ra lỗi khi xóa trò chơi này khỏi mục yêu thích.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Có sự cố khi mở liên kết video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Có sự cố khi mở liên kết thông tin.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistory">Có sự cố khi mở cửa sổ lịch sử.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Không thể mở hướng dẫn sử dụng.</system:String>
     <system:String x:Key="Failedtoopenthewalkthrough">Không thể mở chỉ dẫn.</system:String>
@@ -529,6 +530,5 @@
     <system:String x:Key="Imageloadingerror">Đã xảy ra lỗi khi tải hình ảnh.</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Không tìm thấy tệp 'default.png' trong thư mục hình ảnh.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ tắt.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthe">Đã xảy ra sự cố khi mở Liên kết Thông tin.</system:String>
     
 </ResourceDictionary>

@@ -19,8 +19,7 @@ public static class GameLauncher
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
         {
             // Notify developer
-            string errorMessage = "Invalid filePath.\n\n" +
-                                  "Method: HandleButtonClick";
+            string errorMessage = "Invalid filePath.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -34,8 +33,7 @@ public static class GameLauncher
         if (systemComboBox.SelectedItem == null)
         {
             // Notify developer
-            string errorMessage = "Invalid system.\n\n" +
-                                  "Method: HandleButtonClick";
+            string errorMessage = "Invalid system.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -49,8 +47,7 @@ public static class GameLauncher
         if (emulatorComboBox.SelectedItem == null)
         {
             // Notify developer
-            string errorMessage = "Invalid emulator.\n\n" +
-                                  "Method: HandleButtonClick";
+            string errorMessage = "Invalid emulator.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -61,13 +58,13 @@ public static class GameLauncher
             return;
         }
         
-        // Get the file name from the filePath
         string fileName = Path.GetFileNameWithoutExtension(filePath);
 
         // Copy the file name to the clipboard
         Clipboard.SetText(fileName);
         
         // Stop the GamePadController if it is running
+        // To prevent interference with third party programs, like emulators or games
         bool wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
         if (wasGamePadControllerRunning)
         {
@@ -75,6 +72,7 @@ public static class GameLauncher
         }
         
         // Start tracking the time when the game is launched
+        // To track system playtime
         DateTime startTime = DateTime.Now;
         
         try
@@ -145,21 +143,20 @@ public static class GameLauncher
                 GamePadController.Instance2.Start();
             }
             
-            // Capture the time when the game exits
-            DateTime endTime = DateTime.Now; 
-            // Calculate the playtime
-            TimeSpan playTime = endTime - startTime; 
+            DateTime endTime = DateTime.Now; // Capture the time when the game exits 
+            TimeSpan playTime = endTime - startTime; // Calculate the playtime
+            
             // Get System Name
             string selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
-            // Update the system playtime in settings
-            settings.UpdateSystemPlayTime(selectedSystem, playTime);
-            // Save the updated settings
-            settings.Save(); 
+            
+            settings.UpdateSystemPlayTime(selectedSystem, playTime); // Update the system playtime in settings
+            settings.Save(); // Save the updated settings
+            
             // Update the PlayTime property in the MainWindow to refresh the UI
             var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
             if (systemPlayTime != null)
             {
-                mainWindow.PlayTime = systemPlayTime.PlayTime; // Update PlayTime property in MainWindow
+                mainWindow.PlayTime = systemPlayTime.PlayTime; // Update PlayTime in MainWindow
             }
             
             // Send Emulator Usage Stats
@@ -284,60 +281,60 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                string errorMessage = $"Error launching the shortcut file.\n\n" +
+                string errorMessage = $"Error launching the shortcut file. User was not notified.\n\n" +
                                       $"Shortcut file: {psi.FileName}\n" +
                                       $"Exit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
 
-                // Notify user
-                CouldNotLaunchShortcutMessageBox();
+                // // Notify user
+                // CouldNotLaunchShortcutMessageBox();
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorDetails = $"Error launching the shortcut file.\n\n" +
+            string errorDetails = $"Error launching the shortcut file. User was not notified.\n\n" +
                                   $"Shortcut file: {psi.FileName}\n" +
                                   $"Exit code {process.ExitCode}\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
 
-            // Notify user
-            CouldNotLaunchShortcutMessageBox();
+            // // Notify user
+            // CouldNotLaunchShortcutMessageBox();
         }
 
 
-        void CouldNotLaunchShortcutMessageBox()
-        {
-            string therewasanerrorlaunchingtheshortcutfile2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheshortcutfile") ?? "There was an error launching the shortcut file.";
-            string trytoruntheshortcutfileoutside2 = (string)Application.Current.TryFindResource("Trytoruntheshortcutfileoutside") ?? "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.";
-            string doyouwanttoopenthefileerroruser2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorlaunchingtheshortcutfile2}\n\n" +
-                                         $"{trytoruntheshortcutfileoutside2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruser2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    string thefileerroruserlogwasnot2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnot") ?? "The file 'error_user.log' was not found!";
-                    MessageBox.Show(thefileerroruserlogwasnot2,
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
+        // void CouldNotLaunchShortcutMessageBox()
+        // {
+        //     string therewasanerrorlaunchingtheshortcutfile2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheshortcutfile") ?? "There was an error launching the shortcut file.";
+        //     string trytoruntheshortcutfileoutside2 = (string)Application.Current.TryFindResource("Trytoruntheshortcutfileoutside") ?? "Try to run the shortcut file outside 'Simple Launcher' to see if it is working properly.";
+        //     string doyouwanttoopenthefileerroruser2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        //     string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        //     var result = MessageBox.Show($"{therewasanerrorlaunchingtheshortcutfile2}\n\n" +
+        //                                  $"{trytoruntheshortcutfileoutside2}\n\n" +
+        //                                  $"{doyouwanttoopenthefileerroruser2}",
+        //         error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        //
+        //     if (result == MessageBoxResult.Yes)
+        //     {
+        //         try
+        //         {
+        //             Process.Start(new ProcessStartInfo
+        //             {
+        //                 FileName = LogPath,
+        //                 UseShellExecute = true
+        //             });
+        //         }
+        //         catch (Exception)
+        //         {
+        //             string thefileerroruserlogwasnot2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnot") ?? "The file 'error_user.log' was not found!";
+        //             MessageBox.Show(thefileerroruserlogwasnot2,
+        //                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        //         }
+        //     }
+        // }
     }
 
     private static async Task LaunchExecutable(string filePath)
@@ -363,59 +360,59 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                string errorMessage = $"Error launching the executable file.\n\n" +
+                string errorMessage = $"Error launching the executable file. User was not notified.\n\n" +
                                       $"Executable file: {psi.FileName}\n" +
                                       $"Exit code {process.ExitCode}";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
 
-                // Notify user
-                CouldNotLaunchExeMessageBox();
+                // // Notify user
+                // CouldNotLaunchExeMessageBox();
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorDetails = $"Error launching the executable file.\n\n" +
+            string errorDetails = $"Error launching the executable file. User was not notified.\n\n" +
                                   $"Executable file: {psi.FileName}\n" +
                                   $"Exit code {process.ExitCode}\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorDetails);
 
-            // Notify user
-            CouldNotLaunchExeMessageBox();
+            // // Notify user
+            // CouldNotLaunchExeMessageBox();
         }
 
-        void CouldNotLaunchExeMessageBox()
-        {
-            string therewasanerrorlaunchingtheexecutable2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheexecutable") ?? "There was an error launching the executable file.";
-            string trytoruntheexecutablefileoutsideSimpleLauncher2 = (string)Application.Current.TryFindResource("TrytoruntheexecutablefileoutsideSimpleLauncher") ?? "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.";
-            string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorlaunchingtheexecutable2}\n\n" +
-                                         $"{trytoruntheexecutablefileoutsideSimpleLauncher2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
-                    MessageBox.Show(thefileerroruserlogwasnotfound2,
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
+        // void CouldNotLaunchExeMessageBox()
+        // {
+        //     string therewasanerrorlaunchingtheexecutable2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheexecutable") ?? "There was an error launching the executable file.";
+        //     string trytoruntheexecutablefileoutsideSimpleLauncher2 = (string)Application.Current.TryFindResource("TrytoruntheexecutablefileoutsideSimpleLauncher") ?? "Try to run the executable file outside 'Simple Launcher' to see if it is working properly.";
+        //     string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        //     string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        //     var result = MessageBox.Show($"{therewasanerrorlaunchingtheexecutable2}\n\n" +
+        //                                  $"{trytoruntheexecutablefileoutsideSimpleLauncher2}\n\n" +
+        //                                  $"{doyouwanttoopenthefileerroruserlog2}",
+        //         error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        //
+        //     if (result == MessageBoxResult.Yes)
+        //     {
+        //         try
+        //         {
+        //             Process.Start(new ProcessStartInfo
+        //             {
+        //                 FileName = LogPath,
+        //                 UseShellExecute = true
+        //             });
+        //         }
+        //         catch (Exception)
+        //         {
+        //             string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+        //             MessageBox.Show(thefileerroruserlogwasnotfound2,
+        //                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        //         }
+        //     }
+        // }
     }
 
     private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
@@ -427,8 +424,7 @@ public static class GameLauncher
         if (systemConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid systemConfig.\n\n" +
-                                  $"Method: LaunchRegularEmulator";
+            string errorMessage = "systemConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -442,8 +438,7 @@ public static class GameLauncher
         if (emulatorConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid emulatorConfig.\n\n" +
-                                  $"Method: LaunchRegularEmulator";
+            string errorMessage = $"emulatorConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -465,8 +460,7 @@ public static class GameLauncher
         if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
         {
             // Notify developer
-            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}\n\n" +
-                                  $"Method: LaunchRegularEmulator";
+            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -485,8 +479,7 @@ public static class GameLauncher
         if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
         {
             // Notify developer
-            string errorMessage = $"Invalid Program Location: {programLocation}\n\n" +
-                                  $"Method: LaunchRegularEmulator";
+            string errorMessage = $"Invalid Program Location: {programLocation}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -529,8 +522,7 @@ public static class GameLauncher
 
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchRegularEmulator");
+                throw new InvalidOperationException("Failed to start the process.");
             }
             
             process.BeginOutputReadLine();
@@ -539,8 +531,7 @@ public static class GameLauncher
             
             if (!process.HasExited)
             {
-                throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchRegularEmulator");
+                throw new InvalidOperationException("Process has not exited as expected.");
             }
 
             // Memory Access Violation error
@@ -582,8 +573,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            string formattedException = $"InvalidOperationException\n" +
-                                        $"Method: LaunchRegularEmulator";
+            string formattedException = "Invalid Operation Exception";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
@@ -603,7 +593,7 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            EmulatorCouldNotOpenWithProvidedParametersMessageBox();
+            CouldNotLaunchGameMessageBox();
         }
     }
 
@@ -616,8 +606,7 @@ public static class GameLauncher
         if (systemConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid systemConfig.\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            string errorMessage = $"systemConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -631,8 +620,7 @@ public static class GameLauncher
         if (emulatorConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid emulatorConfig.\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            string errorMessage = $"emulatorConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -654,8 +642,7 @@ public static class GameLauncher
         if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
         {
             // Notify developer
-            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -674,8 +661,7 @@ public static class GameLauncher
         if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
         {
             // Notify developer
-            string errorMessage = $"Invalid Program Location: {programLocation}\n\n" +
-                                  $"Method: LaunchRegularEmulatorWithoutWarnings";
+            string errorMessage = $"Invalid Program Location: {programLocation}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
@@ -718,8 +704,7 @@ public static class GameLauncher
             
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
+                throw new InvalidOperationException("Failed to start the process.");
             }
             
             process.BeginOutputReadLine();
@@ -728,8 +713,7 @@ public static class GameLauncher
             
             if (!process.HasExited)
             {
-                throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchRegularEmulatorWithoutWarnings");
+                throw new InvalidOperationException("The process has not exited as expected.");
             }
             
             if (process.ExitCode == -1073741819)
@@ -785,7 +769,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            string formattedException = $"InvalidOperationException in the method LaunchRegularEmulatorWithoutWarnings";
+            string formattedException = $"Invalid Operation Exception";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             //Do not notify user
@@ -817,8 +801,7 @@ public static class GameLauncher
         if (systemConfig == null)
         {
             // Notify developer
-            string errorMessage = "Invalid systemConfig.\n\n" +
-                                  "Method: LaunchXblaGame";
+            string errorMessage = "systemConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -833,8 +816,7 @@ public static class GameLauncher
         if (emulatorConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid emulatorConfig.\n\n" +
-                                  $"Method: LaunchXblaGame";
+            string errorMessage = $"emulatorConfig is null.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -861,8 +843,7 @@ public static class GameLauncher
                 if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
                 {
                     // Notify developer
-                    string errorMessage = $"Extraction failed.\n\n" +
-                                          $"Method: LaunchXblaGame";
+                    string errorMessage = $"Extraction failed.";
                     Exception exception = new(errorMessage);
                     await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -891,8 +872,7 @@ public static class GameLauncher
         if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
         {
             // Notify developer
-            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}\n\n" +
-                                  $"Method: LaunchXblaGame";
+            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -943,8 +923,7 @@ public static class GameLauncher
 
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchXblaGame");
+                throw new InvalidOperationException("Failed to start the process.");
             }
             
             process.BeginOutputReadLine();
@@ -953,8 +932,7 @@ public static class GameLauncher
 
             if (!process.HasExited)
             {
-                throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchXblaGame");
+                throw new InvalidOperationException("Process has not exited as expected.");
             }
             
             // Memory Access Violation error
@@ -1066,8 +1044,7 @@ public static class GameLauncher
         if (systemConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid systemConfig.\n\n" +
-                                  $"Method: LaunchMattelAquariusGame";
+            string errorMessage = $"Invalid systemConfig.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1081,8 +1058,7 @@ public static class GameLauncher
         if (emulatorConfig == null)
         {
             // Notify developer
-            string errorMessage = $"Invalid emulatorConfig.\n\n" +
-                                  $"Method: LaunchMattelAquariusGame";
+            string errorMessage = $"Invalid emulatorConfig.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1104,8 +1080,7 @@ public static class GameLauncher
         if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
         {
             // Notify developer
-            string errorMessage = $"Invalid GamePath.\n\n" +
-                                  $"Method: LaunchMattelAquariusGame";
+            string errorMessage = $"Invalid GamePath: '{gamePathToLaunch}'.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1122,12 +1097,11 @@ public static class GameLauncher
         string gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
         string arguments = $"{parameters} {gameFilenameWithoutExtension}";
 
-        // Check programLocation before call it
+        // Check programLocation
         if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
         {
             // Notify developer
-            string errorMessage = $"Invalid Program Location: {programLocation}\n\n" +
-                                  $"Method: LaunchMattelAquariusGame";
+            string errorMessage = $"Invalid Program Location: {programLocation}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1137,12 +1111,11 @@ public static class GameLauncher
             return;
         }
 
-        // Check workingDirectory before call it
+        // Check workingDirectory
         if (string.IsNullOrEmpty(workingDirectory))
         {
             // Notify developer
-            string errorMessage = $"Invalid workingDirectory: {workingDirectory}\n\n" +
-                                  $"Method: LaunchMattelAquariusGame";
+            string errorMessage = $"Invalid workingDirectory: {workingDirectory}";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1186,8 +1159,7 @@ public static class GameLauncher
             
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.\n" +
-                                                    "Method: LaunchMattelAquariusGame");
+                throw new InvalidOperationException("Failed to start the process.");
             }
             
             process.BeginOutputReadLine();
@@ -1196,8 +1168,7 @@ public static class GameLauncher
             
             if (!process.HasExited)
             {
-                throw new InvalidOperationException("The process has not exited as expected.\n" +
-                                                    "Method: LaunchMattelAquariusGame");
+                throw new InvalidOperationException("Process has not exited as expected.");
             }
 
             // Memory Access Violation error
@@ -1240,8 +1211,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            string formattedException = $"InvalidOperationException.\n" +
-                                        $"Method: LaunchMattelAquariusGame";
+            string formattedException = $"Invalid Operation Exception.";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
@@ -1261,14 +1231,16 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            EmulatorCouldNotOpenWithProvidedParametersMessageBox();
+            CouldNotLaunchGameMessageBox();
         }
 
         void InvalidWorkingDirectoryMessageBox()
         {
             string invalidworkingdirectory2 = (string)Application.Current.TryFindResource("Invalidworkingdirectory") ?? "Invalid working directory. Please check the file.";
+            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(invalidworkingdirectory2,
+            MessageBox.Show($"{invalidworkingdirectory2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -1280,6 +1252,7 @@ public static class GameLauncher
         if (fileExtension == ".ZIP")
         {
             // Use a native .net library to extract
+            // Only accept zip
             // Create Instance of ExtractCompressedFile
             ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
             string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
@@ -1290,6 +1263,7 @@ public static class GameLauncher
         else if (fileExtension == ".7Z" || fileExtension == ".RAR")
         {
             // Use 7z to extract
+            // Can extract zip, 7z, rar
             // Create Instance of ExtractCompressedFile
             ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
             string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
@@ -1299,8 +1273,7 @@ public static class GameLauncher
         }else
         {
             // Notify developer
-            string formattedException = $"Can not extract file: {filePath}\n" +
-                                        $"Method: ExtractFilesBeforeLaunch";
+            string formattedException = $"Can not extract file: {filePath}";
             Exception ex = new(formattedException);
             await LogErrors.LogErrorAsync(ex, formattedException);
             
@@ -1316,8 +1289,7 @@ public static class GameLauncher
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
                 // Notify developer
-                string formattedException = $"Invalid GameFile Path: {tempExtractLocation}\n" +
-                                            $"Method: ExtractFilesBeforeLaunch";
+                string formattedException = $"Invalid GameFile Path: {tempExtractLocation}";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
@@ -1330,8 +1302,7 @@ public static class GameLauncher
             if (systemConfig.FileFormatsToLaunch == null)
             {
                 // Notify developer
-                string formattedException = $"Null File Extension.\n" +
-                                            $"Method: ExtractFilesBeforeLaunch";
+                string formattedException = $"'File Format to Launch' is null.";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
@@ -1358,8 +1329,7 @@ public static class GameLauncher
             if (string.IsNullOrEmpty(gamePathToLaunch))
             {
                 // Notify developer
-                string formattedException = $"Invalid Game Path: {gamePathToLaunch}\n" +
-                                            $"Method: ExtractFilesBeforeLaunch";
+                string formattedException = $"Invalid Game Path: {gamePathToLaunch}";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
                 
@@ -1372,8 +1342,7 @@ public static class GameLauncher
             if (!fileFound)
             {
                 // Notify developer
-                string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.\n" +
-                                      "Method: ExtractFilesBeforeLaunch";
+                string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
                 Exception exception = new(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1415,54 +1384,19 @@ public static class GameLauncher
     
     private static void CouldNotLaunchGameMessageBox()
     {
-        string theapplicationcouldnotlaunchtheselectedgame2 = (string)Application.Current.TryFindResource("Theapplicationcouldnotlaunchtheselectedgame") ?? "The application could not launch the selected game.";
+        string simpleLaunchercouldnotlaunch2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
         string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
         string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
         string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
         string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show(
-            $"{theapplicationcouldnotlaunchtheselectedgame2}\n\n" +
+            $"{simpleLaunchercouldnotlaunch2}\n\n" +
             $"{ifyouaretryingtorunMame2}\n\n" +
             $"{ifyouaretryingtorunRetroarch2}\n\n" +
             $"{alsoverifythattheemulator2}\n\n" +
             $"{doyouwanttoopenthefile2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
-    private static void EmulatorCouldNotOpenWithProvidedParametersMessageBox()
-    {
-        string theemulatorcouldnotopenthegamewiththeprovidedparameters2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegamewiththeprovidedparameters") ?? "The emulator could not open the game with the provided parameters.";
-        string ifyouaretryingtorunMame2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAME") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the latest version of MAME.";
-        string ifyouaretryingtorunRetroarch2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarch") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core you are using are installed.";
-        string alsoverifythattheemulator2 = (string)Application.Current.TryFindResource("Alsoverifythattheemulator") ?? "Also, verify that the emulator you are using is properly configured. Check if it requires BIOS or system files to work properly.";
-        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show(
-            $"{theemulatorcouldnotopenthegamewiththeprovidedparameters2}\n\n" +
-            $"{ifyouaretryingtorunMame2}\n\n" +
-            $"{ifyouaretryingtorunRetroarch2}\n\n" +
-            $"{alsoverifythattheemulator2}\n\n" +
-            $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
         if (result == MessageBoxResult.Yes)
         {
             try
