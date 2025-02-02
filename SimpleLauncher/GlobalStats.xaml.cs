@@ -16,11 +16,12 @@ public partial class GlobalStats
     public GlobalStats(List<SystemConfig> systemConfigs)
     {
         InitializeComponent();
+
         _systemConfigs = systemConfigs;
-        Loaded += GlobalStats_Loaded;
-            
-        // Apply the theme to this window
+        
         App.ApplyThemeToWindow(this);
+        
+        Loaded += GlobalStats_Loaded;
     }
 
     private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)
@@ -47,26 +48,22 @@ public partial class GlobalStats
 
                 ProgressBar.Visibility = Visibility.Collapsed;
         
+                // Notify user
                 // Ask the user if they want to save a report
-                var result = MessageBox.Show(TryFindResource("Wouldyouliketosaveareport") as string ?? "Would you like to save a report with the results?",
-                    TryFindResource("SaveReport") as string ?? "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    SaveReport(_globalStats, _systemStats);
-                }
-                
+                DoYouWantToSaveTheReportMessageBox();
+
                 SaveButton.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
+                // Notify developer
                 string formattedException = $"An error occurred while calculating Global Statistics.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                MessageBox.Show("An error occurred while calculating the Global Statistics.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Notify user
+                MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
             }
             finally
             {
@@ -76,13 +73,24 @@ public partial class GlobalStats
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"Error in the GlobalStats_Loaded method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
+
+        void DoYouWantToSaveTheReportMessageBox()
+        {
+            var result = MessageBox.Show(TryFindResource("Wouldyouliketosaveareport") as string ?? "Would you like to save a report with the results?",
+                TryFindResource("SaveReport") as string ?? "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveReport(_globalStats, _systemStats);
+            }
+        }
     }
-        
+
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
     {
         _systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
@@ -203,22 +211,20 @@ public partial class GlobalStats
             {
                 File.WriteAllText(filePath, GenerateReportText(globalStats, systemStats));
 
-                string reportsavedsuccessfully2 = (string)Application.Current.TryFindResource("Reportsavedsuccessfully") ?? "Report saved successfully.";
-                string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-                MessageBox.Show(reportsavedsuccessfully2,
-                    success2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.ReportSavedMessageBox();
             }
             catch (Exception ex)
             {
+                // Notify developer
                 string formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-                    
-                MessageBox.Show("Failed to save the report.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Notify user
+                MessageBoxLibrary.FailedSaveReportMessageBox();
             }
         }
     }
@@ -256,13 +262,11 @@ public partial class GlobalStats
         }
         else
         {
-            string nostatisticsavailabletosave2 = (string)Application.Current.TryFindResource("Nostatisticsavailabletosave") ?? "No statistics available to save. Please wait until the data is loaded.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(nostatisticsavailabletosave2,
-                error2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            MessageBoxLibrary.NoStatsToSaveMessageBox();
         }
     }
-    
+
     private async Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
     {
         if (!Directory.Exists(systemImagePath))
@@ -290,6 +294,7 @@ public partial class GlobalStats
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string formattedException = $"Error renaming image file: {imageFile}\n" +
                                                 $"New file name: {newImagePath}\n" +
                                                 $"Exception: {ex.Message}";
@@ -298,5 +303,7 @@ public partial class GlobalStats
             }
         }
     }
+    
+    
 
 }

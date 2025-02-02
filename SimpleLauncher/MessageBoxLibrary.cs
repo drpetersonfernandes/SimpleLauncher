@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace SimpleLauncher;
@@ -255,9 +256,12 @@ public static class MessageBoxLibrary
     
     internal static void GlobalSearchErrorMessageBox()
     {
-        MessageBox.Show("There was an error using the Global Search.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string therewasanerrorusingtheGlobal2 = (string)Application.Current.TryFindResource("TherewasanerrorusingtheGlobal") ?? "There was an error using the Global Search.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorusingtheGlobal2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void PleaseEnterSearchTermMessageBox()
@@ -270,29 +274,40 @@ public static class MessageBoxLibrary
     
     internal static void ErrorLaunchingGameMessageBox()
     {
-        MessageBox.Show("There was an error launching the selected game.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string therewasanerrorlaunchingtheselected2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheselected") ?? "There was an error launching the selected game.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorlaunchingtheselected2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void SelectAGameToLaunchMessageBox()
     {
-        MessageBox.Show("Please select a game to launch.",
-            "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        string pleaseselectagametolaunch2 = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
+        string information2 = (string)Application.Current.TryFindResource("Information") ?? "Information";
+        MessageBox.Show(pleaseselectagametolaunch2,
+            information2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     internal static void ErrorRightClickContextMenuMessageBox()
     {
-        MessageBox.Show("There was an error in the right-click context menu.\n\n" +
-                        "The error was reported to the developer, who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void ErrorLoadingSystemConfigMessageBox()
     {
-        MessageBox.Show("There was an error loading the systemConfig.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string therewasanerrorloadingthesystemConfig2 = (string)Application.Current.TryFindResource("TherewasanerrorloadingthesystemConfig") ?? "There was an error loading the systemConfig.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorloadingthesystemConfig2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void GameAlreadyInFavoritesMessageBox(string fileNameWithoutExtension)
@@ -312,9 +327,12 @@ public static class MessageBoxLibrary
     
     internal static void ProblemOpeningCoverImageMessageBox()
     {
-        MessageBox.Show("There was a problem opening the Cover Image for this game.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string therewasaproblemopeningtheCoverImage2 = (string)Application.Current.TryFindResource("Therewasaproblemopeningthecoverimage") ?? "There was a problem opening the cover image for this game.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasaproblemopeningtheCoverImage2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void ScreenshotSavedMessageBox(string screenshotPath)
@@ -328,8 +346,287 @@ public static class MessageBoxLibrary
     
     internal static void CouldNotLaunchThisGameMessageBox()
     {
-        MessageBox.Show("'Simple Launcher' could not launch this game.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ErrorCalculatingStatsMessageBox()
+    {
+        string anerroroccurredwhilecalculatingtheGlobal2 = (string)Application.Current.TryFindResource("AnerroroccurredwhilecalculatingtheGlobal") ?? "An error occurred while calculating the Global Statistics.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{anerroroccurredwhilecalculatingtheGlobal2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void FailedSaveReportMessageBox()
+    {
+        string failedtosavethereport2 = (string)Application.Current.TryFindResource("Failedtosavethereport") ?? "Failed to save the report.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{failedtosavethereport2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void ReportSavedMessageBox()
+    {
+        string reportsavedsuccessfully2 = (string)Application.Current.TryFindResource("Reportsavedsuccessfully") ?? "Report saved successfully.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show(reportsavedsuccessfully2,
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void NoStatsToSaveMessageBox()
+    {
+        string nostatisticsavailabletosave2 = (string)Application.Current.TryFindResource("Nostatisticsavailabletosave") ?? "No statistics available to save.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(nostatisticsavailabletosave2,
+            error2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void ErrorLaunchingToolMessageBox(string logPath)
+    {
+        string anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
+                                     $"{theerrorwasreportedtothedeveloper2}\n\n" +
+                                     $"{dowanttoopenthefileerroruserlog2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                // Notify user
+                string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwasnotfound2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
+    }
+
+    internal static void SelectedToolNotFoundMessageBox()
+    {
+        string theselectedtoolwasnotfound2 = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
+        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+        string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
+        MessageBoxResult reinstall = MessageBox.Show(
+            $"{theselectedtoolwasnotfound2}\n\n" +
+            $"{doyouwanttoreinstallSimpleLauncher2}",
+            fileNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (reinstall == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            string pleaseReinstall2 = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
+            MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
+                pleaseReinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    internal static void MethodErrorMessageBox()
+    {
+        string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void SystemXmlCorruptedMessageBox()
+    {
+        string thefilesystemxmliscorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmliscorrupted") ?? "The file 'system.xml' is corrupted.";
+        string youneedtofixitmanually2 = (string)Application.Current.TryFindResource("Youneedtofixitmanually") ?? "You need to fix it manually or delete it.";
+        string theapplicationwillbeshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillbeshutdown") ?? "The application will be shutdown.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{thefilesystemxmliscorrupted2}\n\n" +
+                        $"{youneedtofixitmanually2}\n\n" +
+                        $"{theapplicationwillbeshutdown2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            
+        // Shutdown current application instance
+        Application.Current.Shutdown();
+        Environment.Exit(0);
+    }
+        
+    internal static void NoFavoriteFoundMessageBox()
+    {
+        string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, 
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void MoveToWritableFolderMessageBox()
+    {
+        string itlookslikeSimpleLauncherisinstalled2 = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncheris2") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
+        string itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder2") ?? "It needs write access to its folder.";
+        string pleasemovetheapplicationfolder2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder2") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
+        string ifpossiblerunitwithadministrative2 = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
+        string accessIssue2 = (string)Application.Current.TryFindResource("AccessIssue") ?? "Access Issue";
+        MessageBox.Show(
+            $"{itlookslikeSimpleLauncherisinstalled2}\n\n" +
+            $"{itneedswriteaccesstoitsfolder2}\n\n" +
+            $"{pleasemovetheapplicationfolder2}\n\n" +
+            $"{ifpossiblerunitwithadministrative2}",
+            accessIssue2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void InvalidSystemConfigMessageBox()
+    {
+        string therewasanerrorwhileloading2 = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwhileloading2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void ErrorMethodLoadGameFilesAsyncMessageBox()
+    {
+        string therewasanerrorloadingthegame2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorloadingthegame2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ErrorOpeningDonationLinkMessageBox()
+    {
+        string therewasanerroropeningthedonation2 = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerroropeningthedonation2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ToggleGamepadFailureMessageBox()
+    {
+        string failedtotogglegamepad2 = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{failedtotogglegamepad2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void FindRomCoverMissingMessageBox()
+    {
+        string findRomCoverexewasnotfound = (string)Application.Current.TryFindResource("FindRomCoverexewasnotfound") ?? "'FindRomCover.exe' was not found in the expected path.";
+        string doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+        string fileNotFound = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
+        MessageBoxResult reinstall = MessageBox.Show(
+            $"{findRomCoverexewasnotfound}\n\n" +
+            $"{doyouwanttoreinstall}",
+            fileNotFound, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (reinstall == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            string pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            string pleaseReinstall = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
+            MessageBox.Show(pleasereinstallSimpleLaunchermanually,
+                pleaseReinstall, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void FindRomCoverLaunchWasCanceledByUserMessageBox()
+    {
+        string thelaunchofFindRomCoverexewascanceled = (string)Application.Current.TryFindResource("ThelaunchofFindRomCoverexewascanceled") ?? "The launch of 'FindRomCover.exe' was canceled by the user.";
+        string operationCanceled = (string)Application.Current.TryFindResource("OperationCanceled") ?? "Operation Canceled";
+        MessageBox.Show(thelaunchofFindRomCoverexewascanceled,
+            operationCanceled, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void FindRomCoverLaunchWasBlockedMessageBox(string logPath)
+    {
+        string anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
+        string yourcomputermaynothavegranted = (string)Application.Current.TryFindResource("Yourcomputermaynothavegranted") ?? "Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.";
+        string alternativelythelaunchmayhavebeenblockedby = (string)Application.Current.TryFindResource("Alternativelythelaunchmayhavebeenblockedby") ?? "Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.";
+        string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
+        string error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{anerroroccurredwhiletryingtolaunch}\n\n" +
+            $"{yourcomputermaynothavegranted}\n\n" +
+            $"{alternativelythelaunchmayhavebeenblockedby}\n\n" +
+            $"{wouldyouliketoopentheerroruserlog}",
+            error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+        
+    internal static void ErrorChangingViewModeMessageBox()
+    {
+        string therewasanerrorwhilechangingtheviewmode2 = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+        
+    internal static void NavigationButtonErrorMessageBox()
+    {
+        string therewasanerrorinthenavigationbutton2 = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorinthenavigationbutton2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+        
+    internal static void SelectSystemBeforeSearchMessageBox()
+    {
+        string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
+        string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
+        MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    internal static void EnterSearchQueryMessageBox()
+    {
+        string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
+        string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
+        MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 }

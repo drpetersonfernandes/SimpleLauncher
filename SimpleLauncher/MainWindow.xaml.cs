@@ -87,8 +87,8 @@ public partial class MainWindow : INotifyPropertyChanged
     // Selected Image folder and Rom folder
     private string _selectedImageFolder;
     private string _selectedRomFolder;
-    
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+
+    private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
         
     public MainWindow()
     {
@@ -137,11 +137,8 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            SystemXmlCorruptedMessageBox();
+            MessageBoxLibrary.SystemXmlCorruptedMessageBox();
 
-            // Shutdown current application instance
-            Application.Current.Shutdown();
-            Environment.Exit(0);
         }
 
         // Apply settings to application from settings.xml
@@ -200,7 +197,7 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 AddNoFilesMessage();
 
-                NoFavoriteFoundMessageBox();
+                MessageBoxLibrary.NoFavoriteFoundMessageBox();
             }
         };
             
@@ -243,26 +240,6 @@ public partial class MainWindow : INotifyPropertyChanged
         // Attach the Load and Close event handler.
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
-
-        void SystemXmlCorruptedMessageBox()
-        {
-            string thefilesystemxmliscorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmliscorrupted") ?? "The file 'system.xml' is corrupted.";
-            string youneedtofixitmanually2 = (string)Application.Current.TryFindResource("Youneedtofixitmanually") ?? "You need to fix it manually or delete it.";
-            string theapplicationwillbeshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillbeshutdown") ?? "The application will be shutdown.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{thefilesystemxmliscorrupted2}\n\n" +
-                            $"{youneedtofixitmanually2}\n\n" +
-                            $"{theapplicationwillbeshutdown2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        void NoFavoriteFoundMessageBox()
-        {
-            string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
-            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, 
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
     }
     
     private void ControllerCheckTimer_Tick(object sender, EventArgs e)
@@ -347,22 +324,7 @@ public partial class MainWindow : INotifyPropertyChanged
         // Check if application has write access
         if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
-            MoveToWritableFolderMessageBox();
-        }
-
-        void MoveToWritableFolderMessageBox()
-        {
-            string itlookslikeSimpleLauncherisinstalled2 = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncheris2") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
-            string itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder2") ?? "It needs write access to its folder.";
-            string pleasemovetheapplicationfolder2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder2") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
-            string ifpossiblerunitwithadministrative2 = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
-            string accessIssue2 = (string)Application.Current.TryFindResource("AccessIssue") ?? "Access Issue";
-            MessageBox.Show(
-                $"{itlookslikeSimpleLauncherisinstalled2}\n\n" +
-                $"{itneedswriteaccesstoitsfolder2}\n\n" +
-                $"{pleasemovetheapplicationfolder2}\n\n" +
-                $"{ifpossiblerunitwithadministrative2}",
-                accessIssue2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.MoveToWritableFolderMessageBox();
         }
     }
 
@@ -488,7 +450,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            MethodErrorMessageBox();
+            MessageBoxLibrary.MethodErrorMessageBox();
         }
     }
 
@@ -688,7 +650,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
-                InvalidSystemConfigMessageBox();
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
                 return;
             }
@@ -841,27 +803,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             // Notify user
-            ErrorMethodLoadGameFilesAsyncMessageBox();
-        }
-
-        void InvalidSystemConfigMessageBox()
-        {
-            string therewasanerrorwhileloading2 = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorwhileloading2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        void ErrorMethodLoadGameFilesAsyncMessageBox()
-        {
-            string therewasanerrorloadingthegame2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorloadingthegame2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
     }
         
@@ -923,17 +865,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            ErrorOpeningDonationLinkMessageBox();
-        }
-
-        void ErrorOpeningDonationLinkMessageBox()
-        {
-            string therewasanerroropeningthedonation2 = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerroropeningthedonation2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
         }
     }
 
@@ -1025,7 +957,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     // Notify user
-                    ToggleGamepadFailureMessageBox();
+                    MessageBoxLibrary.ToggleGamepadFailureMessageBox();
                 }
             }
         }
@@ -1036,16 +968,6 @@ public partial class MainWindow : INotifyPropertyChanged
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-        }
-
-        void ToggleGamepadFailureMessageBox()
-        {
-            string failedtotogglegamepad2 = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{failedtotogglegamepad2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1078,7 +1000,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            MethodErrorMessageBox();
+            MessageBoxLibrary.MethodErrorMessageBox();
         }
     }
         
@@ -1173,7 +1095,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                FindRomCoverMissingMessageBox();
+                MessageBoxLibrary.FindRomCoverMissingMessageBox();
             }
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
@@ -1186,7 +1108,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            FindRomCoverLaunchWasCanceledByUserMessageBox();
+            MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
         }
         catch (Exception ex)
         {
@@ -1198,70 +1120,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            FindRomCoverLaunchWasBlockedMessageBox();
-        }
-
-        void FindRomCoverMissingMessageBox()
-        {
-            string findRomCoverexewasnotfound = (string)Application.Current.TryFindResource("FindRomCoverexewasnotfound") ?? "'FindRomCover.exe' was not found in the expected path.";
-            string doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            string fileNotFound = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
-            MessageBoxResult reinstall = MessageBox.Show(
-                $"{findRomCoverexewasnotfound}\n\n" +
-                $"{doyouwanttoreinstall}",
-                fileNotFound, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-            if (reinstall == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-            }
-            else
-            {
-                string pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                string pleaseReinstall = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
-                MessageBox.Show(pleasereinstallSimpleLaunchermanually,
-                    pleaseReinstall, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        void FindRomCoverLaunchWasCanceledByUserMessageBox()
-        {
-            string thelaunchofFindRomCoverexewascanceled = (string)Application.Current.TryFindResource("ThelaunchofFindRomCoverexewascanceled") ?? "The launch of 'FindRomCover.exe' was canceled by the user.";
-            string operationCanceled = (string)Application.Current.TryFindResource("OperationCanceled") ?? "Operation Canceled";
-            MessageBox.Show(thelaunchofFindRomCoverexewascanceled,
-                operationCanceled, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        void FindRomCoverLaunchWasBlockedMessageBox()
-        {
-            string anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
-            string yourcomputermaynothavegranted = (string)Application.Current.TryFindResource("Yourcomputermaynothavegranted") ?? "Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.";
-            string alternativelythelaunchmayhavebeenblockedby = (string)Application.Current.TryFindResource("Alternativelythelaunchmayhavebeenblockedby") ?? "Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.";
-            string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
-            string error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show(
-                $"{anerroroccurredwhiletryingtolaunch}\n\n" +
-                $"{yourcomputermaynothavegranted}\n\n" +
-                $"{alternativelythelaunchmayhavebeenblockedby}\n\n" +
-                $"{wouldyouliketoopentheerroruserlog}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    string thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
-                    MessageBox.Show(thefileerroruserlog,
-                        error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            MessageBoxLibrary.FindRomCoverLaunchWasBlockedMessageBox(_logPath);
         }
     }
 
@@ -1288,7 +1147,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1301,7 +1160,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
     
@@ -1328,7 +1187,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1341,7 +1200,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
 
@@ -1368,7 +1227,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1381,7 +1240,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
     
@@ -1408,7 +1267,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1421,7 +1280,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
     
@@ -1448,7 +1307,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1461,7 +1320,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
 
@@ -1488,7 +1347,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1501,7 +1360,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
         
@@ -1528,7 +1387,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1541,7 +1400,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
 
@@ -1568,7 +1427,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1581,7 +1440,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
     
@@ -1608,7 +1467,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                SelectedToolNotFoundMessageBox();
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
         }
         catch (Exception ex)
@@ -1621,7 +1480,7 @@ public partial class MainWindow : INotifyPropertyChanged
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorLaunchingToolMessageBox();
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
         
@@ -1732,17 +1591,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            ErrorChangingViewModeMessageBox();
-        }
-
-        void ErrorChangingViewModeMessageBox()
-        {
-            string therewasanerrorwhilechangingtheviewmode2 = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.ErrorChangingViewModeMessageBox();
         }
     }
         
@@ -2070,18 +1919,8 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            NavigationButtonErrorMessageBox();
+            MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
-    }
-
-    private static void NavigationButtonErrorMessageBox()
-    {
-        string therewasanerrorinthenavigationbutton2 = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorinthenavigationbutton2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private async void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -2112,7 +1951,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            NavigationButtonErrorMessageBox();
+            MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
     }
         
@@ -2191,7 +2030,7 @@ public partial class MainWindow : INotifyPropertyChanged
         if (SystemComboBox.SelectedItem == null)
         {
             // Notify user
-            SelectSystemBeforeSearchMessageBox();
+            MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
 
             return;
         }
@@ -2199,7 +2038,7 @@ public partial class MainWindow : INotifyPropertyChanged
         if (string.IsNullOrEmpty(searchQuery))
         {
             // Notify user
-            EnterSearchQueryMessageBox();
+            MessageBoxLibrary.EnterSearchQueryMessageBox();
 
             return;
         }
@@ -2223,86 +2062,7 @@ public partial class MainWindow : INotifyPropertyChanged
             }
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
-
-        void SelectSystemBeforeSearchMessageBox()
-        {
-            string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
-            string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
-            MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        void EnterSearchQueryMessageBox()
-        {
-            string pleaseenterasearchquery = (string)Application.Current.TryFindResource("Pleaseenterasearchquery") ?? "Please enter a search query.";
-            string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
-            MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
     }
         
     #endregion
-    
-    private static void ErrorLaunchingToolMessageBox()
-    {
-        string anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
-                                     $"{theerrorwasreportedtothedeveloper2}\n\n" +
-                                     $"{dowanttoopenthefileerroruserlog2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = LogPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                // Notify user
-                string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwasnotfound2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            
-        }
-    }
-
-    private static void SelectedToolNotFoundMessageBox()
-    {
-        string theselectedtoolwasnotfound2 = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
-        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-        string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
-        MessageBoxResult reinstall = MessageBox.Show(
-            $"{theselectedtoolwasnotfound2}\n\n" +
-            $"{doyouwanttoreinstallSimpleLauncher2}",
-            fileNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-        if (reinstall == MessageBoxResult.Yes)
-        {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-        }
-        else
-        {
-            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-            string pleaseReinstall2 = (string)Application.Current.TryFindResource("PleaseReinstall") ?? "Please Reinstall";
-            MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
-                pleaseReinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    
-    private static void MethodErrorMessageBox()
-    {
-        string therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
 }
