@@ -418,20 +418,12 @@ public class GameListFactory(
             Header = takeScreenshot2,
             Icon = takeScreenshotIcon
         };
-        string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
-        string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
-        string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-        string aselectionwindowwillopenin2 = (string)Application.Current.TryFindResource("Aselectionwindowwillopenin") ?? "A selection window will open in";
-        string allowingyoutochoosethe2 = (string)Application.Current.TryFindResource("allowingyoutochoosethe") ?? "allowing you to choose the desired window to capture.";
-        string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
 
         takeScreenshot.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            MessageBox.Show($"{thegamewilllaunchnow2}\n\n{setthegamewindowto2}\n\n{youshouldchangetheemulatorparameters2}\n\n" +
-                            $"{aselectionwindowwillopenin2} 'Simple Launcher,' {allowingyoutochoosethe2}\n\n{assoonasyouselectawindow2}",
-                takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
-                
+            MessageBoxLibrary.TakeScreenShotMessageBox();
+           
             _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
@@ -449,19 +441,26 @@ public class GameListFactory(
             Header = deleteGame2,
             Icon = deleteGameIcon
         };
-        string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
-        string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-        string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+        
         deleteGame.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
-                confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            
+            DoYouReallyWantToDeleteTheFileMessageBox();
+            void DoYouReallyWantToDeleteTheFileMessageBox()
             {
-                DeleteFile(filePath, fileNameWithExtension);
-                RemoveFromFavorites2(systemName, fileNameWithExtension);
+                string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+                string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+                var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} '{fileNameWithExtension}'?\n\n" +
+                                             $"{thisactionwilldelete2}",
+                    confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    DeleteFile(filePath, fileNameWithExtension);
+                    RemoveFromFavorites2(systemName, fileNameWithExtension);
+                }
             }
         };
 
@@ -523,22 +522,21 @@ public class GameListFactory(
             }
             else
             {
-                string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
-                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                MessageBox.Show($"{fileNameWithExtension} {isalreadyinfavorites2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.GameIsAlreadyInFavoritesMessageBox(fileNameWithExtension);
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("An error occurred while adding this game to the favorites.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
         }
     }
         
@@ -568,23 +566,21 @@ public class GameListFactory(
             }
             else
             {
-                string isnotinfavorites2 = (string)Application.Current.TryFindResource("isnotinfavorites") ?? "is not in favorites.";
-                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                MessageBox.Show($"{fileNameWithExtension} {isnotinfavorites2}",
-                    info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.FileIsNotInFavoritesMessageBox(fileNameWithExtension);
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
-            MessageBox.Show("An error occurred while removing this game from favorites.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
         }
     }
     
@@ -604,6 +600,7 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException = $"An error occurred in the method RemoveFromFavorites2 in the class GameListFactory.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
@@ -635,15 +632,15 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was a problem opening the Video Link.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the Video Link.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
         }
     }
 
@@ -670,15 +667,15 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was a problem opening the Info Link.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the Info Link.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
         }
     }
         
@@ -702,15 +699,15 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was a problem opening the History window.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the History window.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.", 
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ProblemOpeningHistoryWindowMessageBox();
         }
     }
     
@@ -756,9 +753,8 @@ public class GameListFactory(
         }
         else
         {
-            string thereisnocoverfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
-            string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
-            MessageBox.Show(thereisnocoverfileassociated2, covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            // Notify user
+            MessageBoxLibrary.ThereIsNoCoverMessageBox();
         }
     }
 
@@ -780,9 +776,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot") ?? "There is no title snapshot file associated with this game.";
-        string titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
-        MessageBox.Show(thereisnotitlesnapshot2, titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+        // Notify user
+        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
     }
     
     private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -803,9 +799,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnogameplaysnapshot2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshot") ?? "There is no gameplay snapshot file associated with this game.";
-        string gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
-        MessageBox.Show(thereisnogameplaysnapshot2, gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
     }
     
     private void OpenCart(string systemName, string fileName)
@@ -826,9 +822,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnocartfile2 = (string)Application.Current.TryFindResource("Thereisnocartfile") ?? "There is no cart file associated with this game.";
-        string cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
-        MessageBox.Show(thereisnocartfile2, cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoCartMessageBox();
     }
     
     private void PlayVideo(string systemName, string fileName)
@@ -851,9 +847,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnovideofile2 = (string)Application.Current.TryFindResource("Thereisnovideofile") ?? "There is no video file associated with this game.";
-        string videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
-        MessageBox.Show(thereisnovideofile2, videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
     }
 
     private void OpenManual(string systemName, string fileName)
@@ -880,23 +876,23 @@ public class GameListFactory(
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string contextMessage = $"There was a problem opening the manual.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                        
-                    MessageBox.Show("Failed to open the manual.\n\n" +
-                                    "The error was reported to the developer who will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
+
                     return;
                 }
             }
         }
-        string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        string manualNotFound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
-        MessageBox.Show(thereisnomanual2, 
-            manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+        // Notify user
+        MessageBoxLibrary.ThereIsNoManualMessageBox();
     }
     
     private void OpenWalkthrough(string systemName, string fileName)
@@ -923,22 +919,23 @@ public class GameListFactory(
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                        
-                    MessageBox.Show("Failed to open the walkthrough.\n\n" +
-                                    "The error was reported to the developer who will try to fix the issue.", 
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
+                    
                     return;
                 }
             }
         }
-        string thereisnowalkthrough2 = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
-        string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
-        MessageBox.Show(thereisnowalkthrough2, walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
     }
 
     private void OpenCabinet(string systemName, string fileName)
@@ -959,9 +956,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
-        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
-        MessageBox.Show(thereisnocabinetfile2, cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
     }
     
     private void OpenFlyer(string systemName, string fileName)
@@ -982,9 +979,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
-        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
-        MessageBox.Show(thereisnoflyer2, flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
     }
     
     private void OpenPcb(string systemName, string fileName)
@@ -1004,9 +1001,9 @@ public class GameListFactory(
                 return;
             }
         }
-        string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
-        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
-        MessageBox.Show(thereisnoPcBfile2,pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig)
@@ -1097,16 +1094,15 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Failed to save screenshot.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Send log error to the developer
+            // Notify developer
             string contextMessage = $"There was a problem saving the screenshot.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
         }
     }
 
@@ -1119,41 +1115,36 @@ public class GameListFactory(
                 try
                 {
                     File.Delete(filePath);
-                    
                     PlayClick.PlayTrashSound();
-                
-                    string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-                    string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-                    string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
-                    MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
-                        fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Notify user
+                    MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
                     
                     // Reload the current Game List
                     await mainWindow.LoadGameFilesAsync();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'.\n\n" +
-                                    $"The error was reported to the developer who will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     // Notify developer
                     string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, errorMessage);
+                    
+                    // Notify user
+                    MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
                 }
             }
             else
             {
-                MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
-                    "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Notify user
+                MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Generic error in the method DeleteFile in the class GameListFactory.\n\n" +
+            string errorMessage = $"Generic error in the method DeleteFile.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -1206,22 +1197,8 @@ public class GameListFactory(
                 {
                     // Clear the image if no preview is available
                     mainWindow.PreviewImage.Source = null;
-                    
-                    var result = MessageBox.Show("I could not get a valid image to preview, not even a default image.\n\n" +
-                                                 "Do you want to reinstall 'Simple Launcher' to fix the issue?",
-                        "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please reinstall Simple Launcher to fix the error.\n\n" +
-                                        "The application will shutdown now.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        
-                        // Shutdown SimpleLauncher
-                        Application.Current.Shutdown();
-                        Environment.Exit(0);                    }
+
+                    MessageBoxLibrary.DefaultImageNotFoundMessageBox();
                 }
             }
         }
@@ -1254,7 +1231,7 @@ public class GameListFactory(
             }
         }
 
-        // load default
+        // load default image
         // If no specific image found, try the user-defined default image in SystemImageFolder
         string userDefinedDefaultImagePath = Path.Combine(imageFolder, "default.png");
         if (File.Exists(userDefinedDefaultImagePath))
@@ -1291,5 +1268,4 @@ public class GameListFactory(
             await LaunchGame(selectedItem.FilePath);
         }
     }
-
 }

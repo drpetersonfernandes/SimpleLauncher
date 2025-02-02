@@ -264,19 +264,11 @@ public class GamePadController : IDisposable
         }
         catch (Exception ex)
         {
-            // Log the error
+            // Notify developer
             ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
         }
-    }
-
-    private static void GamePadErrorMessageBox()
-    {
-        MessageBox.Show("There was an error with the GamePad Controller.\n\n" +
-                        "Running 'Simple Launcher' with administrative access may fix this problem.\n\n" +
-                        "The error was reported to the developer who will try to fix the issue.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private void HandleXInputRightButton(State state)
@@ -415,5 +407,18 @@ public class GamePadController : IDisposable
         if (dzY > 0) resultY *= 1 / (1 - dzY);
 
         return (resultX, resultY);
+    }
+    
+    private static void GamePadErrorMessageBox()
+    {
+        // Notify user
+        string therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
+        string runningSimpleLauncherwithadministrative2 = (string)Application.Current.TryFindResource("RunningSimpleLauncherwithadministrative") ?? "Running 'Simple Launcher' with administrative access may fix this problem.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
+                        $"{runningSimpleLauncherwithadministrative2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
