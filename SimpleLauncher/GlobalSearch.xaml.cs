@@ -34,13 +34,16 @@ public partial class GlobalSearch
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, MainWindow mainWindow)
     {
         InitializeComponent();
+        
         _systemConfigs = systemConfigs;
         _machines = machines;
         _settings = settings;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         _mainWindow = mainWindow;
+        
         _favoritesManager = new FavoritesManager();
+        
         Closed += GlobalSearch_Closed;
             
         // Apply the theme to this window
@@ -52,10 +55,9 @@ public partial class GlobalSearch
         string searchTerm = SearchTextBox.Text;
         if (string.IsNullOrWhiteSpace(searchTerm))
         {
-            string pleaseenterasearchterm2 = (string)Application.Current.TryFindResource("Pleaseenterasearchterm") ?? "Please enter a search term.";
-            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            MessageBox.Show(pleaseenterasearchterm2,
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Notify user
+            MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
+
             return;
         }
 
@@ -80,16 +82,15 @@ public partial class GlobalSearch
         {
             if (args.Error != null)
             {
-                    
+                // Notify developer
                 string formattedException = $"That was an error using the SearchButton_Click method.\n\n" +
-                                            $"Exception details: {args.Error.Message}";
+                                            $"Error details: {args.Error.Message}";
                 Exception ex = new(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
-                MessageBox.Show("There was an error using the Global Search.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Notify user
+                MessageBoxLibrary.GlobalSearchErrorMessageBox();
             }
             else
             {
@@ -311,27 +312,29 @@ public partial class GlobalSearch
                 
             if (string.IsNullOrEmpty(systemName) || emulatorConfig == null)
             {
-                string formattedException = "That was an error trying to launch a game from the search result in the Global Search window.\n\n" +
-                                            "There is no System or Emulator associated with the game.";
+                // Notify developer
+                string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                            "systemName or emulatorConfig is null or empty.";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                                        
-                MessageBox.Show("There was an error launching the selected game.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox();
+                
                 return;
             }
 
             if (systemConfig == null)
             {
-                string formattedException = "That was an error trying to launch a game from the search result in the Global Search window.\n\n" +
-                                            "System configuration not found for the selected game.";
+                // Notify developer
+                string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                            "systemConfig is null.";
                 Exception exception = new(formattedException);
                 await LogErrors.LogErrorAsync(exception, formattedException);
-                    
-                MessageBox.Show("There was an error launching the selected game.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox();
+                
                 return;
             }
 
@@ -345,16 +348,16 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
-            string formattedException = $"There was an error launching the game from the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"There was an error launching the game.\n\n" +
                                         $"File Path: {filePath}\n" +
                                         $"System Name: {systemName}\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-                
-            MessageBox.Show("There was an error launching the selected game.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox();
         }
     }
 
@@ -369,21 +372,21 @@ public partial class GlobalSearch
             }
             else
             {
-                MessageBox.Show("Please select a game to launch.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"That was an error launching a game from the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"That was an error launching a game.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("There was an error launching the selected game.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox();
         }
     }
 
@@ -401,14 +404,14 @@ public partial class GlobalSearch
 
                 if (systemConfig == null)
                 {
-                    string formattedException = "systemConfig is null in method ResultsDataGrid_MouseRightButtonUp.";
+                    // Notify developer
+                    string formattedException = "systemConfig is null.";
                     Exception ex = new(formattedException);
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
-                    MessageBox.Show("There was an error loading the systemConfig.\n\n" +
-                                    "The error was reported to the developer who will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Notify user
+                    MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
 
                     return;
                 }
@@ -715,21 +718,15 @@ public partial class GlobalSearch
                     Header = takeScreenshot2,
                     Icon = takeScreenshotIcon
                 };
-                string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
-                string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
-                string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-                string aselectionwindowwillopenin2 = (string)Application.Current.TryFindResource("Aselectionwindowwillopenin") ?? "A selection window will open in";
-                string allowingyoutochoosethe2 = (string)Application.Current.TryFindResource("allowingyoutochoosethe") ?? "allowing you to choose the desired window to capture.";
-                string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
                 takeScreenshot.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    MessageBox.Show($"{thegamewilllaunchnow2}\n\n{setthegamewindowto2}\n\n{youshouldchangetheemulatorparameters2}\n\n" +
-                                    $"{aselectionwindowwillopenin2} 'Simple Launcher,' {allowingyoutochoosethe2}\n\n{assoonasyouselectawindow2}", takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Notify user
+                    MessageBoxLibrary.TakeScreenShotMessageBox();
 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
                     LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
-
                 };
 
                 // Delete Game Context Menu
@@ -745,19 +742,25 @@ public partial class GlobalSearch
                     Header = deleteGame2,
                     Icon = deleteGameIcon
                 };
-                string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
-                string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-                string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
                 deleteGame.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
-                        confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                    if (result == MessageBoxResult.Yes)
+                    // Notify user
+                    DoYouWantToDeleteTheFileMessageBox();
+                    void DoYouWantToDeleteTheFileMessageBox()
                     {
-                        DeleteFile(filePath, fileNameWithExtension);
-                        RemoveFromFavorites2(selectedResult.SystemName, fileNameWithExtension);
+                        string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+                        string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                        string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+                        var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
+                            confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            DeleteFile(filePath, fileNameWithExtension);
+                            RemoveFromFavorites2(selectedResult.SystemName, fileNameWithExtension);
+                        }
                     }
                 };
 
@@ -783,19 +786,19 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
+            // Notify developer
             string formattedException =
-                $"There was an error in the right-click context menu in the ResultsDataGrid_MouseRightButtonUp method.\n\n" +
+                $"There was an error in the right-click context menu.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("There was an error in the right-click context menu.\n\n" +
-                            "The error was reported to the developer, who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
         }
     }
-        
+
     private void AddToFavorites(string systemName, string fileNameWithoutExtension)
     {
         try
@@ -816,32 +819,29 @@ public partial class GlobalSearch
                 // Save the updated favorites list
                 _favoritesManager.SaveFavorites(favorites);
 
-                string hasbeenaddedtofavorites2 = (string)Application.Current.TryFindResource("hasbeenaddedtofavorites") ?? "has been added to favorites.";
-                string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-                MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites2}",
-                    success2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithoutExtension);
             }
             else
             {
-                string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
-                string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                MessageBox.Show($"{fileNameWithoutExtension} {isalreadyinfavorites2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.GameAlreadyInFavoritesMessageBox(fileNameWithoutExtension);
             }
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred while adding game to favorites in the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"An error occurred while adding game to favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("An error occurred while adding the game to the favorites.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.", 
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
         }
     }
-    
+
     private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
     {
         try
@@ -858,7 +858,8 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
-            string formattedException = $"An error occurred in the RemoveFromFavorites2 method in the GlobalSearch class.\n\n" +
+            // Notify developer
+            string formattedException = $"An error occurred in the RemoveFromFavorites2 method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
@@ -884,15 +885,15 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
-            string formattedException = $"There was a problem opening the Video Link in the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"There was a problem opening the Video Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the Video Link.\n\n" +
-                            "The problem was reported to the developer that will try to fix the issue.", 
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
         }
     }
 
@@ -914,15 +915,15 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
-            string formattedException = $"There was a problem opening the Info Link in the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"There was a problem opening the Info Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the Info Link.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.", 
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
         }
     }
         
@@ -946,15 +947,15 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"There was a problem opening the History window.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the History window.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.", 
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ProblemOpeningHistoryWindowMessageBox();
         }
     }
 
@@ -964,14 +965,15 @@ public partial class GlobalSearch
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         if (systemConfig == null)
         {
-            const string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the OpenCover method.";
+            // Notify developer
+            const string formattedException = "System configuration not found for the selected game in the GlobalSearch.";
             Exception ex = new(formattedException);
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            MessageBox.Show("There was a problem opening the Cover Image for this game.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ProblemOpeningCoverImageMessageBox();
+            
             return;
         }
     
@@ -1019,9 +1021,8 @@ public partial class GlobalSearch
         }
         else
         {
-            string thereisnocoverfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
-            string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
-            MessageBox.Show(thereisnocoverfileassociated2, covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            // Notify user
+            MessageBoxLibrary.ThereIsNoCoverMessageBox();
         }
     }
 
@@ -1046,9 +1047,8 @@ public partial class GlobalSearch
             }
         }
 
-        string thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot") ?? "There is no title snapshot file associated with this game.";
-        string titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
-        MessageBox.Show(thereisnotitlesnapshot2, titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        // Notify user
+        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
     }
 
     private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -1071,9 +1071,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        string thereisnogameplaysnapshot2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshot") ?? "There is no gameplay snapshot file associated with this game.";
-        string gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
-        MessageBox.Show(thereisnogameplaysnapshot2, gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
     }
 
     private void OpenCart(string systemName, string fileName)
@@ -1096,10 +1096,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        
-        string thereisnocartfile2 = (string)Application.Current.TryFindResource("Thereisnocartfile") ?? "There is no cart file associated with this game.";
-        string cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
-        MessageBox.Show(thereisnocartfile2, cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+
+        // Notify user
+        MessageBoxLibrary.ThereIsNoCartMessageBox();
     }
 
     private void PlayVideo(string systemName, string fileName)
@@ -1124,9 +1123,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        string thereisnovideofile2 = (string)Application.Current.TryFindResource("Thereisnovideofile") ?? "There is no video file associated with this game.";
-        string videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
-        MessageBox.Show(thereisnovideofile2, videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
     }
 
     private void OpenManual(string systemName, string fileName)
@@ -1155,22 +1154,23 @@ public partial class GlobalSearch
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Failed to open the manual in the Global Search window.\n\n" +
+                    // Notify developer
+                    string formattedException = $"Failed to open the manual.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                        
-                    MessageBox.Show("Failed to open the manual for this game.\n\n" +
-                                    "The error was reported to the developer who will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
+                    
                     return;
                 }
             }
         }
-        string thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        string manualNotFound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
-        MessageBox.Show(thereisnomanual2, manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoManualMessageBox();
     }
 
     private void OpenWalkthrough(string systemName, string fileName)
@@ -1199,22 +1199,23 @@ public partial class GlobalSearch
                 }
                 catch (Exception ex)
                 {
-                    string formattedException = $"Failed to open the walkthrough file in the Global Search window.\n\n" +
+                    // Notify developer
+                    string formattedException = $"Failed to open the walkthrough file.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                     logTask.Wait(TimeSpan.FromSeconds(2));
-                        
-                    MessageBox.Show("Failed to open the walkthrough file for this game.\n\n" +
-                                    "The error was reported to the developer who will try to fix the issue.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
+                    
                     return;
                 }
             }
         }
-        string thereisnowalkthrough2 = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
-        string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
-        MessageBox.Show(thereisnowalkthrough2, walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
     }
 
     private void OpenCabinet(string systemName, string fileName)
@@ -1237,9 +1238,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        string thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
-        string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
-        MessageBox.Show(thereisnocabinetfile2, cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
     }
 
     private void OpenFlyer(string systemName, string fileName)
@@ -1262,9 +1263,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        string thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
-        string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
-        MessageBox.Show(thereisnoflyer2, flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
     }
 
     private void OpenPcb(string systemName, string fileName)
@@ -1287,9 +1288,9 @@ public partial class GlobalSearch
                 return;
             }
         }
-        string thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
-        string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
-        MessageBox.Show(thereisnoPcBfile2,pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        
+        // Notify user
+        MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
         
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
@@ -1303,14 +1304,15 @@ public partial class GlobalSearch
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
-                string formattedException = $"System configuration not found for the selected game in the GlobalSearch window while using the TakeScreenshotOfSelectedWindow method.";
+                // Notify developer
+                string formattedException = "systemConfig is null.";
                 Exception ex = new(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+
+                // Notify user
+                MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
                 
-                MessageBox.Show("There was a problem getting the systemConfig for this game.\n\n" +
-                                "The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
     
@@ -1383,29 +1385,23 @@ public partial class GlobalSearch
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
                 
-            // Notify the user of success
-            string screenshotsavedsuccessfullyat2 = (string)Application.Current.TryFindResource("Screenshotsavedsuccessfullyat") ?? "Screenshot saved successfully at:";
-            string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-            MessageBox.Show($"{screenshotsavedsuccessfullyat2}\n\n{screenshotPath}",
-                success2, MessageBoxButton.OK, MessageBoxImage.Information);
-
+            // Notify the user
+            MessageBoxLibrary.ScreenshotSavedMessageBox(screenshotPath);
         }
         catch (Exception ex)
         {
-            // Handle any errors
-            MessageBox.Show("Failed to save screenshot.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Send log to the developer
-            string formattedException = $"Failed to save screenshot in the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"Failed to save screenshot.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
         }
     }
-        
+
     private void DeleteFile(string filePath, string fileNameWithExtension)
     {
         if (File.Exists(filePath))
@@ -1416,33 +1412,29 @@ public partial class GlobalSearch
                     
                 PlayClick.PlayTrashSound();
                 
-                string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-                string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-                string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
-                MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
-                    fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
+                // Notify user
+                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
 
                 // Redo the search after deletion
                 SearchButton_Click(null, null);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                $"The error was reported to the developer who will try to fix the issue.",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
                 // Notify developer
                 string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
             }
         }
         else
         {
-            MessageBox.Show($"The file '{fileNameWithExtension}' could not be found.",
-                "File Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
         }
     }
 
@@ -1458,15 +1450,15 @@ public partial class GlobalSearch
         }
         catch (Exception ex)
         {
-            string formattedException = $"There was an error while using the method MouseDoubleClick in the Global Search window.\n\n" +
+            // Notify developer
+            string formattedException = $"There was an error while using the method MouseDoubleClick.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("The application could not launch this game.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
         }
     }
 
@@ -1511,4 +1503,6 @@ public partial class GlobalSearch
     {
         _searchResults = null;
     }
+    
+    
 }

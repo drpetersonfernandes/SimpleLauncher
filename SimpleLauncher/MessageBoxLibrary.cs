@@ -208,8 +208,10 @@ public static class MessageBoxLibrary
     internal static void FileCouldNotBeDeletedMessageBox(string fileNameWithExtension)
     {
         string anerroroccurredwhiletryingtodelete2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ?? "An error occurred while trying to delete the file";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{anerroroccurredwhiletryingtodelete2} '{fileNameWithExtension}'.",
+        MessageBox.Show($"{anerroroccurredwhiletryingtodelete2} '{fileNameWithExtension}'.\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
@@ -249,5 +251,85 @@ public static class MessageBoxLibrary
             Application.Current.Shutdown();
             Environment.Exit(0);
         }
+    }
+    
+    internal static void GlobalSearchErrorMessageBox()
+    {
+        MessageBox.Show("There was an error using the Global Search.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void PleaseEnterSearchTermMessageBox()
+    {
+        string pleaseenterasearchterm2 = (string)Application.Current.TryFindResource("Pleaseenterasearchterm") ?? "Please enter a search term.";
+        string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        MessageBox.Show(pleaseenterasearchterm2,
+            warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void ErrorLaunchingGameMessageBox()
+    {
+        MessageBox.Show("There was an error launching the selected game.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void SelectAGameToLaunchMessageBox()
+    {
+        MessageBox.Show("Please select a game to launch.",
+            "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void ErrorRightClickContextMenuMessageBox()
+    {
+        MessageBox.Show("There was an error in the right-click context menu.\n\n" +
+                        "The error was reported to the developer, who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ErrorLoadingSystemConfigMessageBox()
+    {
+        MessageBox.Show("There was an error loading the systemConfig.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void GameAlreadyInFavoritesMessageBox(string fileNameWithoutExtension)
+    {
+        string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show($"{fileNameWithoutExtension} {isalreadyinfavorites2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
+    {
+        string hasbeenaddedtofavorites2 = (string)Application.Current.TryFindResource("hasbeenaddedtofavorites") ?? "has been added to favorites.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void ProblemOpeningCoverImageMessageBox()
+    {
+        MessageBox.Show("There was a problem opening the Cover Image for this game.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ScreenshotSavedMessageBox(string screenshotPath)
+    {
+        string screenshotsavedsuccessfullyat2 = (string)Application.Current.TryFindResource("Screenshotsavedsuccessfullyat") ?? "Screenshot saved successfully at:";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{screenshotsavedsuccessfullyat2}\n\n" +
+                        $"{screenshotPath}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void CouldNotLaunchThisGameMessageBox()
+    {
+        MessageBox.Show("'Simple Launcher' could not launch this game.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
