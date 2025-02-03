@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SimpleLauncher;
@@ -883,6 +884,244 @@ public static class MessageBoxLibrary
                 FileName = downloadPageUrl,
                 UseShellExecute = true
             });
+        }
+    }
+    
+    internal static void RequiredFileMissingMessageBox()
+    {
+        string fileappsettingsjsonismissing2 = (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
+        string theapplicationwillnotbeableto2 = (string)Application.Current.TryFindResource("Theapplicationwillnotbeableto") ?? "The application will not be able to send the Bug Report.";
+        string doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+        string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var messageBoxResult = MessageBox.Show(
+            $"{fileappsettingsjsonismissing2}\n\n" +
+            $"{theapplicationwillnotbeableto2}\n\n" +
+            $"{doyouwanttoautomaticallyreinstall2}",
+            warning2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (messageBoxResult == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            string pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            MessageBox.Show(pleasereinstallSimpleLauncher2,
+                warning2, MessageBoxButton.OK,MessageBoxImage.Warning);
+        }
+    }
+    
+    internal static void EnterBugDetailsMessageBox()
+    {
+        string pleaseenterthedetailsofthebug2 = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthebug") ?? "Please enter the details of the bug.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(pleaseenterthedetailsofthebug2,
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void ApiKeyErrorMessageBox()
+    {
+        string therewasanerrorintheApiKey2 = (string)Application.Current.TryFindResource("TherewasanerrorintheAPIKey") ?? "There was an error in the API Key of this form.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorintheApiKey2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void BugReportSuccessMessageBox()
+    {
+        string bugreportsent2 = (string)Application.Current.TryFindResource("Bugreportsent") ?? "Bug report sent successfully.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show(bugreportsent2, success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void BugReportSendErrorMessageBox()
+    {
+        string anerroroccurredwhilesending2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesending") ?? "An error occurred while sending the bug report.";
+        string thebugwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{anerroroccurredwhilesending2}\n\n" +
+                        $"{thebugwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void ExtractionFailedMessageBox()
+    {
+        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
+        string ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
+        string grantadministrativeaccesstoSimple2 = (string)Application.Current.TryFindResource("GrantadministrativeaccesstoSimple") ?? "Grant administrative access to 'Simple Launcher'.";
+        string ensureSimpleLauncherisinawritable2 = (string)Application.Current.TryFindResource("EnsureSimpleLauncherisinawritable") ?? "Ensure 'Simple Launcher' is in a writable folder.";
+        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{extractionfailed2}\n\n" +
+                        $"{ensurethefileisnotcorrupted2}\n" +
+                        $"{grantadministrativeaccesstoSimple2}\n" +
+                        $"{ensureSimpleLauncherisinawritable2}\n" +
+                        $"{temporarilydisableyourantivirussoftware2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void FileNeedToBeCompressedMessageBox()
+    {
+        string theselectedfilecannotbe2 = (string)Application.Current.TryFindResource("Theselectedfilecannotbe") ?? "The selected file cannot be extracted.";
+        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        string pleasefixthatintheEditwindow2 = (string)Application.Current.TryFindResource("PleasefixthatintheEditwindow") ?? "Please fix that in the Edit window.";
+        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
+        MessageBox.Show($"{theselectedfilecannotbe2}\n\n" +
+                        $"{toextractafileitneedstobe2}\n\n" +
+                        $"{pleasefixthatintheEditwindow2}",
+            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void DownloadedFileIsMissingMessageBox()
+    {
+        string downloadedfileismissing2 = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadedfileismissing2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void FileIsLockedMessageBox()
+    {
+        string downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadedfileislocked2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ImagePackDownloadExtractionFailedMessageBox()
+    {
+        string imagePackdownloadorextraction2 = (string)Application.Current.TryFindResource("ImagePackdownloadorextraction") ?? "Image Pack download or extraction failed!";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        string downloadorExtractionFailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
+        MessageBox.Show($"{imagePackdownloadorextraction2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{ensuretheSimpleLauncher2}\n\n" +
+                        $"{temporarilydisableyourantivirussoftware2}",
+            downloadorExtractionFailed2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void DownloadExtractionSuccessfullyMessageBox()
+    {
+        string thedownloadandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Thedownloadandextractionweresuccessful") ?? "The download and extraction were successful.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show(thedownloadandextractionweresuccessful2,
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void DownloadCanceledMessageBox()
+    {
+        string downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
+        string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
+        MessageBox.Show(downloadwascanceled2,
+            downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void DownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
+                                                  $"{wouldyouliketoberedirected2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                string formattedException = $"Error opening the Browser.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
+                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                MessageBox.Show("'Simple Launcher' could not open the Image Pack download link.",
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+                
+        }
+    }
+    
+    internal static void IoExceptionMessageBox(string tempFolder)
+    {
+        string afilereadwriteerroroccurred2 = (string)Application.Current.TryFindResource("Afilereadwriteerroroccurred") ?? "A file read/write error occurred after the file was downloaded.";
+        string thiserrormayoccurifanantivirus2 = (string)Application.Current.TryFindResource("Thiserrormayoccurifanantivirus") ?? "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.";
+        string additionallygrantSimpleLauncher2 = (string)Application.Current.TryFindResource("AdditionallygrantSimpleLauncher") ?? "Additionally, grant 'Simple Launcher' administrative access to enable file writing.";
+        string makesuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("MakesuretheSimpleLauncher") ?? "Make sure the 'Simple Launcher' folder is located in a writable directory.";
+        string wouldyouliketoopenthetemp2 = (string)Application.Current.TryFindResource("Wouldyouliketoopenthetemp") ?? "Would you like to open the 'temp' folder to view the downloaded file?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";            
+        var result = MessageBox.Show($"{afilereadwriteerroroccurred2}\n\n" +
+                                     $"{thiserrormayoccurifanantivirus2}\n\n" +
+                                     $"{additionallygrantSimpleLauncher2}\n\n" +
+                                     $"{makesuretheSimpleLauncher2}\n\n" +
+                                     $"{wouldyouliketoopenthetemp2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = tempFolder,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string simpleLauncherwasunabletoopenthe2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletoopenthe") ?? "'Simple Launcher' was unable to open the 'temp' folder due to access issues.";
+                MessageBox.Show($"{simpleLauncherwasunabletoopenthe2}\n\n" +
+                                $"{tempFolder}",
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+
+    internal static void DownloadErrorMessageBox()
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloaderror2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ErrorLoadingEasyModeXmlMessageBox()
+    {
+        string errorloadingthefileeasymodexml2 = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{errorloadingthefileeasymodexml2}\n\n" +
+                                     $"{theerrorwasreportedtothedeveloper2}\n" +
+                                     $"{doyouwanttoreinstallSimpleLauncher2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            MessageBox.Show(pleasereinstallSimpleLaunchermanually2, 
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

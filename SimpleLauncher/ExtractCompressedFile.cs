@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Runtime.InteropServices;
 using System.IO.Compression;
 
@@ -22,7 +21,7 @@ public class ExtractCompressedFile
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify user
-            FileNeedToBeCompressedMessageBox();
+            MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
             
             return null;
         }
@@ -47,7 +46,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
             
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
             
             return null;
         }
@@ -98,7 +97,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
         }
@@ -119,7 +118,7 @@ public class ExtractCompressedFile
         if (extension != ".zip")
         {
             // Notify user
-            FileNeedToBeCompressedMessageBox();
+            MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
 
             return null;
         }
@@ -141,7 +140,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
             
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
             
             return null;
         }
@@ -162,7 +161,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
         }
@@ -189,19 +188,9 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(exception, formattedException);
 
             // Notify user
-            DownloadedFileIsMissingMessageBox();
+            MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
 
             return false;
-            
-            void DownloadedFileIsMissingMessageBox()
-            {
-                string downloadedfileismissing2 = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{downloadedfileismissing2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         // Check if the file is locked
@@ -214,19 +203,9 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(exception, formattedException);
 
             // Notify user
-            FileIsLockedMessageBox();
+            MessageBoxLibrary.FileIsLockedMessageBox();
 
             return false;
-
-            void FileIsLockedMessageBox()
-            {
-                string downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{downloadedfileislocked2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
         
         // Check file extension
@@ -235,7 +214,7 @@ public class ExtractCompressedFile
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify user
-            FileNeedToBeCompressedMessageBox();
+            MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
             
             return false;
         }
@@ -254,7 +233,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, errorMessage);
             
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
             
             return false;
         }
@@ -276,7 +255,7 @@ public class ExtractCompressedFile
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            ExtractionFailedMessageBox();
+            MessageBoxLibrary.ExtractionFailedMessageBox();
 
             return false;
         }
@@ -320,31 +299,5 @@ public class ExtractCompressedFile
         throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
     }
     
-        private static void ExtractionFailedMessageBox()
-    {
-        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
-        string ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
-        string grantadministrativeaccesstoSimple2 = (string)Application.Current.TryFindResource("GrantadministrativeaccesstoSimple") ?? "Grant administrative access to 'Simple Launcher'.";
-        string ensureSimpleLauncherisinawritable2 = (string)Application.Current.TryFindResource("EnsureSimpleLauncherisinawritable") ?? "Ensure 'Simple Launcher' is in a writable folder.";
-        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{extractionfailed2}\n\n" +
-                        $"{ensurethefileisnotcorrupted2}\n" +
-                        $"{grantadministrativeaccesstoSimple2}\n" +
-                        $"{ensureSimpleLauncherisinawritable2}\n" +
-                        $"{temporarilydisableyourantivirussoftware2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
     
-    private static void FileNeedToBeCompressedMessageBox()
-    {
-        string theselectedfilecannotbe2 = (string)Application.Current.TryFindResource("Theselectedfilecannotbe") ?? "The selected file cannot be extracted.";
-        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-        string pleasefixthatintheEditwindow2 = (string)Application.Current.TryFindResource("PleasefixthatintheEditwindow") ?? "Please fix that in the Edit window.";
-        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
-        MessageBox.Show($"{theselectedfilecannotbe2}\n\n" +
-                        $"{toextractafileitneedstobe2}\n\n" +
-                        $"{pleasefixthatintheEditwindow2}",
-            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
-    }
 }

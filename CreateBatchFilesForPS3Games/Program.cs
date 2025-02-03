@@ -26,7 +26,9 @@ namespace CreateBatchFilesForPS3Games
             _logForm.LogMessage("Please follow the instructions.");
             _logForm.LogMessage("");
         
-            MessageBox.Show("This program create batch files to launch your PS3 games.\n\nPlease follow the instructions.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This program create batch files to launch your PS3 games.\n\n" +
+                            "Please follow the instructions.",
+                "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         
             _logForm.LogMessage("Please select the root folder where your Game folders are located:");
             _logForm.LogMessage("");

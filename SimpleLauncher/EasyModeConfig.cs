@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Xml.Serialization;
 
 namespace SimpleLauncher;
@@ -40,7 +39,7 @@ public class EasyModeConfig
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            ErrorLoadingEasyModeXmlMessageBox();
+            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
         }
         catch (FileNotFoundException ex)
         {
@@ -52,7 +51,7 @@ public class EasyModeConfig
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            ErrorLoadingEasyModeXmlMessageBox();
+            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
         }
         catch (Exception ex)
         {
@@ -64,33 +63,11 @@ public class EasyModeConfig
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            ErrorLoadingEasyModeXmlMessageBox();
+            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
         }
 
         // Return an empty config to avoid further null reference issues
         return new EasyModeConfig { Systems = [] };
-
-        void ErrorLoadingEasyModeXmlMessageBox()
-        {
-            string errorloadingthefileeasymodexml2 = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{errorloadingthefileeasymodexml2}\n\n" +
-                                         $"{theerrorwasreportedtothedeveloper2}\n" +
-                                         $"{doyouwanttoreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-            }
-            else
-            {
-                string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                MessageBox.Show(pleasereinstallSimpleLaunchermanually2, 
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
     }
 
     public void Validate()

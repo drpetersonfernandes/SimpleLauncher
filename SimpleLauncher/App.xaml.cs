@@ -58,12 +58,11 @@ public partial class App
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Failed to load language resources\n\n" +
+            string errorMessage = $"Failed to load language resources for {cultureCode}\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
@@ -78,16 +77,6 @@ public partial class App
                 Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
             };
             Resources.MergedDictionaries.Add(fallbackDictionary);
-        }
-
-        void FailedToLoadLanguageResourceMessageBox()
-        {
-            string failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
-            MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                languageLoadingError2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -121,5 +110,15 @@ public partial class App
         _settings.BaseTheme = baseTheme;
         _settings.AccentColor = accentColor;
         _settings.Save();
+    }
+    
+    private static void FailedToLoadLanguageResourceMessageBox()
+    {
+        string failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
+        MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            languageLoadingError2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
