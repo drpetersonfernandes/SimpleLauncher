@@ -15,7 +15,6 @@ public partial class EditLinks
         // Load Config
         _settingsConfig = settingsConfig;
         
-        // Load Links
         LoadLinks();
         
         // attach event handler
@@ -41,14 +40,7 @@ public partial class EditLinks
         _settingsConfig.Save();
         
         // Notify user
-        LinksSavedMessageBox();
-
-        void LinksSavedMessageBox()
-        {
-            string linkssavedsuccessfully2 = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
-            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(linkssavedsuccessfully2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.LinksSavedMessageBox();
     }
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
@@ -61,14 +53,8 @@ public partial class EditLinks
 
         _settingsConfig.Save();
 
-        LinksRevertedMessageBox();
-
-        void LinksRevertedMessageBox()
-        {
-            string linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
-            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(linksreverted2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        // Notify user
+        MessageBoxLibrary.LinksRevertedMessageBox();
     }
 
     private string EncodeForXml(string input)

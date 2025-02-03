@@ -17,12 +17,25 @@ public class EasyModeConfig
     {
         string xmlFile = "easymode.xml";
         string xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
+        
+        // Check if the file exists before proceeding.
+        if (!File.Exists(xmlFilePath))
+        {
+            // Notify developer
+            LogAndNotify(new FileNotFoundException($"File not found: {xmlFilePath}"),
+                "The file 'easymode.xml' was not found.");
+            return new EasyModeConfig { Systems = new List<EasyModeSystemConfig>() };
+        }
 
         try
         {
             XmlSerializer serializer = new XmlSerializer(typeof(EasyModeConfig));
-            using FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open);
+            
+            // Open the file with explicit access and sharing settings.
+            using FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             var config = (EasyModeConfig)serializer.Deserialize(fileStream);
+            
+            // Validate configuration if not null.
             if (config != null)
             {
                 config.Validate(); // Exclude invalid systems
@@ -35,23 +48,7 @@ public class EasyModeConfig
             string errorMessage = "The file 'easymode.xml' is corrupted or invalid.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Error Details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
-        }
-        catch (FileNotFoundException ex)
-        {
-            // Notify developer
-            string errorMessage = "The file 'easymode.xml' was not found.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Error Details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
+            LogAndNotify(ex, errorMessage);
         }
         catch (Exception ex)
         {
@@ -59,20 +56,26 @@ public class EasyModeConfig
             string errorMessage = "An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Error Details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
+            LogAndNotify(ex, errorMessage);
         }
 
         // Return an empty config to avoid further null reference issues
-        return new EasyModeConfig { Systems = [] };
+        return new EasyModeConfig { Systems = new List<EasyModeSystemConfig>() };
     }
 
     public void Validate()
     {
         Systems = Systems?.Where(system => system.IsValid()).ToList() ?? new List<EasyModeSystemConfig>();
+    }
+    
+    private static void LogAndNotify(Exception ex, string errorMessage)
+    {
+        // Notify developer
+        Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
+        logTask.Wait(TimeSpan.FromSeconds(2));
+            
+        // Notify the user.
+        MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
     }
 }
 

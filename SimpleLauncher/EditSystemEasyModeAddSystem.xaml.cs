@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace SimpleLauncher;
 
@@ -131,7 +130,7 @@ public partial class EditSystemEasyModeAddSystem
                         if (extractionSuccess)
                         {
                             // Notify user
-                            DownloadAndExtrationWereSuccessfulMessageBox();
+                            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteDownloadFilePath(downloadFilePath);
@@ -152,7 +151,7 @@ public partial class EditSystemEasyModeAddSystem
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
                             // Notify user
-                            ExtractionFailedMessageBox();
+                            MessageBoxLibrary.ExtractionFailedMessageBox();
                         }
                     }
                     else // download fail
@@ -164,7 +163,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException) // Download canceled
@@ -172,7 +171,7 @@ public partial class EditSystemEasyModeAddSystem
                     DeleteDownloadFilePath(downloadFilePath);
 
                     // Notify user
-                    DownloadCanceledMessageBox();
+                    MessageBoxLibrary.DownloadCanceledMessageBox();
                 }
                 catch (Exception ex) //Error downloading
                 {
@@ -184,7 +183,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
             
                     // Notify user
-                    await EmulatorDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem, ex);
                 }
                 finally
                 {
@@ -202,44 +201,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            DownloadExtractionFailedMessageBox();
-        }
-
-        async Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
-        {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                                      $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception ex2)
-                {
-                    // Notify developer
-                    string formattedException2 = $"Error opening the download link.\n\n" +
-                                                 $"Exception type: {ex.GetType().Name}\n" +
-                                                 $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex2, formattedException2);
-                            
-                    // Notify user
-                    string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                    string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                    $"{theerrorwasreportedtothedeveloper2}",
-                        error3, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
 
         string ChangeFileExtensionFunction(EasyModeSystemConfig selectedSystem, string downloadFilePath)
@@ -318,7 +280,7 @@ public partial class EditSystemEasyModeAddSystem
                         if (extractionSuccess)
                         {
                             // Notify user
-                            DownloadAndExtrationWereSuccessfulMessageBox();
+                            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteDownloadFilePath(downloadFilePath);
@@ -339,7 +301,7 @@ public partial class EditSystemEasyModeAddSystem
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
                             // Notify user
-                            ExtractionFailedMessageBox();
+                            MessageBoxLibrary.ExtractionFailedMessageBox();
                         }
                     }
                     else // download failed
@@ -350,7 +312,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException)
@@ -358,7 +320,7 @@ public partial class EditSystemEasyModeAddSystem
                     DeleteDownloadFilePath(downloadFilePath);
                     
                     // Notify user
-                    DownloadCanceledMessageBox();
+                    MessageBoxLibrary.DownloadCanceledMessageBox();
                 }
                 catch (Exception ex) //Error downloading
                 {
@@ -370,7 +332,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     // Notify user
-                    await CoreDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem, ex);
                 }
                 finally
                 {
@@ -388,44 +350,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            DownloadExtractionFailedMessageBox();
-        }
-
-        async Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
-        {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                                      $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception ex2)
-                {
-                    // Notify developer
-                    string formattedException2 = $"Error opening the download link.\n\n" +
-                                                 $"Exception type: {ex.GetType().Name}\n" +
-                                                 $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex2, formattedException2);
-                            
-                    // Notify user
-                    string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                    string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                    $"{theerrorwasreportedtothedeveloper2}",
-                        error3, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
     }
 
@@ -474,7 +399,7 @@ public partial class EditSystemEasyModeAddSystem
                         if (extractionSuccess)
                         {
                             // Notify user
-                            DownloadAndExtrationWereSuccessfulMessageBox();
+                            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteDownloadFilePath(downloadFilePath);
@@ -494,7 +419,7 @@ public partial class EditSystemEasyModeAddSystem
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
                             // Notify user
-                            ExtractionFailedMessageBox();
+                            MessageBoxLibrary.ExtractionFailedMessageBox();
                         }
                     }
                     else // Download Failed
@@ -506,7 +431,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException)
@@ -514,7 +439,7 @@ public partial class EditSystemEasyModeAddSystem
                     DeleteDownloadFilePath(downloadFilePath);
 
                     // Notify user
-                    DownloadCanceledMessageBox();
+                    MessageBoxLibrary.DownloadCanceledMessageBox();
                 }
                 catch (Exception ex) //Error downloading
                 {
@@ -526,7 +451,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
                     
                     // Notify user
-                    await ImagePackDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem, ex);
                 }
                 finally
                 {
@@ -544,44 +469,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            DownloadExtractionFailedMessageBox();
-        }
-        
-        async Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
-        {
-            string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                                      $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception ex2)
-                {
-                    // Notify developer
-                    string formattedException2 = $"Error opening the download link.\n\n" +
-                                                 $"Exception type: {ex.GetType().Name}\n" +
-                                                 $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex2, formattedException2);
-                            
-                    // Notify user
-                    string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                    string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                    string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                    $"{theerrorwasreportedtothedeveloper2}",
-                        error3, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
     }
 
@@ -632,7 +520,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            DownloadFailedMessageBox2();
+            MessageBoxLibrary.DownloadFailedMessageBox2();
         }
         catch (HttpRequestException ex)
         {
@@ -644,7 +532,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            DownloadFailedMessageBox2();
+            MessageBoxLibrary.DownloadFailedMessageBox2();
         }
         catch (IOException ex)
         {
@@ -656,7 +544,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            IoExceptionMessageBox();
+            MessageBoxLibrary.IoExceptionMessageBox(_tempFolder);
         }
         catch (TaskCanceledException ex)
         {
@@ -688,7 +576,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 // Notify user
-                DownloadFailedMessageBox2();
+                MessageBoxLibrary.DownloadFailedMessageBox2();
             }
         }
 
@@ -705,50 +593,6 @@ public partial class EditSystemEasyModeAddSystem
                     // ignore
                 }
             }
-        }
-
-        void IoExceptionMessageBox()
-        {
-            string afilereadwriteerror2 = (string)Application.Current.TryFindResource("Afilereadwriteerror") ?? "A file read/write error occurred after the file was downloaded.";
-            string thiserrormayoccurifanantivirus2 = (string)Application.Current.TryFindResource("Thiserrormayoccurifanantivirus") ?? "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.";
-            string additionallygrantSimpleLauncher2 = (string)Application.Current.TryFindResource("AdditionallygrantSimpleLauncher") ?? "Additionally, grant 'Simple Launcher' administrative access to enable file writing.";
-            string makesuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("MakesuretheSimpleLauncherfolder") ?? "Make sure the 'Simple Launcher' folder is located in a writable directory.";
-            string wouldyouliketoopenthetemp2 = (string)Application.Current.TryFindResource("Wouldyouliketoopenthetemp") ?? "Would you like to open the 'temp' folder to view the downloaded file?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{afilereadwriteerror2}\n\n" +
-                                         $"{thiserrormayoccurifanantivirus2}\n\n" +
-                                         $"{additionallygrantSimpleLauncher2}\n\n" +
-                                         $"{makesuretheSimpleLauncherfolder2}\n\n" +
-                                         $"{wouldyouliketoopenthetemp2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = _tempFolder,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    string simpleLauncherwasunabletoopen2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletoopen") ?? "'Simple Launcher' was unable to open the 'temp' folder due to access issues.";
-                    MessageBox.Show($"{simpleLauncherwasunabletoopen2}\n\n" +
-                                    $"{_tempFolder}",
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        void DownloadFailedMessageBox2()
-        {
-            string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{downloadfailed2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -801,7 +645,7 @@ public partial class EditSystemEasyModeAddSystem
                 if (existingSystem != null)
                 {
                     // Ask user if they want to overwrite the existing system
-                    if (OverwriteSystemMessageBox()) return;
+                    if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
 
                     // Overwrite existing system
                     existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
@@ -858,7 +702,7 @@ public partial class EditSystemEasyModeAddSystem
                 CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
 
                 // Notify user
-                SystemAddedMessageBox(systemFolder, fullImageFolderPathForMessage);
+                MessageBoxLibrary.SystemAddedMessageBox(systemFolder, fullImageFolderPathForMessage, selectedSystem);
 
                 // Disable Add System Button
                 AddSystemButton.IsEnabled = false;
@@ -873,47 +717,8 @@ public partial class EditSystemEasyModeAddSystem
                 logTask.Wait(TimeSpan.FromSeconds(2));
  
                 // Notify user
-                AddSystemFailedMessageBox();
+                MessageBoxLibrary.AddSystemFailedMessageBox();
             }
-        }
-
-        bool OverwriteSystemMessageBox()
-        {
-            string thesystem3 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-            string alreadyexists2 = (string)Application.Current.TryFindResource("alreadyexists") ?? "already exists.";
-            string doyouwanttooverwriteit2 = (string)Application.Current.TryFindResource("Doyouwanttooverwriteit") ?? "Do you want to overwrite it?";
-            string systemAlreadyExists2 = (string)Application.Current.TryFindResource("SystemAlreadyExists") ?? "System Already Exists";
-            MessageBoxResult result = MessageBox.Show($"{thesystem3} '{selectedSystem.SystemName}' {alreadyexists2}\n\n" +
-                                                      $"{doyouwanttooverwriteit2}", systemAlreadyExists2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.No)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        void SystemAddedMessageBox(string systemFolder, string fullImageFolderPathForMessage)
-        {
-            string thesystem2 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-            string hasbeenaddedsuccessfully2 = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
-            string putRoMsorIsOsforthissysteminside2 = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
-            string putcoverimagesforthissysteminside2 = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
-            string systemAdded2 = (string)Application.Current.TryFindResource("SystemAdded") ?? "System Added";
-            MessageBox.Show($"{thesystem2} '{selectedSystem.SystemName}' {hasbeenaddedsuccessfully2}\n\n" +
-                            $"{putRoMsorIsOsforthissysteminside2} '{systemFolder}'\n\n" +
-                            $"{putcoverimagesforthissysteminside2} '{fullImageFolderPathForMessage}'.",
-                systemAdded2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        void AddSystemFailedMessageBox()
-        {
-            string therewasanerroradding2 = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerroradding2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -967,18 +772,9 @@ public partial class EditSystemEasyModeAddSystem
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            FolderCreationFailedMessageBox();
+            MessageBoxLibrary.FolderCreationFailedMessageBox();
 
             throw;
-        }
-
-        void FolderCreationFailedMessageBox()
-        {
-            string theapplicationfailedtocreate2 = (string)Application.Current.TryFindResource("Theapplicationfailedtocreate") ?? "The application failed to create the necessary folders for this system.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{theapplicationfailedtocreate2}\n\n{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
         
@@ -1037,63 +833,5 @@ public partial class EditSystemEasyModeAddSystem
                 // ignore
             }
         }
-    }
-    
-    private static void DownloadExtractionFailedMessageBox()
-    {
-        string downloadorextractionfailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
-        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloadorextractionfailed2}\n\n" +
-                        $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
-                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
-                        $"{temporarilydisableyourantivirus2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-    private static void DownloadCanceledMessageBox()
-    {
-        string downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(downloadwascanceled2,
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private static void DownloadFailedMessageBox()
-    {
-        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloadfailed2}\n\n" +
-                        $"{grantSimpleLauncheradministrative2}\n\n" +
-                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
-                        $"{temporarilydisableyourantivirus2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private static void ExtractionFailedMessageBox()
-    {
-        string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
-        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{extractionfailed2}\n\n" +
-                        $"{grantSimpleLauncheradministrative2}\n\n" +
-                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
-                        $"{temporarilydisableyourantivirus2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private static void DownloadAndExtrationWereSuccessfulMessageBox()
-    {
-        string downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
-        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-        MessageBox.Show($"{downloadingandextractionweresuccessful2}",
-            success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

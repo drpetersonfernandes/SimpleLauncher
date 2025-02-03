@@ -1016,14 +1016,6 @@ public static class MessageBoxLibrary
             success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    internal static void DownloadCanceledMessageBox()
-    {
-        string downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
-        string downloadCanceled2 = (string)Application.Current.TryFindResource("DownloadCanceled") ?? "Download Canceled";
-        MessageBox.Show(downloadwascanceled2,
-            downloadCanceled2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-    
     internal static void DownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
     {
         string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
@@ -1124,4 +1116,242 @@ public static class MessageBoxLibrary
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+    
+    internal static void LinksSavedMessageBox()
+    {
+        string linkssavedsuccessfully2 = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(linkssavedsuccessfully2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void LinksRevertedMessageBox()
+    {
+        string linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(linksreverted2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void MainWindowSearchEngineErrorMessageBox()
+    {
+        string therewasanerrorwiththesearchengine2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerrorwiththesearchengine2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void DownloadExtractionFailedMessageBox()
+    {
+        string downloadorextractionfailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
+        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadorextractionfailed2}\n\n" +
+                        $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void DownloadCanceledMessageBox()
+    {
+        string downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
+        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(downloadwascanceled2,
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void DownloadFailedMessageBox()
+    {
+        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadfailed2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void DownloadAndExtrationWereSuccessfulMessageBox()
+    {
+        string downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
+        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{downloadingandextractionweresuccessful2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static async Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
+                                                  $"{wouldyouliketoberedirected2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex2)
+            {
+                // Notify developer
+                string formattedException2 = $"Error opening the download link.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                            
+                // Notify user
+                string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper2}",
+                    error3, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    internal static async Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
+                                                  $"{wouldyouliketoberedirected2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex2)
+            {
+                // Notify developer
+                string formattedException2 = $"Error opening the download link.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                            
+                // Notify user
+                string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper2}",
+                    error3, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    internal static async Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    {
+        string downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+        string wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
+                                                  $"{wouldyouliketoberedirected2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex2)
+            {
+                // Notify developer
+                string formattedException2 = $"Error opening the download link.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                            
+                // Notify user
+                string erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                string error3 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper2}",
+                    error3, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    internal static void DownloadFailedMessageBox2()
+    {
+        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{downloadfailed2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static bool OverwriteSystemMessageBox(EasyModeSystemConfig selectedSystem)
+    {
+        string thesystem3 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+        string alreadyexists2 = (string)Application.Current.TryFindResource("alreadyexists") ?? "already exists.";
+        string doyouwanttooverwriteit2 = (string)Application.Current.TryFindResource("Doyouwanttooverwriteit") ?? "Do you want to overwrite it?";
+        string systemAlreadyExists2 = (string)Application.Current.TryFindResource("SystemAlreadyExists") ?? "System Already Exists";
+        MessageBoxResult result = MessageBox.Show($"{thesystem3} '{selectedSystem.SystemName}' {alreadyexists2}\n\n" +
+                                                  $"{doyouwanttooverwriteit2}", systemAlreadyExists2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.No)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    internal static void SystemAddedMessageBox(string systemFolder, string fullImageFolderPathForMessage, EasyModeSystemConfig selectedSystem)
+    {
+        string thesystem2 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+        string hasbeenaddedsuccessfully2 = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
+        string putRoMsorIsOsforthissysteminside2 = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
+        string putcoverimagesforthissysteminside2 = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
+        string systemAdded2 = (string)Application.Current.TryFindResource("SystemAdded") ?? "System Added";
+        MessageBox.Show($"{thesystem2} '{selectedSystem.SystemName}' {hasbeenaddedsuccessfully2}\n\n" +
+                        $"{putRoMsorIsOsforthissysteminside2} '{systemFolder}'\n\n" +
+                        $"{putcoverimagesforthissysteminside2} '{fullImageFolderPathForMessage}'.",
+            systemAdded2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void AddSystemFailedMessageBox()
+    {
+        string therewasanerroradding2 = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanerroradding2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void FolderCreationFailedMessageBox()
+    {
+        string theapplicationfailedtocreate2 = (string)Application.Current.TryFindResource("Theapplicationfailedtocreate") ?? "The application failed to create the necessary folders for this system.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{theapplicationfailedtocreate2}\n\n{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
 }

@@ -16,7 +16,6 @@ using ControlzEx.Theming;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using MessageBox = System.Windows.MessageBox;
 
 namespace SimpleLauncher;
 
@@ -99,7 +98,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             Interval = TimeSpan.FromSeconds(5) // Check every 5 seconds
         };
-        _controllerCheckTimer.Tick += ControllerCheckTimer_Tick;
+        _controllerCheckTimer.Tick += GamePadControllerCheckTimer_Tick;
         _controllerCheckTimer.Start();
             
         // Ensure the DataContext is set to the current MainWindow instance for binding
@@ -242,7 +241,7 @@ public partial class MainWindow : INotifyPropertyChanged
         Closing += MainWindow_Closing;
     }
     
-    private void ControllerCheckTimer_Tick(object sender, EventArgs e)
+    private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
     {
         GamePadController.Instance2.CheckAndReconnectControllers();
     }
@@ -270,7 +269,7 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    private void OpenUpdateHistory()
+    private static void OpenUpdateHistory()
     {
         var updateHistoryWindow = new UpdateHistory();
         updateHistoryWindow.Show();
@@ -322,7 +321,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SetViewMode(_settings.ViewMode);
         
         // Check if application has write access
-        if (!IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
+        if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
         }
@@ -404,7 +403,7 @@ public partial class MainWindow : INotifyPropertyChanged
         return favoriteGamePaths;
     }
     
-    private Task ShowPleaseWaitWindowAsync(Window window)
+    private static Task ShowPleaseWaitWindowAsync(Window window)
     {
         return Task.Run(() =>
         {
@@ -412,7 +411,7 @@ public partial class MainWindow : INotifyPropertyChanged
         });
     }
 
-    private Task ClosePleaseWaitWindowAsync(Window window)
+    private static Task ClosePleaseWaitWindowAsync(Window window)
     {
         return Task.Run(() =>
         {
@@ -451,31 +450,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
             // Notify user
             MessageBoxLibrary.MethodErrorMessageBox();
-        }
-    }
-
-    private static bool IsWritableDirectory(string path)
-    {
-        try
-        {
-            if (!Directory.Exists(path))
-                return false;
-
-            // Generate a unique temporary file path
-            string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
-
-            // Attempt to create and delete the file
-            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-            {
-                fs.Close();
-            }
-            File.Delete(testFile);
-
-            return true;
-        }
-        catch
-        {
-            return false;
         }
     }
     
@@ -1980,18 +1954,8 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            MainWindowSearchEngineErrorMessageBox();
+            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
         }
-    }
-
-    private static void MainWindowSearchEngineErrorMessageBox()
-    {
-        string therewasanerrorwiththesearchengine2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththesearchengine2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -2012,7 +1976,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
  
             // Notify user
-            MainWindowSearchEngineErrorMessageBox();
+            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
         }
     }
 
