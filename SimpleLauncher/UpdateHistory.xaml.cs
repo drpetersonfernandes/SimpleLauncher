@@ -22,12 +22,12 @@ public partial class UpdateHistory
         }
         catch (Exception ex)
         {
-            string formattedException = "'whatsnew.txt' not found or could not be loaded in the UpdateHistory window.\n\n" +
+            // Notify developer
+            string formattedException = "'whatsnew.txt' not found or could not be loaded.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
             logTask.Wait(TimeSpan.FromSeconds(2));
         }
-            
     }
 }

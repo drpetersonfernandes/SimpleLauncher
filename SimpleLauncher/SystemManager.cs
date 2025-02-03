@@ -112,15 +112,17 @@ public static class SystemManager
         // Validate the system folder path
         if (!IsValidPath(systemFolder))
         {
+            string systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
             hasErrors = true;
-            errorMessages.AppendLine($"System Folder path is not valid or does not exist: '{systemFolder}'\n\n");
+            errorMessages.AppendLine($"{systemFolderpathisnotvalid2} '{systemFolder}'\n\n");
         }
 
         // Validate the system image folder path if it's provided. Allow null or empty.
         if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
         {
+            string systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
-            errorMessages.AppendLine($"System Image Folder path is not valid or does not exist: '{selectedConfig.SystemImageFolder}'\n\n");
+            errorMessages.AppendLine($"{systemImageFolderpathisnotvalid2} '{selectedConfig.SystemImageFolder}'\n\n");
         }
 
         // Validate each emulator's location path if it's provided. Allow null or empty.
@@ -128,16 +130,25 @@ public static class SystemManager
         {
             if (!string.IsNullOrWhiteSpace(emulator.EmulatorLocation) && !IsValidPath(emulator.EmulatorLocation))
             {
+                string emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
                 hasErrors = true;
-                errorMessages.AppendLine($"Emulator location is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
+                errorMessages.AppendLine($"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
             }
         }
             
         // Display all error messages if there are any errors
         if (hasErrors)
         {
-            string extraline = "Edit System to fix it.";
-            MessageBox.Show(errorMessages + extraline,"Validation Errors", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            ListOfErrorsMessageBox();
+            void ListOfErrorsMessageBox()
+            {
+                string editSystemtofixit2 = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
+                string validationerrors2 = (string)Application.Current.TryFindResource("Validationerrors") ?? "Validation errors";
+                string extraline = editSystemtofixit2;
+                MessageBox.Show(errorMessages + extraline,
+                    validationerrors2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
     
