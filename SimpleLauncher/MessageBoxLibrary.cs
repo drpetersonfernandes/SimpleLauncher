@@ -629,4 +629,219 @@ public static class MessageBoxLibrary
         string searchQueryRequired = (string)Application.Current.TryFindResource("SearchQueryRequired") ?? "Search Query Required";
         MessageBox.Show(pleaseenterasearchquery, searchQueryRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
+    
+    internal static void ErrorWhileLoadingHelpUserXmlMessageBox()
+    {
+        var result = MessageBox.Show("Unexpected error while loading 'helpuser.xml'.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+    }
+
+    internal static void NoSystemInHelpUserXmlMessageBox()
+    {
+        var result = MessageBox.Show("No valid systems found in the file 'helpuser.xml'.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+    }
+
+    internal static bool CouldNotLoadHelpUserXmlMessageBox()
+    {
+        var result = MessageBox.Show("'Simple Launcher' could not load 'helpuser.xml'.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+        else
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    internal static bool FailedToLoadHelpUserXmlMessageBox()
+    {
+        var result = MessageBox.Show("Unable to load 'helpuser.xml'. The file may be corrupted.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+        else
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    internal static bool FileHelpUserXmlIsMissingMessageBox()
+    {
+        var result = MessageBox.Show("The file 'helpuser.xml' is missing.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+        else
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    internal static void ImageViewerErrorMessageBox()
+    {
+        MessageBox.Show("Failed to load the image in the Image Viewer window.\n\n" +
+                        "The image may be corrupted or inaccessible." +
+                        "The error was reported to the developer that will fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ReinstallSimpleLauncherFileCorruptedMessageBox()
+    {
+        var result = MessageBox.Show("The application could not load the file 'mame.xml' or it is corrupted.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+        else
+        {
+            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
+                            "The application will Shutdown",
+                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+            // Shutdown the application and exit
+            Application.Current.Shutdown();
+            Environment.Exit(0);    
+        }
+    }
+
+    internal static void ReinstallSimpleLauncherFileMissingMessageBox()
+    {
+        var result = MessageBox.Show("The file 'mame.xml' could not be found in the application folder.\n\n" +
+                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
+            "File Missing", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
+        }
+        else
+        {
+            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
+                            "The application will Shutdown",
+                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+            // Shutdown the application and exit
+            Application.Current.Shutdown();
+            Environment.Exit(0);    
+        }
+    }
+    
+    internal static void UpdaterNotFoundMessageBox()
+    {
+        MessageBox.Show("'Updater.exe' not found.\n\n" +
+                        "Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
+                        "The application will now shut down.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        // Shutdown the application and exit
+        Application.Current.Shutdown();
+        Environment.Exit(0);
+    }
+    
+    internal static void ErrorLoadingRomHistoryMessageBox()
+    {
+        MessageBox.Show("An error occurred while loading ROM history.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void NoHistoryXmlFoundMessageBox()
+    {
+        var result = MessageBox.Show("No 'history.xml' file found in the application folder.\n\n" +
+                                     "Do you want to reinstall 'Simple Launcher' to fix this issue?",
+            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+    }
+    
+    internal static void ErrorOpeningBrowserMessageBox()
+    {
+        MessageBox.Show("An error occurred while opening the browser.\n\n" +
+                        "The error was reported to the developer who will try to fix the issue.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
+    {
+        MessageBox.Show("'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.\n\n" +
+                        "Please grant 'Simple Launcher' administrative access.\n\n" +
+                        "Ensure that the 'Simple Launcher' folder is located in a writable directory.\n\n" +
+                        "If necessary, temporarily disable your antivirus software.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void SystemXmlIsCorruptedMessageBox()
+    {
+        MessageBox.Show("'system.xml' is corrupted or could not be opened.\n" +
+                        "Please fix it manually or delete it.\n" +
+                        "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
+                        "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
+                        "The application will shut down.",
+            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+        // Shutdown the application and exit
+        Application.Current.Shutdown();
+        Environment.Exit(0);
+    }
+
+    internal static void SystemModelXmlIsMissingMessageBox()
+    {
+        var messageBoxResult = MessageBox.Show("The file 'system_model.xml' is missing.\n\n" +
+                                               "'Simple Launcher' cannot work properly without this file.\n\n" +
+                                               "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
+            "Missing File", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (messageBoxResult == MessageBoxResult.Yes)
+        {
+            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+        }
+        else
+        {
+            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
+                            "The application will shut down.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            // Shutdown the application and exit
+            Application.Current.Shutdown();
+            Environment.Exit(0);
+        }
+    }
+    
+    internal static void FiLeSystemXmlIsCorruptedMessageBox()
+    {
+        string thefilesystemxmlisbadlycorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ?? "The file 'system.xml' is badly corrupted.";
+        string toseethedetailschecktheerroruserlog2 = (string)Application.Current.TryFindResource("Toseethedetailschecktheerroruserlog") ?? "To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
+                        $"{toseethedetailschecktheerroruserlog2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 }

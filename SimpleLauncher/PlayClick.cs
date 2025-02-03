@@ -27,6 +27,7 @@ public static class PlayClick
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage =
                 $"Error playing '{soundFileName}' sound.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +

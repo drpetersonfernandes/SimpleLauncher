@@ -5,7 +5,6 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace SimpleLauncher;
 
@@ -107,18 +106,15 @@ public class SettingsConfig
         {
             SetDefaultsAndSave();
 
-            string contextMessage = $"Error loading or parsing 'setting.xml' from SettingsConfig class.\n\n" +
+            // Notify developer
+            string contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show(
-                "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.\n\n" +
-                "Please grant 'Simple Launcher' administrative access.\n\n" +
-                "Ensure that the 'Simple Launcher' folder is located in a writable directory.\n\n" +
-                "If necessary, temporarily disable your antivirus software.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
         }
     }
 
@@ -224,7 +220,8 @@ public class SettingsConfig
     {
         if (string.IsNullOrWhiteSpace(systemName))
         {
-            string contextMessage = "The systemName is null or empty in the method UpdateSystemPlayTime.";
+            // Notify developer
+            string contextMessage = "The systemName is null or empty.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
@@ -234,6 +231,7 @@ public class SettingsConfig
 
         if (playTime == TimeSpan.Zero)
         {
+            // Notify developer
             string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             Exception ex = new();
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);

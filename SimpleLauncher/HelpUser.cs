@@ -33,15 +33,16 @@ public static class HelpUser
 
     public static void UpdateHelpUserTextBlock(TextBlock helpUserTextBlock, TextBox systemNameTextBox)
     {
-        // Retrieve the system name from the TextBox
         string systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
 
         if (string.IsNullOrEmpty(systemName))
         {
             string nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
+
             // Clear the TextBlock and display a default message if no system name is provided
             helpUserTextBlock.Inlines.Clear();
             helpUserTextBlock.Inlines.Add(new Run(nosystemnameprovided2));
+
             return;
         }
 
@@ -223,7 +224,9 @@ public static class HelpUser
     {
         // Fetch the system details from the configuration
         var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        return system?.SystemHelperText ?? $"No details available for {systemName}.";
+        
+        string nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
+        return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
     }
     
     private static void SetTextWithMarkdown(TextBlock textBlock, string text)
@@ -310,6 +313,4 @@ public static class HelpUser
             }
         }
     }
-
-
 }

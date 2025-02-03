@@ -20,6 +20,7 @@ public partial class RomHistoryWindow
     public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemConfig systemConfig)
     {
         InitializeComponent();
+     
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
@@ -41,7 +42,18 @@ public partial class RomHistoryWindow
 
             if (!File.Exists(historyFilePath))
             {
-                HistoryTextBlock.Text = "No history.xml file found in the application folder.";
+                // Notify developer
+                string contextMessage = "'history.xml' is missing.";
+                Exception ex = new Exception(contextMessage);
+                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                string nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
+                HistoryTextBlock.Text = nohistoryxmlfilefound2;
+
+                MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
+
                 return;
             }
 
@@ -70,7 +82,8 @@ public partial class RomHistoryWindow
 
             if (entry != null)
             {
-                string historyText = entry.Element("text")?.Value ?? "No text available.";
+                string notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
+                string historyText = entry.Element("text")?.Value ?? notextavailable2;
                 SetHistoryTextWithLinks(historyText);
             }
             else
@@ -80,27 +93,20 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"An error occurred while loading ROM history.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-            
-            MessageBox.Show("An error occurred while loading ROM history." +
-                            " The error was reported to the developer.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
         }
     }
 
     private void PromptForOnlineSearch()
     {
-        string didnotfindaRoMhistory2 = (string)Application.Current.TryFindResource("didnotfindaROMhistory") ?? "did not find a ROM history in the local database for the selected file.";
-        string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
-        string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
-        var result = MessageBox.Show(
-            $"'Simple Launcher' {didnotfindaRoMhistory2}\n\n{doyouwanttosearchonline2}",
-            rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
         RomNameTextBox.Text = _romName;
 
         if (_systemConfig.SystemIsMame)
@@ -113,12 +119,25 @@ public partial class RomHistoryWindow
         {
             RomDescriptionTextBox.Visibility = Visibility.Collapsed;
         }
+
         string noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
         HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;
-
-        if (result == MessageBoxResult.Yes)
+        
+        // Notify user
+        DidNotFindRomHistoryMessageBox();
+        void DidNotFindRomHistoryMessageBox()
         {
-            OpenGoogleSearch();
+            string simpleLauncherdidnotfindaRoMhistory2 = (string)Application.Current.TryFindResource("SimpleLauncherdidnotfindaROMhistory") ?? "'Simple Launcher' did not find a ROM history in the local database.";
+            string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
+            string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
+            var result = MessageBox.Show(
+                $"{simpleLauncherdidnotfindaRoMhistory2}\n\n" +
+                $"{doyouwanttosearchonline2}",
+                rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                OpenGoogleSearch();
+            }
         }
     }
 
@@ -133,18 +152,18 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"An error occurred while opening the browser.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
             
-            MessageBox.Show("An error occurred while opening the browser.\n\n" +
-                            "The error was reported to the developer who will try to fix the issue.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
         }
     }
-    
+
     private void SetHistoryTextWithLinks(string historyText)
     {
         HistoryTextBlock.Inlines.Clear();
@@ -203,5 +222,4 @@ public partial class RomHistoryWindow
             }
         }
     }
-
 }

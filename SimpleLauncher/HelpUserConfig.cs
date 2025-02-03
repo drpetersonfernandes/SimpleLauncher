@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Xml.Linq;
 
 namespace SimpleLauncher;
@@ -20,22 +19,15 @@ public class HelpUserConfig
         {
             if (!File.Exists(FilePath))
             {
-                string contextMessage = $"The file 'helpuser.xml' is missing.";
+                // Notify developer
+                string contextMessage = "The file 'helpuser.xml' is missing.";
                 Exception ex = new Exception(contextMessage);
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
-                
-                var result = MessageBox.Show("The file 'helpuser.xml' is missing.\n\n" +
-                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-                }
-                else
-                {
-                    return;
-                }
+
+                // Notify user
+                if (MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox()) return;
+
                 return;
             }
 
@@ -47,21 +39,13 @@ public class HelpUserConfig
             }
             catch (Exception ex)
             {
+                // Notify developer
                 string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                var result = MessageBox.Show("Unable to load 'helpuser.xml'. The file may be corrupted.\n\n" +
-                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-                }
-                else
-                {
-                    return;
-                }
+                // Notify user
+                if (MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox()) return;
 
                 return;
             }
@@ -79,22 +63,14 @@ public class HelpUserConfig
                     }
                     catch (Exception ex)
                     {
-                        string contextMessage = $"Warning: Failed to parse the file 'helpuser.xml'.";
+                        // Notify developer
+                        string contextMessage = "Failed to parse the file 'helpuser.xml'.";
                         Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                         logTask.Wait(TimeSpan.FromSeconds(2));
-                        
-                        var result = MessageBox.Show("Warning: Failed to parse the file 'helpuser.xml'.\n\n" +
-                                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-                            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                        
+
+                        // Notify user
+                        if (MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox()) return null;
+
                         return null; // Ignore invalid system entries
                     }
                 })
@@ -103,49 +79,40 @@ public class HelpUserConfig
 
             if (!Systems.Any())
             {
-                string contextMessage = $"No valid systems found in the file 'helpuser.xml'.";
+                // Notify developer
+                string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
                 Exception ex = new Exception(contextMessage);
                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
-                var result = MessageBox.Show("No valid systems found in the file 'helpuser.xml'.\n\n" +
-                                             "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-                }
+                // Notify user
+                MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
             
-            var result = MessageBox.Show("Unexpected error while loading 'helpuser.xml'.\n\n" +
-                                         "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-                "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-            if (result == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-            }
+            // Notify user
+            MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
+        }
+        
+        string NormalizeText(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+
+            // Process each line to remove leading spaces while keeping line breaks
+            var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
+            return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
         }
     }
-
-
-    private static string NormalizeText(string text)
+    
+    public class SystemHelper
     {
-        if (string.IsNullOrEmpty(text)) return string.Empty;
-
-        // Process each line to remove leading spaces while keeping line breaks
-        var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
-        return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
+        public string SystemName { get; init; }
+        public string SystemHelperText { get; init; }
     }
-}
-
-public class SystemHelper
-{
-    public string SystemName { get; init; }
-    public string SystemHelperText { get; init; }
 }

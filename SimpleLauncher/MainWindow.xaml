@@ -30,18 +30,25 @@
                     <MenuItem x:Name="LanguageSpanish" Header="Español" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageFrench" Header="Français" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageHindi" Header="हिन्दी" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageIndonesianMalay" Header="Indonesian (Malay)" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageItalian" Header="Italiano" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageIndonesianMalay" Header="Indonesian (Malay)" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguageItalian" Header="Italiano" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                     <MenuItem x:Name="LanguageJapanese" Header="日本語" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageKorean" Header="한국어" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageDutch" Header="Nederlands" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguagePortugueseBr" Header="Português" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageDutch" Header="Nederlands" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguagePortugueseBr" Header="Português" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                     <MenuItem x:Name="LanguageRussian" Header="Русский" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageTurkish" Header="Türkçe" Click="ChangeLanguage_Click" IsCheckable="True" />
                     <MenuItem x:Name="LanguageUrdu" Header="اردو" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageVietnamese" Header="Tiếng Việt" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageChineseSimplified" Header="简体中文" Click="ChangeLanguage_Click" IsCheckable="True" />
-                    <MenuItem x:Name="LanguageChineseTraditional" Header="繁體中文" Click="ChangeLanguage_Click" IsCheckable="True" />
+                    <MenuItem x:Name="LanguageVietnamese" Header="Tiếng Việt" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguageChineseSimplified" Header="简体中文" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
+                    <MenuItem x:Name="LanguageChineseTraditional" Header="繁體中文" Click="ChangeLanguage_Click"
+                              IsCheckable="True" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Theme}">
                     <MenuItem.Icon>

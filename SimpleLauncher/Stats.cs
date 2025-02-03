@@ -80,9 +80,11 @@ public static class Stats
 
             if (!response.IsSuccessStatusCode)
             {
+                // Notify developer
                 string errorMessage = $"API responded with an error. Status Code: {response.StatusCode}. " +
                                       $"EmulatorName: {emulatorName ?? "Unknown"}.";
                 await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
+             
                 return false;
             }
 
@@ -90,6 +92,7 @@ public static class Stats
         }
         catch (HttpRequestException ex)
         {
+            // Notify developer
             string errorMessage = $"Error communicating with the API at {apiUrl}. " +
                                   $"EmulatorName: {emulatorName ?? "Unknown"}. " +
                                   $"Exception details: {ex.Message}";
@@ -97,6 +100,7 @@ public static class Stats
         }
         catch (Exception ex)
         {
+            // Notify developer
             string errorMessage = $"Unexpected error while using {apiUrl}. " +
                                   $"EmulatorName: {emulatorName ?? "Unknown"}. " +
                                   $"Exception details: {ex.Message}";

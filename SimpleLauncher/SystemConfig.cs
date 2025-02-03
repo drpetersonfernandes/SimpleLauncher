@@ -22,9 +22,9 @@ public class SystemConfig
         
     public class Emulator
     {
-        public string EmulatorName { get; init; }
-        public string EmulatorLocation { get; init; }
-        public string EmulatorParameters { get; init; }
+        public string EmulatorName { get; set; }
+        public string EmulatorLocation { get; set; }
+        public string EmulatorParameters { get; set; }
     }
         
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
@@ -52,22 +52,9 @@ public class SystemConfig
                         {
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
-                            
-                            string icouldnotfindthefile2 = (string)Application.Current.TryFindResource("Icouldnotfindthefile") ?? "I could not find the file";
-                            string whichisrequiredtostart2 = (string)Application.Current.TryFindResource("whichisrequiredtostart") ?? ", which is required to start the application.";
-                            string butIfoundabackupfile2 = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
-                            string wouldyouliketorestore2 = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
-                            string restoreBackup2 = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
-                            var restoreResult = MessageBox.Show($"{icouldnotfindthefile2} 'system.xml'{whichisrequiredtostart2}\n\n" +
-                                                                $"{butIfoundabackupfile2}\n\n" +
-                                                                $"{wouldyouliketorestore2}",
-                                restoreBackup2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                            if (restoreResult == MessageBoxResult.Yes)
-                            {
-                                // Rename the most recent backup file to system.xml
-                                File.Copy(mostRecentBackupFile, XmlPath, false);
-                            }
+                            // Notify user
+                            FileSystemXmlNotFindMessageBox(mostRecentBackupFile);
                         }
                         else
                         {
@@ -80,54 +67,30 @@ public class SystemConfig
                             }
                             else
                             {
-                                string contextMessage = $"'system_model.xml' was not found in the application folder.";
+                                // Notify developer
+                                string contextMessage = "'system_model.xml' was not found in the application folder.";
                                 Exception ex = new Exception(contextMessage);
                                 Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                                 logTask.Wait(TimeSpan.FromSeconds(2));
                                         
-                                // Ask the user if they want to automatically reinstall Simple Launcher
-                                var messageBoxResult = MessageBox.Show(
-                                    "The file 'system_model.xml' is missing.\n\n" +
-                                    "'Simple Launcher' cannot work properly without this file.\n\n" +
-                                    "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
-                                    "Missing File", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                                if (messageBoxResult == MessageBoxResult.Yes)
-                                {
-                                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                                                    "The application will shut down.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                                    // Shutdown the application and exit
-                                    Application.Current.Shutdown();
-                                    Environment.Exit(0);
-                                }
+                                // Notify user
+                                MessageBoxLibrary.SystemModelXmlIsMissingMessageBox();
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
                     Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
-                    MessageBox.Show("'system.xml' is corrupted or could not be opened.\n" +
-                                    "Please fix it manually or delete it.\n" +
-                                    "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
-                                    "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                                    "The application will shut down.",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
-                    // Shutdown the application and exit
-                    Application.Current.Shutdown();
-                    Environment.Exit(0);
-                    
+                    // Notify user
+                    MessageBoxLibrary.SystemXmlIsCorruptedMessageBox();
+
                     return null;
                 }
             }
@@ -140,15 +103,15 @@ public class SystemConfig
             }
             catch (XmlException ex)
             {
-                string errorDetails = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                      $"To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
-                MessageBox.Show(errorDetails, "XML Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                // Notify developer
                 string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                                $"Exception type: {ex.GetType().Name}\n" +
                                                $"Exception details: {ex.Message}";
                 Task logTask = LogErrors.LogErrorAsync(ex, errorDetailsDeveloper);
                 logTask.Wait(TimeSpan.FromSeconds(2));
+                
+                // Notify user
+                MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox();
 
                 return null;
             }
@@ -260,7 +223,14 @@ public class SystemConfig
                 // Notify user about each invalid configuration in a single message per system
                 foreach (var error in invalidConfigs.Values)
                 {
-                    MessageBox.Show(error, "Invalid System Configuration", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    // Notify user
+                    InvalidSystemConfigurationMessageBox();
+                    void InvalidSystemConfigurationMessageBox()
+                    {
+                        string invalidSystemConfiguration2 = (string)Application.Current.TryFindResource("InvalidSystemConfiguration") ?? "Invalid System Configuration";
+                        MessageBox.Show(error,
+                            invalidSystemConfiguration2, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
             }
 
@@ -268,18 +238,53 @@ public class SystemConfig
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            MessageBox.Show("'system.xml' is corrupted or could not be opened.\n\n" +
-                            "Please fix it manually or delete it.\n\n" +
-                            "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
-                            "If you want to debug the error yourself, check the file 'error_user.log' inside the 'Simple Launcher' folder.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Notify user
+            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox();
+            
             return null;
+        }
+
+        void FileSystemXmlNotFindMessageBox(string mostRecentBackupFile)
+        {
+            string icouldnotfindthefilesystemxml2 = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
+            string butIfoundabackupfile2 = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
+            string wouldyouliketorestore2 = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
+            string restoreBackup2 = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
+            var restoreResult = MessageBox.Show($"{icouldnotfindthefilesystemxml2}\n\n" +
+                                                $"{butIfoundabackupfile2}\n\n" +
+                                                $"{wouldyouliketorestore2}",
+                restoreBackup2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (restoreResult == MessageBoxResult.Yes)
+            {
+                // Rename the most recent backup file to system.xml
+                try
+                {
+                    File.Copy(mostRecentBackupFile, XmlPath, false);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    string contextMessage = $"'Simple Launcher' was unable to restore the last backup.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
+                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
+                    logTask.Wait(TimeSpan.FromSeconds(2));
+
+                    // Notify user
+                    string simpleLauncherwasunabletorestore2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ?? "'Simple Launcher' was unable to restore the last backup.";
+                    string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                    MessageBox.Show(simpleLauncherwasunabletorestore2,
+                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

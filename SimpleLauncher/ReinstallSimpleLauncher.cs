@@ -21,14 +21,8 @@ public static class ReinstallSimpleLauncher
         }
         else
         {
-            MessageBox.Show("'Updater.exe' not found.\n\n" +
-                            "Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                            "The application will now shut down.",
-                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            // Notify user
+            MessageBoxLibrary.UpdaterNotFoundMessageBox();
         }
     }
 }

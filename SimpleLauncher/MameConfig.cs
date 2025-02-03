@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Xml.Linq;
 
 namespace SimpleLauncher;
@@ -22,12 +21,14 @@ public class MameConfig
         // Check if the mame.xml file exists
         if (!File.Exists(xmlPath))
         {
-            string contextMessage = $"The file 'mame.xml' could not be found in the application folder.";
+            // Notify developer
+            string contextMessage = "The file 'mame.xml' could not be found in the application folder.";
             Exception ex = new Exception(contextMessage);
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
 
-            ReinstallSimpleLauncherFileMissing();
+            // Notify user
+            MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
 
             return new List<MameConfig>();
         }
@@ -44,55 +45,17 @@ public class MameConfig
         }
         catch (Exception ex)
         {
+            // Notify developer
             string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
             Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
             logTask.Wait(TimeSpan.FromSeconds(2));
-                
-            ReinstallSimpleLauncherFileCorrupted();
+
+            // Notify user
+            MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();
 
             return new List<MameConfig>();
-        }
-    }
-
-    private static void ReinstallSimpleLauncherFileCorrupted()
-    {
-        var result = MessageBox.Show("The application could not load the file 'mame.xml' or it is corrupted.\n\n" +
-                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-        }
-        else
-        {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
-                            "The application will Shutdown", "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);    
-        }
-    }
-
-    private static void ReinstallSimpleLauncherFileMissing()
-    {
-        var result = MessageBox.Show("The file 'mame.xml' could not be found in the application folder.\n\n" +
-                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-            "File Missing", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
-        }
-        else
-        {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
-                            "The application will Shutdown", "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);    
         }
     }
 }

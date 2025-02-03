@@ -426,7 +426,7 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Phần mở rộng để khởi chạy sau khi giải nén</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Phần mở rộng để tìm kiếm trong thư mục hệ thống</system:String>
-    
+
     <system:String x:Key="BatchConvertIsoToXiso">Chuyển đổi hàng loạt từ ISO sang XISO</system:String>
     <system:String x:Key="Thefilesystemxmliscorrupted">Tệp 'system.xml' bị hỏng.</system:String>
     <system:String x:Key="Youneedtofixitmanually">Bạn cần sửa thủ công hoặc xóa tệp này.</system:String>
@@ -445,7 +445,7 @@
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Đã xảy ra lỗi khi khởi chạy công cụ đã chọn.</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Không tìm thấy công cụ đã chọn tại vị trí dự kiến.</system:String>
-    
+
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
     <system:String x:Key="Afilereadwriteerror">Đã xảy ra lỗi đọc/ghi tệp sau khi tải xuống.</system:String>
@@ -487,48 +487,48 @@
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống 'Simple Launcher' để tải về thủ công không?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Đã xảy ra lỗi khi cài đặt hoặc cập nhật ứng dụng.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
-    
-    <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển, họ sẽ cố gắng khắc phục.</system:String>
-    <system:String x:Key="PleasereinstallSimpleLauncher">Vui lòng cài đặt lại 'Simple Launcher' thủ công để khắc phục sự cố.</system:String>
-    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
-    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công để khắc phục sự cố.</system:String>
-    <system:String x:Key="Manualnotfound">Không tìm thấy hướng dẫn sử dụng.</system:String>
+
+    <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển, người sẽ cố gắng sửa chữa vấn đề.</system:String>
+    <system:String x:Key="PleasereinstallSimpleLauncher">Vui lòng cài đặt lại 'Simple Launcher' thủ công để sửa chữa vấn đề.</system:String>
+    <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để sửa chữa vấn đề không?</system:String>
+    <system:String x:Key="PleasereinstallSimpleLaunchermanually">Vui lòng cài đặt lại 'Simple Launcher' thủ công để sửa chữa vấn đề.</system:String>
+    <system:String x:Key="Manualnotfound">Không tìm thấy hướng dẫn</system:String>
     <system:String x:Key="Thedownloadedfileisnotavalidcompressedfile">Tệp đã tải xuống không phải là tệp nén hợp lệ.</system:String>
     <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
     <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Đảm bảo rằng tệp không bị hỏng.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Cấp quyền quản trị cho 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Đảm bảo rằng 'Simple Launcher' nằm trong một thư mục có thể ghi.</system:String>
+    <system:String x:Key="GrantadministrativeaccesstoSimple">Cấp quyền truy cập quản trị cho 'Simple Launcher'.</system:String>
+    <system:String x:Key="EnsureSimpleLauncherisinawritable">Đảm bảo rằng 'Simple Launcher' nằm trong thư mục có thể ghi.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Tệp đã chọn không thể giải nén.</system:String>
-    <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa điều này trong cửa sổ chỉnh sửa.</system:String>
-    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ cần chụp.</system:String>
-    <system:String x:Key="Therewasanerrorintherightclick">Đã xảy ra lỗi trong menu nhấp chuột phải.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Có sự cố khi mở liên kết video.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Có sự cố khi mở liên kết thông tin.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Có sự cố khi mở cửa sổ lịch sử.</system:String>
-    <system:String x:Key="Therewasanerrortryingtoopenthe">Đã xảy ra lỗi khi cố mở ảnh bìa.</system:String>
-    <system:String x:Key="Failedtoopenthemanualfor">Không thể mở hướng dẫn sử dụng cho mục yêu thích này.</system:String>
-    <system:String x:Key="Failedtoopenthewalkthroughfile">Không thể mở tệp chỉ dẫn.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' không thể chụp màn hình.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Đã xảy ra lỗi khi cố gắng xóa tệp.</system:String>
+    <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa lỗi đó trong cửa sổ Chỉnh sửa.</system:String>
+    <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ lựa chọn sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ mong muốn để chụp.</system:String>
+    <system:String x:Key="Therewasanerrorintherightclick">Đã xảy ra lỗi trong menu ngữ cảnh chuột phải.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Đã xảy ra sự cố khi mở liên kết Video.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Đã xảy ra sự cố khi mở liên kết Thông tin.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Đã xảy ra sự cố khi mở cửa sổ Lịch sử.</system:String>
+    <system:String x:Key="Therewasanerrortryingtoopenthe">Đã xảy ra lỗi khi cố gắng mở hình ảnh bìa.</system:String>
+    <system:String x:Key="Failedtoopenthemanualfor">Không thể mở hướng dẫn cho mục yêu thích này.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthroughfile">Không thể mở tệp hướng dẫn.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' không thể chụp ảnh màn hình.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletrying">Đã xảy ra lỗi khi cố gắng xoá tệp.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
-    <system:String x:Key="Therewasanerrorfinding">Đã xảy ra lỗi khi tìm kiếm các tệp trò chơi.</system:String>
+    <system:String x:Key="Therewasanerrorfinding">Đã xảy ra lỗi khi tìm các tệp trò chơi.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Anerroroccurredwhilecounting">Đã xảy ra lỗi khi đếm tệp.</system:String>
-    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Đã xảy ra lỗi khi thêm trò chơi này vào mục yêu thích.</system:String>
-    <system:String x:Key="Anerroroccurredwhileremoving">Đã xảy ra lỗi khi xóa trò chơi này khỏi mục yêu thích.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideo">Có sự cố khi mở liên kết video.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Có sự cố khi mở liên kết thông tin.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Có sự cố khi mở cửa sổ lịch sử.</system:String>
-    <system:String x:Key="Failedtoopenthemanual">Không thể mở hướng dẫn sử dụng.</system:String>
-    <system:String x:Key="Failedtoopenthewalkthrough">Không thể mở chỉ dẫn.</system:String>
+    <system:String x:Key="Anerroroccurredwhileaddingthisgame">Đã xảy ra lỗi khi thêm trò chơi này vào danh sách yêu thích.</system:String>
+    <system:String x:Key="Anerroroccurredwhileremoving">Đã xảy ra lỗi khi xoá trò chơi này khỏi danh sách yêu thích.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheVideo">Đã xảy ra sự cố khi mở liên kết Video.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthe">Đã xảy ra sự cố khi mở liên kết Thông tin.</system:String>
+    <system:String x:Key="TherewasaproblemopeningtheHistory">Đã xảy ra sự cố khi mở cửa sổ Lịch sử.</system:String>
+    <system:String x:Key="Failedtoopenthemanual">Không thể mở hướng dẫn.</system:String>
+    <system:String x:Key="Failedtoopenthewalkthrough">Không thể mở hướng dẫn bước đi.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Không thể lưu ảnh chụp màn hình.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Đã xảy ra lỗi khi cố gắng xóa tệp.</system:String>
-    <system:String x:Key="Unabletoloadimage">Không thể tải hình ảnh.</system:String>
+    <system:String x:Key="Anerroroccurredwhiletryingtodelete">Đã xảy ra lỗi khi cố gắng xoá tệp.</system:String>
+    <system:String x:Key="Unabletoloadimage">Không thể tải hình ảnh</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Hình ảnh này có thể bị hỏng.</system:String>
-    <system:String x:Key="Thedefaultimagewillbedisplayed">Hình ảnh mặc định sẽ được hiển thị.</system:String>
-    <system:String x:Key="Imageloadingerror">Đã xảy ra lỗi khi tải hình ảnh.</system:String>
+    <system:String x:Key="Thedefaultimagewillbedisplayed">Thay vào đó, hình ảnh mặc định sẽ được hiển thị.</system:String>
+    <system:String x:Key="Imageloadingerror">Lỗi tải hình ảnh</system:String>
     <system:String x:Key="Nodefaultpngfilefoundintheimages">Không tìm thấy tệp 'default.png' trong thư mục hình ảnh.</system:String>
-    <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ tắt.</system:String>
-    
+    <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ bị đóng.</system:String>
+
 </ResourceDictionary>

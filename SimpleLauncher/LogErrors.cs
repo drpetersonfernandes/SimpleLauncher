@@ -102,7 +102,7 @@ public static class LogErrors
             { new StringContent(logContent), "message" }
         };
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://purelogiccode.com/simplelauncher/send_email.php")
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.purelogiccode.com/simplelauncher/send_email.php")
         {
             Content = formData
         };
