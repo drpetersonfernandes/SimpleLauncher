@@ -110,7 +110,7 @@ public partial class Favorites
         else
         {
             // Notify user
-            SelectAFavoriteToRemoveMessageBox();
+            MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
         }
     }
     
@@ -129,7 +129,7 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
                     
                     // Notify user
-                    RightClickContextMenuErrorMessageBox();
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
                     
                     return;
                 }
@@ -147,7 +147,7 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
-                    RightClickContextMenuErrorMessageBox();
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
                     
                     return;
                 }
@@ -460,21 +460,7 @@ public partial class Favorites
                     PlayClick.PlayClickSound();
                     
                     // Notify user
-                    TakeScreenShotMessageBox();
-                    void TakeScreenShotMessageBox()
-                    {
-                        string thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
-                        string setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
-                        string youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-                        string aselectionwindowwillopeninSimpleLauncherallowingyou2 = (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ?? "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
-                        string assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
-                        MessageBox.Show($"{thegamewilllaunchnow2}\n\n" +
-                                        $"{setthegamewindowto2}\n\n" +
-                                        $"{youshouldchangetheemulatorparameters2}\n\n" +
-                                        $"{aselectionwindowwillopeninSimpleLauncherallowingyou2}\n\n" +
-                                        $"{assoonasyouselectawindow2}",
-                            takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    MessageBoxLibrary.TakeScreenShotMessageBox();
 
                     _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
                     _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
@@ -509,7 +495,22 @@ public partial class Favorites
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            DeleteFile(filePath, fileNameWithExtension);
+                            try
+                            {
+                                DeleteFile(filePath, fileNameWithExtension);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Notify developer
+                                string formattedException = $"Error deleting the file.\n\n" +
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
+                                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                                logTask.Wait(TimeSpan.FromSeconds(2));
+                                
+                                // Notify user
+                                // TODO
+                            }
                             RemoveFromFavorites(selectedFavorite);
                         }
                     }
@@ -545,17 +546,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            RightClickContextMenuErrorMessageBox();
-        }
-        
-        void RightClickContextMenuErrorMessageBox()
-        {
-            string therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
         
         string GetFullPath(string path)
@@ -586,14 +577,7 @@ public partial class Favorites
             else
             {
                 // Notify user
-                SelectGameToLaunchMessageBox();
-                void SelectGameToLaunchMessageBox()
-                {
-                    string pleaseselectagametolaunch2 = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
-                    string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                    MessageBox.Show(pleaseselectagametolaunch2,
-                        info2, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBoxLibrary.SelectGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
@@ -605,7 +589,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
         }
     }
 
@@ -622,7 +606,7 @@ public partial class Favorites
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 // Notify user
-                CouldNotLaunchThisGameMessageBox();
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
 
                 return;
             }
@@ -636,7 +620,7 @@ public partial class Favorites
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 // Notify user
-                CouldNotLaunchThisGameMessageBox();
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
 
                 return;
             }
@@ -676,15 +660,7 @@ public partial class Favorites
                 await LogErrors.LogErrorAsync(exception, formattedException);
 
                 // Notify user
-                GameFileDoesNotExistMessageBox();
-                void GameFileDoesNotExistMessageBox()
-                {
-                    string thegamefiledoesnotexist2 = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
-                    string thefavoritehasbeenremovedfromthelist2 = (string)Application.Current.TryFindResource("Thefavoritehasbeenremovedfromthelist") ?? "The favorite has been removed from the list.";
-                    string fileNotFound2 = (string)Application.Current.TryFindResource("FileNotFound") ?? "File Not Found";
-                    MessageBox.Show($"{thegamefiledoesnotexist2}\n\n{thefavoritehasbeenremovedfromthelist2}",
-                        fileNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
 
                 return;
             }
@@ -712,7 +688,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
         }
     }
         
@@ -750,16 +726,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            CouldNotOpenVideoLinkMessageBox();
-            void CouldNotOpenVideoLinkMessageBox()
-            {
-                string therewasaproblemopeningtheVideoLink2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideoLink") ?? "There was a problem opening the Video Link.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{therewasaproblemopeningtheVideoLink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
         }
     }
 
@@ -789,16 +756,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            CouldNotOpenInfoLinkMessageBox();
-            void CouldNotOpenInfoLinkMessageBox()
-            {
-                string therewasaproblemopeningtheInfoLink2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheInfoLink") ?? "There was a problem opening the Info Link.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{therewasaproblemopeningtheInfoLink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBoxLibrary.CouldNotOpenInfoLinkMessageBox();
         }
     }
         
@@ -830,16 +788,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            CouldNotOpenHistoryWindowMessageBox();
-            void CouldNotOpenHistoryWindowMessageBox()
-            {
-                string therewasaproblemopeningtheHistorywindow2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
-                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                MessageBox.Show($"{therewasaproblemopeningtheHistorywindow2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
 
@@ -858,7 +807,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            ErrorOpeningCoverImageMessageBox();
+            MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
 
             return;
         }
@@ -875,14 +824,7 @@ public partial class Favorites
             else
             {
                 // Notify user
-                ThereIsNoCoverMessageBox();
-                void ThereIsNoCoverMessageBox()
-                {
-                    string thereisnocoverassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverassociated") ?? "There is no cover associated with this favorite.";
-                    string covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
-                    MessageBox.Show(thereisnocoverassociated2,
-                        covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBoxLibrary.ThereIsNoCoverMessageBox();
             }
         }
         catch (Exception ex)
@@ -896,16 +838,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            ErrorOpeningCoverImageMessageBox();
-        }
-        void ErrorOpeningCoverImageMessageBox()
-        {
-            string therewasanerrortryingtoopenthe2 = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{therewasanerrortryingtoopenthe2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
         }
     }
 
@@ -932,14 +865,7 @@ public partial class Favorites
         }
 
         // Notify user
-        ThereIsNoTitleSnapshotMessageBox();
-        void ThereIsNoTitleSnapshotMessageBox()
-        {
-            string thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot2") ?? "There is no title snapshot associated with this favorite.";
-            string titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
-            MessageBox.Show(thereisnotitlesnapshot2,
-                titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
     }
 
     private void OpenGameplaySnapshot(string systemName, string fileName)
@@ -964,14 +890,7 @@ public partial class Favorites
         }
 
         // Notify user
-        NoGameplaySnapshotMessageBox();
-        void NoGameplaySnapshotMessageBox()
-        {
-            string thereisnogameplaysnapshotassociated2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshotassociated") ?? "There is no gameplay snapshot associated with this favorite.";
-            string gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
-            MessageBox.Show(thereisnogameplaysnapshotassociated2,
-                gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.NoGameplaySnapshotMessageBox();
     }
 
     private void OpenCart(string systemName, string fileName)
@@ -995,14 +914,7 @@ public partial class Favorites
             }
         }
         // Notify user
-        ThereIsNoCartMessageBox();
-        void ThereIsNoCartMessageBox()
-        {
-            string thereisnocartassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnocartassociatedwith") ?? "There is no cart associated with this favorite.";
-            string cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
-            MessageBox.Show(thereisnocartassociatedwith2,
-                cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoCartMessageBox();
     }
 
     private void PlayVideo(string systemName, string fileName)
@@ -1027,14 +939,7 @@ public partial class Favorites
                 return;
             }
         }
-        ThereIsNoVideoFileMessageBox();
-        void ThereIsNoVideoFileMessageBox()
-        {
-            string thereisnovideofileassociated2 = (string)Application.Current.TryFindResource("Thereisnovideofileassociated") ?? "There is no video file associated with this favorite.";
-            string videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
-            MessageBox.Show(thereisnovideofileassociated2,
-                videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
     }
 
     private void OpenManual(string systemName, string fileName)
@@ -1072,30 +977,14 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
-                    CouldNotOpenManualMessageBox();
-                    void CouldNotOpenManualMessageBox()
-                    {
-                        string failedtoopenthemanualfor2 = (string)Application.Current.TryFindResource("Failedtoopenthemanualfor") ?? "Failed to open the manual for this favorite.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                        MessageBox.Show($"{failedtoopenthemanualfor2}\n\n" +
-                                        $"{theerrorwasreportedtothedeveloper2}",
-                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
 
                     return;
                 }
             }
         }
         
-        ThereIsNoManualMessageBox();
-        void ThereIsNoManualMessageBox()
-        {
-            string thereisnomanualassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnomanualassociatedwith") ?? "There is no manual associated with this favorite.";
-            string manualnotfound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
-            MessageBox.Show(thereisnomanualassociatedwith2,
-                manualnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoManualMessageBox();
     }
 
     private void OpenWalkthrough(string systemName, string fileName)
@@ -1131,30 +1020,14 @@ public partial class Favorites
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
-                    CouldNotOpenWalkthroughMessageBox();
-                    void CouldNotOpenWalkthroughMessageBox()
-                    {
-                        string failedtoopenthewalkthroughfile2 = (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ?? "Failed to open the walkthrough file.";
-                        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                        MessageBox.Show($"{failedtoopenthewalkthroughfile2}\n\n" +
-                                        $"{theerrorwasreportedtothedeveloper2}",
-                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
 
                     return;
                 }
             }
         }
 
-        ThereIsNoWalkthroughMessageBox();
-        void ThereIsNoWalkthroughMessageBox()
-        {
-            string thereisnowalkthroughfileassociated2 = (string)Application.Current.TryFindResource("Thereisnowalkthroughfileassociated") ?? "There is no walkthrough file associated with this favorite.";
-            string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
-            MessageBox.Show(thereisnowalkthroughfileassociated2,
-                walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
     }
 
     private void OpenCabinet(string systemName, string fileName)
@@ -1177,14 +1050,7 @@ public partial class Favorites
             }
         }
 
-        ThereIsNoCabinetMessageBox();
-        void ThereIsNoCabinetMessageBox()
-        {
-            string thereisnocabinetfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocabinetfileassociated") ?? "There is no cabinet file associated with this favorite.";
-            string cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
-            MessageBox.Show(thereisnocabinetfileassociated2,
-                cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
     }
 
     private void OpenFlyer(string systemName, string fileName)
@@ -1206,14 +1072,7 @@ public partial class Favorites
                 return;
             }
         }
-        ThereIsNoFlyerMessageBox();
-        void ThereIsNoFlyerMessageBox()
-        {
-            string thereisnoflyerfileassociatedwith2 = (string)Application.Current.TryFindResource("Thereisnoflyerfileassociatedwith") ?? "There is no flyer file associated with this favorite.";
-            string flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
-            MessageBox.Show(thereisnoflyerfileassociatedwith2,
-                flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
     }
 
     private void OpenPcb(string systemName, string fileName)
@@ -1235,14 +1094,7 @@ public partial class Favorites
                 return;
             }
         }
-        ThereIsNoPcbMessageBox();
-        void ThereIsNoPcbMessageBox()
-        {
-            string thereisnoPcBfileassociated2 = (string)Application.Current.TryFindResource("ThereisnoPCBfileassociated") ?? "There is no PCB file associated with this favorite.";
-            string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
-            MessageBox.Show(thereisnoPcBfileassociated2,
-                pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
     
     private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
@@ -1263,7 +1115,7 @@ public partial class Favorites
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
-                TakeScreenShotErrorMessageBox();
+                MessageBoxLibrary.TakeScreenShotErrorMessageBox();
 
                 return;
             }
@@ -1339,15 +1191,7 @@ public partial class Favorites
             await flashWindow.ShowFlashAsync();
                 
             // Notify the user
-            ScreenshotSavedMessageBox();
-            void ScreenshotSavedMessageBox()
-            {
-                string screenshotsavedsuccessfullyat2 = (string)Application.Current.TryFindResource("Screenshotsavedsuccessfullyat") ?? "Screenshot saved successfully at:";
-                string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-                MessageBox.Show($"{screenshotsavedsuccessfullyat2}\n\n" +
-                                $"{screenshotPath}",
-                    success2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.ScreenshotSavedMessageBox(screenshotPath);
 
             LoadFavorites();
 
@@ -1362,16 +1206,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            TakeScreenShotErrorMessageBox();
-        }
-        void TakeScreenShotErrorMessageBox()
-        {
-            string simpleLaunchercouldnottakethescreenshot2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnottakethescreenshot") ?? "'Simple Launcher' could not take the screenshot.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
-            MessageBox.Show($"{simpleLaunchercouldnottakethescreenshot2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.TakeScreenShotErrorMessageBox();
         }
     }
         
@@ -1386,15 +1221,7 @@ public partial class Favorites
                 PlayClick.PlayTrashSound();
 
                 // Notify user
-                FileDeletedMessageBox();
-                void FileDeletedMessageBox()
-                {
-                    string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-                    string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-                    string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
-                    MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
-                        fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBoxLibrary.FileDeletedMessageBox(fileNameWithExtension);
             }
             catch (Exception ex)
             {
@@ -1406,7 +1233,7 @@ public partial class Favorites
                 logTask.Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                CouldNotDeleteTheFileMessageBox();
+                MessageBoxLibrary.CouldNotDeleteTheFileMessageBox();
             }
         }
         else
@@ -1419,16 +1246,7 @@ public partial class Favorites
             logTask.Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            CouldNotDeleteTheFileMessageBox();
-        }
-        void CouldNotDeleteTheFileMessageBox()
-        {
-            string anerroroccurredwhiletrying2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletrying") ?? "An error occurred while trying to delete the file.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{anerroroccurredwhiletrying2}" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.CouldNotDeleteTheFileMessageBox();
         }
     }
         
@@ -1451,7 +1269,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
         }
     }
        
@@ -1479,7 +1297,7 @@ public partial class Favorites
             }
             else
             {
-                SelectAFavoriteToRemoveMessageBox();
+                MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
             }
         }
     }
@@ -1527,23 +1345,4 @@ public partial class Favorites
             return false;
         }
     }
-    
-    private void SelectAFavoriteToRemoveMessageBox()
-    {
-        string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
-        string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-        MessageBox.Show(pleaseselectafavoritetoremove2,
-            warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
-    }
-    
-    private void CouldNotLaunchThisGameMessageBox()
-    {
-        string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
 }
