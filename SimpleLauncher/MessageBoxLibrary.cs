@@ -151,7 +151,8 @@ public static class MessageBoxLibrary
     {
         string thereisnowalkthrough2 = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
         string walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
-        MessageBox.Show(thereisnowalkthrough2, walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show(thereisnowalkthrough2,
+            walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     internal static void ThereIsNoCabinetMessageBox()
@@ -192,7 +193,7 @@ public static class MessageBoxLibrary
     {
         string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
         string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-        string fileDeleted2 = (string)Application.Current.TryFindResource("FileDeleted") ?? "File Deleted";
+        string fileDeleted2 = (string)Application.Current.TryFindResource("Filedeleted2") ?? "File deleted";
         MessageBox.Show($"{thefile2} '{fileNameWithExtension}' {hasbeensuccessfullydeleted2}",
             fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
@@ -305,7 +306,8 @@ public static class MessageBoxLibrary
     {
         string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{fileNameWithoutExtension} {isalreadyinfavorites2}", info2, MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show($"{fileNameWithoutExtension} {isalreadyinfavorites2}",
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     internal static void FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
@@ -391,6 +393,7 @@ public static class MessageBoxLibrary
                                      $"{theerrorwasreportedtothedeveloper2}\n\n" +
                                      $"{dowanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             try
@@ -568,6 +571,7 @@ public static class MessageBoxLibrary
             $"{alternativelythelaunchmayhavebeenblockedby}\n\n" +
             $"{wouldyouliketoopentheerroruserlog}",
             error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             try
@@ -611,7 +615,8 @@ public static class MessageBoxLibrary
     {
         string pleaseselectasystembeforesearching = (string)Application.Current.TryFindResource("Pleaseselectasystembeforesearching") ?? "Please select a system before searching.";
         string systemNotSelected = (string)Application.Current.TryFindResource("SystemNotSelected") ?? "System Not Selected";
-        MessageBox.Show(pleaseselectasystembeforesearching, systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
+        MessageBox.Show(pleaseselectasystembeforesearching,
+            systemNotSelected, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     internal static void EnterSearchQueryMessageBox()
@@ -630,25 +635,22 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{unexpectederrorwhileloadinghelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
         }
     }
 
-    // TODO
-    // TODO
-    // TODO
-    // TODO
-    // TODO
-    // TODO
-    // TODO
-    // TODO
     internal static void NoSystemInHelpUserXmlMessageBox()
     {
-        var result = MessageBox.Show("No valid systems found in the file 'helpuser.xml'.\n\n" +
-                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        string novalidsystemsfoundinthefilehelpuserxml2 = (string)Application.Current.TryFindResource("Novalidsystemsfoundinthefilehelpuserxml") ?? "No valid systems found in the file 'helpuser.xml'.";
+        string doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{novalidsystemsfoundinthefilehelpuserxml2}\n\n" +
+                                     $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
@@ -663,6 +665,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
@@ -683,6 +686,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{unabletoloadhelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
@@ -703,6 +707,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{thefilehelpuserxmlismissing2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
@@ -728,18 +733,25 @@ public static class MessageBoxLibrary
     
     internal static void ReinstallSimpleLauncherFileCorruptedMessageBox()
     {
-        var result = MessageBox.Show("The application could not load the file 'mame.xml' or it is corrupted.\n\n" +
-                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-            "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        string simpleLaunchercouldnotloadthefilemamexml2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamexml") ?? "'Simple Launcher' could not load the file 'mame.xml' or it is corrupted.";
+        string doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamexml2}\n\n" +
+                                     $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
         }
         else
         {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
-                            "The application will Shutdown",
-                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+            string pleasereinstall2 = (string)Application.Current.TryFindResource("Pleasereinstall") ?? "Please reinstall";
+            MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
+                            $"{theapplicationwillshutdown2}",
+                pleasereinstall2, MessageBoxButton.OK, MessageBoxImage.Error);
                     
             // Shutdown the application and exit
             Application.Current.Shutdown();
@@ -747,6 +759,63 @@ public static class MessageBoxLibrary
         }
     }
 
+    
+    
+    
+    
+    
+    
+    // TODO
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
         var result = MessageBox.Show("The file 'mame.xml' could not be found in the application folder.\n\n" +
