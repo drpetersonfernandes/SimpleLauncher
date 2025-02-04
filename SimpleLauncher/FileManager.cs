@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace SimpleLauncher;
 
@@ -34,38 +32,9 @@ public abstract class FileManager
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
-                ErrorFindingGameFilesMessageBox();
+                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);
 
                 return new List<string>(); // Return an empty list
-            }
-            
-            void ErrorFindingGameFilesMessageBox()
-            {
-                string therewasanerrorfinding2 = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
-                string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                var result = MessageBox.Show($"{therewasanerrorfinding2}\n\n" +
-                                             $"{doyouwanttoopenthefileerroruserlog2}",
-                    error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-                
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = LogPath,
-                            UseShellExecute = true
-                        });
-                    }
-                    catch (Exception)
-                    {
-                        // Notify user
-                        string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                        MessageBox.Show(thefileerroruserlogwas2,
-                            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
             }
         });
     }
@@ -115,36 +84,9 @@ public abstract class FileManager
             logTask.Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
-            ErrorWhileCountingFilesMessageBox();
+            MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);
 
             return 0; // return 0 if an error occurs
-        }
-        void ErrorWhileCountingFilesMessageBox()
-        {
-            string anerroroccurredwhilecounting2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ?? "An error occurred while counting files.";
-            string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{anerroroccurredwhilecounting2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
-                
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = LogPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    string thefileerroruserlog2 = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
-                    MessageBox.Show(thefileerroruserlog2,
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
         }
     }
 }

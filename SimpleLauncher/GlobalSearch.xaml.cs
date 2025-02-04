@@ -747,18 +747,39 @@ public partial class GlobalSearch
                     PlayClick.PlayClickSound();
 
                     // Notify user
-                    DoYouWantToDeleteTheFileMessageBox();
-                    void DoYouWantToDeleteTheFileMessageBox()
+                    DoYouWanToDeleteMessageBox();
+                    void DoYouWanToDeleteMessageBox()
                     {
                         string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
                         string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
                         string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
-                        var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} \"{fileNameWithExtension}\"?\n\n{thisactionwilldelete2}",
+                        var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} '{fileNameWithExtension}'?\n\n" +
+                                                     $"{thisactionwilldelete2}",
                             confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            DeleteFile(filePath, fileNameWithExtension);
+                            try
+                            {
+                                DeleteFile(filePath, fileNameWithExtension);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Notify developer
+                                string formattedException = $"Error deleting the file.\n\n" +
+                                                            $"Exception type: {ex.GetType().Name}\n" +
+                                                            $"Exception details: {ex.Message}";
+                                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
+                                logTask.Wait(TimeSpan.FromSeconds(2));
+                                
+                                // Notify user
+                                string therewasanerrordeletingthefile2 = (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ?? "There was an error deleting the file.";
+                                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+                                MessageBox.Show($"{therewasanerrordeletingthefile2}\n\n" +
+                                                $"{theerrorwasreportedtothedeveloper2}",
+                                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                             RemoveFromFavorites2(selectedResult.SystemName, fileNameWithExtension);
                         }
                     }

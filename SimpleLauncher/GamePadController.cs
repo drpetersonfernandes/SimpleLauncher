@@ -2,7 +2,6 @@
 using SharpDX.XInput;
 using System;
 using System.Threading;
-using System.Windows;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 
@@ -97,7 +96,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox();
         }
     }
 
@@ -117,7 +116,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox();
         }
     }
 
@@ -144,7 +143,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox();
         }
     }
 
@@ -407,18 +406,5 @@ public class GamePadController : IDisposable
         if (dzY > 0) resultY *= 1 / (1 - dzY);
 
         return (resultX, resultY);
-    }
-    
-    private static void GamePadErrorMessageBox()
-    {
-        // Notify user
-        string therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
-        string runningSimpleLauncherwithadministrative2 = (string)Application.Current.TryFindResource("RunningSimpleLauncherwithadministrative") ?? "Running 'Simple Launcher' with administrative access may fix this problem.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
-                        $"{runningSimpleLauncherwithadministrative2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

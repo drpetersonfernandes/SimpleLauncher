@@ -47,7 +47,7 @@ public partial class EditSystem
         if (!File.Exists(_xmlFilePath))
         {
             // Notify user
-            SystemXmlNotFoundMessageBox();
+            MessageBoxLibrary.SystemXmlNotFoundMessageBox();
                 
             // Shutdown SimpleLauncher
             Application.Current.Shutdown();
@@ -58,17 +58,6 @@ public partial class EditSystem
             _xmlDoc = XDocument.Load(_xmlFilePath);
         }
 
-        void SystemXmlNotFoundMessageBox()
-        {
-            string systemxmlnotfound2 = (string)Application.Current.TryFindResource("systemxmlnotfound") ?? "'system.xml' not found inside the application folder.";
-            string pleaserestartSimpleLauncher2 = (string)Application.Current.TryFindResource("PleaserestartSimpleLauncher") ?? "Please restart 'Simple Launcher'.";
-            string ifthatdoesnotwork2 = (string)Application.Current.TryFindResource("Ifthatdoesnotwork") ?? "If that does not work, please reinstall 'Simple Launcher'.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{systemxmlnotfound2}\n\n" +
-                            $"{pleaserestartSimpleLauncher2}\n\n" +
-                            $"{ifthatdoesnotwork2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 
     private void PopulateSystemNamesDropdown()
@@ -434,15 +423,7 @@ public partial class EditSystem
         DeleteSystemButton.IsEnabled = false;
 
         // Notify user
-        YouCanAddANewSystemMessageBox();
-
-        void YouCanAddANewSystemMessageBox()
-        {
-            string youcanaddanewsystem2 = (string)Application.Current.TryFindResource("Youcanaddanewsystem") ?? "You can add a new system now.";
-            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(youcanaddanewsystem2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.YouCanAddANewSystemMessageBox();
     }
         
     private void EnableFields()
@@ -603,15 +584,7 @@ public partial class EditSystem
         if (!emulatorNames.Add(emulator1NameText))
         {
             // Notify user
-            EmulatorNameMustBeUniqueMessageBox();
-            void EmulatorNameMustBeUniqueMessageBox()
-            {
-                string thename2 = (string)Application.Current.TryFindResource("Thename") ?? "The name";
-                string isusedmultipletimes2 = (string)Application.Current.TryFindResource("isusedmultipletimes") ?? "is used multiple times. Each emulator name must be unique.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{thename2} '{emulator1NameText}' {isusedmultipletimes2}",
-                    validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
 
             return;
         }
@@ -638,16 +611,7 @@ public partial class EditSystem
                 if (string.IsNullOrEmpty(emulatorName))
                 {
                     // Notify user
-                    EmulatorNameRequiredMessageBox();
-                    void EmulatorNameRequiredMessageBox()
-                    {
-                        string emulator2 = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
-                        string nameisrequiredbecauserelateddata2 = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
-                        string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                        string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                        MessageBox.Show($"{emulator2} {i + 2} {nameisrequiredbecauserelateddata2}\n\n{pleasefixthisfield2}",
-                            validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    MessageBoxLibrary.EmulatorNameRequiredMessageBox(i);
 
                     return;
                 }
@@ -660,15 +624,7 @@ public partial class EditSystem
                 if (!emulatorNames.Add(emulatorName))
                 {
                     // Notify user
-                    EmulatorNameMustBeUniqueMessageBox();
-                    void EmulatorNameMustBeUniqueMessageBox()
-                    {
-                        string thename2 = (string)Application.Current.TryFindResource("Thename") ?? "The name";
-                        string isusedmultipletimes2 = (string)Application.Current.TryFindResource("isusedmultipletimes") ?? "is used multiple times. Each emulator name must be unique.";
-                        string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                        MessageBox.Show($"{thename2} '{emulatorName}' {isusedmultipletimes2}",
-                            validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox2(emulatorName);
 
                     return;
                 }
@@ -712,13 +668,7 @@ public partial class EditSystem
         SystemNameDropdown.SelectedItem = systemNameText;
 
         // Notify user
-        SystemSavedSuccessfullyMessageBox();
-        void SystemSavedSuccessfullyMessageBox()
-        {
-            string systemsavedsuccessfully2 = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ?? "System saved successfully.";
-            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(systemsavedsuccessfully2, info2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
 
         CreateFolders(systemNameText);
     }
@@ -818,14 +768,7 @@ public partial class EditSystem
             !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
         {
             // Notify user
-            PathOrParameterInvalidMessageBox();
-            void PathOrParameterInvalidMessageBox()
-            {
-                string oneormorepathsorparameters2 = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ?? "One or more paths or parameters are invalid.";
-                string pleasefixthemtoproceed2 = (string)Application.Current.TryFindResource("Pleasefixthemtoproceed") ?? "Please fix them to proceed.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{oneormorepathsorparameters2}\n\n{pleasefixthemtoproceed2}", validationError2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBoxLibrary.PathOrParameterInvalidMessageBox();
 
             return true;
         }
@@ -837,14 +780,7 @@ public partial class EditSystem
         if (string.IsNullOrEmpty(emulator1NameText))
         {
             // Notify user
-            Emulator1RequiredMessageBox();
-            void Emulator1RequiredMessageBox()
-            {
-                string emulator1Nameisrequired2 = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ?? "'Emulator 1 Name' is required.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{emulator1Nameisrequired2}\n\n{pleasefixthisfield2}", validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.Emulator1RequiredMessageBox();
 
             return true;
         }
@@ -861,14 +797,7 @@ public partial class EditSystem
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
             // Notify user
-            ExtensionToLaunchIsRequiredMessageBox();
-            void ExtensionToLaunchIsRequiredMessageBox()
-            {
-                string extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ?? "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{extensiontoLaunchAfterExtraction2}\n\n{pleasefixthisfield2}", validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.ExtensionToLaunchIsRequiredMessageBox();
 
             return true;
         }
@@ -885,29 +814,14 @@ public partial class EditSystem
         if (formatsToSearch.Count == 0)
         {
             // Notify user
-            ExtensionToSearchIsRequiredMessageBox();
-            void ExtensionToSearchIsRequiredMessageBox()
-            {
-                string extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ?? "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{extensiontoSearchintheSystemFolder2}\n\n{pleasefixthisfield2}", validationError2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBoxLibrary.ExtensionToSearchIsRequiredMessageBox();
 
             return true;
         }
         if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
         {
             // Notify user
-            FileMustBeCompressedMessageBox();
-            void FileMustBeCompressedMessageBox()
-            {
-                string whenExtractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ?? "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
-                string itwillnotacceptotherextensions2 = (string)Application.Current.TryFindResource("Itwillnotacceptotherextensions") ?? "It will not accept other extensions.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{whenExtractFileBeforeLaunch2}\n\n{itwillnotacceptotherextensions2}",
-                    validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.FileMustBeCompressedMessageBox();
 
             return true;
         }
@@ -944,15 +858,7 @@ public partial class EditSystem
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
             // Notify user
-            SystemImageFolderCanNotBeEmptyMessageBox();
-            void SystemImageFolderCanNotBeEmptyMessageBox()
-            {
-                string systemImageFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ?? "'System Image Folder' cannot be empty or contain only spaces.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{systemImageFoldercannotbeempty2}\n\n{pleasefixthisfield2}",
-                    validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.SystemImageFolderCanNotBeEmptyMessageBox();
 
             return true;
         }
@@ -989,15 +895,7 @@ public partial class EditSystem
         if (string.IsNullOrEmpty(systemFolderText))
         {
             // Notify user
-            SystemFolderCanNotBeEmptyMessageBox();
-            void SystemFolderCanNotBeEmptyMessageBox()
-            {
-                string systemFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ?? "'System Folder' cannot be empty or contain only spaces.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{systemFoldercannotbeempty2}\n\n{pleasefixthisfield2}",
-                    validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.SystemFolderCanNotBeEmptyMessageBox();
 
             return true;
         }
@@ -1009,15 +907,7 @@ public partial class EditSystem
         if (string.IsNullOrEmpty(systemNameText))
         {
             // Notify user
-            SystemNameCanNotBeEmptyMessageBox();
-            void SystemNameCanNotBeEmptyMessageBox()
-            {
-                string systemNamecannotbeemptyor2 = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ?? "'System Name' cannot be empty or contain only spaces.";
-                string pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-                string validationError2 = (string)Application.Current.TryFindResource("ValidationError") ?? "Validation Error";
-                MessageBox.Show($"{systemNamecannotbeemptyor2}\n\n{pleasefixthisfield2}",
-                    validationError2, MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            MessageBoxLibrary.SystemNameCanNotBeEmptyMessageBox();
 
             return true;
         }
@@ -1064,18 +954,7 @@ public partial class EditSystem
                     if (folderName == "images")
                     {
                         // Notify user
-                        FolderCreatedMessageBox();
-                        void FolderCreatedMessageBox()
-                        {
-                            string simpleLaunchercreatedaimagefolder2 = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
-                            string youmayplacethecoverimagesforthissystem2 = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
-                            string italsocreatedfoldersfor2 = (string)Application.Current.TryFindResource("Italsocreatedfoldersfor") ?? "It also created folders for";
-                            string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                            MessageBox.Show($"{simpleLaunchercreatedaimagefolder2} .\\images\\{systemNameText}.\n\n" +
-                                            $"{youmayplacethecoverimagesforthissystem2}\n\n" +
-                                            $"{italsocreatedfoldersfor2} \"title_snapshots\", \"gameplay_snapshots\", \"videos\", \"manuals\", \"walkthrough\", \"cabinets\", \"flyers\", \"pcbs\" and \"carts\".",
-                                info2, MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
+                        MessageBoxLibrary.FolderCreatedMessageBox(systemNameText);
                     }
                 }
             }
@@ -1089,18 +968,7 @@ public partial class EditSystem
                 logTask.Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
-                FolderCreationFailedMessageBox();
-                void FolderCreationFailedMessageBox()
-                {
-                    string simpleLauncherfailedtocreatethe2 = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
-                    string theapplicationmightnothave2 = (string)Application.Current.TryFindResource("Theapplicationmightnothave") ?? "The application might not have sufficient privileges. Try running it with administrative permissions.";
-                    string additionallyensurethatSimpleLauncher2 = (string)Application.Current.TryFindResource("AdditionallyensurethatSimpleLauncher") ?? "Additionally, ensure that 'Simple Launcher' is located in a writable folder.";
-                    string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                    MessageBox.Show($"{simpleLauncherfailedtocreatethe2}\n\n" +
-                                    $"{theapplicationmightnothave2}\n\n" +
-                                    $"{additionallyensurethatSimpleLauncher2}",
-                        info2, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                MessageBoxLibrary.FolderCreationFailedMessageBox();
             }
         }
     }
@@ -1124,13 +992,7 @@ public partial class EditSystem
         if (SystemNameDropdown.SelectedItem == null)
         {
             // Notify user
-            SelectASystemToDeleteMessageBox();
-            void SelectASystemToDeleteMessageBox()
-            {
-                string pleaseselectasystemtodelete2 = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ?? "Please select a system to delete.";
-                string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-                MessageBox.Show(pleaseselectasystemtodelete2, warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            MessageBoxLibrary.SelectASystemToDeleteMessageBox();
 
             return;
         }
@@ -1169,15 +1031,7 @@ public partial class EditSystem
         else
         {
             // Notify user
-            SystemNotFoundInTheXmlMessageBox();
-        }
-
-        void SystemNotFoundInTheXmlMessageBox()
-        {
-            string selectedsystemnotfound2 = (string)Application.Current.TryFindResource("Selectedsystemnotfound") ?? "Selected system not found in the XML document!";
-            string alert2 = (string)Application.Current.TryFindResource("Alert") ?? "Alert";
-            MessageBox.Show(selectedsystemnotfound2,
-                alert2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBoxLibrary.SystemNotFoundInTheXmlMessageBox();
         }
     }
 

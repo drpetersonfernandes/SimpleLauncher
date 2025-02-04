@@ -163,7 +163,7 @@ public partial class DownloadImagePack
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     // Notify user
-                    MessageBoxLibrary.DownloadErrorOfferRedirectMessageBox(selectedSystem);
+                    MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
                 }
                 finally
                 {

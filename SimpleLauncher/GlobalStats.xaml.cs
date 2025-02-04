@@ -79,11 +79,11 @@ public partial class GlobalStats
                                         $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
-
         void DoYouWantToSaveTheReportMessageBox()
         {
-            var result = MessageBox.Show(TryFindResource("Wouldyouliketosaveareport") as string ?? "Would you like to save a report with the results?",
-                TryFindResource("SaveReport") as string ?? "Save Report", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            string wouldyouliketosaveareport2 = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
+            string saveReport2 = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
+            var result = MessageBox.Show(wouldyouliketosaveareport2, saveReport2, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(_globalStats, _systemStats);
