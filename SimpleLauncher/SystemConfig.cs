@@ -253,14 +253,7 @@ public class SystemConfig
 
         void FileSystemXmlNotFindMessageBox(string mostRecentBackupFile)
         {
-            string icouldnotfindthefilesystemxml2 = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
-            string butIfoundabackupfile2 = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
-            string wouldyouliketorestore2 = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
-            string restoreBackup2 = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
-            var restoreResult = MessageBox.Show($"{icouldnotfindthefilesystemxml2}\n\n" +
-                                                $"{butIfoundabackupfile2}\n\n" +
-                                                $"{wouldyouliketorestore2}",
-                restoreBackup2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
 
             if (restoreResult == MessageBoxResult.Yes)
             {
@@ -279,12 +272,11 @@ public class SystemConfig
                     logTask.Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
-                    string simpleLauncherwasunabletorestore2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ?? "'Simple Launcher' was unable to restore the last backup.";
-                    string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show(simpleLauncherwasunabletorestore2,
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
                 }
             }
         }
     }
+
+    
 }

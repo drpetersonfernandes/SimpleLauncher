@@ -127,13 +127,7 @@ public partial class RomHistoryWindow
         DidNotFindRomHistoryMessageBox();
         void DidNotFindRomHistoryMessageBox()
         {
-            string simpleLauncherdidnotfindaRoMhistory2 = (string)Application.Current.TryFindResource("SimpleLauncherdidnotfindaROMhistory") ?? "'Simple Launcher' did not find a ROM history in the local database.";
-            string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
-            string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
-            var result = MessageBox.Show(
-                $"{simpleLauncherdidnotfindaRoMhistory2}\n\n" +
-                $"{doyouwanttosearchonline2}",
-                rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBoxLibrary.SearchOnlineForRomHistoryMessageBox();
             if (result == MessageBoxResult.Yes)
             {
                 OpenGoogleSearch();

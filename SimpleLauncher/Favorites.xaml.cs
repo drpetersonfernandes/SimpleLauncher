@@ -486,12 +486,7 @@ public partial class Favorites
                     DoYouWanToDeleteMessageBox();
                     void DoYouWanToDeleteMessageBox()
                     {
-                        string areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
-                        string thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-                        string confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
-                        var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} '{fileNameWithExtension}'?\n\n" +
-                                                     $"{thisactionwilldelete2}",
-                            confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
                         if (result == MessageBoxResult.Yes)
                         {
@@ -509,12 +504,7 @@ public partial class Favorites
                                 logTask.Wait(TimeSpan.FromSeconds(2));
                                 
                                 // Notify user
-                                string therewasanerrordeletingthefile2 = (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ?? "There was an error deleting the file.";
-                                string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                                string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                                MessageBox.Show($"{therewasanerrordeletingthefile2}\n\n" +
-                                                $"{theerrorwasreportedtothedeveloper2}",
-                                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                             }
                             RemoveFromFavorites(selectedFavorite);
                         }
@@ -569,7 +559,7 @@ public partial class Favorites
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
     }
-      
+
     private async void LaunchGame_Click(object sender, RoutedEventArgs e)
     {
         try

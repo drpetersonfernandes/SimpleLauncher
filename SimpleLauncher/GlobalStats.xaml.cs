@@ -81,9 +81,8 @@ public partial class GlobalStats
         }
         void DoYouWantToSaveTheReportMessageBox()
         {
-            string wouldyouliketosaveareport2 = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
-            string saveReport2 = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
-            var result = MessageBox.Show(wouldyouliketosaveareport2, saveReport2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
+
             if (result == MessageBoxResult.Yes)
             {
                 SaveReport(_globalStats, _systemStats);

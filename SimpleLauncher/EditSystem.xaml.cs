@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
 
 namespace SimpleLauncher;
@@ -1009,10 +1008,7 @@ public partial class EditSystem
             DoYouWanToDeleteSystemMessageBox();
             void DoYouWanToDeleteSystemMessageBox()
             {
-                string areyousureyouwanttodeletethis2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
-                string confirmation2 = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
-                MessageBoxResult result = MessageBox.Show(areyousureyouwanttodeletethis2,
-                    confirmation2, MessageBoxButton.YesNo);
+                var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
                 if (result == MessageBoxResult.Yes)
                 {
                     systemNode.Remove();
@@ -1020,11 +1016,7 @@ public partial class EditSystem
                     PopulateSystemNamesDropdown();
                     ClearFields();
                 
-                    string system2 = (string)Application.Current.TryFindResource("System2") ?? "System";
-                    string hasbeendeleted2 = (string)Application.Current.TryFindResource("hasbeendeleted") ?? "has been deleted.";
-                    string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-                    MessageBox.Show($"{system2} '{selectedSystemName}' {hasbeendeleted2}",
-                        info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
                 }
             }
         }
