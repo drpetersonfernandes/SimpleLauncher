@@ -222,10 +222,10 @@ public static class MessageBoxLibrary
 
     internal static void DefaultImageNotFoundMessageBox()
     {
-        string nodefaultpngfilefoundintheimages2 = (string)Application.Current.TryFindResource("Nodefaultpngfilefoundintheimages") ?? "No 'default.png' file found in the images folder.";
+        string defaultpngfileismissing2 = (string)Application.Current.TryFindResource("defaultpngfileismissing") ?? "'default.png' file is missing.";
         string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var reinstall = MessageBox.Show($"{nodefaultpngfilefoundintheimages2}\n\n" +
+        var reinstall = MessageBox.Show($"{defaultpngfileismissing2}\n\n" +
                                         $"{doyouwanttoreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
@@ -759,90 +759,42 @@ public static class MessageBoxLibrary
         }
     }
 
-    
-    
-    
-    
-    
-    
-    // TODO
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
-        var result = MessageBox.Show("The file 'mame.xml' could not be found in the application folder.\n\n" +
-                                     "Do you want to automatic reinstall 'Simple Launcher' to fix it.",
-            "File Missing", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        string thefilemamexmlcouldnotbefound2 = (string)Application.Current.TryFindResource("Thefilemamexmlcouldnotbefound") ?? "The file 'mame.xml' could not be found in the application folder.";
+        string doyouwanttoautomaticreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{thefilemamexmlcouldnotbefound2}\n\n" +
+                                     $"{doyouwanttoautomaticreinstall2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
         }
         else
         {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the issue.\n\n" +
-                            "The application will Shutdown",
-                "Please Reinstall", MessageBoxButton.OK, MessageBoxImage.Error);
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+            MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
+                            $"{theapplicationwillshutdown2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
                     
             // Shutdown the application and exit
             Application.Current.Shutdown();
             Environment.Exit(0);    
         }
     }
-    
+
     internal static void UpdaterNotFoundMessageBox()
     {
-        MessageBox.Show("'Updater.exe' not found.\n\n" +
-                        "Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                        "The application will now shut down.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string updaterexenotfound2 = (string)Application.Current.TryFindResource("Updaterexenotfound") ?? "'Updater.exe' not found.";
+        string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the problem.";
+        string theapplicationwillnowshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ?? "The application will now shutdown.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{updaterexenotfound2}\n\n" +
+                        $"{pleasereinstallSimpleLaunchermanually2}\n\n" +
+                        $"{theapplicationwillnowshutdown2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
 
         // Shutdown the application and exit
         Application.Current.Shutdown();
@@ -867,6 +819,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{nohistoryxmlfilefound2}\n\n" +
                                      $"{doyouwanttoreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();
@@ -885,21 +838,32 @@ public static class MessageBoxLibrary
     
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
-        MessageBox.Show("'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.\n\n" +
-                        "Please grant 'Simple Launcher' administrative access.\n\n" +
-                        "Ensure that the 'Simple Launcher' folder is located in a writable directory.\n\n" +
-                        "If necessary, temporarily disable your antivirus software.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
+        string pleasegrantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("PleasegrantSimpleLauncheradministrativeaccess") ?? "Please grant 'Simple Launcher' administrative access.";
+        string ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
+        string ifnecessarytemporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Ifnecessarytemporarilydisableyourantivirus") ?? "If necessary, temporarily disable your antivirus software.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite2}\n\n" +
+                        $"{pleasegrantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}\n\n" +
+                        $"{ifnecessarytemporarilydisableyourantivirus2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
     internal static void SystemXmlIsCorruptedMessageBox()
     {
-        MessageBox.Show("'system.xml' is corrupted or could not be opened.\n" +
-                        "Please fix it manually or delete it.\n" +
-                        "If you choose to delete it, 'Simple Launcher' will create a new one for you.\n\n" +
-                        "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.\n\n" +
-                        "The application will shut down.",
-            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        string systemxmliscorrupted2 = (string)Application.Current.TryFindResource("systemxmliscorrupted") ?? "'system.xml' is corrupted or could not be opened.";
+        string pleasefixitmanuallyordeleteit2 = (string)Application.Current.TryFindResource("Pleasefixitmanuallyordeleteit") ?? "Please fix it manually or delete it.";
+        string ifyouchoosetodeleteit2 = (string)Application.Current.TryFindResource("Ifyouchoosetodeleteit") ?? "If you choose to delete it, 'Simple Launcher' will create a new one for you.";
+        string ifyouwanttodebugtheerroryourself2 = (string)Application.Current.TryFindResource("Ifyouwanttodebugtheerroryourself") ?? "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
+        string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{systemxmliscorrupted2}\n\n" +
+                        $"{pleasefixitmanuallyordeleteit2}\n\n" +
+                        $"{ifyouchoosetodeleteit2}\n\n" +
+                        $"{ifyouwanttodebugtheerroryourself2}\n\n" +
+                        $"{theapplicationwillshutdown2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
                     
         // Shutdown the application and exit
         Application.Current.Shutdown();
@@ -908,10 +872,14 @@ public static class MessageBoxLibrary
 
     internal static void SystemModelXmlIsMissingMessageBox()
     {
-        var messageBoxResult = MessageBox.Show("The file 'system_model.xml' is missing.\n\n" +
-                                               "'Simple Launcher' cannot work properly without this file.\n\n" +
-                                               "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?",
-            "Missing File", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        string systemmodelxmlismissing2 = (string)Application.Current.TryFindResource("systemmodelxmlismissing") ?? "'system_model.xml' is missing.";
+        string simpleLaunchercannotworkproperly2 = (string)Application.Current.TryFindResource("SimpleLaunchercannotworkproperly") ?? "'Simple Launcher' cannot work properly without this file.";
+        string doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+        string missingfile2 = (string)Application.Current.TryFindResource("Missingfile") ?? "Missing file";
+        var messageBoxResult = MessageBox.Show($"{systemmodelxmlismissing2}\n\n" +
+                                               $"{simpleLaunchercannotworkproperly2}\n\n" +
+                                               $"{doyouwanttoautomaticallyreinstall2}",
+            missingfile2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
@@ -919,8 +887,12 @@ public static class MessageBoxLibrary
         }
         else
         {
-            MessageBox.Show("Please reinstall 'Simple Launcher' manually to fix the problem.\n\n" +
-                            "The application will shut down.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the problem.";
+            string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+            string warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
+                            $"{theapplicationwillshutdown2}",
+                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
 
             // Shutdown the application and exit
             Application.Current.Shutdown();
@@ -961,7 +933,7 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                // TODO
+                ErrorOpeningBrowserMessageBox();
             }
         }
     }
@@ -988,7 +960,7 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                // TODO
+                ErrorOpeningBrowserMessageBox();
             }
         }
     }
@@ -1404,17 +1376,7 @@ public static class MessageBoxLibrary
             }
         }
     }
-    
-    internal static void DownloadFailedMessageBox2()
-    {
-        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloadfailed2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-    
+
     internal static bool OverwriteSystemMessageBox(EasyModeSystemConfig selectedSystem)
     {
         string thesystem3 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
@@ -1815,6 +1777,150 @@ public static class MessageBoxLibrary
                         $"{runningSimpleLauncherwithadministrative2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void CouldNotLaunchGameMessageBox(string logPath)
+    {
+        string simpleLaunchercouldnotlaunch2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+        string ifyouaretryingtorunMamEensurethatyourRom2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
+        string ifyouaretryingtorunRetroarchensurethattheBios2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
+        string alsomakesureyouarecallingtheemulator2 = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
+        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{simpleLaunchercouldnotlaunch2}\n\n" +
+            $"{ifyouaretryingtorunMamEensurethatyourRom2}\n\n" +
+            $"{ifyouaretryingtorunRetroarchensurethattheBios2}\n\n" +
+            $"{alsomakesureyouarecallingtheemulator2}\n\n" +
+            $"{doyouwanttoopenthefile2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwas2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    internal static void InvalidOperationExceptionMessageBox()
+    {
+        string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+        string thistypeoferrorhappenswhenSimpleLauncher2 = (string)Application.Current.TryFindResource("ThistypeoferrorhappenswhenSimpleLauncher") ?? "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.";
+        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access.";
+        string alsochecktheintegrityoftheemulator2 = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
+                        $"{thistypeoferrorhappenswhenSimpleLauncher2}\n\n" +
+                        $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{alsochecktheintegrityoftheemulator2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ThereWasAnErrorLaunchingThisGameMessageBox(string logPath)
+    {
+        string therewasanerrorlaunchingthisgame2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame2}\n\n" +
+                                     $"{theerrorwasreportedtothedeveloper2}\n\n" +
+                                     $"{doyouwanttoopenthefileerroruserlog2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruserlog2 = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+   
+    internal static void CannotExtractThisFileMessageBox(string filePath)
+    {
+        string theselectedfile2 = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
+        string cannotbeextracted2 = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
+        string toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        string pleasegotoEditSystem2 = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
+        string invalidFile2 = (string)Application.Current.TryFindResource("InvalidFile") ?? "Invalid File";
+        MessageBox.Show($"{theselectedfile2} '{filePath}' {cannotbeextracted2}\n\n" +
+                        $"{toextractafileitneedstobe2}\n\n" +
+                        $"{pleasegotoEditSystem2}", 
+            invalidFile2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void InvalidProgramLocationMessageBox()
+    {
+        string invalidemulatorexecutablepath2 = (string)Application.Current.TryFindResource("Invalidemulatorexecutablepath") ?? "Invalid emulator executable path. Please check the configuration.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(invalidemulatorexecutablepath2, error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void EmulatorCouldNotOpenXboxXblaSimpleMessageBox(string logPath)
+    {
+        string theemulatorcouldnotopenthegame2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
+        string doyouwanttoopenthefileerror2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var result = MessageBox.Show(
+            $"{theemulatorcouldnotopenthegame2}\n\n" +
+            $"{doyouwanttoopenthefileerror2}", error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruser2 = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruser2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+    
+    internal static void NullFileExtensionMessageBox()
+    {
+        string thereisnoExtension2 = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
+        string pleaseeditthissystemto2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{thereisnoExtension2}\n\n" +
+                        $"{pleaseeditthissystemto2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void CouldNotFindAFileMessageBox()
+    {
+        string couldnotfindafilewiththeextensiondefined2 = (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+        string pleaseeditthissystemtofix2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{couldnotfindafilewiththeextensiondefined2}\n\n" +
+                        $"{pleaseeditthissystemtofix2}", error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
 }

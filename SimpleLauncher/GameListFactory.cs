@@ -537,8 +537,6 @@ public class GameListFactory(
                 {
                     gameItem.IsFavorite = true;
                 }
-
-                // MessageBox.Show($"{fileNameWithExtension} has been added to favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -581,8 +579,6 @@ public class GameListFactory(
                 {
                     gameItem.IsFavorite = false;
                 }
-
-                // MessageBox.Show($"{fileNameWithExtension} has been removed from favorites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -1053,7 +1049,6 @@ public class GameListFactory(
             var dialog = new WindowSelectionDialog(openWindows);
             if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
             {
-                //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -1104,10 +1099,7 @@ public class GameListFactory(
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
-                
-            // Notify the user of success
-            // MessageBox.Show($"Screenshot saved successfully at:\n{screenshotPath}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+            
             // Reload the current Game List
             await mainWindow.LoadGameFilesAsync();
 

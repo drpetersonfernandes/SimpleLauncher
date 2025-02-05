@@ -1143,7 +1143,6 @@ public partial class Favorites
             var dialog = new WindowSelectionDialog(openWindows);
             if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
             {
-                //MessageBox.Show("No window selected for the screenshot.", "Cancelled", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

@@ -239,12 +239,6 @@ public class GamePadController : IDisposable
                     _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
                     found = true;
 
-                    // // Notify user of reconnection
-                    // Application.Current.Dispatcher.Invoke(() =>
-                    // {
-                    //     MessageBox.Show("Controller reconnected successfully!", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // });
-
                     break;
                 }
             }
@@ -254,11 +248,6 @@ public class GamePadController : IDisposable
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
 
-                // // Notify user of disconnection
-                // Application.Current.Dispatcher.Invoke(() =>
-                // {
-                //     MessageBox.Show("Controller is disconnected.", "Controller Status", MessageBoxButton.OK, MessageBoxImage.Warning);
-                // });
             }
         }
         catch (Exception ex)

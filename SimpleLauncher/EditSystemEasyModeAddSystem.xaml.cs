@@ -520,7 +520,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.DownloadFailedMessageBox2();
+            MessageBoxLibrary.DownloadFailedMessageBox();
         }
         catch (HttpRequestException ex)
         {
@@ -532,7 +532,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.DownloadFailedMessageBox2();
+            MessageBoxLibrary.DownloadFailedMessageBox();
         }
         catch (IOException ex)
         {
@@ -576,7 +576,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 // Notify user
-                MessageBoxLibrary.DownloadFailedMessageBox2();
+                MessageBoxLibrary.DownloadFailedMessageBox();
             }
         }
 
