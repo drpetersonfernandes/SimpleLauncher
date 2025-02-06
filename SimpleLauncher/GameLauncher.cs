@@ -162,7 +162,7 @@ public static class GameLauncher
             // Send Emulator Usage Stats
             if (emulatorComboBox.SelectedItem is not null)
             {
-                _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString().ToLowerInvariant());
+                _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString());
             }
         }
     }

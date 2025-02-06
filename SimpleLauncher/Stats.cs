@@ -56,27 +56,27 @@ public static class Stats
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
     public static async Task CallApiAsync(string emulatorName = null)
     {
-        // Determine which payload to send based on whether emulator info is provided
+        // Determine which payload to send based on whether emulator info is provided.
         string callType;
         string payloadEmulatorName = null;
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
-            // General usage call – no emulator information
+            // General usage call – no emulator information.
             callType = "usage";
         }
         else
         {
-            // Normalize the emulator name to Title Case (first letter of each word capitalized)
+            // Normalize the emulator name to Title Case (first letter of each word capitalized).
             payloadEmulatorName = NormalizeEmulatorName(emulatorName);
             callType = "emulator";
         }
 
         if (await TryApiAsync(ApiUrl, callType, payloadEmulatorName))
         {
-            return; // Success
+            return; // Success.
         }
 
-        // Notify developer if the API request failed
+        // Notify developer if the API request failed.
         string finalErrorMessage = "API request failed.";
         Exception ex = new HttpRequestException(finalErrorMessage);
         await LogErrors.LogErrorAsync(ex, finalErrorMessage);
@@ -101,12 +101,12 @@ public static class Stats
             var json = JsonSerializer.Serialize(requestData);
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Send the POST request
+            // Send the POST request.
             HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
             if (!response.IsSuccessStatusCode)
             {
-                // Notify developer if the API responds with an error
+                // Notify developer if the API responds with an error.
                 string errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
                                       $"CallType: {callType}" +
                                       (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
@@ -114,11 +114,11 @@ public static class Stats
                 return false;
             }
 
-            return true; // Success
+            return true; // Success.
         }
         catch (HttpRequestException ex)
         {
-            // Notify developer
+            // Notify developer.
             string errorMessage = $"Error communicating with the API at '{apiUrl}'. " +
                                   $"CallType: {callType}" +
                                   (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
@@ -127,7 +127,7 @@ public static class Stats
         }
         catch (Exception ex)
         {
-            // Notify developer
+            // Notify developer.
             string errorMessage = $"Unexpected error while using '{apiUrl}'. " +
                                   $"CallType: {callType}" +
                                   (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
@@ -135,7 +135,7 @@ public static class Stats
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
 
-        return false; // Failed after exception
+        return false; // Failed after exception.
     }
 
     /// <summary>
