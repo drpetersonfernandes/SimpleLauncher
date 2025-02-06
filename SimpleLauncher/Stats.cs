@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -34,7 +35,7 @@ public static class Stats
         }
         else
         {
-            throw new FileNotFoundException($"Configuration file not found: {configFile}");
+            throw new FileNotFoundException($"Configuration file not found: '{configFile}'");
         }
     }
 
@@ -43,48 +44,73 @@ public static class Stats
         _httpClient = new HttpClient();
         if (!string.IsNullOrEmpty(_apiKey))
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
     }
 
+    /// <summary>
+    /// Call the API. If an emulator name is provided then it is assumed this is an emulator launch call.
+    /// If no emulator name is provided, then it is a general usage call.
+    /// </summary>
+    /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
     public static async Task CallApiAsync(string emulatorName = null)
     {
-        if (await TryApiAsync(ApiUrl, emulatorName))
+        // Determine which payload to send based on whether emulator info is provided
+        string callType;
+        string payloadEmulatorName = null;
+        if (string.IsNullOrWhiteSpace(emulatorName))
+        {
+            // General usage call – no emulator information
+            callType = "usage";
+        }
+        else
+        {
+            // Normalize the emulator name to Title Case (first letter of each word capitalized)
+            payloadEmulatorName = NormalizeEmulatorName(emulatorName);
+            callType = "emulator";
+        }
+
+        if (await TryApiAsync(ApiUrl, callType, payloadEmulatorName))
         {
             return; // Success
         }
 
-        // Notify developer
+        // Notify developer if the API request failed
         string finalErrorMessage = "API request failed.";
         Exception ex = new HttpRequestException(finalErrorMessage);
         await LogErrors.LogErrorAsync(ex, finalErrorMessage);
     }
 
-    private static async Task<bool> TryApiAsync(string apiUrl, string emulatorName)
+    /// <summary>
+    /// Attempts to send a POST to the API.
+    /// </summary>
+    /// <param name="apiUrl">The API URL.</param>
+    /// <param name="callType">Type of call ("usage" or "emulator").</param>
+    /// <param name="emulatorName">Normalized emulator name (if callType is "emulator"); otherwise, null.</param>
+    /// <returns>True if the request succeeds; otherwise, false.</returns>
+    private static async Task<bool> TryApiAsync(string apiUrl, string callType, string emulatorName)
     {
         try
         {
-            // Prepare the request content
-            var requestData = new
-            {
-                emulatorName = emulatorName ?? "Unknown" // Default to "Unknown" if null
-            };
-            var jsonContent = new StringContent(
-                JsonSerializer.Serialize(requestData),
-                Encoding.UTF8,
-                "application/json"
-            );
+            // Build the payload depending on the call type.
+            object requestData = callType == "emulator"
+                ? new { callType, emulatorName }
+                : new { callType };  // For a general usage call, we simply send the callType.
+                
+            var json = JsonSerializer.Serialize(requestData);
+            var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Send the POST request
             HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
             if (!response.IsSuccessStatusCode)
             {
-                // Notify developer
-                string errorMessage = $"API responded with an error. Status Code: {response.StatusCode}. " +
-                                      $"EmulatorName: {emulatorName ?? "Unknown"}.";
+                // Notify developer if the API responds with an error
+                string errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
+                                      $"CallType: {callType}" +
+                                      (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
                 await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
-             
                 return false;
             }
 
@@ -93,20 +119,32 @@ public static class Stats
         catch (HttpRequestException ex)
         {
             // Notify developer
-            string errorMessage = $"Error communicating with the API at {apiUrl}. " +
-                                  $"EmulatorName: {emulatorName ?? "Unknown"}. " +
-                                  $"Exception details: {ex.Message}";
+            string errorMessage = $"Error communicating with the API at '{apiUrl}'. " +
+                                  $"CallType: {callType}" +
+                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                  $" Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Unexpected error while using {apiUrl}. " +
-                                  $"EmulatorName: {emulatorName ?? "Unknown"}. " +
-                                  $"Exception details: {ex.Message}";
+            string errorMessage = $"Unexpected error while using '{apiUrl}'. " +
+                                  $"CallType: {callType}" +
+                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                  $" Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
 
         return false; // Failed after exception
+    }
+
+    /// <summary>
+    /// Converts the input string to title case (first letter of each word capitalized).
+    /// </summary>
+    /// <param name="input">The input string.</param>
+    /// <returns>The normalized string.</returns>
+    private static string NormalizeEmulatorName(string input)
+    {
+        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
     }
 }
