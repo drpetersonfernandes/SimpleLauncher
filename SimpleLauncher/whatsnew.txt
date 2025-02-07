@@ -10,7 +10,7 @@ release3.9
 - I added a tool to batch convert regular ISO files to the XISO (Xbox) format.
 - I added a tool to batch convert CUE, BIN, ISO, and IMG files to the CHD (MAME) format.
 - I added a tool to batch compress files into ZIP or 7Z archives.
-- I fixed various bugs.
+- I fixed some bugs.
 - I improved several methods and functions to enhance efficiency and reduce errors.
 
 release3.8.1
