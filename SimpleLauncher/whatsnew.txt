@@ -7,6 +7,7 @@ release3.9
 - I enhanced the translation resources: even error messages are now translated into 17 languages.
 - I updated the emulators to their latest releases.
 - I updated `history.xml` to the latest version.
+- I updated `mame.xml` to the latest version (0.274).
 - I added a tool to batch convert regular ISO files to the XISO (Xbox) format.
 - I added a tool to batch convert CUE, BIN, ISO, and IMG files to the CHD (MAME) format.
 - I added a tool to batch compress files into ZIP or 7Z archives.

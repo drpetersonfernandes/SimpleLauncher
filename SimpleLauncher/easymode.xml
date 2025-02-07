@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--150125-->
+<!--070225-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -57,8 +57,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -278,8 +278,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v117.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -316,8 +316,8 @@
                 <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.17</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v117.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
@@ -500,8 +500,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Casio PV-1000" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -691,8 +691,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.272</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0273b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -1198,11 +1198,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>141</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>142</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1538,11 +1538,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>141</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>142</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1694,11 +1694,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Cemu</EmulatorName>
-                <EmulatorLocation>.\emulators\Cemu\Cemu_2.5\Cemu.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\Cemu\Cemu_2.6\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.5</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.5/cemu-2.5-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.6</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.6/cemu-2.6-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
 
@@ -2029,11 +2029,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v141\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>140</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v141/ares-windows.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>142</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -2457,7 +2457,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250107</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20250123</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
