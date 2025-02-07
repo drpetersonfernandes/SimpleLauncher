@@ -236,8 +236,8 @@ public static class HelpUser
         // Remove <br> tags
         text = text.Replace("<br>", "");
 
-        // Regular expressions for bold, italic, and lines starting with ##
-        var markdownRegex = new Regex(@"\*\*(.*?)\*\*|_(.*?)_", RegexOptions.Compiled); // Match bold (**text**) and italic (_text_)
+        // Regular expressions for bold and headings (excluding underscore italics)
+        var markdownRegex = new Regex(@"\*\*(.*?)\*\*", RegexOptions.Compiled); // Match bold (**text**)
         var headingRegex = new Regex(@"^##\s*(.*?)$", RegexOptions.Multiline); // Match lines starting with ##
         var linkRegex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled); // Match URLs
 
@@ -259,14 +259,10 @@ public static class HelpUser
                 AddTextWithLinks(textBlock, plainText, linkRegex);
             }
 
-            // Add formatted text
+            // Add formatted text (bold only)
             if (match.Groups[1].Success) // Bold
             {
                 textBlock.Inlines.Add(new Bold(new Run(match.Groups[1].Value)));
-            }
-            else if (match.Groups[2].Success) // Italic
-            {
-                textBlock.Inlines.Add(new Italic(new Run(match.Groups[2].Value)));
             }
 
             lastIndex = match.Index + match.Length;
