@@ -764,6 +764,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{thefilemamexmlcouldnotbefound2}\n\n" +
                                      $"{doyouwanttoautomaticreinstall2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+        
         if (result == MessageBoxResult.Yes)
         {
             ReinstallSimpleLauncher.StartUpdaterAndShutdown();   
