@@ -1,3 +1,15 @@
+release3.9
+------------
+
+02/__/2025
+- I enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: Xbox 360, Xbox One, Xbox Series X/S, PlayStation 4 DualShock, and PlayStation 5 DualSense.
+- I improved the text formatting of developer suggestions in the Edit Window.
+- I enhanced the translation resources: even errors and exceptions are now translated into 17 languages.
+- I updated emulators to their latest releases.
+- I updated history.xml to the latest version.
+- Fixed various bugs.
+- Improved several methods and functions to enhance efficiency and reduce errors.
+
 release3.8.1
 ------------
 
