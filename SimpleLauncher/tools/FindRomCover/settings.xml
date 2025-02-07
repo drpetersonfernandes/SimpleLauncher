@@ -2,22 +2,57 @@
 <Settings>
 	<SimilarityThreshold>80</SimilarityThreshold>
 	<SupportedExtensions>
-		<Extension>zip</Extension>
+		<Extension>3ds</Extension>
 		<Extension>7z</Extension>
+		<Extension>bat</Extension>
+		<Extension>bin</Extension>
+		<Extension>bs</Extension>
+		<Extension>cas</Extension>
+		<Extension>ccd</Extension>
 		<Extension>cdi</Extension>
 		<Extension>chd</Extension>
-		<Extension>iso</Extension>
-		<Extension>3ds</Extension>
-		<Extension>rvz</Extension>
-		<Extension>nsp</Extension>
-		<Extension>xci</Extension>
-		<Extension>wua</Extension>
-		<Extension>wad</Extension>
-		<Extension>cso</Extension>
-		<Extension>nds</Extension>
-		<Extension>lnk</Extension>
-		<Extension>bat</Extension>
+		<Extension>ciso</Extension>
+		<Extension>col</Extension>
+		<Extension>cue</Extension>
+		<Extension>cv</Extension>
+		<Extension>dim</Extension>
+		<Extension>dol</Extension>
+		<Extension>dsk</Extension>
+		<Extension>elf</Extension>
 		<Extension>exe</Extension>
+		<Extension>fig</Extension>
+		<Extension>gcm</Extension>
+		<Extension>gcz</Extension>
+		<Extension>ipf</Extension>
+		<Extension>iso</Extension>
+		<Extension>lnk</Extension>
+		<Extension>m3u</Extension>
+		<Extension>msa</Extension>
+		<Extension>mx1</Extension>
+		<Extension>mx2</Extension>
+		<Extension>nca</Extension>
+		<Extension>nds</Extension>
+		<Extension>nro</Extension>
+		<Extension>nso</Extension>
+		<Extension>nsp</Extension>
+		<Extension>rar</Extension>
+		<Extension>ri</Extension>
+		<Extension>rom</Extension>
+		<Extension>rvz</Extension>
+		<Extension>sc</Extension>
+		<Extension>sfc</Extension>
+		<Extension>sg</Extension>
+		<Extension>smc</Extension>
+		<Extension>st</Extension>
+		<Extension>stx</Extension>
+		<Extension>swc</Extension>
+		<Extension>tgc</Extension>
+		<Extension>toc</Extension>
+		<Extension>wad</Extension>
+		<Extension>wbfs</Extension>
+		<Extension>wua</Extension>
+		<Extension>xci</Extension>
+		<Extension>zip</Extension>
 	</SupportedExtensions>
 	<ImageSize>
 		<Width>300</Width>
