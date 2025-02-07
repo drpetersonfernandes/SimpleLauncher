@@ -463,7 +463,63 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">The default image will be displayed instead.</system:String>
     <system:String x:Key="Imageloadingerror">Image loading error</system:String>
     <system:String x:Key="Theapplicationwillshutdown">The application will shutdown.</system:String>
-    
-    
+
+    <system:String x:Key="Nodetailsavailablefor">No details available for</system:String>
+    <system:String x:Key="Filedeleted2">File deleted</system:String>
+    <system:String x:Key="defaultpngfileismissing">'default.png' file is missing.</system:String>
+    <system:String x:Key="TherewasanerrorusingtheGlobal">There was an error using the Global Search.</system:String>
+    <system:String x:Key="Therewasanerrorlaunchingtheselected">There was an error launching the selected game.</system:String>
+    <system:String x:Key="TherewasanerrorloadingthesystemConfig">There was an error loading the systemConfig.</system:String>
+    <system:String x:Key="Therewasaproblemopeningthecoverimage">There was a problem opening the cover image for this game.</system:String>
+    <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">An error occurred while calculating the Global Statistics.</system:String>
+    <system:String x:Key="Failedtosavethereport">Failed to save the report.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Unexpected error while loading 'helpuser.xml'.</system:String>
+    <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">No valid systems found in the file 'helpuser.xml'.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unabletoloadhelpuserxml">Unable to load 'helpuser.xml'. The file may be corrupted.</system:String>
+    <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
+    <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
+    <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' could not load the file 'mame.xml' or it is corrupted.</system:String>
+    <system:String x:Key="Thefilemamexmlcouldnotbefound">The file 'mame.xml' could not be found in the application folder.</system:String>
+    <system:String x:Key="Doyouwanttoautomaticreinstall">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
+    <system:String x:Key="Updaterexenotfound">'Updater.exe' not found.</system:String>
+    <system:String x:Key="Theapplicationwillnowshutdown">The application will now shutdown.</system:String>
+    <system:String x:Key="AnerroroccurredwhileloadingROMhistory">An error occurred while loading ROM history.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound">No 'history.xml' file found in the application folder.</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningthebrowser">An error occurred while opening the browser.</system:String>
+    <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
+    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Please grant 'Simple Launcher' administrative access.</system:String>
+    <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Ensure that the 'Simple Launcher' folder is located in a writable directory.</system:String>
+    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">If necessary, temporarily disable your antivirus software.</system:String>
+    <system:String x:Key="systemxmliscorrupted">'system.xml' is corrupted or could not be opened.</system:String>
+    <system:String x:Key="Pleasefixitmanuallyordeleteit">Please fix it manually or delete it.</system:String>
+    <system:String x:Key="Ifyouchoosetodeleteit">If you choose to delete it, 'Simple Launcher' will create a new one for you.</system:String>
+    <system:String x:Key="Ifyouwanttodebugtheerroryourself">If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.</system:String>
+    <system:String x:Key="systemmodelxmlismissing">'system_model.xml' is missing.</system:String>
+    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' cannot work properly without this file.</system:String>
+    <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
+    <system:String x:Key="Toseethedetailschecktheerroruserlog">To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
+    <system:String x:Key="TherewasanerrorwiththeGamePadController">There was an error with the GamePad Controller.</system:String>
+    <system:String x:Key="RunningSimpleLauncherwithadministrative">Running 'Simple Launcher' with administrative access may fix this problem.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.</system:String>
+    <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.</system:String>
+    <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
+    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.</system:String>
+    <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
+    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' did not find a ROM history in the local database.</system:String>
+    <system:String x:Key="Therewasanerrordeletingthefile">There was an error deleting the file.</system:String>
+    <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
+    <system:String x:Key="Icouldnotfindthefilesystemxml">I could not find the file 'system.xml', which is required to start the application.</system:String>
+    <system:String x:Key="Notextavailable">No text available.</system:String>
+    <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
+    <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
+    <system:String x:Key="SystemImageFolderpathisnotvalid">System Image Folder path is not valid or does not exist:</system:String>
+    <system:String x:Key="Emulatorpathisnotvalidfor">Emulator path is not valid for</system:String>
+    <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
+    <system:String x:Key="Validationerrors">Validation errors</system:String>
      
 </ResourceDictionary>
