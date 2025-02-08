@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Si è verificato un errore durante la rimozione di questo gioco dai preferiti.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Si è verificato un problema nell'aprire il collegamento video.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Si è verificato un problema nell'aprire il collegamento delle informazioni.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Si è verificato un problema nell'aprire la finestra della cronologia.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Non è stato possibile aprire il manuale.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Non è stato possibile salvare lo screenshot.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Si è verificato un errore durante il tentativo di eliminare il file.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Assicurati inoltre di richiamare l'emulatore con il parametro corretto.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Questo tipo di errore si verifica quando 'Simple Launcher' non ha i privilegi necessari per eseguire un programma esterno, come un emulatore.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Verifica anche l'integrità dell'emulatore e delle sue dipendenze.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' non ha trovato una cronologia ROM nel database locale.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Si è verificato un errore durante l'eliminazione del file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' non è riuscito a ripristinare l'ultimo backup.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Non sono riuscito a trovare il file 'system.xml', necessario per avviare l'applicazione.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Il percorso dell'emulatore non è valido per:</system:String>
     <system:String x:Key="EditSystemtofixit">Modifica il sistema per risolverlo.</system:String>
     <system:String x:Key="Validationerrors">Errori di convalida</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Non c'è una cronologia ROM nel database locale per questo file.</system:String>
     
 </ResourceDictionary>

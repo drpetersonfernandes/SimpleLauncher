@@ -512,7 +512,7 @@ public partial class GlobalSearch
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
+                    OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
                 };
 
                 // "Cover" MenuItem
@@ -938,7 +938,7 @@ public partial class GlobalSearch
         }
     }
         
-    private void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
+    private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
     {
         string romName = fileNameWithoutExtension.ToLowerInvariant();
            
@@ -966,7 +966,7 @@ public partial class GlobalSearch
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            MessageBoxLibrary.ProblemOpeningHistoryWindowMessageBox();
+            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
 

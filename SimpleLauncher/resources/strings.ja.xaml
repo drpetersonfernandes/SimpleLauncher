@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">このゲームをお気に入りから削除中にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ビデオリンクを開く際に問題が発生しました。</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">情報リンクを開く際に問題が発生しました。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">履歴ウィンドウを開く際に問題が発生しました。</system:String>
     <system:String x:Key="Failedtoopenthemanual">マニュアルを開けませんでした。</system:String>
     <system:String x:Key="Failedtosavescreenshot">スクリーンショットを保存できませんでした。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ファイル削除中にエラーが発生しました。</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">エミュレーターを正しいパラメーターでコールしていることを確認してください。</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">このタイプのエラーは、'Simple Launcher' に外部プログラム (エミュレーターなど) を実行するための適切な権限がない場合に発生します。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">エミュレーターとその依存関係の整合性を確認してください。</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' はローカルデータベースに ROM 履歴が見つかりませんでした。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">ファイルの削除中にエラーが発生しました。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">アプリケーションを起動するために必要な 'system.xml' ファイルが見つかりません。</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">エミュレーターのパスが無効です:</system:String>
     <system:String x:Key="EditSystemtofixit">修正するためにシステムを編集してください。</system:String>
     <system:String x:Key="Validationerrors">検証エラー</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">このファイルのローカルデータベースにROM履歴がありません。</system:String>
     
 </ResourceDictionary>

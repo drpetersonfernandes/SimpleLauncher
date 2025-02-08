@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">حدث خطأ أثناء إزالة هذه اللعبة من المفضلات.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">حدثت مشكلة أثناء فتح رابط الفيديو.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">حدثت مشكلة أثناء فتح رابط المعلومات.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">حدثت مشكلة أثناء فتح نافذة السجل.</system:String>
     <system:String x:Key="Failedtoopenthemanual">فشل في فتح الدليل.</system:String>
     <system:String x:Key="Failedtosavescreenshot">فشل في حفظ لقطة الشاشة.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">أيضًا، تأكد من أنك تستدعي المحاكي بالمعامل الصحيح.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">يحدث هذا النوع من الأخطاء عندما لا يمتلك 'Simple Launcher' الصلاحيات لتشغيل برنامج خارجي، مثل المحاكي.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' لم يعثر على تاريخ ROM في قاعدة البيانات المحلية.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">حدث خطأ أثناء حذف الملف.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">لم أتمكن من العثور على ملف 'system.xml'، الذي يتطلب لتشغيل التطبيق.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">مسار المحاكي غير صالح لـ</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
     <system:String x:Key="Validationerrors">أخطاء التحقق</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">لا توجد سجلات تاريخ ROM في قاعدة البيانات المحلية لهذا الملف.</system:String>
     
 </ResourceDictionary>

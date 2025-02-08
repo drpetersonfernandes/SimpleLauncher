@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Ocorreu um erro ao remover este jogo dos favoritos.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Houve um problema ao abrir o link de vídeo.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Houve um problema ao abrir o link de informações.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Houve um problema ao abrir a janela de histórico.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Falha ao abrir o manual.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Falha ao salvar a captura de tela.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Ocorreu um erro ao tentar excluir o arquivo.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Certifique-se também de que você está utilizando os parâmetros corretos ao invocar o emulador.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Este tipo de erro ocorre quando o 'Simple Launcher' não tem privilégios necessários para executar um programa externo, como um emulador.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Verifique também a integridade do emulador e de suas dependências.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">O 'Simple Launcher' não encontrou o histórico de ROMs no banco de dados local.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Ocorreu um erro ao excluir o arquivo.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">O 'Simple Launcher' não conseguiu restaurar o backup mais recente.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Não consegui encontrar o arquivo 'system.xml', necessário para iniciar o aplicativo.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">O caminho do emulador não é válido para:</system:String>
     <system:String x:Key="EditSystemtofixit">Edite o sistema para corrigir isso.</system:String>
     <system:String x:Key="Validationerrors">Erros de validação</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Não há histórico de ROM no banco de dados local para este arquivo.</system:String>
 
 </ResourceDictionary>

@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Beim Entfernen dieses Spiels aus den Favoriten ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Es gab ein Problem beim Öffnen des Videolinks.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Es gab ein Problem beim Öffnen des Informationslinks.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Es gab ein Problem beim Öffnen des Verlaufsfensters.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Das Handbuch konnte nicht geöffnet werden.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Screenshot konnte nicht gespeichert werden.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Beim Versuch, die Datei zu löschen, ist ein Fehler aufgetreten.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Stellen Sie sicher, dass Sie den Emulator mit dem richtigen Parameter aufrufen.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Diese Art von Fehler tritt auf, wenn 'Simple Launcher' nicht über die Berechtigungen zum Starten eines externen Programms, wie z. B. eines Emulators, verfügt.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Überprüfen Sie ebenfalls die Integrität des Emulators und seiner Abhängigkeiten.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' konnte keine ROM-Historie in der lokalen Datenbank finden.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Beim Löschen der Datei ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' konnte das letzte Backup nicht wiederherstellen.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Ich konnte die Datei 'system.xml' nicht finden, die zum Starten der Anwendung benötigt wird.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Der Emulator-Pfad ist ungültig für</system:String>
     <system:String x:Key="EditSystemtofixit">Bearbeiten Sie das System, um es zu beheben.</system:String>
     <system:String x:Key="Validationerrors">Validierungsfehler</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Es gibt keinen ROM-Verlauf in der lokalen Datenbank für diese Datei.</system:String>
     
 </ResourceDictionary>

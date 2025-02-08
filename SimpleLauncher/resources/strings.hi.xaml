@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">इस गेम को पसंदीदा से हटाने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">वीडियो लिंक खोलने में समस्या आई।</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">जानकारी लिंक खोलने में समस्या आई।</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">इतिहास विंडो खोलने में समस्या आई।</system:String>
     <system:String x:Key="Failedtoopenthemanual">मैनुअल खोलने में विफल।</system:String>
     <system:String x:Key="Failedtosavescreenshot">स्क्रीनशॉट सहेजने में विफल।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">सुनिश्चित करें कि आप एमुलेटर को सही पैरामीटर के साथ कॉल कर रहे हैं।</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">इस प्रकार की त्रुटि तब होती है, जब 'Simple Launcher' के पास बाहरी प्रोग्राम, जैसे कि एमुलेटर को चलाने की अनुमति न हो।</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">एमुलेटर और उसकी निर्भरताओं की अखंडता की जांच करें।</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' स्थानीय डेटाबेस में ROM इतिहास नहीं ढूंढ सका।</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">फाइल को हटाने में त्रुटि हुई।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' अंतिम बैकअप को पुनर्स्थापित करने में असमर्थ था।</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">आवेदन चलाने के लिए आवश्यक 'system.xml' फाइल नहीं मिली।</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">एमुलेटर का पथ अमान्य है:</system:String>
     <system:String x:Key="EditSystemtofixit">इसे ठीक करने के लिए सिस्टम संपादित करें।</system:String>
     <system:String x:Key="Validationerrors">सत्यापन त्रुटियां</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">इस फ़ाइल के लिए स्थानीय डेटाबेस में ROM इतिहास उपलब्ध नहीं है।</system:String>
     
 </ResourceDictionary>

@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Une erreur est survenue lors de la suppression de ce jeu des favoris.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Un problème est survenu lors de l'ouverture du lien vidéo.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Un problème est survenu lors de l'ouverture du lien d'informations.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Un problème est survenu lors de l'ouverture de la fenêtre de l'historique.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Impossible d'ouvrir le manuel.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Impossible d'enregistrer la capture d'écran.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Une erreur est survenue lors de la tentative de suppression du fichier.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Assurez-vous également que vous appelez l'émulateur avec le paramètre correct.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Ce type d'erreur se produit lorsque 'Simple Launcher' ne dispose pas des droits nécessaires pour exécuter un programme externe, tel qu'un émulateur.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Vérifiez également l'intégrité de l'émulateur et de ses dépendances.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' n'a trouvé aucun historique de ROM dans la base de données locale.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Une erreur s'est produite lors de la suppression du fichier.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' n'a pas pu restaurer la dernière sauvegarde.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Je n'ai pas pu trouver le fichier 'system.xml', nécessaire pour lancer l'application.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Le chemin de l'émulateur n'est pas valide pour</system:String>
     <system:String x:Key="EditSystemtofixit">Modifiez le système pour le corriger.</system:String>
     <system:String x:Key="Validationerrors">Erreurs de validation</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Il n'y a pas d'historique ROM dans la base de données locale pour ce fichier.</system:String>
     
 </ResourceDictionary>

@@ -248,7 +248,7 @@ public partial class Favorites
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig);
+                    OpenHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig);
                 };
 
                 // "Cover" MenuItem
@@ -755,7 +755,7 @@ public partial class Favorites
         }
     }
         
-    private void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
+    private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
     {
         string romName = fileNameWithoutExtension.ToLowerInvariant();
            

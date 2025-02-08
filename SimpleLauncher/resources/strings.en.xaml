@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">An error occurred while removing this game from favorites.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">There was a problem opening the Video Link.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">There was a problem opening the Info Link.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">There was a problem opening the History window.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Failed to open the manual.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Failed to save screenshot.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">An error occurred while trying to delete the file</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' did not find a ROM history in the local database.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">There was an error deleting the file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">I could not find the file 'system.xml', which is required to start the application.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator path is not valid for</system:String>
     <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
     <system:String x:Key="Validationerrors">Validation errors</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">There is no ROM history in the local database for this file.</system:String>
      
 </ResourceDictionary>

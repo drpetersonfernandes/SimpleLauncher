@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">اس گیم کو فیوورٹس سے ہٹانے میں ایرر آیا ہے۔</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ویڈیو لنک کھولنے میں مسئلہ آیا ہے۔</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">انفارمیشن لنک کھولنے میں مسئلہ آیا ہے۔</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">ہسٹری ونڈو کھولنے میں مسئلہ آیا ہے۔</system:String>
     <system:String x:Key="Failedtoopenthemanual">ہینڈولنگ کھولنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtosavescreenshot">سکرین شاٹ محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">فائل کو حذف کرنے کی کوشش میں ایرر آیا ہے۔</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">یہ بھی یقینی بنائیں کہ آپ ایمولیشن کو درست پیرامیٹرز کے ساتھ بلا رہے ہیں۔</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">یہ قسم کی خرابی اس وقت ہوتی ہے جب 'Simple Launcher' کے پاس ایک بیرونی ایپلیکیشن چلانے کے لئے ضروری اجازت نہیں ہوتی، جیسے کہ ایمولیٹر۔</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">یہ بھی چیک کریں کہ ایمولیٹر اور اس کے ڈیپینڈنسیز درست حالت میں ہیں۔</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' کو مقامی ڈیٹابیس میں ROM کی ہسٹری نہیں ملی۔</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">فائل کو حذف کرنے میں خامی پیش آئی۔</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' پچھلے بیک اپ کو بحال کرنے میں ناکام رہا۔</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">ایپلیکیشن کو شروع کرنے کے لئے ضروری 'system.xml' فائل نہیں ملی۔</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">ایمولیٹر کا راستہ درست نہیں ہے:</system:String>
     <system:String x:Key="EditSystemtofixit">اسے درست کرنے کے لئے سسٹم ایڈٹ کریں۔</system:String>
     <system:String x:Key="Validationerrors">تصدیقی خامیاں</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">اس فائل کے لیے مقامی ڈیٹا بیس میں ROM تاریخ موجود نہیں ہے۔</system:String>
 
 </ResourceDictionary>

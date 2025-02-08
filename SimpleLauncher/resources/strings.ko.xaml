@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">이 게임을 즐겨찾기에서 제거하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">비디오 링크를 여는 중 문제가 발생했습니다.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">정보 링크를 여는 중 문제가 발생했습니다.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">히스토리 창을 여는 중 문제가 발생했습니다.</system:String>
     <system:String x:Key="Failedtoopenthemanual">매뉴얼을 열지 못했습니다.</system:String>
     <system:String x:Key="Failedtosavescreenshot">스크린샷을 저장하지 못했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">파일 삭제 중 오류가 발생했습니다.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">에뮬레이터를 올바른 매개변수와 함께 호출하는지 확인하세요.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">이 유형의 오류는 'Simple Launcher'에 외부 프로그램(에뮬레이터 등)을 실행할 적절한 권한이 없을 때 발생합니다.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">에뮬레이터와 그 종속성의 무결성을 확인하세요.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher'는 로컬 데이터베이스에서 ROM 기록을 찾지 못했습니다.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">파일을 삭제하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher'는 마지막 백업을 복원할 수 없었습니다.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">애플리케이션 실행에 필요한 'system.xml' 파일을 찾을 수 없습니다.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">에뮬레이터 경로가 잘못되었습니다:</system:String>
     <system:String x:Key="EditSystemtofixit">문제를 해결하려면 시스템을 수정하세요.</system:String>
     <system:String x:Key="Validationerrors">검증 오류</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">이 파일에 대한 로컬 데이터베이스에는 ROM 기록이 없습니다.</system:String>
     
 </ResourceDictionary>

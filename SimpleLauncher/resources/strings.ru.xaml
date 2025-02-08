@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Произошла ошибка при удалении этой игры из избранного.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Возникла проблема с открытием видеоссылки.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Возникла проблема с открытием информационной ссылки.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Возникла проблема с открытием окна истории.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Не удалось открыть руководство.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Не удалось сохранить скриншот.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Произошла ошибка при попытке удалить файл.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Также убедитесь, что вы указываете правильные параметры для запуска эмулятора.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Такой тип ошибки происходит, когда у 'Simple Launcher' нет нужных привилегий для запуска внешней программы, такой как эмулятор.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Также проверьте целостность эмулятора и его зависимостей.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' не нашел историю ROM в локальной базе данных.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Произошла ошибка при удалении файла.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Не удалось найти файл 'system.xml', необходимый для запуска приложения.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Путь к эмулятору недействителен для:</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
     <system:String x:Key="Validationerrors">Ошибки проверки</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">В локальной базе данных для этого файла нет истории ROM.</system:String>
 
 </ResourceDictionary>

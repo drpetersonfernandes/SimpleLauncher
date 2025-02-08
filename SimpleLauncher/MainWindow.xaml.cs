@@ -2024,6 +2024,7 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 await Task.Delay(remainingTime);
             }
+            
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }

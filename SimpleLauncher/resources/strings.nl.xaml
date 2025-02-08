@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van dit spel uit de favorieten.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Er was een probleem bij het openen van de Video-link.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Er was een probleem bij het openen van de Info-link.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Er was een probleem bij het openen van het Geschiedenis-venster.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kon de handleiding niet openen.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Kon de screenshot niet opslaan.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Er is een fout opgetreden bij het proberen het bestand te verwijderen.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Zorg er ook voor dat u de emulator aanroept met de juiste parameters.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Dit type fout treedt op wanneer 'Simple Launcher' niet de juiste machtigingen heeft om een extern programma uit te voeren, zoals een emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' heeft geen ROM-geschiedenis gevonden in de lokale database.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Er is een fout opgetreden bij het verwijderen van het bestand.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Ik kon het bestand 'system.xml' niet vinden dat nodig is om de applicatie te starten.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Het emulatorpad is ongeldig voor:</system:String>
     <system:String x:Key="EditSystemtofixit">Bewerk het systeem om dit op te lossen.</system:String>
     <system:String x:Key="Validationerrors">Validatiefouten</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Er is geen ROM-geschiedenis in de lokale database voor dit bestand.</system:String>
     
 </ResourceDictionary>

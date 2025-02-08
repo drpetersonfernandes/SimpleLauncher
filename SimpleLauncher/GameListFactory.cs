@@ -713,7 +713,7 @@ public class GameListFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            MessageBoxLibrary.ProblemOpeningHistoryWindowMessageBox();
+            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
     

@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">從最愛中移除此遊戲時出現錯誤。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">打開視頻鏈接時出現問題。</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">打開信息鏈接出現問題。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">打開歷史窗口時出現問題。</system:String>
     <system:String x:Key="Failedtoopenthemanual">無法打開手冊。</system:String>
     <system:String x:Key="Failedtosavescreenshot">無法儲存截屏。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">嘗試刪除文件時出現錯誤。</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">請確保您是以正確的參數調用模擬器。</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">當「Simple Launcher」無法獲得執行外部程式（如模擬器）所需的許可時，會發生此類錯誤。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">檢查模擬器及其依賴的完整性。</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">「Simple Launcher」未在本地資料庫中找到ROM歷史記錄。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">刪除檔案時發生錯誤。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">「Simple Launcher」無法還原最近的備份。</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">找不到檔案「system.xml」，該檔案是啟動應用程式所需。</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">模擬器路徑無效：</system:String>
     <system:String x:Key="EditSystemtofixit">編輯系統以修復問題。</system:String>
     <system:String x:Key="Validationerrors">驗證錯誤</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">本地資料庫中沒有此檔案的ROM歷史記錄。</system:String>
     
 </ResourceDictionary>

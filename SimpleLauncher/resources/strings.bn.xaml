@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">এই গেমটি ফেভারিট থেকে মুছে ফেলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ভিডিও লিঙ্কটি খুলতে একটি সমস্যা ঘটেছে।</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">তথ্য লিঙ্কটি খুলতে একটি সমস্যা ঘটেছে।</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">ইতিহাস উইন্ডোটি খুলতে একটি সমস্যা ঘটেছে।</system:String>
     <system:String x:Key="Failedtoopenthemanual">ম্যানুয়াল খুলতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtosavescreenshot">স্ক্রিনশট সংরক্ষণ করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ফাইলটি মুছে ফেলার সময় একটি ত্রুটি ঘটেছে।</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">এছাড়াও, নিশ্চিত করুন যে আপনি সঠিক প্যারামিটার সহ এমুলেটরটি কল করছেন।</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">এই ধরণের ত্রুটি ঘটে যখন 'Simple Launcher' এমুলেটর এর মতো একটি বহিরাগত প্রোগ্রাম চালু করার জন্য পর্যাপ্ত অধিকার রাখে না।</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">এছাড়াও, এমুলেটর এবং এর নির্ভরশীলতাগুলির অখণ্ডতা পরীক্ষা করুন।</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' স্থানীয় ডাটাবেসে কোনো ROM ইতিহাস খুঁজে পায়নি।</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">ফাইলটি মুছার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' শেষ ব্যাকআপটি পুনরুদ্ধার করতে অক্ষম ছিল।</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">আমি 'system.xml' ফাইলটি খুঁজে পাইনি, যা অ্যাপ্লিকেশনটি চালু করতে প্রয়োজনীয়।</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">এমুলেটরের পাথটি এর জন্য বৈধ নয়</system:String>
     <system:String x:Key="EditSystemtofixit">এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="Validationerrors">যাচাইকরণ ত্রুটি</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">এই ফাইলটির জন্য স্থানীয় ডাটাবেসে কোনও ROM ইতিহাস নেই।</system:String>
     
 </ResourceDictionary>

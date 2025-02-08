@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Terjadi kesalahan saat menghapus game ini dari favorit.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Terjadi masalah saat membuka tautan video.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Terjadi masalah saat membuka tautan informasi.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Terjadi masalah saat membuka jendela riwayat.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Gagal membuka panduan.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Gagal menyimpan tangkapan layar.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Terjadi kesalahan saat mencoba menghapus file.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Pastikan juga Anda memanggil emulator dengan parameter yang benar.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Jenis kesalahan ini terjadi ketika 'Simple Launcher' tidak memiliki izin untuk menjalankan program eksternal, seperti emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Periksa juga integritas emulator dan dependensinya.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher' tidak menemukan riwayat ROM dalam basis data lokal.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Terjadi kesalahan saat menghapus file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' tidak dapat memulihkan cadangan terakhir.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Saya tidak dapat menemukan file 'system.xml' yang diperlukan untuk menjalankan aplikasi.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Jalur emulator tidak valid untuk:</system:String>
     <system:String x:Key="EditSystemtofixit">Edit sistem untuk memperbaikinya.</system:String>
     <system:String x:Key="Validationerrors">Kesalahan validasi</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Tidak ada riwayat ROM dalam basis data lokal untuk file ini.</system:String>
     
 </ResourceDictionary>

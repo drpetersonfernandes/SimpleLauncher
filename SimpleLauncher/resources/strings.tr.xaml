@@ -454,7 +454,6 @@
     <system:String x:Key="Anerroroccurredwhileremoving">Bu oyun favorilerden kaldırılırken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Video bağlantısı açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="Therewasaproblemopeningthe">Bilgi bağlantısı açılırken bir sorun oluştu.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheHistory">Geçmiş penceresi açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kılavuz açılamadı.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Ekran görüntüsü kaydedilemedi.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Dosya silinmeye çalışılırken bir hata oluştu.</system:String>
@@ -510,7 +509,6 @@
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Ayrıca emulatorü doğru parametrelerle çağırdığınızdan emin olun.</system:String>
     <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Bu hata türü, 'Simple Launcher' dış bir uygulamayı (örneğin, bir emulator) çalıştıracak yeterli haklara sahip olmadığında meydana gelir.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Ayrıca emulatorün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
-    <system:String x:Key="SimpleLauncherdidnotfindaROMhistory">'Simple Launcher', yerel veritabanında ROM geçmişi bulamadı.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Dosya silinirken bir hata oluştu.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Uygulamayı başlatmak için gereken 'system.xml' dosyası bulunamadı.</system:String>
@@ -521,5 +519,7 @@
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator yolu geçersiz:</system:String>
     <system:String x:Key="EditSystemtofixit">Sorunu düzeltmek için sistemi düzenleyin.</system:String>
     <system:String x:Key="Validationerrors">Doğrulama hataları</system:String>
+    
+    <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Bu dosya için yerel veritabanında ROM geçmişi yok.</system:String>
     
 </ResourceDictionary>

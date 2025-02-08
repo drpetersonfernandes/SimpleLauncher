@@ -3,8 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource GlobalSearch}"
-                      Width="1400"
-                      Height="650"
+                      Width="1100"
+                      Height="550"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>

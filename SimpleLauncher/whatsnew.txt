@@ -2,17 +2,17 @@ release3.9
 ------------
 
 02/07/2025
-- I enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: Xbox 360, Xbox One, Xbox Series X/S, PlayStation 4 DualShock, and PlayStation 5 DualSense.
-- I improved the text formatting of developer suggestions in the Edit Window.
-- I enhanced the translation resources: even error messages are now translated into 17 languages.
-- I updated the emulators to their latest releases.
-- I updated `history.xml` to the latest version.
-- I updated `mame.xml` to the latest version (0.274).
-- I added a tool to batch convert regular ISO files to the XISO (Xbox) format.
-- I added a tool to batch convert CUE, BIN, ISO, and IMG files to the CHD (MAME) format.
-- I added a tool to batch compress files into ZIP or 7Z archives.
-- I fixed some bugs.
-- I improved several methods and functions to enhance efficiency and reduce errors.
+- Enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: Xbox 360, Xbox One, Xbox Series X/S, PlayStation 4 DualShock, and PlayStation 5 DualSense.
+- Improved the text formatting of developer suggestions in the Edit Window.
+- Enhanced the translation resources: even error messages are now translated into 17 languages.
+- Updated the emulators to their latest releases.
+- Updated `history.xml` to the latest version.
+- Updated `mame.xml` to the latest version (0.274).
+- Added a tool to batch convert regular ISO files to the XISO (Xbox) format.
+- Added a tool to batch convert CUE, BIN, ISO, and IMG files to the CHD (MAME) format.
+- Added a tool to batch compress files into ZIP or 7Z archives.
+- Fixed some bugs.
+- Improved several methods and functions to enhance efficiency and reduce errors.
 
 release3.8.1
 ------------

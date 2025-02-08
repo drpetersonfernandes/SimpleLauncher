@@ -79,16 +79,6 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void ProblemOpeningHistoryWindowMessageBox()
-    {
-        string therewasaproblemopeningtheHistory2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistory") ?? "There was a problem opening the History window.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasaproblemopeningtheHistory2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
     internal static void ThereIsNoCoverMessageBox()
     {
         string thereisnocoverfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
@@ -786,7 +776,7 @@ public static class MessageBoxLibrary
     internal static void UpdaterNotFoundMessageBox()
     {
         string updaterexenotfound2 = (string)Application.Current.TryFindResource("Updaterexenotfound") ?? "'Updater.exe' not found.";
-        string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the problem.";
+        string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
         string theapplicationwillnowshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ?? "The application will now shutdown.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{updaterexenotfound2}\n\n" +
@@ -812,7 +802,7 @@ public static class MessageBoxLibrary
     internal static void NoHistoryXmlFoundMessageBox()
     {
         string nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
-        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix this issue?";
+        string doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{nohistoryxmlfilefound2}\n\n" +
                                      $"{doyouwanttoreinstallSimpleLauncher2}",
@@ -885,7 +875,7 @@ public static class MessageBoxLibrary
         }
         else
         {
-            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the problem.";
+            string pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
             string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
             MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
                             $"{theapplicationwillshutdown2}",
@@ -1823,7 +1813,7 @@ public static class MessageBoxLibrary
     {
         string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
         string thistypeoferrorhappenswhenSimpleLauncher2 = (string)Application.Current.TryFindResource("ThistypeoferrorhappenswhenSimpleLauncher") ?? "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.";
-        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access.";
+        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string alsochecktheintegrityoftheemulator2 = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
@@ -1935,11 +1925,11 @@ public static class MessageBoxLibrary
     
     internal static MessageBoxResult SearchOnlineForRomHistoryMessageBox()
     {
-        string simpleLauncherdidnotfindaRoMhistory2 = (string)Application.Current.TryFindResource("SimpleLauncherdidnotfindaROMhistory") ?? "'Simple Launcher' did not find a ROM history in the local database.";
+        string thereisnoROMhistoryinthelocaldatabase2 = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
         string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
         string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
         var result = MessageBox.Show(
-            $"{simpleLauncherdidnotfindaRoMhistory2}\n\n" +
+            $"{thereisnoROMhistoryinthelocaldatabase2}\n\n" +
             $"{doyouwanttosearchonline2}",
             rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         return result;

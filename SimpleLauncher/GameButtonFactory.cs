@@ -819,7 +819,7 @@ internal class GameButtonFactory(
             logTask.Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            MessageBoxLibrary.ProblemOpeningHistoryWindowMessageBox();
+            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
 
