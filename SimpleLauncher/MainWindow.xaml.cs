@@ -635,7 +635,8 @@ public partial class MainWindow : INotifyPropertyChanged
             if (selectedConfig == null)
             {
                 // Notify developer
-                string errorMessage = "Invalid system configuration.";
+                string errorMessage = "Invalid system configuration.\n\n" +
+                                      "Method: LoadGameFilesAsync";
                 Exception ex = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
@@ -644,80 +645,77 @@ public partial class MainWindow : INotifyPropertyChanged
 
                 return;
             }
+            
+            // Create variable allFiles
             List<string> allFiles;
                 
-            // Check if we are in "FAVORITES" mode
-            if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Any())
+            // If we are in "FAVORITES" mode, use _currentSearchResults
+            if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Count != 0)
             {
                 allFiles = _currentSearchResults;
             }
+
             // Regular behavior: load files based on startLetter or searchQuery
             else
             {
                 string systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
                 
-                // **Try to get files from the cache first**
-                allFiles = _cachedFiles;
-                
-                if (allFiles == null || allFiles.Count == 0) // If the cache is empty, use regular file search
+                // Attempt to use the cached file list first
+                _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
+
+                if (_cachedFiles is { Count: > 0 })
                 {
+                    allFiles = _cachedFiles;
+                }
+                else
+                {
+                    // Fall back to scanning the folder if no cache is available
                     allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
                 
+                // Filter by TopMenu Letter if specified
                 if (!string.IsNullOrWhiteSpace(startLetter))
                 {
                     allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
                 }
 
+                // Process search query (from SearchBox)
                 if (!string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    // Use stored search results if available
+                    // If _currentSearchResults already exists, use it
                     if (_currentSearchResults != null && _currentSearchResults.Count != 0)
                     {
                         allFiles = _currentSearchResults;
                     }
                     else
                     {
+                        // Check if the system is MAME based
                         bool systemIsMame = selectedConfig.SystemIsMame;
 
-                        // // List of files that match the system extensions
-                        // allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
+                        // Filter the file list based on search query
+                        allFiles = await Task.Run(() =>
+                            allFiles.FindAll(file =>
+                                {
+                                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                                    
+                                    // Check if filename contains the search query
+                                    bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
 
-                        allFiles = await Task.Run(() => allFiles.Where(file =>
-                        {
-                            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                                    if (!systemIsMame) // If not a MAME system, return match based on filename only
+                                    {
+                                        return filenameMatch;
+                                    }
 
-                            // Search in filename
-                            bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    // For MAME systems, also match against the machine description
+                                    var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+                                    bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    return filenameMatch || descriptionMatch;
+                                }
+                            ).ToList());
 
-                            if (!systemIsMame) // If not a MAME system, return match based on filename only
-                            {
-                                return filenameMatch;
-                            }
-
-                            // For MAME systems, additionally check the machine description for a match
-                            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                            bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-
-                            return filenameMatch || descriptionMatch;
-
-                        }).ToList());
-
-                        // Store the search results
+                        // Create the search results
                         _currentSearchResults = allFiles;
-                    }
-                }
-                else
-                {
-                    _currentSearchResults?.Clear();
-    
-                    // List of files with that match the system extensions
-                    allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
-
-                    if (!string.IsNullOrWhiteSpace(startLetter))
-                    {
-                        allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
                     }
                 }
             }
@@ -2035,21 +2033,12 @@ public partial class MainWindow : INotifyPropertyChanged
         var pleaseWaitWindow = new PleaseWaitSearch();
         await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
-        var startTime = DateTime.Now;
-
         try
         {
             await LoadGameFilesAsync(null, searchQuery);
         }
         finally
         {
-            var elapsed = DateTime.Now - startTime;
-            var remainingTime = TimeSpan.FromSeconds(1) - elapsed;
-            if (remainingTime > TimeSpan.Zero)
-            {
-                await Task.Delay(remainingTime);
-            }
-            
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }

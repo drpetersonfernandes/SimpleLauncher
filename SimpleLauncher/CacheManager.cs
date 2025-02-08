@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using MessagePack;
 
@@ -10,15 +9,14 @@ namespace SimpleLauncher
     public class CacheManager
     {
         private const string CacheDirectory = "cache";
-        private Dictionary<string, List<string>> _cachedGameFiles = new();
-        private CancellationTokenSource _cancellationTokenSource;
+        private readonly Dictionary<string, List<string>> _cachedGameFiles = new();
 
         public CacheManager()
         {
             EnsureCacheDirectoryExists();
         }
 
-        private async void EnsureCacheDirectoryExists()
+        private static async void EnsureCacheDirectoryExists()
         {
             try
             {
@@ -31,7 +29,8 @@ namespace SimpleLauncher
                     }
                     catch (Exception ex)
                     {
-                        string errorMessage = $"Error.\n\n" +
+                        // Notify developer
+                        string errorMessage = $"Error creating cache directory.\n\n" +
                                               $"Exception type: {ex.GetType().Name}\n" +
                                               $"Exception details: {ex.Message}";
                         await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -40,7 +39,8 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                string errorMessage = $"Error.\n\n" +
+                // Notify developer
+                string errorMessage = $"Error creating cache directory.\n\n" +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -76,27 +76,26 @@ namespace SimpleLauncher
         /// </summary>
         private async Task<List<string>> RebuildCache(string systemName, string systemFolderPath, List<string> fileExtensions)
         {
-            await _cancellationTokenSource?.CancelAsync()!;
-            _cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = _cancellationTokenSource.Token;
-
-            var files = await Task.Run(() =>
+            var files = await Task.Run(async () =>
             {
                 var fileList = new List<string>();
                 try
                 {
                     foreach (var extension in fileExtensions)
                     {
-                        if (cancellationToken.IsCancellationRequested) return null;
                         fileList.AddRange(Directory.EnumerateFiles(systemFolderPath, extension, SearchOption.TopDirectoryOnly));
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($@"Error caching files for {systemName}: {ex.Message}");
+                    // Notify developer
+                    string errorMessage = $"Error caching files for {systemName}.\n\n" +
+                                          $"Exception type: {ex.GetType().Name}\n" +
+                                          $"Exception details: {ex.Message}";
+                    await LogErrors.LogErrorAsync(ex, errorMessage);
                 }
                 return fileList;
-            }, cancellationToken);
+            });
 
             if (files != null)
             {
@@ -126,7 +125,11 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                Console.WriteLine($@"Error saving cache for {systemName}: {ex.Message}");
+                // Notify developer
+                string errorMessage = $"Error saving cache for {systemName}.\n\n" +
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
             }
         }
 
@@ -142,7 +145,13 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                Console.WriteLine($@"Error loading cache file {cacheFilePath}: {ex.Message}");
+                // Notify developer
+                string errorMessage = $"Error loading cache file {cacheFilePath}.\n\n" +
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, errorMessage);
+                
+                // Return empty cache
                 return new GameCache { FileCount = 0, FileNames = new List<string>() };
             }
         }
@@ -154,6 +163,17 @@ namespace SimpleLauncher
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory, $"{systemName}.cache");
         }
+        
+        /// <summary>
+        /// Returns the cached files for the given system.
+        /// </summary>
+        public List<string> GetCachedFiles(string systemName)
+        {
+            if (_cachedGameFiles.TryGetValue(systemName, out var files))
+                return files;
+            return new List<string>();
+        }
+
     }
 
     [MessagePackObject]
