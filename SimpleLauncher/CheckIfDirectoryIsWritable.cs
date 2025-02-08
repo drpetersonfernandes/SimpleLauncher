@@ -16,7 +16,7 @@ public static class CheckIfDirectoryIsWritable
             string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
 
             // Attempt to create and delete the file
-            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.ReadWrite))
             {
                 fs.Close();
             }

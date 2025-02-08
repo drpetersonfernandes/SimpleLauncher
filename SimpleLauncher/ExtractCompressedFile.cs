@@ -268,7 +268,7 @@ public class ExtractCompressedFile
             return false;
         try
         {
-            using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
             return false;
         }
         catch (IOException)

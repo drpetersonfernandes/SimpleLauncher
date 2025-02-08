@@ -376,11 +376,13 @@ public static class MessageBoxLibrary
     internal static void ErrorLaunchingToolMessageBox(string logPath)
     {
         string anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
         string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
-                                     $"{theerrorwasreportedtothedeveloper2}\n\n" +
+                                     $"{grantSimpleLauncheradministrative2}\n\n" +
+                                     $"{temporarilydisableyourantivirussoftware2}\n\n" +
                                      $"{dowanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
         

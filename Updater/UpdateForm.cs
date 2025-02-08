@@ -112,7 +112,7 @@ public partial class UpdateForm : Form
 
                 // Extract the file
                 await using var entryStream = entry.Open();
-                await using var destinationFileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                await using var destinationFileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
                 await entryStream.CopyToAsync(destinationFileStream);
 
                 Log($"Extracted: {entry.FullName}");
