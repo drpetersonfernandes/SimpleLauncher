@@ -1925,11 +1925,11 @@ public static class MessageBoxLibrary
     
     internal static MessageBoxResult SearchOnlineForRomHistoryMessageBox()
     {
-        string thereisnoROMhistoryinthelocaldatabase2 = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
+        string thereisnoRoMhistoryinthelocaldatabase2 = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
         string doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
         string rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
         var result = MessageBox.Show(
-            $"{thereisnoROMhistoryinthelocaldatabase2}\n\n" +
+            $"{thereisnoRoMhistoryinthelocaldatabase2}\n\n" +
             $"{doyouwanttosearchonline2}",
             rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         return result;
