@@ -21,7 +21,6 @@ namespace SimpleLauncher;
 public partial class GlobalSearch
 {
     private readonly List<SystemConfig> _systemConfigs;
-    private readonly List<MameConfig> _machines;
     private readonly SettingsConfig _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearch _pleaseWaitWindow;
@@ -30,13 +29,16 @@ public partial class GlobalSearch
     private readonly MainWindow _mainWindow;
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
+    private readonly List<MameConfig> _machines;
+    private readonly Dictionary<string, string> _mameLookup;
 
-    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, MainWindow mainWindow)
+    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, MainWindow mainWindow)
     {
         InitializeComponent();
         
         _systemConfigs = systemConfigs;
         _machines = machines;
+        _mameLookup = mameLookup;
         _settings = settings;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
@@ -46,7 +48,6 @@ public partial class GlobalSearch
         
         Closed += GlobalSearch_Closed;
             
-        // Apply the theme to this window
         App.ApplyThemeToWindow(this);
     }
 
@@ -83,7 +84,7 @@ public partial class GlobalSearch
             if (args.Error != null)
             {
                 // Notify developer
-                string formattedException = $"That was an error using the SearchButton_Click method.\n\n" +
+                string formattedException = $"That was an error using the SearchButton_Click.\n\n" +
                                             $"Error details: {args.Error.Message}";
                 Exception ex = new(formattedException);
                 Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
@@ -94,7 +95,7 @@ public partial class GlobalSearch
             }
             else
             {
-                if (args.Result is List<SearchResult> results && results.Any())
+                if (args.Result is List<SearchResult> results && results.Count != 0)
                 {
                     foreach (var result in results)
                     {
@@ -131,43 +132,61 @@ public partial class GlobalSearch
     private List<SearchResult> PerformSearch(string searchTerm)
     {
         var results = new List<SearchResult>();
-
         var searchTerms = ParseSearchTerms(searchTerm);
 
-        // Search in machine descriptions first
-        var machinesWithMatchingDescriptions = _machines
-            .Where(m => MatchesSearchQuery(m.Description.ToLower(), searchTerms))
-            .Select(m => m.MachineName)
-            .ToList();
-
-        // Search in filenames within all systems
         foreach (var systemConfig in _systemConfigs)
         {
             string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
+            if (!Directory.Exists(systemFolderPath))
+                continue;
 
-            if (Directory.Exists(systemFolderPath))
+            // Get all files matching the files extensions for this system
+            var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
+                .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()));
+
+            // If the system is MAME-based and the lookup is available, use it to filter files.
+            if (systemConfig.SystemIsMame && _mameLookup != null)
             {
-                var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
-                    .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()))
-                    .Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms) ||
-                                   (systemConfig.SystemIsMame && machinesWithMatchingDescriptions.Any(machineName => Path.GetFileNameWithoutExtension(file).Equals(machineName, StringComparison.OrdinalIgnoreCase))))
-                    .Select(file => new SearchResult
-                    {
-                        FileName = Path.GetFileName(file),
-                        FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
-                        FilePath = file,
-                        Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
-                        MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
-                        SystemName = systemConfig.SystemName,
-                        EmulatorConfig = systemConfig.Emulators.FirstOrDefault(),
-                        CoverImage = GetCoverImagePath(systemConfig.SystemName, Path.GetFileName(file)) // Set cover image path
-                    })
-                    .ToList();
+                files = files.Where(file =>
+                {
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
-                results.AddRange(files);
+                    // First check: Does the filename itself match the search terms?
+                    if (MatchesSearchQuery(fileNameWithoutExtension.ToLower(), searchTerms))
+                        return true;
+
+                    // Second check: Look up the machine description using the dictionary.
+                    if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
+                    {
+                        return MatchesSearchQuery(description.ToLower(), searchTerms);
+                    }
+                    return false;
+                });
             }
+            else
+            {
+                // For non-MAME systems, simply filter by filename.
+                files = files.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms));
+            }
+
+            // Map each file into a SearchResult object.
+            var fileResults = files.Select(file => new SearchResult
+            {
+                FileName = Path.GetFileName(file),
+                FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
+                FilePath = file,
+                Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
+
+                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
+                SystemName = systemConfig.SystemName,
+                EmulatorConfig = systemConfig.Emulators.FirstOrDefault(),
+                CoverImage = GetCoverImagePath(systemConfig.SystemName, Path.GetFileName(file))
+            }).ToList();
+
+            results.AddRange(fileResults);
         }
 
+        // Score and order the results before returning.
         var scoredResults = ScoreResults(results, searchTerms);
         return scoredResults;
     }
@@ -193,7 +212,7 @@ public partial class GlobalSearch
         var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Function to search for the image file
+        // Search for the image file
         bool TryFindImage(string directory, out string foundPath)
         {
             foreach (var extension in imageExtensions)

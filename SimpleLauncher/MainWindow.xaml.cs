@@ -713,7 +713,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                     if (filenameMatch)
                                         return true;
 
-                                    // Instead of scanning _machines list, lookup in the dictionary.
+                                    // Lookup in the dictionary.
                                     if (_mameLookup.TryGetValue(fileName, out var description))
                                     {
                                         return description.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
@@ -1042,7 +1042,7 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
-        var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _settings, this);
+        var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _mameLookup, _settings, this);
         globalSearchWindow.Show();
     }
         
