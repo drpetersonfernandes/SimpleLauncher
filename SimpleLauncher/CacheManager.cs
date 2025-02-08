@@ -76,23 +76,26 @@ namespace SimpleLauncher
         /// </summary>
         private async Task<List<string>> RebuildCache(string systemName, string systemFolderPath, List<string> fileExtensions)
         {
-            var files = await Task.Run(async () =>
+            var files = await Task.Run(() =>
             {
                 var fileList = new List<string>();
                 try
                 {
                     foreach (var extension in fileExtensions)
                     {
-                        fileList.AddRange(Directory.EnumerateFiles(systemFolderPath, extension, SearchOption.TopDirectoryOnly));
+                        // Ensure the extension is in search pattern format.
+                        string searchPattern = extension.StartsWith("*") ? extension : "*." + extension;
+                        var foundFiles = Directory.EnumerateFiles(systemFolderPath, searchPattern, SearchOption.TopDirectoryOnly);
+                        fileList.AddRange(foundFiles);
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
                     string errorMessage = $"Error caching files for {systemName}.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, errorMessage);
+                    // Wait synchronously for logging to complete.
+                    LogErrors.LogErrorAsync(ex, errorMessage).Wait();
                 }
                 return fileList;
             });
@@ -107,7 +110,7 @@ namespace SimpleLauncher
         }
 
         /// <summary>
-        /// Saves the cache to a binary file inside the Cache folder.
+        /// Saves the cache to a binary file inside the Cache folder using MessagePack.
         /// </summary>
         private async Task SaveCacheToDisk(string systemName, List<string> fileNames)
         {
@@ -125,7 +128,6 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                // Notify developer
                 string errorMessage = $"Error saving cache for {systemName}.\n\n" +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
@@ -134,7 +136,7 @@ namespace SimpleLauncher
         }
 
         /// <summary>
-        /// Loads cache from a binary file inside the Cache folder.
+        /// Loads cache from a binary file inside the Cache folder using MessagePack.
         /// </summary>
         private async Task<GameCache> LoadCacheFromDisk(string cacheFilePath)
         {
@@ -145,13 +147,10 @@ namespace SimpleLauncher
             }
             catch (Exception ex)
             {
-                // Notify developer
                 string errorMessage = $"Error loading cache file {cacheFilePath}.\n\n" +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-                // Return empty cache
                 return new GameCache { FileCount = 0, FileNames = new List<string>() };
             }
         }
@@ -163,7 +162,7 @@ namespace SimpleLauncher
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory, $"{systemName}.cache");
         }
-        
+
         /// <summary>
         /// Returns the cached files for the given system.
         /// </summary>
@@ -173,13 +172,14 @@ namespace SimpleLauncher
                 return files;
             return new List<string>();
         }
-
     }
 
     [MessagePackObject]
     public class GameCache
     {
-        [Key(0)] public int FileCount { get; set; }
-        [Key(1)] public List<string> FileNames { get; set; }
+        [Key(0)]
+        public int FileCount { get; set; }
+        [Key(1)]
+        public List<string> FileNames { get; set; }
     }
 }

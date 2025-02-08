@@ -86,6 +86,9 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly List<MameConfig> _machines;
     private FavoritesConfig _favoritesConfig;
     private readonly FavoritesManager _favoritesManager;
+    
+    // MAME dictionary
+    private readonly Dictionary<string, string> _mameLookup;
         
     // Selected Image folder and Rom folder
     private string _selectedImageFolder;
@@ -122,7 +125,10 @@ public partial class MainWindow : INotifyPropertyChanged
             
         // Load mame.xml
         _machines = MameConfig.LoadFromXml();
-            
+        _mameLookup = _machines
+            .GroupBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
+
         // Load system.xml
         try
         {
@@ -693,26 +699,39 @@ public partial class MainWindow : INotifyPropertyChanged
                         // Check if the system is MAME based
                         bool systemIsMame = selectedConfig.SystemIsMame;
 
-                        // Filter the file list based on search query
-                        allFiles = await Task.Run(() =>
-                            allFiles.FindAll(file =>
+                        // If system is MAME based, use the pre-built _mameLookup dictionary for faster lookups.
+                        if (systemIsMame && _mameLookup != null)
+                        {
+                            // Use a case-insensitive comparison.
+                            string lowerQuery = searchQuery.ToLowerInvariant();
+                            allFiles = await Task.Run(() =>
+                                allFiles.FindAll(file =>
                                 {
-                                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                    
-                                    // Check if filename contains the search query
-                                    bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    var fileName = Path.GetFileNameWithoutExtension(file);
+                                    // Check if filename contains the search query.
+                                    bool filenameMatch = fileName.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    if (filenameMatch)
+                                        return true;
 
-                                    if (!systemIsMame) // If not a MAME system, return match based on filename only
+                                    // Instead of scanning _machines list, lookup in the dictionary.
+                                    if (_mameLookup.TryGetValue(fileName, out var description))
                                     {
-                                        return filenameMatch;
+                                        return description.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
                                     }
 
-                                    // For MAME systems, also match against the machine description
-                                    var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                                    bool descriptionMatch = machine != null && machine.Description.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
-                                    return filenameMatch || descriptionMatch;
-                                }
-                            ).ToList());
+                                    return false;
+                                }).ToList());
+                        }
+                        else
+                        {
+                            // For non-MAME systems, use the original filtering.
+                            allFiles = await Task.Run(() =>
+                                allFiles.FindAll(file =>
+                                {
+                                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                                    return fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                }).ToList());
+                        }
 
                         // Create the search results
                         _currentSearchResults = allFiles;
