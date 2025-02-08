@@ -24,6 +24,10 @@ public partial class MainWindow : INotifyPropertyChanged
     // DirectInput Controller
     private readonly DispatcherTimer _controllerCheckTimer;
 
+    // CacheManager Instance
+    private readonly CacheManager _cacheManager = new();
+    private List<string> _cachedFiles;
+
     public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
         
     // System Name and PlayTime in the Statusbar
@@ -453,70 +457,83 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
     
-    private void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        SearchTextBox.Text = ""; // Empty search field
-        EmulatorComboBox.ItemsSource = null; // Null selected emulator
-        EmulatorComboBox.SelectedIndex = -1; // No emulator selected
-        PreviewImage.Source = null; // Empty PreviewImage
-            
-        // Clear search results
-        _currentSearchResults.Clear();
-            
-        // Hide ListView
-        GameFileGrid.Visibility = Visibility.Visible;
-        ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-        if (SystemComboBox.SelectedItem != null)
+        try
         {
-            string selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            SearchTextBox.Text = ""; // Empty search field
+            EmulatorComboBox.ItemsSource = null; // Null selected emulator
+            EmulatorComboBox.SelectedIndex = -1; // No emulator selected
+            PreviewImage.Source = null; // Empty PreviewImage
+            
+            // Clear search results
+            _currentSearchResults.Clear();
+            
+            // Hide ListView
+            GameFileGrid.Visibility = Visibility.Visible;
+            ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-            if (selectedConfig != null)
+            if (SystemComboBox.SelectedItem != null)
             {
-                // Populate EmulatorComboBox with the emulators for the selected system
-                EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                string selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
-                // Select the first emulator
-                if (EmulatorComboBox.Items.Count > 0)
+                if (selectedConfig != null)
                 {
-                    EmulatorComboBox.SelectedIndex = 0;
-                }
-                    
-                // Update the selected system property
-                SelectedSystem = selectedSystem;
-                    
-                // Retrieve the playtime for the selected system
-                var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+                    // Populate EmulatorComboBox with the emulators for the selected system
+                    EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
 
-                // Display the system info
-                string systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
-                int gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                    // Select the first emulator
+                    if (EmulatorComboBox.Items.Count > 0)
+                    {
+                        EmulatorComboBox.SelectedIndex = 0;
+                    }
+                    
+                    // Update the selected system property
+                    SelectedSystem = selectedSystem;
                 
-                // SystemInfo
-                SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
+                    // Retrieve the playtime for the selected system
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+                    // Display the system info
+                    string systemFolderPath = selectedConfig.SystemFolder;
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
+                    int gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                
+                    // SystemInfo
+                    SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
                     
-                // Update Image Folder and Rom Folder Variables
-                _selectedRomFolder = selectedConfig.SystemFolder;
-                _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) 
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) 
-                    : selectedConfig.SystemImageFolder;
+                    // Update Image Folder and Rom Folder Variables
+                    _selectedRomFolder = selectedConfig.SystemFolder;
+                    _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) 
+                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) 
+                        : selectedConfig.SystemImageFolder;
                     
-                // Call DeselectLetter to clear any selected letter
-                _letterNumberMenu.DeselectLetter();
+                    // Call DeselectLetter to clear any selected letter
+                    _letterNumberMenu.DeselectLetter();
                     
-                ResetPaginationButtons();
+                    ResetPaginationButtons();
+                    
+                    // Load files from cache or rescan if needed
+                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, gameCount);
+                }
+                else
+                {
+                    AddNoSystemMessage();
+                }
             }
             else
             {
                 AddNoSystemMessage();
             }
         }
-        else
+        catch (Exception ex)
         {
-            AddNoSystemMessage();
+            string errorMessage = $"Error in the method SystemComboBox_SelectionChanged.\n\n" +
+                                  $"Exception type: {ex.GetType().Name}\n" +
+                                  $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 
@@ -618,8 +635,7 @@ public partial class MainWindow : INotifyPropertyChanged
             if (selectedConfig == null)
             {
                 // Notify developer
-                string errorMessage = "Invalid system configuration.\n\n" +
-                                      "Method: LoadGameFilesAsync";
+                string errorMessage = "Invalid system configuration.";
                 Exception ex = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
@@ -640,6 +656,19 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 string systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                
+                // **Try to get files from the cache first**
+                allFiles = _cachedFiles;
+                
+                if (allFiles == null || allFiles.Count == 0) // If the cache is empty, use regular file search
+                {
+                    allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
+                }
+                
+                if (!string.IsNullOrWhiteSpace(startLetter))
+                {
+                    allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
+                }
 
                 if (!string.IsNullOrWhiteSpace(searchQuery))
                 {
@@ -650,19 +679,15 @@ public partial class MainWindow : INotifyPropertyChanged
                     }
                     else
                     {
-                        // List of files that match the system extensions
-                        allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
-
-                        if (!string.IsNullOrWhiteSpace(startLetter))
-                        {
-                            allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
-                        }
-
                         bool systemIsMame = selectedConfig.SystemIsMame;
+
+                        // // List of files that match the system extensions
+                        // allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
 
                         allFiles = await Task.Run(() => allFiles.Where(file =>
                         {
                             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
                             // Search in filename
                             bool filenameMatch = fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
 
