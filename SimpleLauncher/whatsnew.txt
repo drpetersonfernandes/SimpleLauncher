@@ -2,7 +2,7 @@ release3.9.1
 ------------
 
 02/08/2025
-- Significantly improved the speed of the search engine in the Main Window and the Global Search Window.
+- Significantly improved the speed of the search engine in the Main Window and in the Global Search Window.
 - Fixed some bugs.
 - Enhanced methods and functions to improve efficiency and reduce errors.
 
