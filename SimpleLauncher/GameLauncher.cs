@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace SimpleLauncher;
@@ -57,11 +56,6 @@ public static class GameLauncher
 
             return;
         }
-        
-        string fileName = Path.GetFileNameWithoutExtension(filePath);
-
-        // Copy the file name to the clipboard
-        Clipboard.SetText(fileName);
         
         // Stop the GamePadController if it is running
         // To prevent interference with third party programs, like emulators or games

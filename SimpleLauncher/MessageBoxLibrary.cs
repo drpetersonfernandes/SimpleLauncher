@@ -551,14 +551,14 @@ public static class MessageBoxLibrary
     internal static void FindRomCoverLaunchWasBlockedMessageBox(string logPath)
     {
         string anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
-        string yourcomputermaynothavegranted = (string)Application.Current.TryFindResource("Yourcomputermaynothavegranted") ?? "Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.";
-        string alternativelythelaunchmayhavebeenblockedby = (string)Application.Current.TryFindResource("Alternativelythelaunchmayhavebeenblockedby") ?? "Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         string error = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show(
             $"{anerroroccurredwhiletryingtolaunch}\n\n" +
-            $"{yourcomputermaynothavegranted}\n\n" +
-            $"{alternativelythelaunchmayhavebeenblockedby}\n\n" +
+            $"{grantSimpleLauncheradministrative2}\n\n" +
+            $"{temporarilydisableyourantivirus2}\n\n" +
             $"{wouldyouliketoopentheerroruserlog}",
             error, MessageBoxButton.YesNo, MessageBoxImage.Error);
         
@@ -829,14 +829,14 @@ public static class MessageBoxLibrary
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
         string simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
-        string pleasegrantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("PleasegrantSimpleLauncheradministrativeaccess") ?? "Please grant 'Simple Launcher' administrative access.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
-        string ifnecessarytemporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Ifnecessarytemporarilydisableyourantivirus") ?? "If necessary, temporarily disable your antivirus software.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite2}\n\n" +
-                        $"{pleasegrantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
                         $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}\n\n" +
-                        $"{ifnecessarytemporarilydisableyourantivirus2}",
+                        $"{temporarilydisableyourantivirus2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
@@ -1018,15 +1018,15 @@ public static class MessageBoxLibrary
     {
         string extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
         string ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
-        string grantadministrativeaccesstoSimple2 = (string)Application.Current.TryFindResource("GrantadministrativeaccesstoSimple") ?? "Grant administrative access to 'Simple Launcher'.";
-        string ensureSimpleLauncherisinawritable2 = (string)Application.Current.TryFindResource("EnsureSimpleLauncherisinawritable") ?? "Ensure 'Simple Launcher' is in a writable folder.";
-        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{extractionfailed2}\n\n" +
                         $"{ensurethefileisnotcorrupted2}\n" +
-                        $"{grantadministrativeaccesstoSimple2}\n" +
-                        $"{ensureSimpleLauncherisinawritable2}\n" +
-                        $"{temporarilydisableyourantivirussoftware2}",
+                        $"{grantSimpleLauncheradministrative2}\n" +
+                        $"{ensuretheSimpleLauncherfolder2}\n" +
+                        $"{temporarilydisableyourantivirus2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
@@ -1125,14 +1125,14 @@ public static class MessageBoxLibrary
     internal static void IoExceptionMessageBox(string tempFolder)
     {
         string afilereadwriteerroroccurred2 = (string)Application.Current.TryFindResource("Afilereadwriteerroroccurred") ?? "A file read/write error occurred after the file was downloaded.";
-        string thiserrormayoccurifanantivirus2 = (string)Application.Current.TryFindResource("Thiserrormayoccurifanantivirus") ?? "This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.";
-        string additionallygrantSimpleLauncher2 = (string)Application.Current.TryFindResource("AdditionallygrantSimpleLauncher") ?? "Additionally, grant 'Simple Launcher' administrative access to enable file writing.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string makesuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("MakesuretheSimpleLauncher") ?? "Make sure the 'Simple Launcher' folder is located in a writable directory.";
         string wouldyouliketoopenthetemp2 = (string)Application.Current.TryFindResource("Wouldyouliketoopenthetemp") ?? "Would you like to open the 'temp' folder to view the downloaded file?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";            
         var result = MessageBox.Show($"{afilereadwriteerroroccurred2}\n\n" +
-                                     $"{thiserrormayoccurifanantivirus2}\n\n" +
-                                     $"{additionallygrantSimpleLauncher2}\n\n" +
+                                     $"{grantSimpleLauncheradministrative2}\n\n" +
+                                     $"{temporarilydisableyourantivirus2}\n\n" +
                                      $"{makesuretheSimpleLauncher2}\n\n" +
                                      $"{wouldyouliketoopenthetemp2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -1816,13 +1816,13 @@ public static class MessageBoxLibrary
     internal static void InvalidOperationExceptionMessageBox()
     {
         string failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
-        string thistypeoferrorhappenswhenSimpleLauncher2 = (string)Application.Current.TryFindResource("ThistypeoferrorhappenswhenSimpleLauncher") ?? "This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.";
-        string grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string alsochecktheintegrityoftheemulator2 = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
-                        $"{thistypeoferrorhappenswhenSimpleLauncher2}\n\n" +
-                        $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}\n\n" +
                         $"{alsochecktheintegrityoftheemulator2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }

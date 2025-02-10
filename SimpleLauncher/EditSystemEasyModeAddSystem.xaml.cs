@@ -410,7 +410,7 @@ public partial class EditSystemEasyModeAddSystem
                             // Update AddSystemButton state
                             UpdateAddSystemButtonState();
                         }
-                        else // Extraction failed
+                        else // Extraction fail
                         {
                             // Notify developer
                             string formattedException = $"Image Pack extraction failed.\n\n" +
@@ -422,7 +422,7 @@ public partial class EditSystemEasyModeAddSystem
                             MessageBoxLibrary.ExtractionFailedMessageBox();
                         }
                     }
-                    else // Download Failed
+                    else // Download fail
                     {
                         // Notify developer
                         string formattedException = $"Image Pack download failed.\n\n" +

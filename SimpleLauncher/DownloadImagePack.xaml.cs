@@ -131,7 +131,7 @@ public partial class DownloadImagePack
                             await LogErrors.LogErrorAsync(ex, formattedException);
 
                             // Notify user
-                            MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
+                            MessageBoxLibrary.ExtractionFailedMessageBox();
                         }
                     }
                     else // Download fail
