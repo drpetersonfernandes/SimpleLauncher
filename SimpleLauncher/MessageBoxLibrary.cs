@@ -1055,10 +1055,12 @@ public static class MessageBoxLibrary
     internal static void FileIsLockedMessageBox()
     {
         string downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{downloadedfileislocked2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{temporarilydisableyourantivirussoftware2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
@@ -1767,12 +1769,12 @@ public static class MessageBoxLibrary
     internal static void GamePadErrorMessageBox()
     {
         string therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
-        string runningSimpleLauncherwithadministrative2 = (string)Application.Current.TryFindResource("RunningSimpleLauncherwithadministrative") ?? "Running 'Simple Launcher' with administrative access may fix this problem.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
-                        $"{runningSimpleLauncherwithadministrative2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
@@ -1868,11 +1870,13 @@ public static class MessageBoxLibrary
             warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
     
-    internal static void InvalidProgramLocationMessageBox()
+    internal static void InvalidProgramLocationMessageBox(string programLocation)
     {
-        string invalidemulatorexecutablepath2 = (string)Application.Current.TryFindResource("Invalidemulatorexecutablepath") ?? "Invalid emulator executable path. Please check the configuration.";
+        string invalidemulatorexecutablepath3 = (string)Application.Current.TryFindResource("Invalidemulatorexecutablepath3") ?? "Invalid emulator executable path:";
+        string pleasechecktheconfigurationforthissystem2 = (string)Application.Current.TryFindResource("Pleasechecktheconfigurationforthissystem") ?? "Please check the configuration for this system.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show(invalidemulatorexecutablepath2,
+        MessageBox.Show($"{invalidemulatorexecutablepath3} {programLocation}\n\n" +
+                        $"{pleasechecktheconfigurationforthissystem2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 

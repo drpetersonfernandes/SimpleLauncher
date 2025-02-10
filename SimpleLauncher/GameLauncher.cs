@@ -406,7 +406,7 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.InvalidProgramLocationMessageBox();
+            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
             
             return;
         }
@@ -588,7 +588,7 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
             
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
             
             return;
         }
@@ -1006,7 +1006,7 @@ public static class GameLauncher
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.InvalidProgramLocationMessageBox();
+            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
             
             return;
         }

@@ -79,11 +79,11 @@ public class EasyModeConfig
     }
 }
 
-public class EasyModeSystemConfig
+public class EasyModeSystemConfig(List<string> fileFormatsToSearch, string systemImageFolder, string systemName, string systemFolder, List<string> fileFormatsToLaunch)
 {
-    public string SystemName { get; set; }
-    public string SystemFolder { get; set; }
-    public string SystemImageFolder { get; set; }
+    public string SystemName { get; } = systemName;
+    public string SystemFolder { get; set; } = systemFolder;
+    public string SystemImageFolder { get; } = systemImageFolder;
 
     [XmlElement("SystemIsMame")]
     public bool? SystemIsMameNullable { get; set; }
@@ -93,7 +93,7 @@ public class EasyModeSystemConfig
 
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
-    public List<string> FileFormatsToSearch { get; set; }
+    public List<string> FileFormatsToSearch { get; } = fileFormatsToSearch;
 
     [XmlElement("ExtractFileBeforeLaunch")]
     public bool? ExtractFileBeforeLaunchNullable { get; set; }
@@ -103,7 +103,7 @@ public class EasyModeSystemConfig
 
     [XmlArray("FileFormatsToLaunch")]
     [XmlArrayItem("FormatToLaunch")]
-    public List<string> FileFormatsToLaunch { get; set; }
+    public List<string> FileFormatsToLaunch { get; } = fileFormatsToLaunch;
 
     [XmlElement("Emulators")]
     public EmulatorsConfig Emulators { get; set; }
@@ -122,14 +122,23 @@ public class EmulatorsConfig
     public EmulatorConfig Emulator { get; set; }
 }
 
-public class EmulatorConfig
+public class EmulatorConfig(
+    string emulatorName,
+    string emulatorLocation,
+    string emulatorParameters,
+    string emulatorDownloadLink,
+    string emulatorDownloadExtractPath,
+    string coreDownloadLink,
+    string extrasDownloadExtractPath,
+    string extrasDownloadLink,
+    string coreDownloadExtractPath)
 {
-    public string EmulatorName { get; set; }
-    public string EmulatorLocation { get; set; }
-    public string EmulatorParameters { get; set; }
+    public string EmulatorName { get; } = emulatorName;
+    public string EmulatorLocation { get; } = emulatorLocation;
+    public string EmulatorParameters { get; } = emulatorParameters;
     public string EmulatorDownloadPage { get; set; }
     public string EmulatorLatestVersion { get; set; }
-    public string EmulatorDownloadLink { get; set; }
+    public string EmulatorDownloadLink { get; } = emulatorDownloadLink;
 
     [XmlElement("EmulatorDownloadRename")]
     public bool? EmulatorDownloadRenameNullable { get; set; }
@@ -137,13 +146,13 @@ public class EmulatorConfig
     [XmlIgnore]
     public bool EmulatorDownloadRename => EmulatorDownloadRenameNullable ?? false;
 
-    public string EmulatorDownloadExtractPath { get; set; }
+    public string EmulatorDownloadExtractPath { get; } = emulatorDownloadExtractPath;
     public string CoreLocation { get; set; }
     public string CoreLatestVersion { get; set; }
-    public string CoreDownloadLink { get; set; }
-    public string CoreDownloadExtractPath { get; set; }
+    public string CoreDownloadLink { get; } = coreDownloadLink;
+    public string CoreDownloadExtractPath { get; } = coreDownloadExtractPath;
     public string ExtrasLocation { get; set; }
     public string ExtrasLatestVersion { get; set; }
-    public string ExtrasDownloadLink { get; set; }
-    public string ExtrasDownloadExtractPath { get; set; }
+    public string ExtrasDownloadLink { get; } = extrasDownloadLink;
+    public string ExtrasDownloadExtractPath { get; } = extrasDownloadExtractPath;
 }

@@ -207,8 +207,8 @@ public class GamePadController : IDisposable
 
             CheckAndReconnectControllers();
 
-            // // Notify user
-            // GamePadErrorMessageBox();
+            // Notify user
+            MessageBoxLibrary.GamePadErrorMessageBox();
         }
     }
     

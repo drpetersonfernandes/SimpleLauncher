@@ -76,6 +76,14 @@ namespace SimpleLauncher
         /// </summary>
         private async Task<List<string>> RebuildCache(string systemName, string systemFolderPath, List<string> fileExtensions)
         {
+            if (systemFolderPath == null || fileExtensions == null)
+            {
+                // Ignore
+                
+                // Return an empty list
+                return new List<string>();
+            }
+            
             var files = await Task.Run(() =>
             {
                 var fileList = new List<string>();
@@ -94,10 +102,9 @@ namespace SimpleLauncher
                     string errorMessage = $"Error caching files for {systemName}.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                    // Wait synchronously for logging to complete.
-                    LogErrors.LogErrorAsync(ex, errorMessage).Wait();
+                    LogErrors.LogErrorAsync(ex, errorMessage).Wait(); // Wait synchronously for logging to complete.
                 }
-                return fileList;
+                return fileList; // Return the list of files
             });
 
             if (files != null)
