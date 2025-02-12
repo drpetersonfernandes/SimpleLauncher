@@ -102,7 +102,7 @@ namespace SimpleLauncher
                     string errorMessage = $"Error caching files for {systemName}.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, errorMessage).Wait(); // Wait synchronously for logging to complete.
+                    LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
                 }
                 return fileList; // Return the list of files
             });

@@ -87,8 +87,7 @@ public partial class GlobalSearch
                 string formattedException = $"That was an error using the SearchButton_Click.\n\n" +
                                             $"Error details: {args.Error.Message}";
                 Exception ex = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
@@ -401,8 +400,7 @@ public partial class GlobalSearch
             string formattedException = $"That was an error launching a game.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox();
@@ -426,8 +424,7 @@ public partial class GlobalSearch
                     // Notify developer
                     string formattedException = "systemConfig is null.";
                     Exception ex = new(formattedException);
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
@@ -783,8 +780,7 @@ public partial class GlobalSearch
                                 string formattedException = $"Error deleting the file.\n\n" +
                                                             $"Exception type: {ex.GetType().Name}\n" +
                                                             $"Exception details: {ex.Message}";
-                                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                                logTask.Wait(TimeSpan.FromSeconds(2));
+                                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                                 
                                 // Notify user
                                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -821,8 +817,7 @@ public partial class GlobalSearch
                 $"There was an error in the right-click context menu.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
@@ -864,8 +859,7 @@ public partial class GlobalSearch
             string formattedException = $"An error occurred while adding game to favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -892,8 +886,7 @@ public partial class GlobalSearch
             string formattedException = $"An error occurred in the RemoveFromFavorites2 method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
 
@@ -919,8 +912,7 @@ public partial class GlobalSearch
             string formattedException = $"There was a problem opening the Video Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
@@ -949,8 +941,7 @@ public partial class GlobalSearch
             string formattedException = $"There was a problem opening the Info Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
@@ -981,8 +972,7 @@ public partial class GlobalSearch
             string contextMessage = $"There was a problem opening the History window.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
@@ -998,8 +988,7 @@ public partial class GlobalSearch
             // Notify developer
             const string formattedException = "System configuration not found for the selected game in the GlobalSearch.";
             Exception ex = new(formattedException);
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ProblemOpeningCoverImageMessageBox();
@@ -1188,8 +1177,7 @@ public partial class GlobalSearch
                     string formattedException = $"Failed to open the manual.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenManualMessageBox();
@@ -1233,8 +1221,7 @@ public partial class GlobalSearch
                     string formattedException = $"Failed to open the walkthrough file.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
@@ -1337,8 +1324,7 @@ public partial class GlobalSearch
                 // Notify developer
                 string formattedException = "systemConfig is null.";
                 Exception ex = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
@@ -1423,8 +1409,7 @@ public partial class GlobalSearch
             string formattedException = $"Failed to save screenshot.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
@@ -1453,8 +1438,7 @@ public partial class GlobalSearch
                 string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
@@ -1483,8 +1467,7 @@ public partial class GlobalSearch
             string formattedException = $"There was an error while using the method MouseDoubleClick.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();

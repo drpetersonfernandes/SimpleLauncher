@@ -24,8 +24,7 @@ public class MameConfig
             // Notify developer
             string contextMessage = "The file 'mame.xml' could not be found in the application folder.";
             Exception ex = new Exception(contextMessage);
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
@@ -49,8 +48,7 @@ public class MameConfig
             string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();

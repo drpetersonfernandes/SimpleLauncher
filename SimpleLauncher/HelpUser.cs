@@ -26,8 +26,7 @@ public static class HelpUser
             string formattedException = $"Failed to load helpuser.xml.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
 

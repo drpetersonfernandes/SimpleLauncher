@@ -1111,8 +1111,7 @@ public static class MessageBoxLibrary
                 string formattedException = $"Error opening the Browser.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 string simpleLaunchercouldnotopentheImage2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";

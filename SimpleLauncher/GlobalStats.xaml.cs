@@ -219,8 +219,7 @@ public partial class GlobalStats
                 string formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.FailedSaveReportMessageBox();

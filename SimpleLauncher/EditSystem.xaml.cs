@@ -848,8 +848,7 @@ public partial class EditSystem
                     string formattedException = $"'Failed to create the default systemImageFolder.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
@@ -885,8 +884,7 @@ public partial class EditSystem
                     string formattedException = $"'Failed to create the default systemFolder.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
@@ -963,8 +961,7 @@ public partial class EditSystem
                 string formattedException = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.FolderCreationFailedMessageBox();

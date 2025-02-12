@@ -80,8 +80,7 @@ public abstract class FileManager
             string contextMessage = "An error occurred while counting files.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);

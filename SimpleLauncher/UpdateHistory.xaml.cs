@@ -26,8 +26,7 @@ public partial class UpdateHistory
             string formattedException = "'whatsnew.txt' not found or could not be loaded.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
 }

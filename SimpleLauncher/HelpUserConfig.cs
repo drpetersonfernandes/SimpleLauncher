@@ -22,8 +22,7 @@ public class HelpUserConfig
                 // Notify developer
                 string contextMessage = "The file 'helpuser.xml' is missing.";
                 Exception ex = new Exception(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 if (MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox()) return;
@@ -41,8 +40,7 @@ public class HelpUserConfig
             {
                 // Notify developer
                 string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 if (MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox()) return;
@@ -65,8 +63,7 @@ public class HelpUserConfig
                     {
                         // Notify developer
                         string contextMessage = "Failed to parse the file 'helpuser.xml'.";
-                        Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                         // Notify user
                         if (MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox()) return null;
@@ -82,8 +79,7 @@ public class HelpUserConfig
                 // Notify developer
                 string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
                 Exception ex = new Exception(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
@@ -93,8 +89,7 @@ public class HelpUserConfig
         {
             // Notify developer
             string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();

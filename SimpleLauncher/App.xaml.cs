@@ -65,8 +65,7 @@ public partial class App
             string errorMessage = $"Failed to load language resources for {cultureCode}\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             FailedToLoadLanguageResourceMessageBox();
@@ -92,8 +91,7 @@ public partial class App
             string errorMessage = $"Failed to Apply Theme\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
         }
     }
 

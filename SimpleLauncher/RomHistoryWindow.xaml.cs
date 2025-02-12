@@ -45,8 +45,7 @@ public partial class RomHistoryWindow
                 // Notify developer
                 string contextMessage = "'history.xml' is missing.";
                 Exception ex = new Exception(contextMessage);
-                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 string nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
@@ -97,8 +96,7 @@ public partial class RomHistoryWindow
             string contextMessage = $"An error occurred while loading ROM history.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -150,8 +148,7 @@ public partial class RomHistoryWindow
             string contextMessage = $"An error occurred while opening the browser.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();

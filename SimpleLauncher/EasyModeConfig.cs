@@ -71,8 +71,7 @@ public class EasyModeConfig
     private static void LogAndNotify(Exception ex, string errorMessage)
     {
         // Notify developer
-        Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-        logTask.Wait(TimeSpan.FromSeconds(2));
+        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
         // Notify the user.
         MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();

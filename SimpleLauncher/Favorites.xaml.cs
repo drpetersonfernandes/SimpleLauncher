@@ -125,8 +125,7 @@ public partial class Favorites
                     // Notify developer
                     string formattedException = $"Favorite filename is null";
                     Exception ex = new(formattedException);
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                     
                     // Notify user
                     MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -143,8 +142,7 @@ public partial class Favorites
                     // Notify developer
                     string formattedException = $"systemConfig is null for the selected favorite";
                     Exception ex = new(formattedException);
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -500,8 +498,7 @@ public partial class Favorites
                                 string formattedException = $"Error deleting the file.\n\n" +
                                                             $"Exception type: {ex.GetType().Name}\n" +
                                                             $"Exception details: {ex.Message}";
-                                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                                logTask.Wait(TimeSpan.FromSeconds(2));
+                                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                                 
                                 // Notify user
                                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -537,8 +534,7 @@ public partial class Favorites
             string formattedException = $"There was an error in the right-click context menu.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -717,8 +713,7 @@ public partial class Favorites
             string formattedException = $"There was a problem opening the Video Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
@@ -747,8 +742,7 @@ public partial class Favorites
             string formattedException = $"There was a problem opening the Info Link.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenInfoLinkMessageBox();
@@ -779,8 +773,7 @@ public partial class Favorites
             string contextMessage = $"There was a problem opening the History window.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
@@ -798,8 +791,7 @@ public partial class Favorites
             // Notify developer
             const string formattedException = "systemConfig is null.";
             Exception exception = new(formattedException);
-            Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
@@ -829,8 +821,7 @@ public partial class Favorites
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
             Exception exception = new(formattedException);
-            Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
@@ -968,8 +959,7 @@ public partial class Favorites
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
                     Exception exception = new(formattedException);
-                    Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenManualMessageBox();
@@ -1011,8 +1001,7 @@ public partial class Favorites
                     string formattedException = $"Failed to open the walkthrough file.\n\n" +
                                                 $"Exception type: {ex.GetType().Name}\n" +
                                                 $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
@@ -1106,8 +1095,7 @@ public partial class Favorites
                 // Notify developer
                 string formattedException = "systemConfig is null.";
                 Exception ex = new(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.TakeScreenShotErrorMessageBox();
@@ -1196,8 +1184,7 @@ public partial class Favorites
             string formattedException = $"Error in the TakeScreenshotOfSelectedWindow.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.TakeScreenShotErrorMessageBox();
@@ -1223,8 +1210,7 @@ public partial class Favorites
                 string errorMessage = $"An error occurred while trying to delete the file \"{fileNameWithExtension}\"." +
                                       $"Exception type: {ex.GetType().Name}\n" +
                                       $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.CouldNotDeleteTheFileMessageBox();
@@ -1236,8 +1222,7 @@ public partial class Favorites
             string errorMessage = "The file could not be found.\n\n" +
                                   $"File: {filePath}";
             Exception ex = new(errorMessage);
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.CouldNotDeleteTheFileMessageBox();

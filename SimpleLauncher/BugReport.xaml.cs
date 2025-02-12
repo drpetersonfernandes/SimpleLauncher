@@ -38,8 +38,7 @@ public partial class BugReport
             // Notify developer
             string formattedException = $"File 'appsettings.json' is missing.";
             Exception exception = new(formattedException);
-            Task logTask = LogErrors.LogErrorAsync(exception, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
     
             // Notify user
             MessageBoxLibrary.RequiredFileMissingMessageBox();

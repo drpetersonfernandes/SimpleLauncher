@@ -70,8 +70,7 @@ public class SystemConfig
                                 // Notify developer
                                 string contextMessage = "'system_model.xml' was not found in the application folder.";
                                 Exception ex = new Exception(contextMessage);
-                                Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                                logTask.Wait(TimeSpan.FromSeconds(2));
+                                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                                         
                                 // Notify user
                                 MessageBoxLibrary.SystemModelXmlIsMissingMessageBox();
@@ -85,8 +84,7 @@ public class SystemConfig
                     string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.SystemXmlIsCorruptedMessageBox();
@@ -107,8 +105,7 @@ public class SystemConfig
                 string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
                                                $"Exception type: {ex.GetType().Name}\n" +
                                                $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, errorDetailsDeveloper);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, errorDetailsDeveloper).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox();
@@ -242,8 +239,7 @@ public class SystemConfig
             string contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox();
@@ -268,8 +264,7 @@ public class SystemConfig
                     string contextMessage = $"'Simple Launcher' was unable to restore the last backup.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();

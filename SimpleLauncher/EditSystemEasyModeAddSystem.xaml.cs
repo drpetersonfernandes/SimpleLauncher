@@ -713,8 +713,7 @@ public partial class EditSystemEasyModeAddSystem
                 string formattedException = $"Error adding system.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
  
                 // Notify user
                 MessageBoxLibrary.AddSystemFailedMessageBox();
@@ -768,8 +767,7 @@ public partial class EditSystemEasyModeAddSystem
             string formattedException = $"The application failed to create the necessary folders for the newly added system.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

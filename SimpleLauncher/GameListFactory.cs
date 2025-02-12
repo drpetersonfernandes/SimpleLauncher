@@ -463,8 +463,7 @@ public class GameListFactory(
                         string formattedException = $"Error deleting the file.\n\n" +
                                                     $"Exception type: {ex.GetType().Name}\n" +
                                                     $"Exception details: {ex.Message}";
-                        Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                                 
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -540,8 +539,7 @@ public class GameListFactory(
             string formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -582,8 +580,7 @@ public class GameListFactory(
             string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
@@ -610,8 +607,7 @@ public class GameListFactory(
             string formattedException = $"An error occurred in the method RemoveFromFavorites2 in the class GameListFactory.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
     
@@ -642,8 +638,7 @@ public class GameListFactory(
             string contextMessage = $"There was a problem opening the Video Link.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
@@ -677,8 +672,7 @@ public class GameListFactory(
             string contextMessage = $"There was a problem opening the Info Link.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
@@ -709,8 +703,7 @@ public class GameListFactory(
             string contextMessage = $"There was a problem opening the History window.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
@@ -886,8 +879,7 @@ public class GameListFactory(
                     string contextMessage = $"There was a problem opening the manual.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenManualMessageBox();
@@ -929,8 +921,7 @@ public class GameListFactory(
                     string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}";
-                    Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-                    logTask.Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
                     MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
@@ -1100,8 +1091,7 @@ public class GameListFactory(
             string contextMessage = $"There was a problem saving the screenshot.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
@@ -1191,8 +1181,7 @@ public class GameListFactory(
                         string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
                                               $"Exception type: {ex.GetType().Name}\n" +
                                               $"Exception details: {ex.Message}";
-                        Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-                        logTask.Wait(TimeSpan.FromSeconds(2));
+                        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
                     }
                 }
                 else

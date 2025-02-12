@@ -20,8 +20,7 @@ public static class GameLauncher
             // Notify developer
             string errorMessage = "Invalid filePath.";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -34,8 +33,7 @@ public static class GameLauncher
             // Notify developer
             string errorMessage = "Invalid system.";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -48,8 +46,7 @@ public static class GameLauncher
             // Notify developer
             string errorMessage = "Invalid emulator.";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, errorMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);

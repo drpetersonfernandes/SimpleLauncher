@@ -42,7 +42,7 @@ public partial class UpdateForm : Form
 
     private void RunUpdateProcess()
     {
-        UpdateProcess().Wait(); // Run the async method synchronously in the thread
+        UpdateProcess().Wait();
     }
 
     private async Task UpdateProcess()

@@ -110,8 +110,7 @@ public class SettingsConfig
             string contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
@@ -223,8 +222,7 @@ public class SettingsConfig
             // Notify developer
             string contextMessage = "The systemName is null or empty.";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
             return;
         }
@@ -234,8 +232,7 @@ public class SettingsConfig
             // Notify developer
             string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             Exception ex = new();
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
             return;
         }

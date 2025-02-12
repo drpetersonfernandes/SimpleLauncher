@@ -142,8 +142,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string contextMessage = $"'system.xml' is corrupted.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.SystemXmlCorruptedMessageBox();
@@ -160,7 +159,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Initialize the GamePadController
         // Setting the error logger for GamePad
-        GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait();
+        GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait(TimeSpan.FromSeconds(2));
 
         // Start GamePad if enable
         if (_settings.EnableGamePadNavigation)
@@ -877,9 +876,8 @@ public partial class MainWindow : INotifyPropertyChanged
             string contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, contextMessage);
-            logTask.Wait(TimeSpan.FromSeconds(2));
-
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            
             // Notify user
             MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
         }
@@ -1107,8 +1105,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "The file 'FindRomCover.exe' is missing.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.FindRomCoverMissingMessageBox();
@@ -1120,8 +1117,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
@@ -1132,8 +1128,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasBlockedMessageBox(_logPath);
@@ -1159,8 +1154,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1172,8 +1166,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1199,8 +1192,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1212,8 +1204,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1239,8 +1230,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'BatchConvertToCHD.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1252,8 +1242,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1279,8 +1268,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'BatchConvertTo7z.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1292,8 +1280,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1319,8 +1306,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'BatchConvertToZip.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1332,8 +1318,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1359,8 +1344,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1372,8 +1356,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1399,8 +1382,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1412,8 +1394,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1439,8 +1420,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1452,8 +1432,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1479,8 +1458,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
                 Exception ex = new Exception(formattedException);
-                Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-                logTask.Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1492,8 +1470,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string formattedException = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}";
-            Task logTask = LogErrors.LogErrorAsync(ex, formattedException);
-            logTask.Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
