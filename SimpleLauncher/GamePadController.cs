@@ -1,6 +1,7 @@
 ﻿using SharpDX.DirectInput;
 using SharpDX.XInput;
 using System;
+using System.IO;
 using System.Threading;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
@@ -9,6 +10,8 @@ namespace SimpleLauncher;
 
 public class GamePadController : IDisposable
 {
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+
     private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;
 
@@ -96,7 +99,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
 
@@ -116,7 +119,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
 
@@ -143,7 +146,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
 
@@ -208,7 +211,7 @@ public class GamePadController : IDisposable
             CheckAndReconnectControllers();
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox();
+            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
     
@@ -253,9 +256,12 @@ public class GamePadController : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers.\n\n" +
+            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
+            
+            // Notify user
+            // Ignore
         }
     }
 

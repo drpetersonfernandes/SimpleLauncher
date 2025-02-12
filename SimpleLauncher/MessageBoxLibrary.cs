@@ -1765,16 +1765,34 @@ public static class MessageBoxLibrary
         }
     }
     
-    internal static void GamePadErrorMessageBox()
+    internal static void GamePadErrorMessageBox(string logPath)
     {
         string therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
         string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
-                        $"{grantSimpleLauncheradministrative2}\n\n" +
-                        $"{temporarilydisableyourantivirus2}",
+        var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
+                                     $"{grantSimpleLauncheradministrative2}\n\n" +
+                                     $"{temporarilydisableyourantivirus2}\n\n" +
+                                     $"{doyouwanttoopenthefile2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        
+        if (result != MessageBoxResult.Yes) return;
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = logPath,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception)
+        {
+            string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+            MessageBox.Show(thefileerroruserlogwas2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
     
     internal static void CouldNotLaunchGameMessageBox(string logPath)
@@ -1793,22 +1811,20 @@ public static class MessageBoxLibrary
             $"{doyouwanttoopenthefile2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
-        if (result == MessageBoxResult.Yes)
+        if (result != MessageBoxResult.Yes) return;
+        try
         {
-            try
+            Process.Start(new ProcessStartInfo
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                FileName = logPath,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception)
+        {
+            string thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+            MessageBox.Show(thefileerroruserlogwas2,
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
     
