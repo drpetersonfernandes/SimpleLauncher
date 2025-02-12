@@ -16,34 +16,23 @@ namespace SimpleLauncher
             EnsureCacheDirectoryExists();
         }
 
-        private static async void EnsureCacheDirectoryExists()
+        private static void EnsureCacheDirectoryExists()
         {
-            try
+            string cacheDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory);
+            if (!Directory.Exists(cacheDir))
             {
-                string cacheDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory);
-                if (!Directory.Exists(cacheDir))
+                try
                 {
-                    try
-                    {
-                        Directory.CreateDirectory(cacheDir);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        string errorMessage = $"Error creating cache directory.\n\n" +
-                                              $"Exception type: {ex.GetType().Name}\n" +
-                                              $"Exception details: {ex.Message}";
-                        await LogErrors.LogErrorAsync(ex, errorMessage);
-                    }
+                    Directory.CreateDirectory(cacheDir);
                 }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                string errorMessage = $"Error creating cache directory.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, errorMessage);
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    string errorMessage = $"Error creating cache directory.\n\n" +
+                                          $"Exception type: {ex.GetType().Name}\n" +
+                                          $"Exception details: {ex.Message}";
+                    LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+                }
             }
         }
 

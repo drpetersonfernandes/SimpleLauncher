@@ -939,49 +939,38 @@ public partial class MainWindow : INotifyPropertyChanged
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
         
-    private async void ToggleGamepad_Click(object sender, RoutedEventArgs e)
+    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
-        try
+        if (sender is MenuItem menuItem)
         {
-            if (sender is MenuItem menuItem)
+            try
             {
-                try
+                // Update the settings
+                _settings.EnableGamePadNavigation = menuItem.IsChecked;
+
+                _settings.Save();
+
+                // Start or stop the GamePadController
+                if (menuItem.IsChecked)
                 {
-                    // Update the settings
-                    _settings.EnableGamePadNavigation = menuItem.IsChecked;
-
-                    _settings.Save();
-
-                    // Start or stop the GamePadController
-                    if (menuItem.IsChecked)
-                    {
-                        GamePadController.Instance2.Start();
-                    }
-                    else
-                    {
-                        GamePadController.Instance2.Stop();
-                    }
+                    GamePadController.Instance2.Start();
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Notify developer
-                    string formattedException = $"Failed to toggle gamepad.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-                    
-                    // Notify user
-                    MessageBoxLibrary.ToggleGamepadFailureMessageBox();
+                    GamePadController.Instance2.Stop();
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"Failed to toggle gamepad.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            catch (Exception ex)
+            {
+                // Notify developer
+                string formattedException = $"Failed to toggle gamepad.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                    
+                // Notify user
+                MessageBoxLibrary.ToggleGamepadFailureMessageBox();
+            }
         }
     }
 

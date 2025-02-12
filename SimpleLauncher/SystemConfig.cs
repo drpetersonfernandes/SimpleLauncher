@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
 using System.IO;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace SimpleLauncher;
