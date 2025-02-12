@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 ピクセル</system:String>
     <system:String x:Key="About">情報</system:String>
     <system:String x:Key="AccentColors">アクセントカラー</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">さらに、『Simple Launcher』に管理者権限を付与して、ファイル書き込み機能を有効にしてください。</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="AddSystem">システムを追加</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">ダウンロード後にファイルの読み書きエラーが発生しました。</system:String>
     <system:String x:Key="alreadyexists">既に存在します。</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">または、起動がアンチウイルスソフトウェアによってブロックされた可能性があります。その場合は、'FindRomCover.exe' の実行を許可するようにアンチウイルスソフトウェアを設定してください。</system:String>
     <system:String x:Key="Amber">アンバー</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">エラーレポート送信中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' を起動しようとした際にエラーが発生しました。</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">情報</system:String>
     <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
     <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">無効なエミュレータ実行パスです。設定を確認してください。</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
     <system:String x:Key="isnotinfavorites">はお気に入りに登録されていません。</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">システム</system:String>
     <system:String x:Key="Theupdateversionis">更新バージョンは</system:String>
     <system:String x:Key="Thisactionwilldelete">この操作により、ハードディスクからファイルが削除され、取り消しはできません。</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">リアルタイムプロテクションのあるアンチウイルスソフトウェアが新しくダウンロードしたファイルをロックまたはスキャンして、アクセス問題を引き起こしている可能性があります。一時的にリアルタイム保護を無効化してみてください。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
     <system:String x:Key="TitleSnapshot">タイトルのスクリーンショット</system:String>
     <system:String x:Key="TitleSnapshotnotfound">タイトルのスクリーンショットが見つかりません</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">新しいシステムを追加できます。</system:String>
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">コンピューターが 'Simple Launcher' に 'FindRomCover.exe' を実行する必要な権限を与えていない可能性があります。'Simple Launcher' に必要な管理権限が付与されていることを確認してください。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">抽出後に起動する拡張機能</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">システムフォルダ内を検索する拡張機能</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">ダウンロードしたファイルが存在しません。</system:String>
     <system:String x:Key="Downloadedfileislocked">ダウンロードしたファイルがロックされています。</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">ファイルが破損していないことを確認してください。</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">「Simple Launcher」に管理者権限を付与してください。</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">「Simple Launcher」が書き込み可能なフォルダにあることを確認してください。</system:String>
     <system:String x:Key="Theselectedfilecannotbe">選択されたファイルを解凍できません。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">編集ウィンドウでそれを修正してください。</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">「Simple Launcher」で選択ウィンドウが開き、キャプチャするウィンドウを選択できます。</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">アプリケーションフォルダ内に 'history.xml' ファイルが見つかりませんでした。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">ブラウザの起動中にエラーが発生しました。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' は 'settings.xml' ファイルの書き込み権限が不十分です。</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">'Simple Launcher' に管理者権限を付与してください。</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' フォルダが書き込み可能なディレクトリにあることを確認してください。</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">必要に応じて、ウイルス対策ソフトを一時的に無効にしてください。</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' が破損しているか、開けません。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">手動で修正するか、削除してください。</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">削除を選択した場合、'Simple Launcher' が新しいファイルを作成します。</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">詳細を見るには、'Simple Launcher' フォルダ内の 'error_user.log' ファイルを確認してください。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' は画像パックのダウンロードリンクを開けませんでした。</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">ゲームパッドコントローラーに関するエラーが発生しました。</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">'Simple Launcher' を管理者権限で実行すると、この問題が解決する可能性があります。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' は選択したゲームを起動できませんでした。</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME を実行しようとしている場合、ROM コレクションが使用する MAME バージョンと互換性があることを確認してください。</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Retroarch を実行しようとしている場合、必要な BIOS またはコア用のファイルがインストールされていることを確認してください。</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">エミュレーターを正しいパラメーターでコールしていることを確認してください。</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">このタイプのエラーは、'Simple Launcher' に外部プログラム (エミュレーターなど) を実行するための適切な権限がない場合に発生します。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">エミュレーターとその依存関係の整合性を確認してください。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">ファイルの削除中にエラーが発生しました。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">検証エラー</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">このファイルのローカルデータベースにROM履歴がありません。</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">無効なエミュレータ実行可能パス:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">このシステムの設定を確認してください。</system:String>
     
 </ResourceDictionary>

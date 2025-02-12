@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 pixels</system:String>
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Additionally, grant 'Simple Launcher' administrative access to enable file writing.</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">A file read/write error occurred after the file was downloaded.</system:String>
     <system:String x:Key="alreadyexists">already exists.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatively, the launch may have been blocked by your antivirus software. If so, please configure your antivirus settings to allow 'FindRomCover.exe' to run.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">An error occurred while sending the bug report.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">An error occurred while trying to launch 'FindRomCover.exe'.</system:String>
@@ -164,7 +162,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
     <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Invalid emulator executable path. Please check the configuration.</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
     <system:String x:Key="isnotinfavorites">is not in favorites.</system:String>
@@ -323,7 +320,6 @@
     <system:String x:Key="Thesystem">The system</system:String>
     <system:String x:Key="Theupdateversionis">The update version is</system:String>
     <system:String x:Key="Thisactionwilldelete">This action will delete the file from the HDD and cannot be undone.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">This error may occur if an antivirus program is locking or scanning the newly downloaded files, causing access issues. Try temporarily disabling real-time protection.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
     <system:String x:Key="TitleSnapshot">Title Snapshot</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Title Snapshot not found</system:String>
@@ -364,7 +360,6 @@
     <system:String x:Key="Youcanaddanewsystem">You can add a new system now.</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Your computer may not have granted the necessary permissions for 'Simple Launcher' to execute the file 'FindRomCover.exe'. Please ensure that 'Simple Launcher' has the required administrative privileges.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">Downloaded file is missing.</system:String>
     <system:String x:Key="Downloadedfileislocked">Downloaded file is locked.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Ensure the file is not corrupted.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Grant administrative access to 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Ensure 'Simple Launcher' is in a writable folder.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">The selected file cannot be extracted.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Please fix that in the Edit window.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">No 'history.xml' file found in the application folder.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">An error occurred while opening the browser.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Please grant 'Simple Launcher' administrative access.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Ensure that the 'Simple Launcher' folder is located in a writable directory.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">If necessary, temporarily disable your antivirus software.</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is corrupted or could not be opened.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Please fix it manually or delete it.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">If you choose to delete it, 'Simple Launcher' will create a new one for you.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">There was an error with the GamePad Controller.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Running 'Simple Launcher' with administrative access may fix this problem.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">This type of error happens when 'Simple Launcher' does not have the privileges to launch an external program, such as an emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">There was an error deleting the file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">Validation errors</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">There is no ROM history in the local database for this file.</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">Invalid emulator executable path:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Please check the configuration for this system.</system:String>
      
 </ResourceDictionary>

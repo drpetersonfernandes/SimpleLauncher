@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 pixels</system:String>
     <system:String x:Key="About">Sobre</system:String>
     <system:String x:Key="AccentColors">Cores de Acento</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Além disso, conceda permissões administrativas ao 'Simple Launcher' para habilitar a capacidade de gravação de arquivos.</system:String>
     <system:String x:Key="AddNewSystem">Adicionar Novo Sistema</system:String>
     <system:String x:Key="AddSystem">Adicionar sistema</system:String>
     <system:String x:Key="AddToFavorites">Adicionar aos Favoritos</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">Ocorreu um erro de leitura/gravação do arquivo após o download.</system:String>
     <system:String x:Key="alreadyexists">já existe.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Como alternativa, a execução pode ter sido bloqueada pelo seu software antivírus. Nesse caso, configure seu software antivírus para permitir o lançamento de 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Amber">Âmbar</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Ocorreu um erro ao enviar o relatório de erro.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Ocorreu um erro ao tentar iniciar o 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Informações</system:String>
     <system:String x:Key="InfoLinkButton">Botão de link de informações</system:String>
     <system:String x:Key="Inthiswindow">Nesta janela, você pode baixar e instalar facilmente emuladores que não necessitam de arquivos BIOS ou de sistema para funcionar.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Caminho do executável do emulador inválido. Verifique a configuração.</system:String>
     <system:String x:Key="isalreadyinfavorites">já está nos favoritos.</system:String>
     <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
     <system:String x:Key="isnotinfavorites">não está nos favoritos.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">O sistema</system:String>
     <system:String x:Key="Theupdateversionis">A versão da atualização é</system:String>
     <system:String x:Key="Thisactionwilldelete">Essa ação excluirá o arquivo do disco rígido e não poderá ser desfeita.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Esse erro pode ocorrer se o software antivírus bloquear ou escanear arquivos recém-baixados, causando problemas de acesso. Experimente desativar temporariamente a proteção em tempo real.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Este mecanismo de busca procura nomes de arquivos e descrições de máquinas dentro de cada sistema configurado na interface do emulador.</system:String>
     <system:String x:Key="TitleSnapshot">Captura de Tela do Título</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Captura de Tela do Título não encontrada</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">Agora você pode adicionar um novo sistema.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Você pode definir uma URL personalizada para usar no botão de link do vídeo e no botão de link de informações.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Você pode usar os operadores lógicos AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Seu computador pode não ter concedido as permissões necessárias para que o 'Simple Launcher' execute o arquivo 'FindRomCover.exe'. Certifique-se de que o 'Simple Launcher' possui os privilégios administrativos necessários.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensão para iniciar após a extração</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extensão para buscar na pasta do sistema</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">Arquivo baixado está faltando.</system:String>
     <system:String x:Key="Downloadedfileislocked">Arquivo baixado está bloqueado.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Certifique-se de que o arquivo não está corrompido.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Conceda acesso administrativo ao 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Certifique-se de que o 'Simple Launcher' está em uma pasta gravável.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">O arquivo selecionado não pode ser extraído.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Por favor, corrija isso na janela de Edição.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Uma janela de seleção será aberta no 'Simple Launcher', permitindo que você escolha a janela desejada para capturar.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">O arquivo 'history.xml' não foi encontrado na pasta do aplicativo.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Ocorreu um erro ao abrir o navegador.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">O 'Simple Launcher' não possui privilégios suficientes para gravar no arquivo 'settings.xml'.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Conceda acesso administrativo ao 'Simple Launcher'.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Certifique-se de que a pasta do 'Simple Launcher' está em um diretório gravável.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">Se necessário, desative temporariamente o software antivírus.</system:String>
     <system:String x:Key="systemxmliscorrupted">O arquivo 'system.xml' está corrompido ou não pode ser aberto.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Corrija manualmente ou exclua o arquivo.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Se você optar por excluí-lo, o 'Simple Launcher' criará um novo arquivo.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Para ver os detalhes, consulte o arquivo 'error_user.log' na pasta do 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">O 'Simple Launcher' não conseguiu abrir o link de download do pacote de imagens.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Ocorreu um erro com o controle do GamePad.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Executar o 'Simple Launcher' com acesso administrativo pode resolver este problema.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">O 'Simple Launcher' não conseguiu iniciar o jogo selecionado.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Se estiver tentando executar o MAME, certifique-se de que sua coleção de ROMs é compatível com a versão do MAME utilizada.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Se estiver tentando executar o Retroarch, certifique-se de que as BIOS ou os arquivos necessários para o núcleo estão instalados.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Certifique-se também de que você está utilizando os parâmetros corretos ao invocar o emulador.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Este tipo de erro ocorre quando o 'Simple Launcher' não tem privilégios necessários para executar um programa externo, como um emulador.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Verifique também a integridade do emulador e de suas dependências.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Ocorreu um erro ao excluir o arquivo.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">O 'Simple Launcher' não conseguiu restaurar o backup mais recente.</system:String>
@@ -522,4 +511,7 @@
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Não há histórico de ROM no banco de dados local para este arquivo.</system:String>
 
+    <system:String x:Key="Invalidemulatorexecutablepath3">Caminho de execução inválido do emulador:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Verifique a configuração deste sistema.</system:String>
+    
 </ResourceDictionary>

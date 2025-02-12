@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 пикселей</system:String>
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Кроме того, предоставьте 'Simple Launcher' права администратора для устранения проблем с доступом к файлам.</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">Произошла ошибка чтения/записи файла после загрузки.</system:String>
     <system:String x:Key="alreadyexists">уже существует.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Кроме того, запуск мог быть заблокирован вашим антивирусным программным обеспечением. В этом случае настройте антивирус для разрешения запуска 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Amber">Янтарный</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Произошла ошибка при отправке отчета об ошибке.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Произошла ошибка при попытке запустить 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Информация</system:String>
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
     <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Недействительный путь к исполняемому файлу эмулятора. Проверьте настройки.</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
     <system:String x:Key="isnotinfavorites">не находится в избранном.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">Система</system:String>
     <system:String x:Key="Theupdateversionis">Версия обновления:</system:String>
     <system:String x:Key="Thisactionwilldelete">Это действие удалит файл с жёсткого диска и не может быть отменено.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Эта ошибка может возникнуть, если антивирусное программное обеспечение блокирует или сканирует недавно загруженные файлы, вызывая проблемы с доступом. Попробуйте временно отключить защиту в режиме реального времени.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Этот поисковый механизм ищет имена файлов и описания машин в каждой системе, настроенной в интерфейсе эмулятора.</system:String>
     <system:String x:Key="TitleSnapshot">Скриншот с заголовком</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Скриншот с заголовком не найден</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">Теперь вы можете добавить новую систему.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Возможно, вашему компьютеру не были выданы необходимые разрешения для выполнения файла 'FindRomCover.exe' с помощью 'Simple Launcher'. Убедитесь, что у 'Simple Launcher' есть необходимые права администратора.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Расширение для запуска после извлечения</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Расширение для поиска в системной папке</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">Загруженный файл отсутствует.</system:String>
     <system:String x:Key="Downloadedfileislocked">Загруженный файл заблокирован.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Убедитесь, что файл не поврежден.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Предоставьте 'Simple Launcher' права администратора.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Убедитесь, что 'Simple Launcher' находится в папке с правами на запись.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Выбранный файл не может быть извлечен.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Исправьте это в окне редактирования.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">В 'Simple Launcher' откроется окно выбора, которое позволит выбрать нужное окно для захвата.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">Файл 'history.xml' не найден в папке приложения.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Произошла ошибка при открытии браузера.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' недостаточно привилегий для записи в файл 'settings.xml'.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Предоставьте 'Simple Launcher' административный доступ.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Убедитесь, что папка 'Simple Launcher' находится в доступном для записи каталоге.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">При необходимости временно отключите антивирусное ПО.</system:String>
     <system:String x:Key="systemxmliscorrupted">Файл 'system.xml' поврежден или не может быть открыт.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Исправьте его вручную или удалите.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Если вы выберете удаление, 'Simple Launcher' создаст новый файл.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Для получения подробной информации проверьте файл 'error_user.log' в папке 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Произошла ошибка работы с геймпадом.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Запуск 'Simple Launcher' с административными правами может решить эту проблему.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с используемой версией MAME.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Если вы пытаетесь запустить Retroarch, убедитесь, что необходимые BIOS или файлы для ядра установлены.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Также убедитесь, что вы указываете правильные параметры для запуска эмулятора.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Такой тип ошибки происходит, когда у 'Simple Launcher' нет нужных привилегий для запуска внешней программы, такой как эмулятор.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Также проверьте целостность эмулятора и его зависимостей.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Произошла ошибка при удалении файла.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
@@ -522,4 +511,7 @@
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">В локальной базе данных для этого файла нет истории ROM.</system:String>
 
+    <system:String x:Key="Invalidemulatorexecutablepath3">Неверный путь исполняемого файла эмулятора:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Пожалуйста, проверьте конфигурацию этой системы.</system:String>
+    
 </ResourceDictionary>

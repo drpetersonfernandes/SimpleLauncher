@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">৬০০ পিক্সেল</system:String>
     <system:String x:Key="About">সম্পর্কিত</system:String>
     <system:String x:Key="AccentColors">অ্যাকসেন্ট রঙ</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">অতিরিক্তভাবে, 'Simple Launcher'-এর ফাইল লেখার সক্ষমতা সক্রিয় করতে প্রশাসনিক অ্যাক্সেস দিন।</system:String>
     <system:String x:Key="AddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">ফাইলটি ডাউনলোড করার পরে পড়া/লিখার ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="alreadyexists">আগেই বিদ্যমান।</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">অন্যদিকে, এটি হয়তো আপনার অ্যান্টিভাইরাস সফটওয়্যার দ্বারা ব্লক করা হয়েছে। যদি তাই হয়, তবে আপনার অ্যান্টিভাইরাস সেটিংস কনফিগার করুন যাতে 'FindRomCover.exe' চালানো যায়।</system:String>
     <system:String x:Key="Amber">হলুদাভ</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">বাগ রিপোর্ট পাঠানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' চালু করার চেষ্টা করার সময়ে একটি ত্রুটি ঘটেছে।</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">তথ্য</system:String>
     <system:String x:Key="InfoLinkButton">তথ্য লিংক বোতাম</system:String>
     <system:String x:Key="Inthiswindow">এই উইন্ডোতে, আপনি সহজেই এমুলেটর ডাউনলোড এবং ইনস্টল করতে পারবেন যা BIOS বা সিস্টেম ফাইল ছাড়া সম্পূর্ণ কাজ করে।</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">এমুলেটরের এক্সিকিউটেবল ফাইলের পথ অবৈধ। অনুগ্রহ করে কনফিগারেশন পরীক্ষা করুন।</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
     <system:String x:Key="isnotinfavorites">প্রিয়তে নেই</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">সিস্টেম</system:String>
     <system:String x:Key="Theupdateversionis">প্রথাগত ফলাফল।</system:String>
     <system:String x:Key="Thisactionwilldelete">এই পদক্ষেপ ফাইলটি HDD থেকে মুছে ফেলবে এবং এটি পূর্বাবস্থায় ফেরানো যাবে না</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">অ্যান্টিভাইরাস প্রোগ্রাম নতুন ডাউনলোড হওয়া ফাইলগুলিকে লক বা স্ক্যান করছে, যার ফলে প্রবেশাধিকারের সমস্যা দেখা দিচ্ছে। রিয়েল-টাইম প্রোটেকশন সাময়িকভাবে নিষ্ক্রিয় করার চেষ্টা করুন।</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">এই সার্চ ইঞ্জিনটি ফাইলের নাম এবং বিবরণ খোঁজে।</system:String>
     <system:String x:Key="TitleSnapshot">শিরোনাম স্ন্যাপশট</system:String>
     <system:String x:Key="TitleSnapshotnotfound">শিরোনাম স্ন্যাপশট পাওয়া যায়নি</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">আপনি একটি নতুন সিস্টেম যোগ করতে পারেন।</system:String>
     <system:String x:Key="YoucandefinecustomURL">আপনি ভিডিও লিংক বোতাম এবং তথ্য লিংক বোতামের জন্য একটি কাস্টম URL নির্ধারণ করতে পারেন</system:String>
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">আপনার কম্পিউটার হয়তো 'Simple Launcher'-কে 'FindRomCover.exe' ফাইলটি চালানোর জন্য প্রয়োজনীয় অনুমতি প্রদান করেনি। নিশ্চিত করুন যে 'Simple Launcher'-এর প্রয়োজনীয় প্রশাসনিক অনুমতিগুলি রয়েছে।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">এক্সট্রাকশনের পরে চালানোর জন্য এক্সটেনশন</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">সিস্টেম ফোল্ডারে খোঁজার জন্য এক্সটেনশন</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">ডাউনলোড করা ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="Downloadedfileislocked">ডাউনলোড করা ফাইলটি লক করা হয়েছে।</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">ফাইলটি ক্ষতিগ্রস্ত নয় তা নিশ্চিত করুন।</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">'Simple Launcher'-এর জন্য প্রশাসনিক অ্যাক্সেস প্রদান করুন।</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">'Simple Launcher' একটি লিখনযোগ্য ফোল্ডারে রয়েছে তা নিশ্চিত করুন।</system:String>
     <system:String x:Key="Theselectedfilecannotbe">নির্বাচিত ফাইলটি এক্সট্র্যাক্ট করা যাবে না।</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">এডিট উইন্ডোতে এটি ঠিক করুন।</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' এ একটি নির্বাচন উইন্ডো খুলবে, যা আপনাকে প্রয়োজনীয় উইন্ডোটি নির্বাচন করার সুযোগ দেবে।</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">অ্যাপ্লিকেশন ফোল্ডারে 'history.xml' ফাইল পাওয়া যায়নি।</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">ব্রাউজার খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' এর 'settings.xml' ফাইল লিখতে পর্যাপ্ত অধিকার নেই।</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">অনুগ্রহ করে 'Simple Launcher' কে প্রশাসনিক অ্যাক্সেস প্রদান করুন।</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">নিশ্চিত করুন যে 'Simple Launcher' ফোল্ডারটি একটি লিখনযোগ্য ডিরেক্টরিতে অবস্থিত।</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">প্রয়োজনে, আপনার অ্যান্টিভাইরাস সফ্টওয়্যার অস্থায়ীভাবে নিষ্ক্রিয় করুন।</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' ক্ষতিগ্রস্ত বা খোলা যায়নি।</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">দয়া করে এটি ম্যানুয়ালি ঠিক করুন অথবা মুছুন।</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">আপনি যদি এটি মুছার সিদ্ধান্ত নেন, 'Simple Launcher' আপনার জন্য একটি নতুন তৈরি করবে।</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">বিবরণ দেখতে, 'Simple Launcher' ফোল্ডারের ভিতরে 'error_user.log' ফাইলটি পরীক্ষা করুন।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' চিত্র প্যাক ডাউনলোড লিঙ্কটি খুলতে পারেনি।</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">GamePad কন্ট্রোলারের সাথে একটি ত্রুটি ঘটেছে।</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">প্রশাসনিক অ্যাক্সেস নিয়ে 'Simple Launcher' চালানো এই সমস্যাটি সমাধান করতে পারে।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">আপনি যদি MAME চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে আপনার ROM সংগ্রহটি আপনি যে MAME সংস্করণটি ব্যবহার করছেন তার সাথে সামঞ্জস্যপূর্ণ।</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">আপনি যদি Retroarch চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে কোরের জন্য BIOS বা প্রয়োজনীয় ফাইলগুলি ইনস্টল করা আছে।</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">এছাড়াও, নিশ্চিত করুন যে আপনি সঠিক প্যারামিটার সহ এমুলেটরটি কল করছেন।</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">এই ধরণের ত্রুটি ঘটে যখন 'Simple Launcher' এমুলেটর এর মতো একটি বহিরাগত প্রোগ্রাম চালু করার জন্য পর্যাপ্ত অধিকার রাখে না।</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">এছাড়াও, এমুলেটর এবং এর নির্ভরশীলতাগুলির অখণ্ডতা পরীক্ষা করুন।</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">ফাইলটি মুছার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' শেষ ব্যাকআপটি পুনরুদ্ধার করতে অক্ষম ছিল।</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">যাচাইকরণ ত্রুটি</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">এই ফাইলটির জন্য স্থানীয় ডাটাবেসে কোনও ROM ইতিহাস নেই।</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">অবৈধ এমুলেটর এক্সিকিউটেবল পাথ:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">অনুগ্রহ করে এই সিস্টেমের কনফিগারেশন পরীক্ষা করুন।</system:String>
     
 </ResourceDictionary>

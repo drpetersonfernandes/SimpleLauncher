@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 pixel</system:String>
     <system:String x:Key="About">Giới thiệu</system:String>
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Ngoài ra, hãy cấp quyền quản trị cho 'Simple Launcher' để kích hoạt khả năng ghi tệp.</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">Đã xảy ra lỗi đọc/ghi tệp sau khi tải xuống.</system:String>
     <system:String x:Key="alreadyexists">đã tồn tại.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Ngoài ra, việc khởi chạy có thể đã bị phần mềm chống virus của bạn chặn. Nếu vậy, vui lòng cấu hình phần mềm chống virus của bạn để cho phép thực thi tệp 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Amber">Hổ phách</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Đã xảy ra lỗi khi gửi báo cáo lỗi.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Đã xảy ra lỗi khi cố khởi chạy 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Thông tin</system:String>
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
     <system:String x:Key="Inthiswindow">Trong cửa sổ này, bạn có thể dễ dàng tải xuống và cài đặt các trình giả lập không yêu cầu tệp BIOS hoặc tệp hệ thống để hoạt động.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Đường dẫn tệp thực thi trình giả lập không hợp lệ. Vui lòng kiểm tra cấu hình.</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
     <system:String x:Key="isnotinfavorites">không có trong mục yêu thích.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">Hệ thống</system:String>
     <system:String x:Key="Theupdateversionis">Phiên bản cập nhật là</system:String>
     <system:String x:Key="Thisactionwilldelete">Hành động này sẽ xóa tệp khỏi ổ cứng của bạn và không thể hoàn tác.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Lỗi này có thể xảy ra nếu phần mềm diệt virus chặn hoặc quét các tệp vừa tải xuống, dẫn đến sự cố truy cập. Hãy thử tạm thời vô hiệu hóa bảo vệ theo thời gian thực.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trong mỗi hệ thống được cấu hình trong giao diện trình giả lập.</system:String>
     <system:String x:Key="TitleSnapshot">Ảnh chụp tiêu đề</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Không tìm thấy ảnh chụp tiêu đề</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">Bây giờ bạn có thể thêm một hệ thống mới.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Máy tính của bạn có thể không cấp quyền cần thiết cho 'Simple Launcher' để thực thi tệp 'FindRomCover.exe'. Hãy đảm bảo rằng 'Simple Launcher' có đủ quyền quản trị cần thiết.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Phần mở rộng để khởi chạy sau khi giải nén</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Phần mở rộng để tìm kiếm trong thư mục hệ thống</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
     <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Đảm bảo rằng tệp không bị hỏng.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Cấp quyền truy cập quản trị cho 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Đảm bảo rằng 'Simple Launcher' nằm trong thư mục có thể ghi.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Tệp đã chọn không thể giải nén.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa lỗi đó trong cửa sổ Chỉnh sửa.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ lựa chọn sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ mong muốn để chụp.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">Không tìm thấy tệp 'history.xml' trong thư mục ứng dụng.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Đã xảy ra lỗi khi mở trình duyệt.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' không có đủ quyền để ghi vào tệp 'settings.xml'.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Vui lòng cấp quyền quản trị cho 'Simple Launcher'.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong vị trí có thể ghi được.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">Nếu cần, hãy tạm thời tắt phần mềm diệt virus của bạn.</system:String>
     <system:String x:Key="systemxmliscorrupted">Tệp 'system.xml' bị hỏng hoặc không thể mở được.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Vui lòng sửa nó thủ công hoặc xóa nó.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Để xem chi tiết, hãy kiểm tra tệp 'error_user.log' trong thư mục 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' không thể mở liên kết tải xuống gói hình ảnh.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Đã xảy ra lỗi với bộ điều khiển GamePad.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Chạy 'Simple Launcher' với quyền quản trị có thể giải quyết sự cố này.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Nếu bạn đang cố chạy MAME, hãy đảm bảo rằng bộ sưu tập ROM của bạn tương thích với phiên bản MAME đang sử dụng.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Nếu bạn đang cố chạy Retroarch, hãy đảm bảo rằng BIOS cần thiết hoặc các tệp lõi đã được cài đặt.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Hãy chắc chắn rằng bạn đang gọi trình giả lập bằng các thông số đúng.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Loại lỗi này xảy ra khi 'Simple Launcher' không có đủ quyền để chạy chương trình ngoài, chẳng hạn như trình giả lập.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Cũng kiểm tra tính toàn vẹn của trình giả lập và các phụ thuộc của nó.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Đã xảy ra lỗi khi xóa tệp.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' không thể khôi phục bản sao lưu gần đây nhất.</system:String>
@@ -522,4 +511,7 @@
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Không có lịch sử ROM trong cơ sở dữ liệu cục bộ cho tệp này.</system:String>
 
+    <system:String x:Key="Invalidemulatorexecutablepath3">Đường dẫn thực thi trình giả lập không hợp lệ:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Vui lòng kiểm tra cấu hình cho hệ thống này.</system:String>
+    
 </ResourceDictionary>

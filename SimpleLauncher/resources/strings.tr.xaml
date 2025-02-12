@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Ek olarak, dosya yazma işlevini etkinleştirmek için 'Simple Launcher'a yönetici izinleri verin.</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">İndirme sonrası dosya okuma/yazma hatası oluştu.</system:String>
     <system:String x:Key="alreadyexists">zaten mevcut.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Alternatif olarak, başlatma işlemi antivirüs yazılımınız tarafından engellenmiş olabilir. Bu durumda, antivirüs yazılımınızı 'FindRomCover.exe'nin çalışmasına izin verecek şekilde yapılandırın.</system:String>
     <system:String x:Key="Amber">Kehribar</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Hata raporunu gönderirken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' başlatılırken bir hata meydana geldi.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Bilgi</system:String>
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
     <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Geçersiz emülatör çalıştırılabilir dosya yolu. Yapılandırmayı kontrol edin.</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
     <system:String x:Key="isnotinfavorites">favorilerde değil.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="Theupdateversionis">Güncelleme sürümü:</system:String>
     <system:String x:Key="Thisactionwilldelete">Bu işlem dosyayı sabit diskinizden silecek ve geri alınamayacaktır.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Bu hata, bir antivirüs yazılımının yeni indirilen dosyaları engellemesi veya taraması sonucunda erişim sorunlarına yol açması durumunda oluşabilir. Gerçek zamanlı korumayı geçici olarak devre dışı bırakmayı deneyin.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
     <system:String x:Key="TitleSnapshot">Başlık Görüntüsü</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Başlık Görüntüsü Bulunamadı</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">Artık yeni bir sistem ekleyebilirsiniz.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Bilgisayarınız, 'Simple Launcher'ın 'FindRomCover.exe' dosyasını çalıştırması için gereken izinleri vermemiş olabilir. 'Simple Launcher'ın gerekli yönetici izinlerine sahip olduğundan emin olun.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Çıkarımdan sonra başlatılacak uzantı</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Sistem klasöründe aranacak uzantı</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">İndirilen dosya eksik.</system:String>
     <system:String x:Key="Downloadedfileislocked">İndirilen dosya kilitli.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Dosyanın bozuk olmadığından emin olun.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">'Simple Launcher' uygulamasına yönetici erişimi izni verin.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">'Simple Launcher' uygulamasının yazılabilir bir klasörde bulunduğundan emin olun.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Seçilen dosya çıkarılamaz.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Bunu düzenleme penceresinden düzeltin.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' uygulamasında bir seçim penceresi açılacak ve istediğiniz pencereyi yakalamanıza olanak sağlayacaktır.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">'history.xml' dosyası uygulama klasöründe bulunamadı.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Tarayıcı açılırken bir hata oluştu.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher', 'settings.xml' dosyasına yazmak için gerekli izinlere sahip değil.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">'Simple Launcher' uygulamasına yönetici izinleri verin.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">Gerekirse geçici olarak antivirüs yazılımınızı devre dışı bırakın.</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' bozuk veya açılamıyor.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Lütfen el ile düzeltin ya da dosyayı silin.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Silme işlemini seçerseniz, 'Simple Launcher' yeni bir dosya oluşturacaktır.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Detayları görmek için 'Simple Launcher' klasöründeki 'error_user.log' dosyasına bakın.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">GamePad denetleyicisinde bir sorun oluştu.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">'Simple Launcher' uygulamasını yönetici haklarıyla çalıştırmak bu sorunu çözebilir.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME çalıştırmaya çalışıyorsanız, ROM koleksiyonunuzun kullanılan MAME sürümüyle uyumlu olduğundan emin olun.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Retroarch çalıştırmaya çalışıyorsanız, gerekli BIOS'ların ya da çekirdek dosyalarının yüklü olduğundan emin olun.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Ayrıca emulatorü doğru parametrelerle çağırdığınızdan emin olun.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Bu hata türü, 'Simple Launcher' dış bir uygulamayı (örneğin, bir emulator) çalıştıracak yeterli haklara sahip olmadığında meydana gelir.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Ayrıca emulatorün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Dosya silinirken bir hata oluştu.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">Doğrulama hataları</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Bu dosya için yerel veritabanında ROM geçmişi yok.</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">Geçersiz emülatör çalıştırılabilir yolu:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Lütfen bu sistem için yapılandırmayı kontrol edin.</system:String>
     
 </ResourceDictionary>

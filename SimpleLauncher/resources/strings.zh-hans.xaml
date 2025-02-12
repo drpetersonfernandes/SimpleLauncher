@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 像素</system:String>
     <system:String x:Key="About">关于</system:String>
     <system:String x:Key="AccentColors">强调色</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">此外，请授予 'Simple Launcher' 管理员权限以修复文件访问的问题。</system:String>
     <system:String x:Key="AddNewSystem">添加新系统</system:String>
     <system:String x:Key="AddSystem">添加系统</system:String>
     <system:String x:Key="AddToFavorites">添加到收藏夹</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">下载后发生文件读写错误。</system:String>
     <system:String x:Key="alreadyexists">已存在。</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">或者，启动可能已被您的杀毒软件阻止。在这种情况下，请配置您的杀毒软件以允许启动 'FindRomCover.exe'。</system:String>
     <system:String x:Key="Amber">琥珀色</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">发送错误报告时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">尝试启动 'FindRomCover.exe' 时发生错误。</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">信息</system:String>
     <system:String x:Key="InfoLinkButton">信息链接按钮</system:String>
     <system:String x:Key="Inthiswindow">在此窗口中，您可以轻松下载和安装不需要 BIOS 或系统文件即可运行的模拟器。</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">模拟器可执行文件路径无效。请检查配置。</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
     <system:String x:Key="isminimizedtothetray">已最小化到托盘。</system:String>
     <system:String x:Key="isnotinfavorites">不在收藏夹中。</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">系统</system:String>
     <system:String x:Key="Theupdateversionis">更新版本是</system:String>
     <system:String x:Key="Thisactionwilldelete">此操作将删除硬盘上的文件，且无法撤销。</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">如果杀毒软件正在阻止或扫描新下载的文件，可能会导致访问问题。请尝试暂时禁用实时保护。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会查找每个系统中已配置的机器的文件名和描述。</system:String>
     <system:String x:Key="TitleSnapshot">标题截图</system:String>
     <system:String x:Key="TitleSnapshotnotfound">未找到标题截图</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">现在，您可以添加一个新的系统。</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">您的计算机可能未授予 'Simple Launcher' 执行 'FindRomCover.exe' 文件所需的权限。请确保 'Simple Launcher' 具有必要的管理员权限。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">提取后启动的扩展</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">在系统文件夹中搜索的扩展</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">下载的文件丢失。</system:String>
     <system:String x:Key="Downloadedfileislocked">下载的文件被锁定。</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">请确保文件没有损坏。</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">授予'Simple Launcher'管理器访问权限。</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">确保'Simple Launcher'处于可写的文件夹中。</system:String>
     <system:String x:Key="Theselectedfilecannotbe">所选的文件无法被提取。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">请在编辑窗口中修复。</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">一个选择窗口将在'Simple Launcher'中打开，让您选择想要捕捉的窗口。</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">在应用程序目录中未找到文件“history.xml”。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">打开浏览器时发生错误。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">“Simple Launcher”没有对“settings.xml”文件的写入权限。</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">请授予“Simple Launcher”管理员权限。</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">确保“Simple Launcher”文件夹位于可写路径中。</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">如有必要，请暂时禁用杀毒软件。</system:String>
     <system:String x:Key="systemxmliscorrupted">文件“system.xml”已损坏或无法打开。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">请手动修复或删除。</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">如果选择删除，“Simple Launcher”将生成一个新的文件。</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">查看详细信息，请检查“Simple Launcher”目录中的“error_user.log”文件。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">“Simple Launcher”无法打开图片包的下载链接。</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">游戏手柄控制器出现错误。</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">以管理员身份运行“Simple Launcher”可能会解决此问题。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">“Simple Launcher”无法启动所选游戏。</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">如果您尝试运行MAME，请确保您的ROM集合与所用MAME版本兼容。</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">如果您尝试运行Retroarch，请确保必要的BIOS或核心文件已正确安装。</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">请确保您使用正确的参数调用模拟器。</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">当“Simple Launcher”没有足够的权限运行如模拟器这样的外部程序时，会发生此类错误。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">此外请检查模拟器及其依赖库的完整性。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">删除文件时发生错误。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">“Simple Launcher”未能恢复最近的备份。</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">验证错误</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">本地数据库中没有此文件的ROM历史记录。</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">无效的模拟器可执行路径:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">请检查此系统的配置。</system:String>
     
 </ResourceDictionary>

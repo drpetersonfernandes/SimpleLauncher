@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Selain itu, berikan keizinan pentadbir kepada 'Simple Launcher' untuk membolehkan penulisan fail.</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">Kesilapan bacaan atau tulis fail berlaku selepas muat turun.</system:String>
     <system:String x:Key="alreadyexists">sudah ada.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Atau, peluncuran mungkin telah diblokir oleh perangkat lunak antivirus Anda. Jika demikian, konfigurasikan pengaturan antivirus Anda untuk mengizinkan peluncuran 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Amber">Kuning Jingga</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Kesilapan berlaku semasa menghantar laporan ralat.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Terjadi kesalahan saat mencoba meluncurkan 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
     <system:String x:Key="Inthiswindow">Di jendela ini, Anda dapat dengan mudah mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau berkas sistem untuk bekerja.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Path eksekusi emulator tidak valid. Silakan periksa konfigurasi.</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
     <system:String x:Key="isnotinfavorites">tidak ada di favorit.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="Theupdateversionis">Versi pembaruan adalah</system:String>
     <system:String x:Key="Thisactionwilldelete">Tindakan ini akan menghapus file dari HDD dan tidak dapat dibatalkan.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Kesilapan ini mungkin berlaku jika perisian antivirus menyekat atau mengimbas fail yang baru dimuat turun, menyebabkan masalah akses. Cuba nonaktifkan sementara perlindungan masa nyata.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Mesin pencari ini mencari nama file dan deskripsi mesin dalam setiap Sistem yang dikonfigurasi di frontend emulator.</system:String>
     <system:String x:Key="TitleSnapshot">Snapshot Judul</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Snapshot Judul tidak ditemukan</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">Anda dapat menambahkan sistem baru sekarang.</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Komputer Anda mungkin tidak memberikan izin yang diperlukan agar 'Simple Launcher' dapat menjalankan file 'FindRomCover.exe'. Pastikan 'Simple Launcher' memiliki hak administratif yang diperlukan.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Ekstensi untuk diluncurkan setelah ekstraksi</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Ekstensi untuk mencari di folder sistem</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">File yang diunduh hilang.</system:String>
     <system:String x:Key="Downloadedfileislocked">File yang diunduh terkunci.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Pastikan file tidak rusak.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Berikan akses administratif ke 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Pastikan 'Simple Launcher' berada di folder yang dapat ditulis.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">File yang dipilih tidak dapat diekstraksi.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Jendela seleksi akan terbuka di 'Simple Launcher', memungkinkan Anda memilih jendela yang diinginkan untuk diambil.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">File 'history.xml' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Terjadi kesalahan saat membuka browser.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' tidak memiliki hak istimewa yang cukup untuk menulis ke file 'settings.xml'.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Harap berikan akses administratif ke 'Simple Launcher'.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">Jika perlu, sementara nonaktifkan perangkat lunak antivirus Anda.</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' rusak atau tidak dapat dibuka.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Harap perbaiki secara manual atau hapus.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Untuk melihat detailnya, periksa file 'error_user.log' di folder 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Ada masalah dengan pengontrol GamePad.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Menjalankan 'Simple Launcher' dengan hak administratif dapat menyelesaikan masalah ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Jika Anda mencoba menjalankan MAME, pastikan koleksi ROM Anda kompatibel dengan versi MAME yang digunakan.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Jika Anda mencoba menjalankan Retroarch, pastikan file BIOS atau file yang diperlukan untuk inti telah terinstal.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Pastikan juga Anda memanggil emulator dengan parameter yang benar.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Jenis kesalahan ini terjadi ketika 'Simple Launcher' tidak memiliki izin untuk menjalankan program eksternal, seperti emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Periksa juga integritas emulator dan dependensinya.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Terjadi kesalahan saat menghapus file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' tidak dapat memulihkan cadangan terakhir.</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">Kesalahan validasi</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Tidak ada riwayat ROM dalam basis data lokal untuk file ini.</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">Jalur eksekusi emulator tidak valid:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Silakan periksa konfigurasi untuk sistem ini.</system:String>
     
 </ResourceDictionary>

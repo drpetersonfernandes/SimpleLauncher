@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">600 pixels</system:String>
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">Geef daarnaast 'Simple Launcher' beheerdersrechten om bestandsschrijven mogelijk te maken.</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">Er is een lees/schrijffout opgetreden na de download.</system:String>
     <system:String x:Key="alreadyexists">bestaat al.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">Het starten kan ook zijn geblokkeerd door uw antivirussoftware. Als dat zo is, configureer uw antivirusinstellingen om de uitvoering van 'FindRomCover.exe' toe te staan.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">Er is een fout opgetreden tijdens het verzenden van de foutmelding.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Er deed zich een fout voor bij het proberen te starten van 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">Informatie</system:String>
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
     <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">Ongeldig uitvoerbaar bestandspad voor emulator. Controleer de configuratie.</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
     <system:String x:Key="isnotinfavorites">staat niet in de favorieten.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">Het systeem</system:String>
     <system:String x:Key="Theupdateversionis">De updateversie is</system:String>
     <system:String x:Key="Thisactionwilldelete">Deze actie verwijdert het bestand van de harde schijf en kan niet ongedaan worden gemaakt.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">Deze fout kan optreden als antivirussoftware het pas gedownloade bestand blokkeert of scant, waardoor er toegangsfouten ontstaan. Probeer realtime bescherming tijdelijk uit te schakelen.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Deze zoekmachine zoekt naar bestandsnamen en beschrijvingen van machines binnen elk systeem dat is geconfigureerd in de emulatorinterface.</system:String>
     <system:String x:Key="TitleSnapshot">Titelmomentopname</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Titelmomentopname niet gevonden</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">U kunt nu een nieuw systeem toevoegen.</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">Uw computer heeft 'Simple Launcher' mogelijk niet de benodigde rechten gegeven om het bestand 'FindRomCover.exe' uit te voeren. Zorg ervoor dat 'Simple Launcher' over de vereiste beheerdersrechten beschikt.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensie om te starten na extractie</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extensie om in de systeemmap te zoeken</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">Gedownload bestand ontbreekt.</system:String>
     <system:String x:Key="Downloadedfileislocked">Gedownload bestand is vergrendeld.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Zorg ervoor dat het bestand niet beschadigd is.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">Geef administratieve toegang aan 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">Zorg ervoor dat 'Simple Launcher' zich in een schrijfbare map bevindt.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Het geselecteerde bestand kan niet worden uitgepakt.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Los dit op in het Bewerken-venster.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Er wordt een selectievenster geopend in 'Simple Launcher', waarmee u het gewenste venster kunt kiezen om vast te leggen.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">Het bestand 'history.xml' is niet gevonden in de applicatiemap.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Er is een fout opgetreden bij het openen van de browser.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' heeft onvoldoende rechten om naar het bestand 'settings.xml' te schrijven.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' administratieve toegang.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Controleer of de map 'Simple Launcher' zich in een schrijfbare locatie bevindt.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">Schakel indien nodig tijdelijk uw antivirussoftware uit.</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is beschadigd of kan niet worden geopend.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Los dit handmatig op of verwijder het bestand.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Als u ervoor kiest het te verwijderen, zal 'Simple Launcher' voor u een nieuw bestand aanmaken.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">Raadpleeg het bestand 'error_user.log' in de map 'Simple Launcher' voor meer details.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Er is een probleem opgetreden met de GamePad-controller.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">Het uitvoeren van 'Simple Launcher' met administratieve rechten kan dit probleem oplossen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Als u MAME probeert uit te voeren, zorg ervoor dat uw ROM-collectie compatibel is met de gebruikte MAME-versie.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Als u Retroarch probeert uit te voeren, zorg ervoor dat de benodigde BIOS- of core-bestanden zijn geïnstalleerd.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Zorg er ook voor dat u de emulator aanroept met de juiste parameters.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">Dit type fout treedt op wanneer 'Simple Launcher' niet de juiste machtigingen heeft om een extern programma uit te voeren, zoals een emulator.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Er is een fout opgetreden bij het verwijderen van het bestand.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">Validatiefouten</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">Er is geen ROM-geschiedenis in de lokale database voor dit bestand.</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">Ongeldig uitvoerbaar pad van emulator:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Controleer de configuratie voor dit systeem.</system:String>
     
 </ResourceDictionary>

@@ -25,13 +25,11 @@
     <system:String x:Key="600pixels">٦٠٠ بكسل</system:String>
     <system:String x:Key="About">حول</system:String>
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
-    <system:String x:Key="AdditionallygrantSimpleLauncher">بالإضافة إلى ذلك، امنح 'Simple Launcher' حقوق المسؤول لتمكين الكتابة على الملفات.</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="Afilereadwriteerroroccurred">حدث خطأ في قراءة/كتابة الملف بعد التحميل.</system:String>
     <system:String x:Key="alreadyexists">موجود بالفعل.</system:String>
-    <system:String x:Key="Alternativelythelaunchmayhavebeenblockedby">بدلاً من ذلك، قد يكون التشغيل قد تم حظره بواسطة برنامج مكافحة الفيروسات لديك. إذا كان الأمر كذلك، يرجى تكوين إعدادات مكافحة الفيروسات للسماح بتشغيل 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Amber">كهرماني</system:String>
     <system:String x:Key="Anerroroccurredwhilesending">حدث خطأ أثناء إرسال تقرير الخطأ.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">حدث خطأ أثناء محاولة تشغيل 'FindRomCover.exe'.</system:String>
@@ -162,7 +160,6 @@
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
     <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath">مسار الملف التنفيذي للمحاكي غير صالح. يرجى التحقق من الإعدادات.</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
     <system:String x:Key="isnotinfavorites">غير موجود في المفضلة.</system:String>
@@ -321,7 +318,6 @@
     <system:String x:Key="Thesystem">النظام</system:String>
     <system:String x:Key="Theupdateversionis">إصدار التحديث هو</system:String>
     <system:String x:Key="Thisactionwilldelete">سيقوم هذا الإجراء بحذف الملف من القرص الصلب ولا يمكن التراجع عنه.</system:String>
-    <system:String x:Key="Thiserrormayoccurifanantivirus">قد يحدث هذا الخطأ إذا كان برنامج مكافحة الفيروسات يقفل أو يفحص الملفات التي تم تنزيلها مؤخرًا، مما يتسبب في مشكلات وصول. حاول تعطيل الحماية في الوقت الفعلي مؤقتًا.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الآلات داخل كل نظام تم تكوينه في واجهة المحاكي.</system:String>
     <system:String x:Key="TitleSnapshot">لقطة العنوان</system:String>
     <system:String x:Key="TitleSnapshotnotfound">لقطة العنوان غير موجودة</system:String>
@@ -362,7 +358,6 @@
     <system:String x:Key="Youcanaddanewsystem">يمكنك الآن إضافة نظام جديد.</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
-    <system:String x:Key="Yourcomputermaynothavegranted">قد لا يكون جهاز الكمبيوتر الخاص بك قد منح الأذونات اللازمة لـ 'Simple Launcher' لتنفيذ ملف 'FindRomCover.exe'. يرجى التأكد من أن 'Simple Launcher' لديه الامتيازات الإدارية المطلوبة.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">الامتداد للتشغيل بعد الاستخراج</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">الامتداد للبحث في مجلد النظام</system:String>
@@ -433,8 +428,6 @@
     <system:String x:Key="Downloadedfileismissing">الملف الذي تم تنزيله مفقود.</system:String>
     <system:String x:Key="Downloadedfileislocked">الملف الذي تم تنزيله مقفل.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">تأكد من أن الملف غير تالف.</system:String>
-    <system:String x:Key="GrantadministrativeaccesstoSimple">امنح صلاحيات إدارية لـ 'Simple Launcher'.</system:String>
-    <system:String x:Key="EnsureSimpleLauncherisinawritable">تأكد من وجود 'Simple Launcher' في مجلد قابل للكتابة.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">لا يمكن استخراج الملف المحدد.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">ستفتح نافذة اختيار في 'Simple Launcher'، مما يتيح لك اختيار النافذة المطلوبة للالتقاط.</system:String>
@@ -489,9 +482,7 @@
     <system:String x:Key="Nohistoryxmlfilefound">لم يتم العثور على ملف 'history.xml' في مجلد التطبيق.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">حدث خطأ أثناء فتح المتصفح.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' يفتقر إلى الصلاحيات الكافية للكتابة في ملف 'settings.xml'.</system:String>
-    <system:String x:Key="PleasegrantSimpleLauncheradministrativeaccess">يرجى منح 'Simple Launcher' صلاحيات إدارية.</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">تأكد من أن مجلد 'Simple Launcher' موجود في دليل قابل للكتابة.</system:String>
-    <system:String x:Key="Ifnecessarytemporarilydisableyourantivirus">إذا لزم الأمر، قم مؤقتًا بتعطيل برنامج مكافحة الفيروسات الخاص بك.</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' تالف أو لا يمكن فتحه.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">يرجى إصلاحه يدويًا أو حذفه.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">إذا اخترت حذفها، سيقوم 'Simple Launcher' بإنشاء واحدة جديدة لك.</system:String>
@@ -502,12 +493,10 @@
     <system:String x:Key="Toseethedetailschecktheerroruserlog">لمشاهدة التفاصيل، تحقق من ملف 'error_user.log' داخل مجلد 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">حدث خطأ في وحدة تحكم GamePad.</system:String>
-    <system:String x:Key="RunningSimpleLauncherwithadministrative">تشغيل 'Simple Launcher' بصلاحيات إدارية قد يتمكن من إصلاح هذه المشكلة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">إذا كنت تحاول تشغيل MAME، تأكد من أن مجموعة ROM الخاصة بك متوافقة مع إصدار MAME الذي تستخدمه.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">إذا كنت تحاول تشغيل Retroarch، تأكد من تثبيت BIOS أو الملفات المطلوبة للنواة.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">أيضًا، تأكد من أنك تستدعي المحاكي بالمعامل الصحيح.</system:String>
-    <system:String x:Key="ThistypeoferrorhappenswhenSimpleLauncher">يحدث هذا النوع من الأخطاء عندما لا يمتلك 'Simple Launcher' الصلاحيات لتشغيل برنامج خارجي، مثل المحاكي.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">حدث خطأ أثناء حذف الملف.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
@@ -521,5 +510,8 @@
     <system:String x:Key="Validationerrors">أخطاء التحقق</system:String>
     
     <system:String x:Key="ThereisnoROMhistoryinthelocaldatabase">لا توجد سجلات تاريخ ROM في قاعدة البيانات المحلية لهذا الملف.</system:String>
+    
+    <system:String x:Key="Invalidemulatorexecutablepath3">مسار قابل تشغيل المحاكي غير صالح:</system:String>
+    <system:String x:Key="Pleasechecktheconfigurationforthissystem">يرجى التحقق من تكوين هذا النظام.</system:String>
     
 </ResourceDictionary>
