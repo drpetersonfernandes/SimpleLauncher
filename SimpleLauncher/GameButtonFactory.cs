@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -109,7 +106,7 @@ internal class GameButtonFactory(
             HorizontalAlignment = HorizontalAlignment.Center
         };
 
-        await LoadImageAsync(image, button, imagePath, DefaultImagePath);
+        await LoadImageAsync(image, button, imagePath);
 
         if (isFavorite)
         {
@@ -185,7 +182,7 @@ internal class GameButtonFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            AddToFavorites(systemName, fileNameWithExtension);
+            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
         };
             
         // Remove From Favorites Context Menu
@@ -204,7 +201,7 @@ internal class GameButtonFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RemoveFromFavorites(systemName, fileNameWithExtension);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -223,7 +220,7 @@ internal class GameButtonFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenVideoLink(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, machines, settings);
         };
 
         // Open Info Link Context Menu
@@ -242,7 +239,7 @@ internal class GameButtonFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenInfoLink(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, machines, settings);
         };
             
         // Open History Context Menu
@@ -261,7 +258,7 @@ internal class GameButtonFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig);
+            RightClickContextMenu.OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
         };
 
         // Open Cover Context Menu
@@ -280,7 +277,7 @@ internal class GameButtonFactory(
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenCover(systemName, fileNameWithoutExtension, systemConfig);
+            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemConfig);
         };
 
         // Open Title Snapshot Context Menu
@@ -299,7 +296,7 @@ internal class GameButtonFactory(
         openTitleSnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenTitleSnapshot(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenTitleSnapshot(systemName, fileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -318,7 +315,7 @@ internal class GameButtonFactory(
         openGameplaySnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -337,7 +334,7 @@ internal class GameButtonFactory(
         openCart.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenCart(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenCart(systemName, fileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -356,7 +353,7 @@ internal class GameButtonFactory(
         openVideo.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            PlayVideo(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.PlayVideo(systemName, fileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -375,7 +372,7 @@ internal class GameButtonFactory(
         openManual.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenManual(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenManual(systemName, fileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -394,7 +391,7 @@ internal class GameButtonFactory(
         openWalkthrough.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenWalkthrough(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenWalkthrough(systemName, fileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -413,7 +410,7 @@ internal class GameButtonFactory(
         openCabinet.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenCabinet(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenCabinet(systemName, fileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -432,7 +429,7 @@ internal class GameButtonFactory(
         openFlyer.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenFlyer(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenFlyer(systemName, fileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -451,7 +448,7 @@ internal class GameButtonFactory(
         openPcb.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            OpenPcb(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenPcb(systemName, fileNameWithoutExtension);
         };
             
         // Take Screenshot Context Menu
@@ -475,7 +472,7 @@ internal class GameButtonFactory(
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
                 
-            _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button, mainWindow);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
             
@@ -505,7 +502,7 @@ internal class GameButtonFactory(
                 {
                     try
                     {
-                        DeleteFile(filePath, fileNameWithExtension, button);
+                        RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, gameFileGrid, mainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -518,7 +515,7 @@ internal class GameButtonFactory(
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                     }
-                    RemoveFromFavorites2(systemName, fileNameWithExtension);
+                    RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
                 }
             }
         };
@@ -581,669 +578,7 @@ internal class GameButtonFactory(
         return Path.Combine(_baseDirectory, "images", DefaultImagePath);
     }
 
-    private void AddToFavorites(string systemName, string fileNameWithExtension)
-    {
-        try
-        {
-            // Load existing favorites
-            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-            // Add the new favorite if it doesn't already exist
-            if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                 && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
-            {
-                favorites.FavoriteList.Add(new Favorite
-                {
-                    FileName = fileNameWithExtension, // Use the file name with an extension
-                    SystemName = systemName
-                });
-
-                // Save the updated favorites list
-                _favoritesManager.SaveFavorites(favorites);
-
-                // Update the button's content to add the favorite icon dynamically
-                var button = gameFileGrid.Children.OfType<Button>()
-                    .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
-
-                if (button != null)
-                {
-                    var grid = (Grid)button.Content;
-                    var startImage = new Image
-                    {
-                        Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
-                        Width = 22,
-                        Height = 22,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
-                        Margin = new Thickness(5)
-                    };
-                    grid.Children.Add(startImage);
-                }
-            }
-            else
-            {
-                // Notify user
-                MessageBoxLibrary.GameIsAlreadyInFavoritesMessageBox(fileNameWithExtension);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
-        }
-    }
-        
-    private void RemoveFromFavorites(string systemName, string fileNameWithExtension)
-    {
-        try
-        {
-            // Load existing favorites
-            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-            // Find the favorite to remove
-            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
-            if (favoriteToRemove != null)
-            {
-                favorites.FavoriteList.Remove(favoriteToRemove);
-
-                // Save the updated favorites list
-                _favoritesManager.SaveFavorites(favorites);
-
-                // Update the button's content to remove the favorite icon dynamically
-                var button = gameFileGrid.Children.OfType<Button>()
-                    .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
-
-                if (button != null)
-                {
-                    var grid = (Grid)button.Content;
-                    var favoriteIcon = grid.Children.OfType<Image>().FirstOrDefault(img => img.Source.ToString().Contains("star.png"));
-                    if (favoriteIcon != null)
-                    {
-                        grid.Children.Remove(favoriteIcon);
-                    }
-                }
-            }
-            else
-            {
-                // Notify user
-                MessageBoxLibrary.FileIsNotInFavoritesMessageBox(fileNameWithExtension);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
-        }
-    }
-    
-    private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
-    {
-        try
-        {
-            // Load existing favorites
-            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-            // Find the favorite to remove
-            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
-            if (favoriteToRemove != null)
-            {
-                favorites.FavoriteList.Remove(favoriteToRemove);
-                
-                // Save the updated favorites list
-                _favoritesManager.SaveFavorites(favorites);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"Error in the method RemoveFromFavorites2.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-        }
-    }
-
-    private void OpenVideoLink(string systemName, string fileNameWithoutExtension)
-    {
-        // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
-        var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
-
-        string searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = searchUrl,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was a problem opening the Video Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
-        }
-    }
-
-    private void OpenInfoLink(string systemName, string fileNameWithoutExtension)
-    {
-        // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
-        var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
-
-        string searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = searchUrl,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was a problem opening the Info Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
-        }
-    }
-        
-    private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
-    {
-        string romName = fileNameWithoutExtension.ToLowerInvariant();
-           
-        // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
-        var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
-
-        try
-        {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
-            historyWindow.Show();
-
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
-        }
-    }
-
-    private void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string systemImageFolder = systemConfig.SystemImageFolder;
-        
-        // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-        }
-        
-        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
-
-        // Image extensions to look for
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Try to find the image in the systemImageFolder directory first
-        // Then search inside the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
-        {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
-        }
-        else
-        {
-            // Notify user
-            MessageBoxLibrary.ThereIsNoCoverMessageBox();
-        }
-
-        return;
-
-        // Function to search for the file in a given directory
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
-            {
-                string imagePath = Path.Combine(directory, fileName + extension);
-                if (File.Exists(imagePath))
-                {
-                    foundPath = imagePath;
-                    return true;
-                }
-            }
-            foundPath = null;
-            return false;
-        }
-    }
-
-    private static void OpenTitleSnapshot(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
-        string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in titleSnapshotExtensions)
-        {
-            string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
-            if (File.Exists(titleSnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(titleSnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
-    }
-
-    private void OpenGameplaySnapshot(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
-        string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in gameplaySnapshotExtensions)
-        {
-            string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
-            if (File.Exists(gameplaySnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(gameplaySnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
-    }
-
-    private void OpenCart(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
-        string[] cartExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in cartExtensions)
-        {
-            string cartPath = Path.Combine(cartDirectory, fileName + extension);
-            if (File.Exists(cartPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cartPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoCartMessageBox();
-    }
-
-    private void PlayVideo(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
-        string[] videoExtensions = [".mp4", ".avi", ".mkv"];
-
-        foreach (var extension in videoExtensions)
-        {
-            string videoPath = Path.Combine(videoDirectory, fileName + extension);
-            if (File.Exists(videoPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = videoPath,
-                    UseShellExecute = true
-                });
-                return;
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
-    }
-
-    private void OpenManual(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
-        string[] manualExtensions = [".pdf"];
-
-        foreach (var extension in manualExtensions)
-        {
-            string manualPath = Path.Combine(manualDirectory, fileName + extension);
-            if (File.Exists(manualPath))
-            {
-                try
-                {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = manualPath,
-                        UseShellExecute = true
-                    });
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"There was a problem opening the manual.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
-
-                    return;
-                }
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoManualMessageBox();
-    }
-
-    private void OpenWalkthrough(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
-        string[] walkthroughExtensions = [".pdf"];
-
-        foreach (var extension in walkthroughExtensions)
-        {
-            string walkthroughPath = Path.Combine(walkthroughDirectory, fileName + extension);
-            if (File.Exists(walkthroughPath))
-            {
-                try
-                {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = walkthroughPath,
-                        UseShellExecute = true
-                    });
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
-
-                    return;
-                }
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
-    }
-
-    private void OpenCabinet(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
-        string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in cabinetExtensions)
-        {
-            string cabinetPath = Path.Combine(cabinetDirectory, fileName + extension);
-            if (File.Exists(cabinetPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cabinetPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
-    }
-
-    private void OpenFlyer(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
-        string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in flyerExtensions)
-        {
-            string flyerPath = Path.Combine(flyerDirectory, fileName + extension);
-            if (File.Exists(flyerPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(flyerPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
-    }
-
-    private void OpenPcb(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
-        string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
-
-        foreach (var extension in pcbExtensions)
-        {
-            string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
-            if (File.Exists(pcbPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(pcbPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoPcbMessageBox();
-    }
-        
-    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button)
-    {
-        try
-        {
-            string systemName = systemConfig.SystemName;
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string systemImageFolder = systemConfig.SystemImageFolder;
-
-            if (string.IsNullOrEmpty(systemImageFolder))
-            {
-                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
-                Directory.CreateDirectory(systemImageFolder);
-            }
-
-            // Wait for the Game or Emulator to launch
-            await Task.Delay(4000);
-                
-            // Get the list of open windows
-            var openWindows = WindowManager.GetOpenWindows();
-
-            // Show the selection dialog
-            var dialog = new WindowSelectionDialog(openWindows);
-            if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
-            {
-                return;
-            }
-
-            IntPtr hWnd = dialog.SelectedWindowHandle;
-                
-            WindowScreenshot.Rect rect;
-
-            // Try to get the client area dimensions
-            if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
-            {
-                // If the client area fails, fall back to the full window dimensions
-                if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
-                {
-                    throw new Exception("Failed to retrieve window dimensions.");
-                }
-            }
-            else
-            {
-                // Successfully retrieved client area
-                rect = clientRect;
-            }
-
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
-            
-            string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
-
-            // Capture the window into a bitmap
-            using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
-            {
-                using (var graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.CopyFromScreen(
-                        new System.Drawing.Point(rect.Left, rect.Top),
-                        System.Drawing.Point.Empty,
-                        new System.Drawing.Size(width, height));
-                }
-
-                // Save the screenshot
-                bitmap.Save(screenshotPath, ImageFormat.Png);
-            }
-            
-            PlayClick.PlayShutterSound();
-            
-            // Wait
-            await Task.Delay(1000);
-            
-            // Show the flash effect
-            var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync();
-            
-            // Update the button's image
-            if (button.Content is Grid grid)
-            {
-                var stackPanel = grid.Children.OfType<StackPanel>().FirstOrDefault();
-                var imageControl = stackPanel?.Children.OfType<Image>().FirstOrDefault();
-                if (imageControl != null)
-                {
-                    // Reload the image without a file lock
-                    await LoadImageAsync(imageControl, button, screenshotPath, DefaultImagePath);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was a problem saving the screenshot.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
-        }
-    }
-
-    private void DeleteFile(string filePath, string fileNameWithExtension, Button button)
-    {
-        if (File.Exists(filePath))
-        {
-            try
-            {
-                File.Delete(filePath);
-                    
-                PlayClick.PlayTrashSound();
-
-                // Notify user
-                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
-
-                // Remove the button from the UI
-                gameFileGrid.Children.Remove(button);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-                
-                // Notify user
-                MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
-            }
-        }
-        else
-        {
-            // Notify developer
-            string errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
-            Exception ex = new FileNotFoundException(errorMessage);
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
-        }
-    }
-
-    private static async Task LoadImageAsync(Image imageControl, Button button, string imagePath, string defaultImagePath)
+    public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
     {
         string imageFileName = Path.GetFileName(imagePath);
         
@@ -1277,12 +612,11 @@ internal class GameButtonFactory(
         {
             // If an exception occurs (e.g., the image is corrupt), will load the default image
             // This uses the dispatcher to ensure UI elements are accessed on the UI thread
-            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, defaultImagePath));
+            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, DefaultImagePath));
             
             // Notify user
             MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
         }
-        
     }
 
     private static void LoadFallbackImage(Image imageControl, Button button, string defaultImagePath)

@@ -31,6 +31,7 @@ public partial class GlobalSearch
     private readonly ComboBox _mockEmulatorComboBox = new();
     private readonly List<MameConfig> _machines;
     private readonly Dictionary<string, string> _mameLookup;
+    private readonly WrapPanel _fakeGameFileGrid = new();
 
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, MainWindow mainWindow)
     {
@@ -139,7 +140,7 @@ public partial class GlobalSearch
             if (!Directory.Exists(systemFolderPath))
                 continue;
 
-            // Get all files matching the files extensions for this system
+            // Get all files matching the file's extensions for this system
             var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
                 .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()));
 
@@ -164,7 +165,7 @@ public partial class GlobalSearch
             }
             else
             {
-                // For non-MAME systems, simply filter by filename.
+                // For non-MAME systems, filter by filename.
                 files = files.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms));
             }
 
@@ -270,7 +271,7 @@ public partial class GlobalSearch
         return score;
     }
 
-    private bool MatchesSearchQuery(string text, List<string> searchTerms)
+    private static bool MatchesSearchQuery(string text, List<string> searchTerms)
     {
         bool hasAnd = searchTerms.Contains("and");
         bool hasOr = searchTerms.Contains("or");
@@ -287,7 +288,7 @@ public partial class GlobalSearch
         return searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
     }
 
-    private List<string> ParseSearchTerms(string searchTerm)
+    private static List<string> ParseSearchTerms(string searchTerm)
     {
         var terms = new List<string>();
         var matches = Regex.Matches(searchTerm, @"[\""].+?[\""]|[^ ]+");
@@ -306,7 +307,7 @@ public partial class GlobalSearch
         return machine?.Description ?? string.Empty;
     }
 
-    private string GetFullPath(string path)
+    private static string GetFullPath(string path)
     {
         if (path.StartsWith(@".\"))
         {
@@ -470,7 +471,7 @@ public partial class GlobalSearch
                 addToFavoritesMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    AddToFavorites(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileName, _favoritesManager, _fakeGameFileGrid, _mainWindow);
                 };
 
                 // "Open Video Link" MenuItem
@@ -821,48 +822,6 @@ public partial class GlobalSearch
 
             // Notify user
             MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
-        }
-    }
-
-    private void AddToFavorites(string systemName, string fileNameWithoutExtension)
-    {
-        try
-        {
-            // Load existing favorites
-            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-            // Add the new favorite if it doesn't already exist
-            if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase)
-                                                 && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
-            {
-                favorites.FavoriteList.Add(new Favorite
-                {
-                    FileName = fileNameWithoutExtension,
-                    SystemName = systemName
-                });
-
-                // Save the updated favorites list
-                _favoritesManager.SaveFavorites(favorites);
-
-                // Notify user
-                MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithoutExtension);
-            }
-            else
-            {
-                // Notify user
-                MessageBoxLibrary.GameAlreadyInFavoritesMessageBox(fileNameWithoutExtension);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"An error occurred while adding game to favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
         }
     }
 
