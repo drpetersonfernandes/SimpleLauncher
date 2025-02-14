@@ -15,44 +15,11 @@ public static class GameLauncher
     
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
     {
-        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
-        {
-            // Notify developer
-            string errorMessage = "Invalid filePath.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
+        if (CheckFilepath()) return;
         
-        if (systemComboBox.SelectedItem == null)
-        {
-            // Notify developer
-            string errorMessage = "Invalid system.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+        if (CheckSystemComboBox()) return;
 
-            return;
-        }
-
-        if (emulatorComboBox.SelectedItem == null)
-        {
-            // Notify developer
-            string errorMessage = "Invalid emulator.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
+        if (CheckEmulatorComboBox()) return;
         
         // Stop the GamePadController if it is running
         // To prevent interference with third party programs, like emulators or games
@@ -155,6 +122,60 @@ public static class GameLauncher
             {
                 _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString());
             }
+        }
+
+        bool CheckFilepath()
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            {
+                // Notify developer
+                string errorMessage = "Invalid filePath.";
+                Exception ex = new();
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        bool CheckSystemComboBox()
+        {
+            if (systemComboBox.SelectedItem == null)
+            {
+                // Notify developer
+                string errorMessage = "Invalid system.";
+                Exception ex = new();
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        bool CheckEmulatorComboBox()
+        {
+            if (emulatorComboBox.SelectedItem == null)
+            {
+                // Notify developer
+                string errorMessage = "Invalid emulator.";
+                Exception ex = new();
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -334,32 +355,10 @@ public static class GameLauncher
         string selectedSystem = systemComboBox.SelectedItem.ToString();
         
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string errorMessage = "systemConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckSystemConfig(systemConfig)) return;
 
         var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            string errorMessage = $"emulatorConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
+        if (await CheckEmulatorConfig(emulatorConfig)) return;
 
         string gamePathToLaunch = filePath;
 
@@ -370,18 +369,7 @@ public static class GameLauncher
         }
         
         // Check gamePath
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-        {
-            // Notify developer
-            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
@@ -389,18 +377,7 @@ public static class GameLauncher
         string arguments = $"{parameters} \"{gamePathToLaunch}\"";
 
         // Check programLocation before call it
-        if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
-        {
-            // Notify developer
-            string errorMessage = $"Invalid programLocation: {programLocation}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
-            
-            return;
-        }
+        if (await CheckProgramLocation(programLocation)) return;
 
         var psi = new ProcessStartInfo
         {
@@ -447,40 +424,9 @@ public static class GameLauncher
                 throw new InvalidOperationException("Process has not exited as expected.");
             }
 
-            // Memory Access Violation error
-            if (process.ExitCode == -1073741819)
-            {
-                // Notify developer
-                string errorMessage = $"There was an access violation error running the emulator. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                // Ignore
-
-                return;
-            }
+            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
             
-            if (process.ExitCode != 0)
-            {
-                // Notify developer
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-            }
+            await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
         
         catch (InvalidOperationException ex)
@@ -516,32 +462,10 @@ public static class GameLauncher
         string selectedSystem = systemComboBox.SelectedItem.ToString();
 
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string errorMessage = $"systemConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckSystemConfig(systemConfig)) return;
 
         var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            string errorMessage = $"emulatorConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckEmulatorConfig(emulatorConfig)) return;
 
         string gamePathToLaunch = filePath;
 
@@ -552,18 +476,7 @@ public static class GameLauncher
         }
         
         // Check gamePath
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-        {
-            // Notify developer
-            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
@@ -571,18 +484,7 @@ public static class GameLauncher
         string arguments = $"{parameters} \"{gamePathToLaunch}\"";
         
         // Check programLocation before call it
-        if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
-        {
-            // Notify developer
-            string errorMessage = $"Invalid programLocation: {programLocation}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-            
-            // Notify user
-            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
-            
-            return;
-        }
+        if (await CheckProgramLocation(programLocation)) return;
 
         var psi = new ProcessStartInfo
         {
@@ -629,57 +531,11 @@ public static class GameLauncher
                 throw new InvalidOperationException("The process has not exited as expected.");
             }
             
-            if (process.ExitCode == -1073741819)
-            {
-                // Notify developer
-                string errorMessage = $"There was an access violation error running the emulator. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-                
-                // Notify user
-                // Ignore
-                
-                return;
-            }
+            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
             
-            if (process.ExitCode == 1)
-            {
-                // Notify developer
-                string errorMessage = $"Generic error in the emulator. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
+            if (await CheckForExitCodeWithError1WithoutUserNotification(process, psi, output, error)) return;
 
-                // Notify user
-                // Ignore
-                
-                return;
-            }
-
-            if (process.ExitCode != 0)
-            {
-                // Notify developer
-                string errorMessage = $"Emulator error. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                // Ignore
-            }
+            await CheckForExitCodeWithErrorAnyWithoutUserNotification(process, psi, output, error);
         }
         
         catch (InvalidOperationException ex)
@@ -715,33 +571,10 @@ public static class GameLauncher
         string selectedSystem = systemComboBox.SelectedItem.ToString();
     
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string errorMessage = "systemConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
+        if (await CheckSystemConfig(systemConfig)) return;
     
         var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            string errorMessage = $"emulatorConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckEmulatorConfig(emulatorConfig)) return;
 
         string gamePathToLaunch = null;
 
@@ -759,19 +592,8 @@ public static class GameLauncher
                 // Create Instance of ExtractCompressedFile
                 ExtractCompressedFile extractCompressedFile = new ExtractCompressedFile();
                 string tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
-                
-                if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
-                {
-                    // Notify developer
-                    string errorMessage = $"Extraction failed.";
-                    Exception exception = new(errorMessage);
-                    await LogErrors.LogErrorAsync(exception, errorMessage);
 
-                    // Notify user
-                    MessageBoxLibrary.ExtractionFailedMessageBox();
-
-                    return;
-                }
+                if (await CheckForTempExtractLocation(tempExtractLocation)) return;
                 
                 gamePathToLaunch = await FindXblaGamePath(tempExtractLocation); // Search within the extracted folder
             }
@@ -783,18 +605,7 @@ public static class GameLauncher
             }
         }
         
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-        {
-            // Notify developer
-            string errorMessage = $"gamePath is null or empty: {gamePathToLaunch}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
+        if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
         
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
@@ -849,42 +660,9 @@ public static class GameLauncher
                 throw new InvalidOperationException("Process has not exited as expected.");
             }
             
-            // Memory Access Violation error
-            if (process.ExitCode == -1073741819)
-            {
-                // Notify developer
-                string errorMessage = $"There was an memory access violation error running this emulator with this ROM. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
+            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
 
-                // Notify user
-                // Ignore
-                
-                return;
-            }
-
-            // Other errors
-            if (process.ExitCode != 0)
-            {
-                // Notify developer
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
-            }
-            
+            await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
         catch (InvalidOperationException ex)
         {
@@ -932,32 +710,10 @@ public static class GameLauncher
         string selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         string selectedSystem = systemComboBox.SelectedItem.ToString();
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string errorMessage = "systemConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckSystemConfig(systemConfig)) return;
 
         var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            string errorMessage = "emulatorConfig is null.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
+        if (await CheckEmulatorConfig(emulatorConfig)) return;
 
         string gamePathToLaunch = filePath;
 
@@ -967,19 +723,7 @@ public static class GameLauncher
             gamePathToLaunch = await ExtractFilesBeforeLaunch(filePath, systemConfig, gamePathToLaunch);
         }
         
-        // Check gamePath
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-        {
-            // Notify developer
-            string errorMessage = $"gamePath is null or empty: '{gamePathToLaunch}'.";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
+        if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
         string programLocation = emulatorConfig.EmulatorLocation;
@@ -988,34 +732,12 @@ public static class GameLauncher
         string gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
         string arguments = $"{parameters} {gameFilenameWithoutExtension}";
 
-        // Check programLocation
-        if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
-        {
-            // Notify developer
-            string errorMessage = $"programLocation is null or empty: {programLocation}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
-            
-            return;
-        }
+        if (await CheckProgramLocation(programLocation)) return;
 
         // Check workingDirectory
-        if (string.IsNullOrEmpty(workingDirectory))
-        {
-            // Notify developer
-            string errorMessage = $"workingDirectory is null or empty: {workingDirectory}";
-            Exception exception = new(errorMessage);
-            await LogErrors.LogErrorAsync(exception, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            
-            return;
-        }
-
+        if (await CheckForWorkingDirectory(workingDirectory)) return;
+        Debug.Assert(workingDirectory != null, nameof(workingDirectory) + " != null");
+        
         var psi = new ProcessStartInfo
         {
             FileName = programLocation,
@@ -1062,40 +784,9 @@ public static class GameLauncher
                 throw new InvalidOperationException("Process has not exited as expected.");
             }
 
-            // Memory Access Violation error
-            if (process.ExitCode == -1073741819)
-            {
-                // Notify developer
-                string errorMessage = $"There was an access violation error running the emulator. User was not notified.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                // Ignore
-                
-                return;
-            }
+            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
             
-            if (process.ExitCode != 0)
-            {
-                // Notify developer
-                string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                      $"Exit code: {process.ExitCode}\n" +
-                                      $"Emulator: {psi.FileName}\n" +
-                                      $"Emulator output: {output}\n" +
-                                      $"Emulator error: {error}\n" +
-                                      $"Calling parameters: {psi.Arguments}";
-                Exception ex = new(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-            }
+            await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
         
         catch (InvalidOperationException ex)
@@ -1124,7 +815,7 @@ public static class GameLauncher
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
         }
     }
-    
+
     private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig, string gamePathToLaunch)
     {
         string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
@@ -1233,5 +924,201 @@ public static class GameLauncher
             }
             return null;
         }
+    }
+    
+    private static async Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output,
+        StringBuilder error)
+    {
+        if (process.ExitCode != 0)
+        {
+            // Notify developer
+            string errorMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                  $"Exit code: {process.ExitCode}\n" +
+                                  $"Emulator: {psi.FileName}\n" +
+                                  $"Emulator output: {output}\n" +
+                                  $"Emulator error: {error}\n" +
+                                  $"Calling parameters: {psi.Arguments}";
+            Exception ex = new(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+        }
+    }
+
+    private static async Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output,
+        StringBuilder error)
+    {
+        if (process.ExitCode == -1073741819)
+        {
+            // Notify developer
+            string errorMessage = $"There was an access violation error running the emulator. User was not notified.\n\n" +
+                                  $"Exit code: {process.ExitCode}\n" +
+                                  $"Emulator: {psi.FileName}\n" +
+                                  $"Emulator output: {output}\n" +
+                                  $"Emulator error: {error}\n" +
+                                  $"Calling parameters: {psi.Arguments}";
+            Exception ex = new(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            // Ignore
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckProgramLocation(string programLocation)
+    {
+        if (string.IsNullOrWhiteSpace(programLocation) || !File.Exists(programLocation))
+        {
+            // Notify developer
+            string errorMessage = $"Invalid programLocation: {programLocation}";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
+            
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckGamePathToLaunch(string gamePathToLaunch)
+    {
+        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
+        {
+            // Notify developer
+            string errorMessage = $"Invalid GamePath: {gamePathToLaunch}";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+            
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
+    {
+        if (emulatorConfig == null)
+        {
+            // Notify developer
+            string errorMessage = $"emulatorConfig is null.";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckSystemConfig(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string errorMessage = "systemConfig is null.";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static async Task CheckForExitCodeWithErrorAnyWithoutUserNotification(Process process, ProcessStartInfo psi,
+        StringBuilder output, StringBuilder error)
+    {
+        if (process.ExitCode != 0)
+        {
+            // Notify developer
+            string errorMessage = $"Emulator error. User was not notified.\n\n" +
+                                  $"Exit code: {process.ExitCode}\n" +
+                                  $"Emulator: {psi.FileName}\n" +
+                                  $"Emulator output: {output}\n" +
+                                  $"Emulator error: {error}\n" +
+                                  $"Calling parameters: {psi.Arguments}";
+            Exception ex = new(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            // Ignore
+        }
+    }
+
+    private static async Task<bool> CheckForExitCodeWithError1WithoutUserNotification(Process process, ProcessStartInfo psi,
+        StringBuilder output, StringBuilder error)
+    {
+        if (process.ExitCode == 1)
+        {
+            // Notify developer
+            string errorMessage = $"Generic error in the emulator. User was not notified.\n\n" +
+                                  $"Exit code: {process.ExitCode}\n" +
+                                  $"Emulator: {psi.FileName}\n" +
+                                  $"Emulator output: {output}\n" +
+                                  $"Emulator error: {error}\n" +
+                                  $"Calling parameters: {psi.Arguments}";
+            Exception ex = new(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            // Ignore
+                
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static async Task<bool> CheckForTempExtractLocation(string tempExtractLocation)
+    {
+        if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
+        {
+            // Notify developer
+            string errorMessage = $"Extraction failed.";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ExtractionFailedMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static async Task<bool> CheckForWorkingDirectory(string workingDirectory)
+    {
+        if (string.IsNullOrEmpty(workingDirectory))
+        {
+            // Notify developer
+            string errorMessage = $"workingDirectory is null or empty: {workingDirectory}";
+            Exception exception = new(errorMessage);
+            await LogErrors.LogErrorAsync(exception, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            
+            return true;
+        }
+
+        return false;
     }
 }
