@@ -2,13 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,13 +21,14 @@ public partial class GlobalSearch
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearch _pleaseWaitWindow;
     private DispatcherTimer _closeTimer;
-    private readonly FavoritesManager _favoritesManager;
+    private readonly FavoritesManager _favoritesManager = new();
     private readonly MainWindow _mainWindow;
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
     private readonly List<MameConfig> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private readonly WrapPanel _fakeGameFileGrid = new();
+    private readonly Button _fakeButton = new();
 
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, MainWindow mainWindow)
     {
@@ -44,8 +41,6 @@ public partial class GlobalSearch
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         _mainWindow = mainWindow;
-        
-        _favoritesManager = new FavoritesManager();
         
         Closed += GlobalSearch_Closed;
             
@@ -189,6 +184,27 @@ public partial class GlobalSearch
         // Score and order the results before returning.
         var scoredResults = ScoreResults(results, searchTerms);
         return scoredResults;
+        
+        string GetMachineDescription(string fileNameWithoutExtension)
+        {
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            return machine?.Description ?? string.Empty;
+        }
+        
+        string GetFullPath(string path)
+        {
+            if (path.StartsWith(@".\"))
+            {
+                path = path.Substring(2);
+            }
+
+            if (Path.IsPathRooted(path))
+            {
+                return path;
+            }
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+        }
     }
         
     private string GetCoverImagePath(string systemName, string fileName)
@@ -299,27 +315,6 @@ public partial class GlobalSearch
         }
 
         return terms;
-    }
-
-    private string GetMachineDescription(string fileNameWithoutExtension)
-    {
-        var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        return machine?.Description ?? string.Empty;
-    }
-
-    private static string GetFullPath(string path)
-    {
-        if (path.StartsWith(@".\"))
-        {
-            path = path.Substring(2);
-        }
-
-        if (Path.IsPathRooted(path))
-        {
-            return path;
-        }
-
-        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
     }
 
     private async void LaunchGameFromSearchResult(string filePath, string systemName, SystemConfig.Emulator emulatorConfig)
@@ -490,7 +485,7 @@ public partial class GlobalSearch
                 videoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenVideoLink(selectedResult.SystemName, selectedResult.FileName, selectedResult.MachineName);
+                    RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, selectedResult.FileName, _machines, _settings);
                 };
 
                 // "Open Info Link" MenuItem
@@ -509,7 +504,7 @@ public partial class GlobalSearch
                 infoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenInfoLink(selectedResult.SystemName, selectedResult.FileName, selectedResult.MachineName);
+                    RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, selectedResult.FileName, _machines, _settings);
                 };
 
                 // "Open ROM History" MenuItem
@@ -529,7 +524,7 @@ public partial class GlobalSearch
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
+                    RightClickContextMenu.OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
                 };
 
                 // "Cover" MenuItem
@@ -548,7 +543,7 @@ public partial class GlobalSearch
                 coverMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenCover(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenCover(selectedResult.SystemName, selectedResult.FileName, systemConfig);
                 };
 
                 // "Title Snapshot" MenuItem
@@ -567,7 +562,7 @@ public partial class GlobalSearch
                 titleSnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Gameplay Snapshot" MenuItem
@@ -586,7 +581,7 @@ public partial class GlobalSearch
                 gameplaySnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Cart" MenuItem
@@ -605,7 +600,7 @@ public partial class GlobalSearch
                 cartMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenCart(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenCart(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Video" MenuItem
@@ -624,7 +619,7 @@ public partial class GlobalSearch
                 videoMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    PlayVideo(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.PlayVideo(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Manual" MenuItem
@@ -643,7 +638,7 @@ public partial class GlobalSearch
                 manualMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenManual(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenManual(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Walkthrough" MenuItem
@@ -662,7 +657,7 @@ public partial class GlobalSearch
                 walkthroughMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Cabinet" MenuItem
@@ -681,7 +676,7 @@ public partial class GlobalSearch
                 cabinetMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenCabinet(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenCabinet(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "Flyer" MenuItem
@@ -700,7 +695,7 @@ public partial class GlobalSearch
                 flyerMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenFlyer(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenFlyer(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // "PCB" MenuItem
@@ -719,7 +714,7 @@ public partial class GlobalSearch
                 pcbMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    OpenPcb(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenPcb(selectedResult.SystemName, selectedResult.FileName);
                 };
 
                 // Take Screenshot Context Menu
@@ -742,7 +737,7 @@ public partial class GlobalSearch
                     // Notify user
                     MessageBoxLibrary.TakeScreenShotMessageBox();
 
-                    _ = TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig.SystemName);
+                    _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
                     LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
                 };
 
@@ -773,7 +768,7 @@ public partial class GlobalSearch
                         {
                             try
                             {
-                                DeleteFile(filePath, fileNameWithExtension);
+                                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeGameFileGrid, _mainWindow);
                             }
                             catch (Exception ex)
                             {
@@ -786,7 +781,7 @@ public partial class GlobalSearch
                                 // Notify user
                                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                             }
-                            RemoveFromFavorites2(selectedResult.SystemName, fileNameWithExtension);
+                            RightClickContextMenu.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
                         }
                     }
                 };
@@ -824,592 +819,7 @@ public partial class GlobalSearch
             MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
         }
     }
-
-    private void RemoveFromFavorites2(string systemName, string fileNameWithExtension)
-    {
-        try
-        {
-            FavoritesConfig favorites = _favoritesManager.LoadFavorites();
-
-            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (favoriteToRemove != null)
-            {
-                favorites.FavoriteList.Remove(favoriteToRemove);
-                _favoritesManager.SaveFavorites(favorites);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"An error occurred in the RemoveFromFavorites2 method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-        }
-    }
-
-    private void OpenVideoLink(string systemName, string fileName, string machineDescription = null)
-    {
-        var searchTerm =
-            // Check if machineDescription is provided and not empty
-            !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
-
-        string searchUrl = $"{_settings.VideoUrl}{Uri.EscapeDataString(searchTerm)}";
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = searchUrl,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"There was a problem opening the Video Link.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
-        }
-    }
-
-    private void OpenInfoLink(string systemName, string fileName, string machineDescription = null)
-    {
-        var searchTerm =
-            // Check if machineDescription is provided and not empty
-            !string.IsNullOrEmpty(machineDescription) ? $"{machineDescription} {systemName}" : $"{Path.GetFileNameWithoutExtension(fileName)} {systemName}";
-
-        string searchUrl = $"{_settings.InfoUrl}{Uri.EscapeDataString(searchTerm)}";
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = searchUrl,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"There was a problem opening the Info Link.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
-        }
-    }
-        
-    private void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
-    {
-        string romName = fileNameWithoutExtension.ToLowerInvariant();
-           
-        // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
-        var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
-
-        try
-        {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
-            historyWindow.Show();
-
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
-        }
-    }
-
-    private void OpenCover(string systemName, string fileName)
-    {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        if (systemConfig == null)
-        {
-            // Notify developer
-            const string formattedException = "System configuration not found for the selected game in the GlobalSearch.";
-            Exception ex = new(formattedException);
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ProblemOpeningCoverImageMessageBox();
-            
-            return;
-        }
-    
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemImageFolder = systemConfig.SystemImageFolder;
-        
-        // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-        }
-        
-        var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Function to search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
-            {
-                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (File.Exists(imagePath))
-                {
-                    foundPath = imagePath;
-                    return true;
-                }
-            }
-            foundPath = null;
-            return false;
-        }
-        
-        // First try to find the image in the systemImageFolder
-        if (TryFindImage(systemImageFolder, out var foundImagePath))
-        {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
-        }
-        // If not found, try the globalImageDirectory
-        else if (TryFindImage(globalImageDirectory, out foundImagePath))
-        {
-            var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
-            imageViewerWindow.Show();
-        }
-        else
-        {
-            // Notify user
-            MessageBoxLibrary.ThereIsNoCoverMessageBox();
-        }
-    }
-
-    private void OpenTitleSnapshot(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
-        string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
-            
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in titleSnapshotExtensions)
-        {
-            string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(titleSnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(titleSnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
-    }
-
-    private void OpenGameplaySnapshot(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
-        string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
-            
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in gameplaySnapshotExtensions)
-        {
-            string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(gameplaySnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(gameplaySnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
-    }
-
-    private void OpenCart(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
-        string[] cartExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            
-        foreach (var extension in cartExtensions)
-        {
-            string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(cartPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cartPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-
-        // Notify user
-        MessageBoxLibrary.ThereIsNoCartMessageBox();
-    }
-
-    private void PlayVideo(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
-        string[] videoExtensions = [".mp4", ".avi", ".mkv"];
-            
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in videoExtensions)
-        {
-            string videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(videoPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = videoPath,
-                    UseShellExecute = true
-                });
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
-    }
-
-    private void OpenManual(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
-        string[] manualExtensions = [".pdf"];
-            
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in manualExtensions)
-        {
-            string manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(manualPath))
-            {
-                try
-                {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = manualPath,
-                        UseShellExecute = true
-                    });
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string formattedException = $"Failed to open the manual.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
-                    
-                    return;
-                }
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoManualMessageBox();
-    }
-
-    private void OpenWalkthrough(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
-        string[] walkthroughExtensions = [".pdf"];
-
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            
-        foreach (var extension in walkthroughExtensions)
-        {
-            string walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(walkthroughPath))
-            {
-                try
-                {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = walkthroughPath,
-                        UseShellExecute = true
-                    });
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string formattedException = $"Failed to open the walkthrough file.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
-                    
-                    return;
-                }
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
-    }
-
-    private void OpenCabinet(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
-        string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in cabinetExtensions)
-        {
-            string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(cabinetPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cabinetPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
-    }
-
-    private void OpenFlyer(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
-        string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            
-        foreach (var extension in flyerExtensions)
-        {
-            string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(flyerPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(flyerPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
-    }
-
-    private void OpenPcb(string systemName, string fileName)
-    {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
-        string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
-
-        // Remove the original file extension
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        foreach (var extension in pcbExtensions)
-        {
-            string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(pcbPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(pcbPath);
-                imageViewerWindow.Show();
-                return;
-            }
-        }
-        
-        // Notify user
-        MessageBoxLibrary.ThereIsNoPcbMessageBox();
-    }
-        
-    private async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, string systemName)
-    {
-        try
-        {
-            // Clear the PreviewImage
-            PreviewImage.Source = null;
-            
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
-            {
-                // Notify developer
-                string formattedException = "systemConfig is null.";
-                Exception ex = new(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-                // Notify user
-                MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
-                
-                return;
-            }
-    
-            string systemImageFolder = systemConfig.SystemImageFolder;
-            if (string.IsNullOrEmpty(systemImageFolder))
-            {
-                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
-                Directory.CreateDirectory(systemImageFolder);
-            }
-            
-            // Wait for 4 seconds
-            await Task.Delay(4000);
-                
-            // Get the list of open windows
-            var openWindows = WindowManager.GetOpenWindows();
-
-            // Show the selection dialog
-            var dialog = new WindowSelectionDialog(openWindows);
-            if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
-            {
-                return;
-            }
-
-            IntPtr hWnd = dialog.SelectedWindowHandle;
-                
-            WindowScreenshot.Rect rect;
-
-            // Try to get the client area dimensions
-            if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
-            {
-                // If the client area fails, fall back to the full window dimensions
-                if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
-                {
-                    throw new Exception("Failed to retrieve window dimensions.");
-                }
-            }
-            else
-            {
-                // Successfully retrieved client area
-                rect = clientRect;
-            }
-
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
-
-            string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
-
-            // Capture the window into a bitmap
-            using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
-            {
-                using (var graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.CopyFromScreen(
-                        new System.Drawing.Point(rect.Left, rect.Top),
-                        System.Drawing.Point.Empty,
-                        new System.Drawing.Size(width, height));
-                }
-
-                // Save the screenshot
-                bitmap.Save(screenshotPath, ImageFormat.Png);
-            }
-
-            PlayClick.PlayShutterSound();
-            
-            // Wait
-            await Task.Delay(1000);
-            
-            // Show the flash effect
-            var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync();
-                
-            // Notify the user
-            MessageBoxLibrary.ScreenshotSavedMessageBox(screenshotPath);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string formattedException = $"Failed to save screenshot.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
-        }
-    }
-
-    private void DeleteFile(string filePath, string fileNameWithExtension)
-    {
-        if (File.Exists(filePath))
-        {
-            try
-            {
-                File.Delete(filePath);
-                    
-                PlayClick.PlayTrashSound();
-                
-                // Notify user
-                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
-
-                // Redo the search after deletion
-                SearchButton_Click(null, null);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-                
-                // Notify user
-                MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
-            }
-        }
-        else
-        {
-            // Notify user
-            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
-        }
-    }
-
+       
     private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         try
@@ -1441,19 +851,6 @@ public partial class GlobalSearch
         }
     }
 
-    public class SearchResult
-    {
-        public string FileName { get; init; }
-        public string MachineName { get; init; }
-        public string FolderName { get; init; }
-        public string FilePath { get; init; }
-        public double Size { get; set; }
-        public string SystemName { get; init; }
-        public SystemConfig.Emulator EmulatorConfig { get; init; }
-        public int Score { get; set; }
-        public string CoverImage { get; init; }
-    }
-        
     private void ResultsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
@@ -1475,5 +872,17 @@ public partial class GlobalSearch
         _searchResults = null;
     }
     
+    public class SearchResult
+    {
+        public string FileName { get; init; }
+        public string MachineName { get; init; }
+        public string FolderName { get; init; }
+        public string FilePath { get; init; }
+        public double Size { get; set; }
+        public string SystemName { get; init; }
+        public SystemConfig.Emulator EmulatorConfig { get; init; }
+        public int Score { get; set; }
+        public string CoverImage { get; init; }
+    }
     
 }

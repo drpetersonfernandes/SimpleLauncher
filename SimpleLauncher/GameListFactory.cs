@@ -22,6 +22,7 @@ public class GameListFactory(
 {
     private readonly FavoritesManager _favoritesManager = new();
     private readonly WrapPanel _fakeFileGrid = new();
+    private readonly Button _fakeButton = new();
 
     public class GameListViewItem : INotifyPropertyChanged
     {
@@ -94,8 +95,6 @@ public class GameListFactory(
 
     private ContextMenu CreateContextMenu(string filePath, string systemName, SystemConfig systemConfig)
     {
-        var fakeButton = new Button();
-        
         string fileNameWithExtension = Path.GetFileName(filePath);
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             
@@ -424,7 +423,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
            
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, fakeButton, mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, mainWindow);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
             
@@ -447,30 +446,6 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             
             DoYouWanToDeleteMessageBox();
-            void DoYouWanToDeleteMessageBox()
-            {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, fakeButton, _fakeFileGrid, mainWindow);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        string formattedException = $"Error deleting the file.\n\n" +
-                                                    $"Exception type: {ex.GetType().Name}\n" +
-                                                    $"Exception details: {ex.Message}";
-                        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
-                        // Notify user
-                        MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
-                    }
-                    RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, mainWindow);
-                }
-            }
         };
 
         contextMenu.Items.Add(launchMenuItem);
@@ -494,11 +469,31 @@ public class GameListFactory(
 
         // Return
         return contextMenu;
-    }
         
-    private async Task LaunchGame(string filePath)
-    {
-        await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+        void DoYouWanToDeleteMessageBox()
+        {
+            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeFileGrid, mainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    string formattedException = $"Error deleting the file.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}";
+                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                                
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+                }
+                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, mainWindow);
+            }
+        }
     }
 
     public void HandleSelectionChanged(GameListViewItem selectedItem)
@@ -614,7 +609,7 @@ public class GameListFactory(
         if (systemConfig != null)
         {
             // Launch the game using the full file path stored in the selected item
-            await LaunchGame(selectedItem.FilePath);
+            await GameLauncher.HandleButtonClick(selectedItem.FilePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         }
     }
 }
