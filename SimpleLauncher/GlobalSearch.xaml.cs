@@ -167,7 +167,8 @@ public partial class GlobalSearch
             // Map each file into a SearchResult object.
             var fileResults = files.Select(file => new SearchResult
             {
-                FileName = Path.GetFileName(file),
+                FileName = Path.GetFileNameWithoutExtension(file),
+                FileNameWithExtension = Path.GetFileName(file),
                 FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
                 FilePath = file,
                 Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
@@ -409,8 +410,8 @@ public partial class GlobalSearch
         {
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
             {
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedResult.FileName);
-                string fileNameWithExtension = selectedResult.FileName;
+                string fileNameWithoutExtension = selectedResult.FileName;
+                string fileNameWithExtension = selectedResult.FileNameWithExtension;
                 string filePath = selectedResult.FilePath;
                 var systemConfig = _systemConfigs.FirstOrDefault(config =>
                     config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
@@ -466,7 +467,7 @@ public partial class GlobalSearch
                 addToFavoritesMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileName, _favoritesManager, _fakeGameFileGrid, _mainWindow);
+                    RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
                 };
 
                 // "Open Video Link" MenuItem
@@ -875,6 +876,7 @@ public partial class GlobalSearch
     public class SearchResult
     {
         public string FileName { get; init; }
+        public string FileNameWithExtension { get; init; }
         public string MachineName { get; init; }
         public string FolderName { get; init; }
         public string FilePath { get; init; }

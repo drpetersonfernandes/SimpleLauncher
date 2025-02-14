@@ -75,6 +75,7 @@ public partial class Favorites
             var favoriteItem = new Favorite
             {
                 FileName = favorite.FileName,
+                FileNameWithoutExtension = Path.GetFileNameWithoutExtension(favorite.FileName),
                 SystemName = favorite.SystemName,
                 MachineDescription = machineDescription,
                 CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName) // Set cover image path
