@@ -254,29 +254,6 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         GamePadController.Instance2.CheckAndReconnectControllers();
     }
-    
-    private void SetLanguageMenuChecked(string languageCode)
-    {
-        LanguageArabic.IsChecked = languageCode == "ar";
-        LanguageBengali.IsChecked = languageCode == "bn";
-        LanguageGerman.IsChecked = languageCode == "de";
-        LanguageEnglish.IsChecked = languageCode == "en";
-        LanguageSpanish.IsChecked = languageCode == "es";
-        LanguageFrench.IsChecked = languageCode == "fr";
-        LanguageHindi.IsChecked = languageCode == "hi";
-        LanguageIndonesianMalay.IsChecked = languageCode == "id";
-        LanguageItalian.IsChecked = languageCode == "it";
-        LanguageJapanese.IsChecked = languageCode == "ja";
-        LanguageKorean.IsChecked = languageCode == "ko";
-        LanguageDutch.IsChecked = languageCode == "nl";
-        LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
-        LanguageRussian.IsChecked = languageCode == "ru";
-        LanguageTurkish.IsChecked = languageCode == "tr";
-        LanguageUrdu.IsChecked = languageCode == "ur";
-        LanguageVietnamese.IsChecked = languageCode == "vi";
-        LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
-        LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
-    }
 
     private static void OpenUpdateHistory()
     {
@@ -366,20 +343,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
             Application.Current.Shutdown();
             Environment.Exit(0);
-        }
-    }
-        
-    private void SetViewMode(string viewMode)
-    {
-        if (viewMode == "ListView")
-        {
-            ListView.IsChecked = true;
-            GridView.IsChecked = false;
-        }
-        else
-        {
-            GridView.IsChecked = true;
-            ListView.IsChecked = false;
         }
     }
         
@@ -823,6 +786,43 @@ public partial class MainWindow : INotifyPropertyChanged
     }
         
     #region Menu Items
+    
+    private void SetViewMode(string viewMode)
+    {
+        if (viewMode == "ListView")
+        {
+            ListView.IsChecked = true;
+            GridView.IsChecked = false;
+        }
+        else
+        {
+            GridView.IsChecked = true;
+            ListView.IsChecked = false;
+        }
+    }
+    
+    private void SetLanguageMenuChecked(string languageCode)
+    {
+        LanguageArabic.IsChecked = languageCode == "ar";
+        LanguageBengali.IsChecked = languageCode == "bn";
+        LanguageGerman.IsChecked = languageCode == "de";
+        LanguageEnglish.IsChecked = languageCode == "en";
+        LanguageSpanish.IsChecked = languageCode == "es";
+        LanguageFrench.IsChecked = languageCode == "fr";
+        LanguageHindi.IsChecked = languageCode == "hi";
+        LanguageIndonesianMalay.IsChecked = languageCode == "id";
+        LanguageItalian.IsChecked = languageCode == "it";
+        LanguageJapanese.IsChecked = languageCode == "ja";
+        LanguageKorean.IsChecked = languageCode == "ko";
+        LanguageDutch.IsChecked = languageCode == "nl";
+        LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
+        LanguageRussian.IsChecked = languageCode == "ru";
+        LanguageTurkish.IsChecked = languageCode == "tr";
+        LanguageUrdu.IsChecked = languageCode == "ur";
+        LanguageVietnamese.IsChecked = languageCode == "vi";
+        LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
+        LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
+    }
         
     private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
