@@ -695,10 +695,10 @@ public partial class MainWindow : INotifyPropertyChanged
                     }
                     else
                     {
-                        // Check if the system is MAME based
+                        // Check if the system is MAME-based
                         bool systemIsMame = selectedConfig.SystemIsMame;
 
-                        // If system is MAME based, use the pre-built _mameLookup dictionary for faster lookups.
+                        // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
                         if (systemIsMame && _mameLookup != null)
                         {
                             // Use a case-insensitive comparison.
@@ -707,7 +707,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                 allFiles.FindAll(file =>
                                 {
                                     var fileName = Path.GetFileNameWithoutExtension(file);
-                                    // Check if filename contains the search query.
+                                    // Check if the filename contains the search query.
                                     bool filenameMatch = fileName.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
                                     if (filenameMatch)
                                         return true;
