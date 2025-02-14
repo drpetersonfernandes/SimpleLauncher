@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
@@ -20,7 +21,6 @@ public partial class GlobalSearch
     private readonly SettingsConfig _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearch _pleaseWaitWindow;
-    private DispatcherTimer _closeTimer;
     private readonly FavoritesManager _favoritesManager = new();
     private readonly MainWindow _mainWindow;
     private readonly ComboBox _mockSystemComboBox = new();
@@ -29,6 +29,7 @@ public partial class GlobalSearch
     private readonly Dictionary<string, string> _mameLookup;
     private readonly WrapPanel _fakeGameFileGrid = new();
     private readonly Button _fakeButton = new();
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, MainWindow mainWindow)
     {
@@ -50,28 +51,17 @@ public partial class GlobalSearch
     private void SearchButton_Click(object sender, RoutedEventArgs e)
     {
         string searchTerm = SearchTextBox.Text;
-        if (string.IsNullOrWhiteSpace(searchTerm))
-        {
-            // Notify user
-            MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
-
-            return;
-        }
+        if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
         LaunchButton.IsEnabled = false;
         _searchResults.Clear();
 
+        // Show a "Please Wait" window.
         _pleaseWaitWindow = new PleaseWaitSearch
         {
             Owner = this
         };
         _pleaseWaitWindow.Show();
-
-        _closeTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(1)
-        };
-        _closeTimer.Tick += (_, _) => _closeTimer.Stop();
 
         var backgroundWorker = new BackgroundWorker();
         backgroundWorker.DoWork += (_, args) => args.Result = PerformSearch(searchTerm);
@@ -110,17 +100,10 @@ public partial class GlobalSearch
                 }
             }
 
-            if (!_closeTimer.IsEnabled)
-            {
-                _pleaseWaitWindow.Close();
-            }
-            else
-            {
-                _closeTimer.Tick += (_, _) => _pleaseWaitWindow.Close();
-            }
+            // Close the "Please Wait" window
+            _pleaseWaitWindow.Close();
         };
 
-        _closeTimer.Start();
         backgroundWorker.RunWorkerAsync();
     }
 
@@ -250,15 +233,15 @@ public partial class GlobalSearch
         {
             return foundImagePath;
         }
+
         // If not found, try the globalImageDirectory
-        else if (TryFindImage(globalDirectory, out foundImagePath))
+        if (TryFindImage(globalDirectory, out foundImagePath))
         {
             return foundImagePath;
         }
-        else
-        {
-            return Path.Combine(baseDirectory, "images", "default.png");
-        }
+
+        // otherwise, use default.png
+        return Path.Combine(baseDirectory, "images", "default.png");
     }
 
     private List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
@@ -325,33 +308,12 @@ public partial class GlobalSearch
             var systemConfig = _systemConfigs.FirstOrDefault(config =>
                 config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
                 
-            if (string.IsNullOrEmpty(systemName) || emulatorConfig == null)
-            {
-                // Notify developer
-                string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
-                                            "systemName or emulatorConfig is null or empty.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+            if (await CheckSystemName(systemName)) return;
+            
+            if (await CheckEmulatorConfig(emulatorConfig)) return;
 
-                // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox();
-                
-                return;
-            }
-
-            if (systemConfig == null)
-            {
-                // Notify developer
-                string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
-                                            "systemConfig is null.";
-                Exception exception = new(formattedException);
-                await LogErrors.LogErrorAsync(exception, formattedException);
-
-                // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox();
-                
-                return;
-            }
+            if (await CheckSystemConfig2(systemConfig)) return;
+            Debug.Assert(systemConfig != null, nameof(systemConfig) + " != null");
 
             _mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
             _mockSystemComboBox.SelectedItem = systemConfig.SystemName;
@@ -372,7 +334,7 @@ public partial class GlobalSearch
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox();
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
 
@@ -400,7 +362,7 @@ public partial class GlobalSearch
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox();
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
 
@@ -810,24 +772,6 @@ public partial class GlobalSearch
         }
     }
 
-    private static bool CheckSystemConfig(SystemConfig systemConfig)
-    {
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string formattedException = "systemConfig is null.";
-            Exception ex = new(formattedException);
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
-
-            return true;
-        }
-
-        return false;
-    }
-
     private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         try
@@ -851,7 +795,7 @@ public partial class GlobalSearch
         }
     }
 
-    private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+    private void SearchWhenPressEnterKey(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter)
         {
@@ -859,7 +803,7 @@ public partial class GlobalSearch
         }
     }
 
-    private void ResultsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void ActionsWhenUserSelectAResultItem(object sender, SelectionChangedEventArgs e)
     {
         if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
         {
@@ -877,6 +821,7 @@ public partial class GlobalSearch
 
     private void GlobalSearch_Closed(object sender, EventArgs e)
     {
+        // Empty results
         _searchResults = null;
     }
     
@@ -892,6 +837,94 @@ public partial class GlobalSearch
         public SystemConfig.Emulator EmulatorConfig { get; init; }
         public int Score { get; set; }
         public string CoverImage { get; init; }
+    }
+    
+    private static async Task<bool> CheckSystemConfig2(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                        "systemConfig is null.";
+            Exception exception = new(formattedException);
+            await LogErrors.LogErrorAsync(exception, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static bool CheckSystemConfig(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string formattedException = "systemConfig is null.";
+            Exception ex = new(formattedException);
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+
+            // Notify user
+            MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
+    {
+        if (emulatorConfig == null)
+        {
+            // Notify developer
+            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                        "emulatorConfig is null.";
+            Exception ex = new(formattedException);
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckSystemName(string systemName)
+    {
+        if (string.IsNullOrEmpty(systemName))
+        {
+            // Notify developer
+            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                        "systemName is null or empty.";
+            Exception ex = new(formattedException);
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static bool CheckIfSearchTermIsEmpty(string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            // Notify user
+            MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
+
+            return true;
+        }
+
+        return false;
     }
     
 }

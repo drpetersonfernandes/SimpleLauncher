@@ -254,15 +254,119 @@ public static class MessageBoxLibrary
             warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
     
-    internal static void ErrorLaunchingGameMessageBox()
+    internal static void ErrorLaunchingGameMessageBox(string logPath)
     {
         string therewasanerrorlaunchingtheselected2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheselected") ?? "There was an error launching the selected game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorlaunchingtheselected2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        var result = MessageBox.Show($"{therewasanerrorlaunchingtheselected2}\n\n" +
+                        $"{dowanttoopenthefileerroruserlog2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+        
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                // Notify user
+                string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwasnotfound2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     internal static void SelectAGameToLaunchMessageBox()
     {
