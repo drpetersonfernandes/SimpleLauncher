@@ -43,11 +43,11 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   ScrollViewer.CanContentScroll="True"
-                  MouseRightButtonUp="ResultsDataGrid_MouseRightButtonUp"
+                  MouseRightButtonUp="CreateRightClickContextMenu"
                   MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
                   SelectionChanged="ResultsDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
+                <DataGridTextColumn Header="FileName" Binding="{Binding FileNameWithExtension}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}"
                                     Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="170" />

@@ -41,7 +41,6 @@ public partial class Favorites
         Closing += Favorites_Closing; 
     }
 
-    // Restart 'Simple Launcher'
     private static void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
@@ -75,7 +74,6 @@ public partial class Favorites
             var favoriteItem = new Favorite
             {
                 FileName = favorite.FileName,
-                FileNameWithoutExtension = Path.GetFileNameWithoutExtension(favorite.FileName),
                 SystemName = favorite.SystemName,
                 MachineDescription = machineDescription,
                 CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName) // Set cover image path
@@ -97,7 +95,7 @@ public partial class Favorites
         }
     }
 
-    private void RemoveButton_Click(object sender, RoutedEventArgs e)
+    private void RemoveFavoriteButton_Click(object sender, RoutedEventArgs e)
     {
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
@@ -114,42 +112,22 @@ public partial class Favorites
         }
     }
     
-    private void FavoritesDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void FavoritesWindowRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                if (selectedFavorite.FileName == null)
-                {
-                    // Notify developer
-                    string formattedException = $"Favorite filename is null";
-                    Exception ex = new(formattedException);
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                    
-                    // Notify user
-                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-                    
-                    return;
-                }
+                if (CheckFilenameOfSelectedFavorite(selectedFavorite)) return;
+                Debug.Assert(selectedFavorite.FileName != null);
                 
                 string fileNameWithExtension = selectedFavorite.FileName;
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
                 
                 var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (systemConfig == null)
-                {
-                    // Notify developer
-                    string formattedException = $"systemConfig is null for the selected favorite";
-                    Exception ex = new(formattedException);
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-                    
-                    return;
-                }
-
+                if (CheckForSystemConfig(systemConfig)) return;
+                Debug.Assert(systemConfig?.SystemFolder != null);
+                
                 string filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
                 
                 var contextMenu = new ContextMenu();
@@ -170,7 +148,7 @@ public partial class Favorites
                 launchMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+                    _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
                 };
 
                 // "Remove from Favorites" MenuItem
@@ -189,7 +167,7 @@ public partial class Favorites
                 removeMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RemoveFromFavorites(selectedFavorite);
+                    RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
                 };
 
                 // "Open Video Link" MenuItem
@@ -208,7 +186,7 @@ public partial class Favorites
                 videoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenVideoLink(selectedFavorite.SystemName, selectedFavorite.FileName, _machines, _settings);
+                    RightClickContextMenu.OpenVideoLink(selectedFavorite.SystemName, fileNameWithoutExtension, _machines, _settings);
                 };
 
                 // "Open Info Link" MenuItem
@@ -227,7 +205,7 @@ public partial class Favorites
                 infoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenInfoLink(selectedFavorite.SystemName, selectedFavorite.FileName, _machines, _settings);
+                    RightClickContextMenu.OpenInfoLink(selectedFavorite.SystemName, fileNameWithoutExtension, _machines, _settings);
                 };
 
                 // "Open ROM History" MenuItem
@@ -267,7 +245,7 @@ public partial class Favorites
                     PlayClick.PlayClickSound();
                     
                     if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
-                    RightClickContextMenu.OpenCover(selectedFavorite.SystemName, selectedFavorite.FileName, systemConfig1);
+                    RightClickContextMenu.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig1);
                 };
 
                 // "Title Snapshot" MenuItem
@@ -286,7 +264,7 @@ public partial class Favorites
                 titleSnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenTitleSnapshot(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenTitleSnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Gameplay Snapshot" MenuItem
@@ -305,7 +283,7 @@ public partial class Favorites
                 gameplaySnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenGameplaySnapshot(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenGameplaySnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Cart" MenuItem
@@ -324,7 +302,7 @@ public partial class Favorites
                 cartMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCart(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenCart(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Video" MenuItem
@@ -343,7 +321,7 @@ public partial class Favorites
                 videoMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.PlayVideo(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.PlayVideo(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Manual" MenuItem
@@ -362,7 +340,7 @@ public partial class Favorites
                 manualMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenManual(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenManual(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Walkthrough" MenuItem
@@ -381,7 +359,7 @@ public partial class Favorites
                 walkthroughMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenWalkthrough(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenWalkthrough(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Cabinet" MenuItem
@@ -400,7 +378,7 @@ public partial class Favorites
                 cabinetMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCabinet(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenCabinet(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Flyer" MenuItem
@@ -419,7 +397,7 @@ public partial class Favorites
                 flyerMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenFlyer(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenFlyer(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
 
                 // "PCB" MenuItem
@@ -438,7 +416,7 @@ public partial class Favorites
                 pcbMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenPcb(selectedFavorite.SystemName, selectedFavorite.FileName);
+                    RightClickContextMenu.OpenPcb(selectedFavorite.SystemName, fileNameWithoutExtension);
                 };
             
                 // Take Screenshot Context Menu
@@ -465,7 +443,7 @@ public partial class Favorites
                     if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
                     _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig1, _fakebutton, _mainWindow);
                     
-                    _ = LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+                    _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
                 };
 
                 // Delete Game Context Menu
@@ -507,7 +485,7 @@ public partial class Favorites
                                 // Notify user
                                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                             }
-                            RemoveFromFavorites(selectedFavorite);
+                            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
                         }
                     }
                 };
@@ -593,33 +571,12 @@ public partial class Favorites
         try
         {
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
-            {
-                // Notify developer
-                string formattedException = $"systemConfig is null.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+            if (await CheckSystemConfig(systemConfig)) return;
 
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
-
-                return;
-            }
-
-            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
-            if (emulatorConfig == null)
-            {
-                // Notify developer
-                string formattedException = $"emulatorConfig is null.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
-
-                return;
-            }
-
+            var emulatorConfig = systemConfig?.Emulators.FirstOrDefault();
+            if (await CheckEmulatorConfig(emulatorConfig)) return;
+            
+            Debug.Assert(systemConfig?.SystemFolder != null);
             string fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
 
             // Get the full path
@@ -638,27 +595,8 @@ public partial class Favorites
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
             }
                 
-            // Check if the file exists
-            if (!File.Exists(fullPath))
-            {
-                // Auto remove the favorite from the list since the file no longer exists
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
-                if (favoriteToRemove != null)
-                {
-                    _favoriteList.Remove(favoriteToRemove);
-                    _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
-                }
-                
-                // Notify developer
-                string formattedException = $"Favorite file does not exist: {fullPath}";
-                Exception exception = new(formattedException);
-                await LogErrors.LogErrorAsync(exception, formattedException);
-
-                // Notify user
-                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
-
-                return;
-            }
+            // Check if the favorite file exists
+            if (await CheckFilePathDeleteFavoriteIfInvalid(fileName, systemName, fullPath)) return;
 
             var mockSystemComboBox = new ComboBox();
             var mockEmulatorComboBox = new ComboBox();
@@ -667,6 +605,7 @@ public partial class Favorites
             mockSystemComboBox.SelectedItem = systemConfig.SystemName;
 
             mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+            Debug.Assert(emulatorConfig != null, nameof(emulatorConfig) + " != null");
             mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
             // Launch Game
@@ -686,8 +625,8 @@ public partial class Favorites
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
         }
     }
-        
-    private void RemoveFromFavorites(Favorite selectedFavorite)
+
+    private void RemoveFavoriteFromXmlAndEmptyPreviewImage(Favorite selectedFavorite)
     {
         _favoriteList.Remove(selectedFavorite);
         _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
@@ -695,7 +634,7 @@ public partial class Favorites
         PreviewImage.Source = null;
     }
 
-    private async void FavoritesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void LaunchGameWithDoubleClick(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -718,7 +657,7 @@ public partial class Favorites
         }
     }
        
-    private void FavoritesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
@@ -729,7 +668,7 @@ public partial class Favorites
         }
     }
         
-    private void FavoritesDataGrid_KeyDown(object sender, KeyEventArgs e)
+    private void DeleteFavoriteWithDelButton(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Delete)
         {
@@ -805,6 +744,104 @@ public partial class Favorites
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static bool CheckForSystemConfig(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string formattedException = $"systemConfig is null for the selected favorite";
+            Exception ex = new(formattedException);
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+
+            // Notify user
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                    
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool CheckFilenameOfSelectedFavorite(Favorite selectedFavorite)
+    {
+        if (selectedFavorite.FileName == null)
+        {
+            // Notify developer
+            string formattedException = $"Favorite filename is null";
+            Exception ex = new(formattedException);
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                    
+            // Notify user
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                    
+            return true;
+        }
+
+        return false;
+    }
+    
+    private async Task<bool> CheckFilePathDeleteFavoriteIfInvalid(string fileName, string systemName, string fullPath)
+    {
+        if (!File.Exists(fullPath))
+        {
+            // Auto remove the favorite from the list since the file no longer exists
+            var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
+            if (favoriteToRemove != null)
+            {
+                _favoriteList.Remove(favoriteToRemove);
+                _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+            }
+                
+            // Notify developer
+            string formattedException = $"Favorite file does not exist: {fullPath}";
+            Exception exception = new(formattedException);
+            await LogErrors.LogErrorAsync(exception, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
+    {
+        if (emulatorConfig == null)
+        {
+            // Notify developer
+            string formattedException = $"emulatorConfig is null.";
+            Exception ex = new(formattedException);
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static async Task<bool> CheckSystemConfig(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string formattedException = $"systemConfig is null.";
+            Exception ex = new(formattedException);
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
 
             return true;
         }

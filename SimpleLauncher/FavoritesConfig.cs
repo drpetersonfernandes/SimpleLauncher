@@ -17,7 +17,6 @@ public class FavoritesConfig
 public class Favorite
 {
     public string FileName { get; init; }
-    public string FileNameWithoutExtension { get; init; }
     public string SystemName { get; init; }
     public string MachineDescription { get; init; }
     public string CoverImage { get; init; }

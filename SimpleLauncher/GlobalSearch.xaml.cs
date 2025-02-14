@@ -404,7 +404,7 @@ public partial class GlobalSearch
         }
     }
 
-    private void ResultsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void CreateRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -416,18 +416,7 @@ public partial class GlobalSearch
                 var systemConfig = _systemConfigs.FirstOrDefault(config =>
                     config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
 
-                if (systemConfig == null)
-                {
-                    // Notify developer
-                    string formattedException = "systemConfig is null.";
-                    Exception ex = new(formattedException);
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-
-                    // Notify user
-                    MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
-
-                    return;
-                }
+                if (CheckSystemConfig(systemConfig)) return;
 
                 var contextMenu = new ContextMenu();
 
@@ -486,7 +475,7 @@ public partial class GlobalSearch
                 videoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, selectedResult.FileName, _machines, _settings);
+                    RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
                 };
 
                 // "Open Info Link" MenuItem
@@ -505,7 +494,7 @@ public partial class GlobalSearch
                 infoLinkMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, selectedResult.FileName, _machines, _settings);
+                    RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
                 };
 
                 // "Open ROM History" MenuItem
@@ -544,7 +533,7 @@ public partial class GlobalSearch
                 coverMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCover(selectedResult.SystemName, selectedResult.FileName, systemConfig);
+                    RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
                 };
 
                 // "Title Snapshot" MenuItem
@@ -563,7 +552,7 @@ public partial class GlobalSearch
                 titleSnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Gameplay Snapshot" MenuItem
@@ -582,7 +571,7 @@ public partial class GlobalSearch
                 gameplaySnapshotMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Cart" MenuItem
@@ -601,7 +590,7 @@ public partial class GlobalSearch
                 cartMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCart(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Video" MenuItem
@@ -620,7 +609,7 @@ public partial class GlobalSearch
                 videoMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.PlayVideo(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Manual" MenuItem
@@ -639,7 +628,7 @@ public partial class GlobalSearch
                 manualMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenManual(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Walkthrough" MenuItem
@@ -658,7 +647,7 @@ public partial class GlobalSearch
                 walkthroughMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Cabinet" MenuItem
@@ -677,7 +666,7 @@ public partial class GlobalSearch
                 cabinetMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCabinet(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "Flyer" MenuItem
@@ -696,7 +685,7 @@ public partial class GlobalSearch
                 flyerMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenFlyer(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // "PCB" MenuItem
@@ -715,7 +704,7 @@ public partial class GlobalSearch
                 pcbMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenPcb(selectedResult.SystemName, selectedResult.FileName);
+                    RightClickContextMenu.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
                 };
 
                 // Take Screenshot Context Menu
@@ -820,7 +809,25 @@ public partial class GlobalSearch
             MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
         }
     }
-       
+
+    private static bool CheckSystemConfig(SystemConfig systemConfig)
+    {
+        if (systemConfig == null)
+        {
+            // Notify developer
+            string formattedException = "systemConfig is null.";
+            Exception ex = new(formattedException);
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+
+            // Notify user
+            MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+
     private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         try

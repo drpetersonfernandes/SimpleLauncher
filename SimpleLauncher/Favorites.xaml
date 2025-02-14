@@ -24,7 +24,7 @@
                HorizontalAlignment="Left"
                Content="{DynamicResource ListofFavorites}" />
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-            <Button Name="RemoveButton" Content="{DynamicResource RemovefromFavorites}" Click="RemoveButton_Click"
+            <Button Name="RemoveButton" Content="{DynamicResource RemovefromFavorites}" Click="RemoveFavoriteButton_Click"
                     Padding="5"
                     Margin="0,0,10,0" />
             <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click"
@@ -41,12 +41,12 @@
                   Grid.Row="2"
                   Grid.Column="0"
                   Margin="10"
-                  MouseRightButtonUp="FavoritesDataGrid_MouseRightButtonUp"
-                  MouseDoubleClick="FavoritesDataGrid_MouseDoubleClick"
-                  SelectionChanged="FavoritesDataGrid_SelectionChanged"
-                  KeyDown="FavoritesDataGrid_KeyDown" d:DataContext="{d:DesignInstance }">
+                  MouseRightButtonUp="FavoritesWindowRightClickContextMenu"
+                  MouseDoubleClick="LaunchGameWithDoubleClick"
+                  SelectionChanged="SetPreviewImageOnSelectionChanged"
+                  KeyDown="DeleteFavoriteWithDelButton" d:DataContext="{d:DesignInstance }">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FileName" Binding="{Binding FileNameWithoutExtension}" Width="*" />
+                <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)"
                                     Binding="{Binding MachineDescription}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />

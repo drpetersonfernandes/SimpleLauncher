@@ -15,6 +15,7 @@ namespace SimpleLauncher;
 
 public static class RightClickContextMenu
 {
+    // Use fileNameWithExtension
     public static void AddToFavorites(string systemName, string fileNameWithExtension, FavoritesManager favoritesManager, WrapPanel gameFileGrid, MainWindow mainWindow)
     {
         try
@@ -99,6 +100,7 @@ public static class RightClickContextMenu
         }
     }
 
+    // Use fileNameWithExtension
     public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, FavoritesManager favoritesManager, WrapPanel gameFileGrid, MainWindow mainWindow)
     {
         try
@@ -173,6 +175,7 @@ public static class RightClickContextMenu
         }
     }
 
+    // Use fileNameWithoutExtension
     public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
     {
         // Attempt to find a matching machine description
@@ -206,6 +209,7 @@ public static class RightClickContextMenu
         }
     }
 
+    // Use fileNameWithoutExtension
     public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
     {
         // Attempt to find a matching machine description
@@ -239,6 +243,7 @@ public static class RightClickContextMenu
         }
     }
 
+    // Use fileNameWithoutExtension
     public static void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
     {
         string romName = fileNameWithoutExtension.ToLowerInvariant();
@@ -270,7 +275,8 @@ public static class RightClickContextMenu
         }
     }
 
-    public static void OpenCover(string systemName, string fileName, SystemConfig systemConfig)
+    // Use fileNameWithoutExtension
+    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string systemImageFolder = systemConfig.SystemImageFolder;
@@ -307,7 +313,7 @@ public static class RightClickContextMenu
         {
             foreach (var extension in imageExtensions)
             {
-                string imagePath = Path.Combine(directory, fileName + extension);
+                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
                 if (File.Exists(imagePath))
                 {
                     foundPath = imagePath;
@@ -319,7 +325,8 @@ public static class RightClickContextMenu
         }
     }
 
-    public static void OpenTitleSnapshot(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenTitleSnapshot(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
@@ -327,7 +334,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in titleSnapshotExtensions)
         {
-            string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileName + extension);
+            string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(titleSnapshotPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -341,7 +348,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
     }
 
-    public static void OpenGameplaySnapshot(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
@@ -349,7 +357,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in gameplaySnapshotExtensions)
         {
-            string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileName + extension);
+            string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(gameplaySnapshotPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -363,7 +371,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
     }
 
-    public static void OpenCart(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenCart(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
@@ -371,7 +380,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in cartExtensions)
         {
-            string cartPath = Path.Combine(cartDirectory, fileName + extension);
+            string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(cartPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -385,7 +394,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoCartMessageBox();
     }
 
-    public static void PlayVideo(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void PlayVideo(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
@@ -393,7 +403,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in videoExtensions)
         {
-            string videoPath = Path.Combine(videoDirectory, fileName + extension);
+            string videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(videoPath))
             {
                 Process.Start(new ProcessStartInfo
@@ -409,7 +419,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
     }
 
-    public static void OpenManual(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenManual(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
@@ -417,7 +428,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in manualExtensions)
         {
-            string manualPath = Path.Combine(manualDirectory, fileName + extension);
+            string manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(manualPath))
             {
                 try
@@ -450,7 +461,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoManualMessageBox();
     }
 
-    public static void OpenWalkthrough(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenWalkthrough(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
@@ -458,7 +470,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in walkthroughExtensions)
         {
-            string walkthroughPath = Path.Combine(walkthroughDirectory, fileName + extension);
+            string walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(walkthroughPath))
             {
                 try
@@ -492,7 +504,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
     }
 
-    public static void OpenCabinet(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenCabinet(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
@@ -500,7 +513,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in cabinetExtensions)
         {
-            string cabinetPath = Path.Combine(cabinetDirectory, fileName + extension);
+            string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(cabinetPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -514,7 +527,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoCabinetMessageBox();
     }
 
-    public static void OpenFlyer(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenFlyer(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
@@ -522,7 +536,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in flyerExtensions)
         {
-            string flyerPath = Path.Combine(flyerDirectory, fileName + extension);
+            string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(flyerPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -536,7 +550,8 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoFlyerMessageBox();
     }
 
-    public static void OpenPcb(string systemName, string fileName)
+    // Use fileNameWithoutExtension
+    public static void OpenPcb(string systemName, string fileNameWithoutExtension)
     {
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
@@ -544,7 +559,7 @@ public static class RightClickContextMenu
 
         foreach (var extension in pcbExtensions)
         {
-            string pcbPath = Path.Combine(pcbDirectory, fileName + extension);
+            string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
             if (File.Exists(pcbPath))
             {
                 var imageViewerWindow = new ImageViewerWindow();
@@ -558,6 +573,7 @@ public static class RightClickContextMenu
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
+    // Use fileNameWithoutExtension
     public static async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button, MainWindow mainWindow)
     {
         try
@@ -685,6 +701,7 @@ public static class RightClickContextMenu
         }
     }
 
+    // Use fileNameWithExtension
     public static async void DeleteFile(string filePath, string fileNameWithExtension, Button button, WrapPanel gameFileGrid, MainWindow mainWindow)
     {
         try

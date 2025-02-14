@@ -88,6 +88,7 @@ namespace SimpleLauncher
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     string errorMessage = $"Error caching files for {systemName}.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
