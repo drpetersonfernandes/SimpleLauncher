@@ -28,8 +28,12 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly CacheManager _cacheManager = new();
     private List<string> _cachedFiles;
 
+    // GameListItems
     public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
-        
+
+    // Declare _gameListFactory
+    private readonly GameListFactory _gameListFactory;
+    
     // System Name and PlayTime in the Statusbar
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
@@ -59,10 +63,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-    // Declare _gameListFactory
-    private readonly GameListFactory _gameListFactory;
-        
+       
     // tray icon
     private NotifyIcon _trayIcon;
     private ContextMenuStrip _trayMenu;
@@ -77,7 +78,6 @@ public partial class MainWindow : INotifyPropertyChanged
     private string _currentFilter;
     private List<string> _currentSearchResults = new();
         
-    // Instance variables
     private readonly List<SystemConfig> _systemConfigs;
     private readonly LetterNumberMenu _letterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
@@ -86,19 +86,23 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly List<MameConfig> _machines;
     private FavoritesConfig _favoritesConfig;
     private readonly FavoritesManager _favoritesManager;
-    
-    // MAME dictionary
     private readonly Dictionary<string, string> _mameLookup;
-        
-    // Selected Image folder and Rom folder
     private string _selectedImageFolder;
     private string _selectedRomFolder;
-
     private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
         
     public MainWindow()
     {
         InitializeComponent();
+        InitializeTrayIcon();
+        
+        // Check for Command-line Args
+        var args = Environment.GetCommandLineArgs();
+        if (args.Contains("whatsnew"))
+        {
+            // Show UpdateHistory after the MainWindow is fully loaded
+            Loaded += (_, _) => OpenUpdateHistory();
+        }
         
         // Initialize the timer for periodic controller checks
         _controllerCheckTimer = new DispatcherTimer
@@ -111,8 +115,6 @@ public partial class MainWindow : INotifyPropertyChanged
         // Ensure the DataContext is set to the current MainWindow instance for binding
         DataContext = this;
 
-        InitializeTrayIcon();
-            
         // Load settings.xml
         _settings = new SettingsConfig();
         
@@ -121,7 +123,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         
         // Apply language
-        SetLanguageMenuChecked(_settings.Language);
+        SetLanguageAndCheckMenu(_settings.Language);
             
         // Load mame.xml
         _machines = MameConfig.LoadFromXml();
@@ -130,26 +132,11 @@ public partial class MainWindow : INotifyPropertyChanged
             .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
         // Load system.xml
-        try
-        {
-            _systemConfigs = SystemConfig.LoadSystemConfigs();
-            var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
-            SystemComboBox.ItemsSource = sortedSystemNames;
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"'system.xml' is corrupted.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+        _systemConfigs = SystemConfig.LoadSystemConfigs();
+        var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
+        SystemComboBox.ItemsSource = sortedSystemNames;
 
-            // Notify user
-            MessageBoxLibrary.SystemXmlCorruptedMessageBox();
-
-        }
-
-        // Apply settings to application from settings.xml
+        // Load and Apply settings.xml
         ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
         UpdateMenuCheckMarks(_settings.ThumbnailSize);
         UpdateMenuCheckMarks2(_settings.GamesPerPage);
@@ -159,7 +146,8 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Initialize the GamePadController
         // Setting the error logger for GamePad
-        GamePadController.Instance2.ErrorLogger = (ex, msg) => LogErrors.LogErrorAsync(ex, msg).Wait(TimeSpan.FromSeconds(2));
+        GamePadController.Instance2.ErrorLogger = (ex, msg) =>
+            LogErrors.LogErrorAsync(ex, msg).Wait(TimeSpan.FromSeconds(2));
 
         // Start GamePad if enable
         if (_settings.EnableGamePadNavigation)
@@ -176,8 +164,8 @@ public partial class MainWindow : INotifyPropertyChanged
             
         // Initialize LetterNumberMenu and add it to the UI
         _letterNumberMenu = new LetterNumberMenu();
-        LetterNumberMenu.Children.Clear(); // Clear first
-        LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel); // Add the LetterPanel
+        LetterNumberMenu.Children.Clear();
+        LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel);
             
         // Create and integrate LetterNumberMenu
         _letterNumberMenu.OnLetterSelected += async selectedLetter =>
@@ -237,17 +225,37 @@ public partial class MainWindow : INotifyPropertyChanged
         // Call Stats API
         Loaded += async (_, _) => await Stats.CallApiAsync();
 
-        // Check for Command-line Args
-        var args = Environment.GetCommandLineArgs();
-        if (args.Contains("whatsnew"))
-        {
-            // Show UpdateHistory after the MainWindow is fully loaded
-            Loaded += (_, _) => OpenUpdateHistory();
-        }
-        
-        // Attach the Load and Close event handler.
+        // Attach the Load and Close event handler
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
+    }
+    
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        // Load windows state
+        Width = _settings.MainWindowWidth;
+        Height = _settings.MainWindowHeight;
+        Top = _settings.MainWindowTop;
+        Left = _settings.MainWindowLeft;
+        WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+
+        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        // SelectedSystem and PlayTime
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        // Theme settings
+        App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
+        SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+            
+        // ViewMode State
+        SetViewMode(_settings.ViewMode);
+        
+        // Check if application has write access
+        if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
+        {
+            MessageBoxLibrary.MoveToWritableFolderMessageBox();
+        }
     }
     
     private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
@@ -282,42 +290,15 @@ public partial class MainWindow : INotifyPropertyChanged
             _settings.BaseTheme = detectedTheme.BaseColorScheme;
             _settings.AccentColor = detectedTheme.ColorScheme;
         }
+
         _settings.Save();
-    }
-
-    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Load windows state
-        Width = _settings.MainWindowWidth;
-        Height = _settings.MainWindowHeight;
-        Top = _settings.MainWindowTop;
-        Left = _settings.MainWindowLeft;
-        WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
-
-        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        // SelectedSystem and PlayTime
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
-
-        // Theme settings
-        App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
-        SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
-            
-        // ViewMode State
-        SetViewMode(_settings.ViewMode);
-        
-        // Check if application has write access
-        if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
-        {
-            MessageBoxLibrary.MoveToWritableFolderMessageBox();
-        }
     }
 
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
         SaveApplicationSettings();
         
-        // Delete temp folders and files before close.
+        // Delete temp folders and files before close
         CleanSimpleLauncherFolder.CleanupTrash();
         
         // Dispose gamepad resources
@@ -331,19 +312,17 @@ public partial class MainWindow : INotifyPropertyChanged
         SaveApplicationSettings();
 
         var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule != null)
+        if (processModule == null) return;
+        var startInfo = new ProcessStartInfo
         {
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = processModule.FileName,
-                UseShellExecute = true
-            };
+            FileName = processModule.FileName,
+            UseShellExecute = true
+        };
 
-            Process.Start(startInfo);
+        Process.Start(startInfo);
 
-            Application.Current.Shutdown();
-            Environment.Exit(0);
-        }
+        Application.Current.Shutdown();
+        Environment.Exit(0);
     }
         
     private List<string> GetFavoriteGamesForSelectedSystem()
@@ -391,18 +370,18 @@ public partial class MainWindow : INotifyPropertyChanged
         });
     }
     
-    private void GameDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
         {
-            var gameListViewFactory = new GameListFactory(
-                EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this
-            );
+            // Instantiate GameListFactory to use a method
+            var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+            
             gameListViewFactory.HandleSelectionChanged(selectedItem);
         }
     }
 
-    private async void GameDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void GameListDoubleClickOnSelectedItem(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -415,7 +394,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error while using the method GameDataGrid_MouseDoubleClick.\n\n" +
+            string errorMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
                                   $"Exception type: {ex.GetType().Name}\n" +
                                   $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -592,27 +571,13 @@ public partial class MainWindow : INotifyPropertyChanged
 
         try
         {
-            if (SystemComboBox.SelectedItem == null)
-            {
-                AddNoSystemMessage();
-                return;
-            }
+            if (CheckIfSystemComboBoxIsNotNull()) return;
  
             string selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-            if (selectedConfig == null)
-            {
-                // Notify developer
-                string errorMessage = "Invalid system configuration.\n\n" +
-                                      "Method: LoadGameFilesAsync";
-                Exception ex = new Exception(errorMessage);
-                await LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                return;
-            }
+            
+            if (await CheckIfSelectConfigIsNull(selectedConfig)) return;
+            Debug.Assert(selectedConfig != null, nameof(selectedConfig) + " != null");
             
             // Create variable allFiles
             List<string> allFiles;
@@ -686,7 +651,7 @@ public partial class MainWindow : INotifyPropertyChanged
                         }
                         else
                         {
-                            // For non-MAME systems, use the original filtering.
+                            // For non-MAME systems, use the original filtering by filename.
                             allFiles = await Task.Run(() =>
                                 allFiles.FindAll(file =>
                                 {
@@ -759,7 +724,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedConfig);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
-                else // For list view
+                else // ListView
                 {
                     var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
@@ -784,7 +749,37 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
     }
-        
+
+    private static async Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
+    {
+        if (selectedConfig == null)
+        {
+            // Notify developer
+            string errorMessage = "Invalid system configuration.\n\n" +
+                                  "Method: LoadGameFilesAsync";
+            Exception ex = new Exception(errorMessage);
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool CheckIfSystemComboBoxIsNotNull()
+    {
+        if (SystemComboBox.SelectedItem == null)
+        {
+            AddNoSystemMessage();
+            return true;
+        }
+
+        return false;
+    }
+
     #region Menu Items
     
     private void SetViewMode(string viewMode)
@@ -801,7 +796,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
     
-    private void SetLanguageMenuChecked(string languageCode)
+    private void SetLanguageAndCheckMenu(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
         LanguageBengali.IsChecked = languageCode == "bn";
@@ -1625,7 +1620,7 @@ public partial class MainWindow : INotifyPropertyChanged
             _settings.Save();
 
             // Update checked status
-            SetLanguageMenuChecked(selectedLanguage);
+            SetLanguageAndCheckMenu(selectedLanguage);
             
             MainWindow_Restart();
         }
