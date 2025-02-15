@@ -163,7 +163,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        MessageBoxLibrary.DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException) // Download canceled
@@ -312,7 +312,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        MessageBoxLibrary.DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException)
@@ -431,7 +431,7 @@ public partial class EditSystemEasyModeAddSystem
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
-                        MessageBoxLibrary.DownloadFailedMessageBox();
+                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
                     }
                 }
                 catch (TaskCanceledException)
@@ -520,7 +520,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.DownloadFailedMessageBox();
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
         catch (HttpRequestException ex)
         {
@@ -532,7 +532,7 @@ public partial class EditSystemEasyModeAddSystem
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.DownloadFailedMessageBox();
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
         catch (IOException ex)
         {
@@ -576,7 +576,7 @@ public partial class EditSystemEasyModeAddSystem
                 await LogErrors.LogErrorAsync(ex, formattedException);
                     
                 // Notify user
-                MessageBoxLibrary.DownloadFailedMessageBox();
+                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             }
         }
 

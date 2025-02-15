@@ -109,7 +109,7 @@ public class SystemConfig
                 LogErrors.LogErrorAsync(ex, errorDetailsDeveloper).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox();
+                MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox(LogPath);
 
                 return null;
             }

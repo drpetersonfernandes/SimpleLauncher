@@ -22,6 +22,16 @@ public static class MessageBoxLibrary
                         $"{assoonasyouselectawindow2}",
             takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
+    
+    internal static void CouldNotSaveScreenshotMessageBox()
+    {
+        string failedtosavescreenshot2 = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
+        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{failedtosavescreenshot2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 
     internal static void GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
@@ -167,16 +177,6 @@ public static class MessageBoxLibrary
         string pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
         MessageBox.Show(thereisnoPcBfile2,
             pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    internal static void CouldNotSaveScreenshotMessageBox()
-    {
-        string failedtosavescreenshot2 = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{failedtosavescreenshot2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     internal static void FileSuccessfullyDeletedMessageBox(string fileNameWithExtension)
@@ -901,115 +901,33 @@ public static class MessageBoxLibrary
             Environment.Exit(0);
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    internal static void FiLeSystemXmlIsCorruptedMessageBox()
+
+    internal static void FiLeSystemXmlIsCorruptedMessageBox(string logPath)
     {
         string thefilesystemxmlisbadlycorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ?? "The file 'system.xml' is badly corrupted.";
-        string toseethedetailschecktheerroruserlog2 = (string)Application.Current.TryFindResource("Toseethedetailschecktheerroruserlog") ?? "To see the details, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
+        string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
-                        $"{toseethedetailschecktheerroruserlog2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
+                        $"{wouldyouliketoopentheerroruserlog}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Question);
+        
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
     
     internal static void InstallUpdateManuallyMessageBox(string repoOwner, string repoName)
@@ -1020,7 +938,7 @@ public static class MessageBoxLibrary
         var messageBoxResult = MessageBox.Show(
             $"{therewasanerrorinstallingorupdating2}\n\n" +
             $"{wouldyouliketoberedirectedtothedownloadpage2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
@@ -1047,7 +965,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var messageBoxResult = MessageBox.Show($"{updaterexenotfoundintheapplication2}\n\n" +
                                                $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
@@ -1077,7 +995,7 @@ public static class MessageBoxLibrary
             $"{fileappsettingsjsonismissing2}\n\n" +
             $"{theapplicationwillnotbeableto2}\n\n" +
             $"{doyouwanttoautomaticallyreinstall2}",
-            warning2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            warning2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
@@ -1170,10 +1088,12 @@ public static class MessageBoxLibrary
         string downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
         string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         string temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        string ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{downloadedfileislocked2}\n\n" +
                         $"{grantSimpleLauncheradministrative2}\n\n" +
-                        $"{temporarilydisableyourantivirussoftware2}",
+                        $"{temporarilydisableyourantivirussoftware2}\n\n" +
+                        $"{ensuretheSimpleLauncher2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
@@ -1206,7 +1126,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
                                                   $"{wouldyouliketoberedirected2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1247,7 +1167,7 @@ public static class MessageBoxLibrary
                                      $"{temporarilydisableyourantivirus2}\n\n" +
                                      $"{makesuretheSimpleLauncher2}\n\n" +
                                      $"{wouldyouliketoopenthetemp2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1288,7 +1208,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{errorloadingthefileeasymodexml2}\n\n" +
                                      $"{theerrorwasreportedtothedeveloper2}\n" +
                                      $"{doyouwanttoreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1350,20 +1270,6 @@ public static class MessageBoxLibrary
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    internal static void DownloadFailedMessageBox()
-    {
-        string downloadfailed2 = (string)Application.Current.TryFindResource("Downloadfailed") ?? "Download failed.";
-        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        string ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloadfailed2}\n\n" +
-                        $"{grantSimpleLauncheradministrative2}\n\n" +
-                        $"{ensuretheSimpleLauncherfolder2}\n\n" +
-                        $"{temporarilydisableyourantivirus2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
     internal static void DownloadAndExtrationWereSuccessfulMessageBox()
     {
         string downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
@@ -1379,7 +1285,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
                                                   $"{wouldyouliketoberedirected2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1416,7 +1322,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
                                                   $"{wouldyouliketoberedirected2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1453,7 +1359,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBoxResult result = MessageBox.Show($"{downloaderror2}\n\n" +
                                                   $"{wouldyouliketoberedirected2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1742,19 +1648,21 @@ public static class MessageBoxLibrary
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{simpleLaunchercreatedaimagefolder2} '.\\images\\{systemNameText}'.\n\n" +
                         $"{youmayplacethecoverimagesforthissystem2}\n\n" +
-                        $"{italsocreatedfoldersfor2} 'title_snapshots', 'gameplay_snapshots', 'videos', 'manuals', 'walkthrough', 'cabinets', 'flyers', 'pcbs' and 'carts'.",
+                        $"{italsocreatedfoldersfor2} 'title_snapshots', 'gameplay_snapshots', 'videos', 'manuals', 'walkthrough', 'cabinets', 'flyers', 'pcbs', 'carts'.",
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
     internal static void FolderCreationFailedMessageBox()
     {
         string simpleLauncherfailedtocreatethe2 = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
-        string theapplicationmightnothave2 = (string)Application.Current.TryFindResource("Theapplicationmightnothave") ?? "The application might not have sufficient privileges. Try running it with administrative permissions.";
-        string additionallyensurethatSimpleLauncher2 = (string)Application.Current.TryFindResource("AdditionallyensurethatSimpleLauncher") ?? "Additionally, ensure that 'Simple Launcher' is located in a writable folder.";
+        string grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        string temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        string ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{simpleLauncherfailedtocreatethe2}\n\n" +
-                        $"{theapplicationmightnothave2}\n\n" +
-                        $"{additionallyensurethatSimpleLauncher2}",
+                        $"{grantSimpleLauncheradministrative2}\n\n" +
+                        $"{temporarilydisableyourantivirus2}\n\n" +
+                        $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}",
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
     
@@ -1781,7 +1689,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{therewasanerrorfinding2}\n\n" +
                                      $"{doyouwanttoopenthefileerroruserlog2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                 
         if (result == MessageBoxResult.Yes)
         {
@@ -1810,7 +1718,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{anerroroccurredwhilecounting2}\n\n" +
                                      $"{doyouwanttoopenthefileerroruserlog2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                 
         if (result == MessageBoxResult.Yes)
         {
@@ -1842,7 +1750,7 @@ public static class MessageBoxLibrary
                                      $"{grantSimpleLauncheradministrative2}\n\n" +
                                      $"{temporarilydisableyourantivirus2}\n\n" +
                                      $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            error2, MessageBoxButton.OK, MessageBoxImage.Question);
         
         if (result != MessageBoxResult.Yes) return;
         try
@@ -1875,7 +1783,7 @@ public static class MessageBoxLibrary
             $"{ifyouaretryingtorunRetroarchensurethattheBios2}\n\n" +
             $"{alsomakesureyouarecallingtheemulator2}\n\n" +
             $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result != MessageBoxResult.Yes) return;
         try
@@ -1917,7 +1825,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame2}\n\n" +
                                      $"{theerrorwasreportedtothedeveloper2}\n\n" +
                                      $"{doyouwanttoopenthefileerroruserlog2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -1969,7 +1877,7 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show(
             $"{theemulatorcouldnotopenthegame2}\n\n" +
             $"{doyouwanttoopenthefileerror2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
