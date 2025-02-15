@@ -791,7 +791,7 @@ public partial class GlobalSearch
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
 

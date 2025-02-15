@@ -23,6 +23,7 @@ public partial class Favorites
     private readonly MainWindow _mainWindow;
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
+    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
     {
@@ -562,7 +563,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
 
@@ -622,7 +623,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
 
@@ -653,7 +654,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
        
@@ -823,7 +824,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
             return true;
         }
@@ -841,7 +842,7 @@ public partial class Favorites
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox();
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
             return true;
         }

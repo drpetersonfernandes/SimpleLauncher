@@ -283,91 +283,7 @@ public static class MessageBoxLibrary
             
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     internal static void SelectAGameToLaunchMessageBox()
     {
         string pleaseselectagametolaunch2 = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
@@ -395,14 +311,6 @@ public static class MessageBoxLibrary
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-    
-    internal static void GameAlreadyInFavoritesMessageBox(string fileNameWithoutExtension)
-    {
-        string isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{fileNameWithoutExtension} {isalreadyinfavorites2}",
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
 
     internal static void FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
     {
@@ -411,34 +319,34 @@ public static class MessageBoxLibrary
         MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites2}",
             success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
-    
-    internal static void ProblemOpeningCoverImageMessageBox()
-    {
-        string therewasaproblemopeningtheCoverImage2 = (string)Application.Current.TryFindResource("Therewasaproblemopeningthecoverimage") ?? "There was a problem opening the cover image for this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasaproblemopeningtheCoverImage2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-    
-    internal static void ScreenshotSavedMessageBox(string screenshotPath)
-    {
-        string screenshotsavedsuccessfullyat2 = (string)Application.Current.TryFindResource("Screenshotsavedsuccessfullyat") ?? "Screenshot saved successfully at:";
-        string success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
-        MessageBox.Show($"{screenshotsavedsuccessfullyat2}\n\n" +
-                        $"{screenshotPath}",
-            success2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-    
-    internal static void CouldNotLaunchThisGameMessageBox()
+
+    internal static void CouldNotLaunchThisGameMessageBox(string logPath)
     {
         string simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+        var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
+                                     $"{dowanttoopenthefileerroruserlog2}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                // Notify user
+                string thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwasnotfound2,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
     
     internal static void ErrorCalculatingStatsMessageBox()
@@ -542,23 +450,7 @@ public static class MessageBoxLibrary
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-    
-    internal static void SystemXmlCorruptedMessageBox()
-    {
-        string thefilesystemxmliscorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmliscorrupted") ?? "The file 'system.xml' is corrupted.";
-        string youneedtofixitmanually2 = (string)Application.Current.TryFindResource("Youneedtofixitmanually") ?? "You need to fix it manually or delete it.";
-        string theapplicationwillbeshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillbeshutdown") ?? "The application will be shutdown.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{thefilesystemxmliscorrupted2}\n\n" +
-                        $"{youneedtofixitmanually2}\n\n" +
-                        $"{theapplicationwillbeshutdown2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            
-        // Shutdown current application instance
-        Application.Current.Shutdown();
-        Environment.Exit(0);
-    }
-        
+
     internal static void NoFavoriteFoundMessageBox()
     {
         string nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
@@ -664,7 +556,7 @@ public static class MessageBoxLibrary
             $"{grantSimpleLauncheradministrative2}\n\n" +
             $"{temporarilydisableyourantivirus2}\n\n" +
             $"{wouldyouliketoopentheerroruserlog}",
-            error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -728,7 +620,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{unexpectederrorwhileloadinghelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -743,7 +635,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{novalidsystemsfoundinthefilehelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -758,7 +650,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -779,7 +671,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{unabletoloadhelpuserxml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -800,7 +692,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{thefilehelpuserxmlismissing2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -832,7 +724,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamexml2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -859,7 +751,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{thefilemamexmlcouldnotbefound2}\n\n" +
                                      $"{doyouwanttoautomaticreinstall2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
         {
@@ -888,7 +780,7 @@ public static class MessageBoxLibrary
         MessageBox.Show($"{updaterexenotfound2}\n\n" +
                         $"{pleasereinstallSimpleLaunchermanually2}\n\n" +
                         $"{theapplicationwillnowshutdown2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            error2, MessageBoxButton.OK, MessageBoxImage.Question);
 
         // Shutdown the application and exit
         Application.Current.Shutdown();
@@ -912,7 +804,7 @@ public static class MessageBoxLibrary
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{nohistoryxmlfilefound2}\n\n" +
                                      $"{doyouwanttoreinstallSimpleLauncher2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -944,21 +836,38 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
     
-    internal static void SystemXmlIsCorruptedMessageBox()
+    internal static void SystemXmlIsCorruptedMessageBox(string logPath)
     {
         string systemxmliscorrupted2 = (string)Application.Current.TryFindResource("systemxmliscorrupted") ?? "'system.xml' is corrupted or could not be opened.";
         string pleasefixitmanuallyordeleteit2 = (string)Application.Current.TryFindResource("Pleasefixitmanuallyordeleteit") ?? "Please fix it manually or delete it.";
         string ifyouchoosetodeleteit2 = (string)Application.Current.TryFindResource("Ifyouchoosetodeleteit") ?? "If you choose to delete it, 'Simple Launcher' will create a new one for you.";
-        string ifyouwanttodebugtheerroryourself2 = (string)Application.Current.TryFindResource("Ifyouwanttodebugtheerroryourself") ?? "If you want to debug the error yourself, check the 'error_user.log' file inside the 'Simple Launcher' folder.";
         string theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+        string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{systemxmliscorrupted2}\n\n" +
-                        $"{pleasefixitmanuallyordeleteit2}\n\n" +
+        var result = MessageBox.Show($"{systemxmliscorrupted2} {pleasefixitmanuallyordeleteit2}\n\n" +
                         $"{ifyouchoosetodeleteit2}\n\n" +
-                        $"{ifyouwanttodebugtheerroryourself2}\n\n" +
-                        $"{theapplicationwillshutdown2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-                    
+                        $"{theapplicationwillshutdown2}" +
+                        $"{wouldyouliketoopentheerroruserlog}",
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                string thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog,
+                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         // Shutdown the application and exit
         Application.Current.Shutdown();
         Environment.Exit(0);
@@ -973,7 +882,7 @@ public static class MessageBoxLibrary
         var messageBoxResult = MessageBox.Show($"{systemmodelxmlismissing2}\n\n" +
                                                $"{simpleLaunchercannotworkproperly2}\n\n" +
                                                $"{doyouwanttoautomaticallyreinstall2}",
-            warning2, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            warning2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
@@ -992,6 +901,106 @@ public static class MessageBoxLibrary
             Environment.Exit(0);
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     internal static void FiLeSystemXmlIsCorruptedMessageBox()
     {
@@ -1553,16 +1562,6 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void CouldNotOpenInfoLinkMessageBox()
-    {
-        string therewasaproblemopeningtheInfoLink2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheInfoLink") ?? "There was a problem opening the Info Link.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasaproblemopeningtheInfoLink2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-    
     internal static void CouldNotOpenHistoryWindowMessageBox()
     {
         string therewasaproblemopeningtheHistorywindow2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
@@ -1582,14 +1581,6 @@ public static class MessageBoxLibrary
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-   
-    internal static void NoGameplaySnapshotMessageBox()
-    {
-        string thereisnogameplaysnapshotassociated2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshotassociated") ?? "There is no gameplay snapshot associated with this favorite.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(thereisnogameplaysnapshotassociated2,
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
 
     internal static void CouldNotOpenWalkthroughMessageBox()
     {
@@ -1601,35 +1592,6 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void TakeScreenShotErrorMessageBox()
-    {
-        string simpleLaunchercouldnottakethescreenshot2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnottakethescreenshot") ?? "'Simple Launcher' could not take the screenshot.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{simpleLaunchercouldnottakethescreenshot2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-    
-    internal static void FileDeletedMessageBox(string fileNameWithExtension)
-    {
-        string thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-        string hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-        string info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{thefile2} \"{fileNameWithExtension}\" {hasbeensuccessfullydeleted2}",
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-    
-    internal static void CouldNotDeleteTheFileMessageBox()
-    {
-        string anerroroccurredwhiletrying2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletrying") ?? "An error occurred while trying to delete the file.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{anerroroccurredwhiletrying2}" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-    
     internal static void SelectAFavoriteToRemoveMessageBox()
     {
         string pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
