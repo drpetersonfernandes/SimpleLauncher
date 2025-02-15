@@ -260,7 +260,7 @@ public static class MessageBoxLibrary
         string dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{therewasanerrorlaunchingtheselected2}\n\n" +
-                        $"{dowanttoopenthefileerroruserlog2}",
+                                     $"{dowanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
         
         if (result == MessageBoxResult.Yes)
@@ -845,9 +845,9 @@ public static class MessageBoxLibrary
         string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{systemxmliscorrupted2} {pleasefixitmanuallyordeleteit2}\n\n" +
-                        $"{ifyouchoosetodeleteit2}\n\n" +
-                        $"{theapplicationwillshutdown2}" +
-                        $"{wouldyouliketoopentheerroruserlog}",
+                                     $"{ifyouchoosetodeleteit2}\n\n" +
+                                     $"{theapplicationwillshutdown2}" +
+                                     $"{wouldyouliketoopentheerroruserlog}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
@@ -908,7 +908,7 @@ public static class MessageBoxLibrary
         string wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
-                        $"{wouldyouliketoopentheerroruserlog}",
+                                     $"{wouldyouliketoopentheerroruserlog}",
             error2, MessageBoxButton.OK, MessageBoxImage.Question);
         
         if (result == MessageBoxResult.Yes)
