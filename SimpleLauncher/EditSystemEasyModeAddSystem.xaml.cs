@@ -422,7 +422,7 @@ public partial class EditSystemEasyModeAddSystem
                     await LogErrors.LogErrorAsync(ex, formattedException);
 
                     // Notify user
-                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                    MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
                 }
             }
             catch (TaskCanceledException)
