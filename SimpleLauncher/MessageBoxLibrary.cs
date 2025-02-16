@@ -2001,5 +2001,15 @@ public static class MessageBoxLibrary
 
         return restoreResult;
     }
+    
+    internal static void FailedToLoadLanguageResourceMessageBox()
+    {
+        var failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
+        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
+        MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            languageLoadingError2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 
 }

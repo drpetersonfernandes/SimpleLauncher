@@ -1,4 +1,4 @@
-<controls:MetroWindow x:Class="SimpleLauncher.Favorites"
+<controls:MetroWindow x:Class="SimpleLauncher.FavoritesWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -47,8 +47,8 @@
                   KeyDown="DeleteFavoriteWithDelButton" d:DataContext="{d:DesignInstance }">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
-                <DataGridTextColumn Header="Machine Description (for MAME files)"
-                                    Binding="{Binding MachineDescription}" Width="*" />
+                <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
+                <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
             </DataGrid.Columns>
         </DataGrid>

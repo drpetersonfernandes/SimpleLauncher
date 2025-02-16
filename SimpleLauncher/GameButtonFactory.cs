@@ -17,7 +17,7 @@ internal class GameButtonFactory(
     List<SystemConfig> systemConfigs,
     List<MameConfig> machines,
     SettingsConfig settings,
-    FavoritesConfig favoritesConfig,
+    FavoritesManager favoritesConfig,
     WrapPanel gameFileGrid,
     MainWindow mainWindow)
 {

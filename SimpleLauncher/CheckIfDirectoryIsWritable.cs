@@ -13,10 +13,10 @@ public static class CheckIfDirectoryIsWritable
                 return false;
 
             // Generate a unique temporary file path
-            string testFile = Path.Combine(path, Guid.NewGuid().ToString() + ".tmp");
+            var testFile = Path.Combine(path, Guid.NewGuid() + ".tmp");
 
             // Attempt to create and delete the file
-            using (FileStream fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.ReadWrite))
+            using (var fs = new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.ReadWrite))
             {
                 fs.Close();
             }

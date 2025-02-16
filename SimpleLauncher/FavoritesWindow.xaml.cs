@@ -13,7 +13,7 @@ using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
 
-public partial class Favorites
+public partial class FavoritesWindow
 {
     private readonly FavoritesManager _favoritesManager = new();
     private ObservableCollection<Favorite> _favoriteList;
@@ -25,7 +25,7 @@ public partial class Favorites
     private readonly WrapPanel _fakeGameFileGrid = new();
     static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    public Favorites(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
+    public FavoritesWindow(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
     {
         InitializeComponent();
  
@@ -64,20 +64,30 @@ public partial class Favorites
 
     private void LoadFavorites()
     {
-        var favoritesConfig = _favoritesManager.LoadFavorites();
+        var favoritesConfig = FavoritesManager.LoadFavorites();
         _favoriteList = [];
         foreach (var favorite in favoritesConfig.FavoriteList)
         {
+            // Find machine description if available
             var machine = _machines.FirstOrDefault(m =>
                 m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName),
                     StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
+            
+            // Retrieve the system configuration for the favorite
+            var systemConfig = _systemConfigs.FirstOrDefault(config => 
+                config.SystemName.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            
+            // Get the default emulator, e.g., the first one in the list
+            string defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+            
             var favoriteItem = new Favorite
             {
                 FileName = favorite.FileName,
                 SystemName = favorite.SystemName,
                 MachineDescription = machineDescription,
-                CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName) // Set cover image path
+                DefaultEmulator = defaultEmulator,
+                CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName)
             };
             _favoriteList.Add(favoriteItem);
         }
@@ -101,7 +111,8 @@ public partial class Favorites
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
             _favoriteList.Remove(selectedFavorite);
-            _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+            _favoritesManager.FavoriteList = _favoriteList; // Keep the instance in sync
+            _favoritesManager.SaveFavorites(); // Save using the existing instance
                 
             PlayClick.PlayClickSound();
             PreviewImage.Source = null;
@@ -630,7 +641,8 @@ public partial class Favorites
     private void RemoveFavoriteFromXmlAndEmptyPreviewImage(Favorite selectedFavorite)
     {
         _favoriteList.Remove(selectedFavorite);
-        _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+        _favoritesManager.FavoriteList = _favoriteList;
+        _favoritesManager.SaveFavorites();
 
         PreviewImage.Source = null;
     }
@@ -678,7 +690,8 @@ public partial class Favorites
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
                 _favoriteList.Remove(selectedFavorite);
-                _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+                _favoritesManager.FavoriteList = _favoriteList;
+                _favoritesManager.SaveFavorites();
             }
             else
             {
@@ -775,7 +788,7 @@ public partial class Favorites
         if (selectedFavorite.FileName == null)
         {
             // Notify developer
-            string formattedException = $"Favorite filename is null";
+            string formattedException = "Favorite filename is null";
             Exception ex = new(formattedException);
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                     
@@ -797,7 +810,8 @@ public partial class Favorites
             if (favoriteToRemove != null)
             {
                 _favoriteList.Remove(favoriteToRemove);
-                _favoritesManager.SaveFavorites(new FavoritesConfig { FavoriteList = _favoriteList });
+                _favoritesManager.FavoriteList = _favoriteList;
+                _favoritesManager.SaveFavorites();
             }
                 
             // Notify developer

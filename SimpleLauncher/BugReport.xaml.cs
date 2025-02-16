@@ -25,9 +25,9 @@ public partial class BugReport
         LoadConfiguration(); 
     }
         
-    private void LoadConfiguration()
+    private static void LoadConfiguration()
     {
-        string configFile = "appsettings.json";
+        const string configFile = "appsettings.json";
         if (File.Exists(configFile))
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
@@ -36,7 +36,7 @@ public partial class BugReport
         else
         {
             // Notify developer
-            string formattedException = $"File 'appsettings.json' is missing.";
+            const string formattedException = "File 'appsettings.json' is missing.";
             Exception exception = new(formattedException);
             LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
     
@@ -54,8 +54,8 @@ public partial class BugReport
     {
         get
         {
-            string version2 = (string)Application.Current.TryFindResource("Version") ?? "Version:";
-            string unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+            var version2 = (string)Application.Current.TryFindResource("Version") ?? "Version:";
+            var unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             return version2 + (version?.ToString() ?? unknown2);
         }
@@ -65,45 +65,38 @@ public partial class BugReport
     {
         try
         {
-            string nameText = NameTextBox.Text;
-            string emailText = EmailTextBox.Text;
-            string bugReportText = BugReportTextBox.Text;
-            string applicationVersion = ApplicationVersion;
+            var nameText = NameTextBox.Text;
+            var emailText = EmailTextBox.Text;
+            var bugReportText = BugReportTextBox.Text;
+            var applicationVersion = ApplicationVersion;
 
-            if (string.IsNullOrWhiteSpace(bugReportText))
-            {
-                // Notify user
-                MessageBoxLibrary.EnterBugDetailsMessageBox();
+            if (CheckIfBugReportIsNullOrEmpty(bugReportText)) return;
 
-                return;
-            }
-
-            string fullMessage = $"\n\n{applicationVersion}\n" +
-                                 $"Name: {nameText}\n" +
-                                 $"Email: {emailText}\n" +
-                                 $"Bug Report:\n\n{bugReportText}";
+            var fullMessage = $"\n\n{applicationVersion}\n" +
+                              $"Name: {nameText}\n" +
+                              $"Email: {emailText}\n" +
+                              $"Bug Report:\n\n{bugReportText}";
             await SendBugReportToApiAsync(fullMessage);
         }
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"Error in the SendBugReport_Click method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);            }
+            var formattedException = $"Error in the SendBugReport_Click method.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+        }
     }
 
     private async Task SendBugReportToApiAsync(string fullMessage)
     {
-        string messageWithVersion = fullMessage;
-
         // Prepare the POST data
         var formData = new MultipartFormDataContent
         {
             { new StringContent("contact@purelogiccode.com"), "recipient" },
             { new StringContent("Bug Report from SimpleLauncher"), "subject" },
             { new StringContent("SimpleLauncher User"), "name" },
-            { new StringContent(messageWithVersion), "message" }
+            { new StringContent(fullMessage), "message" }
         };
 
         // Set the API Key from the loaded configuration
@@ -116,7 +109,7 @@ public partial class BugReport
         else
         {
             // Notify developer
-            string formattedException = "API Key is not properly loaded from 'appsettings.json'.";
+            const string formattedException = "API Key is not properly loaded from 'appsettings.json'.";
             Exception exception = new(formattedException);
             await LogErrors.LogErrorAsync(exception, formattedException);
 
@@ -128,7 +121,7 @@ public partial class BugReport
 
         try
         {
-            HttpResponseMessage response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
+            var response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
 
             if (response.IsSuccessStatusCode)
             {
@@ -142,8 +135,8 @@ public partial class BugReport
             else
             {
                 // Notify developer
-                string errorMessage = "An error occurred while sending the bug report.";
-                Exception exception = new Exception(errorMessage);
+                const string errorMessage = "An error occurred while sending the bug report.";
+                var exception = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
                 
                 // Notify user
@@ -160,5 +153,18 @@ public partial class BugReport
             // Notify user
             MessageBoxLibrary.BugReportSendErrorMessageBox();
         }
+    }
+    
+    private static bool CheckIfBugReportIsNullOrEmpty(string bugReportText)
+    {
+        if (string.IsNullOrWhiteSpace(bugReportText))
+        {
+            // Notify user
+            MessageBoxLibrary.EnterBugDetailsMessageBox();
+
+            return true;
+        }
+
+        return false;
     }
 }

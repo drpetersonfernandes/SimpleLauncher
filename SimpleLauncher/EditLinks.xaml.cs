@@ -17,8 +17,7 @@ public partial class EditLinks
         
         LoadLinks();
         
-        // attach event handler
-        this.Closing += EditLinks_Closing; 
+        Closing += EditLinks_Closing; 
     }
 
     private void LoadLinks()
@@ -57,12 +56,12 @@ public partial class EditLinks
         MessageBoxLibrary.LinksRevertedMessageBox();
     }
 
-    private string EncodeForXml(string input)
+    private static string EncodeForXml(string input)
     {
         if (string.IsNullOrEmpty(input))
             return string.Empty;
 
-        string decoded = input.Replace("&amp;", "&");
+        var decoded = input.Replace("&amp;", "&");
 
         return decoded.Replace("&", "&amp;")
             .Replace("<", "&lt;")
@@ -71,7 +70,7 @@ public partial class EditLinks
             .Replace("'", "&apos;");
     }
 
-    private void EditLinks_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void EditLinks_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule != null)

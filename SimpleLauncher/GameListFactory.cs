@@ -17,7 +17,7 @@ public class GameListFactory(
     List<SystemConfig> systemConfigs,
     List<MameConfig> machines,
     SettingsConfig settings,
-    FavoritesConfig favoritesConfig,
+    FavoritesManager favoritesConfig,
     MainWindow mainWindow)
 {
     private readonly FavoritesManager _favoritesManager = new();

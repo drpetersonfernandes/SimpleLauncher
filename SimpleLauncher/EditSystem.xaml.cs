@@ -30,13 +30,11 @@ public partial class EditSystem
         
         PopulateSystemNamesDropdown();
             
-        // Attach event handler
         Closing += EditSystem_Closing; 
             
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
         
-        // Apply theme
         App.ApplyThemeToWindow(this);
     }
 
@@ -76,7 +74,7 @@ public partial class EditSystem
         if (SystemNameDropdown.SelectedItem == null) return;
         if (_xmlDoc == null) return;
 
-        string selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
+        var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
         var selectedSystem = _xmlDoc.Descendants("SystemConfig")
             .FirstOrDefault(x => x.Element("SystemName")?.Value == selectedSystemName);
 
@@ -229,10 +227,10 @@ public partial class EditSystem
         if (Directory.Exists(path) || File.Exists(path)) return true;
 
         // Allow relative paths
-        // Combine with the base directory to check for relative paths
-        string basePath = AppDomain.CurrentDomain.BaseDirectory;
+        // to Combine with the base directory to check for relative paths
+        var basePath = AppDomain.CurrentDomain.BaseDirectory;
         // Ensure we correctly handle relative paths that go up from the base directory
-        string fullPath = Path.GetFullPath(new Uri(Path.Combine(basePath, path)).LocalPath);
+        var fullPath = Path.GetFullPath(new Uri(Path.Combine(basePath, path)).LocalPath);
 
         return Directory.Exists(fullPath) || File.Exists(fullPath);
     }
@@ -256,7 +254,7 @@ public partial class EditSystem
         
     private void SetTextBoxForeground(TextBox textBox, bool isValid)
     {
-        string baseTheme = _settings.BaseTheme;
+        var baseTheme = _settings.BaseTheme;
         if (baseTheme == "Dark")
         {
             textBox.Foreground = isValid ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Red;
@@ -269,13 +267,13 @@ public partial class EditSystem
 
     private void ChooseSystemFolder(object sender, RoutedEventArgs e)
     {
-        string pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
+        var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
         var dialog = new FolderBrowserDialog();
         dialog.Description = pleaseselecttheSystemFolder2;
         DialogResult result = dialog.ShowDialog();
         if (result == System.Windows.Forms.DialogResult.OK)
         {
-            string foldername = dialog.SelectedPath;
+            var foldername = dialog.SelectedPath;
             SystemFolderTextBox.Text = foldername;
 
             MarkValid(SystemFolderTextBox);
@@ -285,32 +283,31 @@ public partial class EditSystem
         
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
     {
-        string pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
+        var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
         var dialog = new FolderBrowserDialog();
         dialog.Description = pleaseselecttheSystemImage2;
-        DialogResult result = dialog.ShowDialog();
-        if (result == System.Windows.Forms.DialogResult.OK)
-        {
-            string foldername = dialog.SelectedPath.Trim();
-            SystemImageFolderTextBox.Text = foldername;
-
-            MarkValid(SystemImageFolderTextBox);
-        }
+        var result = dialog.ShowDialog();
+        
+        if (result != System.Windows.Forms.DialogResult.OK) return;
+        
+        var foldername = dialog.SelectedPath.Trim();
+        SystemImageFolderTextBox.Text = foldername;
+        MarkValid(SystemImageFolderTextBox);
     }
 
     private void ChooseEmulator1Location(object sender, RoutedEventArgs e)
     {
-        string selectEmulator12 = (string)Application.Current.TryFindResource("SelectEmulator1") ?? "Select Emulator 1";
+        var selectEmulator12 = (string)Application.Current.TryFindResource("SelectEmulator1") ?? "Select Emulator 1";
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "Exe File (.exe)|*.exe",
             Title = selectEmulator12
         };
-        bool? result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == true)
         {
-            string filename = dialog.FileName;
+            var filename = dialog.FileName;
             Emulator1LocationTextBox.Text = filename;
             MarkValid(Emulator1LocationTextBox);
         }
@@ -322,7 +319,7 @@ public partial class EditSystem
 
     private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
     {
-        string selectEmulator22 = (string)Application.Current.TryFindResource("SelectEmulator2") ?? "Select Emulator 2";
+        var selectEmulator22 = (string)Application.Current.TryFindResource("SelectEmulator2") ?? "Select Emulator 2";
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             DefaultExt = ".exe",
@@ -330,10 +327,10 @@ public partial class EditSystem
             Title = selectEmulator22
         };
 
-        bool? result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == true)
         {
-            string filename = dialog.FileName;
+            var filename = dialog.FileName;
             Emulator2LocationTextBox.Text = filename;
             MarkValid(Emulator2LocationTextBox);
         }
@@ -345,7 +342,7 @@ public partial class EditSystem
 
     private void ChooseEmulator3Location(object sender, RoutedEventArgs e)
     {
-        string selectEmulator32 = (string)Application.Current.TryFindResource("SelectEmulator3") ?? "Select Emulator 3";
+        var selectEmulator32 = (string)Application.Current.TryFindResource("SelectEmulator3") ?? "Select Emulator 3";
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             DefaultExt = ".exe",
@@ -353,10 +350,10 @@ public partial class EditSystem
             Title = selectEmulator32
         };
 
-        bool? result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == true)
         {
-            string filename = dialog.FileName;
+            var filename = dialog.FileName;
             Emulator3LocationTextBox.Text = filename;
             MarkValid(Emulator3LocationTextBox);
         }
@@ -368,7 +365,7 @@ public partial class EditSystem
 
     private void ChooseEmulator4Location(object sender, RoutedEventArgs e)
     {
-        string selectEmulator42 = (string)Application.Current.TryFindResource("SelectEmulator4") ?? "Select Emulator 4";
+        var selectEmulator42 = (string)Application.Current.TryFindResource("SelectEmulator4") ?? "Select Emulator 4";
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             DefaultExt = ".exe",
@@ -376,10 +373,10 @@ public partial class EditSystem
             Title = selectEmulator42
         };
 
-        bool? result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == true)
         {
-            string filename = dialog.FileName;
+            var filename = dialog.FileName;
             Emulator4LocationTextBox.Text = filename;
             MarkValid(Emulator4LocationTextBox);
         }
@@ -391,17 +388,17 @@ public partial class EditSystem
 
     private void ChooseEmulator5Location(object sender, RoutedEventArgs e)
     {
-        string selectEmulator52 = (string)Application.Current.TryFindResource("SelectEmulator5") ?? "Select Emulator 5";
+        var selectEmulator52 = (string)Application.Current.TryFindResource("SelectEmulator5") ?? "Select Emulator 5";
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "EXE File (.exe)|*.exe",
             Title = selectEmulator52
         };
-        bool? result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == true)
         {
-            string filename = dialog.FileName;
+            var filename = dialog.FileName;
             Emulator5LocationTextBox.Text = filename;
             MarkValid(Emulator5LocationTextBox);
         }
@@ -595,7 +592,7 @@ public partial class EditSystem
         string[] parametersText = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
 
         // Loop over the emulators 2 through 5 to validate and add their details
-        for (int i = 0; i < nameText.Length; i++)
+        for (var i = 0; i < nameText.Length; i++)
         {
             var emulatorName = nameText[i];
             var emulatorLocation = locationText[i];
@@ -754,7 +751,7 @@ public partial class EditSystem
         existingSystem.Element("FileFormatsToLaunch")
             ?.ReplaceNodes(formatsToLaunch.Select(format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")
-            ?.Remove(); // Remove existing emulators section before adding updated one
+            ?.Remove(); // Remove the existing emulators section before adding updated one
         existingSystem.Add(emulatorsElement);
     }
 
@@ -792,6 +789,7 @@ public partial class EditSystem
             .Select(format => format.Trim())
             .Where(format => !string.IsNullOrEmpty(format))
             .ToList();
+        
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
             // Notify user
@@ -799,6 +797,7 @@ public partial class EditSystem
 
             return true;
         }
+        
         return false;
     }
 
@@ -816,7 +815,7 @@ public partial class EditSystem
 
             return true;
         }
-        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
+        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f is "zip" or "7z" or "rar"))
         {
             // Notify user
             MessageBoxLibrary.FileMustBeCompressedMessageBox();
@@ -907,6 +906,7 @@ public partial class EditSystem
 
             return true;
         }
+        
         return false;
     }
 
@@ -930,7 +930,7 @@ public partial class EditSystem
 
         foreach (var folderName in folderNames)
         {
-            string parentDirectory = Path.Combine(applicationDirectory, folderName);
+            var parentDirectory = Path.Combine(applicationDirectory, folderName);
     
             // Ensure the parent directory exists
             if (!Directory.Exists(parentDirectory))
@@ -957,9 +957,9 @@ public partial class EditSystem
             catch (Exception ex)
             {
                 // Notify developer
-                string formattedException = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
+                var formattedException = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
@@ -970,14 +970,12 @@ public partial class EditSystem
 
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters)
     {
-        if (!string.IsNullOrEmpty(name)) // Check if the emulator name is not empty
-        {
-            var emulatorElement = new XElement("Emulator",
-                new XElement("EmulatorName", name),
-                new XElement("EmulatorLocation", location),
-                new XElement("EmulatorParameters", parameters));
-            emulatorsElement.Add(emulatorElement);
-        }
+        if (string.IsNullOrEmpty(name)) return; // Check if the emulator name is not empty
+        var emulatorElement = new XElement("Emulator",
+            new XElement("EmulatorName", name),
+            new XElement("EmulatorLocation", location),
+            new XElement("EmulatorParameters", parameters));
+        emulatorsElement.Add(emulatorElement);
     }
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
@@ -992,7 +990,7 @@ public partial class EditSystem
             return;
         }
 
-        string selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
+        var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
         if (_xmlDoc == null) return;
         var systemNode = _xmlDoc.Descendants("SystemConfig")
@@ -1025,11 +1023,11 @@ public partial class EditSystem
 
     private static void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
-        // Create backup file
-        string appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
-        string sourceFilePath = Path.Combine(appFolderPath, "system.xml");
-        string backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
-        string backupFilePath = Path.Combine(appFolderPath, backupFileName);
+        // Create a backup file
+        var appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
+        var sourceFilePath = Path.Combine(appFolderPath, "system.xml");
+        var backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+        var backupFilePath = Path.Combine(appFolderPath, backupFileName);
 
         if (File.Exists(sourceFilePath))
         {
@@ -1038,27 +1036,26 @@ public partial class EditSystem
 
         // Prepare the process start info to restart application
         var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule != null)
+        if (processModule == null) return;
+        
+        var startInfo = new ProcessStartInfo
         {
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = processModule.FileName,
-                UseShellExecute = true
-            };
+            FileName = processModule.FileName,
+            UseShellExecute = true
+        };
 
-            // Start the new application instance
-            Process.Start(startInfo);
+        // Start the new application instance
+        Process.Start(startInfo);
 
-            // Shutdown the current application instance
-            Application.Current.Shutdown();
-            Environment.Exit(0);
-        }
+        // Shutdown the current application instance
+        Application.Current.Shutdown();
+        Environment.Exit(0);
     }
         
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
         PlayClick.PlayClickSound();
-        string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
+        const string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
         Process.Start(new ProcessStartInfo
         {
             FileName = searchUrl,

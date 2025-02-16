@@ -84,8 +84,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private GameButtonFactory _gameButtonFactory;
     private readonly SettingsConfig _settings;
     private readonly List<MameConfig> _machines;
-    private FavoritesConfig _favoritesConfig;
-    private readonly FavoritesManager _favoritesManager;
+    private FavoritesManager _favoritesManager;
     private readonly Dictionary<string, string> _mameLookup;
     private string _selectedImageFolder;
     private string _selectedRomFolder;
@@ -199,7 +198,7 @@ public partial class MainWindow : INotifyPropertyChanged
             
         // Initialize favorite's manager and load favorites
         _favoritesManager = new FavoritesManager();
-        _favoritesConfig = _favoritesManager.LoadFavorites();
+        _favoritesManager = FavoritesManager.LoadFavorites();
             
         // Set Pagination
         PrevPageButton.IsEnabled = false;
@@ -208,10 +207,10 @@ public partial class MainWindow : INotifyPropertyChanged
         _nextPageButton = NextPageButton;
 
         // Initialize _gameButtonFactory with settings
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
             
         // Initialize _gameListFactory with required parameters
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
 
         // Check if a system is already selected, otherwise show the message
         if (SystemComboBox.SelectedItem == null)
@@ -328,7 +327,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private List<string> GetFavoriteGamesForSelectedSystem()
     {
         // Reload favorites to ensure we have the latest data
-        _favoritesConfig = _favoritesManager.LoadFavorites();
+        _favoritesManager = FavoritesManager.LoadFavorites();
             
         string selectedSystem = SystemComboBox.SelectedItem?.ToString();
         if (string.IsNullOrEmpty(selectedSystem))
@@ -346,7 +345,7 @@ public partial class MainWindow : INotifyPropertyChanged
         string systemFolderPath = selectedConfig.SystemFolder;
 
         // Filter the favorites and build the full file path for each favorite game
-        var favoriteGamePaths = _favoritesConfig.FavoriteList
+        var favoriteGamePaths = _favoritesManager.FavoriteList
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
             .Select(fav => Path.Combine(systemFolderPath, fav.FileName))
             .ToList();
@@ -375,7 +374,7 @@ public partial class MainWindow : INotifyPropertyChanged
         if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
         {
             // Instantiate GameListFactory to use a method
-            var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+            var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
             
             gameListViewFactory.HandleSelectionChanged(selectedItem);
         }
@@ -582,7 +581,7 @@ public partial class MainWindow : INotifyPropertyChanged
             // Create variable allFiles
             List<string> allFiles;
                 
-            // If we are in "FAVORITES" mode, use _currentSearchResults
+            // If we are in "FAVORITES" mode, use '_currentSearchResults'
             if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Count != 0)
             {
                 allFiles = _currentSearchResults;
@@ -708,13 +707,13 @@ public partial class MainWindow : INotifyPropertyChanged
             );
 
             // Reload the FavoritesConfig
-            _favoritesConfig = _favoritesManager.LoadFavorites();
+            _favoritesManager = FavoritesManager.LoadFavorites();
                 
             // Initialize GameButtonFactory with updated FavoritesConfig
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, _gameFileGrid, this);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
                 
             // Initialize GameListFactory with updated FavoritesConfig
-            var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesConfig, this);
+            var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
 
             // Display files based on ViewMode
             foreach (var filePath in allFiles)
@@ -1038,7 +1037,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
             
-        var favoritesWindow = new Favorites(_settings, _systemConfigs, _machines, this);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, this);
         favoritesWindow.Show();
     }
         

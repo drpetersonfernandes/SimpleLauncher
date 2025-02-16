@@ -61,13 +61,13 @@ public partial class App
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Failed to load language resources for {cultureCode}\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Failed to load language resources for {cultureCode}\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
-            FailedToLoadLanguageResourceMessageBox();
+            MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
             // Fallback to English
             var fallbackDictionary = new ResourceDictionary
@@ -87,17 +87,17 @@ public partial class App
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Failed to Apply Theme\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Failed to Apply Theme\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
         }
     }
 
     public static void ApplyThemeToWindow(Window window)
     {
-        string baseTheme = _settings.BaseTheme;
-        string accentColor = _settings.AccentColor;
+        var baseTheme = _settings.BaseTheme;
+        var accentColor = _settings.AccentColor;
         ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
     }
     
@@ -107,15 +107,5 @@ public partial class App
         _settings.BaseTheme = baseTheme;
         _settings.AccentColor = accentColor;
         _settings.Save();
-    }
-    
-    private static void FailedToLoadLanguageResourceMessageBox()
-    {
-        string failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
-        string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        string languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
-        MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            languageLoadingError2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

@@ -14,8 +14,8 @@ public class EasyModeConfig
 
     public static EasyModeConfig Load()
     {
-        string xmlFile = "easymode.xml";
-        string xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
+        const string xmlFile = "easymode.xml";
+        var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
         
         // Check if the file exists before proceeding.
         if (!File.Exists(xmlFilePath))
@@ -23,15 +23,17 @@ public class EasyModeConfig
             // Notify developer
             LogAndNotify(new FileNotFoundException($"File not found: {xmlFilePath}"),
                 "The file 'easymode.xml' was not found.");
-            return new EasyModeConfig { Systems = new List<EasyModeSystemConfig>() };
+            
+            // Return an empty config to avoid further null reference issues
+            return new EasyModeConfig { Systems = [] };
         }
 
         try
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(EasyModeConfig));
+            var serializer = new XmlSerializer(typeof(EasyModeConfig));
             
-            // Open the file with explicit access and sharing settings.
-            using FileStream fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            // Open the file
+            using var fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             var config = (EasyModeConfig)serializer.Deserialize(fileStream);
             
             // Validate configuration if not null.
@@ -44,27 +46,27 @@ public class EasyModeConfig
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            string errorMessage = "The file 'easymode.xml' is corrupted or invalid.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Error Details: {ex.Message}";
+            var errorMessage = "The file 'easymode.xml' is corrupted or invalid.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Error Details: {ex.Message}";
             LogAndNotify(ex, errorMessage);
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = "An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Error Details: {ex.Message}";
+            var errorMessage = "An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Error Details: {ex.Message}";
             LogAndNotify(ex, errorMessage);
         }
 
         // Return an empty config to avoid further null reference issues
-        return new EasyModeConfig { Systems = new List<EasyModeSystemConfig>() };
+        return new EasyModeConfig { Systems = [] };
     }
 
     public void Validate()
     {
-        Systems = Systems?.Where(system => system.IsValid()).ToList() ?? new List<EasyModeSystemConfig>();
+        Systems = Systems?.Where(system => system.IsValid()).ToList() ?? [];
     }
     
     private static void LogAndNotify(Exception ex, string errorMessage)

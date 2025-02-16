@@ -13,7 +13,6 @@ public partial class EditSystemEasyMode
         // Load Settings
         _settings = settings;
 
-        // Apply Theme
         App.ApplyThemeToWindow(this);
     }
 

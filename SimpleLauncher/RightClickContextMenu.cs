@@ -21,7 +21,7 @@ public static class RightClickContextMenu
         try
         {
             // Load existing favorites
-            FavoritesConfig favorites = favoritesManager.LoadFavorites();
+            FavoritesManager favorites = FavoritesManager.LoadFavorites();
 
             // Add the new favorite if it doesn't already exist
             if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
@@ -34,7 +34,8 @@ public static class RightClickContextMenu
                 });
 
                 // Save the updated favorites list
-                favoritesManager.SaveFavorites(favorites);
+                favoritesManager.FavoriteList = favorites.FavoriteList;
+                favoritesManager.SaveFavorites();
 
                 // Update the button's content to add the favorite icon dynamically
                 try
@@ -106,7 +107,7 @@ public static class RightClickContextMenu
         try
         {
             // Load existing favorites
-            FavoritesConfig favorites = favoritesManager.LoadFavorites();
+            FavoritesManager favorites = FavoritesManager.LoadFavorites();
 
             // Find the favorite to remove
             var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
@@ -117,7 +118,8 @@ public static class RightClickContextMenu
                 favorites.FavoriteList.Remove(favoriteToRemove);
 
                 // Save the updated favorites list
-                favoritesManager.SaveFavorites(favorites);
+                favoritesManager.FavoriteList = favorites.FavoriteList;
+                favoritesManager.SaveFavorites();
 
                 // Update the button's content to remove the favorite icon dynamically
                 try
