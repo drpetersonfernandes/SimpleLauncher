@@ -18,7 +18,7 @@ public abstract class FileManager
             {
                 if (!Directory.Exists(directoryPath))
                 {
-                    return new List<string>();
+                    return [];
                 }
                 var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
                 return foundFiles;
@@ -26,15 +26,15 @@ public abstract class FileManager
             catch (Exception ex)
             {
                 // Notify developer
-                string errorMessage = $"There was an error using the method GetFilesAsync.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
+                var errorMessage = $"There was an error using the method GetFilesAsync.\n\n" +
+                                   $"Exception type: {ex.GetType().Name}\n" +
+                                   $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);
 
-                return new List<string>(); // Return an empty list
+                return []; // Return an empty list
             }
         });
     }
@@ -64,22 +64,14 @@ public abstract class FileManager
 
         try
         {
-            int fileCount = 0;
-
-            foreach (string extension in fileExtensions)
-            {
-                string searchPattern = $"*.{extension}";
-                fileCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
-            }
-
-            return fileCount;
+            return fileExtensions.Select(extension => $"*.{extension}").Select(searchPattern => Directory.EnumerateFiles(folderPath, searchPattern).Count()).Sum();
         }
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = "An error occurred while counting files.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = "An error occurred while counting files.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user

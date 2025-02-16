@@ -28,12 +28,12 @@ internal class GameButtonFactory(
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
     {
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        string fileNameWithExtension = Path.GetFileName(filePath);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+        var fileNameWithExtension = Path.GetFileName(filePath);
         fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-        string imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
-        bool isDefaultImage = imagePath.EndsWith(DefaultImagePath);
+        var imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+        var isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
         // Check if the game is a favorite
         var isFavorite = favoritesConfig.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
@@ -158,7 +158,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
+            var launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
             var launchMenuItem = new MenuItem
             {
                 Header = launchGame2,
@@ -177,7 +177,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
+            var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
             var addToFavorites = new MenuItem
             {
                 Header = addToFavorites2,
@@ -196,7 +196,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
+            var removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
             var removeFromFavorites = new MenuItem
             {
                 Header = removeFromFavorites2,
@@ -215,7 +215,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
+            var openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
             var openVideoLink = new MenuItem
             {
                 Header = openVideoLink2,
@@ -234,7 +234,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
+            var openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
             var openInfoLink = new MenuItem
             {
                 Header = openInfoLink2,
@@ -253,7 +253,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
+            var openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
             var openHistoryWindow = new MenuItem
             {
                 Header = openRomHistory2,
@@ -272,7 +272,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
+            var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
             var openCover = new MenuItem
             {
                 Header = cover2,
@@ -291,7 +291,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
+            var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
             var openTitleSnapshot = new MenuItem
             {
                 Header = titleSnapshot2,
@@ -310,7 +310,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
+            var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
             var openGameplaySnapshot = new MenuItem
             {
                 Header = gameplaySnapshot2,
@@ -329,7 +329,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
+            var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
             var openCart = new MenuItem
             {
                 Header = cart2,
@@ -348,7 +348,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
+            var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
             var openVideo = new MenuItem
             {
                 Header = video2,
@@ -367,7 +367,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
+            var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
             var openManual = new MenuItem
             {
                 Header = manual2,
@@ -386,7 +386,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
+            var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
             var openWalkthrough = new MenuItem
             {
                 Header = walkthrough2,
@@ -405,7 +405,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
+            var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
             var openCabinet = new MenuItem
             {
                 Header = cabinet2,
@@ -424,7 +424,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
+            var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
             var openFlyer = new MenuItem
             {
                 Header = flyer2,
@@ -443,7 +443,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
+            var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
             var openPcb = new MenuItem
             {
                 Header = pCb2,
@@ -462,7 +462,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
+            var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
             var takeScreenshot = new MenuItem
             {
                 Header = takeScreenshot2,
@@ -487,7 +487,7 @@ internal class GameButtonFactory(
                 Width = 16,
                 Height = 16
             };
-            string deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
+            var deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
             var deleteGame = new MenuItem
             {
                 Header = deleteGame2,
@@ -526,25 +526,23 @@ internal class GameButtonFactory(
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
-            if (result == MessageBoxResult.Yes)
+            if (result != MessageBoxResult.Yes) return;
+            try
             {
-                try
-                {
-                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, gameFileGrid, mainWindow);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string formattedException = $"Error deleting the file.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
-                    // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
-                }
-                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
+                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, gameFileGrid, mainWindow);
             }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var formattedException = $"Error deleting the file.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                                
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+            }
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
         }
     }
     
@@ -568,25 +566,22 @@ internal class GameButtonFactory(
         // Check each extension for a valid image file
         foreach (var ext in extensions)
         {
-            string imagePath = Path.Combine(baseImageDirectory, $"{fileNameWithoutExtension}{ext}");
+            var imagePath = Path.Combine(baseImageDirectory, $"{fileNameWithoutExtension}{ext}");
             if (File.Exists(imagePath))
                 return imagePath;
         }
 
         // Try to find default.png in the SystemImageFolder if specified, otherwise use the global default
-        string defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
-        if (File.Exists(defaultImagePath))
-        {
-            return defaultImagePath;
-        }
-
+        var defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
+        
         // Fall back to the global default image path if no specific or system default image exists
-        return Path.Combine(_baseDirectory, "images", DefaultImagePath);
+        return File.Exists(defaultImagePath) ? defaultImagePath :
+            Path.Combine(_baseDirectory, "images", DefaultImagePath);
     }
 
     public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
     {
-        string imageFileName = Path.GetFileName(imagePath);
+        var imageFileName = Path.GetFileName(imagePath);
         
         ArgumentNullException.ThrowIfNull(imageControl);
 
@@ -627,7 +622,7 @@ internal class GameButtonFactory(
 
     private static void LoadFallbackImage(Image imageControl, Button button, string defaultImagePath)
     {
-        string fallbackImagePath = defaultImagePath;
+        var fallbackImagePath = defaultImagePath;
 
         // If the specific default image doesn't exist, try the global default image
         if (!File.Exists(fallbackImagePath))
