@@ -10,7 +10,7 @@ namespace SimpleLauncher;
 
 public class SystemConfig
 {
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     public string SystemName { get; private init; }
     public string SystemFolder { get; private init; }
@@ -42,7 +42,7 @@ public class SystemConfig
             if (!File.Exists(XmlPath))
             {
                 // Search for backup files in the application directory
-                string directoryPath = Path.GetDirectoryName(XmlPath);
+                var directoryPath = Path.GetDirectoryName(XmlPath);
                     
                 try
                 {
@@ -60,7 +60,7 @@ public class SystemConfig
                         else
                         {
                             // Create 'system.xml' using a prefilled 'system_model.xml'
-                            string systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
+                            var systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
 
                             if (File.Exists(systemModel))
                             {
@@ -69,7 +69,7 @@ public class SystemConfig
                             else
                             {
                                 // Notify developer
-                                string contextMessage = "'system_model.xml' was not found in the application folder.";
+                                const string contextMessage = "'system_model.xml' was not found in the application folder.";
                                 Exception ex = new Exception(contextMessage);
                                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                                         
@@ -82,9 +82,9 @@ public class SystemConfig
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
+                    var contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                     // Notify user
@@ -103,9 +103,9 @@ public class SystemConfig
             catch (XmlException ex)
             {
                 // Notify developer
-                string errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                               $"Exception type: {ex.GetType().Name}\n" +
-                                               $"Exception details: {ex.Message}";
+                var errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, errorDetailsDeveloper).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -117,7 +117,7 @@ public class SystemConfig
             var systemConfigs = new List<SystemConfig>();
             var invalidConfigs = new Dictionary<XElement, string>();
 
-            if (doc.Root != null)
+            if (doc.Root == null) return systemConfigs;
             {
                 foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                 {
@@ -196,7 +196,7 @@ public class SystemConfig
                     }
                     catch (Exception ex)
                     {
-                        string systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
+                        var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
                         if (!invalidConfigs.ContainsKey(sysConfigElement))
                         {
                             invalidConfigs[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
@@ -213,7 +213,7 @@ public class SystemConfig
                 }
             
                 // Save the corrected XML back to disk if any invalid configurations were removed
-                if (invalidConfigs.Any())
+                if (invalidConfigs.Count != 0)
                 {
                     doc.Save(XmlPath);
                 }
@@ -222,13 +222,7 @@ public class SystemConfig
                 foreach (var error in invalidConfigs.Values)
                 {
                     // Notify user
-                    InvalidSystemConfigurationMessageBox();
-                    void InvalidSystemConfigurationMessageBox()
-                    {
-                        string invalidSystemConfiguration2 = (string)Application.Current.TryFindResource("InvalidSystemConfiguration") ?? "Invalid System Configuration";
-                        MessageBox.Show(error,
-                            invalidSystemConfiguration2, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
+                    MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
                 }
             }
 
@@ -237,9 +231,9 @@ public class SystemConfig
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -252,27 +246,25 @@ public class SystemConfig
         {
             var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
 
-            if (restoreResult == MessageBoxResult.Yes)
+            if (restoreResult != MessageBoxResult.Yes) return;
+            
+            // Rename the most recent backup file to system.xml
+            try
             {
-                // Rename the most recent backup file to system.xml
-                try
-                {
-                    File.Copy(mostRecentBackupFile, XmlPath, false);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"'Simple Launcher' was unable to restore the last backup.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                File.Copy(mostRecentBackupFile, XmlPath, false);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"'Simple Launcher' was unable to restore the last backup.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
-                    // Notify user
-                    MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
-                }
+                // Notify user
+                MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
             }
         }
     }
 
-    
 }

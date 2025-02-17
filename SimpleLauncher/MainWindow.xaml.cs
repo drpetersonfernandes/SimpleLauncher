@@ -29,7 +29,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private List<string> _cachedFiles;
 
     // GameListItems
-    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = new();
+    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];
 
     // Declare _gameListFactory
     private readonly GameListFactory _gameListFactory;
@@ -76,7 +76,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly Button _nextPageButton;
     private readonly Button _prevPageButton;
     private string _currentFilter;
-    private List<string> _currentSearchResults = new();
+    private List<string> _currentSearchResults = [];
         
     private readonly List<SystemConfig> _systemConfigs;
     private readonly LetterNumberMenu _letterNumberMenu;
@@ -93,7 +93,6 @@ public partial class MainWindow : INotifyPropertyChanged
     public MainWindow()
     {
         InitializeComponent();
-        InitializeTrayIcon();
         
         // Check for Command-line Args
         var args = Environment.GetCommandLineArgs();
@@ -183,7 +182,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
             // Filter favorites for the selected system and store them in _currentSearchResults
             var favoriteGames = GetFavoriteGamesForSelectedSystem();
-            if (favoriteGames.Any())
+            if (favoriteGames.Count != 0)
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
                 await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
@@ -227,6 +226,8 @@ public partial class MainWindow : INotifyPropertyChanged
         // Attach the Load and Close event handler
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
+        
+        InitializeTrayIcon();
     }
     
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -238,7 +239,7 @@ public partial class MainWindow : INotifyPropertyChanged
         Left = _settings.MainWindowLeft;
         WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
 
-        string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         // SelectedSystem and PlayTime
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
@@ -329,20 +330,20 @@ public partial class MainWindow : INotifyPropertyChanged
         // Reload favorites to ensure we have the latest data
         _favoritesManager = FavoritesManager.LoadFavorites();
             
-        string selectedSystem = SystemComboBox.SelectedItem?.ToString();
+        var selectedSystem = SystemComboBox.SelectedItem?.ToString();
         if (string.IsNullOrEmpty(selectedSystem))
         {
-            return new List<string>();
+            return [];
         }
 
         // Retrieve the system configuration for the selected system
         var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
         if (selectedConfig == null)
         {
-            return new List<string>();
+            return [];
         }
 
-        string systemFolderPath = selectedConfig.SystemFolder;
+        var systemFolderPath = selectedConfig.SystemFolder;
 
         // Filter the favorites and build the full file path for each favorite game
         var favoriteGamePaths = _favoritesManager.FavoriteList
@@ -371,13 +372,12 @@ public partial class MainWindow : INotifyPropertyChanged
     
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
-        {
-            // Instantiate GameListFactory to use a method
-            var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
+        if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
+        
+        // Instantiate GameListFactory to use a method
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
             
-            gameListViewFactory.HandleSelectionChanged(selectedItem);
-        }
+        gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
     private async void GameListDoubleClickOnSelectedItem(object sender, MouseButtonEventArgs e)
@@ -393,9 +393,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -443,9 +443,9 @@ public partial class MainWindow : INotifyPropertyChanged
                     PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
                     // Display the system info
-                    string systemFolderPath = selectedConfig.SystemFolder;
+                    var systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
-                    int gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                    var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
                 
                     // SystemInfo
                     SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
@@ -476,16 +476,16 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            string errorMessage = $"Error in the method SystemComboBox_SelectionChanged.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error in the method SystemComboBox_SelectionChanged.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 
     private void AddNoSystemMessage()
     {
-        string noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
+        var noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -513,7 +513,7 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void AddNoFilesMessage()
     {
-        string noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
+        var noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -572,7 +572,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             if (CheckIfSystemComboBoxIsNotNull()) return;
  
-            string selectedSystem = SystemComboBox.SelectedItem.ToString();
+            var selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
             
             if (await CheckIfSelectConfigIsNull(selectedConfig)) return;
@@ -590,7 +590,7 @@ public partial class MainWindow : INotifyPropertyChanged
             // Regular behavior: load files based on startLetter or searchQuery
             else
             {
-                string systemFolderPath = selectedConfig.SystemFolder;
+                var systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
                 
                 // Attempt to use the cached file list first
@@ -623,26 +623,26 @@ public partial class MainWindow : INotifyPropertyChanged
                     else
                     {
                         // Check if the system is MAME-based
-                        bool systemIsMame = selectedConfig.SystemIsMame;
+                        var systemIsMame = selectedConfig.SystemIsMame;
 
                         // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
                         if (systemIsMame && _mameLookup != null)
                         {
                             // Use a case-insensitive comparison.
-                            string lowerQuery = searchQuery.ToLowerInvariant();
+                            var lowerQuery = searchQuery.ToLowerInvariant();
                             allFiles = await Task.Run(() =>
                                 allFiles.FindAll(file =>
                                 {
                                     var fileName = Path.GetFileNameWithoutExtension(file);
                                     // Check if the filename contains the search query.
-                                    bool filenameMatch = fileName.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
                                     if (filenameMatch)
                                         return true;
 
                                     // Lookup in the dictionary.
                                     if (_mameLookup.TryGetValue(fileName, out var description))
                                     {
-                                        return description.IndexOf(lowerQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                        return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
                                     }
 
                                     return false;
@@ -672,8 +672,8 @@ public partial class MainWindow : INotifyPropertyChanged
             _totalFiles = allFiles.Count;
 
             // Calculate the indices of files displayed on the current page
-            int startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
-            int endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
+            var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
+            var endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
             if (endIndex > _totalFiles)
             {
                 endIndex = _totalFiles;
@@ -696,11 +696,11 @@ public partial class MainWindow : INotifyPropertyChanged
             }
 
             // Update the UI to reflect the current pagination status and the indices of files being displayed
-            string displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
-            string outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
-            string total = (string)Application.Current.TryFindResource("total") ?? "total";
-            string displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
-            string to = (string)Application.Current.TryFindResource("to") ?? "to";
+            var displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
+            var outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
+            var total = (string)Application.Current.TryFindResource("total") ?? "total";
+            var displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
+            var to = (string)Application.Current.TryFindResource("to") ?? "to";
             
             TotalFilesLabel.Dispatcher.Invoke(() => 
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
@@ -720,7 +720,7 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 if (_settings.ViewMode == "GridView")
                 {
-                    Button gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedConfig);
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedConfig);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
                 else // ListView
@@ -739,9 +739,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error in the method LoadGameFilesAsync.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error in the method LoadGameFilesAsync.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
                 
             // Notify user
@@ -751,32 +751,28 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private static async Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
     {
-        if (selectedConfig == null)
-        {
-            // Notify developer
-            string errorMessage = "Invalid system configuration.\n\n" +
-                                  "Method: LoadGameFilesAsync";
-            Exception ex = new Exception(errorMessage);
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+        if (selectedConfig != null) return false;
+        
+        // Notify developer
+        const string errorMessage = "Invalid system configuration.\n\n" +
+                                    "Method: LoadGameFilesAsync";
+        var ex = new Exception(errorMessage);
+        await LogErrors.LogErrorAsync(ex, errorMessage);
 
-            // Notify user
-            MessageBoxLibrary.InvalidSystemConfigMessageBox();
+        // Notify user
+        MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-            return true;
-        }
+        return true;
 
-        return false;
     }
 
     private bool CheckIfSystemComboBoxIsNotNull()
     {
-        if (SystemComboBox.SelectedItem == null)
-        {
-            AddNoSystemMessage();
-            return true;
-        }
+        if (SystemComboBox.SelectedItem != null) return false;
+        
+        AddNoSystemMessage();
+        return true;
 
-        return false;
     }
 
     #region Menu Items
@@ -867,9 +863,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
@@ -935,36 +931,34 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
+        if (sender is not MenuItem menuItem) return;
+        try
         {
-            try
+            // Update the settings
+            _settings.EnableGamePadNavigation = menuItem.IsChecked;
+
+            _settings.Save();
+
+            // Start or stop the GamePadController
+            if (menuItem.IsChecked)
             {
-                // Update the settings
-                _settings.EnableGamePadNavigation = menuItem.IsChecked;
-
-                _settings.Save();
-
-                // Start or stop the GamePadController
-                if (menuItem.IsChecked)
-                {
-                    GamePadController.Instance2.Start();
-                }
-                else
-                {
-                    GamePadController.Instance2.Stop();
-                }
+                GamePadController.Instance2.Start();
             }
-            catch (Exception ex)
+            else
             {
-                // Notify developer
-                string formattedException = $"Failed to toggle gamepad.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                GamePadController.Instance2.Stop();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Failed to toggle gamepad.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                     
-                // Notify user
-                MessageBoxLibrary.ToggleGamepadFailureMessageBox();
-            }
+            // Notify user
+            MessageBoxLibrary.ToggleGamepadFailureMessageBox();
         }
     }
 
@@ -972,28 +966,26 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            if (sender is MenuItem clickedItem)
-            {
-                var sizeText = clickedItem.Name.Replace("Size", "");
-                if (int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out int newSize))
-                {
-                    _gameButtonFactory.ImageHeight = newSize; // Update the image height
-                    _settings.ThumbnailSize = newSize;
-                    _settings.Save();
+            if (sender is not MenuItem clickedItem) return;
+            
+            var sizeText = clickedItem.Name.Replace("Size", "");
+            
+            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
+            _gameButtonFactory.ImageHeight = newSize; // Update the image height
+            _settings.ThumbnailSize = newSize;
+            _settings.Save();
                     
-                    UpdateMenuCheckMarks(newSize);
+            UpdateMenuCheckMarks(newSize);
                     
-                    // Reload List of Games
-                    await LoadGameFilesAsync();
-                }
-            }
+            // Reload List of Games
+            await LoadGameFilesAsync();
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error in method ThumbnailSize_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error in method ThumbnailSize_Click.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1003,22 +995,18 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void GamesPerPage_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem clickedItem)
-        {
-            var pageText = clickedItem.Name.Replace("Page", "");
-            if (int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out int newPage))
-            {
-                _filesPerPage = newPage; 
-                _paginationThreshold = newPage; 
-                _settings.GamesPerPage = newPage; 
+        if (sender is not MenuItem clickedItem) return;
+        var pageText = clickedItem.Name.Replace("Page", "");
+        if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
+        _filesPerPage = newPage; 
+        _paginationThreshold = newPage; 
+        _settings.GamesPerPage = newPage; 
                     
-                _settings.Save(); 
-                UpdateMenuCheckMarks2(newPage);
+        _settings.Save(); 
+        UpdateMenuCheckMarks2(newPage);
                     
-                SaveApplicationSettings();
-                MainWindow_Restart();
-            }
-        }
+        SaveApplicationSettings();
+        MainWindow_Restart();
     }
         
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
@@ -1045,7 +1033,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
+            var findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
 
             if (File.Exists(findRomCoverPath))
             {
@@ -1068,7 +1056,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 }
 
                 // Determine arguments based on available folders
-                string arguments = string.Empty;
+                var arguments = string.Empty;
                 if (absoluteImageFolder != null && absoluteRomFolder != null)
                 {
                     arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
@@ -1086,8 +1074,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "The file 'FindRomCover.exe' is missing.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "The file 'FindRomCover.exe' is missing.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1097,9 +1085,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
             // Notify developer
-            string formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1108,9 +1096,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1122,7 +1110,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForPs3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
+            var createBatchFilesForPs3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
 
             if (File.Exists(createBatchFilesForPs3GamesPath))
             {
@@ -1135,7 +1123,7 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
+                const string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
                 Exception ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
@@ -1146,9 +1134,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1160,7 +1148,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchConvertIsoToXisoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
+            var createBatchConvertIsoToXisoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
 
             if (File.Exists(createBatchConvertIsoToXisoPath))
             {
@@ -1173,7 +1161,7 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
+                const string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
                 Exception ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
@@ -1184,9 +1172,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1198,7 +1186,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchConvertToChdPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
+            var createBatchConvertToChdPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
 
             if (File.Exists(createBatchConvertToChdPath))
             {
@@ -1211,8 +1199,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'BatchConvertToCHD.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "'BatchConvertToCHD.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1222,9 +1210,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1236,7 +1224,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertTo7z", "BatchConvertTo7z.exe");
+            var batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertTo7z", "BatchConvertTo7z.exe");
 
             if (File.Exists(batchConvertTo7ZPath))
             {
@@ -1249,8 +1237,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'BatchConvertTo7z.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "'BatchConvertTo7z.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1260,9 +1248,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1274,7 +1262,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string batchConvertToZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToZip", "BatchConvertToZip.exe");
+            var batchConvertToZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToZip", "BatchConvertToZip.exe");
 
             if (File.Exists(batchConvertToZipPath))
             {
@@ -1287,8 +1275,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'BatchConvertToZip.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                var formattedException = "'BatchConvertToZip.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1298,9 +1286,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1312,7 +1300,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForScummVmGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe");
+            var createBatchFilesForScummVmGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe");
 
             if (File.Exists(createBatchFilesForScummVmGamesPath))
             {
@@ -1325,8 +1313,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                var formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1336,9 +1324,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1350,7 +1338,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForSegaModel3Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
+            var createBatchFilesForSegaModel3Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
 
             if (File.Exists(createBatchFilesForSegaModel3Path))
             {
@@ -1363,8 +1351,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1374,9 +1362,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1388,7 +1376,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForWindowsGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe");
+            var createBatchFilesForWindowsGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe");
 
             if (File.Exists(createBatchFilesForWindowsGamesPath))
             {
@@ -1401,8 +1389,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1412,9 +1400,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1426,7 +1414,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            string createBatchFilesForXbox360XblaGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
+            var createBatchFilesForXbox360XblaGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
 
             if (File.Exists(createBatchFilesForXbox360XblaGamesPath))
             {
@@ -1439,8 +1427,8 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                const string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -1450,9 +1438,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 
             // Notify user
@@ -1517,7 +1505,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
-                string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 
@@ -1548,7 +1536,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 SystemComboBox.SelectedItem = null;
                 
                 // Set selected system
-                string nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
                 
@@ -1561,9 +1549,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1589,40 +1577,38 @@ public partial class MainWindow : INotifyPropertyChanged
     
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
+        if (sender is not MenuItem menuItem) return;
+        var selectedLanguage = menuItem.Name switch
         {
-            string selectedLanguage = menuItem.Name switch
-            {
-                "LanguageArabic" => "ar",
-                "LanguageBengali" => "bn",
-                "LanguageGerman" => "de",
-                "LanguageEnglish" => "en",
-                "LanguageSpanish" => "es",
-                "LanguageFrench" => "fr",
-                "LanguageHindi" => "hi",
-                "LanguageIndonesianMalay" => "id",
-                "LanguageItalian" => "it",
-                "LanguageJapanese" => "ja",                
-                "LanguageKorean" => "ko",
-                "LanguageDutch" => "nl",
-                "LanguagePortugueseBr" => "pt-br",
-                "LanguageRussian" => "ru",
-                "LanguageTurkish" => "tr",
-                "LanguageUrdu" => "ur",
-                "LanguageVietnamese" => "vi",
-                "LanguageChineseSimplified" => "zh-hans",
-                "LanguageChineseTraditional" => "zh-hant",
-                _ => "en"
-            };
+            "LanguageArabic" => "ar",
+            "LanguageBengali" => "bn",
+            "LanguageGerman" => "de",
+            "LanguageEnglish" => "en",
+            "LanguageSpanish" => "es",
+            "LanguageFrench" => "fr",
+            "LanguageHindi" => "hi",
+            "LanguageIndonesianMalay" => "id",
+            "LanguageItalian" => "it",
+            "LanguageJapanese" => "ja",                
+            "LanguageKorean" => "ko",
+            "LanguageDutch" => "nl",
+            "LanguagePortugueseBr" => "pt-br",
+            "LanguageRussian" => "ru",
+            "LanguageTurkish" => "tr",
+            "LanguageUrdu" => "ur",
+            "LanguageVietnamese" => "vi",
+            "LanguageChineseSimplified" => "zh-hans",
+            "LanguageChineseTraditional" => "zh-hant",
+            _ => "en"
+        };
 
-            _settings.Language = selectedLanguage;
-            _settings.Save();
+        _settings.Language = selectedLanguage;
+        _settings.Save();
 
-            // Update checked status
-            SetLanguageAndCheckMenu(selectedLanguage);
+        // Update checked status
+        SetLanguageAndCheckMenu(selectedLanguage);
             
-            MainWindow_Restart();
-        }
+        MainWindow_Restart();
     }
 
     #endregion
@@ -1631,28 +1617,24 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
-        {
-            string baseTheme = menuItem.Name;
-            string currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
-            App.ChangeTheme(baseTheme, currentAccent);
+        if (sender is not MenuItem menuItem) return;
+        var baseTheme = menuItem.Name;
+        var currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
+        App.ChangeTheme(baseTheme, currentAccent);
 
-            UncheckBaseThemes();
-            menuItem.IsChecked = true;
-        }
+        UncheckBaseThemes();
+        menuItem.IsChecked = true;
     }
 
     private void ChangeAccentColor_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
-        {
-            string accentColor = menuItem.Name;
-            string currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
-            App.ChangeTheme(currentBaseTheme, accentColor);
+        if (sender is not MenuItem menuItem) return;
+        var accentColor = menuItem.Name;
+        var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
+        App.ChangeTheme(currentBaseTheme, accentColor);
             
-            UncheckAccentColors();
-            menuItem.IsChecked = true;
-        }
+        UncheckAccentColors();
+        menuItem.IsChecked = true;
     }
 
     private void UncheckBaseThemes()
@@ -1782,8 +1764,8 @@ public partial class MainWindow : INotifyPropertyChanged
         // Create a context menu for the tray icon
         _trayMenu = new ContextMenuStrip();
         
-        string open = (string)Application.Current.TryFindResource("Open") ?? "Open";
-        string exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
+        var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
+        var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
         _trayMenu.Items.Add(open, null, OnOpen);
         _trayMenu.Items.Add(exit, null, OnExit);
 
@@ -1791,19 +1773,17 @@ public partial class MainWindow : INotifyPropertyChanged
         var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico"))?.Stream;
 
         // Create the tray icon using the embedded icon
-        if (iconStream != null)
+        if (iconStream == null) return;
+        _trayIcon = new NotifyIcon
         {
-            _trayIcon = new NotifyIcon
-            {
-                Icon = new Icon(iconStream),
-                ContextMenuStrip = _trayMenu,
-                Text = @"Simple Launcher",
-                Visible = true
-            };
+            Icon = new Icon(iconStream),
+            ContextMenuStrip = _trayMenu,
+            Text = @"Simple Launcher",
+            Visible = true
+        };
 
-            // Handle tray icon events
-            _trayIcon.DoubleClick += OnOpen;
-        }
+        // Handle tray icon events
+        _trayIcon.DoubleClick += OnOpen;
     }
         
     // Handle "Open" context menu item or tray icon double-click
@@ -1828,7 +1808,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             Hide();
             // Retrieve the dynamic resource string
-            string isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
+            var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
             ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
         }
         base.OnStateChanged(e);
@@ -1873,25 +1853,23 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            if (_currentPage > 1)
+            if (_currentPage <= 1) return;
+            _currentPage--;
+            if (_currentSearchResults.Count != 0)
             {
-                _currentPage--;
-                if (_currentSearchResults.Any())
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
+                await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+            }
+            else
+            {
+                await LoadGameFilesAsync(_currentFilter);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Previous page button error.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Previous page button error.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1903,12 +1881,12 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            int totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
+            var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
 
             if (_currentPage < totalPages)
             {
                 _currentPage++;
-                if (_currentSearchResults.Any())
+                if (_currentSearchResults.Count != 0)
                 {
                     await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
                 }
@@ -1921,9 +1899,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Next page button error.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Next page button error.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1950,9 +1928,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error in the method SearchButton_Click.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error in the method SearchButton_Click.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1972,9 +1950,9 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Error in the method SearchTextBox_KeyDown.\n\n" +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Error in the method SearchTextBox_KeyDown.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
  
             // Notify user

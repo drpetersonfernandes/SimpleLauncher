@@ -21,7 +21,7 @@ public static class RightClickContextMenu
         try
         {
             // Load existing favorites
-            FavoritesManager favorites = FavoritesManager.LoadFavorites();
+            var favorites = FavoritesManager.LoadFavorites();
 
             // Add the new favorite if it doesn't already exist
             if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
@@ -91,9 +91,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
@@ -107,7 +107,7 @@ public static class RightClickContextMenu
         try
         {
             // Load existing favorites
-            FavoritesManager favorites = FavoritesManager.LoadFavorites();
+            var favorites = FavoritesManager.LoadFavorites();
 
             // Find the favorite to remove
             var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
@@ -167,9 +167,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"An error occurred while removing a game from favorites.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"An error occurred while removing a game from favorites.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -181,14 +181,14 @@ public static class RightClickContextMenu
     public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
     {
         // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
+        var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
         if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
         {
             searchTerm = machine.Description;
         }
 
-        string searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
+        var searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
         try
         {
@@ -201,9 +201,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"There was a problem opening the Video Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"There was a problem opening the Video Link.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -215,14 +215,14 @@ public static class RightClickContextMenu
     public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
     {
         // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
+        var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
         if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
         {
             searchTerm = machine.Description;
         }
 
-        string searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
+        var searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
         try
         {
@@ -235,9 +235,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"There was a problem opening the Info Link.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"There was a problem opening the Info Link.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -248,10 +248,10 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
     {
-        string romName = fileNameWithoutExtension.ToLowerInvariant();
+        var romName = fileNameWithoutExtension.ToLowerInvariant();
            
         // Attempt to find a matching machine description
-        string searchTerm = fileNameWithoutExtension;
+        var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
         if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
         {
@@ -267,9 +267,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"There was a problem opening the History window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"There was a problem opening the History window.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -280,8 +280,8 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string systemImageFolder = systemConfig.SystemImageFolder;
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var systemImageFolder = systemConfig.SystemImageFolder;
         
         // Ensure the systemImageFolder considers both absolute and relative paths
         if (!Path.IsPathRooted(systemImageFolder))
@@ -289,7 +289,7 @@ public static class RightClickContextMenu
             if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
         }
         
-        string globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
+        var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
@@ -330,20 +330,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenTitleSnapshot(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
         string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in titleSnapshotExtensions)
         {
-            string titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(titleSnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(titleSnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(titleSnapshotPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(titleSnapshotPath);
+            imageViewerWindow.Show();
+            return;
         }
         
         // Notify user
@@ -353,20 +351,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
         string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in gameplaySnapshotExtensions)
         {
-            string gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(gameplaySnapshotPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(gameplaySnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(gameplaySnapshotPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(gameplaySnapshotPath);
+            imageViewerWindow.Show();
+            return;
         }
         
         // Notify user
@@ -376,20 +372,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenCart(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
         string[] cartExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in cartExtensions)
         {
-            string cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(cartPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cartPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(cartPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(cartPath);
+            imageViewerWindow.Show();
+            return;
         }
 
         // Notify user
@@ -399,22 +393,20 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void PlayVideo(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
         string[] videoExtensions = [".mp4", ".avi", ".mkv"];
 
         foreach (var extension in videoExtensions)
         {
-            string videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(videoPath))
+            var videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(videoPath)) continue;
+            Process.Start(new ProcessStartInfo
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = videoPath,
-                    UseShellExecute = true
-                });
-                return;
-            }
+                FileName = videoPath,
+                UseShellExecute = true
+            });
+            return;
         }
 
         // Notify user
@@ -424,38 +416,36 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenManual(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
         string[] manualExtensions = [".pdf"];
 
         foreach (var extension in manualExtensions)
         {
-            string manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(manualPath))
+            var manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(manualPath)) continue;
+            try
             {
-                try
+                // Use the default PDF viewer to open the file
+                Process.Start(new ProcessStartInfo
                 {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = manualPath,
-                        UseShellExecute = true
-                    });
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"There was a problem opening the manual.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                    FileName = manualPath,
+                    UseShellExecute = true
+                });
+                return;
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"There was a problem opening the manual.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenManualMessageBox();
+                // Notify user
+                MessageBoxLibrary.CouldNotOpenManualMessageBox();
 
-                    return;
-                }
+                return;
             }
         }
 
@@ -466,39 +456,37 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenWalkthrough(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
         string[] walkthroughExtensions = [".pdf"];
 
         foreach (var extension in walkthroughExtensions)
         {
-            string walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(walkthroughPath))
+            var walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(walkthroughPath)) continue;
+            try
             {
-                try
+                // Use the default PDF viewer to open the file
+                Process.Start(new ProcessStartInfo
                 {
-                    // Use the default PDF viewer to open the file
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = walkthroughPath,
-                        UseShellExecute = true
-                    });
+                    FileName = walkthroughPath,
+                    UseShellExecute = true
+                });
 
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"There was a problem opening the walkthrough.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                return;
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"There was a problem opening the walkthrough.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
+                // Notify user
+                MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
 
-                    return;
-                }
+                return;
             }
         }
 
@@ -509,20 +497,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenCabinet(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
         string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in cabinetExtensions)
         {
-            string cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(cabinetPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(cabinetPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(cabinetPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(cabinetPath);
+            imageViewerWindow.Show();
+            return;
         }
         
         // Notify user
@@ -532,20 +518,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenFlyer(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
         string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in flyerExtensions)
         {
-            string flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(flyerPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(flyerPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(flyerPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(flyerPath);
+            imageViewerWindow.Show();
+            return;
         }
         
         // Notify user
@@ -555,20 +539,18 @@ public static class RightClickContextMenu
     // Use fileNameWithoutExtension
     public static void OpenPcb(string systemName, string fileNameWithoutExtension)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
         string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in pcbExtensions)
         {
-            string pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
-            if (File.Exists(pcbPath))
-            {
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImage(pcbPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(pcbPath)) continue;
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImage(pcbPath);
+            imageViewerWindow.Show();
+            return;
         }
         
         // Notify user
@@ -590,9 +572,9 @@ public static class RightClickContextMenu
                 // ignore
             }
             
-            string systemName = systemConfig.SystemName;
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string systemImageFolder = systemConfig.SystemImageFolder;
+            var systemName = systemConfig.SystemName;
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var systemImageFolder = systemConfig.SystemImageFolder;
 
             if (string.IsNullOrEmpty(systemImageFolder))
             {
@@ -632,10 +614,10 @@ public static class RightClickContextMenu
                 rect = clientRect;
             }
 
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
+            var width = rect.Right - rect.Left;
+            var height = rect.Bottom - rect.Top;
             
-            string screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+            var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
             using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
@@ -693,9 +675,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"There was a problem saving the screenshot.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"There was a problem saving the screenshot.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
@@ -742,9 +724,9 @@ public static class RightClickContextMenu
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                          $"Exception type: {ex.GetType().Name}\n" +
-                                          $"Exception details: {ex.Message}";
+                    var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
+                                       $"Exception type: {ex.GetType().Name}\n" +
+                                       $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
                 
                     // Notify user
@@ -754,7 +736,7 @@ public static class RightClickContextMenu
             else
             {
                 // Notify developer
-                string errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
+                var errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
                 Exception ex = new FileNotFoundException(errorMessage);
                 LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
             
@@ -765,9 +747,9 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            string errorMessage = $"Generic error while trying to delete the file '{fileNameWithExtension}'." +
-                                  $"Exception type: {ex.GetType().Name}\n" +
-                                  $"Exception details: {ex.Message}";
+            var errorMessage = $"Generic error while trying to delete the file '{fileNameWithExtension}'." +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
         }
     }

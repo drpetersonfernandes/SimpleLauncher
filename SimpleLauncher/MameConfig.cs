@@ -21,19 +21,19 @@ public class MameConfig
         if (!File.Exists(xmlPath))
         {
             // Notify developer
-            string contextMessage = "The file 'mame.xml' could not be found in the application folder.";
-            Exception ex = new Exception(contextMessage);
+            const string contextMessage = "The file 'mame.xml' could not be found in the application folder.";
+            var ex = new Exception(contextMessage);
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
 
-            return new List<MameConfig>();
+            return [];
         }
 
         try
         {
-            XDocument xmlDoc = XDocument.Load(xmlPath);
+            var xmlDoc = XDocument.Load(xmlPath);
             return xmlDoc.Descendants("Machine")
                 .Select(m => new MameConfig
                 {
@@ -44,15 +44,15 @@ public class MameConfig
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();
 
-            return new List<MameConfig>();
+            return [];
         }
     }
 }

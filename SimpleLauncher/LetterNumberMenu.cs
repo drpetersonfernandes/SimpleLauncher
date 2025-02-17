@@ -9,7 +9,7 @@ namespace SimpleLauncher;
 
 public class LetterNumberMenu
 {
-    public StackPanel LetterPanel { get; private set; } = new() { Orientation = Orientation.Horizontal };
+    public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
     private Button _selectedButton;
 
     public event Action<string> OnLetterSelected;
@@ -36,7 +36,7 @@ public class LetterNumberMenu
 
     private void InitializeLetterButtons()
     {
-        foreach (char c in Enumerable.Range('A', 26).Select(x => (char)x))
+        foreach (var c in Enumerable.Range('A', 26).Select(x => (char)x))
         {
             Button button = new() { Content = c.ToString(), Width = 30, Height = 30 };
 
@@ -51,7 +51,7 @@ public class LetterNumberMenu
         
     private void InitializeAllButton()
     {
-        Button allButton = new Button { Content = "All", Width = 50, Height = 30 };
+        var allButton = new Button { Content = "All", Width = 50, Height = 30 };
         allButton.Click += (_, _) =>
         {
             UpdateSelectedButton(allButton);
@@ -62,14 +62,14 @@ public class LetterNumberMenu
         
     private void InitializeFavoritesButton()
     {
-        Button favoritesButton = new Button
+        var favoritesButton = new Button
         {
             Width = 30,
             Height = 30,
             ToolTip = "Favorites"
         };
 
-        Image starImage = new Image
+        var starImage = new Image
         {
             Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
             Width = 16,
@@ -100,10 +100,8 @@ public class LetterNumberMenu
 
     public void DeselectLetter()
     {
-        if (_selectedButton != null)
-        {
-            _selectedButton.ClearValue(Control.BackgroundProperty);
-            _selectedButton = null;
-        }
+        if (_selectedButton == null) return;
+        _selectedButton.ClearValue(Control.BackgroundProperty);
+        _selectedButton = null;
     }
 }

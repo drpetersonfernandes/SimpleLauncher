@@ -51,7 +51,7 @@ public class SettingsConfig
     private SettingsConfig(string filePath)
     {
         _filePath = filePath;
-        SystemPlayTimes = new List<SystemPlayTime>();
+        SystemPlayTimes = [];
         Load();
     }
 
@@ -65,7 +65,7 @@ public class SettingsConfig
 
         try
         {
-            XElement settings = XElement.Load(_filePath);
+            var settings = XElement.Load(_filePath);
 
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
@@ -84,10 +84,10 @@ public class SettingsConfig
             Language = settings.Element("Language")?.Value ?? "en";
 
             // Load multiple SystemPlayTime elements
-            XElement systemPlayTimesElement = settings.Element("SystemPlayTimes");
+            var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
             {
-                foreach (XElement systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
                 {
                     var systemPlayTime = new SystemPlayTime
                     {
@@ -106,9 +106,9 @@ public class SettingsConfig
             SetDefaultsAndSave();
 
             // Notify developer
-            string contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -118,7 +118,7 @@ public class SettingsConfig
 
     private int ValidateThumbnailSize(string value)
     {
-        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out int parsed) && _validThumbnailSizes.Contains(parsed))
+        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validThumbnailSizes.Contains(parsed))
         {
             return parsed;
         }
@@ -127,7 +127,7 @@ public class SettingsConfig
 
     private int ValidateGamesPerPage(string value)
     {
-        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out int parsed) && _validGamesPerPage.Contains(parsed))
+        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validGamesPerPage.Contains(parsed))
         {
             return parsed;
         }
@@ -144,22 +144,14 @@ public class SettingsConfig
         return _validViewModes.Contains(value) ? value : "GridView";
     }
 
-    private double ValidateDimension(string value, double defaultValue)
+    private static double ValidateDimension(string value, double defaultValue)
     {
-        if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsed))
-        {
-            return parsed;
-        }
-        return defaultValue;
+        return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsed) ? parsed : defaultValue;
     }
 
     private static bool ParseBoolSetting(XElement settings, string settingName)
     {
-        if (bool.TryParse(settings.Element(settingName)?.Value, out bool value))
-        {
-            return value;
-        }
-        return false;
+        return bool.TryParse(settings.Element(settingName)?.Value, out var value) && value;
     }
 
     private void SetDefaultsAndSave()
@@ -179,13 +171,13 @@ public class SettingsConfig
         BaseTheme = "Light";
         AccentColor = "Blue";
         Language = "en";
-        SystemPlayTimes = new List<SystemPlayTime>();
+        SystemPlayTimes = [];
         Save();
     }
 
     public void Save()
     {
-        XElement systemPlayTimesElement = new XElement("SystemPlayTimes");
+        var systemPlayTimesElement = new XElement("SystemPlayTimes");
         foreach (var systemPlayTime in SystemPlayTimes)
         {
             systemPlayTimesElement.Add(new XElement("SystemPlayTime",
@@ -219,7 +211,7 @@ public class SettingsConfig
         if (string.IsNullOrWhiteSpace(systemName))
         {
             // Notify developer
-            string contextMessage = "The systemName is null or empty.";
+            const string contextMessage = "The systemName is null or empty.";
             Exception ex = new();
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
@@ -229,7 +221,7 @@ public class SettingsConfig
         if (playTime == TimeSpan.Zero)
         {
             // Notify developer
-            string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
+            const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             Exception ex = new();
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
@@ -251,8 +243,8 @@ public class SettingsConfig
         }
 
         // Parse the existing playtime and add the new time
-        TimeSpan existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
-        TimeSpan updatedPlayTime = existingPlayTime + playTime;
+        var existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
+        var updatedPlayTime = existingPlayTime + playTime;
 
         // Update the playtime in the correct format
         systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss");

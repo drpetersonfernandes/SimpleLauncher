@@ -37,17 +37,17 @@ public partial class RomHistoryWindow
     {
         try
         {
-            string historyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "history.xml");
+            var historyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "history.xml");
 
             if (!File.Exists(historyFilePath))
             {
                 // Notify developer
-                string contextMessage = "'history.xml' is missing.";
-                Exception ex = new Exception(contextMessage);
+                const string contextMessage = "'history.xml' is missing.";
+                var ex = new Exception(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
-                string nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
+                var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
                 HistoryTextBlock.Text = nohistoryxmlfilefound2;
 
                 MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
@@ -55,7 +55,7 @@ public partial class RomHistoryWindow
                 return;
             }
 
-            XDocument doc = XDocument.Load(historyFilePath);
+            var doc = XDocument.Load(historyFilePath);
 
             var entry = doc.Descendants("entry")
                             .FirstOrDefault(e => e.Element("systems")?.Elements("system")
@@ -80,8 +80,8 @@ public partial class RomHistoryWindow
 
             if (entry != null)
             {
-                string notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
-                string historyText = entry.Element("text")?.Value ?? notextavailable2;
+                var notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
+                var historyText = entry.Element("text")?.Value ?? notextavailable2;
                 SetHistoryTextWithLinks(historyText);
             }
             else
@@ -92,9 +92,9 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"An error occurred while loading ROM history.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"An error occurred while loading ROM history.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -117,7 +117,7 @@ public partial class RomHistoryWindow
             RomDescriptionTextBox.Visibility = Visibility.Collapsed;
         }
 
-        string noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
+        var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
         HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;
         
         // Notify user
@@ -135,7 +135,7 @@ public partial class RomHistoryWindow
     private void OpenGoogleSearch()
     {
         var query = !string.IsNullOrEmpty(_searchTerm) ? $"\"{_systemName}\" \"{_searchTerm}\" history" : $"\"{_systemName}\" \"{_romName}\" history";
-        string googleSearchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}";
+        var googleSearchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}";
 
         try
         {
@@ -144,9 +144,9 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"An error occurred while opening the browser.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"An error occurred while opening the browser.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
@@ -158,31 +158,29 @@ public partial class RomHistoryWindow
     {
         HistoryTextBlock.Inlines.Clear();
 
-        var regexLink = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled);
-        var regexBoldLine = new Regex(@"- .* -", RegexOptions.Compiled);
+        var regexLink = MyRegex();
+        var regexBoldLine = MyRegex1();
 
         var parts = regexLink.Split(historyText);
         var matches = regexLink.Matches(historyText);
 
-        int index = 0;
+        var index = 0;
         foreach (var part in parts)
         {
             // Check if the part contains a bold line pattern
             if (regexBoldLine.IsMatch(part))
             {
                 var boldMatches = regexBoldLine.Matches(part);
-                int boldIndex = 0;
+                var boldIndex = 0;
 
                 foreach (var subPart in regexBoldLine.Split(part))
                 {
                     HistoryTextBlock.Inlines.Add(new Run(subPart));
 
                     // If there's a match for the bold pattern, make it bold
-                    if (boldIndex < boldMatches.Count)
-                    {
-                        HistoryTextBlock.Inlines.Add(new Bold(new Run(boldMatches[boldIndex].Value)));
-                        boldIndex++;
-                    }
+                    if (boldIndex >= boldMatches.Count) continue;
+                    HistoryTextBlock.Inlines.Add(new Bold(new Run(boldMatches[boldIndex].Value)));
+                    boldIndex++;
                 }
             }
             else
@@ -191,25 +189,28 @@ public partial class RomHistoryWindow
             }
 
             // If there's a link, make it bold and clickable
-            if (index < matches.Count)
+            if (index >= matches.Count) continue;
+            var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
             {
-                var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
+                NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                    ? matches[index].Value
+                    : "http://" + matches[index].Value)
+            };
+            hyperlink.RequestNavigate += (_, e) =>
+            {
+                Process.Start(new ProcessStartInfo
                 {
-                    NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
-                        ? matches[index].Value
-                        : "http://" + matches[index].Value)
-                };
-                hyperlink.RequestNavigate += (_, e) =>
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = e.Uri.AbsoluteUri,
-                        UseShellExecute = true
-                    });
-                };
-                HistoryTextBlock.Inlines.Add(hyperlink);
-                index++;
-            }
+                    FileName = e.Uri.AbsoluteUri,
+                    UseShellExecute = true
+                });
+            };
+            HistoryTextBlock.Inlines.Add(hyperlink);
+            index++;
         }
     }
+
+    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
+    [GeneratedRegex(@"- .* -", RegexOptions.Compiled)]
+    private static partial Regex MyRegex1();
 }

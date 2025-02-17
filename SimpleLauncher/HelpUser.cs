@@ -9,7 +9,7 @@ using System.Windows.Documents;
 
 namespace SimpleLauncher;
 
-public static class HelpUser
+public static partial class HelpUser
 {
     private static readonly HelpUserConfig Config = new();
 
@@ -22,9 +22,9 @@ public static class HelpUser
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"Failed to load helpuser.xml.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"Failed to load helpuser.xml.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
@@ -136,7 +136,7 @@ public static class HelpUser
         else
         {
             // Display a message if the system name is not recognized
-            string noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
+            var noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
             helpUserTextBlock.Inlines.Add(new Run($"{noinformationavailableforsystem2} {systemName}"));
         }
     }
@@ -223,7 +223,7 @@ public static class HelpUser
         // Fetch the system details from the configuration
         var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         
-        string nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
+        var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
     }
     
@@ -235,9 +235,9 @@ public static class HelpUser
         text = text.Replace("<br>", "");
 
         // Regular expressions for bold and headings (excluding underscore italics)
-        var markdownRegex = new Regex(@"\*\*(.*?)\*\*", RegexOptions.Compiled); // Match bold (**text**)
-        var headingRegex = new Regex(@"^##\s*(.*?)$", RegexOptions.Multiline); // Match lines starting with ##
-        var linkRegex = new Regex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled); // Match URLs
+        var markdownRegex = MyRegex(); // Match bold (**text**)
+        var headingRegex = MyRegex1(); // Match lines starting with ##
+        var linkRegex = MyRegex2(); // Match URLs
 
         // Process lines for headings (##)
         text = headingRegex.Replace(text, match =>
@@ -246,7 +246,7 @@ public static class HelpUser
             return $"**{boldText}**"; // Convert headings to bold syntax
         });
 
-        int lastIndex = 0;
+        var lastIndex = 0;
 
         foreach (Match match in markdownRegex.Matches(text))
         {
@@ -267,11 +267,9 @@ public static class HelpUser
         }
 
         // Add the remaining text after the last match
-        if (lastIndex < text.Length)
-        {
-            var remainingText = text.Substring(lastIndex);
-            AddTextWithLinks(textBlock, remainingText, linkRegex);
-        }
+        if (lastIndex >= text.Length) return;
+        var remainingText = text.Substring(lastIndex);
+        AddTextWithLinks(textBlock, remainingText, linkRegex);
     }
     
     private static void AddTextWithLinks(TextBlock textBlock, string text, Regex linkRegex)
@@ -279,32 +277,37 @@ public static class HelpUser
         var parts = linkRegex.Split(text);
         var matches = linkRegex.Matches(text);
 
-        int index = 0;
+        var index = 0;
         foreach (var part in parts)
         {
             // Add plain text
             textBlock.Inlines.Add(new Run(part));
 
             // Add hyperlink in bold
-            if (index < matches.Count)
+            if (index >= matches.Count) continue;
+            var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
             {
-                var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
+                NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                    ? matches[index].Value
+                    : "http://" + matches[index].Value)
+            };
+            hyperlink.RequestNavigate += (_, e) =>
+            {
+                Process.Start(new ProcessStartInfo
                 {
-                    NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
-                        ? matches[index].Value
-                        : "http://" + matches[index].Value)
-                };
-                hyperlink.RequestNavigate += (_, e) =>
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = e.Uri.AbsoluteUri,
-                        UseShellExecute = true
-                    });
-                };
-                textBlock.Inlines.Add(hyperlink);
-                index++;
-            }
+                    FileName = e.Uri.AbsoluteUri,
+                    UseShellExecute = true
+                });
+            };
+            textBlock.Inlines.Add(hyperlink);
+            index++;
         }
     }
+
+    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
+    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline)]
+    private static partial Regex MyRegex1();
+    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
+    private static partial Regex MyRegex2();
 }

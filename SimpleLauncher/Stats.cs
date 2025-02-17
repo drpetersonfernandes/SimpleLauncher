@@ -12,7 +12,7 @@ namespace SimpleLauncher;
 public static class Stats
 {
     private static string _apiKey;
-    private static readonly string ApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
+    private const string ApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
     private static HttpClient _httpClient;
 
     static Stats()
@@ -23,7 +23,7 @@ public static class Stats
 
     private static void LoadConfiguration()
     {
-        string configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+        var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
         if (File.Exists(configFile))
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
@@ -50,7 +50,8 @@ public static class Stats
     }
 
     /// <summary>
-    /// Call the API. If an emulator name is provided then it is assumed this is an emulator launch call.
+    /// Call the API.
+    /// If an emulator name is provided, then it is assumed this is an emulator launch call.
     /// If no emulator name is provided, then it is a general usage call.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
@@ -76,8 +77,8 @@ public static class Stats
             return; // Success.
         }
 
-        // Notify developer if the API request failed.
-        string finalErrorMessage = "API request failed.";
+        // Notify the developer if the API request failed.
+        const string finalErrorMessage = "API request failed.";
         Exception ex = new HttpRequestException(finalErrorMessage);
         await LogErrors.LogErrorAsync(ex, finalErrorMessage);
     }
@@ -104,34 +105,32 @@ public static class Stats
             // Send the POST request.
             HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                // Notify developer if the API responds with an error.
-                string errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
-                                      $"CallType: {callType}" +
-                                      (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-                await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
-                return false;
-            }
+            if (response.IsSuccessStatusCode) return true; // Success.
+            
+            // Notify the developer if the API responds with an error.
+            var errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
+                               $"CallType: {callType}" +
+                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+            await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
+            return false;
 
-            return true; // Success.
         }
         catch (HttpRequestException ex)
         {
             // Notify developer.
-            string errorMessage = $"Error communicating with the API at '{apiUrl}'. " +
-                                  $"CallType: {callType}" +
-                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                  $" Exception details: {ex.Message}";
+            var errorMessage = $"Error communicating with the API at '{apiUrl}'. " +
+                               $"CallType: {callType}" +
+                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                               $" Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
         catch (Exception ex)
         {
             // Notify developer.
-            string errorMessage = $"Unexpected error while using '{apiUrl}'. " +
-                                  $"CallType: {callType}" +
-                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                  $" Exception details: {ex.Message}";
+            var errorMessage = $"Unexpected error while using '{apiUrl}'. " +
+                               $"CallType: {callType}" +
+                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                               $" Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
         }
 

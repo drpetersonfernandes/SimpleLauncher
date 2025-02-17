@@ -20,30 +20,29 @@ public static class LogErrors
         
     private static void LoadConfiguration()
     {
-        string configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-        if (File.Exists(configFile))
-        {
-            var config = JObject.Parse(File.ReadAllText(configFile));
-            ApiKey = config[nameof(ApiKey)]?.ToString();
-        }
+        var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+        if (!File.Exists(configFile)) return;
+        
+        var config = JObject.Parse(File.ReadAllText(configFile));
+        ApiKey = config[nameof(ApiKey)]?.ToString();
     }
 
     public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string errorLogPath = Path.Combine(baseDirectory, "error.log");
-        string userLogPath = Path.Combine(baseDirectory, "error_user.log");
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var errorLogPath = Path.Combine(baseDirectory, "error.log");
+        var userLogPath = Path.Combine(baseDirectory, "error_user.log");
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
         version = version ?? "Unknown";
             
         // Gather additional environment info
-        string osVersion = RuntimeInformation.OSDescription;
-        string architecture = RuntimeInformation.OSArchitecture.ToString();
-        string is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
-        string windowsVersion = GetWindowsVersion();
+        var osVersion = RuntimeInformation.OSDescription;
+        var architecture = RuntimeInformation.OSArchitecture.ToString();
+        var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
+        var windowsVersion = GetWindowsVersion();
             
         // Write error Message
-        string errorMessage = 
+        var errorMessage = 
             $"Date: {DateTime.Now}\n" +
             $"Simple Launcher Version: {version}\n" +
             $"OS Version: {osVersion}\n" +
@@ -59,7 +58,7 @@ public static class LogErrors
             await File.AppendAllTextAsync(errorLogPath, errorMessage);
 
             // Append the error message to the user-specific log
-            string userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
+            var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
             await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
             // Attempt to send the error log content to the API.
@@ -121,8 +120,7 @@ public static class LogErrors
         
     private static string GetWindowsVersion()
     {
-        // This method returns a more specific Windows version.
-        Version version = Environment.OSVersion.Version;
+        var version = Environment.OSVersion.Version;
         return version switch
         {
             { Major: 10, Minor: 0 } => "Windows 10 or Windows 11",

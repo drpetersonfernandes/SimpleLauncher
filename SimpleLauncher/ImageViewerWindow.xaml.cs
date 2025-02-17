@@ -8,7 +8,6 @@ public partial class ImageViewerWindow
     public ImageViewerWindow()
     {
         InitializeComponent();
-            
         App.ApplyThemeToWindow(this);
     }
 
@@ -16,7 +15,7 @@ public partial class ImageViewerWindow
     {
         try
         {
-            byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
+            var imageData = System.IO.File.ReadAllBytes(imagePath);
             using var ms = new System.IO.MemoryStream(imageData);
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -30,9 +29,9 @@ public partial class ImageViewerWindow
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"Failed to load the image in the Image Viewer window.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Failed to load the image in the Image Viewer window.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user

@@ -25,7 +25,7 @@ public static class UpdateChecker
             }
             catch
             {
-                string unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+                var unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
                 return unknown2;
             }
         }
@@ -55,9 +55,9 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             // Notify user
-            string contextMessage = $"Error checking for updates.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Error checking for updates.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
             
             // Notify user
@@ -94,9 +94,9 @@ public static class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"Error checking for updates.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"Error checking for updates.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

@@ -10,7 +10,7 @@ public class HelpUserConfig
 {
     private const string FilePath = "helpuser.xml";
 
-    public List<SystemHelper> Systems { get; private set; } = new();
+    public List<SystemHelper> Systems { get; private set; } = [];
 
     public void Load()
     {
@@ -19,8 +19,8 @@ public class HelpUserConfig
             if (!File.Exists(FilePath))
             {
                 // Notify developer
-                string contextMessage = "The file 'helpuser.xml' is missing.";
-                Exception ex = new Exception(contextMessage);
+                const string contextMessage = "The file 'helpuser.xml' is missing.";
+                var ex = new Exception(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
@@ -38,7 +38,7 @@ public class HelpUserConfig
             catch (Exception ex)
             {
                 // Notify developer
-                string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
+                const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -61,7 +61,7 @@ public class HelpUserConfig
                     catch (Exception ex)
                     {
                         // Notify developer
-                        string contextMessage = "Failed to parse the file 'helpuser.xml'.";
+                        const string contextMessage = "Failed to parse the file 'helpuser.xml'.";
                         LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                         // Notify user
@@ -73,11 +73,11 @@ public class HelpUserConfig
                 .Where(helper => helper != null) // Filter out invalid entries
                 .ToList();
 
-            if (!Systems.Any())
+            if (Systems.Count != 0) return;
             {
                 // Notify developer
-                string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
-                Exception ex = new Exception(contextMessage);
+                const string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
+                var ex = new Exception(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 
                 // Notify user
@@ -87,21 +87,21 @@ public class HelpUserConfig
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
+            const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
             
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
         }
-        
-        string NormalizeText(string text)
-        {
-            if (string.IsNullOrEmpty(text)) return string.Empty;
+    }
+    
+    private static string NormalizeText(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return string.Empty;
 
-            // Process each line to remove leading spaces while keeping line breaks
-            var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
-            return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
-        }
+        // Process each line to remove leading spaces while keeping line breaks
+        var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
+        return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
     }
     
     public class SystemHelper

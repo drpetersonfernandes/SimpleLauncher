@@ -78,6 +78,7 @@ public partial class GlobalStats
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
+
         void DoYouWantToSaveTheReportMessageBox()
         {
             var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
@@ -106,7 +107,7 @@ public partial class GlobalStats
             // Calculate the total disk size for the ROM/ISO files
             var totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
 
-            string systemImagePath = config.SystemImageFolder;
+            var systemImagePath = config.SystemImageFolder;
             systemImagePath = string.IsNullOrEmpty(systemImagePath) 
                 ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) 
                 : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
@@ -154,10 +155,9 @@ public partial class GlobalStats
         public string SystemName { get; init; }
         public int NumberOfFiles { get; init; }
         public int NumberOfImages { get; init; }
-        public long TotalDiskSize { get; init; } // New property to store the disk size
-    
-        // This property checks if the number of files and images are equal
-        public bool AreFilesAndImagesEqual => NumberOfFiles == NumberOfImages;
+        public long TotalDiskSize { get; init; }
+        public bool AreFilesAndImagesEqual => NumberOfFiles == NumberOfImages;        // This property checks
+                                                                                      // if the number of files and images are equal
     }
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
@@ -274,22 +274,20 @@ public partial class GlobalStats
             var matchedRomName = romFileBaseNames.FirstOrDefault(rom =>
                 string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
 
-            if (matchedRomName != null && !matchedRomName.Equals(imageFileName))
+            if (matchedRomName == null || matchedRomName.Equals(imageFileName)) continue;
+            var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
+                matchedRomName + Path.GetExtension(imageFile));
+            try
             {
-                var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
-                    matchedRomName + Path.GetExtension(imageFile));
-                try
-                {
-                    File.Move(imageFile, newImagePath);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    var formattedException = $"Error renaming image file: {imageFile}\n" +
-                                             $"New file name: {newImagePath}\n" +
-                                             $"Exception: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-                }
+                File.Move(imageFile, newImagePath);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var formattedException = $"Error renaming image file: {imageFile}\n" +
+                                         $"New file name: {newImagePath}\n" +
+                                         $"Exception: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
             }
         }
     }
