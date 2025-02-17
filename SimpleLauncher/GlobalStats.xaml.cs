@@ -48,7 +48,6 @@ public partial class GlobalStats
 
                 ProgressBar.Visibility = Visibility.Collapsed;
         
-                // Notify user
                 // Ask the user if they want to save a report
                 DoYouWantToSaveTheReportMessageBox();
 
@@ -57,9 +56,9 @@ public partial class GlobalStats
             catch (Exception ex)
             {
                 // Notify developer
-                string formattedException = $"An error occurred while calculating Global Statistics.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
+                var formattedException = $"An error occurred while calculating Global Statistics.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 // Notify user
@@ -74,9 +73,9 @@ public partial class GlobalStats
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"Error in the GlobalStats_Loaded method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"Error in the GlobalStats_Loaded method.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
         }
         void DoYouWantToSaveTheReportMessageBox()
@@ -92,7 +91,7 @@ public partial class GlobalStats
 
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
     {
-        _systemStats = new List<SystemStatsData>(); // Create a list for DataGrid binding
+        _systemStats = []; // Create a list for DataGrid binding
 
         foreach (var config in _systemConfigs)
         {
@@ -105,14 +104,14 @@ public partial class GlobalStats
                 StringComparer.OrdinalIgnoreCase);
 
             // Calculate the total disk size for the ROM/ISO files
-            long totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
+            var totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
 
             string systemImagePath = config.SystemImageFolder;
             systemImagePath = string.IsNullOrEmpty(systemImagePath) 
                 ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) 
                 : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
 
-            int numberOfImages = 0;
+            var numberOfImages = 0;
             if (Directory.Exists(systemImagePath))
             {
                 await RenameImagesToMatchRomCaseAsync(systemImagePath, romFileBaseNames);
@@ -163,11 +162,11 @@ public partial class GlobalStats
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {
-        int totalSystems = systemStats.Count;
-        int totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
-        int totalGames = systemStats.Sum(stats => stats.NumberOfFiles);
-        int totalImages = systemStats.Sum(stats => stats.NumberOfImages);
-        long totalDiskSize = systemStats.Sum(stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
+        var totalSystems = systemStats.Count;
+        var totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
+        var totalGames = systemStats.Sum(stats => stats.NumberOfFiles);
+        var totalImages = systemStats.Sum(stats => stats.NumberOfImages);
+        var totalDiskSize = systemStats.Sum(stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
 
         return new GlobalStatsData
         {
@@ -199,31 +198,30 @@ public partial class GlobalStats
         };
 
         // Show save file dialog box
-        bool? result = saveFileDialog.ShowDialog();
+        var result = saveFileDialog.ShowDialog();
 
         // Process save file dialog box results
-        if (result == true)
+        if (result != true) return;
+        
+        // Save the report to the specified path
+        var filePath = saveFileDialog.FileName;
+        try
         {
-            // Save the report to the specified path
-            string filePath = saveFileDialog.FileName;
-            try
-            {
-                File.WriteAllText(filePath, GenerateReportText(globalStats, systemStats));
+            File.WriteAllText(filePath, GenerateReportText(globalStats, systemStats));
 
-                // Notify user
-                MessageBoxLibrary.ReportSavedMessageBox();
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                string formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            // Notify user
+            MessageBoxLibrary.ReportSavedMessageBox();
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
-                // Notify user
-                MessageBoxLibrary.FailedSaveReportMessageBox();
-            }
+            // Notify user
+            MessageBoxLibrary.FailedSaveReportMessageBox();
         }
     }
 
@@ -242,14 +240,8 @@ public partial class GlobalStats
         // System-specific statistics
         report += "System-Specific Stats\n";
         report += "---------------------\n";
-        foreach (var system in systemStats)
-        {
-            report += $"System Name: {system.SystemName}\n" +
-                      $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" +
-                      $"Number of Matched Images: {system.NumberOfImages}\n\n";
-        }
 
-        return report;
+        return systemStats.Aggregate(report, (current, system) => current + ($"System Name: {system.SystemName}\n" + $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" + $"Number of Matched Images: {system.NumberOfImages}\n\n"));
     }
 
     private void SaveReport_Click(object sender, RoutedEventArgs routedEventArgs)
@@ -265,7 +257,7 @@ public partial class GlobalStats
         }
     }
 
-    private async Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
+    private static async Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
     {
         if (!Directory.Exists(systemImagePath))
             return;
@@ -293,15 +285,12 @@ public partial class GlobalStats
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string formattedException = $"Error renaming image file: {imageFile}\n" +
-                                                $"New file name: {newImagePath}\n" +
-                                                $"Exception: {ex.Message}";
+                    var formattedException = $"Error renaming image file: {imageFile}\n" +
+                                             $"New file name: {newImagePath}\n" +
+                                             $"Exception: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
                 }
             }
         }
     }
-    
-    
-
 }

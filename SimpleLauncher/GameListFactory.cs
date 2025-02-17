@@ -17,10 +17,9 @@ public class GameListFactory(
     List<SystemConfig> systemConfigs,
     List<MameConfig> machines,
     SettingsConfig settings,
-    FavoritesManager favoritesConfig,
+    FavoritesManager favoritesManager,
     MainWindow mainWindow)
 {
-    private readonly FavoritesManager _favoritesManager = new();
     private readonly WrapPanel _fakeFileGrid = new();
     private readonly Button _fakeButton = new();
 
@@ -72,11 +71,11 @@ public class GameListFactory(
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemConfig systemConfig)
     {
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        string machineDescription = systemConfig.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+        var machineDescription = systemConfig.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
-        bool isFavorite = favoritesConfig.FavoriteList
+        var isFavorite = favoritesManager.FavoriteList
             .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                       f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             
@@ -95,8 +94,8 @@ public class GameListFactory(
 
     private ContextMenu CreateContextMenu(string filePath, string systemName, SystemConfig systemConfig)
     {
-        string fileNameWithExtension = Path.GetFileName(filePath);
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+        var fileNameWithExtension = Path.GetFileName(filePath);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             
         var contextMenu = new ContextMenu();
 
@@ -107,7 +106,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
+        var launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
         var launchMenuItem = new MenuItem
         {
             Header = launchGame2,
@@ -126,7 +125,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
+        var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
         var addToFavorites = new MenuItem
         {
             Header = addToFavorites2,
@@ -135,7 +134,7 @@ public class GameListFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, mainWindow);
+            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
         };
             
         // Remove From Favorites Context Menu
@@ -145,7 +144,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
+        var removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
         var removeFromFavorites = new MenuItem
         {
             Header = removeFromFavorites2,
@@ -154,7 +153,7 @@ public class GameListFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -164,7 +163,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
+        var openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
         var openVideoLink = new MenuItem
         {
             Header = openVideoLink2,
@@ -183,7 +182,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
+        var openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
         var openInfoLink = new MenuItem
         {
             Header = openInfoLink2,
@@ -202,7 +201,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
+        var openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
         var openHistoryWindow = new MenuItem
         {
             Header = openRomHistory2,
@@ -221,7 +220,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
+        var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
         var openCover = new MenuItem
         {
             Header = cover2,
@@ -240,7 +239,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
+        var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
         var openTitleSnapshot = new MenuItem
         {
             Header = titleSnapshot2,
@@ -259,7 +258,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
+        var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
         var openGameplaySnapshot = new MenuItem
         {
             Header = gameplaySnapshot2,
@@ -278,7 +277,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
+        var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
         var openCart = new MenuItem
         {
             Header = cart2,
@@ -297,7 +296,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
+        var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
         var openVideo = new MenuItem
         {
             Header = video2,
@@ -316,7 +315,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
+        var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
         var openManual = new MenuItem
         {
             Header = manual2,
@@ -335,7 +334,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
+        var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
         var openWalkthrough = new MenuItem
         {
             Header = walkthrough2,
@@ -354,7 +353,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
+        var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
         var openCabinet = new MenuItem
         {
             Header = cabinet2,
@@ -373,7 +372,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
+        var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
         var openFlyer = new MenuItem
         {
             Header = flyer2,
@@ -392,7 +391,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
+        var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
         var openPcb = new MenuItem
         {
             Header = pCb2,
@@ -411,7 +410,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
+        var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
         var takeScreenshot = new MenuItem
         {
             Header = takeScreenshot2,
@@ -434,7 +433,7 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        string deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
+        var deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
         var deleteGame = new MenuItem
         {
             Header = deleteGame2,
@@ -491,67 +490,66 @@ public class GameListFactory(
                     // Notify user
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
-                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, mainWindow);
+                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
             }
         }
     }
 
     public void HandleSelectionChanged(GameListViewItem selectedItem)
     {
-        if (selectedItem != null)
+        if (selectedItem == null) return;
+        
+        var filePath = selectedItem.FilePath;
+        var selectedSystem = systemComboBox.SelectedItem as string;
+        var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+        if (systemConfig == null) return;
+        
+        // Get the preview image path
+        var previewImagePath = GetPreviewImagePath(filePath, systemConfig);
+
+        // Set the preview image if a valid path is returned
+        if (!string.IsNullOrEmpty(previewImagePath))
         {
-            string filePath = selectedItem.FilePath;
-            string selectedSystem = systemComboBox.SelectedItem as string;
-            var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-            if (systemConfig != null)
+            try
             {
-                // Get the preview image path
-                string previewImagePath = GetPreviewImagePath(filePath, systemConfig);
-                
-                // Set the preview image if a valid path is returned
-                if (!string.IsNullOrEmpty(previewImagePath))
-                {
-                    try
-                    {
-                        byte[] imageBytes = File.ReadAllBytes(previewImagePath);
-                        MemoryStream memoryStream = new MemoryStream(imageBytes);
+                var imageBytes = File.ReadAllBytes(previewImagePath);
+                var memoryStream = new MemoryStream(imageBytes);
 
-                        mainWindow.Dispatcher.Invoke(() =>
-                        {
-                            var bitmap = new BitmapImage();
-                            bitmap.BeginInit();
-                            bitmap.StreamSource = memoryStream;
-                            bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
-                            bitmap.EndInit();
-                            mainWindow.PreviewImage.Source = bitmap;
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        mainWindow.PreviewImage.Source = null;
-                        
-                        // Notify developer
-                        string errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
-                                              $"Exception type: {ex.GetType().Name}\n" +
-                                              $"Exception details: {ex.Message}";
-                        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-                    }
-                }
-                else
+                mainWindow.Dispatcher.Invoke(() =>
                 {
-                    // Clear the image if no preview is available
-                    mainWindow.PreviewImage.Source = null;
-
-                    MessageBoxLibrary.DefaultImageNotFoundMessageBox();
-                }
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = memoryStream;
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
+                    bitmap.EndInit();
+                    mainWindow.PreviewImage.Source = bitmap;
+                });
             }
+            catch (Exception ex)
+            {
+                mainWindow.PreviewImage.Source = null;
+                        
+                // Notify developer
+                var errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
+                                   $"Exception type: {ex.GetType().Name}\n" +
+                                   $"Exception details: {ex.Message}";
+                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            }
+        }
+        else
+        {
+            // Clear the image if no preview is available
+            mainWindow.PreviewImage.Source = null;
+
+            // Notify user
+            MessageBoxLibrary.DefaultImageNotFoundMessageBox();
         }
     }
 
-    private string GetPreviewImagePath(string filePath, SystemConfig systemConfig)
+    private static string GetPreviewImagePath(string filePath, SystemConfig systemConfig)
     {
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        string imageFolder = systemConfig.SystemImageFolder;
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+        var imageFolder = systemConfig.SystemImageFolder;
         
         // Be sure that SystemImageFolder path is absolute
         if (!Path.IsPathRooted(imageFolder))
@@ -577,20 +575,17 @@ public class GameListFactory(
 
         // load default image
         // If no specific image found, try the user-defined default image in SystemImageFolder
-        string userDefinedDefaultImagePath = Path.Combine(imageFolder, "default.png");
+        var userDefinedDefaultImagePath = Path.Combine(imageFolder, "default.png");
         if (File.Exists(userDefinedDefaultImagePath))
         {
             return userDefinedDefaultImagePath;
         }
 
         // If user-defined default image isn't found, fallback to the global default image
-        string globalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
-        if (File.Exists(globalDefaultImagePath))
-        {
-            return globalDefaultImagePath;
-        }
+        var globalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
         
-        return string.Empty; // Return empty if no image is found (not even a default image)
+        // Return empty if no image is found (not even a default image)
+        return File.Exists(globalDefaultImagePath) ? globalDefaultImagePath : string.Empty; 
     }
         
     private string GetMachineDescription(string fileName)

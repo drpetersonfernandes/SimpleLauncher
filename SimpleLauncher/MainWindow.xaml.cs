@@ -1023,7 +1023,7 @@ public partial class MainWindow : INotifyPropertyChanged
         
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
-        var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _mameLookup, _settings, this);
+        var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
     }
         

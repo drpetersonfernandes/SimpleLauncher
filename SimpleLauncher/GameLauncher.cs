@@ -424,7 +424,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            var formattedException = "Invalid Operation Exception";
+            const string formattedException = "Invalid Operation Exception";
             await LogErrors.LogErrorAsync(ex, formattedException);
             
             // Notify user
@@ -533,7 +533,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            var formattedException = $"Invalid Operation Exception";
+            const string formattedException = "Invalid Operation Exception";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
@@ -823,7 +823,7 @@ public static class GameLauncher
             var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
             if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
         }
-        else if (fileExtension == ".7Z" || fileExtension == ".RAR")
+        else if (fileExtension is ".7Z" or ".RAR")
         {
             // Use 7z to extract
             // Can extract zip, 7z, rar
@@ -1057,7 +1057,7 @@ public static class GameLauncher
         if (!string.IsNullOrEmpty(tempExtractLocation) && Directory.Exists(tempExtractLocation)) return false;
         
         // Notify developer
-        var errorMessage = "Extraction failed.";
+        const string errorMessage = "Extraction failed.";
         Exception exception = new(errorMessage);
         await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1065,7 +1065,6 @@ public static class GameLauncher
         MessageBoxLibrary.ExtractionFailedMessageBox();
 
         return true;
-
     }
     
     private static async Task<bool> CheckForWorkingDirectory(string workingDirectory)
@@ -1081,6 +1080,5 @@ public static class GameLauncher
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             
         return true;
-
     }
 }

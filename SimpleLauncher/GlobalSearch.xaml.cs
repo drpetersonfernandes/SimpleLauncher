@@ -21,17 +21,19 @@ public partial class GlobalSearch
     private readonly SettingsConfig _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearch _pleaseWaitWindow;
-    private readonly FavoritesManager _favoritesManager = new();
     private readonly MainWindow _mainWindow;
-    private readonly ComboBox _mockSystemComboBox = new();
-    private readonly ComboBox _mockEmulatorComboBox = new();
     private readonly List<MameConfig> _machines;
     private readonly Dictionary<string, string> _mameLookup;
+    private readonly FavoritesManager _favoritesManager;
+    
     private readonly WrapPanel _fakeGameFileGrid = new();
     private readonly Button _fakeButton = new();
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private readonly ComboBox _mockSystemComboBox = new();
+    private readonly ComboBox _mockEmulatorComboBox = new();
+    
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, MainWindow mainWindow)
+    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         
@@ -39,6 +41,7 @@ public partial class GlobalSearch
         _machines = machines;
         _mameLookup = mameLookup;
         _settings = settings;
+        _favoritesManager = favoritesManager;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         _mainWindow = mainWindow;
@@ -50,7 +53,7 @@ public partial class GlobalSearch
 
     private void SearchButton_Click(object sender, RoutedEventArgs e)
     {
-        string searchTerm = SearchTextBox.Text;
+        var searchTerm = SearchTextBox.Text;
         if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
         LaunchButton.IsEnabled = false;
@@ -70,8 +73,8 @@ public partial class GlobalSearch
             if (args.Error != null)
             {
                 // Notify developer
-                string formattedException = $"That was an error using the SearchButton_Click.\n\n" +
-                                            $"Error details: {args.Error.Message}";
+                var formattedException = $"That was an error using the SearchButton_Click.\n\n" +
+                                         $"Error details: {args.Error.Message}";
                 Exception ex = new(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
@@ -90,7 +93,7 @@ public partial class GlobalSearch
                 }
                 else
                 {
-                    string noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ?? "No results found.";
+                    var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ?? "No results found.";
                     _searchResults.Add(new SearchResult
                     {
                         FileName = noresultsfound2,
@@ -114,7 +117,7 @@ public partial class GlobalSearch
 
         foreach (var systemConfig in _systemConfigs)
         {
-            string systemFolderPath = GetFullPath(systemConfig.SystemFolder);
+            var systemFolderPath = GetFullPath(systemConfig.SystemFolder);
             if (!Directory.Exists(systemFolderPath))
                 continue;
 
@@ -182,12 +185,7 @@ public partial class GlobalSearch
                 path = path.Substring(2);
             }
 
-            if (Path.IsPathRooted(path))
-            {
-                return path;
-            }
-
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+            return Path.IsPathRooted(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
     }
         
@@ -212,22 +210,6 @@ public partial class GlobalSearch
         var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
-        // Search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
-            {
-                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (File.Exists(imagePath))
-                {
-                    foundPath = imagePath;
-                    return true;
-                }
-            }
-            foundPath = null;
-            return false;
-        }
-
         // First try to find the image in the systemImageFolder
         if (TryFindImage(systemImageFolder, out var foundImagePath))
         {
@@ -242,6 +224,20 @@ public partial class GlobalSearch
 
         // otherwise, use default.png
         return Path.Combine(baseDirectory, "images", "default.png");
+
+        // Search for the image file
+        bool TryFindImage(string directory, out string foundPath)
+        {
+            foreach (var extension in imageExtensions)
+            {
+                var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                if (!File.Exists(imagePath)) continue;
+                foundPath = imagePath;
+                return true;
+            }
+            foundPath = null;
+            return false;
+        }
     }
 
     private List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
@@ -254,18 +250,14 @@ public partial class GlobalSearch
         return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();
     }
 
-    private int CalculateScore(string text, List<string> searchTerms)
+    private static int CalculateScore(string text, List<string> searchTerms)
     {
-        int score = 0;
+        var score = 0;
 
-        foreach (var term in searchTerms)
+        foreach (var index in searchTerms.Select(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase)).Where(index => index >= 0))
         {
-            int index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
-            if (index >= 0)
-            {
-                score += 10;
-                score += (text.Length - index);
-            }
+            score += 10;
+            score += (text.Length - index);
         }
 
         return score;
@@ -273,19 +265,14 @@ public partial class GlobalSearch
 
     private static bool MatchesSearchQuery(string text, List<string> searchTerms)
     {
-        bool hasAnd = searchTerms.Contains("and");
-        bool hasOr = searchTerms.Contains("or");
+        var hasAnd = searchTerms.Contains("and");
+        var hasOr = searchTerms.Contains("or");
 
         if (hasAnd)
         {
             return searchTerms.Where(term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
         }
-        if (hasOr)
-        {
-            return searchTerms.Where(term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
-        }
-
-        return searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+        return hasOr ? searchTerms.Where(term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase)) : searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
     }
 
     private static List<string> ParseSearchTerms(string searchTerm)
@@ -326,11 +313,11 @@ public partial class GlobalSearch
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"There was an error launching the game.\n\n" +
-                                        $"File Path: {filePath}\n" +
-                                        $"System Name: {systemName}\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"There was an error launching the game.\n\n" +
+                                     $"File Path: {filePath}\n" +
+                                     $"System Name: {systemName}\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
@@ -356,9 +343,9 @@ public partial class GlobalSearch
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"That was an error launching a game.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"That was an error launching a game.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -370,398 +357,394 @@ public partial class GlobalSearch
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+            var fileNameWithoutExtension = selectedResult.FileName;
+            var fileNameWithExtension = selectedResult.FileNameWithExtension;
+            var filePath = selectedResult.FilePath;
+            var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (CheckSystemConfig(systemConfig)) return;
+
+            var contextMenu = new ContextMenu();
+
+            // "Launch Selected Game" MenuItem
+            var launchIcon = new Image
             {
-                string fileNameWithoutExtension = selectedResult.FileName;
-                string fileNameWithExtension = selectedResult.FileNameWithExtension;
-                string filePath = selectedResult.FilePath;
-                var systemConfig = _systemConfigs.FirstOrDefault(config =>
-                    config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/launch.png")),
+                Width = 16,
+                Height = 16
+            };
+            var launchSelectedGame2 = (string)Application.Current.TryFindResource("LaunchSelectedGame") ?? "Launch Selected Game";
+            var launchMenuItem = new MenuItem
+            {
+                Header = launchSelectedGame2,
+                Icon = launchIcon
+            };
+            launchMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
+                    selectedResult.EmulatorConfig);
+            };
 
-                if (CheckSystemConfig(systemConfig)) return;
+            // "Add To Favorites" MenuItem
+            var addToFavoritesIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+                Width = 16,
+                Height = 16
+            };
+            var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
+            var addToFavoritesMenuItem = new MenuItem
+            {
+                Header = addToFavorites2,
+                Icon = addToFavoritesIcon
+            };
+            addToFavoritesMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
+            };
 
-                var contextMenu = new ContextMenu();
+            // "Open Video Link" MenuItem
+            var videoLinkIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                Width = 16,
+                Height = 16
+            };
+            var openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
+            var videoLinkMenuItem = new MenuItem
+            {
+                Header = openVideoLink2,
+                Icon = videoLinkIcon
+            };
+            videoLinkMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
+            };
 
-                // "Launch Selected Game" MenuItem
-                var launchIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/launch.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string launchSelectedGame2 = (string)Application.Current.TryFindResource("LaunchSelectedGame") ?? "Launch Selected Game";
-                var launchMenuItem = new MenuItem
-                {
-                    Header = launchSelectedGame2,
-                    Icon = launchIcon
-                };
-                launchMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
-                        selectedResult.EmulatorConfig);
-                };
+            // "Open Info Link" MenuItem
+            var infoLinkIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
+                Width = 16,
+                Height = 16
+            };
+            var openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
+            var infoLinkMenuItem = new MenuItem
+            {
+                Header = openInfoLink2,
+                Icon = infoLinkIcon
+            };
+            infoLinkMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
+            };
 
-                // "Add To Favorites" MenuItem
-                var addToFavoritesIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
-                var addToFavoritesMenuItem = new MenuItem
-                {
-                    Header = addToFavorites2,
-                    Icon = addToFavoritesIcon
-                };
-                addToFavoritesMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
-                };
+            // "Open ROM History" MenuItem
+            var openHistoryIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png",
+                    UriKind.RelativeOrAbsolute)),
+                Width = 16,
+                Height = 16
+            };
+            var openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
+            var openHistoryMenuItem = new MenuItem
+            {
+                Header = openRomHistory2,
+                Icon = openHistoryIcon
+            };
+            openHistoryMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
+            };
 
-                // "Open Video Link" MenuItem
-                var videoLinkIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
-                var videoLinkMenuItem = new MenuItem
-                {
-                    Header = openVideoLink2,
-                    Icon = videoLinkIcon
-                };
-                videoLinkMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
-                };
+            // "Cover" MenuItem
+            var coverIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
+                Width = 16,
+                Height = 16
+            };
+            var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
+            var coverMenuItem = new MenuItem
+            {
+                Header = cover2,
+                Icon = coverIcon
+            };
+            coverMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
+            };
 
-                // "Open Info Link" MenuItem
-                var infoLinkIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
-                var infoLinkMenuItem = new MenuItem
-                {
-                    Header = openInfoLink2,
-                    Icon = infoLinkIcon
-                };
-                infoLinkMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
-                };
+            // "Title Snapshot" MenuItem
+            var titleSnapshotIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+                Width = 16,
+                Height = 16
+            };
+            var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
+            var titleSnapshotMenuItem = new MenuItem
+            {
+                Header = titleSnapshot2,
+                Icon = titleSnapshotIcon
+            };
+            titleSnapshotMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Open ROM History" MenuItem
-                var openHistoryIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png",
-                        UriKind.RelativeOrAbsolute)),
-                    Width = 16,
-                    Height = 16
-                };
-                string openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
-                var openHistoryMenuItem = new MenuItem
-                {
-                    Header = openRomHistory2,
-                    Icon = openHistoryIcon
-                };
-                openHistoryMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
-                };
+            // "Gameplay Snapshot" MenuItem
+            var gameplaySnapshotIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+                Width = 16,
+                Height = 16
+            };
+            var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
+            var gameplaySnapshotMenuItem = new MenuItem
+            {
+                Header = gameplaySnapshot2,
+                Icon = gameplaySnapshotIcon
+            };
+            gameplaySnapshotMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Cover" MenuItem
-                var coverIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
-                var coverMenuItem = new MenuItem
-                {
-                    Header = cover2,
-                    Icon = coverIcon
-                };
-                coverMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
-                };
+            // "Cart" MenuItem
+            var cartIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
+                Width = 16,
+                Height = 16
+            };
+            var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
+            var cartMenuItem = new MenuItem
+            {
+                Header = cart2,
+                Icon = cartIcon
+            };
+            cartMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Title Snapshot" MenuItem
-                var titleSnapshotIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
-                var titleSnapshotMenuItem = new MenuItem
-                {
-                    Header = titleSnapshot2,
-                    Icon = titleSnapshotIcon
-                };
-                titleSnapshotMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "Video" MenuItem
+            var videoIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                Width = 16,
+                Height = 16
+            };
+            var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
+            var videoMenuItem = new MenuItem
+            {
+                Header = video2,
+                Icon = videoIcon
+            };
+            videoMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Gameplay Snapshot" MenuItem
-                var gameplaySnapshotIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
-                var gameplaySnapshotMenuItem = new MenuItem
-                {
-                    Header = gameplaySnapshot2,
-                    Icon = gameplaySnapshotIcon
-                };
-                gameplaySnapshotMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "Manual" MenuItem
+            var manualIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
+                Width = 16,
+                Height = 16
+            };
+            var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
+            var manualMenuItem = new MenuItem
+            {
+                Header = manual2,
+                Icon = manualIcon
+            };
+            manualMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Cart" MenuItem
-                var cartIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
-                var cartMenuItem = new MenuItem
-                {
-                    Header = cart2,
-                    Icon = cartIcon
-                };
-                cartMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "Walkthrough" MenuItem
+            var walkthroughIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
+                Width = 16,
+                Height = 16
+            };
+            var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
+            var walkthroughMenuItem = new MenuItem
+            {
+                Header = walkthrough2,
+                Icon = walkthroughIcon
+            };
+            walkthroughMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Video" MenuItem
-                var videoIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
-                var videoMenuItem = new MenuItem
-                {
-                    Header = video2,
-                    Icon = videoIcon
-                };
-                videoMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "Cabinet" MenuItem
+            var cabinetIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
+                Width = 16,
+                Height = 16
+            };
+            var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
+            var cabinetMenuItem = new MenuItem
+            {
+                Header = cabinet2,
+                Icon = cabinetIcon
+            };
+            cabinetMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Manual" MenuItem
-                var manualIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
-                var manualMenuItem = new MenuItem
-                {
-                    Header = manual2,
-                    Icon = manualIcon
-                };
-                manualMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "Flyer" MenuItem
+            var flyerIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
+                Width = 16,
+                Height = 16
+            };
+            var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
+            var flyerMenuItem = new MenuItem
+            {
+                Header = flyer2,
+                Icon = flyerIcon
+            };
+            flyerMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Walkthrough" MenuItem
-                var walkthroughIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
-                var walkthroughMenuItem = new MenuItem
-                {
-                    Header = walkthrough2,
-                    Icon = walkthroughIcon
-                };
-                walkthroughMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // "PCB" MenuItem
+            var pcbIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
+                Width = 16,
+                Height = 16
+            };
+            var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
+            var pcbMenuItem = new MenuItem
+            {
+                Header = pCb2,
+                Icon = pcbIcon
+            };
+            pcbMenuItem.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
+                RightClickContextMenu.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
+            };
 
-                // "Cabinet" MenuItem
-                var cabinetIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
-                var cabinetMenuItem = new MenuItem
-                {
-                    Header = cabinet2,
-                    Icon = cabinetIcon
-                };
-                cabinetMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+            // Take Screenshot Context Menu
+            var takeScreenshotIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+                Width = 16,
+                Height = 16
+            };
+            var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
+            var takeScreenshot = new MenuItem
+            {
+                Header = takeScreenshot2,
+                Icon = takeScreenshotIcon
+            };
+            takeScreenshot.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
 
-                // "Flyer" MenuItem
-                var flyerIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
-                var flyerMenuItem = new MenuItem
-                {
-                    Header = flyer2,
-                    Icon = flyerIcon
-                };
-                flyerMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+                // Notify user
+                MessageBoxLibrary.TakeScreenShotMessageBox();
 
-                // "PCB" MenuItem
-                var pcbIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
-                var pcbMenuItem = new MenuItem
-                {
-                    Header = pCb2,
-                    Icon = pcbIcon
-                };
-                pcbMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
-                };
+                _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
+                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+            };
 
-                // Take Screenshot Context Menu
-                var takeScreenshotIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
-                var takeScreenshot = new MenuItem
-                {
-                    Header = takeScreenshot2,
-                    Icon = takeScreenshotIcon
-                };
-                takeScreenshot.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
+            // Delete Game Context Menu
+            var deleteGameIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Width = 16,
+                Height = 16
+            };
+            var deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
+            var deleteGame = new MenuItem
+            {
+                Header = deleteGame2,
+                Icon = deleteGameIcon
+            };
+            deleteGame.Click += (_, _) =>
+            {
+                PlayClick.PlayClickSound();
 
-                    // Notify user
-                    MessageBoxLibrary.TakeScreenShotMessageBox();
-
-                    _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
-                    LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
-                };
-
-                // Delete Game Context Menu
-                var deleteGameIcon = new Image
+                // Notify user
+                DoYouWanToDeleteMessageBox();
+                void DoYouWanToDeleteMessageBox()
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
-                    Width = 16,
-                    Height = 16
-                };
-                string deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
-                var deleteGame = new MenuItem
-                {
-                    Header = deleteGame2,
-                    Icon = deleteGameIcon
-                };
-                deleteGame.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
+                    var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
-                    // Notify user
-                    DoYouWanToDeleteMessageBox();
-                    void DoYouWanToDeleteMessageBox()
+                    if (result != MessageBoxResult.Yes) return;
+                    try
                     {
-                        var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            try
-                            {
-                                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeGameFileGrid, _mainWindow);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Notify developer
-                                string formattedException = $"Error deleting the file.\n\n" +
-                                                            $"Exception type: {ex.GetType().Name}\n" +
-                                                            $"Exception details: {ex.Message}";
-                                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
-                                // Notify user
-                                MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
-                            }
-                            RightClickContextMenu.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
-                        }
+                        RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeGameFileGrid, _mainWindow);
                     }
-                };
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        var formattedException = $"Error deleting the file.\n\n" +
+                                                 $"Exception type: {ex.GetType().Name}\n" +
+                                                 $"Exception details: {ex.Message}";
+                        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                                
+                        // Notify user
+                        MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+                    }
+                    RightClickContextMenu.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
+                }
+            };
 
-                contextMenu.Items.Add(launchMenuItem);
-                contextMenu.Items.Add(addToFavoritesMenuItem);
-                contextMenu.Items.Add(videoLinkMenuItem);
-                contextMenu.Items.Add(infoLinkMenuItem);
-                contextMenu.Items.Add(openHistoryMenuItem);
-                contextMenu.Items.Add(coverMenuItem);
-                contextMenu.Items.Add(titleSnapshotMenuItem);
-                contextMenu.Items.Add(gameplaySnapshotMenuItem);
-                contextMenu.Items.Add(cartMenuItem);
-                contextMenu.Items.Add(videoMenuItem);
-                contextMenu.Items.Add(manualMenuItem);
-                contextMenu.Items.Add(walkthroughMenuItem);
-                contextMenu.Items.Add(cabinetMenuItem);
-                contextMenu.Items.Add(flyerMenuItem);
-                contextMenu.Items.Add(pcbMenuItem);
-                contextMenu.Items.Add(takeScreenshot);
-                contextMenu.Items.Add(deleteGame);
-                contextMenu.IsOpen = true;
-            }
+            contextMenu.Items.Add(launchMenuItem);
+            contextMenu.Items.Add(addToFavoritesMenuItem);
+            contextMenu.Items.Add(videoLinkMenuItem);
+            contextMenu.Items.Add(infoLinkMenuItem);
+            contextMenu.Items.Add(openHistoryMenuItem);
+            contextMenu.Items.Add(coverMenuItem);
+            contextMenu.Items.Add(titleSnapshotMenuItem);
+            contextMenu.Items.Add(gameplaySnapshotMenuItem);
+            contextMenu.Items.Add(cartMenuItem);
+            contextMenu.Items.Add(videoMenuItem);
+            contextMenu.Items.Add(manualMenuItem);
+            contextMenu.Items.Add(walkthroughMenuItem);
+            contextMenu.Items.Add(cabinetMenuItem);
+            contextMenu.Items.Add(flyerMenuItem);
+            contextMenu.Items.Add(pcbMenuItem);
+            contextMenu.Items.Add(takeScreenshot);
+            contextMenu.Items.Add(deleteGame);
+            contextMenu.IsOpen = true;
         }
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException =
+            var formattedException =
                 $"There was an error in the right-click context menu.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
@@ -776,18 +759,16 @@ public partial class GlobalSearch
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
-            {
-                PlayClick.PlayClickSound();
-                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
-            }
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+            PlayClick.PlayClickSound();
+            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         }
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = $"There was an error while using the method MouseDoubleClick.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = $"There was an error while using the method MouseDoubleClick.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -841,90 +822,74 @@ public partial class GlobalSearch
     
     private static async Task<bool> CheckSystemConfig2(SystemConfig systemConfig)
     {
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
-                                        "systemConfig is null.";
-            Exception exception = new(formattedException);
-            await LogErrors.LogErrorAsync(exception, formattedException);
+        if (systemConfig != null) return false;
+       
+        // Notify developer
+        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                          "systemConfig is null.";
+        Exception exception = new(formattedException);
+        await LogErrors.LogErrorAsync(exception, formattedException);
 
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+        // Notify user
+        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
                 
-            return true;
-        }
-
-        return false;
+        return true;
     }
     
     private static bool CheckSystemConfig(SystemConfig systemConfig)
     {
-        if (systemConfig == null)
-        {
-            // Notify developer
-            string formattedException = "systemConfig is null.";
-            Exception ex = new(formattedException);
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+        if (systemConfig != null) return false;
+        
+        // Notify developer
+        const string formattedException = "systemConfig is null.";
+        Exception ex = new(formattedException);
+        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
+        // Notify user
+        MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
     {
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
-                                        "emulatorConfig is null.";
-            Exception ex = new(formattedException);
-            await LogErrors.LogErrorAsync(ex, formattedException);
+        if (emulatorConfig != null) return false;
+        
+        // Notify developer
+        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                          "emulatorConfig is null.";
+        Exception ex = new(formattedException);
+        await LogErrors.LogErrorAsync(ex, formattedException);
 
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+        // Notify user
+        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
                 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     private static async Task<bool> CheckSystemName(string systemName)
     {
-        if (string.IsNullOrEmpty(systemName))
-        {
-            // Notify developer
-            string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
-                                        "systemName is null or empty.";
-            Exception ex = new(formattedException);
-            await LogErrors.LogErrorAsync(ex, formattedException);
+        if (!string.IsNullOrEmpty(systemName)) return false;
+        
+        // Notify developer
+        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+                                          "systemName is null or empty.";
+        Exception ex = new(formattedException);
+        await LogErrors.LogErrorAsync(ex, formattedException);
 
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+        // Notify user
+        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
                 
-            return true;
-        }
-
-        return false;
+        return true;
     }
     
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)
     {
-        if (string.IsNullOrWhiteSpace(searchTerm))
-        {
-            // Notify user
-            MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
+        if (!string.IsNullOrWhiteSpace(searchTerm)) return false;
+        
+        // Notify user
+        MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
-    
 }

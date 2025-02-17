@@ -10,7 +10,7 @@ namespace SimpleLauncher;
 
 public class GamePadController : IDisposable
 {
-    static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;
@@ -157,11 +157,10 @@ public class GamePadController : IDisposable
             if (!_xinputController.IsConnected && _directInputController == null)
             {
                 // Attempt to reconnect controllers if not already attempting
-                if ((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)
-                {
-                    CheckAndReconnectControllers();
-                    _lastReconnectAttempt = DateTime.Now;
-                }
+                if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
+                
+                CheckAndReconnectControllers();
+                _lastReconnectAttempt = DateTime.Now;
                 return; // Exit Update to avoid further processing until next cycle.
             }
 
@@ -219,7 +218,7 @@ public class GamePadController : IDisposable
     {
         try
         {
-            if (!GamePadController.Instance2.IsRunning || _isDisposed) return;
+            if (!Instance2.IsRunning || _isDisposed) return;
 
             // Reinitialize Xbox controller
             _xinputController = new Controller(UserIndex.One);
@@ -340,8 +339,8 @@ public class GamePadController : IDisposable
     
     private void HandleDirectInputScroll(JoystickState state)
     {
-        short thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
-        short thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
+        var thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
+        var thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
         
         var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, _deadZoneX, _deadZoneY); // Use same processing
         
@@ -352,8 +351,8 @@ public class GamePadController : IDisposable
     private static (float, float) ProcessLeftThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
     {
         // Normalize the thumbstick values to the range [-1, 1]
-        float normalizedX = thumbX / MaxThumbValue;
-        float normalizedY = thumbY / MaxThumbValue;
+        var normalizedX = thumbX / MaxThumbValue;
+        var normalizedY = thumbY / MaxThumbValue;
 
         // Apply the dead zone for X
         float resultX = 0;
@@ -379,8 +378,8 @@ public class GamePadController : IDisposable
     private static (float, float) ProcessRightThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
     {
         // Normalize the thumbstick values to the range [-1, 1]
-        float normalizedX = thumbX / MaxThumbValue;
-        float normalizedY = thumbY / MaxThumbValue;
+        var normalizedX = thumbX / MaxThumbValue;
+        var normalizedY = thumbY / MaxThumbValue;
 
         // Apply the dead zone for X
         float resultX = 0;
