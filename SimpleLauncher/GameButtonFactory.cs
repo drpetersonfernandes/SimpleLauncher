@@ -68,35 +68,93 @@ internal class GameButtonFactory(
                 textBlock.Inlines.Add(descriptionTextBlock);
             }
         }
+        
+        // Calculate dimensions based on the user-selected aspect ratio
+        // Base size is determined from ImageHeight (plus some padding)
+        double baseSize = ImageHeight + 50;
+        double aspectWidth;
+        double aspectHeight;
+        
+        // Use the ButtonAspectRatio value from settings:
+        // "Square" => 1:1, "Wider" => 1.5:1, "Taller" => 1:1.5
+        switch (settings.ButtonAspectRatio)
+        {
+            case "Wider":
+                aspectWidth = 1.5;
+                aspectHeight = 1.0;
+                break;
+            case "Taller":
+                aspectWidth = 1.0;
+                aspectHeight = 1.5;
+                break;
+            default: // "Square" or any unrecognized value
+                aspectWidth = 1.0;
+                aspectHeight = 1.0;
+                break;
+        }
+        
+        // Assume baseSize is the width; calculate height accordingly.
+        var buttonHeight = baseSize * (aspectHeight / aspectWidth);
 
+        // var grid = new Grid
+        // {
+        //     Width = ImageHeight + 50,
+        //     Height = ImageHeight + 50
+        // };
+        
+        // Create the grid container with the calculated dimensions.
         var grid = new Grid
         {
-            Width = ImageHeight + 50,
-            Height = ImageHeight + 50
+            Width = baseSize,
+            Height = buttonHeight
         };
 
+        // var stackPanel = new StackPanel
+        // {
+        //     Orientation = Orientation.Vertical,
+        //     HorizontalAlignment = HorizontalAlignment.Center,
+        //     VerticalAlignment = VerticalAlignment.Center,
+        //     Width = ImageHeight + 50,
+        //     Height = ImageHeight + 50,
+        //     MaxHeight = ImageHeight + 50
+        // };
+        
+        // Create a StackPanel to hold the image and text.
         var stackPanel = new StackPanel
         {
             Orientation = Orientation.Vertical,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
-            Width = ImageHeight + 50,
-            Height = ImageHeight + 50,
-            MaxHeight = ImageHeight + 50
+            Width = baseSize,
+            Height = buttonHeight,
+            MaxHeight = buttonHeight
         };
 
         grid.Children.Add(stackPanel);
 
+        // var button = new Button
+        // {
+        //     Content = grid,
+        //     Width = ImageHeight + 50,
+        //     Height = ImageHeight + 50,
+        //     MaxHeight = ImageHeight + 50,
+        //     HorizontalContentAlignment = HorizontalAlignment.Center,
+        //     VerticalContentAlignment = VerticalAlignment.Center,
+        //     Margin = new Thickness(5),
+        //     Padding = new Thickness(0,10,0,0)
+        // };
+        
+        // Create the button with the calculated dimensions.
         var button = new Button
         {
             Content = grid,
-            Width = ImageHeight + 50,
-            Height = ImageHeight + 50,
-            MaxHeight = ImageHeight + 50,
+            Width = baseSize,
+            Height = buttonHeight,
+            MaxHeight = buttonHeight,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Margin = new Thickness(5),
-            Padding = new Thickness(0,10,0,0)
+            Padding = new Thickness(0, 10, 0, 0)
         };
 
         var image = new Image

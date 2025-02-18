@@ -19,10 +19,8 @@ public class SettingsConfig
     private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
-    private readonly HashSet<string> _validViewModes =
-    [
-        "GridView", "ListView"
-    ];
+    private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
+    private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "Taller"];
 
     public int ThumbnailSize { get; set; }
     public int GamesPerPage { get; set; }
@@ -41,12 +39,12 @@ public class SettingsConfig
     public string Language { get; set; }
     public float DeadZoneX { get; set; }
     public float DeadZoneY { get; set; }
+    public string ButtonAspectRatio { get; set; }
 
     // List to hold multiple SystemPlayTime instances
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
     private const string DefaultSettingsFilePath = "settings.xml";
-
     public SettingsConfig() : this(DefaultSettingsFilePath) { }
 
     private SettingsConfig(string filePath)
@@ -83,8 +81,19 @@ public class SettingsConfig
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
-            Language = settings.Element("DeadZoneX")?.Value;
-            Language = settings.Element("DeadZoneY")?.Value;
+            ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
+            // Parse DeadZoneX value from string to float
+            if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
+            {
+                deadZoneX = 0.05f; // default value
+            }
+            DeadZoneX = deadZoneX;
+            // Parse DeadZoneY value from string to float
+            if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
+            {
+                deadZoneY = 0.02f; // default value
+            }
+            DeadZoneY = deadZoneY;
 
             // Load multiple SystemPlayTime elements
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
@@ -146,6 +155,11 @@ public class SettingsConfig
     {
         return _validViewModes.Contains(value) ? value : "GridView";
     }
+    
+    private string ValidateButtonAspectRatio(string value)
+    {
+        return _validButtonAspectRatio.Contains(value) ? value : "Square";
+    }
 
     private static double ValidateDimension(string value, double defaultValue)
     {
@@ -176,6 +190,7 @@ public class SettingsConfig
         Language = "en";
         DeadZoneX = 0.05f;
         DeadZoneY = 0.02f;
+        ButtonAspectRatio = "Square";
         SystemPlayTimes = [];
         Save();
     }
@@ -209,6 +224,7 @@ public class SettingsConfig
             new XElement("Language", Language),
             new XElement("DeadZoneX", DeadZoneX),
             new XElement("DeadZoneY", DeadZoneY),
+            new XElement("ButtonAspectRatio", ButtonAspectRatio),
             systemPlayTimesElement
         ).Save(_filePath);
     }
