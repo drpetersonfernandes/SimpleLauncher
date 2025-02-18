@@ -3,16 +3,16 @@ using System.Runtime.InteropServices;
 
 namespace SimpleLauncher;
 
-public class WindowScreenshot
+public static class WindowScreenshot
 {
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
     [DllImport("user32.dll", SetLastError = true)]
-    public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
+    private static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
 
     [DllImport("user32.dll", SetLastError = true)]
-    public static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
+    private static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect
@@ -24,7 +24,7 @@ public class WindowScreenshot
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Point
+    private struct Point
     {
         public int X;
         public int Y;

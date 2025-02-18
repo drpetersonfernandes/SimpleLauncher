@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace SimpleLauncher;
 
-public static class UpdateChecker
+public static partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
@@ -31,7 +31,15 @@ public static class UpdateChecker
         }
     }
 
-    // Regular CheckForUpdates
+    private static readonly string[] Function =
+    [
+        "Updater.deps.json",
+        "Updater.dll",
+        "Updater.exe",
+        "Updater.pdb",
+        "Updater.runtimeconfig.json"
+    ];
+
     public static async Task CheckForUpdatesAsync(Window mainWindow)
     {
         try
@@ -105,9 +113,9 @@ public static class UpdateChecker
 
         void ThereIsNoUpdateAvailableMessageBox()
         {
-            string thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
-            string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-            string noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+            var thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+            var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+            var noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
             MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
                                         $"{thecurrentversionis2} {CurrentVersion}",
                 noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -115,60 +123,15 @@ public static class UpdateChecker
 
         void ErrorCheckingForUpdatesMessageBox()
         {
-            string therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
-            string maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
+            var maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
+            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates2}\n\n" +
                                         $"{maybethereisaproblemwithyourinternet2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 
-    public static async Task ReinstallSimpleLauncherAsync(Window mainWindow)
-    {
-        // Set BaseVersion
-        string baseVersion = "0.0.0.0";
-            
-        try
-        {
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
-
-                if (IsNewVersionAvailable(baseVersion, latestVersion))
-                {
-                    ShowReinstallWindow(assetUrl, mainWindow);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"Error reinstalling 'Simple Launcher'.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            ErrorReinstallingSimpleLauncherMessageBox();
-        }
-        void ErrorReinstallingSimpleLauncherMessageBox()
-        {
-            string therewasanerrorreinstallingSimpleLauncher2 = (string)Application.Current.TryFindResource("TherewasanerrorreinstallingSimpleLauncher") ?? "There was an error reinstalling 'Simple Launcher'.";
-            string theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            string error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(mainWindow, $"{therewasanerrorreinstallingSimpleLauncher2}\n\n" +
-                                        $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
-        }
-    }
-
-    // Regular call of the Update Window
     private static async void ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
     {
         try
@@ -177,140 +140,54 @@ public static class UpdateChecker
             var result = DoYouWantToUpdateMessageBox();
             MessageBoxResult DoYouWantToUpdateMessageBox()
             {
-                string thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
-                string thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-                string theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
-                string doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
-                string updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
-                string message = $"{thereisasoftwareupdateavailable2}\n" +
-                                 $"{thecurrentversionis2} {currentVersion}\n" +
-                                 $"{theupdateversionis2} {latestVersion}\n\n" +
-                                 $"{doyouwanttodownloadandinstall2}";
-                MessageBoxResult messageBoxResult1 = MessageBox.Show(owner, message,
+                var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+                var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+                var theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+                var doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+                var updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+                var message = $"{thereisasoftwareupdateavailable2}\n" +
+                              $"{thecurrentversionis2} {currentVersion}\n" +
+                              $"{theupdateversionis2} {latestVersion}\n\n" +
+                              $"{doyouwanttodownloadandinstall2}";
+                var messageBoxResult1 = MessageBox.Show(owner, message,
                     updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 return messageBoxResult1;
             }
 
-            if (result == MessageBoxResult.Yes)
-            {
-                var logWindow = new UpdateLogWindow();
-                logWindow.Show();
-                logWindow.Log("Starting update process...");
-
-                // Close the main window
-                owner.Close();
-
-                try
-                {
-                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    
-                    logWindow.Log("Downloading update file...");
-
-                    await Task.Run(async () =>
-                    {
-                        using var memoryStream = new MemoryStream();
-                        
-                        // Download the update file to memory
-                        await DownloadUpdateFileToMemory(assetUrl, memoryStream);
-                        
-                        logWindow.Log("Extracting update file...");
-                        
-                        // Files to be updated
-                        var updaterFiles = new[]
-                        {
-                            "Updater.deps.json",
-                            "Updater.dll",
-                            "Updater.exe",
-                            "Updater.pdb",
-                            "Updater.runtimeconfig.json"
-                        };
-
-                        // Extract directly from memory to the destination
-                        ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
-
-                        logWindow.Log("Update completed successfully.");
-
-                        await Task.Delay(2000);
-                        
-                        // Execute Updater
-                        await ExecuteUpdater(logWindow);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    string contextMessage = $"There was an error updating the application.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        // Notify user
-                        MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
-
-                        logWindow.Log("There was an error updating the application.");
-                        logWindow.Log("Please update it manually.");
-                        logWindow.Close();
-                    });
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            string contextMessage = $"There was an error updating the application.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            if (result != MessageBoxResult.Yes) return;
             
-            // Notify user
-            // Ignore
-        }
-    }
-
-    private static async void ShowReinstallWindow(string assetUrl, Window owner)
-    {
-        try
-        {
             var logWindow = new UpdateLogWindow();
             logWindow.Show();
-            logWindow.Log("Starting the installation ...");
+            logWindow.Log("Starting update process...");
 
             // Close the main window
             owner.Close();
 
             try
             {
-                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                logWindow.Log("Downloading installation file...");
+                var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
                     
+                logWindow.Log("Downloading update file...");
+
                 await Task.Run(async () =>
                 {
-                    // Download the update file to memory
                     using var memoryStream = new MemoryStream();
+                        
+                    // Download the update file to memory
                     await DownloadUpdateFileToMemory(assetUrl, memoryStream);
                         
-                    logWindow.Log("Extracting installation file...");
-
-                    // Files to be updated
-                    var updaterFiles = new[]
-                    {
-                        "Updater.deps.json",
-                        "Updater.dll",
-                        "Updater.exe",
-                        "Updater.pdb",
-                        "Updater.runtimeconfig.json"
-                    };
+                    logWindow.Log("Extracting update file...");
                         
+                    // Files to be updated
+                    var updaterFiles = Function;
+
                     // Extract directly from memory to the destination
                     ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
-                    
-                    logWindow.Log("Installation completed successfully.");
+
+                    logWindow.Log("Update completed successfully.");
 
                     await Task.Delay(2000);
-
+                        
                     // Execute Updater
                     await ExecuteUpdater(logWindow);
                 });
@@ -318,11 +195,11 @@ public static class UpdateChecker
             catch (Exception ex)
             {
                 // Notify developer
-                string contextMessage = $"There was an error installing the application.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+                var contextMessage = $"There was an error updating the application.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
-                    
+
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     // Notify user
@@ -330,22 +207,23 @@ public static class UpdateChecker
 
                     logWindow.Log("There was an error updating the application.");
                     logWindow.Log("Please update it manually.");
+                    logWindow.Close();
                 });
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            string contextMessage = $"There was an error installing the application.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}";
+            var contextMessage = $"There was an error updating the application.\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
             
             // Notify user
             // Ignore
         }
     }
-    
+
     private static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
     {
         using var client = new HttpClient();
@@ -365,7 +243,7 @@ public static class UpdateChecker
             var entry = archive.GetEntry(fileName);
             if (entry != null)
             {
-                string destinationFile = Path.Combine(destinationPath, fileName);
+                var destinationFile = Path.Combine(destinationPath, fileName);
                 logWindow.Log($"Extracting {fileName} to {destinationFile}");
 
                 using var entryStream = entry.Open();
@@ -381,9 +259,9 @@ public static class UpdateChecker
     
     private static async Task ExecuteUpdater(UpdateLogWindow logWindow)
     {
-        string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string appExePath = Assembly.GetExecutingAssembly().Location;
-        string updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var appExePath = Assembly.GetExecutingAssembly().Location;
+        var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
 
         if (!File.Exists(updaterExePath))
         {
@@ -429,32 +307,27 @@ public static class UpdateChecker
   
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
-        Version current = new Version(Regex.Replace(currentVersion, @"[^\d\.]", ""));
-        Version latest = new Version(Regex.Replace(latestVersion, @"[^\d\.]", ""));
-        int versionComparison = latest.CompareTo(current);
-
-        if (versionComparison > 0) return true;
-
-        return false;
+        var current = new Version(MyRegex1().Replace(currentVersion, ""));
+        var latest = new Version(MyRegex2().Replace(latestVersion, ""));
+        var versionComparison = latest.CompareTo(current);
+        return versionComparison > 0;
     }
     
     private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
     {
-        using JsonDocument doc = JsonDocument.Parse(jsonResponse);
-        JsonElement root = doc.RootElement;
+        using var doc = JsonDocument.Parse(jsonResponse);
+        var root = doc.RootElement;
 
-        if (root.TryGetProperty("tag_name", out JsonElement tagNameElement) &&
-            root.TryGetProperty("assets", out JsonElement assetsElement))
+        if (root.TryGetProperty("tag_name", out var tagNameElement) &&
+            root.TryGetProperty("assets", out var assetsElement))
         {
-            string versionTag = tagNameElement.GetString();
+            var versionTag = tagNameElement.GetString();
             string assetUrl = null;
             foreach (var asset in assetsElement.EnumerateArray())
             {
-                if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
-                {
-                    assetUrl = downloadUrlElement.GetString();
-                    break;
-                }
+                if (!asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement)) continue;
+                assetUrl = downloadUrlElement.GetString();
+                break;
             }
 
             var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
@@ -462,7 +335,6 @@ public static class UpdateChecker
             {
                 return (NormalizeVersion(versionMatch.Value), assetUrl);
             }
-
             LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.");
         }
         else
@@ -473,7 +345,7 @@ public static class UpdateChecker
         return (null, null);
     }
     
-    private static Regex MyRegex() => new Regex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled);
+    private static Regex MyRegex() => MyRegex3();
     
     private static string NormalizeVersion(string version)
     {
@@ -485,7 +357,6 @@ public static class UpdateChecker
             version += ".0";
             versionParts = version.Split('.');
         }
-
         // Remove any trailing dots (if any)
         return version.TrimEnd('.');
     }
@@ -495,4 +366,11 @@ public static class UpdateChecker
         Exception exception = new(message);
         _ = LogErrors.LogErrorAsync(exception, message);
     }
+
+    [GeneratedRegex(@"[^\d\.]")]
+    private static partial Regex MyRegex1();
+    [GeneratedRegex(@"[^\d\.]")]
+    private static partial Regex MyRegex2();
+    [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
+    private static partial Regex MyRegex3();
 }

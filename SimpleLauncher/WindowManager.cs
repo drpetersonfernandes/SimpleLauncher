@@ -27,16 +27,12 @@ public static class WindowManager
 
         EnumWindows((hWnd, _) =>
         {
-            if (IsWindowVisible(hWnd))
-            {
-                int length = GetWindowTextLength(hWnd);
-                if (length > 0)
-                {
-                    var builder = new StringBuilder(length + 1);
-                    GetWindowText(hWnd, builder, builder.Capacity);
-                    windows.Add((hWnd, builder.ToString()));
-                }
-            }
+            if (!IsWindowVisible(hWnd)) return true;
+            int length = GetWindowTextLength(hWnd);
+            if (length <= 0) return true;
+            var builder = new StringBuilder(length + 1);
+            GetWindowText(hWnd, builder, builder.Capacity);
+            windows.Add((hWnd, builder.ToString()));
             return true;
         }, IntPtr.Zero);
 

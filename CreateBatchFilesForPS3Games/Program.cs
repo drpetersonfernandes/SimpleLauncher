@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace CreateBatchFilesForPS3Games
 {
-
     static partial class Program
     {
         private static LogForm? _logForm;

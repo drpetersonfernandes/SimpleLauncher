@@ -13,7 +13,7 @@ public partial class UpdateHistory
 
     private void LoadWhatsNewContent()
     {
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "whatsnew.txt");
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "whatsnew.txt");
 
         try
         {
@@ -22,9 +22,9 @@ public partial class UpdateHistory
         catch (Exception ex)
         {
             // Notify developer
-            string formattedException = "'whatsnew.txt' not found or could not be loaded.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}";
+            var formattedException = "'whatsnew.txt' not found or could not be loaded.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
         }
     }
