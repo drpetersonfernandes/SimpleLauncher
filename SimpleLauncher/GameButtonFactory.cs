@@ -181,7 +181,7 @@ internal class GameButtonFactory(
 
         button.PreviewMouseLeftButtonDown += (_, args) =>
         {
-            if (args.OriginalSource is Image img && (img.Name == "videoIcon" || img.Name == "infoIcon"))
+            if (args.OriginalSource is Image { Name: "videoIcon" or "infoIcon" })
             {
                 args.Handled = true;
             }
