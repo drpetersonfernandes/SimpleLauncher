@@ -40,9 +40,9 @@ public class GamePadController : IDisposable
     private bool _isDisposed;
 
     // DeadZone settings
-    readonly float _deadZoneX = 0.05f;
-    readonly float _deadZoneY = 0.02f;
-    
+    private const float DeadZoneX = 0.05f;
+    private const float DeadZoneY = 0.02f;
+
     public bool IsRunning { get; private set; }
 
     // Handle DirectInput reconnection
@@ -282,13 +282,13 @@ public class GamePadController : IDisposable
     
     private void HandleXInputMovement(State state)
     {
-        var (x, y) = ProcessThumbStickXInput(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, _deadZoneX, _deadZoneY);
+        var (x, y) = ProcessThumbStickXInput(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, DeadZoneX, DeadZoneY);
         _mouseSimulator.MoveMouseBy((int)x, -(int)y);
     }
     
     private void HandleXInputScroll(State state)
     {
-        var (x, y) = ProcessThumbStickXInput(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, _deadZoneX, _deadZoneY);
+        var (x, y) = ProcessThumbStickXInput(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, DeadZoneX, DeadZoneY);
         _mouseSimulator.HorizontalScroll((int)x);
         _mouseSimulator.VerticalScroll((int)y);
     }
@@ -331,7 +331,7 @@ public class GamePadController : IDisposable
         thumbX = (short)-thumbX;
 
         // Process the thumbstick values with the dead zone
-        var (x, y) = ProcessLeftThumbStickDirectInput(thumbX, thumbY, _deadZoneX, _deadZoneY);
+        var (x, y) = ProcessLeftThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
         // Move the mouse based on processed values
         _mouseSimulator.MoveMouseBy(-(int)x, -(int)y);
@@ -342,7 +342,7 @@ public class GamePadController : IDisposable
         var thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
         var thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
         
-        var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, _deadZoneX, _deadZoneY); // Use same processing
+        var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY); // Use same processing
         
         _mouseSimulator.HorizontalScroll((int)x); // Assuming this is correct for your controller
         _mouseSimulator.VerticalScroll((int)y);

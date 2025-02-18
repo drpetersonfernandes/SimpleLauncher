@@ -15,11 +15,7 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-     
-        // Load settings
         _settings = new SettingsConfig();
-        
-        // Apply theme
         ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
         ApplyLanguage(_settings.Language);
     }

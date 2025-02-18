@@ -14,7 +14,6 @@ public partial class EditLinks
         
         // Load Config
         _settingsConfig = settingsConfig;
-        
         LoadLinks();
         
         Closing += EditLinks_Closing; 

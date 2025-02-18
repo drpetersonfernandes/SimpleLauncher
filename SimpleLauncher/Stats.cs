@@ -138,7 +138,7 @@ public static class Stats
     }
 
     /// <summary>
-    /// Converts the input string to title case (first letter of each word capitalized).
+    /// Converts the input string to a title case (first letter of each word capitalized).
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The normalized string.</returns>

@@ -11,9 +11,7 @@ public partial class About
     public About()
     {
         InitializeComponent();
-
         App.ApplyThemeToWindow(this);
-            
         DataContext = this;
             
         // Set the AppVersionTextBlock 

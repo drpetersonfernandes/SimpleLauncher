@@ -22,23 +22,22 @@ namespace SimpleLauncher;
 public partial class MainWindow : INotifyPropertyChanged
 {
     // DirectInput Controller
-    private readonly DispatcherTimer _controllerCheckTimer;
+    private readonly DispatcherTimer _controllerCheckTimer;     
 
     // CacheManager Instance
-    private readonly CacheManager _cacheManager = new();
+    private readonly CacheManager _cacheManager = new();     
     private List<string> _cachedFiles;
 
     // GameListItems
-    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];
-
+    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];     
+    
     // Declare _gameListFactory
-    private readonly GameListFactory _gameListFactory;
+    private readonly GameListFactory _gameListFactory;    
     
     // System Name and PlayTime in the Statusbar
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
     private string _playTime;
-
     public string SelectedSystem
     {
         get => _selectedSystem;
@@ -48,7 +47,6 @@ public partial class MainWindow : INotifyPropertyChanged
             OnPropertyChanged(nameof(SelectedSystem));
         }
     }
-
     public string PlayTime
     {
         get => _playTime;
@@ -116,13 +114,14 @@ public partial class MainWindow : INotifyPropertyChanged
         // Load settings.xml
         _settings = new SettingsConfig();
         
-        // Set the initial theme
-        App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
-        SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+        // Load and Apply settings.xml
+        ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
+        UpdateMenuCheckMarks(_settings.ThumbnailSize);
+        UpdateMenuCheckMarks2(_settings.GamesPerPage);
+        UpdateMenuCheckMarks3(_settings.ShowGames);
+        _filesPerPage = _settings.GamesPerPage;
+        _paginationThreshold = _settings.GamesPerPage;
         
-        // Apply language
-        SetLanguageAndCheckMenu(_settings.Language);
-            
         // Load mame.xml
         _machines = MameConfig.LoadFromXml();
         _mameLookup = _machines
@@ -133,14 +132,6 @@ public partial class MainWindow : INotifyPropertyChanged
         _systemConfigs = SystemConfig.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
-
-        // Load and Apply settings.xml
-        ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
-        UpdateMenuCheckMarks(_settings.ThumbnailSize);
-        UpdateMenuCheckMarks2(_settings.GamesPerPage);
-        UpdateMenuCheckMarks3(_settings.ShowGames);
-        _filesPerPage = _settings.GamesPerPage;
-        _paginationThreshold = _settings.GamesPerPage;
 
         // Initialize the GamePadController
         // Setting the error logger for GamePad
@@ -190,7 +181,6 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 AddNoFilesMessage();
-
                 MessageBoxLibrary.NoFavoriteFoundMessageBox();
             }
         };
@@ -205,17 +195,11 @@ public partial class MainWindow : INotifyPropertyChanged
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
 
-        // Initialize _gameButtonFactory with settings
+        // Initialize _gameButtonFactory
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
             
-        // Initialize _gameListFactory with required parameters
+        // Initialize _gameListFactory
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
-
-        // Check if a system is already selected, otherwise show the message
-        if (SystemComboBox.SelectedItem == null)
-        {
-            AddNoSystemMessage();
-        }
 
         // Check for Updates
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
@@ -226,30 +210,40 @@ public partial class MainWindow : INotifyPropertyChanged
         // Attach the Load and Close event handler
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
-        
-        InitializeTrayIcon();
     }
     
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        // Apply language
+        SetLanguageAndCheckMenu(_settings.Language);
+        
+        // Theme settings
+        App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
+        SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+        
         // Load windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
         Top = _settings.MainWindowTop;
         Left = _settings.MainWindowLeft;
-        WindowState = (WindowState)Enum.Parse(typeof(WindowState), _settings.MainWindowState);
+        WindowState = Enum.Parse<WindowState>(_settings.MainWindowState);
 
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         // SelectedSystem and PlayTime
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
 
-        // Theme settings
-        App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
-        SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
-            
         // ViewMode State
         SetViewMode(_settings.ViewMode);
+        
+        // TrayIcon
+        InitializeTrayIcon();
+
+        // Check if a system is already selected, otherwise show the message
+        if (SystemComboBox.SelectedItem == null)
+        {
+            AddNoSystemMessage();
+        }
         
         // Check if application has write access
         if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
@@ -373,10 +367,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
-        
-        // Instantiate GameListFactory to use a method
         var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
-            
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 

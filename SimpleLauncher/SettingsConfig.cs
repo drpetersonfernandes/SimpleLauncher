@@ -38,7 +38,6 @@ public class SettingsConfig
     public string MainWindowState { get; set; }
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
-        
     public string Language { get; set; }
 
     // List to hold multiple SystemPlayTime instances

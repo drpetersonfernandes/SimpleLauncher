@@ -31,11 +31,11 @@ public static partial class HelpUser
 
     public static void UpdateHelpUserTextBlock(TextBlock helpUserTextBlock, TextBox systemNameTextBox)
     {
-        string systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
+        var systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
 
         if (string.IsNullOrEmpty(systemName))
         {
-            string nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
+            var nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
 
             // Clear the TextBlock and display a default message if no system name is provided
             helpUserTextBlock.Inlines.Clear();

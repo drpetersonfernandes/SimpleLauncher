@@ -30,15 +30,11 @@ public partial class EditSystemEasyModeAddSystem
     {
         InitializeComponent();
 
-        App.ApplyThemeToWindow(this);
-
         // Load Config
         _config = EasyModeConfig.Load();
-        
         PopulateSystemDropdown();
-            
+        App.ApplyThemeToWindow(this);
         Closed += EditSystemEasyModeAddSystem_Closed;
-
     }
 
     private void PopulateSystemDropdown()

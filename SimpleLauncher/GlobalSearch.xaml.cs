@@ -17,6 +17,7 @@ namespace SimpleLauncher;
 
 public partial class GlobalSearch
 {
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private readonly List<SystemConfig> _systemConfigs;
     private readonly SettingsConfig _settings;
     private ObservableCollection<SearchResult> _searchResults;
@@ -30,8 +31,6 @@ public partial class GlobalSearch
     private readonly Button _fakeButton = new();
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
-    
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {

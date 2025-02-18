@@ -25,15 +25,12 @@ public partial class DownloadImagePack
     public DownloadImagePack()
     {
         InitializeComponent();
-
         App.ApplyThemeToWindow(this);
         
         // Load Config
         _config = EasyModeConfig.Load();
-        
         PopulateSystemDropdown();
             
-        // Subscribe to the Closed event
         Closed += EditSystemEasyModeAddSystem_Closed;
     }
 

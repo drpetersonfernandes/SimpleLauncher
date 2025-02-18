@@ -16,9 +16,7 @@ public partial class BugReport
     public BugReport()
     {
         InitializeComponent();
-
         App.ApplyThemeToWindow(this);
-            
         DataContext = this;
 
         // Load the API key

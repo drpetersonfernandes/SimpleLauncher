@@ -18,9 +18,7 @@ public partial class GlobalStats
         InitializeComponent();
 
         _systemConfigs = systemConfigs;
-        
         App.ApplyThemeToWindow(this);
-        
         Loaded += GlobalStats_Loaded;
     }
 

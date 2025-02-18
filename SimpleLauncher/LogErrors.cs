@@ -33,7 +33,7 @@ public static class LogErrors
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
         var userLogPath = Path.Combine(baseDirectory, "error_user.log");
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-        version = version ?? "Unknown";
+        version ??= "Unknown";
             
         // Gather additional environment info
         var osVersion = RuntimeInformation.OSDescription;

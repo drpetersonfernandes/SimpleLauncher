@@ -16,7 +16,7 @@ namespace SimpleLauncher;
 public partial class EditSystem
 {
     private XDocument _xmlDoc;
-    private readonly string _xmlFilePath = "system.xml";
+    private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsConfig _settings;
 
@@ -29,18 +29,16 @@ public partial class EditSystem
         LoadXml();
         
         PopulateSystemNamesDropdown();
-            
+        App.ApplyThemeToWindow(this);            
         Closing += EditSystem_Closing; 
             
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
-        
-        App.ApplyThemeToWindow(this);
     }
 
     private void LoadXml()
     {
-        if (!File.Exists(_xmlFilePath))
+        if (!File.Exists(XmlFilePath))
         {
             // Notify user
             MessageBoxLibrary.SystemXmlNotFoundMessageBox();
@@ -51,7 +49,7 @@ public partial class EditSystem
         }
         else
         {
-            _xmlDoc = XDocument.Load(_xmlFilePath);
+            _xmlDoc = XDocument.Load(XmlFilePath);
         }
 
     }
@@ -654,7 +652,7 @@ public partial class EditSystem
             select system));
 
         // Save
-        sortedDoc.Save(_xmlFilePath);
+        sortedDoc.Save(XmlFilePath);
             
         // Repopulate the SystemNamesDropbox
         PopulateSystemNamesDropdown();
@@ -1006,7 +1004,7 @@ public partial class EditSystem
                 if (result == MessageBoxResult.Yes)
                 {
                     systemNode.Remove();
-                    _xmlDoc.Save(_xmlFilePath);
+                    _xmlDoc.Save(XmlFilePath);
                     PopulateSystemNamesDropdown();
                     ClearFields();
                 
