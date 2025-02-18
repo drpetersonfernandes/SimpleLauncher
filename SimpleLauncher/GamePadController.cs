@@ -8,13 +8,13 @@ using DeviceType = SharpDX.DirectInput.DeviceType;
 
 namespace SimpleLauncher;
 
-public class GamePadController : IDisposable
+public class GamePadController: IDisposable
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;
-
+    
     // Add an Action for error logging
     public Action<Exception, string> ErrorLogger { get; set; }
 
@@ -40,8 +40,12 @@ public class GamePadController : IDisposable
     private bool _isDisposed;
 
     // DeadZone settings
-    private const float DeadZoneX = 0.05f;
-    private const float DeadZoneY = 0.02f;
+    // private const float DeadZoneX = 0.05f;
+    // private const float DeadZoneY = 0.02f;
+    
+    // Add public properties with default values:
+    public float DeadZoneX { get; set; } = 0.05f;
+    public float DeadZoneY { get; set; } = 0.02f;
 
     public bool IsRunning { get; private set; }
 

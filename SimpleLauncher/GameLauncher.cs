@@ -15,11 +15,9 @@ public static class GameLauncher
     
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
     {
-        if (CheckFilepath()) return;
-        
-        if (CheckSystemComboBox()) return;
-
-        if (CheckEmulatorComboBox()) return;
+        if (CheckFilepath(filePath)) return;
+        if (CheckSystemComboBox(systemComboBox)) return;
+        if (CheckEmulatorComboBox(emulatorComboBox)) return;
         
         // Stop the GamePadController if it is running
         // To prevent interference with third party programs, like emulators or games
@@ -49,27 +47,27 @@ public static class GameLauncher
                     break;
                 default:
                     var selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
-                    if (selectedSystem.ToUpperInvariant().Contains("XBLA"))
+                    if (selectedSystem.Contains("XBLA", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable once PossibleNullReferenceException
-                    else if (selectedSystem.ToLowerInvariant().Contains("aquarius") && emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("mame"))
+                    else if (selectedSystem.Contains("aquarius", StringComparison.InvariantCultureIgnoreCase) && emulatorComboBox.SelectedItem.ToString().Contains("mame", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable once PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("fusion"))
+                    else if (emulatorComboBox.SelectedItem.ToString().Contains("fusion", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable once PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("mastergear"))
+                    else if (emulatorComboBox.SelectedItem.ToString().Contains("mastergear", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
                     // ReSharper disable twice PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("project64") || emulatorComboBox.SelectedItem.ToString().ToLowerInvariant().Contains("project 64"))
+                    else if (emulatorComboBox.SelectedItem.ToString().Contains("project64", StringComparison.InvariantCultureIgnoreCase) || emulatorComboBox.SelectedItem.ToString().Contains("project 64", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
@@ -122,52 +120,6 @@ public static class GameLauncher
             {
                 _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString());
             }
-        }
-
-        bool CheckFilepath()
-        {
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath)) return false;
-            
-            // Notify developer
-            var errorMessage = "Invalid filePath.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return true;
-
-        }
-
-        bool CheckSystemComboBox()
-        {
-            if (systemComboBox.SelectedItem != null) return false;
-            
-            // Notify developer
-            var errorMessage = "Invalid system.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return true;
-        }
-
-        bool CheckEmulatorComboBox()
-        {
-            if (emulatorComboBox.SelectedItem != null) return false;
-            
-            // Notify developer
-            var errorMessage = "Invalid emulator.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return true;
         }
     }
 
@@ -1079,6 +1031,52 @@ public static class GameLauncher
         // Notify user
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             
+        return true;
+    }
+    
+    private static bool CheckFilepath(string filePath)
+    {
+        if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath)) return false;
+            
+        // Notify developer
+        var errorMessage = "Invalid filePath.";
+        Exception ex = new();
+        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            
+        // Notify user
+        MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+        return true;
+
+    }
+    
+    private static bool CheckSystemComboBox(ComboBox systemComboBox)
+    {
+        if (systemComboBox.SelectedItem != null) return false;
+            
+        // Notify developer
+        var errorMessage = "Invalid system.";
+        Exception ex = new();
+        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            
+        // Notify user
+        MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+        return true;
+    }
+    
+    private static bool CheckEmulatorComboBox(ComboBox emulatorComboBox)
+    {
+        if (emulatorComboBox.SelectedItem != null) return false;
+            
+        // Notify developer
+        var errorMessage = "Invalid emulator.";
+        Exception ex = new();
+        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+
+        // Notify user
+        MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
         return true;
     }
 }

@@ -234,6 +234,10 @@ public partial class MainWindow : INotifyPropertyChanged
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
         
+        // Update the GamePadController dead zone settings from SettingsConfig
+        GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
+        GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
+        
         InitializeControllerDetection();
         InitializeTrayIcon();
     }

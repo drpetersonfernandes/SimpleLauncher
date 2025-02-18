@@ -39,6 +39,8 @@ public class SettingsConfig
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
     public string Language { get; set; }
+    public float DeadZoneX { get; set; }
+    public float DeadZoneY { get; set; }
 
     // List to hold multiple SystemPlayTime instances
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
@@ -81,6 +83,8 @@ public class SettingsConfig
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
+            Language = settings.Element("DeadZoneX")?.Value;
+            Language = settings.Element("DeadZoneY")?.Value;
 
             // Load multiple SystemPlayTime elements
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
@@ -170,6 +174,8 @@ public class SettingsConfig
         BaseTheme = "Light";
         AccentColor = "Blue";
         Language = "en";
+        DeadZoneX = 0.05f;
+        DeadZoneY = 0.02f;
         SystemPlayTimes = [];
         Save();
     }
@@ -201,6 +207,8 @@ public class SettingsConfig
             new XElement("BaseTheme", BaseTheme),
             new XElement("AccentColor", AccentColor),
             new XElement("Language", Language),
+            new XElement("DeadZoneX", DeadZoneX),
+            new XElement("DeadZoneY", DeadZoneY),
             systemPlayTimesElement
         ).Save(_filePath);
     }
