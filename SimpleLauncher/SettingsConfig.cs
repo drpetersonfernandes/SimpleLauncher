@@ -37,9 +37,9 @@ public class SettingsConfig
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
     public string Language { get; set; }
-    public float DeadZoneX { get; set; }
-    public float DeadZoneY { get; set; }
-    public string ButtonAspectRatio { get; set; }
+    public float DeadZoneX { get; private set; }
+    public float DeadZoneY { get; private set; }
+    public string ButtonAspectRatio { get; private set; }
 
     // List to hold multiple SystemPlayTime instances
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
