@@ -21,20 +21,19 @@ namespace SimpleLauncher;
 
 public partial class MainWindow : INotifyPropertyChanged
 {
-    // DirectInput Controller
-    private readonly DispatcherTimer _controllerCheckTimer;     
+    // Declare Controller Detection
+    private DispatcherTimer _controllerCheckTimer;     
 
-    // CacheManager Instance
-    private readonly CacheManager _cacheManager = new();     
+    // Declare CacheManager and CacheFiles
+    private readonly CacheManager _cacheManager = new();
     private List<string> _cachedFiles;
 
-    // GameListItems
+    // Declare GameListItems
+    // Used in ListView Mode
     public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];     
     
-    // Declare _gameListFactory
-    private readonly GameListFactory _gameListFactory;    
-    
-    // System Name and PlayTime in the Statusbar
+    // Declare System Name and PlayTime in the Statusbar
+    // _selectedSystem is the selected system from ComboBox
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
     private string _playTime;
@@ -56,36 +55,41 @@ public partial class MainWindow : INotifyPropertyChanged
             OnPropertyChanged(nameof(PlayTime));
         }
     }
-
-    private void OnPropertyChanged(string propertyName)
+    private void OnPropertyChanged(string propertyName) // Update UI on OnPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
        
-    // tray icon
+    // Define Tray Icon
     private NotifyIcon _trayIcon;
     private ContextMenuStrip _trayMenu;
         
-    // pagination related
+    // Define Pagination Related Variables
     private int _currentPage = 1;
     private int _filesPerPage;
     private int _totalFiles;
     private int _paginationThreshold;
-    private readonly Button _nextPageButton;
-    private readonly Button _prevPageButton;
+    private Button _nextPageButton;
+    private Button _prevPageButton;
     private string _currentFilter;
+
+    // Define _currentSearchResults
     private List<string> _currentSearchResults = [];
-        
+
+    // Define and Instantiate variables
     private readonly List<SystemConfig> _systemConfigs;
-    private readonly LetterNumberMenu _letterNumberMenu;
+    private readonly LetterNumberMenu _letterNumberMenu = new();
+    private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
-    private readonly SettingsConfig _settings;
-    private readonly List<MameConfig> _machines;
+    private readonly SettingsConfig _settings = new();
     private FavoritesManager _favoritesManager;
-    private readonly Dictionary<string, string> _mameLookup;
+    private readonly List<MameConfig> _machines;
+    private readonly Dictionary<string, string> _mameLookup; // Used for faster lookup of MAME machine names
     private string _selectedImageFolder;
     private string _selectedRomFolder;
+    
+    // Define the LogPath
     private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
         
     public MainWindow()
@@ -93,28 +97,17 @@ public partial class MainWindow : INotifyPropertyChanged
         InitializeComponent();
         
         // Check for Command-line Args
+        // Show UpdateHistory after the MainWindow is fully loaded
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("whatsnew"))
         {
-            // Show UpdateHistory after the MainWindow is fully loaded
             Loaded += (_, _) => OpenUpdateHistory();
         }
-        
-        // Initialize the timer for periodic controller checks
-        _controllerCheckTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(5) // Check every 5 seconds
-        };
-        _controllerCheckTimer.Tick += GamePadControllerCheckTimer_Tick;
-        _controllerCheckTimer.Start();
-            
-        // Ensure the DataContext is set to the current MainWindow instance for binding
+
+        // DataContext set to the MainWindow instance
         DataContext = this;
 
-        // Load settings.xml
-        _settings = new SettingsConfig();
-        
-        // Load and Apply settings.xml
+        // Load and Apply _settings
         ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
         UpdateMenuCheckMarks(_settings.ThumbnailSize);
         UpdateMenuCheckMarks2(_settings.GamesPerPage);
@@ -122,23 +115,20 @@ public partial class MainWindow : INotifyPropertyChanged
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
         
-        // Load mame.xml
+        // Load _machines and _mameLookup
         _machines = MameConfig.LoadFromXml();
         _mameLookup = _machines
             .GroupBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
-        // Load system.xml
+        // Load and Sort _systemConfigs
         _systemConfigs = SystemConfig.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Initialize the GamePadController
-        // Setting the error logger for GamePad
         GamePadController.Instance2.ErrorLogger = (ex, msg) =>
             LogErrors.LogErrorAsync(ex, msg).Wait(TimeSpan.FromSeconds(2));
-
-        // Start GamePad if enable
         if (_settings.EnableGamePadNavigation)
         {
             GamePadController.Instance2.Start();
@@ -148,14 +138,9 @@ public partial class MainWindow : INotifyPropertyChanged
             GamePadController.Instance2.Stop();
         }
 
-        // Initialize _gameFileGrid
-        _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
-            
-        // Initialize LetterNumberMenu and add it to the UI
-        _letterNumberMenu = new LetterNumberMenu();
+        // Add _letterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
         LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel);
-            
         // Create and integrate LetterNumberMenu
         _letterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
@@ -164,7 +149,6 @@ public partial class MainWindow : INotifyPropertyChanged
             _currentFilter = selectedLetter; // Update current filter
             await LoadGameFilesAsync(selectedLetter); // Load games
         };
-            
         _letterNumberMenu.OnFavoritesSelected += async () =>
         {
             ResetPaginationButtons();
@@ -185,16 +169,12 @@ public partial class MainWindow : INotifyPropertyChanged
             }
         };
             
-        // Initialize favorite's manager and load favorites
-        _favoritesManager = new FavoritesManager();
+        // Initialize _favoritesManager
         _favoritesManager = FavoritesManager.LoadFavorites();
-            
-        // Set Pagination
-        PrevPageButton.IsEnabled = false;
-        NextPageButton.IsEnabled = false;
-        _prevPageButton = PrevPageButton;
-        _nextPageButton = NextPageButton;
 
+        // Initialize _gameFileGrid
+        _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
+        
         // Initialize _gameButtonFactory
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
             
@@ -207,38 +187,35 @@ public partial class MainWindow : INotifyPropertyChanged
         // Call Stats API
         Loaded += async (_, _) => await Stats.CallApiAsync();
 
-        // Attach the Load and Close event handler
+        // Attach the Load and Close events
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
     }
-    
+
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         // Apply language
         SetLanguageAndCheckMenu(_settings.Language);
         
-        // Theme settings
+        // Apply Theme
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         
-        // Load windows state
+        // Load previous windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
         Top = _settings.MainWindowTop;
         Left = _settings.MainWindowLeft;
         WindowState = Enum.Parse<WindowState>(_settings.MainWindowState);
 
-        // SelectedSystem and PlayTime
+        // Set the initial SelectedSystem and PlayTime
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
 
-        // ViewMode State
+        // Set the initial ViewMode based on the _settings 
         SetViewMode(_settings.ViewMode);
         
-        // TrayIcon
-        InitializeTrayIcon();
-
         // Check if a system is already selected, otherwise show the message
         if (SystemComboBox.SelectedItem == null)
         {
@@ -250,6 +227,25 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
         }
+        
+        // Set initial pagination state
+        PrevPageButton.IsEnabled = false;
+        NextPageButton.IsEnabled = false;
+        _prevPageButton = PrevPageButton;
+        _nextPageButton = NextPageButton;
+        
+        InitializeControllerDetection();
+        InitializeTrayIcon();
+    }
+    
+    private void InitializeControllerDetection()
+    {
+        _controllerCheckTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(5) // Check every 5 seconds
+        };
+        _controllerCheckTimer.Tick += GamePadControllerCheckTimer_Tick;
+        _controllerCheckTimer.Start();
     }
     
     private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
@@ -265,13 +261,14 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void SaveApplicationSettings()
     {
+        // Save application's window state
         _settings.MainWindowWidth = (int)Width;
         _settings.MainWindowHeight = (int)Height;
         _settings.MainWindowTop = (int)Top;
         _settings.MainWindowLeft = (int)Left;
         _settings.MainWindowState = WindowState.ToString();
 
-        // Set other settings from the application's current state
+        // Save application's current state
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
         _settings.GamesPerPage = _filesPerPage;
         _settings.ShowGames = _settings.ShowGames;
@@ -301,6 +298,8 @@ public partial class MainWindow : INotifyPropertyChanged
     }
 
     // Used in cases that need to reload system.xml or update the pagination settings
+    // Used when user set the Language
+    // Used when user set the GamesPerPage
     private void MainWindow_Restart()
     {
         SaveApplicationSettings();
@@ -327,16 +326,15 @@ public partial class MainWindow : INotifyPropertyChanged
         var selectedSystem = SystemComboBox.SelectedItem?.ToString();
         if (string.IsNullOrEmpty(selectedSystem))
         {
-            return [];
+            return []; // Return an empty list if there is no favorite for that system
         }
 
         // Retrieve the system configuration for the selected system
         var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
         if (selectedConfig == null)
         {
-            return [];
+            return []; // Return an empty list if there is no favorite for that system
         }
-
         var systemFolderPath = selectedConfig.SystemFolder;
 
         // Filter the favorites and build the full file path for each favorite game
@@ -371,6 +369,7 @@ public partial class MainWindow : INotifyPropertyChanged
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
+    // Used on the Game List Mode
     private async void GameListDoubleClickOnSelectedItem(object sender, MouseButtonEventArgs e)
     {
         try
@@ -412,7 +411,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
             if (SystemComboBox.SelectedItem != null)
             {
-                string selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedSystem = SystemComboBox.SelectedItem.ToString();
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
                 if (selectedConfig != null)
@@ -438,7 +437,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
                     var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
                 
-                    // SystemInfo
+                    // Display SystemInfo for that system
                     SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
                     
                     // Update Image Folder and Rom Folder Variables
@@ -467,6 +466,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            // Notify developer
             var errorMessage = $"Error in the method SystemComboBox_SelectionChanged.\n\n" +
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
@@ -489,7 +489,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            // For List view, clear existing items in the ObservableCollection
+            // For List view, clear GameListItems
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
@@ -518,7 +518,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
         else
         {
-            // For List view, clear existing items in the ObservableCollection
+            // For List view, clear GameListItems
             GameListItems.Clear();
             GameListItems.Add(new GameListFactory.GameListViewItem
             {
@@ -539,13 +539,13 @@ public partial class MainWindow : INotifyPropertyChanged
         // Clear PreviewImage
         PreviewImage.Source = null;
 
-        // Clear FileGrid
+        // Clear Game Grid
         GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
             
-        // Clear the ListItems
+        // Clear the Game List
         await Dispatcher.InvokeAsync(() => GameListItems.Clear());
             
-        // Check ViewMode and apply it to the UI
+        // Set ViewMode based on user preference
         if (_settings.ViewMode == "GridView")
         {
             // Allow GridView
@@ -569,7 +569,7 @@ public partial class MainWindow : INotifyPropertyChanged
             if (await CheckIfSelectConfigIsNull(selectedConfig)) return;
             Debug.Assert(selectedConfig != null, nameof(selectedConfig) + " != null");
             
-            // Create variable allFiles
+            // Create allFiles list
             List<string> allFiles;
                 
             // If we are in "FAVORITES" mode, use '_currentSearchResults'
@@ -763,7 +763,6 @@ public partial class MainWindow : INotifyPropertyChanged
         
         AddNoSystemMessage();
         return true;
-
     }
 
     #region Menu Items
