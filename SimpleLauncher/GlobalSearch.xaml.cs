@@ -36,6 +36,8 @@ public partial class GlobalSearch
     public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
+        Closed += GlobalSearch_Closed;
         
         _systemConfigs = systemConfigs;
         _machines = machines;
@@ -44,11 +46,7 @@ public partial class GlobalSearch
         _favoritesManager = favoritesManager;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
-        _mainWindow = mainWindow;
-        
-        Closed += GlobalSearch_Closed;
-            
-        App.ApplyThemeToWindow(this);
+        _mainWindow = mainWindow;        
     }
 
     private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -818,6 +816,8 @@ public partial class GlobalSearch
         public SystemConfig.Emulator EmulatorConfig { get; init; }
         public int Score { get; set; }
         public string CoverImage { get; init; }
+        public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
+
     }
     
     private static async Task<bool> CheckSystemConfig2(SystemConfig systemConfig)

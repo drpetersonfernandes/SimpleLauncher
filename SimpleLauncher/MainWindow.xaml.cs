@@ -1025,7 +1025,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
             
-        var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, this);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
     }
         

@@ -15,17 +15,18 @@ namespace SimpleLauncher;
 
 public partial class FavoritesWindow
 {
-    private readonly FavoritesManager _favoritesManager = new();
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private readonly FavoritesManager _favoritesManager;
     private ObservableCollection<Favorite> _favoriteList;
     private readonly SettingsConfig _settings;
     private readonly List<SystemConfig> _systemConfigs;
     private readonly List<MameConfig> _machines;
     private readonly MainWindow _mainWindow;
+    
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-
-    public FavoritesWindow(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, MainWindow mainWindow)
+    
+    public FavoritesWindow(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
  
@@ -33,11 +34,10 @@ public partial class FavoritesWindow
         _systemConfigs = systemConfigs;
         _machines = machines;
         _mainWindow = mainWindow;
+        _favoritesManager = favoritesManager;
         
         App.ApplyThemeToWindow(this);
-
         LoadFavorites();
-            
         Closing += Favorites_Closing; 
     }
 

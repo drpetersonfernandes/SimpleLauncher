@@ -17,14 +17,13 @@ internal class GameButtonFactory(
     List<SystemConfig> systemConfigs,
     List<MameConfig> machines,
     SettingsConfig settings,
-    FavoritesManager favoritesConfig,
+    FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow)
 {
     private const string DefaultImagePath = "default.png";
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
     private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private readonly FavoritesManager _favoritesManager = new();
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
     {
@@ -36,8 +35,8 @@ internal class GameButtonFactory(
         var isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
         // Check if the game is a favorite
-        var isFavorite = favoritesConfig.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                               && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var isFavorite = favoritesManager.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
         var textBlock = new TextBlock
         {
@@ -186,7 +185,7 @@ internal class GameButtonFactory(
             addToFavorites.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
+                RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
             };
             
             // Remove From Favorites Context Menu
@@ -205,7 +204,7 @@ internal class GameButtonFactory(
             removeFromFavorites.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
+                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
             };
 
             // Open Video Link Context Menu
@@ -542,7 +541,7 @@ internal class GameButtonFactory(
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, gameFileGrid, mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
         }
     }
     
