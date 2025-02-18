@@ -197,7 +197,7 @@ public partial class DownloadImagePack
 
             var totalBytes = response.Content.Headers.ContentLength;
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
+            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
             var buffer = new byte[8192];
             long totalBytesRead = 0;
             int bytesRead;

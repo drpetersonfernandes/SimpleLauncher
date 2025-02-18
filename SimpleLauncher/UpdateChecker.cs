@@ -247,7 +247,7 @@ public static partial class UpdateChecker
                 logWindow.Log($"Extracting {fileName} to {destinationFile}");
 
                 using var entryStream = entry.Open();
-                using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
+                using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
                 entryStream.CopyTo(fileStream);
             }
             else
