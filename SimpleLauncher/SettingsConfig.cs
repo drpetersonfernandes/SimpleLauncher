@@ -31,10 +31,10 @@ public class SettingsConfig
     public bool EnableGamePadNavigation { get; set; }
     public string VideoUrl { get; set; }
     public string InfoUrl { get; set; }
-    public double MainWindowWidth { get; set; }
-    public double MainWindowHeight { get; set; }
-    public double MainWindowTop { get; set; }
-    public double MainWindowLeft { get; set; }
+    public int MainWindowWidth { get; set; }
+    public int MainWindowHeight { get; set; }
+    public int MainWindowTop { get; set; }
+    public int MainWindowLeft { get; set; }
     public string MainWindowState { get; set; }
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
@@ -73,10 +73,10 @@ public class SettingsConfig
             EnableGamePadNavigation = ParseBoolSetting(settings, "ActivateGamepad");
             VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
             InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
-            MainWindowWidth = ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
-            MainWindowHeight = ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
-            MainWindowTop = ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
-            MainWindowLeft = ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
+            MainWindowWidth = (int)ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
+            MainWindowHeight = (int)ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
+            MainWindowTop = (int)ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
+            MainWindowLeft = (int)ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
             MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
@@ -145,7 +145,7 @@ public class SettingsConfig
 
     private static double ValidateDimension(string value, double defaultValue)
     {
-        return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsed) ? parsed : defaultValue;
+        return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) ? parsed : defaultValue;
     }
 
     private static bool ParseBoolSetting(XElement settings, string settingName)

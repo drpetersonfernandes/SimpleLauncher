@@ -265,10 +265,10 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void SaveApplicationSettings()
     {
-        _settings.MainWindowWidth = Width;
-        _settings.MainWindowHeight = Height;
-        _settings.MainWindowTop = Top;
-        _settings.MainWindowLeft = Left;
+        _settings.MainWindowWidth = (int)Width;
+        _settings.MainWindowHeight = (int)Height;
+        _settings.MainWindowTop = (int)Top;
+        _settings.MainWindowLeft = (int)Left;
         _settings.MainWindowState = WindowState.ToString();
 
         // Set other settings from the application's current state
