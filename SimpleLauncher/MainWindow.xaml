@@ -166,6 +166,23 @@
                         Click="ThumbnailSize_Click"
                         Header="{DynamicResource 600pixels}" />
                 </MenuItem>
+                <MenuItem Header="{DynamicResource SetButtonAspectRatio}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem
+                        x:Name="Square"
+                        Click="ButtonAspectRatio_Click"
+                        Header="{DynamicResource Square}" />
+                    <MenuItem
+                        x:Name="Wider"
+                        Click="ButtonAspectRatio_Click"
+                        Header="{DynamicResource Wider}" />
+                    <MenuItem
+                        x:Name="Taller"
+                        Click="ButtonAspectRatio_Click"
+                        Header="{DynamicResource Taller}" />
+                </MenuItem>
                 <MenuItem Header="{DynamicResource SetNumberOfGamesPerPage}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/setnumber.png" Width="16" Height="16" />

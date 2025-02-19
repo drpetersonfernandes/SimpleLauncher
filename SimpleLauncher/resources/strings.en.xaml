@@ -513,5 +513,10 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">Invalid emulator executable path:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Please check the configuration for this system.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
+    <system:String x:Key="Square">Square</system:String>
+    <system:String x:Key="Wider">Wider</system:String>
+    <system:String x:Key="Taller">Taller</system:String>
      
 </ResourceDictionary>

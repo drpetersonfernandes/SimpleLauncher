@@ -46,9 +46,11 @@ internal class GameButtonFactory(
             FontWeight = FontWeights.Bold,
             TextTrimming = TextTrimming.CharacterEllipsis,
             FontSize = 13,
-            ToolTip = fileNameWithoutExtension
+            ToolTip = fileNameWithoutExtension,
+            TextWrapping = TextWrapping.Wrap
         };
 
+        // If there is a description (for MAME)
         if (systemConfig.SystemIsMame)
         {
             var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
@@ -61,8 +63,9 @@ internal class GameButtonFactory(
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.Bold,
                     TextTrimming = TextTrimming.CharacterEllipsis,
-                    FontSize = 12,
-                    ToolTip = machine.Description
+                    FontSize = 13,
+                    ToolTip = machine.Description,
+                    TextWrapping = TextWrapping.Wrap
                 };
                 textBlock.Inlines.Add(new LineBreak());
                 textBlock.Inlines.Add(descriptionTextBlock);
@@ -80,94 +83,57 @@ internal class GameButtonFactory(
         switch (settings.ButtonAspectRatio)
         {
             case "Wider":
-                aspectWidth = 1.5;
+                aspectWidth = 2.7;
                 aspectHeight = 1.0;
                 break;
             case "Taller":
                 aspectWidth = 1.0;
-                aspectHeight = 1.5;
+                aspectHeight = 1.3;
                 break;
             default: // "Square" or any unrecognized value
-                aspectWidth = 1.0;
+                aspectWidth = 1.6;
                 aspectHeight = 1.0;
                 break;
         }
         
-        // Assume baseSize is the width; calculate height accordingly.
-        var buttonHeight = baseSize * (aspectHeight / aspectWidth);
+        // Calculate the height for the image area only based on the aspect ratio.
+        var imageAreaHeight = baseSize * (aspectHeight / aspectWidth);
 
-        // var grid = new Grid
-        // {
-        //     Width = ImageHeight + 50,
-        //     Height = ImageHeight + 50
-        // };
-        
-        // Create the grid container with the calculated dimensions.
+        // Create a grid with two rows:
+        // Row 0: fixed height for the image container.
+        // Row 1: auto-sized for the text.
         var grid = new Grid
         {
-            Width = baseSize,
-            Height = buttonHeight
+            Width = baseSize
+            // Notice: We are NOT setting a fixed Height for the grid,
+            // so that the text row (Row 1) can expand.
         };
-
-        // var stackPanel = new StackPanel
-        // {
-        //     Orientation = Orientation.Vertical,
-        //     HorizontalAlignment = HorizontalAlignment.Center,
-        //     VerticalAlignment = VerticalAlignment.Center,
-        //     Width = ImageHeight + 50,
-        //     Height = ImageHeight + 50,
-        //     MaxHeight = ImageHeight + 50
-        // };
-        
-        // Create a StackPanel to hold the image and text.
-        var stackPanel = new StackPanel
-        {
-            Orientation = Orientation.Vertical,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Width = baseSize,
-            Height = buttonHeight,
-            MaxHeight = buttonHeight
-        };
-
-        grid.Children.Add(stackPanel);
-
-        // var button = new Button
-        // {
-        //     Content = grid,
-        //     Width = ImageHeight + 50,
-        //     Height = ImageHeight + 50,
-        //     MaxHeight = ImageHeight + 50,
-        //     HorizontalContentAlignment = HorizontalAlignment.Center,
-        //     VerticalContentAlignment = VerticalAlignment.Center,
-        //     Margin = new Thickness(5),
-        //     Padding = new Thickness(0,10,0,0)
-        // };
-        
-        // Create the button with the calculated dimensions.
-        var button = new Button
-        {
-            Content = grid,
-            Width = baseSize,
-            Height = buttonHeight,
-            MaxHeight = buttonHeight,
-            HorizontalContentAlignment = HorizontalAlignment.Center,
-            VerticalContentAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(5),
-            Padding = new Thickness(0, 10, 0, 0)
-        };
+        grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(imageAreaHeight) });
+        grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
         var image = new Image
         {
-            Height = ImageHeight,
-            HorizontalAlignment = HorizontalAlignment.Center
+            Stretch = System.Windows.Media.Stretch.Uniform,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
         };
-
-        await LoadImageAsync(image, button, imagePath);
-
+        
+        // Wrap the image in a Border that fixes the image area size.
+        var imageContainer = new Border
+        {
+            Width = baseSize,
+            Height = imageAreaHeight,
+            Child = image
+        };
+        Grid.SetRow(imageContainer, 0);
+        grid.Children.Add(imageContainer);
+        
+        await LoadImageAsync(image, null, imagePath);
+        
+        // If the game is a favorite, add a star overlay.
         if (isFavorite)
         {
-            var startImage = new Image
+            var starImage = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
                 Width = 22,
@@ -176,20 +142,33 @@ internal class GameButtonFactory(
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5)
             };
-            grid.Children.Add(startImage);
+            // Add starImage to grid (it will overlay the image container)
+            grid.Children.Add(starImage);
         }
-
-        button.PreviewMouseLeftButtonDown += (_, args) =>
+        
+        // Create a container for the text.
+        var textContainer = new Border
         {
-            if (args.OriginalSource is Image { Name: "videoIcon" or "infoIcon" })
-            {
-                args.Handled = true;
-            }
+            Child = textBlock,
+            Padding = new Thickness(5),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Center
         };
-
-        stackPanel.Children.Add(image);
-        stackPanel.Children.Add(textBlock);
-
+        Grid.SetRow(textContainer, 1);
+        grid.Children.Add(textContainer);
+        
+        // Create the button.
+        // Here, we fix the width but let the Height be determined by the content (image plus text).
+        var button = new Button
+        {
+            Content = grid,
+            Width = baseSize,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(5),
+            Padding = new Thickness(0, 10, 0, 0)
+        };
+        
         if (isDefaultImage)
         {
             button.Tag = "DefaultImage";

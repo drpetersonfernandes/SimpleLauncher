@@ -430,12 +430,12 @@ public static class MessageBoxLibrary
         }
     }
     
-    internal static void MethodErrorMessageBox()
+    internal static void ErrorMessageBox()
     {
-        var therewasanerrorwiththismethod2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththismethod") ?? "There was an error with this method.";
+        var therewasanerror2 = (string)Application.Current.TryFindResource("Therewasanerror") ?? "There was an error.";
         var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanerrorwiththismethod2}\n\n" +
+        MessageBox.Show($"{therewasanerror2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }

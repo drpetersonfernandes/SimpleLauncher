@@ -109,9 +109,10 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Load and Apply _settings
         ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
-        UpdateMenuCheckMarks(_settings.ThumbnailSize);
-        UpdateMenuCheckMarks2(_settings.GamesPerPage);
-        UpdateMenuCheckMarks3(_settings.ShowGames);
+        UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
+        UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
+        UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
+        UpdateShowGamesCheckMarks(_settings.ShowGames);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
         
@@ -393,7 +394,7 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.MethodErrorMessageBox();
+            MessageBoxLibrary.ErrorMessageBox();
         }
     }
     
@@ -969,7 +970,7 @@ public partial class MainWindow : INotifyPropertyChanged
             _settings.ThumbnailSize = newSize;
             _settings.Save();
                     
-            UpdateMenuCheckMarks(newSize);
+            UpdateThumbnailSizeCheckMarks(newSize);
                     
             // Reload List of Games
             await LoadGameFilesAsync();
@@ -983,7 +984,35 @@ public partial class MainWindow : INotifyPropertyChanged
             await LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.MethodErrorMessageBox();
+            MessageBoxLibrary.ErrorMessageBox();
+        }
+    }
+    
+    private async void ButtonAspectRatio_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem clickedItem) return;
+            
+            var aspectRatio = clickedItem.Name;
+            _settings.ButtonAspectRatio = aspectRatio;
+            _settings.Save();
+
+            UpdateButtonAspectRatioCheckMarks(aspectRatio);
+                    
+            // Reload List of Games
+            await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var errorMessage = $"Error in method ButtonAspectRatio_Click.\n\n" +
+                               $"Exception type: {ex.GetType().Name}\n" +
+                               $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMessageBox();
         }
     }
         
@@ -997,7 +1026,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _settings.GamesPerPage = newPage; 
                     
         _settings.Save(); 
-        UpdateMenuCheckMarks2(newPage);
+        UpdateNumberOfGamesPerPageCheckMarks(newPage);
                     
         SaveApplicationSettings();
         MainWindow_Restart();
@@ -1442,7 +1471,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
         
-    private void UpdateMenuCheckMarks(int selectedSize)
+    private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
         Size100.IsChecked = (selectedSize == 100);
         Size150.IsChecked = (selectedSize == 150);
@@ -1457,7 +1486,7 @@ public partial class MainWindow : INotifyPropertyChanged
         Size600.IsChecked = (selectedSize == 600);
     }
         
-    private void UpdateMenuCheckMarks2(int selectedSize)
+    private void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
     {
         Page100.IsChecked = (selectedSize == 100);
         Page200.IsChecked = (selectedSize == 200);
@@ -1467,11 +1496,18 @@ public partial class MainWindow : INotifyPropertyChanged
         Page1000.IsChecked = (selectedSize == 1000);
     }
         
-    private void UpdateMenuCheckMarks3(string selectedValue)
+    private void UpdateShowGamesCheckMarks(string selectedValue)
     {
         ShowAll.IsChecked = (selectedValue == "ShowAll");
         ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
         ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
+    }
+    
+    private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
+    {
+        Square.IsChecked = (selectedValue == "Square");
+        Wider.IsChecked = (selectedValue == "Wider");
+        Taller.IsChecked = (selectedValue == "Taller");
     }
         
     private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)

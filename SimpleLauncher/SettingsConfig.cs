@@ -39,7 +39,7 @@ public class SettingsConfig
     public string Language { get; set; }
     public float DeadZoneX { get; private set; }
     public float DeadZoneY { get; private set; }
-    public string ButtonAspectRatio { get; private set; }
+    public string ButtonAspectRatio { get; set; }
 
     // List to hold multiple SystemPlayTime instances
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
