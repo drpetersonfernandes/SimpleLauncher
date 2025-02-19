@@ -42,6 +42,13 @@ public class CacheManager
     /// </summary>
     public async Task<List<string>> LoadSystemFilesAsync(string systemName, string systemFolderPath, List<string> fileExtensions, int gameCount)
     {
+        if (systemFolderPath == null || fileExtensions == null || gameCount == 0)
+        {
+            // Ignore
+            // Return an empty list
+            return [];
+        }
+        
         var cacheFilePath = GetCacheFilePath(systemName);
 
         // Check if cache exists

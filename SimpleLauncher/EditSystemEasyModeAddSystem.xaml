@@ -3,9 +3,9 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource AddNewSystem}"
-                      Width="650"
-                      Height="700"
-                      MinWidth="650"
+                      Width="900"
+                      Height="600"
+                      MinWidth="700"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

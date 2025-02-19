@@ -19,7 +19,7 @@ public static class SystemManager
         var verticalStackPanel = new StackPanel
         {
             Orientation = Orientation.Vertical,
-            Margin = new Thickness(10)
+            Margin = new Thickness(10,30,10,10)
         };
 
         var systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";

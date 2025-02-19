@@ -16,8 +16,8 @@ public class SystemPlayTime
 public class SettingsConfig
 {
     private readonly string _filePath;
-    private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
-    private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000];
+    private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+    private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 5000, 10000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "Taller"];
@@ -37,8 +37,8 @@ public class SettingsConfig
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
     public string Language { get; set; }
-    public float DeadZoneX { get; private set; }
-    public float DeadZoneY { get; private set; }
+    public float DeadZoneX { get; set; }
+    public float DeadZoneY { get; set; }
     public string ButtonAspectRatio { get; set; }
 
     // List to hold multiple SystemPlayTime instances

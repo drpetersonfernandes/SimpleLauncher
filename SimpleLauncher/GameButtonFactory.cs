@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -38,39 +37,31 @@ internal class GameButtonFactory(
         var isFavorite = favoritesManager.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                                 && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
+        // Determine the text to display:
+        // For MAME systems, use the description if available; otherwise, use the filename.
+        var displayText = fileNameWithoutExtension;
+
+        if (systemConfig.SystemIsMame)
+        {
+            var machine = machines.FirstOrDefault(
+                m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
+            {
+                displayText = machine.Description;
+            }
+        }
+
         var textBlock = new TextBlock
         {
-            Text = fileNameWithoutExtension,
+            Text = displayText,
             HorizontalAlignment = HorizontalAlignment.Center,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeights.Bold,
             TextTrimming = TextTrimming.CharacterEllipsis,
             FontSize = 13,
-            ToolTip = fileNameWithoutExtension,
+            ToolTip = displayText,
             TextWrapping = TextWrapping.Wrap
         };
-
-        // If there is a description (for MAME)
-        if (systemConfig.SystemIsMame)
-        {
-            var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-            if (machine != null)
-            {
-                var descriptionTextBlock = new TextBlock
-                {
-                    Text = machine.Description,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    TextAlignment = TextAlignment.Center,
-                    FontWeight = FontWeights.Bold,
-                    TextTrimming = TextTrimming.CharacterEllipsis,
-                    FontSize = 13,
-                    ToolTip = machine.Description,
-                    TextWrapping = TextWrapping.Wrap
-                };
-                textBlock.Inlines.Add(new LineBreak());
-                textBlock.Inlines.Add(descriptionTextBlock);
-            }
-        }
         
         // Calculate dimensions based on the user-selected aspect ratio
         // Base size is determined from ImageHeight (plus some padding)
@@ -79,11 +70,10 @@ internal class GameButtonFactory(
         double aspectHeight;
         
         // Use the ButtonAspectRatio value from settings:
-        // "Square" => 1:1, "Wider" => 1.5:1, "Taller" => 1:1.5
         switch (settings.ButtonAspectRatio)
         {
             case "Wider":
-                aspectWidth = 2.7;
+                aspectWidth = 1.5;
                 aspectHeight = 1.0;
                 break;
             case "Taller":
@@ -91,7 +81,7 @@ internal class GameButtonFactory(
                 aspectHeight = 1.3;
                 break;
             default: // "Square" or any unrecognized value
-                aspectWidth = 1.6;
+                aspectWidth = 1.1;
                 aspectHeight = 1.0;
                 break;
         }
@@ -105,7 +95,7 @@ internal class GameButtonFactory(
         var grid = new Grid
         {
             Width = baseSize
-            // Notice: We are NOT setting a fixed Height for the grid,
+            // Notice: NOT setting a fixed Height for the grid,
             // so that the text row (Row 1) can expand.
         };
         grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(imageAreaHeight) });
@@ -157,8 +147,6 @@ internal class GameButtonFactory(
         Grid.SetRow(textContainer, 1);
         grid.Children.Add(textContainer);
         
-        // Create the button.
-        // Here, we fix the width but let the Height be determined by the content (image plus text).
         var button = new Button
         {
             Content = grid,

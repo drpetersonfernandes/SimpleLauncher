@@ -571,6 +571,10 @@
     <Resource Include="images\gamepad.png" />
     <None Remove="images\aspectratio.png" />
     <Resource Include="images\aspectratio.png" />
+    <None Remove="images\buttonsize.png" />
+    <Resource Include="images\buttonsize.png" />
+    <None Remove="images\setdeadzone.png" />
+    <Resource Include="images\setdeadzone.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

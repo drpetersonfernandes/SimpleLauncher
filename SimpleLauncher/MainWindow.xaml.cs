@@ -838,6 +838,15 @@ public partial class MainWindow : INotifyPropertyChanged
         EditLinks editLinksWindow = new(_settings);
         editLinksWindow.ShowDialog();
     }
+    
+    private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
+    {
+        SaveApplicationSettings();
+                
+        SetGamepadDeadZone setGamepadDeadZoneWindow = new(_settings);
+        setGamepadDeadZoneWindow.ShowDialog();
+    }
+    
     private void BugReport_Click(object sender, RoutedEventArgs e)
     {
         BugReport bugReportWindow = new();
@@ -957,7 +966,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private async void ThumbnailSize_Click(object sender, RoutedEventArgs e)
+    private async void ButtonSize_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -978,7 +987,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in method ThumbnailSize_Click.\n\n" +
+            var errorMessage = $"Error in method ButtonSize_Click.\n\n" +
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
@@ -1484,6 +1493,10 @@ public partial class MainWindow : INotifyPropertyChanged
         Size500.IsChecked = (selectedSize == 500);
         Size550.IsChecked = (selectedSize == 550);
         Size600.IsChecked = (selectedSize == 600);
+        Size650.IsChecked = (selectedSize == 650);
+        Size700.IsChecked = (selectedSize == 700);
+        Size750.IsChecked = (selectedSize == 750);
+        Size800.IsChecked = (selectedSize == 800);
     }
         
     private void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
@@ -1494,6 +1507,8 @@ public partial class MainWindow : INotifyPropertyChanged
         Page400.IsChecked = (selectedSize == 400);
         Page500.IsChecked = (selectedSize == 500);
         Page1000.IsChecked = (selectedSize == 1000);
+        Page5000.IsChecked = (selectedSize == 5000);
+        Page10000.IsChecked = (selectedSize == 10000);
     }
         
     private void UpdateShowGamesCheckMarks(string selectedValue)

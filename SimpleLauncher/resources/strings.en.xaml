@@ -518,5 +518,17 @@
     <system:String x:Key="Square">Square</system:String>
     <system:String x:Key="Wider">Wider</system:String>
     <system:String x:Key="Taller">Taller</system:String>
+    <system:String x:Key="SetButtonSize">Set Button Size</system:String>
+    <system:String x:Key="650pixels">650 pixels</system:String>
+    <system:String x:Key="700pixels">700 pixels</system:String>
+    <system:String x:Key="750pixels">750 pixels</system:String>
+    <system:String x:Key="800pixels">800 pixels</system:String>
+    <system:String x:Key="5000games">5000 games</system:String>
+    <system:String x:Key="10000games">10000 games</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Set Gamepad DeadZone</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
+    <system:String x:Key="DeadZoneX">DeadZone X</system:String>
+    <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
+    <system:String x:Key="SaveDeadZone">Save</system:String>
      
 </ResourceDictionary>
