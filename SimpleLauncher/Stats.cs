@@ -97,23 +97,22 @@ public static class Stats
             // Build the payload depending on the call type.
             object requestData = callType == "emulator"
                 ? new { callType, emulatorName }
-                : new { callType };  // For a general usage call, we simply send the callType.
-                
+                : new { callType }; // For a general usage call, we simply send the callType.
+
             var json = JsonSerializer.Serialize(requestData);
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Send the POST request.
-            HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, jsonContent);
+            var response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode) return true; // Success.
-            
+
             // Notify the developer if the API responds with an error.
             var errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
                                $"CallType: {callType}" +
                                (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
             return false;
-
         }
         catch (HttpRequestException ex)
         {

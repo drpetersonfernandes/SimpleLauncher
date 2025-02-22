@@ -42,7 +42,7 @@ public partial class MainWindow
             CancelButton.Visibility = Visibility.Visible;
             ProgressBar.Maximum = files.Length;
 
-            for (int i = 0; i < files.Length; i++)
+            for (var i = 0; i < files.Length; i++)
             {
                 if (_cts.Token.IsCancellationRequested)
                 {
@@ -59,7 +59,7 @@ public partial class MainWindow
                 }
 
                 AppendLog($"[{i + 1}/{files.Length}] Compressing: {inputFile}");
-                bool success = await CompressFileAsync(sevenZipPath, inputFile, outputFile);
+                var success = await CompressFileAsync(sevenZipPath, inputFile, outputFile);
 
                 if (success)
                 {
@@ -122,7 +122,7 @@ public partial class MainWindow
 
     private void AppendLog(string message)
     {
-        string timestampedMessage = $"[{DateTime.Now}] {message}";
+        var timestampedMessage = $"[{DateTime.Now}] {message}";
 
         Console.WriteLine(timestampedMessage);
 
@@ -144,8 +144,8 @@ public partial class MainWindow
         {
             AppendLog("Starting batch compression process...");
 
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sevenZipPath = Path.Combine(appDirectory, "7z.exe");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var sevenZipPath = Path.Combine(appDirectory, "7z.exe");
 
             if (!File.Exists(sevenZipPath))
             {
@@ -164,7 +164,7 @@ public partial class MainWindow
                 AppendLog("Input folder selection canceled.");
                 return;
             }
-            string inputFolder = inputFolderDialog.SelectedPath;
+            var inputFolder = inputFolderDialog.SelectedPath;
             AppendLog($"Input folder selected: {inputFolder}");
 
             var outputFolderDialog = new FolderBrowserDialog
@@ -176,12 +176,12 @@ public partial class MainWindow
                 AppendLog("Output folder selection canceled.");
                 return;
             }
-            string outputFolder = outputFolderDialog.SelectedPath;
+            var outputFolder = outputFolderDialog.SelectedPath;
             AppendLog($"Output folder selected: {outputFolder}");
 
             var result = MessageBox.Show("Do you want to delete successfully compressed files after compression?",
                 "Delete Files", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            bool deleteFiles = result == MessageBoxResult.Yes;
+            var deleteFiles = result == MessageBoxResult.Yes;
             AppendLog($"Delete files option: {deleteFiles}");
 
             await PerformBatchCompressionAsync(sevenZipPath, inputFolder, outputFolder, deleteFiles);

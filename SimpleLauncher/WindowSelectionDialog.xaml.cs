@@ -29,7 +29,7 @@ public partial class WindowSelectionDialog
         DialogResult = true; // Only works after ShowDialog() is called
         Close();
     }
-    
+
     public class WindowItem
     {
         public string Title { get; set; }

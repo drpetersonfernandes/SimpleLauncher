@@ -12,7 +12,7 @@ public partial class BugReport
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
-        
+
     public BugReport()
     {
         InitializeComponent();
@@ -20,9 +20,9 @@ public partial class BugReport
         DataContext = this;
 
         // Load the API key
-        LoadConfiguration(); 
+        LoadConfiguration();
     }
-        
+
     private static void LoadConfiguration()
     {
         const string configFile = "appsettings.json";
@@ -37,7 +37,7 @@ public partial class BugReport
             const string formattedException = "File 'appsettings.json' is missing.";
             Exception exception = new(formattedException);
             LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
-    
+
             // Notify user
             MessageBoxLibrary.RequiredFileMissingMessageBox();
         }
@@ -99,7 +99,7 @@ public partial class BugReport
 
         // Set the API Key from the loaded configuration
         HttpClient.DefaultRequestHeaders.Remove("X-API-KEY");
-        
+
         if (!string.IsNullOrEmpty(ApiKey))
         {
             HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
@@ -126,7 +126,7 @@ public partial class BugReport
                 NameTextBox.Clear();
                 EmailTextBox.Clear();
                 BugReportTextBox.Clear();
-                
+
                 // Notify user
                 MessageBoxLibrary.BugReportSuccessMessageBox();
             }
@@ -136,7 +136,7 @@ public partial class BugReport
                 const string errorMessage = "An error occurred while sending the bug report.";
                 var exception = new Exception(errorMessage);
                 await LogErrors.LogErrorAsync(exception, errorMessage);
-                
+
                 // Notify user
                 MessageBoxLibrary.BugReportSendErrorMessageBox();
             }
@@ -152,7 +152,7 @@ public partial class BugReport
             MessageBoxLibrary.BugReportSendErrorMessageBox();
         }
     }
-    
+
     private static bool CheckIfBugReportIsNullOrEmpty(string bugReportText)
     {
         if (string.IsNullOrWhiteSpace(bugReportText))

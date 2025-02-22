@@ -9,7 +9,7 @@ public static class ReinstallSimpleLauncher
 {
     public static void StartUpdaterAndShutdown()
     {
-        string updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
+        var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
 
         if (File.Exists(updaterPath))
         {

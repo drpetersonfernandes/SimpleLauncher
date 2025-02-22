@@ -11,12 +11,12 @@ public partial class EditLinks
     public EditLinks(SettingsConfig settingsConfig)
     {
         InitializeComponent();
-        
+
         // Load Config
         _settingsConfig = settingsConfig;
         LoadLinks();
-        
-        Closing += EditLinks_Closing; 
+
+        Closing += EditLinks_Closing;
     }
 
     private void LoadLinks()
@@ -36,7 +36,7 @@ public partial class EditLinks
             : EncodeForXml(InfoLinkTextBox.Text);
 
         _settingsConfig.Save();
-        
+
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
     }

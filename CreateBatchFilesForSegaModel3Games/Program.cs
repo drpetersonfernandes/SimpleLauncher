@@ -25,13 +25,13 @@ static class Program
         _logForm.LogMessage("Please select the Supermodel executable file (Supermodel.exe):");
         _logForm.LogMessage("");
 
-        string? supermodelExePath = SelectFile();
+        var supermodelExePath = SelectFile();
 
         if (string.IsNullOrEmpty(supermodelExePath))
         {
             _logForm.LogMessage("No file selected. Exiting application.");
             _logForm.LogMessage("");
-            
+
             MessageBox.Show("No file selected. Exiting application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
@@ -39,13 +39,13 @@ static class Program
         _logForm.LogMessage("Select the folder containing your Sega Model 3 ROM zip files:");
         _logForm.LogMessage("");
 
-        string? romFolder = SelectFolder();
+        var romFolder = SelectFolder();
 
         if (string.IsNullOrEmpty(romFolder))
         {
             _logForm.LogMessage("No folder selected. Exiting application.");
             _logForm.LogMessage("");
-            
+
             MessageBox.Show("No folder selected. Exiting application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
@@ -60,12 +60,13 @@ static class Program
         using var fbd = new FolderBrowserDialog();
         fbd.Description = "Please select the folder where your Sega Model 3 ROM zip files are located.";
 
-        DialogResult result = fbd.ShowDialog();
+        var result = fbd.ShowDialog();
 
         if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
         {
             return fbd.SelectedPath;
         }
+
         return null;
     }
 
@@ -81,18 +82,19 @@ static class Program
         {
             return ofd.FileName;
         }
+
         return null;
     }
 
     private static void CreateBatchFilesForModel3Games(string romFolder, string supermodelExePath)
     {
-        string[] romFiles = Directory.GetFiles(romFolder, "*.zip");
-        int filesCreated = 0;
+        var romFiles = Directory.GetFiles(romFolder, "*.zip");
+        var filesCreated = 0;
 
-        foreach (string romFilePath in romFiles)
+        foreach (var romFilePath in romFiles)
         {
-            string romFileName = Path.GetFileNameWithoutExtension(romFilePath); // Use this to name the batch file
-            string batchFilePath = Path.Combine(romFolder, romFileName + ".bat");
+            var romFileName = Path.GetFileNameWithoutExtension(romFilePath); // Use this to name the batch file
+            var batchFilePath = Path.Combine(romFolder, romFileName + ".bat");
 
             using (StreamWriter sw = new(batchFilePath))
             {
@@ -101,6 +103,7 @@ static class Program
 
                 _logForm?.LogMessage($"Batch file created: {batchFilePath}");
             }
+
             filesCreated++;
         }
 
@@ -109,13 +112,13 @@ static class Program
             _logForm?.LogMessage("");
             _logForm?.LogMessage("All batch files have been successfully created.");
             _logForm?.LogMessage("They are located in the same folder as your ROM zip files.");
-            
+
             MessageBox.Show("All batch files have been successfully created.\n\nThey are located in the same folder as your ROM zip files.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         else
         {
             _logForm?.LogMessage("No ROM zip files found. No batch files were created.");
-            
+
             MessageBox.Show("No ROM zip files found. No batch files were created.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }

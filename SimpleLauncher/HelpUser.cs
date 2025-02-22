@@ -124,7 +124,7 @@ public static partial class HelpUser
             { "Sony PlayStation Vita", SonyPlayStationVitaDetails },
             { "Sony PSP", SonyPspDetails }
         };
-        
+
         helpUserTextBlock.Inlines.Clear();
 
         // Check if a response exists for the given system name
@@ -140,7 +140,7 @@ public static partial class HelpUser
             helpUserTextBlock.Inlines.Add(new Run($"{noinformationavailableforsystem2} {systemName}"));
         }
     }
-    
+
     private static string AmstradCpcDetails() => GetSystemDetails("Amstrad CPC");
     private static string AmstradCpcgx4000Details() => GetSystemDetails("Amstrad CPC GX4000");
     private static string ArcadeDetails() => GetSystemDetails("Arcade");
@@ -217,16 +217,16 @@ public static partial class HelpUser
     private static string SonyPlayStation4Details() => GetSystemDetails("Sony PlayStation 4");
     private static string SonyPlayStationVitaDetails() => GetSystemDetails("Sony PlayStation Vita");
     private static string SonyPspDetails() => GetSystemDetails("Sony PSP");
-    
+
     private static string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
         var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        
+
         var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
     }
-    
+
     private static void SetTextWithMarkdown(TextBlock textBlock, string text)
     {
         textBlock.Inlines.Clear();
@@ -271,7 +271,7 @@ public static partial class HelpUser
         var remainingText = text.Substring(lastIndex);
         AddTextWithLinks(textBlock, remainingText, linkRegex);
     }
-    
+
     private static void AddTextWithLinks(TextBlock textBlock, string text, Regex linkRegex)
     {
         var parts = linkRegex.Split(text);

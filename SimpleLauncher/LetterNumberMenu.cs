@@ -22,7 +22,7 @@ public class LetterNumberMenu
         InitializeLetterButtons();
         InitializeFavoritesButton();
     }
-        
+
     private void InitializeNumberButton()
     {
         Button numButton = new() { Content = "#", Width = 30, Height = 30 };
@@ -48,7 +48,7 @@ public class LetterNumberMenu
             LetterPanel.Children.Add(button);
         }
     }
-        
+
     private void InitializeAllButton()
     {
         var allButton = new Button { Content = "All", Width = 50, Height = 30 };
@@ -59,7 +59,7 @@ public class LetterNumberMenu
         };
         LetterPanel.Children.Add(allButton);
     }
-        
+
     private void InitializeFavoritesButton()
     {
         var favoritesButton = new Button

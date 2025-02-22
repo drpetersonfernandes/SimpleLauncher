@@ -14,24 +14,24 @@ namespace CreateBatchFilesForPS3Games
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-        
+
             _logForm = new LogForm();
             _logForm.Show();
-            
+
             _logForm.LogMessage("Welcome to the Batch File Creator for PS3 Games.");
             _logForm.LogMessage("");
-            
+
             _logForm.LogMessage("This program creates batch files to launch your PS3 games.");
             _logForm.LogMessage("Please follow the instructions.");
             _logForm.LogMessage("");
-        
+
             MessageBox.Show("This program create batch files to launch your PS3 games.\n\n" +
                             "Please follow the instructions.",
                 "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        
+
             _logForm.LogMessage("Please select the root folder where your Game folders are located:");
             _logForm.LogMessage("");
-            string? selectedFolder = SelectFolder();
+            var selectedFolder = SelectFolder();
 
             if (string.IsNullOrEmpty(selectedFolder))
             {
@@ -42,7 +42,7 @@ namespace CreateBatchFilesForPS3Games
 
             _logForm.LogMessage("Please select the RPCS3 emulator binary file (rpcs3.exe):");
             _logForm.LogMessage("");
-            string? rpcs3BinaryPath = SelectFile();
+            var rpcs3BinaryPath = SelectFile();
 
             if (string.IsNullOrEmpty(rpcs3BinaryPath))
             {
@@ -53,14 +53,14 @@ namespace CreateBatchFilesForPS3Games
 
             CreateBatchFilesForFolders(selectedFolder, rpcs3BinaryPath);
 
-            string selectedFolder2= rpcs3BinaryPath.Replace("rpcs3.exe", "dev_hdd0\\game");
+            var selectedFolder2 = rpcs3BinaryPath.Replace("rpcs3.exe", "dev_hdd0\\game");
 
             CreateBatchFilesForFolders2(selectedFolder, selectedFolder2, rpcs3BinaryPath);
-            
+
             _logForm.LogMessage("All batch files have been successfully created.");
-            
+
             MessageBox.Show("All batch files have been successfully created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+
             Application.Run(_logForm); // Keeps the application running for the log form to remain open
         }
 
@@ -69,12 +69,13 @@ namespace CreateBatchFilesForPS3Games
             using var fbd = new FolderBrowserDialog();
             fbd.Description = "Please select the root folder where your Game folders are located.";
 
-            DialogResult result = fbd.ShowDialog();
+            var result = fbd.ShowDialog();
 
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 return fbd.SelectedPath;
             }
+
             return null;
         }
 
@@ -90,21 +91,22 @@ namespace CreateBatchFilesForPS3Games
             {
                 return ofd.FileName;
             }
+
             return null;
         }
 
         private static void CreateBatchFilesForFolders(string selectedFolder, string rpcs3BinaryPath)
         {
-            string[] subdirectoryEntries = Directory.GetDirectories(selectedFolder);
-            int filesCreated = 0;
+            var subdirectoryEntries = Directory.GetDirectories(selectedFolder);
+            var filesCreated = 0;
 
-            foreach (string subdirectory in subdirectoryEntries)
+            foreach (var subdirectory in subdirectoryEntries)
             {
-                string ebootPath = Path.Combine(subdirectory, "PS3_GAME\\USRDIR\\EBOOT.BIN");
+                var ebootPath = Path.Combine(subdirectory, "PS3_GAME\\USRDIR\\EBOOT.BIN");
 
                 if (File.Exists(ebootPath))
                 {
-                    string title = GetTitle(subdirectory);
+                    var title = GetTitle(subdirectory);
                     string batchFileName;
 
                     // Use TITLE if available, otherwise use TITLE_ID, and if neither, use the folder name
@@ -112,20 +114,20 @@ namespace CreateBatchFilesForPS3Games
                         batchFileName = title;
                     else
                     {
-                        string titleId = GetId(subdirectory); // Fallback to TITLE_ID if TITLE is not available
+                        var titleId = GetId(subdirectory); // Fallback to TITLE_ID if TITLE is not available
                         batchFileName = !string.IsNullOrEmpty(titleId) ? titleId : Path.GetFileName(subdirectory);
                     }
 
                     // Sanitize the batch file name
                     batchFileName = SanitizeFileName(batchFileName);
-                    string batchFilePath = Path.Combine(selectedFolder, batchFileName + ".bat");
+                    var batchFilePath = Path.Combine(selectedFolder, batchFileName + ".bat");
 
                     using (StreamWriter sw = new(batchFilePath))
                     {
                         sw.WriteLine($"\"{rpcs3BinaryPath}\" --no-gui \"{ebootPath}\"");
                         _logForm?.LogMessage($"Batch file created: {batchFilePath}");
-
                     }
+
                     filesCreated++;
                 }
                 else
@@ -147,16 +149,16 @@ namespace CreateBatchFilesForPS3Games
 
         private static void CreateBatchFilesForFolders2(string selectedFolder, string selectedFolder2, string rpcs3BinaryPath)
         {
-            string[] subdirectoryEntries = Directory.GetDirectories(selectedFolder2);
-            int filesCreated = 0;
+            var subdirectoryEntries = Directory.GetDirectories(selectedFolder2);
+            var filesCreated = 0;
 
-            foreach (string subdirectory in subdirectoryEntries)
+            foreach (var subdirectory in subdirectoryEntries)
             {
-                string ebootPath = Path.Combine(subdirectory, "USRDIR\\EBOOT.BIN");
+                var ebootPath = Path.Combine(subdirectory, "USRDIR\\EBOOT.BIN");
 
                 if (File.Exists(ebootPath))
                 {
-                    string title = GetTitle2(subdirectory);
+                    var title = GetTitle2(subdirectory);
                     string batchFileName;
 
                     // Use TITLE if available, otherwise use TITLE_ID, and if neither, use the folder name
@@ -164,19 +166,20 @@ namespace CreateBatchFilesForPS3Games
                         batchFileName = title;
                     else
                     {
-                        string titleId = GetId2(subdirectory); // Fallback to TITLE_ID if TITLE is not available
+                        var titleId = GetId2(subdirectory); // Fallback to TITLE_ID if TITLE is not available
                         batchFileName = !string.IsNullOrEmpty(titleId) ? titleId : Path.GetFileName(subdirectory);
                     }
 
                     // Sanitize the batch file name
                     batchFileName = SanitizeFileName(batchFileName);
-                    string batchFilePath = Path.Combine(selectedFolder, batchFileName + ".bat");
+                    var batchFilePath = Path.Combine(selectedFolder, batchFileName + ".bat");
 
                     using (StreamWriter sw = new(batchFilePath))
                     {
                         sw.WriteLine($"\"{rpcs3BinaryPath}\" --no-gui \"{ebootPath}\"");
                         _logForm?.LogMessage($"Batch file created: {batchFilePath}");
                     }
+
                     filesCreated++;
                 }
                 else
@@ -198,10 +201,10 @@ namespace CreateBatchFilesForPS3Games
 
         private static string GetId(string folderPath)
         {
-            string sfoFilePath = Path.Combine(folderPath, "PS3_GAME\\PARAM.SFO");
+            var sfoFilePath = Path.Combine(folderPath, "PS3_GAME\\PARAM.SFO");
 
             var sfoData = ReadSfo(sfoFilePath);
-            if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out string? value))
+            if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out var value))
                 return "";
 
             return value.ToUpper();
@@ -209,10 +212,10 @@ namespace CreateBatchFilesForPS3Games
 
         private static string GetId2(string folderPath)
         {
-            string sfoFilePath = Path.Combine(folderPath, "PARAM.SFO");
+            var sfoFilePath = Path.Combine(folderPath, "PARAM.SFO");
 
             var sfoData = ReadSfo(sfoFilePath);
-            if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out string? value))
+            if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out var value))
                 return "";
 
             return value.ToUpper();
@@ -220,10 +223,10 @@ namespace CreateBatchFilesForPS3Games
 
         private static string GetTitle(string folderPath)
         {
-            string sfoFilePath = Path.Combine(folderPath, "PS3_GAME\\PARAM.SFO");
+            var sfoFilePath = Path.Combine(folderPath, "PS3_GAME\\PARAM.SFO");
 
             var sfoData = ReadSfo(sfoFilePath);
-            if (sfoData == null || !sfoData.TryGetValue("TITLE", out string? value))
+            if (sfoData == null || !sfoData.TryGetValue("TITLE", out var value))
                 return "";
 
             return value;
@@ -231,10 +234,10 @@ namespace CreateBatchFilesForPS3Games
 
         private static string GetTitle2(string folderPath)
         {
-            string sfoFilePath = Path.Combine(folderPath, "PARAM.SFO");
+            var sfoFilePath = Path.Combine(folderPath, "PARAM.SFO");
 
             var sfoData = ReadSfo(sfoFilePath);
-            if (sfoData == null || !sfoData.TryGetValue("TITLE", out string? value))
+            if (sfoData == null || !sfoData.TryGetValue("TITLE", out var value))
                 return "";
 
             return value;
@@ -256,7 +259,7 @@ namespace CreateBatchFilesForPS3Games
 
             // Split the filename into words
             var words = filename.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < words.Length; i++)
+            for (var i = 0; i < words.Length; i++)
             {
                 // Convert Roman numerals to uppercase
                 if (IsRomanNumeral(words[i]))
@@ -301,7 +304,7 @@ namespace CreateBatchFilesForPS3Games
 
             try
             {
-                GCHandle handle = GCHandle.Alloc(sfo, GCHandleType.Pinned);
+                var handle = GCHandle.Alloc(sfo, GCHandleType.Pinned);
 #pragma warning disable CS8605 // Unboxing a possibly null value.
                 sfoHeader = (SfoHeader)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoHeader));
 #pragma warning restore CS8605 // Unboxing a possibly null value.
@@ -324,7 +327,7 @@ namespace CreateBatchFilesForPS3Games
                 SfoTableEntry sfoTableEntry;
                 try
                 {
-                    GCHandle handle = GCHandle.Alloc(sfoEntry, GCHandleType.Pinned);
+                    var handle = GCHandle.Alloc(sfoEntry, GCHandleType.Pinned);
 #pragma warning disable CS8605 // Unboxing a possibly null value.
                     sfoTableEntry = (SfoTableEntry)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoTableEntry));
 #pragma warning restore CS8605 // Unboxing a possibly null value.
@@ -352,6 +355,7 @@ namespace CreateBatchFilesForPS3Games
                         val = BitConverter.ToUInt32(sfo, (int)entryValueOffset).ToString();
                         break;
                 }
+
                 result.TryAdd(keyBytes, val);
             }
 
@@ -361,37 +365,36 @@ namespace CreateBatchFilesForPS3Games
         [StructLayout(LayoutKind.Explicit)]
         private struct SfoHeader
         {
-            [FieldOffset(0)]
-            public uint magic;
-            [FieldOffset(4)]
-            public uint version;
-            [FieldOffset(8)]
-            public uint key_table_start;
-            [FieldOffset(12)]
-            public uint data_table_start;
-            [FieldOffset(16)]
-            public uint tables_entries;
+            [FieldOffset(0)] public uint magic;
+
+            [FieldOffset(4)] public uint version;
+
+            [FieldOffset(8)] public uint key_table_start;
+
+            [FieldOffset(12)] public uint data_table_start;
+
+            [FieldOffset(16)] public uint tables_entries;
         }
 
         [StructLayout(LayoutKind.Explicit)]
         private struct SfoTableEntry
         {
-            [FieldOffset(0)]
-            public ushort key_offset;
-            [FieldOffset(2)]
-            public ushort data_fmt; // 0x0004 utf8-S (non-null string), 0x0204 utf8 (null string), 0x0404 uint32
-            [FieldOffset(4)]
-            public uint data_len;
-            [FieldOffset(8)]
-            public uint data_max_len;
-            [FieldOffset(12)]
-            public uint data_offset;
+            [FieldOffset(0)] public ushort key_offset;
+
+            [FieldOffset(2)] public ushort data_fmt; // 0x0004 utf8-S (non-null string), 0x0204 utf8 (null string), 0x0404 uint32
+            [FieldOffset(4)] public uint data_len;
+
+            [FieldOffset(8)] public uint data_max_len;
+
+            [FieldOffset(12)] public uint data_offset;
         }
 
         [GeneratedRegex("(\\p{L})(\\p{N})")]
         private static partial Regex MyRegex();
+
         [GeneratedRegex("(\\p{N})(\\p{L})")]
         private static partial Regex MyRegex1();
+
         [GeneratedRegex(@"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase, "pt-BR")]
         private static partial Regex MyRegex2();
     }

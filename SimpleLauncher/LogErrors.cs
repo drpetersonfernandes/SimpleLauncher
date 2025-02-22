@@ -12,17 +12,17 @@ public static class LogErrors
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
-        
+
     static LogErrors()
     {
         LoadConfiguration();
     }
-        
+
     private static void LoadConfiguration()
     {
         var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
         if (!File.Exists(configFile)) return;
-        
+
         var config = JObject.Parse(File.ReadAllText(configFile));
         ApiKey = config[nameof(ApiKey)]?.ToString();
     }
@@ -34,15 +34,15 @@ public static class LogErrors
         var userLogPath = Path.Combine(baseDirectory, "error_user.log");
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
         version ??= "Unknown";
-            
+
         // Gather additional environment info
         var osVersion = RuntimeInformation.OSDescription;
         var architecture = RuntimeInformation.OSArchitecture.ToString();
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
         var windowsVersion = GetWindowsVersion();
-            
+
         // Write error Message
-        var errorMessage = 
+        var errorMessage =
             $"Date: {DateTime.Now}\n" +
             $"Simple Launcher Version: {version}\n" +
             $"OS Version: {osVersion}\n" +
@@ -83,7 +83,7 @@ public static class LogErrors
             // Ignore any exceptions raised during logging to avoid interrupting the main flow
         }
     }
-        
+
     private static async Task<bool> SendLogToApiAsync(string logContent)
     {
         if (string.IsNullOrEmpty(ApiKey))
@@ -91,7 +91,7 @@ public static class LogErrors
             // Log or handle the missing API key appropriately
             return false;
         }
-            
+
         // Prepare the content to be sent via HTTP POST.
         var formData = new MultipartFormDataContent
         {
@@ -109,7 +109,7 @@ public static class LogErrors
 
         try
         {
-            HttpResponseMessage response = await HttpClient.SendAsync(request);
+            var response = await HttpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
         catch (Exception)
@@ -117,7 +117,7 @@ public static class LogErrors
             return false;
         }
     }
-        
+
     private static string GetWindowsVersion()
     {
         var version = Environment.OSVersion.Version;

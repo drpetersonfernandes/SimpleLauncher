@@ -40,7 +40,7 @@ public class HelpUserConfig
                 // Notify developer
                 const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 if (MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox()) return;
 
@@ -79,7 +79,7 @@ public class HelpUserConfig
                 const string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
                 var ex = new Exception(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
             }
@@ -89,12 +89,12 @@ public class HelpUserConfig
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
         }
     }
-    
+
     private static string NormalizeText(string text)
     {
         if (string.IsNullOrEmpty(text)) return string.Empty;
@@ -103,7 +103,7 @@ public class HelpUserConfig
         var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
         return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
     }
-    
+
     public class SystemHelper
     {
         public string SystemName { get; init; }

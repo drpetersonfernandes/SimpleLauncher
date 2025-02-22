@@ -9,6 +9,7 @@ namespace Updater;
 public partial class UpdateForm : Form
 {
     private delegate void LogDelegate(string message);
+
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
     static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -17,15 +18,15 @@ public partial class UpdateForm : Form
     {
         InitializeComponent();
 
-        string applicationVersion = GetApplicationVersion();
+        var applicationVersion = GetApplicationVersion();
         Log($"Updater version: {applicationVersion}\n\n");
     }
 
     private static string GetApplicationVersion()
     {
         // Retrieve the version from the executing assembly
-        Version? version = Assembly.GetExecutingAssembly().GetName().Version;
-        
+        var version = Assembly.GetExecutingAssembly().GetName().Version;
+
         // Check if the version is null, and format it as needed
         return version != null ? version.ToString() : "Version not available";
     }
@@ -50,7 +51,7 @@ public partial class UpdateForm : Form
         if (string.IsNullOrEmpty(AppDirectory))
         {
             Log("Could not determine the application directory.");
-                
+
             RedirectToDownloadPage("Could not determine the application directory.\n\n" +
                                    "The automatic update wont work.\n\n" +
                                    "Would you like to update manually?");
@@ -85,7 +86,7 @@ public partial class UpdateForm : Form
             // Extract the ZIP file directly in memory
             Log("Extracting update files...");
             using var archive = new ZipArchive(updateFileStream);
-           
+
             // Files to exclude during extraction
             var ignoredFiles = new[]
             {
@@ -104,7 +105,7 @@ public partial class UpdateForm : Form
 
                 // Construct the destination path
                 var destinationPath = Path.Combine(AppDirectory, entry.FullName);
-                
+
                 // Ensure the destination directory exists
                 var destinationDirectory = Path.GetDirectoryName(destinationPath);
                 if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
@@ -117,7 +118,7 @@ public partial class UpdateForm : Form
 
                 Log($"Extracted: {entry.FullName}");
             }
-                
+
             // Notify the user of a successful update
             Log("Update installed successfully.");
             Log("The application will now restart.");
@@ -143,12 +144,12 @@ public partial class UpdateForm : Form
         catch (Exception ex)
         {
             Log($"Automatic update failed: {ex.Message}");
-    
+
             RedirectToDownloadPage("Automatic update failed.\n\n" +
                                    "Would you like to update manually?");
         }
     }
-        
+
     private async Task<MemoryStream> DownloadUpdateFileToMemoryAsync(string url)
     {
         using var httpClient = new HttpClient();
@@ -160,7 +161,7 @@ public partial class UpdateForm : Form
 
             RedirectToDownloadPage("Failed to download the update file.\n\n" +
                                    "Would you like to update manually?");
-                
+
             Close();
         }
 
@@ -169,13 +170,13 @@ public partial class UpdateForm : Form
         memoryStream.Position = 0; // Reset the stream position for reading
         return memoryStream;
     }
-        
+
     private void RedirectToDownloadPage(string message)
     {
         var result = MessageBox.Show(message, "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
         if (result == DialogResult.Yes)
         {
-            string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+            var downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
             Process.Start(new ProcessStartInfo
             {
                 FileName = downloadPageUrl,
@@ -201,22 +202,22 @@ public partial class UpdateForm : Form
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            using JsonDocument jsonDoc = JsonDocument.Parse(jsonResponse);
+            using var jsonDoc = JsonDocument.Parse(jsonResponse);
             var root = jsonDoc.RootElement;
 
             // Get the version from the "tag_name" field
-            string versionTag = root.TryGetProperty("tag_name", out JsonElement tagNameElement)
-                ? tagNameElement.GetString() ?? string.Empty  // Handle potential null here
+            var versionTag = root.TryGetProperty("tag_name", out var tagNameElement)
+                ? tagNameElement.GetString() ?? string.Empty // Handle potential null here
                 : string.Empty; // Default to empty if tag_name is not found
 
             // Initialize assetUrl to an empty string to avoid nullability issues
-            string assetUrl = string.Empty;
+            var assetUrl = string.Empty;
 
-            if (root.TryGetProperty("assets", out JsonElement assetsElement))
+            if (root.TryGetProperty("assets", out var assetsElement))
             {
                 foreach (var asset in assetsElement.EnumerateArray())
                 {
-                    if (asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement))
+                    if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
                     {
                         assetUrl = downloadUrlElement.GetString() ?? string.Empty; // Handle potential null here
                         break;
@@ -248,9 +249,10 @@ public partial class UpdateForm : Form
             Invoke(new LogDelegate(Log), message);
             return;
         }
+
         logTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
     }
-   
+
     private static Regex MyRegex() => new Regex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled);
 
     private static string NormalizeVersion(string version)

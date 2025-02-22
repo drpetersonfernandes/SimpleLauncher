@@ -26,7 +26,7 @@ public partial class GlobalSearch
     private readonly List<MameConfig> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
-    
+
     private readonly WrapPanel _fakeGameFileGrid = new();
     private readonly Button _fakeButton = new();
     private readonly ComboBox _mockSystemComboBox = new();
@@ -37,7 +37,7 @@ public partial class GlobalSearch
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Closed += GlobalSearch_Closed;
-        
+
         _systemConfigs = systemConfigs;
         _machines = machines;
         _mameLookup = mameLookup;
@@ -45,7 +45,7 @@ public partial class GlobalSearch
         _favoritesManager = favoritesManager;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
-        _mainWindow = mainWindow;        
+        _mainWindow = mainWindow;
     }
 
     private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -127,7 +127,7 @@ public partial class GlobalSearch
             {
                 files = files.Where(file =>
                 {
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
                     // First check: Does the filename itself match the search terms?
                     if (MatchesSearchQuery(fileNameWithoutExtension.ToLower(), searchTerms))
@@ -168,13 +168,13 @@ public partial class GlobalSearch
         // Score and order the results before returning.
         var scoredResults = ScoreResults(results, searchTerms);
         return scoredResults;
-        
+
         string GetMachineDescription(string fileNameWithoutExtension)
         {
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             return machine?.Description ?? string.Empty;
         }
-        
+
         string GetFullPath(string path)
         {
             if (path.StartsWith(@".\"))
@@ -185,7 +185,7 @@ public partial class GlobalSearch
             return Path.IsPathRooted(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
     }
-        
+
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -197,13 +197,13 @@ public partial class GlobalSearch
 
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var systemImageFolder = systemConfig.SystemImageFolder;
-        
+
         // Ensure the systemImageFolder considers both absolute and relative paths
         if (!Path.IsPathRooted(systemImageFolder))
         {
             if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
         }
-        
+
         var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -291,9 +291,9 @@ public partial class GlobalSearch
         {
             var systemConfig = _systemConfigs.FirstOrDefault(config =>
                 config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-                
+
             if (await CheckSystemName(systemName)) return;
-            
+
             if (await CheckEmulatorConfig(emulatorConfig)) return;
 
             if (await CheckSystemConfig2(systemConfig)) return;
@@ -711,7 +711,7 @@ public partial class GlobalSearch
                                                  $"Exception type: {ex.GetType().Name}\n" +
                                                  $"Exception details: {ex.Message}";
                         LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
+
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                     }
@@ -802,7 +802,7 @@ public partial class GlobalSearch
         // Empty results
         _searchResults = null;
     }
-    
+
     public class SearchResult
     {
         public string FileName { get; init; }
@@ -818,11 +818,11 @@ public partial class GlobalSearch
         public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
 
     }
-    
+
     private static async Task<bool> CheckSystemConfig2(SystemConfig systemConfig)
     {
         if (systemConfig != null) return false;
-       
+
         // Notify developer
         const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
                                           "systemConfig is null.";
@@ -831,14 +831,14 @@ public partial class GlobalSearch
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-                
+
         return true;
     }
-    
+
     private static bool CheckSystemConfig(SystemConfig systemConfig)
     {
         if (systemConfig != null) return false;
-        
+
         // Notify developer
         const string formattedException = "systemConfig is null.";
         Exception ex = new(formattedException);
@@ -853,7 +853,7 @@ public partial class GlobalSearch
     private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
     {
         if (emulatorConfig != null) return false;
-        
+
         // Notify developer
         const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
                                           "emulatorConfig is null.";
@@ -862,14 +862,14 @@ public partial class GlobalSearch
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-                
+
         return true;
     }
 
     private static async Task<bool> CheckSystemName(string systemName)
     {
         if (!string.IsNullOrEmpty(systemName)) return false;
-        
+
         // Notify developer
         const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
                                           "systemName is null or empty.";
@@ -878,14 +878,14 @@ public partial class GlobalSearch
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-                
+
         return true;
     }
-    
+
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)
     {
         if (!string.IsNullOrWhiteSpace(searchTerm)) return false;
-        
+
         // Notify user
         MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
 

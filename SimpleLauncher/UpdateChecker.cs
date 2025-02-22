@@ -67,7 +67,7 @@ public static partial class UpdateChecker
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
-            
+
             // Notify user
             // Ignore
         }
@@ -155,7 +155,7 @@ public static partial class UpdateChecker
             }
 
             if (result != MessageBoxResult.Yes) return;
-            
+
             var logWindow = new UpdateLogWindow();
             logWindow.Show();
             logWindow.Log("Starting update process...");
@@ -166,18 +166,18 @@ public static partial class UpdateChecker
             try
             {
                 var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    
+
                 logWindow.Log("Downloading update file...");
 
                 await Task.Run(async () =>
                 {
                     using var memoryStream = new MemoryStream();
-                        
+
                     // Download the update file to memory
                     await DownloadUpdateFileToMemory(assetUrl, memoryStream);
-                        
+
                     logWindow.Log("Extracting update file...");
-                        
+
                     // Files to be updated
                     var updaterFiles = Function;
 
@@ -187,7 +187,7 @@ public static partial class UpdateChecker
                     logWindow.Log("Update completed successfully.");
 
                     await Task.Delay(2000);
-                        
+
                     // Execute Updater
                     await ExecuteUpdater(logWindow);
                 });
@@ -218,7 +218,7 @@ public static partial class UpdateChecker
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
-            
+
             // Notify user
             // Ignore
         }
@@ -256,7 +256,7 @@ public static partial class UpdateChecker
             }
         }
     }
-    
+
     private static async Task ExecuteUpdater(UpdateLogWindow logWindow)
     {
         var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -267,7 +267,7 @@ public static partial class UpdateChecker
         {
             logWindow.Log("Updater.exe not found in the application directory.");
             logWindow.Log("Please reinstall 'Simple Launcher' manually to fix the issue.");
-    
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 // Notify user
@@ -280,7 +280,7 @@ public static partial class UpdateChecker
 
         logWindow.Log("Starting updater process...");
         await Task.Delay(2000);
-                        
+
         Process.Start(new ProcessStartInfo
         {
             FileName = updaterExePath,
@@ -297,14 +297,14 @@ public static partial class UpdateChecker
             {
                 window.Close();  // Close each window
             }
-                            
+
             GC.Collect(); // Force garbage collection
             GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
             Application.Current.Shutdown(); // Shutdown the application
             Process.GetCurrentProcess().Kill(); // Forcefully kill the process
         });
     }
-  
+
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
         var current = new Version(MyRegex1().Replace(currentVersion, ""));
@@ -312,7 +312,7 @@ public static partial class UpdateChecker
         var versionComparison = latest.CompareTo(current);
         return versionComparison > 0;
     }
-    
+
     private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
     {
         using var doc = JsonDocument.Parse(jsonResponse);
@@ -325,7 +325,7 @@ public static partial class UpdateChecker
             string assetUrl = null;
             foreach (var asset in assetsElement.EnumerateArray())
             {
-                if (!asset.TryGetProperty("browser_download_url", out JsonElement downloadUrlElement)) continue;
+                if (!asset.TryGetProperty("browser_download_url", out var downloadUrlElement)) continue;
                 assetUrl = downloadUrlElement.GetString();
                 break;
             }
@@ -344,9 +344,9 @@ public static partial class UpdateChecker
 
         return (null, null);
     }
-    
+
     private static Regex MyRegex() => MyRegex3();
-    
+
     private static string NormalizeVersion(string version)
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
@@ -360,7 +360,7 @@ public static partial class UpdateChecker
         // Remove any trailing dots (if any)
         return version.TrimEnd('.');
     }
-    
+
     private static void LogErrorAsync(string message)
     {
         Exception exception = new(message);

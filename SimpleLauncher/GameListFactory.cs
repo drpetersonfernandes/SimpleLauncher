@@ -30,7 +30,7 @@ public class GameListFactory(
         public string FilePath { get; init; }
         public ContextMenu ContextMenu { get; set; }
         private bool _isFavorite;
-            
+
         public bool IsFavorite
         {
             get => _isFavorite;
@@ -60,7 +60,7 @@ public class GameListFactory(
                 OnPropertyChanged(nameof(MachineDescription));
             }
         }
-            
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string name)
@@ -78,7 +78,7 @@ public class GameListFactory(
         var isFavorite = favoritesManager.FavoriteList
             .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                       f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            
+
         // Create the GameListViewItem with file details
         var gameListViewItem = new GameListViewItem
         {
@@ -96,7 +96,7 @@ public class GameListFactory(
     {
         var fileNameWithExtension = Path.GetFileName(filePath);
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-            
+
         var contextMenu = new ContextMenu();
 
         // Launch Game Context Menu
@@ -136,7 +136,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
         };
-            
+
         // Remove From Favorites Context Menu
         var removeFromFavoritesIcon = new Image
         {
@@ -193,7 +193,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, machines, settings);
         };
-            
+
         // Open History Context Menu
         var openHistoryIcon = new Image
         {
@@ -402,7 +402,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             RightClickContextMenu.OpenPcb(systemName, fileNameWithoutExtension);
         };
-            
+
         // Take Screenshot Context Menu
         var takeScreenshotIcon = new Image
         {
@@ -421,11 +421,11 @@ public class GameListFactory(
         {
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
-           
+
             _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, mainWindow);
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
-            
+
         // Delete Game Context Menu
         var deleteGameIcon = new Image
         {
@@ -439,11 +439,11 @@ public class GameListFactory(
             Header = deleteGame2,
             Icon = deleteGameIcon
         };
-        
+
         deleteGame.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            
+
             DoYouWanToDeleteMessageBox();
         };
 
@@ -468,7 +468,7 @@ public class GameListFactory(
 
         // Return
         return contextMenu;
-        
+
         void DoYouWanToDeleteMessageBox()
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
@@ -482,11 +482,11 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string formattedException = $"Error deleting the file.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
+                    var formattedException = $"Error deleting the file.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
+
                     // Notify user
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
@@ -498,12 +498,12 @@ public class GameListFactory(
     public void HandleSelectionChanged(GameListViewItem selectedItem)
     {
         if (selectedItem == null) return;
-        
+
         var filePath = selectedItem.FilePath;
         var selectedSystem = systemComboBox.SelectedItem as string;
         var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
         if (systemConfig == null) return;
-        
+
         // Get the preview image path
         var previewImagePath = GetPreviewImagePath(filePath, systemConfig);
 
@@ -528,7 +528,7 @@ public class GameListFactory(
             catch (Exception ex)
             {
                 mainWindow.PreviewImage.Source = null;
-                        
+
                 // Notify developer
                 var errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
                                    $"Exception type: {ex.GetType().Name}\n" +
@@ -550,13 +550,13 @@ public class GameListFactory(
     {
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         var imageFolder = systemConfig.SystemImageFolder;
-        
+
         // Be sure that SystemImageFolder path is absolute
         if (!Path.IsPathRooted(imageFolder))
         {
             if (imageFolder != null) imageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageFolder);
         }
-        
+
         imageFolder = !string.IsNullOrEmpty(imageFolder)
             ? imageFolder
             : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName);
@@ -566,7 +566,7 @@ public class GameListFactory(
         // Function to get the imagePath
         foreach (var extension in extensions)
         {
-            string imagePath = Path.Combine(imageFolder, $"{fileNameWithoutExtension}{extension}");
+            var imagePath = Path.Combine(imageFolder, $"{fileNameWithoutExtension}{extension}");
             if (File.Exists(imagePath))
             {
                 return imagePath;
@@ -583,22 +583,22 @@ public class GameListFactory(
 
         // If user-defined default image isn't found, fallback to the global default image
         var globalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
-        
+
         // Return empty if no image is found (not even a default image)
-        return File.Exists(globalDefaultImagePath) ? globalDefaultImagePath : string.Empty; 
+        return File.Exists(globalDefaultImagePath) ? globalDefaultImagePath : string.Empty;
     }
-        
+
     private string GetMachineDescription(string fileName)
     {
         var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
         return machine?.Description ?? string.Empty;
     }
-    
+
     public async Task HandleDoubleClick(GameListViewItem selectedItem)
     {
         if (selectedItem == null) return;
 
-        string selectedSystem = systemComboBox.SelectedItem as string;
+        var selectedSystem = systemComboBox.SelectedItem as string;
         var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
         if (systemConfig != null)

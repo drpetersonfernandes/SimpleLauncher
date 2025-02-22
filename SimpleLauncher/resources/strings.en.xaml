@@ -530,5 +530,7 @@
     <system:String x:Key="DeadZoneX">DeadZone X</system:String>
     <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
     <system:String x:Key="SaveDeadZone">Save</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">DeadZone values saved successfully.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">DeadZone values reverted to default values.</system:String>
      
 </ResourceDictionary>

@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource SetGamepadDeadZone}"
-                      Width="300"
+                      Width="280"
                       Height="250"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
@@ -17,7 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <!-- Explanation -->
@@ -37,30 +37,58 @@
             Grid.Row="1"
             Grid.Column="0"
             VerticalAlignment="Center"
+            HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneX}" />
-        <TextBox
+        <Slider
+            x:Name="DeadZoneXSlider"
             Margin="10"
-            x:Name="DeadZoneXTextBox"
-            Width="50"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="100"
+            Minimum="0"
+            Maximum="0.3"
+            SmallChange="0.01"
+            LargeChange="0.05"
+            TickFrequency="0.01"
+            HorizontalAlignment="Center"
+            IsSnapToTickEnabled="True" />
+        <TextBlock
+            Margin="10"
             Grid.Row="1"
             Grid.Column="2"
-            HorizontalAlignment="Left" />
-
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="{Binding ElementName=DeadZoneXSlider, Path=Value, StringFormat=F2}" />
+        
         <!-- DeadZoneY -->
         <Label
             Margin="10"
             Grid.Row="2"
             Grid.Column="0"
             VerticalAlignment="Center"
+            HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneY}" />
-        <TextBox
+        <Slider
+            x:Name="DeadZoneYSlider"
             Margin="10"
-            x:Name="DeadZoneYTextBox"
-            Width="50"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="100"
+            Minimum="0"
+            Maximum="0.3"
+            SmallChange="0.01"
+            LargeChange="0.05"
+            TickFrequency="0.01"
+            HorizontalAlignment="Center"
+            IsSnapToTickEnabled="True" />
+        <TextBlock
+            Margin="10"
             Grid.Row="2"
             Grid.Column="2"
-            HorizontalAlignment="Left"/>
-
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="{Binding ElementName=DeadZoneYSlider, Path=Value, StringFormat=F2}" />
+        
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

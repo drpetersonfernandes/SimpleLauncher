@@ -61,7 +61,7 @@ public partial class App
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
@@ -96,7 +96,7 @@ public partial class App
         var accentColor = _settings.AccentColor;
         ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
     }
-    
+
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
         ApplyTheme(baseTheme, accentColor);

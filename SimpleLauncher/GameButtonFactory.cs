@@ -62,13 +62,13 @@ internal class GameButtonFactory(
             ToolTip = displayText,
             TextWrapping = TextWrapping.Wrap
         };
-        
+
         // Calculate dimensions based on the user-selected aspect ratio
         // Base size is determined from ImageHeight (plus some padding)
         double baseSize = ImageHeight + 50;
         double aspectWidth;
         double aspectHeight;
-        
+
         // Use the ButtonAspectRatio value from settings:
         switch (settings.ButtonAspectRatio)
         {
@@ -85,7 +85,7 @@ internal class GameButtonFactory(
                 aspectHeight = 1.0;
                 break;
         }
-        
+
         // Calculate the height for the image area only based on the aspect ratio.
         var imageAreaHeight = baseSize * (aspectHeight / aspectWidth);
 
@@ -107,7 +107,7 @@ internal class GameButtonFactory(
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
-        
+
         // Wrap the image in a Border that fixes the image area size.
         var imageContainer = new Border
         {
@@ -117,9 +117,9 @@ internal class GameButtonFactory(
         };
         Grid.SetRow(imageContainer, 0);
         grid.Children.Add(imageContainer);
-        
+
         await LoadImageAsync(image, null, imagePath);
-        
+
         // If the game is a favorite, add a star overlay.
         if (isFavorite)
         {
@@ -135,7 +135,7 @@ internal class GameButtonFactory(
             // Add starImage to grid (it will overlay the image container)
             grid.Children.Add(starImage);
         }
-        
+
         // Create a container for the text.
         var textContainer = new Border
         {
@@ -146,7 +146,7 @@ internal class GameButtonFactory(
         };
         Grid.SetRow(textContainer, 1);
         grid.Children.Add(textContainer);
-        
+
         var button = new Button
         {
             Content = grid,
@@ -156,7 +156,7 @@ internal class GameButtonFactory(
             Margin = new Thickness(5),
             Padding = new Thickness(0, 10, 0, 0)
         };
-        
+
         if (isDefaultImage)
         {
             button.Tag = "DefaultImage";
@@ -167,7 +167,7 @@ internal class GameButtonFactory(
             PlayClick.PlayClickSound();
             await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         };
-        
+
         // Right click context menu
         return AddRightClickContextMenu();
 
@@ -212,7 +212,7 @@ internal class GameButtonFactory(
                 PlayClick.PlayClickSound();
                 RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
             };
-            
+
             // Remove From Favorites Context Menu
             var removeFromFavoritesIcon = new Image
             {
@@ -269,7 +269,7 @@ internal class GameButtonFactory(
                 PlayClick.PlayClickSound();
                 RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, machines, settings);
             };
-            
+
             // Open History Context Menu
             var openHistoryIcon = new Image
             {
@@ -478,7 +478,7 @@ internal class GameButtonFactory(
                 PlayClick.PlayClickSound();
                 RightClickContextMenu.OpenPcb(systemName, fileNameWithoutExtension);
             };
-            
+
             // Take Screenshot Context Menu
             var takeScreenshotIcon = new Image
             {
@@ -492,18 +492,18 @@ internal class GameButtonFactory(
                 Header = takeScreenshot2,
                 Icon = takeScreenshotIcon
             };
-        
+
             takeScreenshot.Click += async (_, _) =>
             {
                 PlayClick.PlayClickSound();
-            
+
                 // Notify user
                 MessageBoxLibrary.TakeScreenShotMessageBox();
-                
+
                 _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button, mainWindow);
                 await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
             };
-            
+
             // Delete Game Context Menu
             var deleteGameIcon = new Image
             {
@@ -520,7 +520,7 @@ internal class GameButtonFactory(
             deleteGame.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-            
+
                 DoYouWantToDeleteMessageBox();
             };
 
@@ -562,14 +562,14 @@ internal class GameButtonFactory(
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                                
+
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
             RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
         }
     }
-    
+
     private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
     {
         string baseImageDirectory;
@@ -597,7 +597,7 @@ internal class GameButtonFactory(
 
         // Try to find default.png in the SystemImageFolder if specified, otherwise use the global default
         var defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
-        
+
         // Fall back to the global default image path if no specific or system default image exists
         return File.Exists(defaultImagePath) ? defaultImagePath :
             Path.Combine(_baseDirectory, "images", DefaultImagePath);
@@ -606,7 +606,7 @@ internal class GameButtonFactory(
     public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
     {
         var imageFileName = Path.GetFileName(imagePath);
-        
+
         ArgumentNullException.ThrowIfNull(imageControl);
 
         if (string.IsNullOrWhiteSpace(imagePath))
@@ -618,7 +618,7 @@ internal class GameButtonFactory(
             await Task.Run(() =>
             {
                 // Read the image into a memory stream to prevent file locks
-                byte[] imageData = File.ReadAllBytes(imagePath);
+                var imageData = File.ReadAllBytes(imagePath);
 
                 using var ms = new MemoryStream(imageData);
                 var bi = new BitmapImage();
@@ -638,7 +638,7 @@ internal class GameButtonFactory(
             // If an exception occurs (e.g., the image is corrupt), will load the default image
             // This uses the dispatcher to ensure UI elements are accessed on the UI thread
             imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, DefaultImagePath));
-            
+
             // Notify user
             MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
         }
@@ -658,8 +658,8 @@ internal class GameButtonFactory(
         {
             try
             {
-                byte[] imageData = File.ReadAllBytes(fallbackImagePath);
-                using MemoryStream ms = new MemoryStream(imageData);
+                var imageData = File.ReadAllBytes(fallbackImagePath);
+                using var ms = new MemoryStream(imageData);
                 var bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
                 bitmapImage.StreamSource = ms;

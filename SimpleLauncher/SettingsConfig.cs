@@ -45,7 +45,10 @@ public class SettingsConfig
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
     private const string DefaultSettingsFilePath = "settings.xml";
-    public SettingsConfig() : this(DefaultSettingsFilePath) { }
+
+    public SettingsConfig() : this(DefaultSettingsFilePath)
+    {
+    }
 
     private SettingsConfig(string filePath)
     {
@@ -87,12 +90,14 @@ public class SettingsConfig
             {
                 deadZoneX = 0.05f; // default value
             }
+
             DeadZoneX = deadZoneX;
             // Parse DeadZoneY value from string to float
             if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
             {
                 deadZoneY = 0.02f; // default value
             }
+
             DeadZoneY = deadZoneY;
 
             // Load multiple SystemPlayTime elements
@@ -134,6 +139,7 @@ public class SettingsConfig
         {
             return parsed;
         }
+
         return 200;
     }
 
@@ -143,6 +149,7 @@ public class SettingsConfig
         {
             return parsed;
         }
+
         return 100;
     }
 
@@ -150,12 +157,12 @@ public class SettingsConfig
     {
         return _validShowGames.Contains(value) ? value : "ShowAll";
     }
-        
+
     private string ValidateViewMode(string value)
     {
         return _validViewModes.Contains(value) ? value : "GridView";
     }
-    
+
     private string ValidateButtonAspectRatio(string value)
     {
         return _validButtonAspectRatio.Contains(value) ? value : "Square";
@@ -228,7 +235,7 @@ public class SettingsConfig
             systemPlayTimesElement
         ).Save(_filePath);
     }
-        
+
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
     {
         if (string.IsNullOrWhiteSpace(systemName))
@@ -237,7 +244,7 @@ public class SettingsConfig
             const string contextMessage = "The systemName is null or empty.";
             Exception ex = new();
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
             return;
         }
 
@@ -247,10 +254,10 @@ public class SettingsConfig
             const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             Exception ex = new();
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
             return;
         }
-            
+
         // Find the existing System PlayTime or create a new one
         var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
 

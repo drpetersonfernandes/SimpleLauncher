@@ -44,7 +44,7 @@ public partial class MainWindow
             CancelButton.Visibility = Visibility.Visible;
             ProgressBar.Maximum = isoFiles.Length;
 
-            for (int i = 0; i < isoFiles.Length; i++)
+            for (var i = 0; i < isoFiles.Length; i++)
             {
                 if (_cts.Token.IsCancellationRequested)
                 {
@@ -55,13 +55,13 @@ public partial class MainWindow
                 var isoFile = isoFiles[i];
                 AppendLog($"[{i + 1}/{isoFiles.Length}] Converting: {isoFile}");
 
-                bool success = await ConvertToXisoAsync(extractXisoPath, isoFile);
+                var success = await ConvertToXisoAsync(extractXisoPath, isoFile);
 
                 if (success)
                 {
-                    string convertedFileName = Path.GetFileName(isoFile); // Retains the original name with .iso extension
-                    string convertedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, convertedFileName);
-                    string destinationPath = Path.Combine(outputFolder, convertedFileName);
+                    var convertedFileName = Path.GetFileName(isoFile); // Retains the original name with .iso extension
+                    var convertedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, convertedFileName);
+                    var destinationPath = Path.Combine(outputFolder, convertedFileName);
 
                     // Move the converted file to the output folder asynchronously
                     if (File.Exists(convertedFilePath))
@@ -82,7 +82,7 @@ public partial class MainWindow
                     }
 
                     // Handle the .old file based on deleteFiles parameter asynchronously
-                    string renamedFilePath = isoFile + ".old";
+                    var renamedFilePath = isoFile + ".old";
                     if (File.Exists(renamedFilePath))
                     {
                         if (deleteFiles)
@@ -154,15 +154,14 @@ public partial class MainWindow
                 };
 
                 process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
                 AppendLog($"Process output: {output}");
                 AppendLog(process.ExitCode != 0 ? $"Process error: {error}" : "Conversion successful.");
-                
+
                 return process.ExitCode == 0;
-                
             }
             catch (Exception ex)
             {
@@ -174,8 +173,8 @@ public partial class MainWindow
 
     private void AppendLog(string message)
     {
-        string timestamp = DateTime.Now.ToString("HH:mm:ss");
-        string logMessage = $"[{timestamp}] {message}";
+        var timestamp = DateTime.Now.ToString("HH:mm:ss");
+        var logMessage = $"[{timestamp}] {message}";
 
         // Log to Console
         Console.WriteLine(logMessage);
@@ -200,8 +199,8 @@ public partial class MainWindow
         {
             AppendLog("Start button clicked. Initializing conversion process...");
 
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string extractXisoPath = Path.Combine(appDirectory, "extract-xiso.exe");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var extractXisoPath = Path.Combine(appDirectory, "extract-xiso.exe");
             if (!File.Exists(extractXisoPath))
             {
                 AppendLog("Error: extract-xiso.exe not found in the application folder.");

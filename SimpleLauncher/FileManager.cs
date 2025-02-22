@@ -9,7 +9,7 @@ namespace SimpleLauncher;
 public abstract class FileManager
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-    
+
     public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
         return await Task.Run(async () =>
@@ -54,7 +54,7 @@ public abstract class FileManager
             return files.Where(file => Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
     }
-    
+
     public static int CountFiles(string folderPath, List<string> fileExtensions)
     {
         if (!Directory.Exists(folderPath))
@@ -73,7 +73,7 @@ public abstract class FileManager
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);
 

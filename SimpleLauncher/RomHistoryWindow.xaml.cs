@@ -19,12 +19,12 @@ public partial class RomHistoryWindow
     public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemConfig systemConfig)
     {
         InitializeComponent();
-     
+
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
         _systemConfig = systemConfig;
-        
+
         RomNameTextBox.Text = _romName;
         RomDescriptionTextBox.Text = _searchTerm;
         RomDescriptionTextBox.Visibility = Visibility.Collapsed;
@@ -45,7 +45,7 @@ public partial class RomHistoryWindow
                 const string contextMessage = "'history.xml' is missing.";
                 var ex = new Exception(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
                 HistoryTextBlock.Text = nohistoryxmlfilefound2;
@@ -119,7 +119,7 @@ public partial class RomHistoryWindow
 
         var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
         HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;
-        
+
         // Notify user
         DidNotFindRomHistoryMessageBox();
         void DidNotFindRomHistoryMessageBox()
@@ -148,7 +148,7 @@ public partial class RomHistoryWindow
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
         }

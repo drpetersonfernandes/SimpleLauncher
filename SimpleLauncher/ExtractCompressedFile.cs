@@ -22,13 +22,13 @@ public class ExtractCompressedFile
         {
             // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
-            
+
             return null;
         }
-            
+
         // Choose the correct 7z executable
         var sevenZipPath = Get7ZipExecutablePath();
-            
+
         var pleaseWaitExtraction = new PleaseWaitExtraction();
         pleaseWaitExtraction.Show();
 
@@ -44,10 +44,10 @@ public class ExtractCompressedFile
             var errorMessage = $"'Simple Launcher' could not create the temporary folder needed for extraction.\n\n" +
                                $"Temp Location: {tempDirectory}\n";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-            
+
             return null;
         }
 
@@ -77,7 +77,7 @@ public class ExtractCompressedFile
                 process.WaitForExit();
 
                 if (process.ExitCode == 0) return tempDirectory;
-                
+
                 // Notify developer
                 var errorMessage = $"Extraction of the compressed file failed.\n\n" +
                                    $"Exit code: {process.ExitCode}\n" +
@@ -136,10 +136,10 @@ public class ExtractCompressedFile
             var errorMessage = $"'Simple Launcher' could not create the temporary folder needed for extraction.\n\n" +
                                $"Temp folder: {tempDirectory}\n";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-            
+
             return null;
         }
 
@@ -163,7 +163,7 @@ public class ExtractCompressedFile
 
             return null;
         }
-            
+
         finally
         {
             pleaseWaitExtraction.Close();
@@ -205,7 +205,7 @@ public class ExtractCompressedFile
 
             return false;
         }
-        
+
         // Check file extension
         // File needs to be a compressed file to be extracted
         var extension = Path.GetExtension(filePath).ToLower();
@@ -213,7 +213,7 @@ public class ExtractCompressedFile
         {
             // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
-            
+
             return false;
         }
 
@@ -229,10 +229,10 @@ public class ExtractCompressedFile
             var errorMessage = $"'Simple Launcher' could not create the destination folder.\n\n" +
                                $"Destination folder: {destinationFolder}\n";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-            
+
             return false;
         }
 
@@ -278,7 +278,7 @@ public class ExtractCompressedFile
             return true;
         }
     }
-    
+
     // Determine the 7z executable based on user environment
     private static string Get7ZipExecutablePath()
     {
@@ -294,5 +294,5 @@ public class ExtractCompressedFile
                 throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
         }
     }
-    
+
 }

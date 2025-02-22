@@ -44,9 +44,9 @@ public static class SystemManager
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}"));
         verticalStackPanel.Children.Add(systemInfoTextBlock);
-        
+
         var totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
-        
+
         // Add the number of games in the system folder
         var gameCountTextBlock = new TextBlock();
         gameCountTextBlock.Inlines.Add(new LineBreak());
@@ -62,7 +62,7 @@ public static class SystemManager
 
         var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
         var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
-        
+
         // Add the number of images in the system's image folder
         if (Directory.Exists(imageFolderPath))
         {
@@ -83,7 +83,7 @@ public static class SystemManager
         var emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
         var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorLocation") ?? "Emulator Location";
         var emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
-        
+
         // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
         foreach (var emulator in selectedConfig.Emulators)
         {
@@ -103,7 +103,7 @@ public static class SystemManager
         // Validate the System
         ValidateSystemConfiguration(systemFolder, selectedConfig);
     }
-    
+
     private static void ValidateSystemConfiguration(string systemFolder, SystemConfig selectedConfig)
     {
         var errorMessages = new StringBuilder();
@@ -134,14 +134,14 @@ public static class SystemManager
             hasErrors = true;
             errorMessages.AppendLine($"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
         }
-            
+
         // Display all error messages if there are any errors
         if (!hasErrors) return;
-        
+
         // Notify user
         ListOfErrorsMessageBox(errorMessages);
     }
-    
+
     private static void ListOfErrorsMessageBox(StringBuilder errorMessages)
     {
         var editSystemtofixit2 = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
@@ -149,7 +149,7 @@ public static class SystemManager
         MessageBox.Show(errorMessages + editSystemtofixit2,
             validationerrors2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-    
+
     // Check paths in SystemFolder, SystemImageFolder and EmulatorLocation. Allow relative paths.
     private static bool IsValidPath(string path)
     {

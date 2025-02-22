@@ -22,7 +22,7 @@ namespace SimpleLauncher;
 public partial class MainWindow : INotifyPropertyChanged
 {
     // Declare Controller Detection
-    private DispatcherTimer _controllerCheckTimer;     
+    private DispatcherTimer _controllerCheckTimer;
 
     // Declare CacheManager and CacheFiles
     private readonly CacheManager _cacheManager = new();
@@ -30,13 +30,14 @@ public partial class MainWindow : INotifyPropertyChanged
 
     // Declare GameListItems
     // Used in ListView Mode
-    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];     
-    
+    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];
+
     // Declare System Name and PlayTime in the Statusbar
     // _selectedSystem is the selected system from ComboBox
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
     private string _playTime;
+
     public string SelectedSystem
     {
         get => _selectedSystem;
@@ -46,6 +47,7 @@ public partial class MainWindow : INotifyPropertyChanged
             OnPropertyChanged(nameof(SelectedSystem));
         }
     }
+
     public string PlayTime
     {
         get => _playTime;
@@ -55,15 +57,16 @@ public partial class MainWindow : INotifyPropertyChanged
             OnPropertyChanged(nameof(PlayTime));
         }
     }
+
     private void OnPropertyChanged(string propertyName) // Update UI on OnPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-       
+
     // Define Tray Icon
     private NotifyIcon _trayIcon;
     private ContextMenuStrip _trayMenu;
-        
+
     // Define Pagination Related Variables
     private int _currentPage = 1;
     private int _filesPerPage;
@@ -88,14 +91,14 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly Dictionary<string, string> _mameLookup; // Used for faster lookup of MAME machine names
     private string _selectedImageFolder;
     private string _selectedRomFolder;
-    
+
     // Define the LogPath
     private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-        
+
     public MainWindow()
     {
         InitializeComponent();
-        
+
         // Check for Command-line Args
         // Show UpdateHistory after the MainWindow is fully loaded
         var args = Environment.GetCommandLineArgs();
@@ -115,7 +118,7 @@ public partial class MainWindow : INotifyPropertyChanged
         UpdateShowGamesCheckMarks(_settings.ShowGames);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
-        
+
         // Load _machines and _mameLookup
         _machines = MameConfig.LoadFromXml();
         _mameLookup = _machines
@@ -146,7 +149,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _letterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
-            SearchTextBox.Text = "";  // Clear SearchTextBox
+            SearchTextBox.Text = ""; // Clear SearchTextBox
             _currentFilter = selectedLetter; // Update current filter
             await LoadGameFilesAsync(selectedLetter); // Load games
         };
@@ -169,22 +172,22 @@ public partial class MainWindow : INotifyPropertyChanged
                 MessageBoxLibrary.NoFavoriteFoundMessageBox();
             }
         };
-            
+
         // Initialize _favoritesManager
         _favoritesManager = FavoritesManager.LoadFavorites();
 
         // Initialize _gameFileGrid
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
-        
+
         // Initialize _gameButtonFactory
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-            
+
         // Initialize _gameListFactory
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
 
         // Check for Updates
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
-            
+
         // Call Stats API
         Loaded += async (_, _) => await Stats.CallApiAsync();
 
@@ -197,11 +200,11 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         // Apply language
         SetLanguageAndCheckMenu(_settings.Language);
-        
+
         // Apply Theme
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
-        
+
         // Load previous windows state
         Width = _settings.MainWindowWidth;
         Height = _settings.MainWindowHeight;
@@ -214,35 +217,35 @@ public partial class MainWindow : INotifyPropertyChanged
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
 
-        // Set the initial ViewMode based on the _settings 
+        // Set the initial ViewMode based on the _settings
         SetViewMode(_settings.ViewMode);
-        
+
         // Check if a system is already selected, otherwise show the message
         if (SystemComboBox.SelectedItem == null)
         {
             AddNoSystemMessage();
         }
-        
+
         // Check if application has write access
         if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
         }
-        
+
         // Set initial pagination state
         PrevPageButton.IsEnabled = false;
         NextPageButton.IsEnabled = false;
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
-        
+
         // Update the GamePadController dead zone settings from SettingsConfig
         GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
         GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
-        
+
         InitializeControllerDetection();
         InitializeTrayIcon();
     }
-    
+
     private void InitializeControllerDetection()
     {
         _controllerCheckTimer = new DispatcherTimer
@@ -252,7 +255,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _controllerCheckTimer.Tick += GamePadControllerCheckTimer_Tick;
         _controllerCheckTimer.Start();
     }
-    
+
     private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
     {
         GamePadController.Instance2.CheckAndReconnectControllers();
@@ -293,10 +296,10 @@ public partial class MainWindow : INotifyPropertyChanged
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
         SaveApplicationSettings();
-        
+
         // Delete temp folders and files before close
         CleanSimpleLauncherFolder.CleanupTrash();
-        
+
         // Dispose gamepad resources
         GamePadController.Instance2.Stop();
         GamePadController.Instance2.Dispose();
@@ -322,12 +325,12 @@ public partial class MainWindow : INotifyPropertyChanged
         Application.Current.Shutdown();
         Environment.Exit(0);
     }
-        
+
     private List<string> GetFavoriteGamesForSelectedSystem()
     {
         // Reload favorites to ensure we have the latest data
         _favoritesManager = FavoritesManager.LoadFavorites();
-            
+
         var selectedSystem = SystemComboBox.SelectedItem?.ToString();
         if (string.IsNullOrEmpty(selectedSystem))
         {
@@ -340,6 +343,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             return []; // Return an empty list if there is no favorite for that system
         }
+
         var systemFolderPath = selectedConfig.SystemFolder;
 
         // Filter the favorites and build the full file path for each favorite game
@@ -350,7 +354,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
         return favoriteGamePaths;
     }
-    
+
     private static Task ShowPleaseWaitWindowAsync(Window window)
     {
         return Task.Run(() =>
@@ -366,7 +370,7 @@ public partial class MainWindow : INotifyPropertyChanged
             window.Dispatcher.Invoke(window.Close);
         });
     }
-    
+
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
@@ -397,7 +401,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
-    
+
     private async void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         try
@@ -406,10 +410,10 @@ public partial class MainWindow : INotifyPropertyChanged
             EmulatorComboBox.ItemsSource = null; // Null selected emulator
             EmulatorComboBox.SelectedIndex = -1; // No emulator selected
             PreviewImage.Source = null; // Empty PreviewImage
-            
+
             // Clear search results
             _currentSearchResults.Clear();
-            
+
             // Hide ListView
             GameFileGrid.Visibility = Visibility.Visible;
             ListViewPreviewArea.Visibility = Visibility.Collapsed;
@@ -429,10 +433,10 @@ public partial class MainWindow : INotifyPropertyChanged
                     {
                         EmulatorComboBox.SelectedIndex = 0;
                     }
-                    
+
                     // Update the selected system property
                     SelectedSystem = selectedSystem;
-                
+
                     // Retrieve the playtime for the selected system
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
                     PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
@@ -441,21 +445,21 @@ public partial class MainWindow : INotifyPropertyChanged
                     var systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
                     var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
-                
+
                     // Display SystemInfo for that system
                     SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
-                    
+
                     // Update Image Folder and Rom Folder Variables
                     _selectedRomFolder = selectedConfig.SystemFolder;
-                    _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) 
-                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) 
+                    _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder)
+                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName)
                         : selectedConfig.SystemImageFolder;
-                    
+
                     // Call DeselectLetter to clear any selected letter
                     _letterNumberMenu.DeselectLetter();
-                    
+
                     ResetPaginationButtons();
-                    
+
                     // Load files from cache or rescan if needed
                     _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, gameCount);
                 }
@@ -506,7 +510,7 @@ public partial class MainWindow : INotifyPropertyChanged
         // Deselect any selected letter when no system is selected
         _letterNumberMenu.DeselectLetter();
     }
-        
+
     private void AddNoFilesMessage()
     {
         var noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
@@ -540,22 +544,22 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         // Move scroller to top
         Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
-            
+
         // Clear PreviewImage
         PreviewImage.Source = null;
 
         // Clear Game Grid
         GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-            
+
         // Clear the Game List
         await Dispatcher.InvokeAsync(() => GameListItems.Clear());
-            
+
         // Set ViewMode based on user preference
         if (_settings.ViewMode == "GridView")
         {
             // Allow GridView
             GameFileGrid.Visibility = Visibility.Visible;
-            ListViewPreviewArea.Visibility = Visibility.Collapsed;                
+            ListViewPreviewArea.Visibility = Visibility.Collapsed;
         }
         else
         {
@@ -567,16 +571,16 @@ public partial class MainWindow : INotifyPropertyChanged
         try
         {
             if (CheckIfSystemComboBoxIsNotNull()) return;
- 
+
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-            
+
             if (await CheckIfSelectConfigIsNull(selectedConfig)) return;
             Debug.Assert(selectedConfig != null, nameof(selectedConfig) + " != null");
-            
+
             // Create allFiles list
             List<string> allFiles;
-                
+
             // If we are in "FAVORITES" mode, use '_currentSearchResults'
             if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Count != 0)
             {
@@ -588,7 +592,7 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 var systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-                
+
                 // Attempt to use the cached file list first
                 _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
 
@@ -601,7 +605,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     // Fall back to scanning the folder if no cache is available
                     allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
-                
+
                 // Filter by TopMenu Letter if specified
                 if (!string.IsNullOrWhiteSpace(startLetter))
                 {
@@ -697,17 +701,17 @@ public partial class MainWindow : INotifyPropertyChanged
             var total = (string)Application.Current.TryFindResource("total") ?? "total";
             var displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
             var to = (string)Application.Current.TryFindResource("to") ?? "to";
-            
-            TotalFilesLabel.Dispatcher.Invoke(() => 
+
+            TotalFilesLabel.Dispatcher.Invoke(() =>
                 TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
             );
 
             // Reload the FavoritesConfig
             _favoritesManager = FavoritesManager.LoadFavorites();
-                
+
             // Initialize GameButtonFactory with updated FavoritesConfig
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-                
+
             // Initialize GameListFactory with updated FavoritesConfig
             var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
 
@@ -725,7 +729,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
             }
-                
+
             // Apply visibility settings to each button based on _settings.ShowGames
             ApplyShowGamesSetting();
 
@@ -739,7 +743,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-                
+
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
@@ -748,7 +752,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private static async Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
     {
         if (selectedConfig != null) return false;
-        
+
         // Notify developer
         const string errorMessage = "Invalid system configuration.\n\n" +
                                     "Method: LoadGameFilesAsync";
@@ -759,19 +763,18 @@ public partial class MainWindow : INotifyPropertyChanged
         MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
         return true;
-
     }
 
     private bool CheckIfSystemComboBoxIsNotNull()
     {
         if (SystemComboBox.SelectedItem != null) return false;
-        
+
         AddNoSystemMessage();
         return true;
     }
 
     #region Menu Items
-    
+
     private void SetViewMode(string viewMode)
     {
         if (viewMode == "ListView")
@@ -785,7 +788,7 @@ public partial class MainWindow : INotifyPropertyChanged
             ListView.IsChecked = false;
         }
     }
-    
+
     private void SetLanguageAndCheckMenu(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
@@ -808,11 +811,11 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
-        
+
     private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
-                
+
         EditSystemEasyMode editSystemEasyModeWindow = new(_settings);
         editSystemEasyModeWindow.ShowDialog();
     }
@@ -820,33 +823,33 @@ public partial class MainWindow : INotifyPropertyChanged
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
-                
+
         EditSystem editSystemWindow = new(_settings);
         editSystemWindow.ShowDialog();
     }
-    
+
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
         DownloadImagePack downloadImagePack = new();
         downloadImagePack.ShowDialog();
     }
-        
+
     private void EditLinks_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
-                
+
         EditLinks editLinksWindow = new(_settings);
         editLinksWindow.ShowDialog();
     }
-    
+
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
-                
+
         SetGamepadDeadZone setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
     }
-    
+
     private void BugReport_Click(object sender, RoutedEventArgs e)
     {
         BugReport bugReportWindow = new();
@@ -871,7 +874,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
         }
@@ -887,14 +890,14 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         Close();
     }
-        
+
     private void ShowAllGames_Click(object sender, RoutedEventArgs e)
     {
         UpdateGameVisibility(visibilityCondition: _ => true); // Show all games
         UpdateShowGamesSetting("ShowAll");
         UpdateMenuCheckMarks("ShowAll");
     }
-        
+
     private void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
     {
         UpdateGameVisibility(visibilityCondition: btn => btn.Tag?.ToString() != "DefaultImage"); // Show games with covers only
@@ -925,14 +928,14 @@ public partial class MainWindow : INotifyPropertyChanged
         _settings.ShowGames = showGames;
         _settings.Save();
     }
-        
+
     private void UpdateMenuCheckMarks(string selectedMenu)
     {
         ShowAll.IsChecked = selectedMenu == "ShowAll";
         ShowWithCover.IsChecked = selectedMenu == "ShowWithCover";
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
-        
+
     private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
@@ -960,7 +963,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                    
+
             // Notify user
             MessageBoxLibrary.ToggleGamepadFailureMessageBox();
         }
@@ -971,16 +974,16 @@ public partial class MainWindow : INotifyPropertyChanged
         try
         {
             if (sender is not MenuItem clickedItem) return;
-            
+
             var sizeText = clickedItem.Name.Replace("Size", "");
-            
+
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
             _gameButtonFactory.ImageHeight = newSize; // Update the image height
             _settings.ThumbnailSize = newSize;
             _settings.Save();
-                    
+
             UpdateThumbnailSizeCheckMarks(newSize);
-                    
+
             // Reload List of Games
             await LoadGameFilesAsync();
         }
@@ -996,19 +999,19 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
-    
+
     private async void ButtonAspectRatio_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             if (sender is not MenuItem clickedItem) return;
-            
+
             var aspectRatio = clickedItem.Name;
             _settings.ButtonAspectRatio = aspectRatio;
             _settings.Save();
 
             UpdateButtonAspectRatioCheckMarks(aspectRatio);
-                    
+
             // Reload List of Games
             await LoadGameFilesAsync();
         }
@@ -1024,43 +1027,43 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
-        
+
     private void GamesPerPage_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem clickedItem) return;
         var pageText = clickedItem.Name.Replace("Page", "");
         if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
-        _filesPerPage = newPage; 
-        _paginationThreshold = newPage; 
-        _settings.GamesPerPage = newPage; 
-                    
-        _settings.Save(); 
+        _filesPerPage = newPage;
+        _paginationThreshold = newPage;
+        _settings.GamesPerPage = newPage;
+
+        _settings.Save();
         UpdateNumberOfGamesPerPageCheckMarks(newPage);
-                    
+
         SaveApplicationSettings();
         MainWindow_Restart();
     }
-        
+
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
         var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
     }
-        
+
     private void GlobalStats_Click(object sender, RoutedEventArgs e)
     {
         var globalStatsWindow = new GlobalStats(_systemConfigs);
         globalStatsWindow.Show();
     }
-        
+
     private void Favorites_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
-            
+
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
     }
-        
+
     private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1109,7 +1112,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "The file 'FindRomCover.exe' is missing.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.FindRomCoverMissingMessageBox();
             }
@@ -1156,9 +1159,9 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 // Notify developer
                 const string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1175,7 +1178,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-    
+
     private void BatchConvertIsoToXiso_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1194,9 +1197,9 @@ public partial class MainWindow : INotifyPropertyChanged
             {
                 // Notify developer
                 const string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
-                Exception ex = new Exception(formattedException);
+                var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1208,7 +1211,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
@@ -1234,7 +1237,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "'BatchConvertToCHD.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1246,12 +1249,12 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-    
+
     private void BatchConvertTo7z_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1272,7 +1275,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "'BatchConvertTo7z.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1284,12 +1287,12 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-    
+
     private void BatchConvertToZip_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1310,7 +1313,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 var formattedException = "'BatchConvertToZip.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1322,7 +1325,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
@@ -1348,7 +1351,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 var formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1360,12 +1363,12 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-        
+
     private void CreateBatchFilesForSegaModel3Games_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1386,7 +1389,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1398,7 +1401,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
@@ -1424,7 +1427,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1436,12 +1439,12 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-    
+
     private void CreateBatchFilesForXbox360XBLAGames_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1462,7 +1465,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 const string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             }
@@ -1474,12 +1477,12 @@ public partial class MainWindow : INotifyPropertyChanged
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-                
+
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-        
+
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
         Size100.IsChecked = (selectedSize == 100);
@@ -1498,7 +1501,7 @@ public partial class MainWindow : INotifyPropertyChanged
         Size750.IsChecked = (selectedSize == 750);
         Size800.IsChecked = (selectedSize == 800);
     }
-        
+
     private void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
     {
         Page100.IsChecked = (selectedSize == 100);
@@ -1510,21 +1513,21 @@ public partial class MainWindow : INotifyPropertyChanged
         Page5000.IsChecked = (selectedSize == 5000);
         Page10000.IsChecked = (selectedSize == 10000);
     }
-        
+
     private void UpdateShowGamesCheckMarks(string selectedValue)
     {
         ShowAll.IsChecked = (selectedValue == "ShowAll");
         ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
         ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
     }
-    
+
     private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
         Square.IsChecked = (selectedValue == "Square");
         Wider.IsChecked = (selectedValue == "Wider");
         Taller.IsChecked = (selectedValue == "Taller");
     }
-        
+
     private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1534,19 +1537,19 @@ public partial class MainWindow : INotifyPropertyChanged
                 GridView.IsChecked = true;
                 ListView.IsChecked = false;
                 _settings.ViewMode = "GridView";
-                
+
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
                 // Ensure pagination is reset at the beginning
                 ResetPaginationButtons();
-                
+
                 // Clear SearchTextBox
                 SearchTextBox.Text = "";
-                
+
                 // Update current filter
                 _currentFilter = null;
-                
+
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
@@ -1555,14 +1558,13 @@ public partial class MainWindow : INotifyPropertyChanged
                 PlayTime = "00:00:00";
 
                 AddNoSystemMessage();
-                
             }
             else if (Equals(sender, ListView))
             {
                 GridView.IsChecked = false;
                 ListView.IsChecked = true;
                 _settings.ViewMode = "ListView";
-                
+
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
 
@@ -1571,24 +1573,25 @@ public partial class MainWindow : INotifyPropertyChanged
 
                 // Clear SearchTextBox
                 SearchTextBox.Text = "";
-                
+
                 // Update current filter
                 _currentFilter = null;
-                
+
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 PreviewImage.Source = null;
                 SystemComboBox.SelectedItem = null;
-                
+
                 // Set selected system
                 var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
-                
+
                 AddNoSystemMessage();
-                
+
                 await LoadGameFilesAsync();
             }
+
             _settings.Save(); // Save the updated ViewMode
         }
         catch (Exception ex)
@@ -1603,7 +1606,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorChangingViewModeMessageBox();
         }
     }
-        
+
     private void ApplyShowGamesSetting()
     {
         switch (_settings.ShowGames)
@@ -1619,7 +1622,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 break;
         }
     }
-    
+
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
@@ -1634,7 +1637,7 @@ public partial class MainWindow : INotifyPropertyChanged
             "LanguageHindi" => "hi",
             "LanguageIndonesianMalay" => "id",
             "LanguageItalian" => "it",
-            "LanguageJapanese" => "ja",                
+            "LanguageJapanese" => "ja",
             "LanguageKorean" => "ko",
             "LanguageDutch" => "nl",
             "LanguagePortugueseBr" => "pt-br",
@@ -1652,14 +1655,14 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Update checked status
         SetLanguageAndCheckMenu(selectedLanguage);
-            
+
         MainWindow_Restart();
     }
 
     #endregion
-        
+
     #region Theme Options
-        
+
     private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
@@ -1677,7 +1680,7 @@ public partial class MainWindow : INotifyPropertyChanged
         var accentColor = menuItem.Name;
         var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
         App.ChangeTheme(currentBaseTheme, accentColor);
-            
+
         UncheckAccentColors();
         menuItem.IsChecked = true;
     }
@@ -1800,15 +1803,16 @@ public partial class MainWindow : INotifyPropertyChanged
                 break;
         }
     }
+
     #endregion
-    
+
     #region TrayIcon
-        
+
     private void InitializeTrayIcon()
     {
         // Create a context menu for the tray icon
         _trayMenu = new ContextMenuStrip();
-        
+
         var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
         _trayMenu.Items.Add(open, null, OnOpen);
@@ -1830,7 +1834,7 @@ public partial class MainWindow : INotifyPropertyChanged
         // Handle tray icon events
         _trayIcon.DoubleClick += OnOpen;
     }
-        
+
     // Handle "Open" context menu item or tray icon double-click
     private void OnOpen(object sender, EventArgs e)
     {
@@ -1856,6 +1860,7 @@ public partial class MainWindow : INotifyPropertyChanged
             var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
             ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
         }
+
         base.OnStateChanged(e);
     }
 
@@ -1874,9 +1879,9 @@ public partial class MainWindow : INotifyPropertyChanged
         _trayIcon.Dispose();
         base.OnClosing(e);
     }
-        
+
     #endregion
-    
+
     #region Pagination
 
     private void ResetPaginationButtons()
@@ -1887,13 +1892,14 @@ public partial class MainWindow : INotifyPropertyChanged
         Scroller.ScrollToTop();
         TotalFilesLabel.Content = null;
     }
+
     private void InitializePaginationButtons()
     {
         _prevPageButton.IsEnabled = _currentPage > 1;
         _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
         Scroller.ScrollToTop();
     }
-        
+
     private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1953,17 +1959,17 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
     }
-        
+
     private void UpdatePaginationButtons()
     {
         _prevPageButton.IsEnabled = _currentPage > 1;
         _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
     }
-        
+
     #endregion
-    
+
     #region MainWindow Search
-        
+
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1999,7 +2005,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
- 
+
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
         }
@@ -2008,9 +2014,9 @@ public partial class MainWindow : INotifyPropertyChanged
     private async Task ExecuteSearch()
     {
         ResetPaginationButtons();
-            
+
         _currentSearchResults.Clear();
-    
+
         // Call DeselectLetter to clear any selected letter
         _letterNumberMenu.DeselectLetter();
 
@@ -2023,7 +2029,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
             return;
         }
-        
+
         if (string.IsNullOrEmpty(searchQuery))
         {
             // Notify user
@@ -2044,6 +2050,6 @@ public partial class MainWindow : INotifyPropertyChanged
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }
-        
+
     #endregion
 }

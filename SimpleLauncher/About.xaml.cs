@@ -13,8 +13,8 @@ public partial class About
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         DataContext = this;
-            
-        // Set the AppVersionTextBlock 
+
+        // Set the AppVersionTextBlock
         AppVersionTextBlock.Text = ApplicationVersion;
     }
 

@@ -31,7 +31,7 @@ public class CacheManager
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             // ignore
         }
@@ -48,7 +48,7 @@ public class CacheManager
             // Return an empty list
             return [];
         }
-        
+
         var cacheFilePath = GetCacheFilePath(systemName);
 
         // Check if cache exists
@@ -61,7 +61,6 @@ public class CacheManager
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
         _cachedGameFiles[systemName] = cachedData.FileNames;
         return cachedData.FileNames;
-
     }
 
     /// <summary>
@@ -75,7 +74,7 @@ public class CacheManager
             // Return an empty list
             return [];
         }
-            
+
         var files = await Task.Run(() =>
         {
             var fileList = new List<string>();
@@ -96,10 +95,11 @@ public class CacheManager
                                    $"Exception type: {ex.GetType().Name}\n" +
                                    $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
                 // Notify user
                 // ignore
             }
+
             return fileList;
         });
 
@@ -108,6 +108,7 @@ public class CacheManager
             _cachedGameFiles[systemName] = files;
             await SaveCacheToDisk(systemName, files);
         }
+
         return files;
     }
 
@@ -135,7 +136,7 @@ public class CacheManager
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             // ignore
         }
@@ -158,10 +159,10 @@ public class CacheManager
                                $"Exception type: {ex.GetType().Name}\n" +
                                $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             // ignore
-            
+
             // Return an empty cache
             return new GameCache { FileCount = 0, FileNames = [] };
         }
@@ -189,6 +190,7 @@ public class GameCache
 {
     [Key(0)]
     public int FileCount { get; set; }
+
     [Key(1)]
     public List<string> FileNames { get; set; }
 }

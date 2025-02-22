@@ -16,14 +16,14 @@ public class EasyModeConfig
     {
         const string xmlFile = "easymode.xml";
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
-        
+
         // Check if the file exists before proceeding.
         if (!File.Exists(xmlFilePath))
         {
             // Notify developer
             LogAndNotify(new FileNotFoundException($"File not found: {xmlFilePath}"),
                 "The file 'easymode.xml' was not found.");
-            
+
             // Return an empty config to avoid further null reference issues
             return new EasyModeConfig { Systems = [] };
         }
@@ -31,11 +31,11 @@ public class EasyModeConfig
         try
         {
             var serializer = new XmlSerializer(typeof(EasyModeConfig));
-            
+
             // Open the file
             using var fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             var config = (EasyModeConfig)serializer.Deserialize(fileStream);
-            
+
             // Validate configuration if not null.
             if (config != null)
             {
@@ -68,12 +68,12 @@ public class EasyModeConfig
     {
         Systems = Systems?.Where(system => system.IsValid()).ToList() ?? [];
     }
-    
+
     private static void LogAndNotify(Exception ex, string errorMessage)
     {
         // Notify developer
         LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
         // Notify the user.
         MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
     }

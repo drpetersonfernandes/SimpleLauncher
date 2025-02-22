@@ -43,7 +43,7 @@ public static class WindowManager
         if (!IsWindowVisible(hWnd))
             return true;
 
-        string title = GetWindowTitle(hWnd);
+        var title = GetWindowTitle(hWnd);
         if (string.IsNullOrEmpty(title))
             return true;
 
@@ -62,12 +62,12 @@ public static class WindowManager
     /// </summary>
     private static string GetWindowTitle(IntPtr hWnd)
     {
-        int length = GetWindowTextLength(hWnd);
+        var length = GetWindowTextLength(hWnd);
         if (length <= 0)
             return string.Empty;
 
         var builder = new StringBuilder(length + 1);
-        int result = GetWindowText(hWnd, builder, builder.Capacity);
+        var result = GetWindowText(hWnd, builder, builder.Capacity);
         if (result == 0)
         {
             // Optionally log an error or handle the failure

@@ -14,14 +14,14 @@ public class GamePadController: IDisposable
 
     private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;
-    
+
     // Add an Action for error logging
     public Action<Exception, string> ErrorLogger { get; set; }
 
     private const int RefreshRate = 60;
-    
+
     // Normalize XInput values
-    private const float MaxThumbValue = 32767.0f;  
+    private const float MaxThumbValue = 32767.0f;
 
     private readonly Timer _timer;
     private Controller _xinputController;
@@ -31,18 +31,18 @@ public class GamePadController: IDisposable
     // For XInput
     private bool _wasADown;
     private bool _wasBDown;
-    
+
     // For DirectInput
     private bool _wasCrossDown;
     private bool _wasCircleDown;
-    
+
     // To Dispose GamePad Instance
     private bool _isDisposed;
 
     // DeadZone settings
     // private const float DeadZoneX = 0.05f;
     // private const float DeadZoneY = 0.02f;
-    
+
     // Add public properties with default values:
     public float DeadZoneX { get; set; } = 0.05f;
     public float DeadZoneY { get; set; } = 0.02f;
@@ -162,7 +162,7 @@ public class GamePadController: IDisposable
             {
                 // Attempt to reconnect controllers if not already attempting
                 if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
-                
+
                 CheckAndReconnectControllers();
                 _lastReconnectAttempt = DateTime.Now;
                 return; // Exit Update to avoid further processing until next cycle.
@@ -217,7 +217,7 @@ public class GamePadController: IDisposable
             MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
-    
+
     public void CheckAndReconnectControllers()
     {
         try
@@ -231,7 +231,7 @@ public class GamePadController: IDisposable
             var directInput = new DirectInput();
             var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
 
-            bool found = false;
+            var found = false;
             foreach (var deviceInstance in devices)
             {
                 // Check if the device matches the previously connected controller's GUID
@@ -262,7 +262,7 @@ public class GamePadController: IDisposable
             ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
-            
+
             // Notify user
             // Ignore
         }
@@ -283,41 +283,41 @@ public class GamePadController: IDisposable
         if (!isADown && _wasADown) _mouseSimulator.LeftButtonUp();
         _wasADown = isADown;
     }
-    
+
     private void HandleXInputMovement(State state)
     {
         var (x, y) = ProcessThumbStickXInput(state.Gamepad.LeftThumbX, state.Gamepad.LeftThumbY, DeadZoneX, DeadZoneY);
         _mouseSimulator.MoveMouseBy((int)x, -(int)y);
     }
-    
+
     private void HandleXInputScroll(State state)
     {
         var (x, y) = ProcessThumbStickXInput(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, DeadZoneX, DeadZoneY);
         _mouseSimulator.HorizontalScroll((int)x);
         _mouseSimulator.VerticalScroll((int)y);
     }
-    
+
     private static (float, float) ProcessThumbStickXInput(short thumbX, short thumbY, float dzX, float dzY)
     {
-        float normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
-        float normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
+        var normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
+        var normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
 
-        float resultX = (Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX)));
-        float resultY = (Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY)));
+        var resultX = (Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX)));
+        var resultY = (Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY)));
 
         if (dzX > 0) resultX *= 10 / (1 - dzX);
         if (dzY > 0) resultY *= 10 / (1 - dzY);
 
         return (resultX, resultY);
     }
-    
+
     private void HandleDirectInputButtons(JoystickState state)
     {
         var isCrossDown = state.Buttons[1];
         if (isCrossDown && !_wasCrossDown) _mouseSimulator.LeftButtonDown();  // Cross Button
         if (!isCrossDown && _wasCrossDown) _mouseSimulator.LeftButtonUp();
         _wasCrossDown = isCrossDown;
-    
+
         var isCircleDown = state.Buttons[2];
         if (isCircleDown && !_wasCircleDown) _mouseSimulator.RightButtonDown(); // Circle Button
         if (!isCircleDown && _wasCircleDown) _mouseSimulator.RightButtonUp();
@@ -327,8 +327,8 @@ public class GamePadController: IDisposable
     private void HandleDirectInputMovement(JoystickState state)
     {
         // Normalize DirectInput values from [0, 65535] to [-32767, 32767]
-        short thumbX = (short)(state.X - 32767); // Convert absolute to relative
-        short thumbY = (short)(state.Y - 32767); // Convert absolute to relative
+        var thumbX = (short)(state.X - 32767); // Convert absolute to relative
+        var thumbY = (short)(state.Y - 32767); // Convert absolute to relative
 
         // Invert the X and Y-axis (DirectInput typically has an inverted axis)
         thumbY = (short)-thumbY;
@@ -340,18 +340,18 @@ public class GamePadController: IDisposable
         // Move the mouse based on processed values
         _mouseSimulator.MoveMouseBy(-(int)x, -(int)y);
     }
-    
+
     private void HandleDirectInputScroll(JoystickState state)
     {
         var thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
         var thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
-        
+
         var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY); // Use same processing
-        
+
         _mouseSimulator.HorizontalScroll((int)x); // Assuming this is correct for your controller
         _mouseSimulator.VerticalScroll((int)y);
     }
-    
+
     private static (float, float) ProcessLeftThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
     {
         // Normalize the thumbstick values to the range [-1, 1]
@@ -378,7 +378,7 @@ public class GamePadController: IDisposable
 
         return (resultX, resultY);
     }
-    
+
     private static (float, float) ProcessRightThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
     {
         // Normalize the thumbstick values to the range [-1, 1]

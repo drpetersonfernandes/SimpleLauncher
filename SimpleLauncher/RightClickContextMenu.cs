@@ -42,7 +42,7 @@ public static class RightClickContextMenu
                 {
                     var button = gameFileGrid.Children.OfType<Button>()
                         .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
-                
+
                     if (button != null)
                     {
                         var grid = (Grid)button.Content;
@@ -62,13 +62,13 @@ public static class RightClickContextMenu
                 {
                     // ignore
                 }
-                
+
                 // Find the GameListViewItem and update its IsFavorite property
                 try
                 {
                     var gameItem = mainWindow.GameListItems
                         .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
-                
+
                     if (gameItem != null)
                     {
                         gameItem.IsFavorite = true;
@@ -78,7 +78,7 @@ public static class RightClickContextMenu
                 {
                     // ignore
                 }
-                
+
                 // Notify user
                 MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithExtension);
             }
@@ -95,7 +95,7 @@ public static class RightClickContextMenu
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
         }
@@ -141,13 +141,13 @@ public static class RightClickContextMenu
                 {
                     // ignore
                 }
-                
+
                 // Find the GameListViewItem and update its IsFavorite property
                 try
                 {
                     var gameItem = mainWindow.GameListItems
-                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase)); 
-                    
+                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+
                     if (gameItem != null)
                     {
                         gameItem.IsFavorite = false;
@@ -249,7 +249,7 @@ public static class RightClickContextMenu
     public static void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
-           
+
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
@@ -262,7 +262,6 @@ public static class RightClickContextMenu
         {
             var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
             historyWindow.Show();
-
         }
         catch (Exception ex)
         {
@@ -282,13 +281,13 @@ public static class RightClickContextMenu
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = systemConfig.SystemImageFolder;
-        
+
         // Ensure the systemImageFolder considers both absolute and relative paths
         if (!Path.IsPathRooted(systemImageFolder))
         {
             if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
         }
-        
+
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
@@ -296,7 +295,7 @@ public static class RightClickContextMenu
 
         // Try to find the image in the systemImageFolder directory first
         // Then search inside the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out string foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
+        if (TryFindImage(systemImageFolder, out var foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
@@ -315,13 +314,14 @@ public static class RightClickContextMenu
         {
             foreach (var extension in imageExtensions)
             {
-                string imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
                 if (File.Exists(imagePath))
                 {
                     foundPath = imagePath;
                     return true;
                 }
             }
+
             foundPath = null;
             return false;
         }
@@ -343,7 +343,7 @@ public static class RightClickContextMenu
             imageViewerWindow.Show();
             return;
         }
-        
+
         // Notify user
         MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
     }
@@ -364,7 +364,7 @@ public static class RightClickContextMenu
             imageViewerWindow.Show();
             return;
         }
-        
+
         // Notify user
         MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
     }
@@ -510,7 +510,7 @@ public static class RightClickContextMenu
             imageViewerWindow.Show();
             return;
         }
-        
+
         // Notify user
         MessageBoxLibrary.ThereIsNoCabinetMessageBox();
     }
@@ -531,7 +531,7 @@ public static class RightClickContextMenu
             imageViewerWindow.Show();
             return;
         }
-        
+
         // Notify user
         MessageBoxLibrary.ThereIsNoFlyerMessageBox();
     }
@@ -552,7 +552,7 @@ public static class RightClickContextMenu
             imageViewerWindow.Show();
             return;
         }
-        
+
         // Notify user
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
@@ -571,7 +571,7 @@ public static class RightClickContextMenu
             {
                 // ignore
             }
-            
+
             var systemName = systemConfig.SystemName;
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var systemImageFolder = systemConfig.SystemImageFolder;
@@ -584,7 +584,7 @@ public static class RightClickContextMenu
 
             // Wait for the Game or Emulator to launch
             await Task.Delay(4000);
-                
+
             // Get the list of open windows
             var openWindows = WindowManager.GetOpenWindows();
 
@@ -595,8 +595,8 @@ public static class RightClickContextMenu
                 return;
             }
 
-            IntPtr hWnd = dialog.SelectedWindowHandle;
-                
+            var hWnd = dialog.SelectedWindowHandle;
+
             WindowScreenshot.Rect rect;
 
             // Try to get the client area dimensions
@@ -616,7 +616,7 @@ public static class RightClickContextMenu
 
             var width = rect.Right - rect.Left;
             var height = rect.Bottom - rect.Top;
-            
+
             var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
@@ -633,16 +633,16 @@ public static class RightClickContextMenu
                 // Save the screenshot
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
-            
+
             PlayClick.PlayShutterSound();
-            
+
             // Wait
             await Task.Delay(1000);
-            
+
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
-            
+
             // Update the button's image
             try
             {
@@ -679,7 +679,7 @@ public static class RightClickContextMenu
                                  $"Exception type: {ex.GetType().Name}\n" +
                                  $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
         }
@@ -695,7 +695,7 @@ public static class RightClickContextMenu
                 try
                 {
                     File.Delete(filePath);
-                    
+
                     PlayClick.PlayTrashSound();
 
                     // Notify user
@@ -710,7 +710,7 @@ public static class RightClickContextMenu
                     {
                         // ignore
                     }
-                
+
                     // Reload the current Game List
                     try
                     {
@@ -728,7 +728,7 @@ public static class RightClickContextMenu
                                        $"Exception type: {ex.GetType().Name}\n" +
                                        $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-                
+
                     // Notify user
                     MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
                 }
@@ -739,7 +739,7 @@ public static class RightClickContextMenu
                 var errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
                 Exception ex = new FileNotFoundException(errorMessage);
                 LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
-            
+
                 // Notify user
                 MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
             }

@@ -21,16 +21,16 @@ public partial class DownloadImagePack
     private readonly HttpClient _httpClient = new();
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        
+
     public DownloadImagePack()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        
+
         // Load Config
         _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
-            
+
         Closed += EditSystemEasyModeAddSystem_Closed;
     }
 
@@ -69,12 +69,12 @@ public partial class DownloadImagePack
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem == null) return;
             var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-                
+
             // Determine the extraction folder
             var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
                 ? ExtractionFolderTextBox.Text
                 : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-                
+
             var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
             Directory.CreateDirectory(_tempFolder);
 
@@ -99,7 +99,7 @@ public partial class DownloadImagePack
 
                     var extractionSuccess = await _extractCompressedFile.
                         ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
-                        
+
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
 
@@ -109,7 +109,7 @@ public partial class DownloadImagePack
                         MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
 
                         DeleteDownloadedFile(downloadFilePath);
-               
+
                         // Mark as downloaded and disable button
                         DownloadExtrasButton.IsEnabled = false;
                     }
@@ -174,7 +174,7 @@ public partial class DownloadImagePack
             MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
         }
     }
-    
+
     private static void DeleteDownloadedFile(string file)
     {
         if (!File.Exists(file)) return;
@@ -280,7 +280,7 @@ public partial class DownloadImagePack
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                
+
                 // Notify user
                 MessageBoxLibrary.DownloadErrorMessageBox();
             }
@@ -292,17 +292,17 @@ public partial class DownloadImagePack
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
         if (_cancellationTokenSource == null) return;
-        
+
         // Cancel the ongoing download
         _cancellationTokenSource.Cancel();
-            
+
         // Disable the stop button once the download is canceled
-        StopDownloadButton.IsEnabled = false; 
+        StopDownloadButton.IsEnabled = false;
 
         // Reset completion flag and progress
-        _isDownloadCompleted = false; 
+        _isDownloadCompleted = false;
         DownloadProgressBar.Value = 0;
-                
+
         // Reinitialize the cancellation token source for the next download
         _cancellationTokenSource = new CancellationTokenSource();
     }

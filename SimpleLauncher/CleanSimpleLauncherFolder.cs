@@ -36,7 +36,7 @@ public static class CleanSimpleLauncherFolder
                 // ignore
             }
         }
-        
+
         if (Directory.Exists(TempFolder3))
         {
             try
@@ -48,7 +48,7 @@ public static class CleanSimpleLauncherFolder
                 // ignore
             }
         }
-            
+
         if (File.Exists(UpdateFile))
         {
             try

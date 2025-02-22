@@ -23,15 +23,15 @@ public partial class EditSystem
     public EditSystem(SettingsConfig settings)
     {
         InitializeComponent();
-        
+
         // Load Settings
         _settings = settings;
         LoadXml();
-        
+
         PopulateSystemNamesDropdown();
-        App.ApplyThemeToWindow(this);            
-        Closing += EditSystem_Closing; 
-            
+        App.ApplyThemeToWindow(this);
+        Closing += EditSystem_Closing;
+
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
     }
@@ -42,7 +42,7 @@ public partial class EditSystem
         {
             // Notify user
             MessageBoxLibrary.SystemXmlNotFoundMessageBox();
-                
+
             // Shutdown SimpleLauncher
             Application.Current.Shutdown();
             Environment.Exit(0);
@@ -68,7 +68,7 @@ public partial class EditSystem
         EnableFields();
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
-            
+
         if (SystemNameDropdown.SelectedItem == null) return;
         if (_xmlDoc == null) return;
 
@@ -188,19 +188,19 @@ public partial class EditSystem
                 }
             }
         }
-        
+
         // Create SystemFolder default
         if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
         {
             Directory.CreateDirectory(SystemFolderTextBox.Text);
         }
-        
+
         // Create SystemImageFolder default
         if (SystemImageFolderTextBox.Text == $".\\images\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemImageFolderTextBox.Text))
         {
             Directory.CreateDirectory(SystemImageFolderTextBox.Text);
         }
-            
+
         // Validate System Folder and System Image Folder
         MarkInvalid(SystemFolderTextBox, IsValidPath(SystemFolderTextBox.Text));
         MarkInvalid(SystemImageFolderTextBox, IsValidPath(SystemImageFolderTextBox.Text));
@@ -211,12 +211,12 @@ public partial class EditSystem
         MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text));
         MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
         MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
-        
+
         // // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
-        
+
     private bool IsValidPath(string path)
     {
         if (string.IsNullOrWhiteSpace(path)) return false;
@@ -232,7 +232,7 @@ public partial class EditSystem
 
         return Directory.Exists(fullPath) || File.Exists(fullPath);
     }
-        
+
     private void MarkInvalid(TextBox textBox, bool isValid)
     {
         if (isValid)
@@ -244,12 +244,12 @@ public partial class EditSystem
             textBox.Foreground = System.Windows.Media.Brushes.Red; // Invalid state
         }
     }
-       
+
     private void MarkValid(TextBox textBox)
     {
         SetTextBoxForeground(textBox, true); // Always valid state
     }
-        
+
     private void SetTextBoxForeground(TextBox textBox, bool isValid)
     {
         var baseTheme = _settings.BaseTheme;
@@ -268,7 +268,7 @@ public partial class EditSystem
         var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
         var dialog = new FolderBrowserDialog();
         dialog.Description = pleaseselecttheSystemFolder2;
-        DialogResult result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
         if (result == System.Windows.Forms.DialogResult.OK)
         {
             var foldername = dialog.SelectedPath;
@@ -276,18 +276,18 @@ public partial class EditSystem
 
             MarkValid(SystemFolderTextBox);
         }
-        
+
     }
-        
+
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
     {
         var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
         var dialog = new FolderBrowserDialog();
         dialog.Description = pleaseselecttheSystemImage2;
         var result = dialog.ShowDialog();
-        
+
         if (result != System.Windows.Forms.DialogResult.OK) return;
-        
+
         var foldername = dialog.SelectedPath.Trim();
         SystemImageFolderTextBox.Text = foldername;
         MarkValid(SystemImageFolderTextBox);
@@ -309,7 +309,7 @@ public partial class EditSystem
             Emulator1LocationTextBox.Text = filename;
             MarkValid(Emulator1LocationTextBox);
         }
-        
+
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
@@ -332,7 +332,7 @@ public partial class EditSystem
             Emulator2LocationTextBox.Text = filename;
             MarkValid(Emulator2LocationTextBox);
         }
-        
+
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
@@ -355,7 +355,7 @@ public partial class EditSystem
             Emulator3LocationTextBox.Text = filename;
             MarkValid(Emulator3LocationTextBox);
         }
-        
+
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
@@ -378,7 +378,7 @@ public partial class EditSystem
             Emulator4LocationTextBox.Text = filename;
             MarkValid(Emulator4LocationTextBox);
         }
-        
+
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
@@ -400,7 +400,7 @@ public partial class EditSystem
             Emulator5LocationTextBox.Text = filename;
             MarkValid(Emulator5LocationTextBox);
         }
-        
+
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
@@ -418,75 +418,75 @@ public partial class EditSystem
         // Notify user
         MessageBoxLibrary.YouCanAddANewSystemMessageBox();
     }
-        
+
     private void EnableFields()
     {
         SystemNameTextBox.IsReadOnly = false;
         SystemNameTextBox.IsEnabled = true;
-        
+
         SystemFolderTextBox.IsReadOnly = false;
         SystemFolderTextBox.IsEnabled = true;
-        
+
         SystemImageFolderTextBox.IsReadOnly = false;
         SystemImageFolderTextBox.IsEnabled = true;
-            
+
         SystemIsMameComboBox.IsReadOnly = false;
         SystemIsMameComboBox.IsEnabled = true;
-        
+
         FormatToSearchTextBox.IsReadOnly = false;
         FormatToSearchTextBox.IsEnabled = true;
-            
+
         ExtractFileBeforeLaunchComboBox.IsReadOnly = false;
         ExtractFileBeforeLaunchComboBox.IsEnabled = true;
-        
+
         FormatToLaunchTextBox.IsReadOnly = false;
         FormatToLaunchTextBox.IsEnabled = true;
-        
+
         Emulator1NameTextBox.IsReadOnly = false;
         Emulator1NameTextBox.IsEnabled = true;
 
         Emulator1LocationTextBox.IsReadOnly = false;
         Emulator1LocationTextBox.IsEnabled = true;
-            
+
         Emulator1ParametersTextBox.IsReadOnly = false;
         Emulator1ParametersTextBox.IsEnabled = true;
-            
+
         Emulator2NameTextBox.IsReadOnly = false;
         Emulator2NameTextBox.IsEnabled = true;
-            
+
         Emulator2LocationTextBox.IsReadOnly = false;
         Emulator2LocationTextBox.IsEnabled = true;
-            
+
         Emulator2ParametersTextBox.IsReadOnly = false;
         Emulator2ParametersTextBox.IsEnabled = true;
-            
+
         Emulator3NameTextBox.IsReadOnly = false;
         Emulator3NameTextBox.IsEnabled = true;
-            
+
         Emulator3LocationTextBox.IsReadOnly = false;
         Emulator3LocationTextBox.IsEnabled = true;
-            
+
         Emulator3ParametersTextBox.IsReadOnly = false;
         Emulator3ParametersTextBox.IsEnabled = true;
-            
+
         Emulator4NameTextBox.IsReadOnly = false;
         Emulator4NameTextBox.IsEnabled = true;
-            
+
         Emulator4LocationTextBox.IsReadOnly = false;
         Emulator4LocationTextBox.IsEnabled = true;
-            
+
         Emulator4ParametersTextBox.IsReadOnly = false;
         Emulator4ParametersTextBox.IsEnabled = true;
-            
+
         Emulator5NameTextBox.IsReadOnly = false;
         Emulator5NameTextBox.IsEnabled = true;
-            
+
         Emulator5LocationTextBox.IsReadOnly = false;
         Emulator5LocationTextBox.IsEnabled = true;
-            
+
         Emulator5ParametersTextBox.IsReadOnly = false;
         Emulator5ParametersTextBox.IsEnabled = true;
-            
+
         ChooseSystemFolderButton.IsEnabled = true;
         ChooseSystemImageFolderButton.IsEnabled = true;
         ChooseEmulator1LocationButton.IsEnabled = true;
@@ -536,7 +536,7 @@ public partial class EditSystem
 
         // Validate SystemName
         if (ValidateSystemName(systemNameText)) return;
-        
+
         // Validate SystemFolder
         if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
 
@@ -545,12 +545,12 @@ public partial class EditSystem
 
         // Validate systemIsMame
         // Set to false if user does not choose
-        bool systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-        
+        var systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+
         // Validate extractFileBeforeLaunch
         // Set to false if user does not choose
-        bool extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-            
+        var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+
         // Validate FormatToSearch
         if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch)) return;
 
@@ -559,20 +559,20 @@ public partial class EditSystem
 
         // Validate Emulator1Name
         if (ValidateEmulator1Name(emulator1NameText)) return;
-        
+
         // Check paths
         if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                 isEmulator5LocationValid)) return;
-            
+
         ////////////////
         // XML factory//
         ////////////////
         // Initialize 'emulatorsElement' as an XElement
         var emulatorsElement = new XElement("Emulators");
-        
+
         // HashSet to store emulator names and ensure uniqueness
         var emulatorNames = new HashSet<string>();
-        
+
         // Add Emulator1 details to XML and check uniqueness
         if (!emulatorNames.Add(emulator1NameText))
         {
@@ -582,7 +582,7 @@ public partial class EditSystem
             return;
         }
         AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText);
-        
+
         // Validate Emulators 2-5
         // Arrays for emulator names, locations, and parameters TextBoxes
         string[] nameText = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
@@ -621,14 +621,14 @@ public partial class EditSystem
 
                     return;
                 }
-                
+
                 ////////////////
                 // XML factory//
                 ////////////////
                 AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters);
             }
         }
-            
+
         ////////////////
         // XML factory//
         ////////////////
@@ -653,10 +653,10 @@ public partial class EditSystem
 
         // Save
         sortedDoc.Save(XmlFilePath);
-            
+
         // Repopulate the SystemNamesDropbox
         PopulateSystemNamesDropdown();
-        
+
         // Select a value from Dropbox
         SystemNameDropdown.SelectedItem = systemNameText;
 
@@ -675,7 +675,7 @@ public partial class EditSystem
         // Define the valid patterns
         var validSystemFolderPattern = $".\\roms\\{systemNameText}";
         var validSystemImageFolderPattern = $".\\images\\{systemNameText}";
-        
+
         // Perform validation
         isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
         isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
@@ -787,7 +787,7 @@ public partial class EditSystem
             .Select(format => format.Trim())
             .Where(format => !string.IsNullOrEmpty(format))
             .ToList();
-        
+
         if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
         {
             // Notify user
@@ -795,7 +795,7 @@ public partial class EditSystem
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -830,7 +830,7 @@ public partial class EditSystem
         {
             systemImageFolderText = $".\\images\\{systemNameText}";
             SystemImageFolderTextBox.Text = systemImageFolderText;
-            
+
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemImageFolderText))
             {
@@ -841,14 +841,14 @@ public partial class EditSystem
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string formattedException = $"'Failed to create the default systemImageFolder.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
+                    var formattedException = $"'Failed to create the default systemImageFolder.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
-        
+
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
             // Notify user
@@ -866,7 +866,7 @@ public partial class EditSystem
         {
             systemFolderText = $".\\roms\\{systemNameText}";
             SystemFolderTextBox.Text = systemFolderText;
-            
+
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemFolderText))
             {
@@ -877,9 +877,9 @@ public partial class EditSystem
                 catch (Exception ex)
                 {
                     // Notify developer
-                    string formattedException = $"'Failed to create the default systemFolder.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}";
+                    var formattedException = $"'Failed to create the default systemFolder.\n\n" +
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
                 }
             }
@@ -904,7 +904,7 @@ public partial class EditSystem
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -923,13 +923,13 @@ public partial class EditSystem
 
     private static void CreateFolders(string systemNameText)
     {
-        string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
         string[] folderNames = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "flyers", "pcbs", "carts"];
 
         foreach (var folderName in folderNames)
         {
             var parentDirectory = Path.Combine(applicationDirectory, folderName);
-    
+
             // Ensure the parent directory exists
             if (!Directory.Exists(parentDirectory))
             {
@@ -937,7 +937,7 @@ public partial class EditSystem
             }
 
             // Use SystemName as the name for the new folder inside the parent directory
-            string newFolderPath = Path.Combine(parentDirectory, systemNameText);
+            var newFolderPath = Path.Combine(parentDirectory, systemNameText);
 
             try
             {
@@ -979,7 +979,7 @@ public partial class EditSystem
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
         HelpUserTextBlock.Text = string.Empty;
-        
+
         if (SystemNameDropdown.SelectedItem == null)
         {
             // Notify user
@@ -1007,7 +1007,7 @@ public partial class EditSystem
                     _xmlDoc.Save(XmlFilePath);
                     PopulateSystemNamesDropdown();
                     ClearFields();
-                
+
                     MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
                 }
             }
@@ -1035,7 +1035,7 @@ public partial class EditSystem
         // Prepare the process start info to restart application
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
-        
+
         var startInfo = new ProcessStartInfo
         {
             FileName = processModule.FileName,
@@ -1049,7 +1049,7 @@ public partial class EditSystem
         Application.Current.Shutdown();
         Environment.Exit(0);
     }
-        
+
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
         PlayClick.PlayClickSound();

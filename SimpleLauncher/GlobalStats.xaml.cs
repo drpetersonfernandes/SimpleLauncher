@@ -36,7 +36,7 @@ public partial class GlobalStats
 
                 // Update the global stats asynchronously
                 _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
-                
+
                 GlobalInfoTextBlock.Text = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
                                            $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
                                            $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
@@ -45,7 +45,7 @@ public partial class GlobalStats
                                            $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
                 ProgressBar.Visibility = Visibility.Collapsed;
-        
+
                 // Ask the user if they want to save a report
                 DoYouWantToSaveTheReportMessageBox();
 
@@ -96,25 +96,25 @@ public partial class GlobalStats
         {
             // Asynchronous file count and base filenames of ROMs/ISOs
             var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
-            
+
             // Create a case-insensitive HashSet for ROM base filenames
             var romFileBaseNames = new HashSet<string>(
-                romFiles.Select(Path.GetFileNameWithoutExtension), 
+                romFiles.Select(Path.GetFileNameWithoutExtension),
                 StringComparer.OrdinalIgnoreCase);
 
             // Calculate the total disk size for the ROM/ISO files
             var totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
 
             var systemImagePath = config.SystemImageFolder;
-            systemImagePath = string.IsNullOrEmpty(systemImagePath) 
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) 
+            systemImagePath = string.IsNullOrEmpty(systemImagePath)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName)
                 : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
 
             var numberOfImages = 0;
             if (Directory.Exists(systemImagePath))
             {
                 await RenameImagesToMatchRomCaseAsync(systemImagePath, romFileBaseNames);
-                
+
                 // Get image files with .png, .jpg, .jpeg extensions
                 var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
                     .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
@@ -184,7 +184,7 @@ public partial class GlobalStats
         public int TotalImages { get; init; }
         public long TotalDiskSize { get; init; }
     }
-        
+
     private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
     {
         // Create a SaveFileDialog to allow the user to select the location
@@ -200,7 +200,7 @@ public partial class GlobalStats
 
         // Process save file dialog box results
         if (result != true) return;
-        
+
         // Save the report to the specified path
         var filePath = saveFileDialog.FileName;
         try
@@ -259,7 +259,7 @@ public partial class GlobalStats
     {
         if (!Directory.Exists(systemImagePath))
             return;
-        
+
         var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
             .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
                            file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||

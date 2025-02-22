@@ -30,13 +30,13 @@ public partial class MainWindow
         try
         {
             AppendLog("Preparing for batch conversion...");
-    
+
             // Restrict to .cue, .iso, and .img files only
             var supportedExtensions = new[] { ".cue", ".iso", ".img" };
             var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
                 .ToArray();
-    
+
             AppendLog($"Found {files.Length} files to convert.");
 
             if (files.Length == 0)
@@ -49,7 +49,7 @@ public partial class MainWindow
             CancelButton.Visibility = Visibility.Visible;
             ProgressBar.Maximum = files.Length;
 
-            for (int i = 0; i < files.Length; i++)
+            for (var i = 0; i < files.Length; i++)
             {
                 if (_cts.Token.IsCancellationRequested)
                 {
@@ -67,17 +67,17 @@ public partial class MainWindow
                 }
 
                 AppendLog($"[{i + 1}/{files.Length}] Converting: {inputFile}");
-                bool success = await ConvertToChdAsync(chdmanPath, inputFile, outputFile);
+                var success = await ConvertToChdAsync(chdmanPath, inputFile, outputFile);
 
                 if (success)
                 {
                     AppendLog($"Conversion successful: {inputFile}");
 
                     // Extracting the filename without the extension
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(inputFile);
-                    string binFileName = $"{fileNameWithoutExtension}.bin";
-                    string binFileNameWithPath = Path.Combine(inputFolder, binFileName);
-       
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(inputFile);
+                    var binFileName = $"{fileNameWithoutExtension}.bin";
+                    var binFileNameWithPath = Path.Combine(inputFolder, binFileName);
+
                     if (deleteFiles)
                     {
                         // Delete the original input file
@@ -148,8 +148,8 @@ public partial class MainWindow
 
     private void AppendLog(string message)
     {
-        string timestampedMessage = $"[{DateTime.Now}] {message}";
-    
+        var timestampedMessage = $"[{DateTime.Now}] {message}";
+
         // Log to console
         Console.WriteLine(timestampedMessage);
 
@@ -171,16 +171,17 @@ public partial class MainWindow
         try
         {
             AppendLog("Starting batch conversion process...");
-            
+
             // Step 1: Use chdman.exe from the application folder
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string chdmanPath = Path.Combine(appDirectory, "chdman.exe");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var chdmanPath = Path.Combine(appDirectory, "chdman.exe");
             if (!File.Exists(chdmanPath))
             {
                 AppendLog("chdman.exe not found in the application folder.");
                 MessageBox.Show("chdman.exe is missing from the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             AppendLog($"Using chdman.exe: {chdmanPath}");
 
             // Step 2: Prompt for input folder
@@ -193,7 +194,8 @@ public partial class MainWindow
                 AppendLog("Input folder selection canceled.");
                 return;
             }
-            string inputFolder = inputFolderDialog.SelectedPath;
+
+            var inputFolder = inputFolderDialog.SelectedPath;
             AppendLog($"Input folder selected: {inputFolder}");
 
             // Step 3: Prompt for output folder
@@ -206,13 +208,14 @@ public partial class MainWindow
                 AppendLog("Output folder selection canceled.");
                 return;
             }
-            string outputFolder = outputFolderDialog.SelectedPath;
+
+            var outputFolder = outputFolderDialog.SelectedPath;
             AppendLog($"Output folder selected: {outputFolder}");
 
             // Step 4: Ask if successfully converted files should be deleted
             var result = MessageBox.Show("Do you want to delete successfully converted files after conversion?",
                 "Delete Files", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            bool deleteFiles = result == MessageBoxResult.Yes;
+            var deleteFiles = result == MessageBoxResult.Yes;
             AppendLog($"Delete files option: {deleteFiles}");
 
             // Step 5: Start batch conversion
@@ -224,5 +227,4 @@ public partial class MainWindow
             AppendLog($"Error: {ex.Message}");
         }
     }
-
 }

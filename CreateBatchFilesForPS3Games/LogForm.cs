@@ -5,11 +5,11 @@ namespace CreateBatchFilesForPS3Games
         public LogForm()
         {
             InitializeComponent();
-            
+
             // Handle the FormClosing event
             FormClosing += LogForm_FormClosing;
         }
-        
+
         private void LogForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
             // Exit the application

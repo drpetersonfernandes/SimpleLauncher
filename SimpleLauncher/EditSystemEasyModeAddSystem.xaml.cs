@@ -25,7 +25,7 @@ public partial class EditSystemEasyModeAddSystem
     private readonly HttpClient _httpClient = new();
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        
+
     public EditSystemEasyModeAddSystem()
     {
         InitializeComponent();
@@ -52,7 +52,7 @@ public partial class EditSystemEasyModeAddSystem
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (SystemNameDropdown.SelectedItem == null) return;
-        
+
         var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem != null)
         {
@@ -67,7 +67,7 @@ public partial class EditSystemEasyModeAddSystem
             UpdateAddSystemButtonState();
         }
     }
-        
+
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -76,7 +76,7 @@ public partial class EditSystemEasyModeAddSystem
             _isEmulatorDownloaded = false;
             DownloadEmulatorButton.IsEnabled = true;
             UpdateAddSystemButtonState();
-    
+
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
@@ -112,7 +112,7 @@ public partial class EditSystemEasyModeAddSystem
 
                         var extractionSuccess = await _extractCompressedFile
                             .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
-                        
+
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
 
@@ -123,11 +123,11 @@ public partial class EditSystemEasyModeAddSystem
 
                             // Clean up the downloaded file only if extraction is successful
                             DeleteFile(downloadFilePath);
-                           
+
                             // Mark as downloaded and disable button
                             _isEmulatorDownloaded = true;
                             DownloadEmulatorButton.IsEnabled = false;
-                            
+
                             // Update AddSystemButton state
                             UpdateAddSystemButtonState();
                         }
@@ -170,7 +170,7 @@ public partial class EditSystemEasyModeAddSystem
                                              $"Exception type: {ex.GetType().Name}\n" +
                                              $"Exception details: {ex.Message}";
                     await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
                     // Notify user
                     await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem, ex);
                 }
@@ -193,11 +193,11 @@ public partial class EditSystemEasyModeAddSystem
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
     }
-    
+
     private static string ChangeFileExtensionFunction(EasyModeSystemConfig selectedSystem, string downloadFilePath)
     {
         if (!selectedSystem.Emulators.Emulator.EmulatorDownloadRename) return downloadFilePath;
-        
+
         var newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
         if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
         {
@@ -213,7 +213,7 @@ public partial class EditSystemEasyModeAddSystem
         if (!File.Exists(newFilePath))
         {
             // Update the downloadFilePath to the new file path
-            downloadFilePath = newFilePath;                                
+            downloadFilePath = newFilePath;
         }
 
         return downloadFilePath;
@@ -227,10 +227,10 @@ public partial class EditSystemEasyModeAddSystem
             _isCoreDownloaded = true;
             DownloadCoreButton.IsEnabled = false;
             UpdateAddSystemButtonState();
-            
+
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem == null) return;
-            
+
             // string coreLocation = selectedSystem.Emulators.Emulator.CoreLocation;
             var coreDownloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
             var emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
@@ -261,7 +261,7 @@ public partial class EditSystemEasyModeAddSystem
 
                     var extractionSuccess = await _extractCompressedFile
                         .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
-                        
+
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
 
@@ -276,7 +276,7 @@ public partial class EditSystemEasyModeAddSystem
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
                         DownloadCoreButton.IsEnabled = false;
-                            
+
                         // Update AddSystemButton state
                         UpdateAddSystemButtonState();
                     }
@@ -306,7 +306,7 @@ public partial class EditSystemEasyModeAddSystem
             catch (TaskCanceledException)
             {
                 DeleteFile(downloadFilePath);
-                    
+
                 // Notify user
                 MessageBoxLibrary.DownloadCanceledMessageBox();
             }
@@ -318,7 +318,7 @@ public partial class EditSystemEasyModeAddSystem
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                    
+
                 // Notify user
                 await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem, ex);
             }
@@ -335,7 +335,7 @@ public partial class EditSystemEasyModeAddSystem
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
             // Notify user
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
@@ -350,7 +350,7 @@ public partial class EditSystemEasyModeAddSystem
 
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem == null) return;
-            
+
             var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
             var extrasFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
             Directory.CreateDirectory(extrasFolderPath);
@@ -382,7 +382,7 @@ public partial class EditSystemEasyModeAddSystem
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
-                        
+
                     if (extractionSuccess)
                     {
                         // Notify user
@@ -390,10 +390,10 @@ public partial class EditSystemEasyModeAddSystem
 
                         // Clean up the downloaded file only if extraction is successful
                         DeleteFile(downloadFilePath);
-                            
+
                         // Mark as downloaded and disable button
                         DownloadExtrasButton.IsEnabled = false;
-                            
+
                         // Update AddSystemButton state
                         UpdateAddSystemButtonState();
                     }
@@ -436,7 +436,7 @@ public partial class EditSystemEasyModeAddSystem
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                    
+
                 // Notify user
                 await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem, ex);
             }
@@ -453,7 +453,7 @@ public partial class EditSystemEasyModeAddSystem
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
             // Notify user
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
@@ -538,14 +538,14 @@ public partial class EditSystemEasyModeAddSystem
             {
                 // Delete temp files
                 DeleteFile(destinationPath);
-                
+
                 // Notify developer
                 var formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                
+
                 // Notify user
                 // Ignore
             }
@@ -553,14 +553,14 @@ public partial class EditSystemEasyModeAddSystem
             {
                 // Delete temp files
                 DeleteFile(destinationPath);
-                    
+
                 // Notify developer
                 var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                    
+
                 // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             }
@@ -575,9 +575,9 @@ public partial class EditSystemEasyModeAddSystem
             StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
 
             // Reset completion flag and progress
-            _isDownloadCompleted = false; 
+            _isDownloadCompleted = false;
             DownloadProgressBar.Value = 0;
-                
+
             // Reinitialize the cancellation token source for the next download
             _cancellationTokenSource = new CancellationTokenSource();
         }
@@ -587,7 +587,7 @@ public partial class EditSystemEasyModeAddSystem
     {
         var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem == null) return;
-        
+
         // Determine the system folder to use
         var systemFolder = SystemFolderTextBox.Text;
         if (string.IsNullOrEmpty(systemFolder))
@@ -595,7 +595,7 @@ public partial class EditSystemEasyModeAddSystem
             systemFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName);
             SystemFolderTextBox.Text = systemFolder;
         }
-            
+
         // Remove the leading dot from the SystemImageFolder for the message
         var systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
 
@@ -684,17 +684,17 @@ public partial class EditSystemEasyModeAddSystem
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
- 
+
             // Notify user
             MessageBoxLibrary.AddSystemFailedMessageBox();
         }
     }
-        
+
     private void UpdateAddSystemButtonState()
     {
         AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
     }
-        
+
     private static void CreateSystemFolders(string systemName, string systemFolder, string systemImageFolder)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -744,15 +744,15 @@ public partial class EditSystemEasyModeAddSystem
             throw;
         }
     }
-        
+
     private void EditSystemEasyModeAddSystem_Closed(object sender, EventArgs e)
     {
         _config = null;
-            
+
         // Prepare the process start info
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
-        
+
         var startInfo = new ProcessStartInfo
         {
             FileName = processModule.FileName,
@@ -766,7 +766,7 @@ public partial class EditSystemEasyModeAddSystem
         Application.Current.Shutdown();
         Environment.Exit(0);
     }
-        
+
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
@@ -785,7 +785,7 @@ public partial class EditSystemEasyModeAddSystem
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
     }
-    
+
     private static void DeleteFile(string file)
     {
         if (!File.Exists(file)) return;
