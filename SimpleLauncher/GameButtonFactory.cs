@@ -566,6 +566,7 @@ internal class GameButtonFactory(
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
+
             RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
         }
     }
@@ -599,8 +600,7 @@ internal class GameButtonFactory(
         var defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
 
         // Fall back to the global default image path if no specific or system default image exists
-        return File.Exists(defaultImagePath) ? defaultImagePath :
-            Path.Combine(_baseDirectory, "images", DefaultImagePath);
+        return File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(_baseDirectory, "images", DefaultImagePath);
     }
 
     public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)

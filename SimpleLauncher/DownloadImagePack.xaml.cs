@@ -97,8 +97,7 @@ public partial class DownloadImagePack
                     var pleaseWaitWindow = new PleaseWaitExtraction();
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await _extractCompressedFile.
-                        ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
+                    var extractionSuccess = await _extractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
@@ -223,7 +222,6 @@ public partial class DownloadImagePack
                 _isDownloadCompleted = false;
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
-
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {

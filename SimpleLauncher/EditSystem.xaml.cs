@@ -51,7 +51,6 @@ public partial class EditSystem
         {
             _xmlDoc = XDocument.Load(XmlFilePath);
         }
-
     }
 
     private void PopulateSystemNamesDropdown()
@@ -276,7 +275,6 @@ public partial class EditSystem
 
             MarkValid(SystemFolderTextBox);
         }
-
     }
 
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
@@ -581,6 +579,7 @@ public partial class EditSystem
 
             return;
         }
+
         AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText);
 
         // Validate Emulators 2-5
@@ -765,6 +764,7 @@ public partial class EditSystem
 
             return true;
         }
+
         return false;
     }
 
@@ -777,6 +777,7 @@ public partial class EditSystem
 
             return true;
         }
+
         return false;
     }
 
@@ -813,6 +814,7 @@ public partial class EditSystem
 
             return true;
         }
+
         if (extractFileBeforeLaunch && !formatsToSearch.All(f => f is "zip" or "7z" or "rar"))
         {
             // Notify user
@@ -820,6 +822,7 @@ public partial class EditSystem
 
             return true;
         }
+
         return false;
     }
 
@@ -856,6 +859,7 @@ public partial class EditSystem
 
             return true;
         }
+
         return false;
     }
 
@@ -892,6 +896,7 @@ public partial class EditSystem
 
             return true;
         }
+
         return false;
     }
 
@@ -998,6 +1003,7 @@ public partial class EditSystem
         {
             //Ask user if he really wants to delete the system
             DoYouWanToDeleteSystemMessageBox();
+
             void DoYouWanToDeleteSystemMessageBox()
             {
                 var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();

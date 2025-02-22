@@ -20,6 +20,7 @@ public abstract class FileManager
                 {
                     return [];
                 }
+
                 var foundFiles = fileExtensions.SelectMany(ext => Directory.GetFiles(directoryPath, ext)).ToList();
                 return foundFiles;
             }

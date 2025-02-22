@@ -469,6 +469,7 @@ public partial class FavoritesWindow
                     PlayClick.PlayClickSound();
 
                     DoYouWanToDeleteMessageBox();
+
                     void DoYouWanToDeleteMessageBox()
                     {
                         var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
@@ -489,6 +490,7 @@ public partial class FavoritesWindow
                             // Notify user
                             MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                         }
+
                         RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
                     }
                 };
@@ -648,7 +650,9 @@ public partial class FavoritesWindow
         if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
         var imagePath = selectedFavorite.CoverImage;
-        PreviewImage.Source = File.Exists(imagePath) ? new BitmapImage(new Uri(imagePath, UriKind.Absolute)) :
+        PreviewImage.Source = File.Exists(imagePath)
+            ? new BitmapImage(new Uri(imagePath, UriKind.Absolute))
+            :
             // Set a default image if the selected image doesn't exist
             new BitmapImage(new Uri("pack://application:,,,/images/default.png"));
     }
@@ -691,7 +695,9 @@ public partial class FavoritesWindow
         }
 
         // If not found, try the global directory
-        return TryFindImage(globalDirectory, out foundImagePath) ? foundImagePath :
+        return TryFindImage(globalDirectory, out foundImagePath)
+            ? foundImagePath
+            :
 
             // If not found, use default image
             Path.Combine(baseDirectory, "images", "default.png");
@@ -706,6 +712,7 @@ public partial class FavoritesWindow
                 foundPath = imagePath;
                 return true;
             }
+
             foundPath = null;
             return false;
         }
@@ -727,7 +734,6 @@ public partial class FavoritesWindow
         MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
 
         return true;
-
     }
 
     private static bool CheckForSystemConfig(SystemConfig systemConfig)
@@ -743,7 +749,6 @@ public partial class FavoritesWindow
         MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
 
         return true;
-
     }
 
     private static bool CheckFilenameOfSelectedFavorite(Favorite selectedFavorite)
@@ -759,7 +764,6 @@ public partial class FavoritesWindow
         MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
 
         return true;
-
     }
 
     private async Task<bool> CheckFilePathDeleteFavoriteIfInvalid(string fileName, string systemName, string fullPath)
@@ -784,7 +788,6 @@ public partial class FavoritesWindow
         MessageBoxLibrary.GameFileDoesNotExistMessageBox();
 
         return true;
-
     }
 
     private static async Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)

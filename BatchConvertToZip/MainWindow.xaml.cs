@@ -139,6 +139,7 @@ public partial class MainWindow
                 AppendLog("Input folder selection canceled.");
                 return;
             }
+
             var inputFolder = inputFolderDialog.SelectedPath;
             AppendLog($"Input folder selected: {inputFolder}");
 
@@ -151,6 +152,7 @@ public partial class MainWindow
                 AppendLog("Output folder selection canceled.");
                 return;
             }
+
             var outputFolder = outputFolderDialog.SelectedPath;
             AppendLog($"Output folder selected: {outputFolder}");
 

@@ -294,5 +294,4 @@ public class ExtractCompressedFile
                 throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
         }
     }
-
 }

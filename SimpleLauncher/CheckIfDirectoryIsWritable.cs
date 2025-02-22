@@ -20,6 +20,7 @@ public static class CheckIfDirectoryIsWritable
             {
                 fs.Close();
             }
+
             File.Delete(testFile);
 
             return true;

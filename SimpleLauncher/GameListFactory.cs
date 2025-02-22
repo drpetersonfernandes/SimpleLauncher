@@ -490,6 +490,7 @@ public class GameListFactory(
                     // Notify user
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
+
                 RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
             }
         }

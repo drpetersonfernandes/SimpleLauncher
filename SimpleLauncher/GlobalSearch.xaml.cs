@@ -32,7 +32,7 @@ public partial class GlobalSearch
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
 
-    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string,string> mameLookup , SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string, string> mameLookup, SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -86,6 +86,7 @@ public partial class GlobalSearch
                     {
                         _searchResults.Add(result);
                     }
+
                     LaunchButton.IsEnabled = true;
                 }
                 else
@@ -138,6 +139,7 @@ public partial class GlobalSearch
                     {
                         return MatchesSearchQuery(description.ToLower(), searchTerms);
                     }
+
                     return false;
                 });
             }
@@ -232,6 +234,7 @@ public partial class GlobalSearch
                 foundPath = imagePath;
                 return true;
             }
+
             foundPath = null;
             return false;
         }
@@ -269,6 +272,7 @@ public partial class GlobalSearch
         {
             return searchTerms.Where(term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
         }
+
         return hasOr ? searchTerms.Where(term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase)) : searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -695,6 +699,7 @@ public partial class GlobalSearch
 
                 // Notify user
                 DoYouWanToDeleteMessageBox();
+
                 void DoYouWanToDeleteMessageBox()
                 {
                     var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
@@ -715,6 +720,7 @@ public partial class GlobalSearch
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                     }
+
                     RightClickContextMenu.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
                 }
             };
@@ -816,7 +822,6 @@ public partial class GlobalSearch
         public int Score { get; set; }
         public string CoverImage { get; init; }
         public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
-
     }
 
     private static async Task<bool> CheckSystemConfig2(SystemConfig systemConfig)

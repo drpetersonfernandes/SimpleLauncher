@@ -5,6 +5,7 @@ namespace SimpleLauncher;
 public partial class SetGamepadDeadZone
 {
     private readonly SettingsConfig _settingsConfig;
+
     public SetGamepadDeadZone(SettingsConfig settings)
     {
         InitializeComponent();

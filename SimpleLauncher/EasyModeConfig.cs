@@ -115,7 +115,6 @@ public class EasyModeSystemConfig
     }
 }
 
-
 public class EmulatorsConfig
 {
     [XmlElement("Emulator")]

@@ -210,6 +210,7 @@ public partial class EditSystemEasyModeAddSystem
                 // ignore
             }
         }
+
         if (!File.Exists(newFilePath))
         {
             // Update the downloadFilePath to the new file path
@@ -494,7 +495,6 @@ public partial class EditSystemEasyModeAddSystem
                 _isDownloadCompleted = false;
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
-
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {

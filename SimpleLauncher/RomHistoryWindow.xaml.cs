@@ -122,6 +122,7 @@ public partial class RomHistoryWindow
 
         // Notify user
         DidNotFindRomHistoryMessageBox();
+
         void DidNotFindRomHistoryMessageBox()
         {
             var result = MessageBoxLibrary.SearchOnlineForRomHistoryMessageBox();
@@ -211,6 +212,7 @@ public partial class RomHistoryWindow
 
     [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
     private static partial Regex MyRegex();
+
     [GeneratedRegex(@"- .* -", RegexOptions.Compiled)]
     private static partial Regex MyRegex1();
 }

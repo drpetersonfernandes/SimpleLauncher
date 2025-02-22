@@ -8,7 +8,7 @@ using DeviceType = SharpDX.DirectInput.DeviceType;
 
 namespace SimpleLauncher;
 
-public class GamePadController: IDisposable
+public class GamePadController : IDisposable
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
@@ -89,6 +89,7 @@ public class GamePadController: IDisposable
                     _directInputController = new Joystick(directInput, devices[0].InstanceGuid);
                     _directInputController.Acquire();
                 }
+
                 _isDisposed = false;
             }
 
@@ -253,7 +254,6 @@ public class GamePadController: IDisposable
             {
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
-
             }
         }
         catch (Exception ex)
@@ -314,7 +314,7 @@ public class GamePadController: IDisposable
     private void HandleDirectInputButtons(JoystickState state)
     {
         var isCrossDown = state.Buttons[1];
-        if (isCrossDown && !_wasCrossDown) _mouseSimulator.LeftButtonDown();  // Cross Button
+        if (isCrossDown && !_wasCrossDown) _mouseSimulator.LeftButtonDown(); // Cross Button
         if (!isCrossDown && _wasCrossDown) _mouseSimulator.LeftButtonUp();
         _wasCrossDown = isCrossDown;
 

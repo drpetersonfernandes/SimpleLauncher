@@ -138,6 +138,7 @@ public static partial class UpdateChecker
         {
             // Notify user
             var result = DoYouWantToUpdateMessageBox();
+
             MessageBoxResult DoYouWantToUpdateMessageBox()
             {
                 var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
@@ -295,7 +296,7 @@ public static partial class UpdateChecker
         {
             foreach (Window window in Application.Current.Windows)
             {
-                window.Close();  // Close each window
+                window.Close(); // Close each window
             }
 
             GC.Collect(); // Force garbage collection
@@ -335,6 +336,7 @@ public static partial class UpdateChecker
             {
                 return (NormalizeVersion(versionMatch.Value), assetUrl);
             }
+
             LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.");
         }
         else
@@ -357,6 +359,7 @@ public static partial class UpdateChecker
             version += ".0";
             versionParts = version.Split('.');
         }
+
         // Remove any trailing dots (if any)
         return version.TrimEnd('.');
     }
@@ -369,8 +372,10 @@ public static partial class UpdateChecker
 
     [GeneratedRegex(@"[^\d\.]")]
     private static partial Regex MyRegex1();
+
     [GeneratedRegex(@"[^\d\.]")]
     private static partial Regex MyRegex2();
+
     [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
     private static partial Regex MyRegex3();
 }

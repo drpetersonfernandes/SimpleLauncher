@@ -306,8 +306,10 @@ public static partial class HelpUser
 
     [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled)]
     private static partial Regex MyRegex();
+
     [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline)]
     private static partial Regex MyRegex1();
+
     [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
     private static partial Regex MyRegex2();
 }

@@ -75,6 +75,7 @@ public static class GameLauncher
                     {
                         await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
+
                     break;
             }
         }
@@ -139,14 +140,16 @@ public static class GameLauncher
         StringBuilder output = new();
         StringBuilder error = new();
 
-        process.OutputDataReceived += (_, args) => {
+        process.OutputDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 output.AppendLine(args.Data);
             }
         };
 
-        process.ErrorDataReceived += (_, args) => {
+        process.ErrorDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 error.AppendLine(args.Data);
@@ -215,6 +218,7 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
+
             await process.WaitForExitAsync();
 
             if (process.ExitCode != 0)
@@ -263,6 +267,7 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
+
             await process.WaitForExitAsync();
 
             if (process.ExitCode != 0)
@@ -336,14 +341,16 @@ public static class GameLauncher
         StringBuilder output = new();
         StringBuilder error = new();
 
-        process.OutputDataReceived += (_, args) => {
+        process.OutputDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 output.AppendLine(args.Data);
             }
         };
 
-        process.ErrorDataReceived += (_, args) => {
+        process.ErrorDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 error.AppendLine(args.Data);
@@ -443,14 +450,16 @@ public static class GameLauncher
         StringBuilder output = new();
         StringBuilder error = new();
 
-        process.OutputDataReceived += (_, args) => {
+        process.OutputDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 output.AppendLine(args.Data);
             }
         };
 
-        process.ErrorDataReceived += (_, args) => {
+        process.ErrorDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 error.AppendLine(args.Data);
@@ -645,6 +654,7 @@ public static class GameLauncher
                     return Task.FromResult(files[0]); // Return the first file found
                 }
             }
+
             return Task.FromResult(string.Empty);
         }
     }
@@ -696,14 +706,16 @@ public static class GameLauncher
         StringBuilder output = new();
         StringBuilder error = new();
 
-        process.OutputDataReceived += (_, args) => {
+        process.OutputDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 output.AppendLine(args.Data);
             }
         };
 
-        process.ErrorDataReceived += (_, args) => {
+        process.ErrorDataReceived += (_, args) =>
+        {
             if (!string.IsNullOrEmpty(args.Data))
             {
                 error.AppendLine(args.Data);
@@ -785,7 +797,8 @@ public static class GameLauncher
 
             var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
             if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
-        }else
+        }
+        else
         {
             // Notify developer
             var formattedException = $"Can not extract file: {filePath}";
@@ -797,6 +810,7 @@ public static class GameLauncher
 
             return gamePathToLaunch;
         }
+
         return gamePathToLaunch;
 
         async Task<string> ValidateAndFindGameFile(string tempExtractLocation)
@@ -900,7 +914,6 @@ public static class GameLauncher
         // Ignore
 
         return true;
-
     }
 
     private static async Task<bool> CheckProgramLocation(string programLocation)
@@ -916,7 +929,6 @@ public static class GameLauncher
         MessageBoxLibrary.InvalidProgramLocationMessageBox(programLocation);
 
         return true;
-
     }
 
     private static async Task<bool> CheckGamePathToLaunch(string gamePathToLaunch)
@@ -947,7 +959,6 @@ public static class GameLauncher
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
 
         return true;
-
     }
 
     private static async Task<bool> CheckSystemConfig(SystemConfig systemConfig)
@@ -1047,7 +1058,6 @@ public static class GameLauncher
         MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
 
         return true;
-
     }
 
     private static bool CheckSystemComboBox(ComboBox systemComboBox)

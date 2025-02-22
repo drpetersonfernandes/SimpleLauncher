@@ -153,6 +153,7 @@ public partial class MainWindow
                 MessageBox.Show("7z.exe is missing from the application folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             AppendLog($"Using 7z.exe: {sevenZipPath}");
 
             var inputFolderDialog = new FolderBrowserDialog
@@ -164,6 +165,7 @@ public partial class MainWindow
                 AppendLog("Input folder selection canceled.");
                 return;
             }
+
             var inputFolder = inputFolderDialog.SelectedPath;
             AppendLog($"Input folder selected: {inputFolder}");
 
@@ -176,6 +178,7 @@ public partial class MainWindow
                 AppendLog("Output folder selection canceled.");
                 return;
             }
+
             var outputFolder = outputFolderDialog.SelectedPath;
             AppendLog($"Output folder selected: {outputFolder}");
 
