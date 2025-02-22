@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="SaveorUpdateSystem">Sistemi kaydet veya güncelle</system:String>
     <system:String x:Key="SaveReport">Raporu Kaydet</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Ekran görüntüsü başarıyla kaydedildi:</system:String>
     <system:String x:Key="Search">Ara</system:String>
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Görsel paketini ayıklamak için bir klasör seçin.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Sistem klasörünü ayarla</system:String>
     <system:String x:Key="SetSystemImageFolder">Sistem görüntü klasörünü ayarla</system:String>
     <system:String x:Key="Setthegamewindowto">Oyun penceresini tam ekran olmayan bir moda ayarlayın. Bu önemlidir.</system:String>
-    <system:String x:Key="SetThumbnailSize">Küçük Resim Boyutunu Ayarla</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' sistem ayarlarında tanımlanmamış.</system:String>
     <system:String x:Key="Thereisnoflyer">Bu oyunla ilişkilendirilmiş bir broşür yok.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Bu oyunla ilişkilendirilmiş bir oynanış görüntüsü yok.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Bu favoriyle ilişkilendirilmiş bir oyun içi görüntü yok.</system:String>
     <system:String x:Key="Thereisnomanual">Bu dosyayla ilişkilendirilmiş bir kılavuz yok.</system:String>
     <system:String x:Key="ThereisnoPCBfile">Bu oyunla ilişkilendirilmiş bir devre kartı (PCB) dosyası yok.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Bu oyunla ilişkilendirilmiş bir başlık görüntüsü yok.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Sistem klasöründe aranacak uzantı</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">ISO dosyalarını toplu olarak XISO'ya dönüştür</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' dosyası bozulmuş.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Manuel olarak düzeltmeniz veya silmeniz gerekiyor.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">Uygulama kapatılacak.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher' programının Program Files gibi korumalı bir klasöre kurulu olduğu ve yazma izni olmadığı görünüyor.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Bu programın klasörü için yazma iznine ihtiyacı var.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Lütfen uygulama klasörünü 'Belgeler' gibi yazma izni olan bir yere taşıyın.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Bu yöntemde bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Sistem yapılandırması yüklenirken bir hata meydana geldi.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Oyun listesini yüklerken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Bağış bağlantısını açarken bir hata meydana geldi.</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">İndirme hatası.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
-    <system:String x:Key="Downloadfailed">İndirme başarısız oldu.</system:String>
     <system:String x:Key="Therewasanerroradding">Bu sistemi eklerken bir hata oluştu.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Bu sistem için 'ROM' veya 'ISO' içeren bir klasör seçin.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Ayrıca şu klasörler de oluşturuldu:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">Uygulama yeterli yetkilere sahip olmayabilir. Yönetici izinleriyle çalıştırmayı deneyin.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Ayrıca, 'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Seçili sistem XML belgesinde bulunamadı!</system:String>
     <system:String x:Key="Alert">Uyarı</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Güncellemeleri kontrol ederken bir hata oluştu.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher' tekrar yüklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe', uygulama dizininde bulunamadı.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'ı manuel olarak indirmek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Uygulamayı yüklerken veya güncellerken bir hata oluştu.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Bunu düzenleme penceresinden düzeltin.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' uygulamasında bir seçim penceresi açılacak ve istediğiniz pencereyi yakalamanıza olanak sağlayacaktır.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Sağ tıklama bağlam menüsünde bir hata oluştu.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Video bağlantısı açılırken bir sorun oluştu.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Bilgi bağlantısı açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Geçmiş penceresi açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Kapak resmi açılırken bir hata oluştu.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Rehber dosyası açılamadı.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' ekran görüntüsü alamadı.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Dosya silinmeye çalışılırken bir hata oluştu.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Oyun dosyaları bulunurken bir hata oluştu.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">'error_user.log' dosyasını açarak hatayı ayıklamak istiyor musunuz?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Küresel arama kullanılırken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Seçilen oyunu başlatırken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Sistem yapılandırmasını yüklerken bir hata oluştu.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Bu oyunun kapak resmini açarken bir sorun oluştu.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Küresel istatistikler hesaplanırken bir hata oluştu.</system:String>
     <system:String x:Key="Failedtosavethereport">Rapor kaydedilemedi.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' yüklenirken beklenmeyen bir hata oluştu.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' bozuk veya açılamıyor.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Lütfen el ile düzeltin ya da dosyayı silin.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Silme işlemini seçerseniz, 'Simple Launcher' yeni bir dosya oluşturacaktır.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Hatanın nedenini kendiniz çözmek isterseniz, 'Simple Launcher' klasöründeki 'error_user.log' dosyasını kontrol edin.</system:String>
     <system:String x:Key="systemmodelxmlismissing">'system_model.xml' dosyası eksik.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher', bu dosya olmadan düzgün çalışamaz.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' dosyası ciddi şekilde bozuk.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Detayları görmek için 'Simple Launcher' klasöründeki 'error_user.log' dosyasına bakın.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">GamePad denetleyicisinde bir sorun oluştu.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">Geçersiz emülatör çalıştırılabilir yolu:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Lütfen bu sistem için yapılandırmayı kontrol edin.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Düğme En Boy Oranını Ayarla</system:String>
+    <system:String x:Key="Square">Kare</system:String>
+    <system:String x:Key="Wider">Daha Geniş</system:String>
+    <system:String x:Key="Taller">Daha Uzun</system:String>
+    <system:String x:Key="SetButtonSize">Düğme Boyutunu Ayarla</system:String>
+    <system:String x:Key="650pixels">650 piksel</system:String>
+    <system:String x:Key="700pixels">700 piksel</system:String>
+    <system:String x:Key="750pixels">750 piksel</system:String>
+    <system:String x:Key="800pixels">800 piksel</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Gamepad Ölü Bölgesini Ayarla</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
+    <system:String x:Key="DeadZoneX">Ölü Bölge X</system:String>
+    <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
+    <system:String x:Key="SaveDeadZone">Kaydet</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Ölü bölge değerleri varsayılan değerlere geri döndürüldü.</system:String>
+    <system:String x:Key="Therewasanerror">Bir hata oluştu.</system:String>
     
 </ResourceDictionary>

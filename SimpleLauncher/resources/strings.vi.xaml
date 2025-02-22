@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="SaveorUpdateSystem">Lưu hoặc cập nhật hệ thống</system:String>
     <system:String x:Key="SaveReport">Lưu báo cáo</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Ảnh chụp màn hình đã được lưu thành công tại:</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
     <system:String x:Key="Searchingpleasewait">Đang tìm kiếm, vui lòng đợi...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Hãy chọn một thư mục để giải nén gói hình ảnh.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Đặt thư mục hệ thống</system:String>
     <system:String x:Key="SetSystemImageFolder">Đặt thư mục hình ảnh hệ thống</system:String>
     <system:String x:Key="Setthegamewindowto">Đặt cửa sổ trò chơi vào chế độ không toàn màn hình. Điều này quan trọng.</system:String>
-    <system:String x:Key="SetThumbnailSize">Đặt kích thước hình thu nhỏ</system:String>
     <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
     <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">Không có phần mở rộng được đặt trong 'Phần mở rộng để thực thi sau khi trích xuất' trong cấu hình hệ thống.</system:String>
     <system:String x:Key="Thereisnoflyer">Không có tệp tờ rơi nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Không có ảnh chụp chơi game nào được liên kết với trò chơi này.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Không có ảnh chụp màn hình gameplay nào được liên kết với mục yêu thích này.</system:String>
     <system:String x:Key="Thereisnomanual">Không có hướng dẫn nào được liên kết với tệp này.</system:String>
     <system:String x:Key="ThereisnoPCBfile">Không có tệp mạch in (PCB) nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Không có ảnh chụp tiêu đề nào được liên kết với trò chơi này.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Phần mở rộng để tìm kiếm trong thư mục hệ thống</system:String>
 
     <system:String x:Key="BatchConvertIsoToXiso">Chuyển đổi hàng loạt từ ISO sang XISO</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">Tệp 'system.xml' bị hỏng.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Bạn cần sửa thủ công hoặc xóa tệp này.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">Ứng dụng sẽ bị tắt.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">Có vẻ như 'Simple Launcher' được cài đặt trong một thư mục được bảo vệ (ví dụ: Program Files) mà không có quyền ghi.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Ứng dụng cần quyền ghi vào thư mục của nó.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Vui lòng di chuyển thư mục ứng dụng đến một vị trí có quyền ghi, chẳng hạn như thư mục 'Documents'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Đã xảy ra lỗi với phương pháp này.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Đã xảy ra lỗi khi tải cấu hình hệ thống.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Đã xảy ra lỗi khi tải danh sách trò chơi.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Đã xảy ra lỗi khi mở liên kết quyên góp.</system:String>
@@ -383,7 +376,6 @@
 
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
-    <system:String x:Key="Downloadfailed">Tải xuống thất bại.</system:String>
     <system:String x:Key="Therewasanerroradding">Đã xảy ra lỗi khi thêm hệ thống này.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Chọn một thư mục chứa các tệp 'ROM' hoặc 'ISO' cho hệ thống này.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Cấp quyền quản trị viên cho 'Simple Launcher' và thử lại.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Nó cũng đã tạo các thư mục cho:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">Ứng dụng có thể không có đủ quyền. Hãy thử chạy ứng dụng với quyền quản trị.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Ngoài ra, hãy đảm bảo rằng 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Hệ thống được chọn không tìm thấy trong tệp XML!</system:String>
     <system:String x:Key="Alert">Cảnh báo</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Đã xảy ra lỗi khi kiểm tra bản cập nhật.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Có thể có vấn đề với kết nối internet của bạn hoặc máy chủ GitHub đang ngoại tuyến.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Đã xảy ra lỗi khi cài đặt lại 'Simple Launcher'.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' không tìm thấy trong thư mục ứng dụng.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống 'Simple Launcher' để tải về thủ công không?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Đã xảy ra lỗi khi cài đặt hoặc cập nhật ứng dụng.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa lỗi đó trong cửa sổ Chỉnh sửa.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ lựa chọn sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ mong muốn để chụp.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Đã xảy ra lỗi trong menu ngữ cảnh chuột phải.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Đã xảy ra sự cố khi mở liên kết Video.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Đã xảy ra sự cố khi mở liên kết Thông tin.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Đã xảy ra sự cố khi mở cửa sổ Lịch sử.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Đã xảy ra lỗi khi cố gắng mở hình ảnh bìa.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Không thể mở tệp hướng dẫn.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' không thể chụp ảnh màn hình.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Đã xảy ra lỗi khi cố gắng xoá tệp.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Đã xảy ra lỗi khi tìm các tệp trò chơi.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Đã xảy ra lỗi khi sử dụng tìm kiếm toàn cầu.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Đã xảy ra lỗi khi khởi chạy trò chơi được chọn.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Đã xảy ra lỗi khi tải cấu hình hệ thống.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Đã xảy ra sự cố khi mở hình bìa cho trò chơi này.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Đã xảy ra lỗi khi tính toán thống kê toàn cầu.</system:String>
     <system:String x:Key="Failedtosavethereport">Không thể lưu báo cáo.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Lỗi không mong muốn khi tải tệp 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">Tệp 'system.xml' bị hỏng hoặc không thể mở được.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Vui lòng sửa nó thủ công hoặc xóa nó.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Nếu bạn muốn gỡ lỗi sự cố, hãy kiểm tra tệp 'error_user.log' trong thư mục 'Simple Launcher'.</system:String>
     <system:String x:Key="systemmodelxmlismissing">Tệp 'system_model.xml' bị thiếu.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' không thể hoạt động bình thường nếu thiếu tệp này.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Tệp 'system.xml' bị hỏng nghiêm trọng.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Để xem chi tiết, hãy kiểm tra tệp 'error_user.log' trong thư mục 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' không thể mở liên kết tải xuống gói hình ảnh.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Đã xảy ra lỗi với bộ điều khiển GamePad.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
@@ -513,5 +495,23 @@
 
     <system:String x:Key="Invalidemulatorexecutablepath3">Đường dẫn thực thi trình giả lập không hợp lệ:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Vui lòng kiểm tra cấu hình cho hệ thống này.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
+    <system:String x:Key="Square">Hình vuông</system:String>
+    <system:String x:Key="Wider">Rộng hơn</system:String>
+    <system:String x:Key="Taller">Cao hơn</system:String>
+    <system:String x:Key="SetButtonSize">Đặt kích thước nút</system:String>
+    <system:String x:Key="650pixels">650 pixel</system:String>
+    <system:String x:Key="700pixels">700 pixel</system:String>
+    <system:String x:Key="750pixels">750 pixel</system:String>
+    <system:String x:Key="800pixels">800 pixel</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Đặt vùng chết gamepad</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Bạn có thể xác định vùng chết gamepad tùy chỉnh</system:String>
+    <system:String x:Key="DeadZoneX">Vùng chết X</system:String>
+    <system:String x:Key="DeadZoneY">Vùng chết Y</system:String>
+    <system:String x:Key="SaveDeadZone">Lưu</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Đã lưu thành công giá trị vùng chết.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Giá trị vùng chết đã được hoàn nguyên về giá trị mặc định.</system:String>
+    <system:String x:Key="Therewasanerror">Đã xảy ra lỗi.</system:String>
     
 </ResourceDictionary>

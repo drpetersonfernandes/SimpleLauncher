@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
     <system:String x:Key="SaveorUpdateSystem">保存或更新系統</system:String>
     <system:String x:Key="SaveReport">儲存報告</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">截圖已成功儲存於：</system:String>
     <system:String x:Key="Search">搜尋</system:String>
     <system:String x:Key="Searchingpleasewait">正在搜尋，請稍候...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">請選擇一個資料夾來解壓圖像包。</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">設置系統資料夾</system:String>
     <system:String x:Key="SetSystemImageFolder">設置系統圖片資料夾</system:String>
     <system:String x:Key="Setthegamewindowto">請將遊戲視窗設為非全螢幕模式。這很重要。</system:String>
-    <system:String x:Key="SetThumbnailSize">設定縮略圖大小</system:String>
     <system:String x:Key="ShowAllGames">顯示所有遊戲</system:String>
     <system:String x:Key="ShowGames">顯示遊戲</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">僅顯示有封面的遊戲</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">系統設置中未定義 '解壓之後執行的擴展名'。</system:String>
     <system:String x:Key="Thereisnoflyer">此遊戲沒有關聯的傳單檔案。</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">此遊戲沒有關聯的遊戲截圖。</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">此收藏未關聯任何遊戲畫面截圖。</system:String>
     <system:String x:Key="Thereisnomanual">此檔案沒有關聯的手冊。</system:String>
     <system:String x:Key="ThereisnoPCBfile">此遊戲沒有關聯的電路板（PCB）檔案。</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">此遊戲沒有關聯的標題截圖。</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">在系統資料夾中搜尋的擴展</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">批量將ISO轉換為XISO</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">檔案“system.xml”已損壞。</system:String>
-    <system:String x:Key="Youneedtofixitmanually">您需要手動修復或刪除該檔案。</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">應用程式將被關閉。</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">看起來“Simple Launcher”已安裝在受保護的資料夾（例如：Program Files）中，且沒有寫入權限。</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">程式需要此資料夾的寫入權限。</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">請將應用程式資料夾移動到允許寫入的路徑，例如“文件”資料夾。</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">此方法出現錯誤。</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">加載系統配置時出現錯誤。</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">加載遊戲清單時出現錯誤。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">打開捐贈連結時出現錯誤。</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">下載錯誤。</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">打開下載連結時發生錯誤。</system:String>
-    <system:String x:Key="Downloadfailed">下載失敗。</system:String>
     <system:String x:Key="Therewasanerroradding">新增此系統時發生錯誤。</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">為此系統選擇一個包含 'ROM' 或 'ISO' 檔案的資料夾。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">請賦予 'Simple Launcher' 管理員權限後重試。</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">同時也建立了以下資料夾：</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 未能為此系統創建所需資料夾。</system:String>
-    <system:String x:Key="Theapplicationmightnothave">應用程式可能沒有足夠的權限。請嘗試以管理員模式運行。</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">此外，請確保 'Simple Launcher' 資料夾位於具備寫入權限的目錄中。</system:String>
     <system:String x:Key="Selectedsystemnotfound">在 XML 文件中找不到所選系統！</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">檢查更新時出現錯誤。</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">您的網路連線可能出現問題，或 GitHub 伺服器目前無法使用。</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">重新安裝 'Simple Launcher' 時出現錯誤。</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">在應用程式資料夾中未找到 'Updater.exe'。</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您是否希望跳轉到 'Simple Launcher' 下載頁面以手動下載？</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">安裝或更新應用程式時出現錯誤。</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">請在編輯視窗中修復。</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher'將打開一個選擇視窗，讓您選擇要捕獲的窗口。</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">右鍵菜單中有錯誤。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">打開視頻鏈接時出現問題。</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">打開信息鏈接時出現問題。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">打開歷史窗口時有問題。</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">嘗試打開封面圖像時有錯誤。</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">無法打開操作說明文件。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher'無法截屏。</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">嘗試刪除文件時出現錯誤。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'無法啟動此遊戲。</system:String>
     <system:String x:Key="Therewasanerrorfinding">尋找遊戲文件時出現錯誤。</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">您是否想打開文件 'error_user.log' 來除錯？</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">使用全域搜尋時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">啟動所選遊戲時發生錯誤。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">載入系統配置時發生錯誤。</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">打開遊戲封面圖片時發生問題。</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">計算全域統計資料時發生錯誤。</system:String>
     <system:String x:Key="Failedtosavethereport">無法儲存報告。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">載入「helpuser.xml」檔案時發生意外錯誤。</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">檔案「system.xml」已損壞或無法開啟。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">請手動修復或刪除它。</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">如果選擇刪除，「Simple Launcher」將生成新檔案。</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">若您想自行排查錯誤，請檢查「Simple Launcher」資料夾內的檔案「error_user.log」。</system:String>
     <system:String x:Key="systemmodelxmlismissing">檔案「system_model.xml」遺失。</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">缺少此檔案，「Simple Launcher」無法正常運行。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">檔案「system.xml」嚴重損壞。</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">查看詳細資訊，請檢查「Simple Launcher」資料夾中的檔案「error_user.log」。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">「Simple Launcher」無法開啟圖片包的下載鏈接。</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">遊戲控制器出現錯誤。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">「Simple Launcher」無法啟動所選遊戲。</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">無效的模擬器可執行路徑:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">請檢查此系統的配置。</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">設定按鈕長寬比</system:String>
+    <system:String x:Key="Square">正方形</system:String>
+    <system:String x:Key="Wider">更寬</system:String>
+    <system:String x:Key="Taller">更高</system:String>
+    <system:String x:Key="SetButtonSize">設定按鈕大小</system:String>
+    <system:String x:Key="650pixels">650 像素</system:String>
+    <system:String x:Key="700pixels">700 像素</system:String>
+    <system:String x:Key="750pixels">750 像素</system:String>
+    <system:String x:Key="800pixels">800 像素</system:String>
+    <system:String x:Key="SetGamepadDeadZone">設定遊戲手把死區</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自訂遊戲手把死區</system:String>
+    <system:String x:Key="DeadZoneX">死區 X</system:String>
+    <system:String x:Key="DeadZoneY">死區 Y</system:String>
+    <system:String x:Key="SaveDeadZone">儲存</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">死區值已成功儲存。</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">死區值已恢復為預設值。</system:String>
+    <system:String x:Key="Therewasanerror">發生錯誤。</system:String>
     
 </ResourceDictionary>

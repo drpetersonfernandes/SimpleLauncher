@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="SaveorUpdateSystem">حفظ أو تحديث النظام</system:String>
     <system:String x:Key="SaveReport">حفظ التقرير</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">تم حفظ لقطة الشاشة بنجاح في:</system:String>
     <system:String x:Key="Search">بحث</system:String>
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">اختر مجلدًا لاستخراج حزمة الصور</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">تعيين مجلد النظام</system:String>
     <system:String x:Key="SetSystemImageFolder">تعيين مجلد صور النظام</system:String>
     <system:String x:Key="Setthegamewindowto">اضبط نافذة اللعبة على الوضع غير الكامل. هذا مهم.</system:String>
-    <system:String x:Key="SetThumbnailSize">تعيين حجم الصور المصغرة</system:String>
     <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
     <system:String x:Key="ShowGames">عرض الألعاب</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">لم يتم تعيين 'الامتداد المطلوب تشغيله بعد الاستخراج' في تكوين النظام.</system:String>
     <system:String x:Key="Thereisnoflyer">لا توجد نشرة مرتبطة بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">لا يوجد ملف لقطة لعب مرتبط بهذه اللعبة.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">لا توجد لقطة لعب مرتبطة بهذه المفضلة.</system:String>
     <system:String x:Key="Thereisnomanual">لا يوجد دليل مرتبط بهذا الملف.</system:String>
     <system:String x:Key="ThereisnoPCBfile">لا يوجد ملف لوحة إلكترونية مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">لا يوجد ملف لقطة عنوان مرتبط بهذه اللعبة.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">الامتداد للبحث في مجلد النظام</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">تحويل دفعة من ملفات Iso إلى Xiso</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">ملف 'system.xml' تالف.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">عليك إصلاحه يدويًا أو حذفه.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">سيتم إغلاق التطبيق.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحيات الكتابة.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">يحتاج إلى صلاحيات الكتابة في مجلده.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">يرجى نقل مجلد التطبيق إلى موقع يمكن الكتابة فيه مثل مجلد 'Documents'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">حدث خطأ في هذه الطريقة.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">حدث خطأ أثناء تحميل إعدادات النظام لهذا النظام.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">حدث خطأ أثناء تحميل قائمة الألعاب.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">حدث خطأ أثناء فتح رابط التبرع.</system:String>
@@ -383,20 +376,19 @@
     
     <system:String x:Key="Downloaderror">خطأ في التنزيل.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
-    <system:String x:Key="Downloadfailed">فشل التنزيل.</system:String>
     <system:String x:Key="Therewasanerroradding">حدث خطأ أثناء إضافة هذا النظام.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">اختر مجلدًا يحتوي على "ROMs" أو "ISOs" لهذا النظام.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح "Simple Launcher" صلاحيات إدارية وحاول مرة أخرى.</system:String>
-    <system:String x:Key="EnsuretheSimpleLauncherfolder">تأكد من أن مجلد "Simple Launcher" مجلد قابل للكتابة.</system:String>
+    <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح 'Simple Launcher' صلاحيات إدارية وحاول مرة أخرى.</system:String>
+    <system:String x:Key="EnsuretheSimpleLauncherfolder">تأكد من أن مجلد 'Simple Launcher' مجلد قابل للكتابة.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">قم بتعطيل برنامج مكافحة الفيروسات مؤقتًا وحاول مرة أخرى.</system:String>
     <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">تم التنزيل والاستخراج بنجاح.</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى "Simple Launcher"</system:String>
+    <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى 'Simple Launcher'</system:String>
     <system:String x:Key="4thstep">الخطوة الرابعة</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">حدث خطأ أثناء تحميل ملف "easymode.xml".</system:String>
     <system:String x:Key="systemxmlnotfound">لم يتم العثور على "system.xml" داخل مجلد التطبيق.</system:String>
-    <system:String x:Key="PleaserestartSimpleLauncher">يرجى إعادة تشغيل "Simple Launcher".</system:String>
-    <system:String x:Key="Ifthatdoesnotwork">إذا لم ينجح ذلك، يرجى إعادة تثبيت "Simple Launcher".</system:String>
+    <system:String x:Key="PleaserestartSimpleLauncher">يرجى إعادة تشغيل 'Simple Launcher'.</system:String>
+    <system:String x:Key="Ifthatdoesnotwork">إذا لم ينجح ذلك، يرجى إعادة تثبيت 'Simple Launcher'.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">يرجى اختيار مجلد النظام.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">يرجى اختيار مجلد صور النظام.</system:String>
     <system:String x:Key="SelectEmulator1">اختر المحاكي 1</system:String>
@@ -404,19 +396,16 @@
     <system:String x:Key="SelectEmulator3">اختر المحاكي 3</system:String>
     <system:String x:Key="SelectEmulator4">اختر المحاكي 4</system:String>
     <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام "Simple Launcher" بإنشاء مجلد صور لهذا النظام في</system:String>
+    <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">كما قام بإنشاء مجلدات لـ</system:String>
-    <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل "Simple Launcher" في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">قد لا يكون للتطبيق صلاحيات كافية. حاول تشغيله بصلاحيات إدارية.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">بالإضافة إلى ذلك، تأكد من أن "Simple Launcher" موجود في مجلد قابل للكتابة.</system:String>
+    <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
     <system:String x:Key="Selectedsystemnotfound">لم يتم العثور على النظام المحدد في مستند XML!</system:String>
     <system:String x:Key="Alert">تنبيه</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">حدث خطأ أثناء التحقق من التحديثات.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">حدث خطأ أثناء إعادة تثبيت "Simple Launcher".</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">لم يتم العثور على "Updater.exe" في مجلد التطبيق.</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل "Simple Launcher" لتحميله يدويًا؟</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل 'Simple Launcher' لتحميله يدويًا؟</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">حدث خطأ أثناء تثبيت أو تحديث التطبيق.</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
     
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">ستفتح نافذة اختيار في 'Simple Launcher'، مما يتيح لك اختيار النافذة المطلوبة للالتقاط.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">حدث خطأ في قائمة النقر بزر الماوس الأيمن.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">حدثت مشكلة أثناء فتح رابط الفيديو.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">حدثت مشكلة أثناء فتح رابط المعلومات.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">حدثت مشكلة أثناء فتح نافذة السجل.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">حدث خطأ أثناء محاولة فتح صورة الغلاف.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">فشل في فتح ملف الإرشادات.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">لم يتمكن 'Simple Launcher' من التقاط لقطة الشاشة.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">حدث خطأ أثناء محاولة حذف الملف.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="Therewasanerrorfinding">حدث خطأ أثناء العثور على ملفات اللعبة.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">حدث خطأ أثناء استخدام البحث العالمي.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">حدث خطأ أثناء تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">حدث خطأ أثناء تحميل systemConfig.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">حدثت مشكلة أثناء فتح صورة الغلاف لهذه اللعبة.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">حدث خطأ أثناء حساب الإحصائيات العالمية.</system:String>
     <system:String x:Key="Failedtosavethereport">فشل في حفظ التقرير.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">خطأ غير متوقع أثناء تحميل 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' تالف أو لا يمكن فتحه.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">يرجى إصلاحه يدويًا أو حذفه.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">إذا اخترت حذفها، سيقوم 'Simple Launcher' بإنشاء واحدة جديدة لك.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">إذا كنت ترغب في تصحيح الخطأ بنفسك، تحقق من ملف 'error_user.log' داخل مجلد 'Simple Launcher'.</system:String>
     <system:String x:Key="systemmodelxmlismissing">'system_model.xml' مفقود.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' لا يمكن أن يعمل بشكل صحيح بدون هذا الملف.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">لمشاهدة التفاصيل، تحقق من ملف 'error_user.log' داخل مجلد 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">حدث خطأ في وحدة تحكم GamePad.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">مسار قابل تشغيل المحاكي غير صالح:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">يرجى التحقق من تكوين هذا النظام.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
+    <system:String x:Key="Square">مربع</system:String>
+    <system:String x:Key="Wider">أوسع</system:String>
+    <system:String x:Key="Taller">أطول</system:String>
+    <system:String x:Key="SetButtonSize">تعيين حجم الزر</system:String>
+    <system:String x:Key="650pixels">650 بكسل</system:String>
+    <system:String x:Key="700pixels">700 بكسل</system:String>
+    <system:String x:Key="750pixels">750 بكسل</system:String>
+    <system:String x:Key="800pixels">800 بكسل</system:String>
+    <system:String x:Key="SetGamepadDeadZone">تعيين المنطقة الميتة لوحدة التحكم</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
+    <system:String x:Key="DeadZoneX">المنطقة الميتة X</system:String>
+    <system:String x:Key="DeadZoneY">المنطقة الميتة Y</system:String>
+    <system:String x:Key="SaveDeadZone">حفظ</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">تمت إعادة قيم المنطقة الميتة إلى القيم الافتراضية.</system:String>
+    <system:String x:Key="Therewasanerror">حدث خطأ.</system:String>
     
 </ResourceDictionary>

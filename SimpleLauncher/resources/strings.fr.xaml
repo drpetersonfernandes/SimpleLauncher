@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Enregistrer ou mettre à jour les liens</system:String>
     <system:String x:Key="SaveorUpdateSystem">Enregistrer ou mettre à jour le système</system:String>
     <system:String x:Key="SaveReport">Enregistrer le rapport</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Capture d'écran enregistrée avec succès à :</system:String>
     <system:String x:Key="Search">Rechercher</system:String>
     <system:String x:Key="Searchingpleasewait">Recherche en cours, veuillez patienter...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Sélectionnez un dossier pour extraire le pack d'images.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Définir le dossier du système</system:String>
     <system:String x:Key="SetSystemImageFolder">Définir le dossier d'images du système</system:String>
     <system:String x:Key="Setthegamewindowto">Définissez la fenêtre du jeu sur un mode non plein écran. C'est important.</system:String>
-    <system:String x:Key="SetThumbnailSize">Définir la taille des vignettes</system:String>
     <system:String x:Key="ShowAllGames">Afficher tous les jeux</system:String>
     <system:String x:Key="ShowGames">Afficher les jeux</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Afficher uniquement les jeux avec couverture</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">Aucune 'Extension à lancer après extraction' n'est définie dans la configuration du système.</system:String>
     <system:String x:Key="Thereisnoflyer">Aucun prospectus n'est associé à ce jeu.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Aucun fichier de capture de gameplay n'est associé à ce jeu.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Aucune capture d'écran de gameplay n'est associée à ce favori.</system:String>
     <system:String x:Key="Thereisnomanual">Aucun manuel n'est associé à ce fichier.</system:String>
     <system:String x:Key="ThereisnoPCBfile">Aucun fichier PCB n'est associé à ce jeu.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Aucun fichier de capture de titre n'est associé à ce jeu.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extension pour rechercher dans le dossier système</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Conversion massive de Iso à Xiso</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">Le fichier 'system.xml' est corrompu.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Vous devez le réparer manuellement ou le supprimer.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">L'application va se fermer.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">Il semble que 'Simple Launcher' soit installé dans un dossier restreint (par exemple, Program Files) où l'accès en écriture n'est pas autorisé.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Il nécessite un accès en écriture à son dossier.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Veuillez déplacer le dossier de l'application vers un emplacement autorisant l'écriture, comme le dossier 'Documents'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Une erreur s'est produite avec cette méthode.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Une erreur s'est produite lors du chargement de la configuration du système pour ce système.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Une erreur s'est produite lors du chargement de la liste des jeux.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Une erreur s'est produite lors de l'ouverture du lien de don.</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">Erreur de téléchargement.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Erreur lors de l'ouverture du lien de téléchargement.</system:String>
-    <system:String x:Key="Downloadfailed">Échec du téléchargement.</system:String>
     <system:String x:Key="Therewasanerroradding">Une erreur s'est produite lors de l'ajout de ce système.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Choisissez un dossier contenant des 'ROMs' ou des 'ISOs' pour ce système.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Accordez des droits administratifs à 'Simple Launcher' et réessayez.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Vous pouvez placer les images de couverture pour ce système dans ce dossier.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Il a également créé des dossiers pour</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' n'a pas pu créer les dossiers nécessaires pour ce système.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">L'application peut ne pas disposer des autorisations suffisantes. Essayez de l'exécuter avec des droits administratifs.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Assurez-vous également que 'Simple Launcher' est situé dans un dossier accessible en écriture.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Système sélectionné introuvable dans le document XML !</system:String>
     <system:String x:Key="Alert">Alerte</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Une erreur s'est produite lors de la vérification des mises à jour.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Il pourrait y avoir un problème avec votre connexion Internet ou le serveur GitHub est hors ligne.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Une erreur s'est produite lors de la réinstallation de 'Simple Launcher'.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' introuvable dans le dossier de l'application.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Voulez-vous être redirigé vers la page de téléchargement de 'Simple Launcher' pour le télécharger manuellement ?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Une erreur s'est produite lors de l'installation ou de la mise à jour de l'application.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Veuillez corriger cela dans la fenêtre d'édition.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Une fenêtre de sélection s'ouvrira dans 'Simple Launcher' et vous permettra de choisir la fenêtre désirée à capturer.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Une erreur est survenue dans le menu contextuel du clic droit.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Un problème est survenu lors de l'ouverture du lien vidéo.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Un problème est survenu lors de l'ouverture du lien d'informations.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Un problème est survenu lors de l'ouverture de la fenêtre de l'historique.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Une erreur est survenue lors de l'ouverture de l'image de couverture.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Impossible d'ouvrir le fichier du guide.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' n'a pas pu prendre la capture d'écran.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Une erreur est survenue lors de la tentative de suppression du fichier.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Une erreur est survenue lors de la recherche des fichiers du jeu.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Voulez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Une erreur s'est produite lors de l'utilisation de la recherche globale.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Une erreur s'est produite lors du lancement du jeu sélectionné.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Une erreur s'est produite lors du chargement de la configuration du système.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Un problème est survenu lors de l'ouverture de l'image de couverture pour ce jeu.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Une erreur s'est produite lors du calcul des statistiques globales.</system:String>
     <system:String x:Key="Failedtosavethereport">Impossible d'enregistrer le rapport.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Erreur inattendue lors du chargement de 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' est corrompu ou n'a pas pu être ouvert.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Veuillez le corriger manuellement ou le supprimer.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Si vous choisissez de le supprimer, 'Simple Launcher' en créera un nouveau.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Si vous souhaitez déboguer l'erreur vous-même, vérifiez le fichier 'error_user.log' dans le dossier 'Simple Launcher'.</system:String>
     <system:String x:Key="systemmodelxmlismissing">Le fichier 'system_model.xml' est manquant.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' ne peut pas fonctionner correctement sans ce fichier.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Le fichier 'system.xml' est gravement corrompu.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Pour voir les détails, vérifiez le fichier 'error_user.log' dans le dossier 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' n'a pas pu ouvrir le lien de téléchargement du pack d'images.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Une erreur s'est produite avec le contrôleur GamePad.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' n'a pas pu lancer le jeu sélectionné.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">Chemin exécutable de l'émulateur non valide :</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Veuillez vérifier la configuration de ce système.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Définir les proportions du bouton</system:String>
+    <system:String x:Key="Square">Carré</system:String>
+    <system:String x:Key="Wider">Plus large</system:String>
+    <system:String x:Key="Taller">Plus haut</system:String>
+    <system:String x:Key="SetButtonSize">Définir la taille du bouton</system:String>
+    <system:String x:Key="650pixels">650 pixels</system:String>
+    <system:String x:Key="700pixels">700 pixels</system:String>
+    <system:String x:Key="750pixels">750 pixels</system:String>
+    <system:String x:Key="800pixels">800 pixels</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Définir la zone morte de la manette</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Vous pouvez définir une zone morte personnalisée pour la manette</system:String>
+    <system:String x:Key="DeadZoneX">Zone morte X</system:String>
+    <system:String x:Key="DeadZoneY">Zone morte Y</system:String>
+    <system:String x:Key="SaveDeadZone">Enregistrer</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Valeurs de la zone morte enregistrées avec succès.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Valeurs de la zone morte rétablies aux valeurs par défaut.</system:String>
+    <system:String x:Key="Therewasanerror">Une erreur s'est produite.</system:String>
     
 </ResourceDictionary>

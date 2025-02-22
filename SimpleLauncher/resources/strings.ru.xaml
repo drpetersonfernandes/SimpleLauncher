@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="SaveorUpdateSystem">Сохранить или обновить систему</system:String>
     <system:String x:Key="SaveReport">Сохранить отчет</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Скриншот успешно сохранён в:</system:String>
     <system:String x:Key="Search">Поиск</system:String>
     <system:String x:Key="Searchingpleasewait">Поиск в процессе, пожалуйста, подождите...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Выберите папку для извлечения пакета изображений.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Установить папку системы</system:String>
     <system:String x:Key="SetSystemImageFolder">Установить папку изображений системы</system:String>
     <system:String x:Key="Setthegamewindowto">Установите окно игры в режим, отличный от полноэкранного. Это важно.</system:String>
-    <system:String x:Key="SetThumbnailSize">Установить размер миниатюр</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowGames">Показать игры</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">В настройках системы не задано расширение в 'Расширение для запуска после извлечения'.</system:String>
     <system:String x:Key="Thereisnoflyer">С этой игрой не связан файл флаера.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Нет скриншота игрового процесса, связанного с этой игрой.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Снимок геймплея не связан с этим избранным.</system:String>
     <system:String x:Key="Thereisnomanual">С этим файлом не связано ни одного руководства.</system:String>
     <system:String x:Key="ThereisnoPCBfile">С этой игрой не связан файл печатной платы (PCB).</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Нет скриншота с заголовком, связанного с этой игрой.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Расширение для поиска в системной папке</system:String>
 
     <system:String x:Key="BatchConvertIsoToXiso">Пакетное преобразование ISO в XISO</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">Файл 'system.xml' поврежден.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Необходимо вручную исправить или удалить этот файл.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">Приложение будет завершено.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">Похоже, что 'Simple Launcher' установлен в защищенную папку (например, Program Files) без прав на запись.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Необходимы права на запись в папку приложения.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Переместите папку приложения в место, где разрешена запись, например, в папку 'Документы'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Произошла ошибка в этом методе.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Произошла ошибка при загрузке конфигурации системы.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Произошла ошибка при загрузке списка игр.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Произошла ошибка при открытии ссылки на пожертвование.</system:String>
@@ -383,7 +376,6 @@
 
     <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
-    <system:String x:Key="Downloadfailed">Загрузка не удалась.</system:String>
     <system:String x:Key="Therewasanerroradding">Произошла ошибка при добавлении этой системы.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Выберите папку с файлами 'ROMs' или 'ISOs' для этой системы.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Также были созданы папки для:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">У приложения может не быть достаточных прав. Попробуйте запустить его с правами администратора.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Также убедитесь, что папка 'Simple Launcher' находится в директории с правами на запись.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Выбранная система не найдена в XML-документе!</system:String>
     <system:String x:Key="Alert">Предупреждение</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Произошла ошибка при проверке обновлений.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Произошла ошибка при переустановке 'Simple Launcher'.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">Файл 'Updater.exe' не найден в папке приложения.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу скачивания 'Simple Launcher' для ручной загрузки?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Произошла ошибка при установке или обновлении приложения.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Исправьте это в окне редактирования.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">В 'Simple Launcher' откроется окно выбора, которое позволит выбрать нужное окно для захвата.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Произошла ошибка в контекстном меню (щелчок правой кнопкой).</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Возникла проблема с открытием видеоссылки.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Возникла проблема с открытием информационной ссылки.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Возникла проблема с открытием окна истории.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Произошла ошибка при попытке открыть обложку.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Не удалось открыть файл прохождения.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' не удалось сделать скриншот.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Произошла ошибка при попытке удалить файл.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не удалось запустить эту игру.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Произошла ошибка поиска игровых файлов.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Произошла ошибка при использовании глобального поиска.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Произошла ошибка при запуске выбранной игры.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Произошла ошибка при загрузке конфигурации системы.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Возникла проблема при открытии обложки игры.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Произошла ошибка при вычислении глобальной статистики.</system:String>
     <system:String x:Key="Failedtosavethereport">Не удалось сохранить отчет.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Неожиданная ошибка при загрузке файла 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">Файл 'system.xml' поврежден или не может быть открыт.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Исправьте его вручную или удалите.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Если вы выберете удаление, 'Simple Launcher' создаст новый файл.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Если вы хотите устранить ошибку самостоятельно, проверьте файл 'error_user.log' в папке 'Simple Launcher'.</system:String>
     <system:String x:Key="systemmodelxmlismissing">Файл 'system_model.xml' отсутствует.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' не может работать корректно без этого файла.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Файл 'system.xml' серьезно поврежден.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Для получения подробной информации проверьте файл 'error_user.log' в папке 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Произошла ошибка работы с геймпадом.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
@@ -513,5 +495,23 @@
 
     <system:String x:Key="Invalidemulatorexecutablepath3">Неверный путь исполняемого файла эмулятора:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Пожалуйста, проверьте конфигурацию этой системы.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Задать соотношение сторон кнопки</system:String>
+    <system:String x:Key="Square">Квадрат</system:String>
+    <system:String x:Key="Wider">Шире</system:String>
+    <system:String x:Key="Taller">Выше</system:String>
+    <system:String x:Key="SetButtonSize">Задать размер кнопки</system:String>
+    <system:String x:Key="650pixels">650 пикселей</system:String>
+    <system:String x:Key="700pixels">700 пикселей</system:String>
+    <system:String x:Key="750pixels">750 пикселей</system:String>
+    <system:String x:Key="800pixels">800 пикселей</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Задать мертвую зону геймпада</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Вы можете задать пользовательскую мертвую зону геймпада</system:String>
+    <system:String x:Key="DeadZoneX">Мертвая зона X</system:String>
+    <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
+    <system:String x:Key="SaveDeadZone">Сохранить</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Значения мертвой зоны сброшены до значений по умолчанию.</system:String>
+    <system:String x:Key="Therewasanerror">Произошла ошибка.</system:String>
     
 </ResourceDictionary>

@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Simpan atau Perbarui Tautan</system:String>
     <system:String x:Key="SaveorUpdateSystem">Simpan atau Perbarui Sistem</system:String>
     <system:String x:Key="SaveReport">Simpan Laporan</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Tangkapan layar berhasil disimpan di:</system:String>
     <system:String x:Key="Search">Cari</system:String>
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Pilih folder untuk mengekstrak pek gambar.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Atur Folder Sistem</system:String>
     <system:String x:Key="SetSystemImageFolder">Atur Folder Gambar Sistem</system:String>
     <system:String x:Key="Setthegamewindowto">Atur jendela game ke non-layar penuh. Ini penting.</system:String>
-    <system:String x:Key="SetThumbnailSize">Atur Ukuran Thumbnail</system:String>
     <system:String x:Key="ShowAllGames">Tampilkan Semua Permainan</system:String>
     <system:String x:Key="ShowGames">Tampilkan Permainan</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">Tidak ada 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' yang diatur dalam konfigurasi sistem.</system:String>
     <system:String x:Key="Thereisnoflyer">Tidak ada file selebaran yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Tidak ada file snapshot gameplay yang terkait dengan game ini.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Tidak ada snapshot gameplay yang terkait dengan favorit ini.</system:String>
     <system:String x:Key="Thereisnomanual">Tidak ada manual yang terkait dengan file ini.</system:String>
     <system:String x:Key="ThereisnoPCBfile">Tidak ada file PCB yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Tidak ada file snapshot judul yang terkait dengan game ini.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Ekstensi untuk mencari di folder sistem</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Konversi massal dari Iso ke Xiso</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">File 'system.xml' rusak.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Anda perlu memperbaikinya secara manual atau menghapusnya.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">Aplikasi akan ditutup.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">Sepertinya 'Simple Launcher' terinstal di folder yang dibatasi (misalnya, Program Files) tanpa izin menulis.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Aplikasi ini memerlukan izin menulis di foldernya.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Silakan pindahkan folder aplikasi ke lokasi dengan izin menulis, seperti folder 'Documents'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Terjadi kesalahan dengan metode ini.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Terjadi kesalahan saat memuat konfigurasi sistem untuk sistem ini.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Terjadi kesalahan saat memuat daftar game.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Terjadi kesalahan saat membuka tautan donasi.</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">Kesalahan unduhan.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
-    <system:String x:Key="Downloadfailed">Unduhan gagal.</system:String>
     <system:String x:Key="Therewasanerroradding">Terjadi kesalahan saat menambahkan sistem ini.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Berikan akses administratif ke 'Simple Launcher' dan coba lagi.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Folder juga telah dibuat untuk</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">Aplikasi mungkin tidak memiliki izin yang cukup. Coba jalankan dengan hak administratif.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Selain itu, pastikan 'Simple Launcher' berada di folder yang dapat ditulis.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Sistem yang dipilih tidak ditemukan dalam dokumen XML!</system:String>
     <system:String x:Key="Alert">Peringatan</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Terjadi kesalahan saat memeriksa pembaruan.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Terjadi kesalahan saat menginstal ulang 'Simple Launcher'.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Terjadi kesalahan saat menginstal atau memperbarui aplikasi.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Jendela seleksi akan terbuka di 'Simple Launcher', memungkinkan Anda memilih jendela yang diinginkan untuk diambil.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Terjadi kesalahan pada menu klik kanan.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Terjadi masalah saat membuka tautan video.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Terjadi masalah saat membuka tautan informasi.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Terjadi masalah saat membuka jendela riwayat.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Terjadi kesalahan saat mencoba membuka gambar sampul.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Gagal membuka file panduan.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' tidak dapat mengambil tangkapan layar.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Terjadi kesalahan saat mencoba menghapus file.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Terjadi kesalahan saat mencari file game.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk memperbaiki kesalahan?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Terjadi kesalahan saat menggunakan pencarian global.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Terjadi kesalahan saat meluncurkan game yang dipilih.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Terjadi kesalahan saat memuat konfigurasi sistem.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Ada masalah saat membuka gambar sampul untuk game ini.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Terjadi kesalahan saat menghitung statistik global.</system:String>
     <system:String x:Key="Failedtosavethereport">Gagal menyimpan laporan.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Kesalahan tak terduga saat memuat 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' rusak atau tidak dapat dibuka.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Harap perbaiki secara manual atau hapus.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Jika Anda ingin memecahkan masalah ini sendiri, periksa file 'error_user.log' di folder 'Simple Launcher'.</system:String>
     <system:String x:Key="systemmodelxmlismissing">File 'system_model.xml' hilang.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' tidak dapat berfungsi dengan baik tanpa file ini.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">File 'system.xml' sangat rusak.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Untuk melihat detailnya, periksa file 'error_user.log' di folder 'Simple Launcher'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Ada masalah dengan pengontrol GamePad.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">Jalur eksekusi emulator tidak valid:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Silakan periksa konfigurasi untuk sistem ini.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
+    <system:String x:Key="Square">Persegi</system:String>
+    <system:String x:Key="Wider">Lebih Lebar</system:String>
+    <system:String x:Key="Taller">Lebih Tinggi</system:String>
+    <system:String x:Key="SetButtonSize">Atur Ukuran Tombol</system:String>
+    <system:String x:Key="650pixels">650 piksel</system:String>
+    <system:String x:Key="700pixels">700 piksel</system:String>
+    <system:String x:Key="750pixels">750 piksel</system:String>
+    <system:String x:Key="800pixels">800 piksel</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Atur Zona Mati Gamepad</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Anda Dapat Menentukan Zona Mati Gamepad Kustom</system:String>
+    <system:String x:Key="DeadZoneX">Zona Mati X</system:String>
+    <system:String x:Key="DeadZoneY">Zona Mati Y</system:String>
+    <system:String x:Key="SaveDeadZone">Simpan</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Nilai zona mati berhasil disimpan.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Nilai zona mati dikembalikan ke nilai default.</system:String>
+    <system:String x:Key="Therewasanerror">Terjadi kesalahan.</system:String>
     
 </ResourceDictionary>

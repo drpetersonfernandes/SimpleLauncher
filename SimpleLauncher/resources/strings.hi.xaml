@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">लिंक सहेजें या अपडेट करें</system:String>
     <system:String x:Key="SaveorUpdateSystem">सिस्टम सहेजें या अपडेट करें</system:String>
     <system:String x:Key="SaveReport">रिपोर्ट सहेजें</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">स्क्रीनशॉट इस स्थान पर सफलतापूर्वक सहेजा गया:</system:String>
     <system:String x:Key="Search">खोजें</system:String>
     <system:String x:Key="Searchingpleasewait">खोज रहे हैं, कृपया प्रतीक्षा करें...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">छवि पैक निकालने के लिए एक फ़ोल्डर चुनें।</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">सिस्टम फ़ोल्डर सेट करें</system:String>
     <system:String x:Key="SetSystemImageFolder">सिस्टम इमेज फ़ोल्डर सेट करें</system:String>
     <system:String x:Key="Setthegamewindowto">खेल की विंडो को पूर्ण स्क्रीन से हटाकर सेट करें। यह आवश्यक है।</system:String>
-    <system:String x:Key="SetThumbnailSize">थंबनेल आकार सेट करें</system:String>
     <system:String x:Key="ShowAllGames">सभी खेल दिखाएँ</system:String>
     <system:String x:Key="ShowGames">खेल दिखाएँ</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">केवल कवर वाले खेल दिखाएँ</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' सिस्टम कॉन्फ़िगरेशन में सेट नहीं है।</system:String>
     <system:String x:Key="Thereisnoflyer">इस खेल के साथ कोई फ्लायर फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">इस खेल के साथ कोई गेमप्ले स्नैपशॉट फ़ाइल जुड़ी नहीं है।</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">इस पसंदीदा के साथ कोई गेमप्ले स्नैपशॉट जुड़ा नहीं है।</system:String>
     <system:String x:Key="Thereisnomanual">इस फ़ाइल के लिए कोई मैनुअल नहीं है।</system:String>
     <system:String x:Key="ThereisnoPCBfile">इस खेल के साथ कोई सर्किट बोर्ड (PCB) फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">इस खेल के साथ कोई शीर्षक स्नैपशॉट फ़ाइल जुड़ी नहीं है।</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">सिस्टम फ़ोल्डर में खोजने के लिए एक्सटेंशन</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Iso को Xiso में बैच कन्वर्ट करें</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' फ़ाइल क्षतिग्रस्त है।</system:String>
-    <system:String x:Key="Youneedtofixitmanually">आपको इसे मैन्युअली ठीक करना या हटाना होगा।</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">एप्लिकेशन बंद हो जाएगा।</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">ऐसा लगता है कि 'Simple Launcher' एक प्रतिबंधित फ़ोल्डर (जैसे Program Files) में इंस्टॉल है, जहां लिखने की अनुमति नहीं है।</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">इसे अपने फ़ोल्डर पर लिखने की अनुमति चाहिए।</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">कृपया एप्लिकेशन फ़ोल्डर को किसी ऐसी जगह पर स्थानांतरित करें जहां लिखने की अनुमति हो, जैसे 'Documents' फ़ोल्डर।</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">इस विधि में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">इस सिस्टम के लिए सिस्टम कॉन्फ़िगरेशन को लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">गेम सूची लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">डोनेशन लिंक खोलने में एक त्रुटि हुई।</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">डाउनलोड में त्रुटि।</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">डाउनलोड लिंक खोलने में त्रुटि।</system:String>
-    <system:String x:Key="Downloadfailed">डाउनलोड विफल हो गया।</system:String>
     <system:String x:Key="Therewasanerroradding">इस सिस्टम को जोड़ने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">इस सिस्टम के लिए 'ROMs' या 'ISOs' के साथ एक फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">इसने अतिरिक्त फ़ोल्डर भी बनाए</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
-    <system:String x:Key="Theapplicationmightnothave">ऐप्लिकेशन के पास शायद पर्याप्त अनुमतियां नहीं हैं। इसे प्रशासनिक अनुमतियों के साथ चलाने का प्रयास करें।</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">इसके अलावा, सुनिश्चित करें कि 'Simple Launcher' किसी लेखनीय फ़ोल्डर में है।</system:String>
     <system:String x:Key="Selectedsystemnotfound">चयनित सिस्टम XML दस्तावेज़ में नहीं मिला!</system:String>
     <system:String x:Key="Alert">चेतावनी</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">अपडेट की जाँच करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">शायद आपके इंटरनेट कनेक्शन में कोई समस्या है या GitHub सर्वर ऑफ़लाइन है।</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher' को पुनः स्थापित करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">ऐप्लिकेशन डायरेक्टरी में 'Updater.exe' नहीं मिला।</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' को मैन्युअली डाउनलोड करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">ऐप्लिकेशन को इंस्टॉल या अपडेट करते समय त्रुटि हुई।</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">कृपया इसे संपादन विंडो में ठीक करें।</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' में एक चयन विंडो खुलेगी, जो आपको कार्रवाई के लिए वांछित विंडो का चयन करने देगी।</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">राइट-क्लिक मेनू में एक त्रुटि हुई।</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">वीडियो लिंक खोलने में समस्या आई।</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">जानकारी लिंक खोलने में समस्या आई।</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">इतिहास विंडो खोलने में समस्या आई।</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">कवर इमेज खोलने के प्रयास में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">वॉकथ्रू फ़ाइल खोलने में विफल।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' स्क्रीनशॉट नहीं ले सका।</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' इस गेम को लॉन्च नहीं कर सका।</system:String>
     <system:String x:Key="Therewasanerrorfinding">गेम फाइलों को खोजने में त्रुटि हुई।</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">क्या आप त्रुटि का निवारण करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">ग्लोबल सर्च का उपयोग करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">चयनित गेम लॉन्च करने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">सिस्टम कॉन्फ़िगरेशन लोड करते समय एक त्रुटि हुई।</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">इस गेम की कवर इमेज खोलने में समस्या हुई।</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">ग्लोबल स्टैटिस्टिक्स की गणना करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Failedtosavethereport">रिपोर्ट सहेजने में असफल।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' लोड करते समय अप्रत्याशित त्रुटि।</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' या तो भ्रष्ट है या इसे खोला नहीं जा सकता।</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">कृपया इसे मैन्युअल रूप से ठीक करें या इसे हटा दें।</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">यदि आप इसे हटाना चुनते हैं, तो 'Simple Launcher' एक नई फाइल बनाएगा।</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">यदि आप स्वयं त्रुटि ठीक करना चाहते हैं, तो 'Simple Launcher' फोल्डर में 'error_user.log' फाइल की जांच करें।</system:String>
     <system:String x:Key="systemmodelxmlismissing">'system_model.xml' फाइल गायब है।</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' इस फाइल के बिना ठीक से काम नहीं कर सकता।</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' फाइल गंभीर रूप से भ्रष्ट है।</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">विवरण देखने के लिए, 'Simple Launcher' फोल्डर में 'error_user.log' फाइल की जांच करें।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' इमेज पैक डाउनलोड लिंक खोलने में विफल रहा।</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">GamePad कंट्रोलर में समस्या हुई।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' चयनित गेम को लॉन्च नहीं कर सका।</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">अमान्य एमुलेटर निष्पादन योग्य पथ:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">कृपया इस सिस्टम के कॉन्फ़िगरेशन की जाँच करें।</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">बटन पहलू अनुपात सेट करें</system:String>
+    <system:String x:Key="Square">वर्ग</system:String>
+    <system:String x:Key="Wider">चौड़ा</system:String>
+    <system:String x:Key="Taller">लंबा</system:String>
+    <system:String x:Key="SetButtonSize">बटन का आकार सेट करें</system:String>
+    <system:String x:Key="650pixels">650 पिक्सेल</system:String>
+    <system:String x:Key="700pixels">700 पिक्सेल</system:String>
+    <system:String x:Key="750pixels">750 पिक्सेल</system:String>
+    <system:String x:Key="800pixels">800 पिक्सेल</system:String>
+    <system:String x:Key="SetGamepadDeadZone">गेमपैड डेड ज़ोन सेट करें</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">आप कस्टम गेमपैड डेड ज़ोन परिभाषित कर सकते हैं</system:String>
+    <system:String x:Key="DeadZoneX">डेड ज़ोन X</system:String>
+    <system:String x:Key="DeadZoneY">डेड ज़ोन Y</system:String>
+    <system:String x:Key="SaveDeadZone">सहेजें</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">डेड ज़ोन मान सफलतापूर्वक सहेजे गए।</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">डेड ज़ोन मान डिफ़ॉल्ट मानों पर वापस आ गए हैं।</system:String>
+    <system:String x:Key="Therewasanerror">एक त्रुटि हुई।</system:String>
     
 </ResourceDictionary>

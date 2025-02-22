@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="SaveorUpdateSystem">시스템 저장 또는 업데이트</system:String>
     <system:String x:Key="SaveReport">보고서 저장</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">스크린샷이 성공적으로 저장되었습니다:</system:String>
     <system:String x:Key="Search">검색</system:String>
     <system:String x:Key="Searchingpleasewait">검색 중입니다. 잠시만 기다려주세요...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">이미지 팩을 추출할 폴더를 선택하십시오.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">시스템 폴더 설정</system:String>
     <system:String x:Key="SetSystemImageFolder">시스템 이미지 폴더 설정</system:String>
     <system:String x:Key="Setthegamewindowto">게임 창을 전체 화면이 아닌 모드로 설정하세요. 이는 중요합니다.</system:String>
-    <system:String x:Key="SetThumbnailSize">썸네일 크기 설정</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowGames">게임 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">시스템 설정에 '추출 후 실행할 확장자'가 설정되어 있지 않습니다.</system:String>
     <system:String x:Key="Thereisnoflyer">이 게임과 연결된 전단지 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">이 게임과 연결된 게임플레이 스냅샷 파일이 없습니다.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">이 즐겨찾기에 연결된 게임 플레이 스냅샷이 없습니다.</system:String>
     <system:String x:Key="Thereisnomanual">이 파일과 연결된 매뉴얼이 없습니다.</system:String>
     <system:String x:Key="ThereisnoPCBfile">이 게임과 연결된 PCB(회로기판) 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">이 게임과 연결된 타이틀 스냅샷 파일이 없습니다.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">시스템 폴더에서 검색할 확장자</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Iso를 Xiso로 일괄 변환</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">'system.xml' 파일이 손상되었습니다.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">수동으로 수정하거나 삭제해야 합니다.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">애플리케이션이 종료됩니다.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher'가 Program Files와 같은 제한된 폴더에 설치되어 쓰기 권한이 없는 것 같습니다.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">이 프로그램은 폴더에 대한 쓰기 권한이 필요합니다.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">애플리케이션 폴더를 '문서' 폴더처럼 쓰기 권한이 있는 위치로 이동하세요.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">이 메서드에서 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">이 시스템의 시스템 구성을 로드하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">게임 목록을 로드하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">기부 링크를 여는 동안 오류가 발생했습니다.</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
-    <system:String x:Key="Downloadfailed">다운로드에 실패했습니다.</system:String>
     <system:String x:Key="Therewasanerroradding">이 시스템을 추가하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">이 시스템에 대해 'ROMs' 또는 'ISOs'가 포함된 폴더를 선택하세요.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'에 관리자 권한을 부여하고 다시 시도하세요.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">또한 다음을 위한 폴더도 생성되었습니다:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">애플리케이션에 충분한 권한이 없을 수 있습니다. 관리자 권한으로 실행해 보세요.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">또한, 'Simple Launcher'가 쓰기 가능한 폴더에 있는지 확인하세요.</system:String>
     <system:String x:Key="Selectedsystemnotfound">선택한 시스템이 XML 문서에서 찾을 수 없습니다!</system:String>
     <system:String x:Key="Alert">경고</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">업데이트 확인 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">인터넷 연결에 문제가 있거나 GitHub 서버가 오프라인일 수 있습니다.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">'Simple Launcher'를 다시 설치하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe'가 애플리케이션 디렉토리에서 찾을 수 없습니다.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'를 수동으로 다운로드하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">애플리케이션 설치 또는 업데이트 중 오류가 발생했습니다.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">편집 창에서 이 문제를 해결하세요.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher'에서 선택 창이 열리며 캡처할 창을 선택할 수 있습니다.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">오른쪽 클릭 컨텍스트 메뉴에서 오류가 발생했습니다.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">비디오 링크를 여는 중 문제가 발생했습니다.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">정보 링크를 여는 중 문제가 발생했습니다.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">히스토리 창을 여는 중 문제가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">커버 이미지를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">워크스루 파일을 열지 못했습니다.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher'가 스크린샷을 찍지 못했습니다.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">파일을 삭제하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="Therewasanerrorfinding">게임 파일을 찾는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">오류를 디버그하기 위해 'error_user.log' 파일을 여시겠습니까?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">글로벌 검색을 사용하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">선택한 게임을 실행하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">시스템 구성을 로드하는 중에 오류가 발생했습니다.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">이 게임의 커버 이미지를 여는 중에 문제가 발생했습니다.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">글로벌 통계를 계산하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Failedtosavethereport">보고서를 저장하지 못했습니다.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml'을 로드하는 중에 예기치 않은 오류가 발생했습니다.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml'이 손상되었거나 열 수 없습니다.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">수동으로 수정하거나 삭제해주세요.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">삭제를 선택하시면, 'Simple Launcher'가 새 파일을 생성합니다.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">오류를 직접 디버그하려면, 'Simple Launcher' 폴더 내에 있는 'error_user.log' 파일을 확인하세요.</system:String>
     <system:String x:Key="systemmodelxmlismissing">'system_model.xml' 파일이 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher'는 이 파일이 없으면 제대로 작동하지 않습니다.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' 파일이 심각하게 손상되었습니다.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">'Simple Launcher' 폴더 내에 있는 'error_user.log' 파일에서 자세한 내용을 확인하세요.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher'에서 이미지 팩 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">GamePad 컨트롤러에 문제가 발생했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher'는 선택한 게임을 실행할 수 없었습니다.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">잘못된 에뮬레이터 실행 파일 경로:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">이 시스템의 구성을 확인하십시오.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">단추 가로 세로 비율 설정</system:String>
+    <system:String x:Key="Square">정사각형</system:String>
+    <system:String x:Key="Wider">넓게</system:String>
+    <system:String x:Key="Taller">길게</system:String>
+    <system:String x:Key="SetButtonSize">단추 크기 설정</system:String>
+    <system:String x:Key="650pixels">650픽셀</system:String>
+    <system:String x:Key="700pixels">700픽셀</system:String>
+    <system:String x:Key="750pixels">750픽셀</system:String>
+    <system:String x:Key="800pixels">800픽셀</system:String>
+    <system:String x:Key="SetGamepadDeadZone">게임패드 데드존 설정</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">사용자 지정 게임패드 데드존을 정의할 수 있습니다.</system:String>
+    <system:String x:Key="DeadZoneX">데드존 X</system:String>
+    <system:String x:Key="DeadZoneY">데드존 Y</system:String>
+    <system:String x:Key="SaveDeadZone">저장</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">데드존 값이 성공적으로 저장되었습니다.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">데드존 값이 기본값으로 되돌려졌습니다.</system:String>
+    <system:String x:Key="Therewasanerror">오류가 발생했습니다.</system:String>
     
 </ResourceDictionary>

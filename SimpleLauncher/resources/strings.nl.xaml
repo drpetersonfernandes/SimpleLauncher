@@ -238,7 +238,6 @@
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="SaveorUpdateSystem">Systeem opslaan of bijwerken</system:String>
     <system:String x:Key="SaveReport">Rapport opslaan</system:String>
-    <system:String x:Key="Screenshotsavedsuccessfullyat">Screenshot succesvol opgeslagen op:</system:String>
     <system:String x:Key="Search">Zoeken</system:String>
     <system:String x:Key="Searchingpleasewait">Bezig met zoeken, een moment geduld...</system:String>
     <system:String x:Key="SelectafoldertoextracttheImagePack">Selecteer een map om het afbeeldingspakket uit te pakken.</system:String>
@@ -256,7 +255,6 @@
     <system:String x:Key="SetSystemFolder">Systeemmap instellen</system:String>
     <system:String x:Key="SetSystemImageFolder">Afbeeldingsmap van systeem instellen</system:String>
     <system:String x:Key="Setthegamewindowto">Stel het venster van het spel in op niet-volledig scherm. Dit is belangrijk.</system:String>
-    <system:String x:Key="SetThumbnailSize">Miniatuurformaat instellen</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
@@ -305,7 +303,6 @@
     <system:String x:Key="ThereisnoExtension">Er is geen extensie ingesteld in 'Uit te voeren extensie na uitpakken' in de systeemconfiguratie.</system:String>
     <system:String x:Key="Thereisnoflyer">Er is geen folder aan dit spel gekoppeld.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Er is geen gameplaymomentopname aan dit spel gekoppeld.</system:String>
-    <system:String x:Key="Thereisnogameplaysnapshotassociated">Er is geen gameplay-snapshot gekoppeld aan deze favoriet.</system:String>
     <system:String x:Key="Thereisnomanual">Er is geen handleiding aan dit bestand gekoppeld.</system:String>
     <system:String x:Key="ThereisnoPCBfile">Er is geen PCB (printplaat) aan dit spel gekoppeld.</system:String>
     <system:String x:Key="Thereisnotitlesnapshot">Er is geen titelmomentopname voor dit spel gekoppeld.</system:String>
@@ -363,13 +360,9 @@
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Extensie om in de systeemmap te zoeken</system:String>
     
     <system:String x:Key="BatchConvertIsoToXiso">Batchconversie van ISO naar XISO</system:String>
-    <system:String x:Key="Thefilesystemxmliscorrupted">Het bestand 'system.xml' is beschadigd.</system:String>
-    <system:String x:Key="Youneedtofixitmanually">Je moet het handmatig repareren of verwijderen.</system:String>
-    <system:String x:Key="Theapplicationwillbeshutdown">De applicatie wordt afgesloten.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncheris2">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beveiligde map (bijvoorbeeld Program Files) zonder schrijfrechten.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder2">Het heeft schrijfrechten nodig voor zijn map.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder2">Verplaats de applicatiemap naar een locatie met schrijfrechten, zoals de map 'Documenten'.</system:String>
-    <system:String x:Key="Therewasanerrorwiththismethod">Er is een fout opgetreden bij deze methode.</system:String>
     <system:String x:Key="Therewasanerrorwhileloading">Er is een fout opgetreden bij het laden van de systeemconfiguratie voor dit systeem.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Er is een fout opgetreden bij het laden van de lijst met spellen.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Er is een fout opgetreden bij het openen van de donatielink.</system:String>
@@ -383,7 +376,6 @@
     
     <system:String x:Key="Downloaderror">Downloadfout.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
-    <system:String x:Key="Downloadfailed">Download mislukt.</system:String>
     <system:String x:Key="Therewasanerroradding">Er is een fout opgetreden bij het toevoegen van dit systeem.</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Kies een map met 'ROMs' of 'ISO's voor dit systeem.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
@@ -408,13 +400,10 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
-    <system:String x:Key="Theapplicationmightnothave">De toepassing heeft mogelijk niet voldoende rechten. Probeer het te starten met beheerdersrechten.</system:String>
-    <system:String x:Key="AdditionallyensurethatSimpleLauncher">Zorg er daarnaast voor dat 'Simple Launcher' zich in een beschrijfbare map bevindt.</system:String>
     <system:String x:Key="Selectedsystemnotfound">Het geselecteerde systeem is niet gevonden in het XML-document!</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Er is een fout opgetreden bij het controleren op updates.</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
-    <system:String x:Key="TherewasanerrorreinstallingSimpleLauncher">Er is een fout opgetreden bij het opnieuw installeren van 'Simple Launcher'.</system:String>
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' kon niet worden gevonden in de applicatiemap.</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u doorverwezen worden naar de downloadpagina van 'Simple Launcher' om deze handmatig te downloaden?</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Er was een fout bij het installeren of bijwerken van de toepassing.</system:String>
@@ -432,13 +421,9 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Los dit op in het Bewerken-venster.</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Er wordt een selectievenster geopend in 'Simple Launcher', waarmee u het gewenste venster kunt kiezen om vast te leggen.</system:String>
     <system:String x:Key="Therewasanerrorintherightclick">Er is een fout opgetreden in het contextmenu voor rechtermuisknop.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheVideoLink">Er was een probleem bij het openen van de Video-link.</system:String>
-    <system:String x:Key="TherewasaproblemopeningtheInfoLink">Er was een probleem bij het openen van de Info-link.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">Er was een probleem bij het openen van het Geschiedenis-venster.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Er was een fout bij het proberen openen van de omslagafbeelding.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Kon het walkthrough-bestand niet openen.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' kon de screenshot niet nemen.</system:String>
-    <system:String x:Key="Anerroroccurredwhiletrying">Er is een fout opgetreden bij het proberen het bestand te verwijderen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Er was een fout bij het vinden van de spelbestanden.</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
@@ -462,7 +447,6 @@
     <system:String x:Key="TherewasanerrorusingtheGlobal">Er is een fout opgetreden bij het gebruik van de globale zoekfunctie.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Er is een fout opgetreden bij het starten van het geselecteerde spel.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Er is een fout opgetreden bij het laden van de systeemconfiguratie.</system:String>
-    <system:String x:Key="Therewasaproblemopeningthecoverimage">Er was een probleem bij het openen van de omslagafbeelding voor dit spel.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Er is een fout opgetreden bij het berekenen van de globale statistieken.</system:String>
     <system:String x:Key="Failedtosavethereport">Het rapport opslaan is mislukt.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Er is een onverwachte fout opgetreden bij het laden van 'helpuser.xml'.</system:String>
@@ -486,11 +470,9 @@
     <system:String x:Key="systemxmliscorrupted">'system.xml' is beschadigd of kan niet worden geopend.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Los dit handmatig op of verwijder het bestand.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Als u ervoor kiest het te verwijderen, zal 'Simple Launcher' voor u een nieuw bestand aanmaken.</system:String>
-    <system:String x:Key="Ifyouwanttodebugtheerroryourself">Als u de fout zelf wilt oplossen, controleer dan het bestand 'error_user.log' in de 'Simple Launcher'-map.</system:String>
     <system:String x:Key="systemmodelxmlismissing">Het bestand 'system_model.xml' ontbreekt.</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' kan niet goed functioneren zonder dit bestand.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
-    <system:String x:Key="Toseethedetailschecktheerroruserlog">Raadpleeg het bestand 'error_user.log' in de map 'Simple Launcher' voor meer details.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="TherewasanerrorwiththeGamePadController">Er is een probleem opgetreden met de GamePad-controller.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
@@ -513,5 +495,23 @@
     
     <system:String x:Key="Invalidemulatorexecutablepath3">Ongeldig uitvoerbaar pad van emulator:</system:String>
     <system:String x:Key="Pleasechecktheconfigurationforthissystem">Controleer de configuratie voor dit systeem.</system:String>
+    
+    <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
+    <system:String x:Key="Square">Vierkant</system:String>
+    <system:String x:Key="Wider">Breder</system:String>
+    <system:String x:Key="Taller">Hoger</system:String>
+    <system:String x:Key="SetButtonSize">Knopgrootte instellen</system:String>
+    <system:String x:Key="650pixels">650 pixels</system:String>
+    <system:String x:Key="700pixels">700 pixels</system:String>
+    <system:String x:Key="750pixels">750 pixels</system:String>
+    <system:String x:Key="800pixels">800 pixels</system:String>
+    <system:String x:Key="SetGamepadDeadZone">Gamepad-dode zone instellen</system:String>
+    <system:String x:Key="YouCanDefineCustomGamepadDeadZone">U kunt een aangepaste gamepad-dode zone definiëren</system:String>
+    <system:String x:Key="DeadZoneX">Dode zone X</system:String>
+    <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
+    <system:String x:Key="SaveDeadZone">Opslaan</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
+    <system:String x:Key="DeadZonevaluesrevertedtodefaultvalues">Dode zone waarden teruggezet naar standaardwaarden.</system:String>
+    <system:String x:Key="Therewasanerror">Er is een fout opgetreden.</system:String>
     
 </ResourceDictionary>
