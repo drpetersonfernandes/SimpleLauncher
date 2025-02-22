@@ -540,17 +540,26 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Preview area in the right column -->
-            <StackPanel Grid.Column="1" Margin="10">
-                <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center"
+            <Grid Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       Content="{DynamicResource PreviewImage}"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
                        Margin="0,0,0,10" />
-                <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
-                    <Grid>
-                        <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch" />
-                    </Grid>
+                <Border Grid.Row="1"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Padding="5">
+                    <Image Name="PreviewImage"
+                           Stretch="Uniform"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
                 </Border>
-            </StackPanel>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="3" VerticalAlignment="Center" Margin="10,5,10,5">

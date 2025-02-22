@@ -56,15 +56,25 @@
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Margin="10">
-            <Label Content="{DynamicResource PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center"
+        <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Content="{DynamicResource PreviewImage}"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
                    Margin="0,0,0,10" />
-            <Border BorderBrush="Gray" BorderThickness="1" Padding="5">
-                <Grid>
-                    <Image Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch"
-                           VerticalAlignment="Stretch" />
-                </Grid>
+            <Border Grid.Row="1"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Padding="5">
+                <Image Name="PreviewImage"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
             </Border>
-        </StackPanel>
+        </Grid>
     </Grid>
 </controls:MetroWindow>
