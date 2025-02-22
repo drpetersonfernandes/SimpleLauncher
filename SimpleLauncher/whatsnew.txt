@@ -1,3 +1,14 @@
+release3.10
+------------
+
+02/22/2025
+- I have exposed the GamePad DeadZone variable to the user.
+- I have improved the Game Button generation for the Grid View option. Now users can customize the aspect ratio of the buttons.
+- Updated the emulators to their latest releases.
+- Updated `history.xml`, available at arcade-history.com, to the latest version.
+- Fixed some bugs.
+- Enhanced methods and functions to improve efficiency and reduce errors.
+
 release3.9.1
 ------------
 
@@ -96,7 +107,7 @@ release3.6.0
 11/23/2024
 - I performed a major refactoring of the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was necessary to prevent users from entering incorrect values.
 - I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user about a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is useful in case of a corrupted `system.xml` file.
-- I implemented in-memory download and extraction of files as a backup method in case the regular extraction method fails. This was done because some users were encountering extraction errors of newly downloaded files, due to file locks.
+- I implemented in-memory download and extraction of files as a backup method in case the regular extraction method fails. This was done because some users were encountering extraction errors of newly downloaded files due to file locks.
 - Added different versions of the `7z` executable for x86 and x64. The extraction method will automatically detect the user environment and use the appropriate executable.
 - Added code to automatically convert [url formatted text] into real links in the `RomHistory` window.
 - Improved the log class to send more debug information to the developer.

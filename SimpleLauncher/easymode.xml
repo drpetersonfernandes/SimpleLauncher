@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--070225-->
+<!--220225-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -167,8 +167,8 @@
                 <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
-                <EmulatorLatestVersion>4.30</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.30.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.31.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Altirra\</EmulatorDownloadExtractPath>
 
@@ -1198,11 +1198,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v143\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>142</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>143</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v143/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -1538,11 +1538,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v143\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>142</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>143</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v143/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -2029,11 +2029,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v142\ares.exe</EmulatorLocation>
+                <EmulatorLocation>.\emulators\ares\ares-v143\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>142</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v142/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>143</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v143/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
 
@@ -2457,7 +2457,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250123</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20250220</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
