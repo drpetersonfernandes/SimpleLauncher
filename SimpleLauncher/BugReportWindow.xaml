@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource BugReport}"
-                      Width="400"
+                      Width="500"
                       Height="450"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
@@ -21,12 +21,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,10" Orientation="Horizontal">
-            <TextBlock Text="{DynamicResource Nameoptional}" Width="95" />
+            <TextBlock Text="{DynamicResource Nameoptional}" Width="95" VerticalAlignment="Center"/>
             <TextBox Name="NameTextBox" Width="270" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,20" Orientation="Horizontal">
-            <TextBlock Text="{DynamicResource Emailoptional}" Width="95" />
+            <TextBlock Text="{DynamicResource Emailoptional}" Width="95" VerticalAlignment="Center"/>
             <TextBox Name="EmailTextBox" Width="270" />
         </StackPanel>
 
