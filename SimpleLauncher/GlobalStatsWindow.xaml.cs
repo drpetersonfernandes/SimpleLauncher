@@ -7,13 +7,13 @@ using System.Windows;
 
 namespace SimpleLauncher;
 
-public partial class GlobalStats
+public partial class GlobalStatsWindow
 {
     private readonly List<SystemConfig> _systemConfigs;
     private GlobalStatsData _globalStats;
     private List<SystemStatsData> _systemStats;
 
-    public GlobalStats(List<SystemConfig> systemConfigs)
+    public GlobalStatsWindow(List<SystemConfig> systemConfigs)
     {
         InitializeComponent();
 

@@ -29,7 +29,7 @@ public class ExtractCompressedFile
         // Choose the correct 7z executable
         var sevenZipPath = Get7ZipExecutablePath();
 
-        var pleaseWaitExtraction = new PleaseWaitExtraction();
+        var pleaseWaitExtraction = new PleaseWaitExtractionWindow();
         pleaseWaitExtraction.Show();
 
         // Create temp folders
@@ -121,7 +121,7 @@ public class ExtractCompressedFile
             return null;
         }
 
-        var pleaseWaitExtraction = new PleaseWaitExtraction();
+        var pleaseWaitExtraction = new PleaseWaitExtractionWindow();
         pleaseWaitExtraction.Show();
 
         // Create temp folders

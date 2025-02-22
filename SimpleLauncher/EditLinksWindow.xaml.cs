@@ -4,11 +4,11 @@ using System.Windows;
 
 namespace SimpleLauncher;
 
-public partial class EditLinks
+public partial class EditLinksWindow
 {
     private readonly SettingsConfig _settingsConfig;
 
-    public EditLinks(SettingsConfig settingsConfig)
+    public EditLinksWindow(SettingsConfig settingsConfig)
     {
         InitializeComponent();
 

@@ -2,11 +2,11 @@
 
 namespace SimpleLauncher;
 
-public partial class EditSystemEasyMode
+public partial class EditSystemEasyModeWindow
 {
     private readonly SettingsConfig _settings;
 
-    public EditSystemEasyMode(SettingsConfig settings)
+    public EditSystemEasyModeWindow(SettingsConfig settings)
     {
         InitializeComponent();
 
@@ -18,28 +18,28 @@ public partial class EditSystemEasyMode
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
     {
-        EditSystemEasyModeAddSystem editSystemEasyModeAdd = new();
+        EditSystemEasyModeAddSystemWindow editSystemEasyModeAdd = new();
         Close();
         editSystemEasyModeAdd.ShowDialog();
     }
 
     private void EditSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
     {
-        EditSystem editSystem = new(_settings);
+        EditSystemWindow editSystem = new(_settings);
         Close();
         editSystem.ShowDialog();
     }
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs routedEventArgs)
     {
-        EditSystem editSystem = new(_settings);
+        EditSystemWindow editSystem = new(_settings);
         Close();
         editSystem.ShowDialog();
     }
 
     private void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
-        DownloadImagePack downloadImagePack = new();
+        DownloadImagePackWindow downloadImagePack = new();
         Close();
         downloadImagePack.ShowDialog();
     }

@@ -15,13 +15,13 @@ using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
 
-public partial class GlobalSearch
+public partial class GlobalSearchWindow
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private readonly List<SystemConfig> _systemConfigs;
     private readonly SettingsConfig _settings;
     private ObservableCollection<SearchResult> _searchResults;
-    private PleaseWaitSearch _pleaseWaitWindow;
+    private PleaseWaitSearchWindow _pleaseWaitWindow;
     private readonly MainWindow _mainWindow;
     private readonly List<MameConfig> _machines;
     private readonly Dictionary<string, string> _mameLookup;
@@ -32,7 +32,7 @@ public partial class GlobalSearch
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
 
-    public GlobalSearch(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string, string> mameLookup, SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearchWindow(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string, string> mameLookup, SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -57,7 +57,7 @@ public partial class GlobalSearch
         _searchResults.Clear();
 
         // Show a "Please Wait" window.
-        _pleaseWaitWindow = new PleaseWaitSearch
+        _pleaseWaitWindow = new PleaseWaitSearchWindow
         {
             Owner = this
         };

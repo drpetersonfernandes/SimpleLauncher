@@ -3,9 +3,9 @@ using System.IO;
 
 namespace SimpleLauncher;
 
-public partial class UpdateHistory
+public partial class UpdateHistoryWindow
 {
-    public UpdateHistory()
+    public UpdateHistoryWindow()
     {
         InitializeComponent();
         LoadWhatsNewContent();

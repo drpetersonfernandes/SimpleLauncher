@@ -1,8 +1,8 @@
 namespace SimpleLauncher;
 
-public partial class PleaseWaitSearch
+public partial class PleaseWaitSearchWindow
 {
-    public PleaseWaitSearch()
+    public PleaseWaitSearchWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

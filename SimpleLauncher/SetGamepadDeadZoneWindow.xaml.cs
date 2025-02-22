@@ -1,17 +1,21 @@
+using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace SimpleLauncher;
 
-public partial class SetGamepadDeadZone
+public partial class SetGamepadDeadZoneWindow
 {
     private readonly SettingsConfig _settingsConfig;
 
-    public SetGamepadDeadZone(SettingsConfig settings)
+    public SetGamepadDeadZoneWindow(SettingsConfig settings)
     {
         InitializeComponent();
 
         _settingsConfig = settings;
         LoadDeadZones();
+
+        Closing += SetGamePadDeadZone_Closing;
     }
 
     private void LoadDeadZones()
@@ -46,5 +50,23 @@ public partial class SetGamepadDeadZone
         DeadZoneYSlider.Value = defaultDeadZoneY;
 
         _settingsConfig.Save();
+    }
+
+    private static void SetGamePadDeadZone_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        var processModule = Process.GetCurrentProcess().MainModule;
+        if (processModule != null)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = processModule.FileName,
+                UseShellExecute = true
+            };
+
+            Process.Start(startInfo);
+
+            Application.Current.Shutdown();
+            Environment.Exit(0);
+        }
     }
 }

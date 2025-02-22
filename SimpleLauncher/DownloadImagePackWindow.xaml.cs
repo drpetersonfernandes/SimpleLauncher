@@ -13,7 +13,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class DownloadImagePack
+public partial class DownloadImagePackWindow
 {
     private readonly ExtractCompressedFile _extractCompressedFile = new();
     private EasyModeConfig _config;
@@ -22,7 +22,7 @@ public partial class DownloadImagePack
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
-    public DownloadImagePack()
+    public DownloadImagePackWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -94,7 +94,7 @@ public partial class DownloadImagePack
                 if (_isDownloadCompleted)
                 {
                     // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtraction();
+                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
                     var extractionSuccess = await _extractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);

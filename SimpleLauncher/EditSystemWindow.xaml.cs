@@ -13,14 +13,14 @@ using TextBox = System.Windows.Controls.TextBox;
 
 namespace SimpleLauncher;
 
-public partial class EditSystem
+public partial class EditSystemWindow
 {
     private XDocument _xmlDoc;
     private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsConfig _settings;
 
-    public EditSystem(SettingsConfig settings)
+    public EditSystemWindow(SettingsConfig settings)
     {
         InitializeComponent();
 

@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace SimpleLauncher;
 
-public partial class WindowSelectionDialog
+public partial class WindowSelectionDialogWindow
 {
     public IntPtr SelectedWindowHandle { get; private set; } = IntPtr.Zero;
 
-    public WindowSelectionDialog(List<(IntPtr Handle, string Title)> windows)
+    public WindowSelectionDialogWindow(List<(IntPtr Handle, string Title)> windows)
     {
         InitializeComponent();
 

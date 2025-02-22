@@ -263,7 +263,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private static void OpenUpdateHistory()
     {
-        var updateHistoryWindow = new UpdateHistory();
+        var updateHistoryWindow = new UpdateHistoryWindow();
         updateHistoryWindow.Show();
     }
 
@@ -816,7 +816,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        EditSystemEasyMode editSystemEasyModeWindow = new(_settings);
+        EditSystemEasyModeWindow editSystemEasyModeWindow = new(_settings);
         editSystemEasyModeWindow.ShowDialog();
     }
 
@@ -824,13 +824,13 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        EditSystem editSystemWindow = new(_settings);
+        EditSystemWindow editSystemWindow = new(_settings);
         editSystemWindow.ShowDialog();
     }
 
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
-        DownloadImagePack downloadImagePack = new();
+        DownloadImagePackWindow downloadImagePack = new();
         downloadImagePack.ShowDialog();
     }
 
@@ -838,7 +838,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        EditLinks editLinksWindow = new(_settings);
+        EditLinksWindow editLinksWindow = new(_settings);
         editLinksWindow.ShowDialog();
     }
 
@@ -846,13 +846,13 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        SetGamepadDeadZone setGamepadDeadZoneWindow = new(_settings);
+        SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
     }
 
     private void BugReport_Click(object sender, RoutedEventArgs e)
     {
-        BugReport bugReportWindow = new();
+        BugReportWindow bugReportWindow = new();
         bugReportWindow.ShowDialog();
     }
 
@@ -882,7 +882,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        About aboutWindow = new();
+        AboutWindow aboutWindow = new();
         aboutWindow.ShowDialog();
     }
 
@@ -1046,13 +1046,13 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
-        var globalSearchWindow = new GlobalSearch(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
+        var globalSearchWindow = new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
     }
 
     private void GlobalStats_Click(object sender, RoutedEventArgs e)
     {
-        var globalStatsWindow = new GlobalStats(_systemConfigs);
+        var globalStatsWindow = new GlobalStatsWindow(_systemConfigs);
         globalStatsWindow.Show();
     }
 
@@ -1510,8 +1510,6 @@ public partial class MainWindow : INotifyPropertyChanged
         Page400.IsChecked = (selectedSize == 400);
         Page500.IsChecked = (selectedSize == 500);
         Page1000.IsChecked = (selectedSize == 1000);
-        Page5000.IsChecked = (selectedSize == 5000);
-        Page10000.IsChecked = (selectedSize == 10000);
     }
 
     private void UpdateShowGamesCheckMarks(string selectedValue)
@@ -2038,7 +2036,7 @@ public partial class MainWindow : INotifyPropertyChanged
             return;
         }
 
-        var pleaseWaitWindow = new PleaseWaitSearch();
+        var pleaseWaitWindow = new PleaseWaitSearchWindow();
         await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
         try

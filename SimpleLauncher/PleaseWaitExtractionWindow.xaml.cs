@@ -1,8 +1,8 @@
 ﻿namespace SimpleLauncher;
 
-public partial class PleaseWaitExtraction
+public partial class PleaseWaitExtractionWindow
 {
-    public PleaseWaitExtraction()
+    public PleaseWaitExtractionWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

@@ -8,12 +8,12 @@ using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
 
-public partial class BugReport
+public partial class BugReportWindow
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
 
-    public BugReport()
+    public BugReportWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

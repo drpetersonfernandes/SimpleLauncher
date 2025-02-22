@@ -6,9 +6,9 @@ using System.Reflection;
 
 namespace SimpleLauncher;
 
-public partial class About
+public partial class AboutWindow
 {
-    public About()
+    public AboutWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -62,7 +62,7 @@ public partial class About
 
     private void UpdateHistory_Click(object sender, RoutedEventArgs e)
     {
-        var updateHistoryWindow = new UpdateHistory();
+        var updateHistoryWindow = new UpdateHistoryWindow();
         updateHistoryWindow.ShowDialog();
     }
 }

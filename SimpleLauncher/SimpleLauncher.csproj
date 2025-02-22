@@ -768,12 +768,12 @@
   </ItemGroup>
   <ItemGroup>
     <Page Remove="database\**" />
-    <Page Update="EditSystemEasyMode.xaml">
+    <Page Update="EditSystemEasyModeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="EditSystemEasyModeAddSystem.xaml">
+    <Page Update="EditSystemEasyModeAddSystemWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>

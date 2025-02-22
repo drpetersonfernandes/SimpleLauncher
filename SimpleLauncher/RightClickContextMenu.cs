@@ -589,7 +589,7 @@ public static class RightClickContextMenu
             var openWindows = WindowManager.GetOpenWindows();
 
             // Show the selection dialog
-            var dialog = new WindowSelectionDialog(openWindows);
+            var dialog = new WindowSelectionDialogWindow(openWindows);
             if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
             {
                 return;

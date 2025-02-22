@@ -15,7 +15,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemEasyModeAddSystem
+public partial class EditSystemEasyModeAddSystemWindow
 {
     private readonly ExtractCompressedFile _extractCompressedFile = new();
     private EasyModeConfig _config;
@@ -26,7 +26,7 @@ public partial class EditSystemEasyModeAddSystem
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
-    public EditSystemEasyModeAddSystem()
+    public EditSystemEasyModeAddSystemWindow()
     {
         InitializeComponent();
 
@@ -107,7 +107,7 @@ public partial class EditSystemEasyModeAddSystem
                         downloadFilePath = ChangeFileExtensionFunction(selectedSystem, downloadFilePath);
 
                         // Show the PleaseWaitExtraction window
-                        var pleaseWaitWindow = new PleaseWaitExtraction();
+                        var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                         pleaseWaitWindow.Show();
 
                         var extractionSuccess = await _extractCompressedFile
@@ -257,7 +257,7 @@ public partial class EditSystemEasyModeAddSystem
                 if (_isDownloadCompleted)
                 {
                     // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtraction();
+                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
                     var extractionSuccess = await _extractCompressedFile
@@ -272,7 +272,7 @@ public partial class EditSystemEasyModeAddSystem
                         MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                         // Clean up the downloaded file only if extraction is successful
-                        EditSystemEasyModeAddSystem.DeleteFile(downloadFilePath);
+                        EditSystemEasyModeAddSystemWindow.DeleteFile(downloadFilePath);
 
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
@@ -375,7 +375,7 @@ public partial class EditSystemEasyModeAddSystem
                 if (_isDownloadCompleted)
                 {
                     // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtraction();
+                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
                     var extractionSuccess = await _extractCompressedFile
