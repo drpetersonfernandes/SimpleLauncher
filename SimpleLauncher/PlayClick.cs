@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.IO;
 using System.Windows.Media;
@@ -11,6 +12,9 @@ public static class PlayClick
     private const string ShutterSoundFile = "shutter.mp3";
     private const string TrashSoundFile = "trash.mp3";
 
+    // Keep a reference to prevent garbage collection
+    private static MediaPlayer? _mediaPlayer;
+
     public static void PlayClickSound() => PlaySound(ClickSoundFile);
     public static void PlayShutterSound() => PlaySound(ShutterSoundFile);
     public static void PlayTrashSound() => PlaySound(TrashSoundFile);
@@ -20,9 +24,14 @@ public static class PlayClick
         try
         {
             var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
-            MediaPlayer mediaPlayer = new();
-            mediaPlayer.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            mediaPlayer.Play();
+            _mediaPlayer = new MediaPlayer();
+            _mediaPlayer.MediaEnded += (_, _) =>
+            {
+                _mediaPlayer.Close();
+                _mediaPlayer = null;
+            };
+            _mediaPlayer?.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
+            _mediaPlayer?.Play();
         }
         catch (Exception ex)
         {
