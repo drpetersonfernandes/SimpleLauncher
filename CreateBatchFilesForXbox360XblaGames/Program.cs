@@ -27,7 +27,7 @@ static class Program
         _logForm.LogMessage("Please select the Xenia executable file (xenia.exe):");
         _logForm.LogMessage("");
 
-        string? xeniaExePath = SelectFile();
+        var xeniaExePath = SelectFile();
 
         if (string.IsNullOrEmpty(xeniaExePath))
         {
@@ -36,18 +36,18 @@ static class Program
 
             MessageBox.Show("No file selected. Exiting application.",
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
             // Shutdown
             Application.Exit();
             Environment.Exit(0);
-            
+
             return;
         }
 
         _logForm.LogMessage("Select the root folder containing your Xbox 360 XBLA game folders:");
         _logForm.LogMessage("");
 
-        string? rootFolder = SelectFolder();
+        var rootFolder = SelectFolder();
 
         if (string.IsNullOrEmpty(rootFolder))
         {
@@ -56,11 +56,11 @@ static class Program
 
             MessageBox.Show("No folder selected. Exiting application.",
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
             // Shutdown
             Application.Exit();
             Environment.Exit(0);
-            
+
             return;
         }
 
@@ -74,12 +74,13 @@ static class Program
         using var fbd = new FolderBrowserDialog();
         fbd.Description = "Please select the root folder where your Xbox 360 XBLA game folders are located.";
 
-        DialogResult result = fbd.ShowDialog();
+        var result = fbd.ShowDialog();
 
         if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
         {
             return fbd.SelectedPath;
         }
+
         return null;
     }
 
@@ -95,21 +96,22 @@ static class Program
         {
             return ofd.FileName;
         }
+
         return null;
     }
 
     private static void CreateBatchFilesForXeniaGames(string rootFolder, string xeniaExePath)
     {
-        string[] gameDirectories = Directory.GetDirectories(rootFolder);
-        int filesCreated = 0;
+        var gameDirectories = Directory.GetDirectories(rootFolder);
+        var filesCreated = 0;
 
-        foreach (string gameDirectory in gameDirectories)
+        foreach (var gameDirectory in gameDirectories)
         {
-            string gameFolderName = Path.GetFileName(gameDirectory);
-            string batchFilePath = Path.Combine(rootFolder, gameFolderName + ".bat");
+            var gameFolderName = Path.GetFileName(gameDirectory);
+            var batchFilePath = Path.Combine(rootFolder, gameFolderName + ".bat");
 
-            // Find the game file in 000D0000 folder
-            string? gameFilePath = FindGameFileIn000D0000Folder(gameDirectory);
+            // Find the game file in the 000D0000 folder
+            var gameFilePath = FindGameFileIn000D0000Folder(gameDirectory);
 
             if (string.IsNullOrEmpty(gameFilePath))
             {
@@ -123,6 +125,7 @@ static class Program
 
                 _logForm?.LogMessage($"Batch file created: {batchFilePath}");
             }
+
             filesCreated++;
         }
 
@@ -149,11 +152,11 @@ static class Program
     {
         try
         {
-            string[] directories = Directory.GetDirectories(gameDirectory, "000D0000", SearchOption.AllDirectories);
+            var directories = Directory.GetDirectories(gameDirectory, "000D0000", SearchOption.AllDirectories);
 
             if (directories.Length > 0)
             {
-                string[] files = Directory.GetFiles(directories[0]);
+                var files = Directory.GetFiles(directories[0]);
 
                 if (files.Length > 0)
                 {
