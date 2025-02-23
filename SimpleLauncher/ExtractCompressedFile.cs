@@ -174,7 +174,7 @@ public class ExtractCompressedFile
     // More prone to errors because it extracts files inside 'Simple Launcher' folder
     // User needs to be an admin
     // 'Simple Launcher' folder needs to be writable
-    public async Task<bool> ExtractDownloadFilesAsync2(string filePath, string destinationFolder)
+    public static async Task<bool> ExtractDownloadFilesAsync2(string filePath, string destinationFolder)
     {
         // Check if the downloaded file exists
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)

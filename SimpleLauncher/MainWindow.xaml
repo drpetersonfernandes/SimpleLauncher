@@ -223,10 +223,6 @@
                         x:Name="Page500"
                         Click="GamesPerPage_Click"
                         Header="{DynamicResource 500games}" />
-                    <MenuItem
-                        x:Name="Page1000"
-                        Click="GamesPerPage_Click"
-                        Header="{DynamicResource 1000games}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ViewMode}">
                     <MenuItem.Icon>

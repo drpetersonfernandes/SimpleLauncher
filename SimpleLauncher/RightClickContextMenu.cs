@@ -6,9 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
@@ -37,25 +35,20 @@ public static class RightClickContextMenu
                 favoritesManager.FavoriteList = favorites.FavoriteList;
                 favoritesManager.SaveFavorites();
 
-                // Update the button's content to add the favorite icon dynamically
+                // Update the button's view model by locating the button using the composite tag.
                 try
                 {
-                    var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+                    // Build the key using systemName and file name without extension.
+                    var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
 
-                    if (button != null)
+                    // Find the button by checking if its Tag is a GameButtonTag and comparing its Key.
+                    var button = gameFileGrid.Children.OfType<Button>()
+                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+
+                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                     {
-                        var grid = (Grid)button.Content;
-                        var startImage = new Image
-                        {
-                            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
-                            Width = 22,
-                            Height = 22,
-                            HorizontalAlignment = HorizontalAlignment.Left,
-                            VerticalAlignment = VerticalAlignment.Top,
-                            Margin = new Thickness(5)
-                        };
-                        grid.Children.Add(startImage);
+                        viewModel.IsFavorite = true; // This automatically makes the star overlay visible.
                     }
                 }
                 catch (Exception)
@@ -121,20 +114,17 @@ public static class RightClickContextMenu
                 favoritesManager.FavoriteList = favorites.FavoriteList;
                 favoritesManager.SaveFavorites();
 
-                // Update the button's content to remove the favorite icon dynamically
+                // Update the button's view model by locating the button using the composite tag.
                 try
                 {
+                    var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
                     var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => ((TextBlock)((StackPanel)((Grid)b.Content).Children[0]).Children[1]).Text.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
-                    if (button != null)
+                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                     {
-                        var grid = (Grid)button.Content;
-                        var favoriteIcon = grid.Children.OfType<Image>().FirstOrDefault(img => img.Source.ToString().Contains("star.png"));
-                        if (favoriteIcon != null)
-                        {
-                            grid.Children.Remove(favoriteIcon);
-                        }
+                        viewModel.IsFavorite = false; // This will collapse the star overlay.
                     }
                 }
                 catch (Exception)
@@ -157,12 +147,15 @@ public static class RightClickContextMenu
                 {
                     // ignore
                 }
-            }
-            else
-            {
+
                 // Notify user
-                MessageBoxLibrary.FileIsNotInFavoritesMessageBox(fileNameWithExtension);
+                MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
             }
+            // else
+            // {
+            //     // Notify user
+            //     MessageBoxLibrary.FileIsNotInFavoritesMessageBox(fileNameWithExtension);
+            // }
         }
         catch (Exception ex)
         {
@@ -625,9 +618,9 @@ public static class RightClickContextMenu
                 using (var graphics = Graphics.FromImage(bitmap))
                 {
                     graphics.CopyFromScreen(
-                        new System.Drawing.Point(rect.Left, rect.Top),
-                        System.Drawing.Point.Empty,
-                        new System.Drawing.Size(width, height));
+                        new Point(rect.Left, rect.Top),
+                        Point.Empty,
+                        new Size(width, height));
                 }
 
                 // Save the screenshot

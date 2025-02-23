@@ -17,7 +17,6 @@ namespace SimpleLauncher;
 
 public partial class EditSystemEasyModeAddSystemWindow
 {
-    private readonly ExtractCompressedFile _extractCompressedFile = new();
     private EasyModeConfig _config;
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
@@ -110,8 +109,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                         var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                         pleaseWaitWindow.Show();
 
-                        var extractionSuccess = await _extractCompressedFile
-                            .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                        var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
 
                         // Close the PleaseWaitExtraction window
                         pleaseWaitWindow.Close();
@@ -122,7 +120,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                             MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                             // Clean up the downloaded file only if extraction is successful
-                            DeleteFile(downloadFilePath);
+                            TryDeleteFile(downloadFilePath);
 
                             // Mark as downloaded and disable button
                             _isEmulatorDownloaded = true;
@@ -157,7 +155,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                 }
                 catch (TaskCanceledException) // Download canceled
                 {
-                    DeleteFile(downloadFilePath);
+                    TryDeleteFile(downloadFilePath);
 
                     // Notify user
                     MessageBoxLibrary.DownloadCanceledMessageBox();
@@ -177,7 +175,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                 finally
                 {
                     StopDownloadButton.IsEnabled = false;
-                    DeleteFile(downloadFilePath);
+                    TryDeleteFile(downloadFilePath);
                 }
             }
         }
@@ -260,8 +258,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await _extractCompressedFile
-                        .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
@@ -272,7 +269,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                         MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                         // Clean up the downloaded file only if extraction is successful
-                        EditSystemEasyModeAddSystemWindow.DeleteFile(downloadFilePath);
+                        EditSystemEasyModeAddSystemWindow.TryDeleteFile(downloadFilePath);
 
                         // Mark as downloaded and disable button
                         _isCoreDownloaded = true;
@@ -306,7 +303,7 @@ public partial class EditSystemEasyModeAddSystemWindow
             }
             catch (TaskCanceledException)
             {
-                DeleteFile(downloadFilePath);
+                TryDeleteFile(downloadFilePath);
 
                 // Notify user
                 MessageBoxLibrary.DownloadCanceledMessageBox();
@@ -326,7 +323,7 @@ public partial class EditSystemEasyModeAddSystemWindow
             finally
             {
                 StopDownloadButton.IsEnabled = false;
-                DeleteFile(downloadFilePath);
+                TryDeleteFile(downloadFilePath);
             }
         }
         catch (Exception ex)
@@ -378,8 +375,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await _extractCompressedFile
-                        .ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
@@ -390,7 +386,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                         MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                         // Clean up the downloaded file only if extraction is successful
-                        DeleteFile(downloadFilePath);
+                        TryDeleteFile(downloadFilePath);
 
                         // Mark as downloaded and disable button
                         DownloadExtrasButton.IsEnabled = false;
@@ -410,26 +406,8 @@ public partial class EditSystemEasyModeAddSystemWindow
                         MessageBoxLibrary.ExtractionFailedMessageBox();
                     }
                 }
-                else // Download fail
-                {
-                    // Notify developer
-                    var formattedException = $"Image Pack download failed.\n\n" +
-                                             $"File: {extrasDownloadUrl}";
-                    var ex = new Exception(formattedException);
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-
-                    // Notify user
-                    MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
-                }
             }
-            catch (TaskCanceledException)
-            {
-                DeleteFile(downloadFilePath);
-
-                // Notify user
-                MessageBoxLibrary.DownloadCanceledMessageBox();
-            }
-            catch (Exception ex) //Error downloading
+            catch (Exception ex)
             {
                 // Notify developer
                 var formattedException = $"Error downloading the Image Pack.\n\n" +
@@ -444,13 +422,13 @@ public partial class EditSystemEasyModeAddSystemWindow
             finally
             {
                 StopDownloadButton.IsEnabled = false;
-                DeleteFile(downloadFilePath);
+                TryDeleteFile(downloadFilePath);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"General error downloading the Image Pack.\n\n" +
+            var formattedException = $"Generic error downloading the Image Pack.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
@@ -536,9 +514,6 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                // Delete temp files
-                DeleteFile(destinationPath);
-
                 // Notify developer
                 var formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
                                          $"URL: {downloadUrl}\n" +
@@ -551,9 +526,6 @@ public partial class EditSystemEasyModeAddSystemWindow
             }
             else
             {
-                // Delete temp files
-                DeleteFile(destinationPath);
-
                 // Notify developer
                 var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
                                          $"URL: {downloadUrl}\n" +
@@ -564,6 +536,21 @@ public partial class EditSystemEasyModeAddSystemWindow
                 // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             }
+
+            // Delete temp files
+            TryDeleteFile(destinationPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Generic download error.\n\n" +
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
     }
 
@@ -786,7 +773,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         e.Handled = true;
     }
 
-    private static void DeleteFile(string file)
+    private static void TryDeleteFile(string file)
     {
         if (!File.Exists(file)) return;
         try

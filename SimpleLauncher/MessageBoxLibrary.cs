@@ -51,13 +51,13 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void FileIsNotInFavoritesMessageBox(string fileNameWithExtension)
-    {
-        var isnotinfavorites2 = (string)Application.Current.TryFindResource("isnotinfavorites") ?? "is not in favorites.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show($"{fileNameWithExtension} {isnotinfavorites2}",
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
+    // internal static void FileIsNotInFavoritesMessageBox(string fileNameWithExtension)
+    // {
+    //     var isnotinfavorites2 = (string)Application.Current.TryFindResource("isnotinfavorites") ?? "is not in favorites.";
+    //     var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+    //     MessageBox.Show($"{fileNameWithExtension} {isnotinfavorites2}",
+    //         info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    // }
 
     internal static void ErrorWhileRemovingGameFromFavoriteMessageBox()
     {
@@ -314,6 +314,14 @@ public static class MessageBoxLibrary
         var hasbeenaddedtofavorites2 = (string)Application.Current.TryFindResource("hasbeenaddedtofavorites") ?? "has been added to favorites.";
         var success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
         MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites2}",
+            success2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void FileRemovedFromFavoritesMessageBox(string fileNameWithoutExtension)
+    {
+        var wasremovedfromfavorites2 = (string)Application.Current.TryFindResource("wasremovedfromfavorites") ?? "was removed from favorites.";
+        var success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        MessageBox.Show($"{fileNameWithoutExtension} {wasremovedfromfavorites2}",
             success2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
@@ -1015,12 +1023,14 @@ public static class MessageBoxLibrary
     {
         var extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
         var ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
+        var ensureyouhaveenoughspaceintheHdd2 = (string)Application.Current.TryFindResource("EnsureyouhaveenoughspaceintheHDD") ?? "Ensure you have enough space in the HDD to extract the file.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         var ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{extractionfailed2}\n\n" +
                         $"{ensurethefileisnotcorrupted2}\n" +
+                        $"{ensureyouhaveenoughspaceintheHdd2}\n" +
                         $"{grantSimpleLauncheradministrative2}\n" +
                         $"{ensuretheSimpleLauncherfolder2}\n" +
                         $"{temporarilydisableyourantivirus2}",
@@ -1204,14 +1214,6 @@ public static class MessageBoxLibrary
         var linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
         var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show(linksreverted2,
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    internal static void DeadZoneValuesRevertedMessageBox()
-    {
-        var deadZonevaluesrevertedtodefaultvalues2 = (string)Application.Current.TryFindResource("DeadZonevaluesrevertedtodefaultvalues") ?? "DeadZone values reverted to default values.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(deadZonevaluesrevertedtodefaultvalues2,
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 

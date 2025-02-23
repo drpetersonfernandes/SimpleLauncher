@@ -893,21 +893,34 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void ShowAllGames_Click(object sender, RoutedEventArgs e)
     {
-        UpdateGameVisibility(visibilityCondition: _ => true); // Show all games
+        // Show all games regardless of cover
+        UpdateGameVisibility(visibilityCondition: _ => true);
         UpdateShowGamesSetting("ShowAll");
         UpdateMenuCheckMarks("ShowAll");
     }
 
     private void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
     {
-        UpdateGameVisibility(visibilityCondition: btn => btn.Tag?.ToString() != "DefaultImage"); // Show games with covers only
+        // Show games that have covers (not using the default image)
+        UpdateGameVisibility(visibilityCondition: btn =>
+        {
+            if (btn.Tag is GameButtonTag tag)
+                return !tag.IsDefaultImage;
+            return false;
+        });
         UpdateShowGamesSetting("ShowWithCover");
         UpdateMenuCheckMarks("ShowWithCover");
     }
 
     private void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
     {
-        UpdateGameVisibility(visibilityCondition: btn => btn.Tag?.ToString() == "DefaultImage"); // Show games without covers only
+        // Show games that are using the default image (no cover available)
+        UpdateGameVisibility(visibilityCondition: btn =>
+        {
+            if (btn.Tag is GameButtonTag tag)
+                return tag.IsDefaultImage;
+            return false;
+        });
         UpdateShowGamesSetting("ShowWithoutCover");
         UpdateMenuCheckMarks("ShowWithoutCover");
     }
@@ -1509,7 +1522,6 @@ public partial class MainWindow : INotifyPropertyChanged
         Page300.IsChecked = (selectedSize == 300);
         Page400.IsChecked = (selectedSize == 400);
         Page500.IsChecked = (selectedSize == 500);
-        Page1000.IsChecked = (selectedSize == 1000);
     }
 
     private void UpdateShowGamesCheckMarks(string selectedValue)

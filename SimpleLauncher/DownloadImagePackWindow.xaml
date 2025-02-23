@@ -4,8 +4,9 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource DownloadImagePack}"
                       Width="550"
-                      Height="550"
                       MinWidth="550"
+                      Height="550"
+                      MinHeight="550"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

@@ -15,7 +15,6 @@ namespace SimpleLauncher;
 
 public partial class DownloadImagePackWindow
 {
-    private readonly ExtractCompressedFile _extractCompressedFile = new();
     private EasyModeConfig _config;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient = new();
@@ -97,7 +96,7 @@ public partial class DownloadImagePackWindow
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await _extractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
+                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
@@ -107,7 +106,7 @@ public partial class DownloadImagePackWindow
                         // Notify user
                         MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
 
-                        DeleteDownloadedFile(downloadFilePath);
+                        TryToDeleteDownloadedFile(downloadFilePath);
 
                         // Mark as downloaded and disable button
                         DownloadExtrasButton.IsEnabled = false;
@@ -124,24 +123,6 @@ public partial class DownloadImagePackWindow
                         MessageBoxLibrary.ExtractionFailedMessageBox();
                     }
                 }
-                else // Download fail
-                {
-                    // Notify developer
-                    var formattedException = $"Image Pack download failed.\n\n" +
-                                             $"File: {extrasDownloadUrl}";
-                    var ex = new Exception(formattedException);
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-
-                    // Notify user
-                    MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                DeleteDownloadedFile(downloadFilePath);
-
-                // Notify user
-                MessageBoxLibrary.DownloadCanceledMessageBox();
             }
             catch (Exception ex)
             {
@@ -158,7 +139,7 @@ public partial class DownloadImagePackWindow
             finally
             {
                 StopDownloadButton.IsEnabled = false;
-                DeleteDownloadedFile(downloadFilePath);
+                TryToDeleteDownloadedFile(downloadFilePath);
             }
         }
         catch (Exception ex)
@@ -174,7 +155,7 @@ public partial class DownloadImagePackWindow
         }
     }
 
-    private static void DeleteDownloadedFile(string file)
+    private static void TryToDeleteDownloadedFile(string file)
     {
         if (!File.Exists(file)) return;
         try
@@ -283,7 +264,19 @@ public partial class DownloadImagePackWindow
                 MessageBoxLibrary.DownloadErrorMessageBox();
             }
 
-            DeleteDownloadedFile(destinationPath);
+            TryToDeleteDownloadedFile(destinationPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Generic download error.\n\n" +
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            await LogErrors.LogErrorAsync(ex, formattedException);
+
+            // Notify user
+            MessageBoxLibrary.DownloadErrorMessageBox();
         }
     }
 

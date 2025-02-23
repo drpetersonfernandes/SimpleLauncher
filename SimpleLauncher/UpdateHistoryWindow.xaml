@@ -5,6 +5,8 @@
                       Title="{DynamicResource UpdateHistory}"
                       Width="800"
                       Height="700"
+                      MinWidth="700"
+                      MinHeight="550"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">

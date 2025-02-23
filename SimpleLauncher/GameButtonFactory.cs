@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -31,37 +32,60 @@ internal class GameButtonFactory(
         fileNameWithoutExtension = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
         var imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+        // Determine if it's a default image (isDefaultImage is a bool)
         var isDefaultImage = imagePath.EndsWith(DefaultImagePath);
 
-        // Check if the game is a favorite
-        var isFavorite = favoritesManager.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        // Create the view model and determine the initial favorite state:
+        var viewModel = new GameButtonViewModel
+        {
+            IsFavorite = favoritesManager.FavoriteList.Any(f =>
+                f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
+                f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase))
+        };
 
-        // Determine the text to display:
-        // For MAME systems, use the description if available; otherwise, use the filename.
-        var displayText = fileNameWithoutExtension;
+        // Create a container for text that will hold two rows
+        var textPanel = new StackPanel
+        {
+            Orientation = Orientation.Vertical,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
 
+        // Always show the filename on the first row.
+        var filenameTextBlock = new TextBlock
+        {
+            Text = fileNameWithoutExtension,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            TextAlignment = TextAlignment.Center,
+            FontWeight = FontWeights.Bold,
+            TextTrimming = TextTrimming.CharacterEllipsis,
+            FontSize = 13,
+            ToolTip = fileNameWithoutExtension,
+            TextWrapping = TextWrapping.Wrap
+        };
+        textPanel.Children.Add(filenameTextBlock);
+
+        // For MAME systems, add a second row for the description if available.
         if (systemConfig.SystemIsMame)
         {
             var machine = machines.FirstOrDefault(
                 m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
-                displayText = machine.Description;
+                var descriptionTextBlock = new TextBlock
+                {
+                    Text = machine.Description,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    TextAlignment = TextAlignment.Center,
+                    FontWeight = FontWeights.Normal,
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    FontSize = 11,
+                    ToolTip = machine.Description,
+                    TextWrapping = TextWrapping.Wrap
+                };
+                textPanel.Children.Add(descriptionTextBlock);
             }
         }
-
-        var textBlock = new TextBlock
-        {
-            Text = displayText,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            TextAlignment = TextAlignment.Center,
-            FontWeight = FontWeights.Bold,
-            TextTrimming = TextTrimming.CharacterEllipsis,
-            FontSize = 13,
-            ToolTip = displayText,
-            TextWrapping = TextWrapping.Wrap
-        };
 
         // Calculate dimensions based on the user-selected aspect ratio
         // Base size is determined from ImageHeight (plus some padding)
@@ -121,25 +145,32 @@ internal class GameButtonFactory(
         await LoadImageAsync(image, null, imagePath);
 
         // If the game is a favorite, add a star overlay.
-        if (isFavorite)
+        // Create the star overlay image.
+        var starImage = new Image
         {
-            var starImage = new Image
-            {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
-                Width = 22,
-                Height = 22,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5)
-            };
-            // Add starImage to grid (it will overlay the image container)
-            grid.Children.Add(starImage);
-        }
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+            Width = 22,
+            Height = 22,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(5)
+        };
+        // Bind its Visibility to IsFavorite
+        var binding = new Binding("IsFavorite")
+        {
+            Converter = new BooleanToVisibilityConverter()
+        };
+        starImage.SetBinding(UIElement.VisibilityProperty, binding);
+        // Add the star overlay to the grid.
+        grid.Children.Add(starImage);
+
+        // Set the DataContext of the grid to the view model.
+        grid.DataContext = viewModel;
 
         // Create a container for the text.
         var textContainer = new Border
         {
-            Child = textBlock,
+            Child = textPanel,
             Padding = new Thickness(5),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Center
@@ -157,10 +188,18 @@ internal class GameButtonFactory(
             Padding = new Thickness(0, 10, 0, 0)
         };
 
-        if (isDefaultImage)
+        // Create a unique key for the favorite status
+        var key = $"{systemName}|{Path.GetFileNameWithoutExtension(filePath)}";
+
+        // Create the composite tag object
+        var tag = new GameButtonTag
         {
-            button.Tag = "DefaultImage";
-        }
+            IsDefaultImage = isDefaultImage,
+            Key = key
+        };
+
+        // Assign it to the button's Tag property
+        button.Tag = tag;
 
         button.Click += async (_, _) =>
         {
