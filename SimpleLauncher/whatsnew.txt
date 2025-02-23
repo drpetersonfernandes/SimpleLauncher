@@ -1,9 +1,9 @@
 release3.10
 ------------
 
-02/22/2025
-- I have exposed the GamePad DeadZone variable to the user.
-- I have improved the Game Button generation for the Grid View option. Now users can customize the aspect ratio of the buttons.
+02/23/2025
+- Exposed the GamePad DeadZone variable to the user.
+- Improved the Game Button generation for the Grid View option. Now users can customize the aspect ratio of the buttons.
 - Updated the emulators to their latest releases.
 - Updated `history.xml`, available at arcade-history.com, to the latest version.
 - Fixed some bugs.
