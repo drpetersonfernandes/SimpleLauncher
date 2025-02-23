@@ -590,11 +590,19 @@ public partial class MainWindow : INotifyPropertyChanged
             // Regular behavior: load files based on startLetter or searchQuery
             else
             {
-                var systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-
                 // Attempt to use the cached file list first
                 _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
+
+                // Recount the number of files in the system folder
+                var systemFolderPath = selectedConfig.SystemFolder;
+                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                var cachedFilesCount = _cachedFiles?.Count ?? 0;
+                if (cachedFilesCount != gameCount)
+                {
+                    // If the cached file list is not up to date, rescan the system folder
+                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, gameCount);
+                }
 
                 if (_cachedFiles is { Count: > 0 })
                 {
