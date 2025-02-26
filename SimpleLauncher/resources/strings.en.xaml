@@ -507,4 +507,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">You do not have enough disk space to download this file.</system:String>
+    
 </ResourceDictionary>

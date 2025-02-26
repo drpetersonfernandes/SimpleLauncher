@@ -32,6 +32,15 @@ public static class MessageBoxLibrary
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
+    
+    internal static void InsufficientDiskSpaceMessageBox()
+    {
+        var youdonothaveenoughdiskspacetodownloadthisfile2 = (string)Application.Current.TryFindResource("Youdonothaveenoughdiskspacetodownloadthisfile") ?? "You do not have enough disk space to download this file.";
+        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{youdonothaveenoughdiskspacetodownloadthisfile2}\n\n" +
+                        $"{error2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 
     internal static void GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
