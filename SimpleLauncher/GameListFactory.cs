@@ -507,23 +507,61 @@ public class GameListFactory(
 
         // Get the preview image path
         var previewImagePath = GetPreviewImagePath(filePath, systemConfig);
+        
+        // Clear previous image first to avoid memory leaks
+        mainWindow.PreviewImage.Source = null;
 
         // Set the preview image if a valid path is returned
         if (!string.IsNullOrEmpty(previewImagePath))
         {
             try
             {
-                var imageBytes = File.ReadAllBytes(previewImagePath);
-                var memoryStream = new MemoryStream(imageBytes);
+                // Check if file exists and has content
+                if (!File.Exists(previewImagePath) || new FileInfo(previewImagePath).Length == 0)
+                {
+                    // Silently fail and use default handling below
+                    return;
+                }
+                
+                var memoryStream = new MemoryStream();
+                
+                // Copy file to memory stream to avoid file locks
+                using (var fileStream = new FileStream(previewImagePath, FileMode.Open, FileAccess.Read))
+                {
+                    fileStream.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+                }
+                
+                // Validate stream has content
+                if (memoryStream.Length == 0)
+                {
+                    return;
+                }
 
                 mainWindow.Dispatcher.Invoke(() =>
                 {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = memoryStream;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad; // Load immediately to avoid file locks
-                    bitmap.EndInit();
-                    mainWindow.PreviewImage.Source = bitmap;
+                    try
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.StreamSource = memoryStream;
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                        bitmap.DecodePixelWidth = 0; // Auto-size
+                        bitmap.EndInit();
+                    
+                        // Check if bitmap was initialized properly
+                        if (bitmap.IsDownloading || bitmap.Width > 0)
+                        {
+                            bitmap.Freeze(); // Make it thread-safe
+                            mainWindow.PreviewImage.Source = bitmap;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        LogErrors.LogErrorAsync(ex, $"Error loading image '{previewImagePath}': {ex.Message}").Wait(TimeSpan.FromSeconds(2));
+                    }
                 });
             }
             catch (Exception ex)
@@ -531,7 +569,8 @@ public class GameListFactory(
                 mainWindow.PreviewImage.Source = null;
 
                 // Notify developer
-                var errorMessage = $"An error occurred while setting up the preview image in the GameListFactory class.\n\n" +
+                var errorMessage = $"An error occurred while loading the preview image.\n\n" +
+                                   $"Image path: {previewImagePath}\n" +
                                    $"Exception type: {ex.GetType().Name}\n" +
                                    $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));

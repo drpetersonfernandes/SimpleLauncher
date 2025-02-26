@@ -866,7 +866,7 @@ public static class GameLauncher
             if (fileFound) return null;
 
             // Notify developer
-            var errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
+            const string errorMessage = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
             Exception exception = new(errorMessage);
             await LogErrors.LogErrorAsync(exception, errorMessage);
 
