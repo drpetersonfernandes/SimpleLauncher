@@ -22,9 +22,6 @@ public partial class DownloadImagePackWindow : IDisposable
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private bool _disposed;
     private const int HttpTimeoutSeconds = 60;
-    
-    // Status text element (add this to your XAML)
-    // <TextBlock x:Name="StatusTextBlock" Grid.Row="7" Margin="10,5,10,5" TextWrapping="Wrap" />
 
     public DownloadImagePackWindow()
     {
@@ -66,7 +63,7 @@ public partial class DownloadImagePackWindow : IDisposable
         if (selectedSystem != null)
         {
             DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
-            
+
             // Automatically populate the extraction path with default if available
             if (!string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
             {
@@ -79,22 +76,22 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         // Input validation
         if (!ValidateInputs(out var selectedSystem)) return;
-        
+
         try
         {
             // Reset the flag at the start of the download
             _isDownloadCompleted = false;
-            
-            string extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+
+            var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
 
             // Determine the extraction folder
             var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
                 ? ExtractionFolderTextBox.Text
                 : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
-            var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ?? 
-                throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
-            
+            var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ??
+                                                             throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
+
             // Create temp directory if it doesn't exist
             Directory.CreateDirectory(_tempFolder);
 
@@ -112,7 +109,9 @@ public partial class DownloadImagePackWindow : IDisposable
                 DownloadProgressBar.Value = 0;
                 StopDownloadButton.IsEnabled = true;
                 DownloadExtrasButton.IsEnabled = false;
-                UpdateStatus($"Preparing to download from {extrasDownloadUrl}...");
+
+                var preparingtodownloadfrom2 = (string)Application.Current.TryFindResource("Preparingtodownloadfrom") ?? "Preparing to download from";
+                UpdateStatus($"{preparingtodownloadfrom2} {extrasDownloadUrl}...");
 
                 // Initialize cancellation token source
                 _cancellationTokenSource?.Dispose();
@@ -127,8 +126,9 @@ public partial class DownloadImagePackWindow : IDisposable
                 // Only proceed with extraction if the download completed successfully
                 if (_isDownloadCompleted)
                 {
-                    UpdateStatus($"Download complete. Starting extraction to {extractionFolder}...");
-                    
+                    var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
+                    UpdateStatus($"{downloadcompleteStartingextractionto2} {extractionFolder}...");
+
                     // Show the PleaseWaitExtraction window
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
@@ -142,7 +142,9 @@ public partial class DownloadImagePackWindow : IDisposable
                     {
                         // Notify user
                         MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
-                        UpdateStatus("Image pack downloaded and extracted successfully.");
+
+                        var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
+                        UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
 
                         TryToDeleteDownloadedFile(downloadFilePath);
 
@@ -153,39 +155,44 @@ public partial class DownloadImagePackWindow : IDisposable
                     {
                         // Notify developer
                         var formattedException = $"Image Pack extraction failed.\n\n" +
-                                               $"File: {extrasDownloadUrl}";
+                                                 $"File: {extrasDownloadUrl}";
                         var ex = new Exception(formattedException);
                         await LogErrors.LogErrorAsync(ex, formattedException);
 
                         // Notify user
                         MessageBoxLibrary.ExtractionFailedMessageBox();
-                        UpdateStatus("Extraction failed. See error message for details.");
+
+                        var extractionfailedSeeerrormessagefordetails2 = (string)Application.Current.TryFindResource("ExtractionfailedSeeerrormessagefordetails") ?? "Extraction failed. See error message for details.";
+                        UpdateStatus(extractionfailedSeeerrormessagefordetails2);
                     }
                 }
                 else
                 {
-                    UpdateStatus("Download was not completed successfully.");
+                    var downloadwasnotcompletedsuccessfully2 = (string)Application.Current.TryFindResource("Downloadwasnotcompletedsuccessfully") ?? "Download was not completed successfully.";
+                    UpdateStatus(downloadwasnotcompletedsuccessfully2);
                 }
             }
             catch (Exception ex)
             {
                 // Notify developer
                 var formattedException = $"Error downloading the Image Pack.\n\n" +
-                                       $"File: {extrasDownloadUrl}\n" +
-                                       $"Exception type: {ex.GetType().Name}\n" +
-                                       $"Exception details: {ex.Message}";
+                                         $"File: {extrasDownloadUrl}\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
-                UpdateStatus($"Download error: {ex.Message}");
+
+                var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error";
+                UpdateStatus($"{downloaderror2}: {ex.Message}");
             }
             finally
             {
                 StopDownloadButton.IsEnabled = false;
                 DownloadExtrasButton.IsEnabled = true;
                 TryToDeleteDownloadedFile(downloadFilePath);
-                
+
                 // Dispose cancellation token source
                 if (_cancellationTokenSource != null)
                 {
@@ -198,79 +205,91 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // Notify developer
             var formattedException = $"Error downloading the Image Pack.\n\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
             MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
-            UpdateStatus($"Error: {ex.Message}");
+
+            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            UpdateStatus($"{error2}: {ex.Message}");
             DownloadExtrasButton.IsEnabled = true;
         }
     }
 
     private bool ValidateInputs(out EasyModeSystemConfig selectedSystem)
-{
-    selectedSystem = null;
-    
-    // Check if a system is selected
-    if (SystemNameDropdown.SelectedItem == null)
     {
-        MessageBox.Show("Please select a system from the dropdown.",
-            "Selection Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-        return false;
-    }
+        selectedSystem = null;
 
-    // Get the selected system
-    selectedSystem = _config.Systems.FirstOrDefault(
-        system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-    
-    if (selectedSystem == null)
-    {
-        MessageBox.Show("Could not find the selected system in the configuration.",
-            "System Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
-        return false;
-    }
-
-    // Validate download URL
-    var downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-    if (string.IsNullOrEmpty(downloadUrl))
-    {
-        MessageBox.Show("The selected system does not have a valid download link.",
-            "Invalid Download Link", MessageBoxButton.OK, MessageBoxImage.Warning);
-        return false;
-    }
-
-    // Validate extraction folder
-    if (string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text) && 
-        string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
-    {
-        MessageBox.Show("Please select an extraction folder.",
-            "Extraction Folder Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-        return false;
-    }
-
-    var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
-        ? ExtractionFolderTextBox.Text
-        : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-
-    // Verify the extraction folder exists or can be created
-    try
-    {
-        if (!Directory.Exists(extractionFolder))
+        // Check if a system is selected
+        if (SystemNameDropdown.SelectedItem == null)
         {
-            Directory.CreateDirectory(extractionFolder);
+            var pleaseselectasystemfromthedropdown2 = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
+            var selectionRequired2 = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
+            MessageBox.Show(pleaseselectasystemfromthedropdown2,
+                selectionRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Cannot create or access the extraction folder: {ex.Message}",
-            "Invalid Extraction Folder", MessageBoxButton.OK, MessageBoxImage.Error);
-        return false;
-    }
 
-    return true;
-}
+        // Get the selected system
+        selectedSystem = _config.Systems.FirstOrDefault(
+            system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+
+        if (selectedSystem == null)
+        {
+            var couldnotfindtheselectedsystemintheconfiguration2 = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
+            var systemNotFound2 = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
+            MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration2,
+                systemNotFound2, MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+        }
+
+        // Validate download URL
+        var downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+        if (string.IsNullOrEmpty(downloadUrl))
+        {
+            var theselectedsystemdoesnothaveavaliddownloadlink2 = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
+            var invalidDownloadLink2 = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
+            MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
+                invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        // Validate extraction folder
+        if (string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text) &&
+            string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
+        {
+            var pleaseselectanextractionfolder2 = (string)Application.Current.TryFindResource("Pleaseselectanextractionfolder") ?? "Please select an extraction folder.";
+            var extractionFolderRequired2 = (string)Application.Current.TryFindResource("ExtractionFolderRequired") ?? "Extraction Folder Required";
+            MessageBox.Show(pleaseselectanextractionfolder2,
+                extractionFolderRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
+            ? ExtractionFolderTextBox.Text
+            : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+
+        // Verify the extraction folder exists or can be created
+        try
+        {
+            if (!Directory.Exists(extractionFolder))
+            {
+                Directory.CreateDirectory(extractionFolder);
+            }
+        }
+        catch (Exception ex)
+        {
+            var cannotcreateoraccesstheextractionfolder2 = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
+            var invalidExtractionFolder2 = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
+            MessageBox.Show($"{cannotcreateoraccesstheextractionfolder2}: {ex.Message}",
+                invalidExtractionFolder2, MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+        }
+
+        return true;
+    }
 
     private static bool CheckAvailableDiskSpace(string folderPath)
     {
@@ -317,32 +336,34 @@ public partial class DownloadImagePackWindow : IDisposable
         UpdateStatus(progressInfo.StatusMessage);
     }
 
-    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, 
+    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath,
         IProgress<DownloadProgressInfo> progress, CancellationToken cancellationToken)
     {
         try
         {
-            using var response = await _httpClient.GetAsync(downloadUrl, 
+            using var response = await _httpClient.GetAsync(downloadUrl,
                 HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
 
+            var unknownsize2 = (string)Application.Current.TryFindResource("unknownsize") ?? "unknown size";
             var totalBytes = response.Content.Headers.ContentLength;
-            string totalSizeFormatted = totalBytes.HasValue 
-                ? FormatFileSize(totalBytes.Value) 
-                : "unknown size";
-            
+            var totalSizeFormatted = totalBytes.HasValue
+                ? FormatFileSize(totalBytes.Value)
+                : unknownsize2;
+
+            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload") ?? "Starting download";
             progress.Report(new DownloadProgressInfo
             {
                 BytesReceived = 0,
                 TotalBytesToReceive = totalBytes,
                 ProgressPercentage = 0,
-                StatusMessage = $"Starting download: {Path.GetFileName(downloadUrl)} ({totalSizeFormatted})"
+                StatusMessage = $"{startingdownload2}: {Path.GetFileName(downloadUrl)} ({totalSizeFormatted})"
             });
 
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var fileStream = new FileStream(destinationPath, FileMode.Create, 
+            await using var fileStream = new FileStream(destinationPath, FileMode.Create,
                 FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
-            
+
             var buffer = new byte[8192];
             long totalBytesRead = 0;
             int bytesRead;
@@ -357,22 +378,23 @@ public partial class DownloadImagePackWindow : IDisposable
                 var now = DateTime.Now;
                 if ((now - lastProgressUpdate).TotalMilliseconds >= 100)
                 {
-                    double progressPercentage = totalBytes.HasValue 
-                        ? (double)totalBytesRead / totalBytes.Value * 100 
+                    var progressPercentage = totalBytes.HasValue
+                        ? (double)totalBytesRead / totalBytes.Value * 100
                         : 0;
-                    
-                    string sizeStatus = totalBytes.HasValue
+
+                    var sizeStatus = totalBytes.HasValue
                         ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
                         : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
-                    
+
+                    var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
                     progress.Report(new DownloadProgressInfo
                     {
                         BytesReceived = totalBytesRead,
                         TotalBytesToReceive = totalBytes,
                         ProgressPercentage = progressPercentage,
-                        StatusMessage = $"Downloading: {sizeStatus} ({progressPercentage:F1}%)"
+                        StatusMessage = $"{downloading2}: {sizeStatus} ({progressPercentage:F1}%)"
                     });
-                    
+
                     lastProgressUpdate = now;
                 }
             }
@@ -381,23 +403,27 @@ public partial class DownloadImagePackWindow : IDisposable
             if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
             {
                 _isDownloadCompleted = true;
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete";
                 progress.Report(new DownloadProgressInfo
                 {
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytes,
                     ProgressPercentage = 100,
-                    StatusMessage = $"Download complete: {FormatFileSize(totalBytesRead)}"
+                    StatusMessage = $"{downloadcomplete2}: {FormatFileSize(totalBytesRead)}"
                 });
             }
             else if (totalBytes.HasValue)
             {
                 _isDownloadCompleted = false;
+                var downloadincomplete2 = (string)Application.Current.TryFindResource("Downloadincomplete") ?? "Download incomplete";
+                var expected2 = (string)Application.Current.TryFindResource("Expected") ?? "Expected";
+                var butreceived2 = (string)Application.Current.TryFindResource("butreceived") ?? "but received";
                 progress.Report(new DownloadProgressInfo
                 {
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytes,
                     ProgressPercentage = 0,
-                    StatusMessage = $"Download incomplete: Expected {FormatFileSize(totalBytes.Value)} but received {FormatFileSize(totalBytesRead)}"
+                    StatusMessage = $"{downloadincomplete2}: {expected2} {FormatFileSize(totalBytes.Value)} {butreceived2} {FormatFileSize(totalBytesRead)}"
                 });
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
@@ -405,12 +431,13 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 // If the server didn't provide a content length, we assume the download is complete
                 _isDownloadCompleted = true;
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete";
                 progress.Report(new DownloadProgressInfo
                 {
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytesRead, // Use received as total
                     ProgressPercentage = 100,
-                    StatusMessage = $"Download complete: {FormatFileSize(totalBytesRead)}"
+                    StatusMessage = $"{downloadcomplete2}: {FormatFileSize(totalBytesRead)}"
                 });
             }
         }
@@ -418,51 +445,54 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // Notify developer
             var formattedException = $"The requested file was not available on the server.\n\n" +
-                                   $"URL: {downloadUrl}\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
+            var errorFilenotfoundontheserver2 = (string)Application.Current.TryFindResource("ErrorFilenotfoundontheserver") ?? "Error: File not found on the server";
             progress.Report(new DownloadProgressInfo
             {
                 ProgressPercentage = 0,
-                StatusMessage = "Error: File not found on the server"
+                StatusMessage = errorFilenotfoundontheserver2
             });
         }
         catch (HttpRequestException ex)
         {
             // Notify developer
             var formattedException = $"Network error during file download.\n\n" +
-                                   $"URL: {downloadUrl}\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
+            var networkerror2 = (string)Application.Current.TryFindResource("Networkerror") ?? "Network error";
             progress.Report(new DownloadProgressInfo
             {
                 ProgressPercentage = 0,
-                StatusMessage = $"Network error: {ex.Message}"
+                StatusMessage = $"{networkerror2}: {ex.Message}"
             });
         }
         catch (IOException ex)
         {
             // Notify developer
             var formattedException = $"File read/write error after file download.\n\n" +
-                                   $"URL: {downloadUrl}\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
             MessageBoxLibrary.IoExceptionMessageBox(_tempFolder);
+            var fileerror2 = (string)Application.Current.TryFindResource("Fileerror") ?? "File error";
             progress.Report(new DownloadProgressInfo
             {
                 ProgressPercentage = 0,
-                StatusMessage = $"File error: {ex.Message}"
+                StatusMessage = $"{fileerror2}: {ex.Message}"
             });
         }
         catch (TaskCanceledException ex)
@@ -471,32 +501,34 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 // Notify developer
                 var formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
-                                       $"URL: {downloadUrl}\n" +
-                                       $"Exception type: {ex.GetType().Name}\n" +
-                                       $"Exception details: {ex.Message}";
+                                         $"URL: {downloadUrl}\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-                
+
+                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser") ?? "Download canceled by user";
                 progress.Report(new DownloadProgressInfo
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = "Download canceled by user"
+                    StatusMessage = downloadcanceledbyuser2
                 });
             }
             else
             {
                 // Notify developer
                 var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
-                                       $"URL: {downloadUrl}\n" +
-                                       $"Exception type: {ex.GetType().Name}\n" +
-                                       $"Exception details: {ex.Message}";
+                                         $"URL: {downloadUrl}\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
                 // Notify user
                 MessageBoxLibrary.DownloadErrorMessageBox();
+                var downloadtimedoutorwascanceledunexpectedly2 = (string)Application.Current.TryFindResource("Downloadtimedoutorwascanceledunexpectedly") ?? "Download timed out or was canceled unexpectedly";
                 progress.Report(new DownloadProgressInfo
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = "Download timed out or was canceled unexpectedly"
+                    StatusMessage = downloadtimedoutorwascanceledunexpectedly2
                 });
             }
 
@@ -506,17 +538,18 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // Notify developer
             var formattedException = $"Generic download error.\n\n" +
-                                   $"URL: {downloadUrl}\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
+                                     $"URL: {downloadUrl}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
+            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             progress.Report(new DownloadProgressInfo
             {
                 ProgressPercentage = 0,
-                StatusMessage = $"Error: {ex.Message}"
+                StatusMessage = $"{error2}: {ex.Message}"
             });
         }
     }
@@ -524,13 +557,14 @@ public partial class DownloadImagePackWindow : IDisposable
     private static string FormatFileSize(long bytes)
     {
         string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-        int counter = 0;
+        var counter = 0;
         double size = bytes;
         while (size > 1024 && counter < suffixes.Length - 1)
         {
             size /= 1024;
             counter++;
         }
+
         return $"{size:F2} {suffixes[counter]}";
     }
 
@@ -553,7 +587,8 @@ public partial class DownloadImagePackWindow : IDisposable
         // Reset completion flag and progress
         _isDownloadCompleted = false;
         DownloadProgressBar.Value = 0;
-        UpdateStatus("Download canceled");
+        var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
+        UpdateStatus(downloadcanceled2);
 
         // Enable download button again
         DownloadExtrasButton.IsEnabled = true;

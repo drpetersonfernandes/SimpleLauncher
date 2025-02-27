@@ -22,7 +22,7 @@ public abstract class FileManager
                 }
 
                 var foundFiles = new List<string>();
-                
+
                 foreach (var ext in fileExtensions)
                 {
                     try
@@ -33,13 +33,13 @@ public abstract class FileManager
                     {
                         // Log the specific extension that caused the problem
                         var errorMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.\n" +
-                                          $"Exception type: {innerEx.GetType().Name}\n" +
-                                          $"Exception details: {innerEx.Message}";
+                                           $"Exception type: {innerEx.GetType().Name}\n" +
+                                           $"Exception details: {innerEx.Message}";
                         await LogErrors.LogErrorAsync(innerEx, errorMessage);
                         // Continue with the next extension rather than failing the entire operation
                     }
                 }
-                
+
                 return foundFiles;
             }
             catch (Exception ex)
@@ -68,12 +68,12 @@ public abstract class FileManager
 
             if (startLetter == "#")
             {
-                return files.Where(file => !string.IsNullOrEmpty(file) && 
-                                           file.Length > 0 && 
+                return files.Where(file => !string.IsNullOrEmpty(file) &&
+                                           file.Length > 0 &&
                                            char.IsDigit(Path.GetFileName(file)[0])).ToList();
             }
 
-            return files.Where(file => !string.IsNullOrEmpty(file) && 
+            return files.Where(file => !string.IsNullOrEmpty(file) &&
                                        Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
     }
@@ -104,6 +104,7 @@ public abstract class FileManager
                     LogErrors.LogErrorAsync(innerEx, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 }
             }
+
             return totalCount;
         }
         catch (Exception ex)

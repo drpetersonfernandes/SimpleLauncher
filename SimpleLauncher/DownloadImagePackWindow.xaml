@@ -5,7 +5,7 @@
                       Title="{DynamicResource DownloadImagePack}"
                       Width="550"
                       MinWidth="550"
-                      Height="600"
+                      Height="590"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
 

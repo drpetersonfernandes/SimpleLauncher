@@ -507,7 +507,7 @@ public class GameListFactory(
 
         // Get the preview image path
         var previewImagePath = GetPreviewImagePath(filePath, systemConfig);
-        
+
         // Clear previous image first to avoid memory leaks
         mainWindow.PreviewImage.Source = null;
 
@@ -522,16 +522,16 @@ public class GameListFactory(
                     // Silently fail and use default handling below
                     return;
                 }
-                
+
                 var memoryStream = new MemoryStream();
-                
+
                 // Copy file to memory stream to avoid file locks
                 using (var fileStream = new FileStream(previewImagePath, FileMode.Open, FileAccess.Read))
                 {
                     fileStream.CopyTo(memoryStream);
                     memoryStream.Position = 0;
                 }
-                
+
                 // Validate stream has content
                 if (memoryStream.Length == 0)
                 {
@@ -549,7 +549,7 @@ public class GameListFactory(
                         bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                         bitmap.DecodePixelWidth = 0; // Auto-size
                         bitmap.EndInit();
-                    
+
                         // Check if bitmap was initialized properly
                         if (bitmap.IsDownloading || bitmap.Width > 0)
                         {
