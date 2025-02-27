@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Je hebt niet genoeg schijfruimte om dit bestand te downloaden.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Voorbereiden om te downloaden van</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Download voltooid. Begin met uitpakken naar</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Afbeeldingenpakket succesvol gedownload en uitgepakt.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Uitpakken mislukt. Zie foutmelding voor details.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download is niet succesvol voltooid.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Selecteer een systeem uit de vervolgkeuzelijst.</system:String>
+    <system:String x:Key="SelectionRequired">Selectie Vereist</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Kon het geselecteerde systeem niet vinden in de configuratie.</system:String>
+    <system:String x:Key="SystemNotFound">Systeem Niet Gevonden</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Het geselecteerde systeem heeft geen geldige downloadlink.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Selecteer een map om naar uit te pakken.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Uitpakmap Vereist</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Kan de uitpakmap niet maken of benaderen</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
+    <system:String x:Key="unknownsize">onbekende grootte</system:String>
+    <system:String x:Key="Startingdownload">Download starten</system:String>
+    <system:String x:Key="Downloading">Downloaden</system:String>
+    <system:String x:Key="Downloadcomplete">Download voltooid</system:String>
+    <system:String x:Key="Downloadincomplete">Download onvolledig</system:String>
+    <system:String x:Key="Expected">Verwacht</system:String>
+    <system:String x:Key="butreceived">maar ontvangen</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Fout: Bestand niet gevonden op de server</system:String>
+    <system:String x:Key="Networkerror">Netwerkfout</system:String>
+    <system:String x:Key="Fileerror">Bestandsfout</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Download geannuleerd door gebruiker</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download time-out of onverwacht geannuleerd</system:String>
+    <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
+    
 </ResourceDictionary>

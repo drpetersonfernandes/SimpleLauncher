@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Недостаточно места на диске для загрузки этого файла.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Подготовка к загрузке из</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Загрузка завершена. Начинается распаковка в</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Пакет изображений успешно загружен и распакован.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ошибка распаковки. Подробности см. в сообщении об ошибке.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Загрузка не была успешно завершена.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Пожалуйста, выберите систему из выпадающего списка.</system:String>
+    <system:String x:Key="SelectionRequired">Требуется Выбор</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Не удалось найти выбранную систему в конфигурации.</system:String>
+    <system:String x:Key="SystemNotFound">Система Не Найдена</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">У выбранной системы нет действительной ссылки для загрузки.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Пожалуйста, выберите папку для распаковки.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Требуется Папка для Распаковки</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Невозможно создать или получить доступ к папке распаковки</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
+    <system:String x:Key="unknownsize">неизвестный размер</system:String>
+    <system:String x:Key="Startingdownload">Начало загрузки</system:String>
+    <system:String x:Key="Downloading">Загрузка</system:String>
+    <system:String x:Key="Downloadcomplete">Загрузка завершена</system:String>
+    <system:String x:Key="Downloadincomplete">Загрузка не завершена</system:String>
+    <system:String x:Key="Expected">Ожидалось</system:String>
+    <system:String x:Key="butreceived">но получено</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Ошибка: Файл не найден на сервере</system:String>
+    <system:String x:Key="Networkerror">Ошибка сети</system:String>
+    <system:String x:Key="Fileerror">Ошибка файла</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Загрузка отменена пользователем</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Время загрузки истекло или она была неожиданно отменена</system:String>
+    <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
+    
 </ResourceDictionary>

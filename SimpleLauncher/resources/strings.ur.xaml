@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">اس فائل کو ڈاؤن لوڈ کرنے کے لیے آپ کے پاس کافی ڈسک اسپیس نہیں ہے۔</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">ڈاؤن لوڈ کی تیاری ہو رہی ہے</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">ڈاؤن لوڈ مکمل۔ نکالنے کا عمل شروع ہو رہا ہے</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">تصویر پیک کامیابی سے ڈاؤن لوڈ اور نکال لیا گیا۔</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">نکالنے کا عمل ناکام۔ تفصیلات کے لیے خرابی کا پیغام دیکھیں۔</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">ڈاؤن لوڈ کامیابی سے مکمل نہیں ہوا۔</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">براہ کرم ڈراپ ڈاؤن سے سسٹم منتخب کریں۔</system:String>
+    <system:String x:Key="SelectionRequired">انتخاب درکار ہے</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">منتخب شدہ سسٹم ترتیب میں نہیں ملا۔</system:String>
+    <system:String x:Key="SystemNotFound">سسٹم نہیں ملا</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">منتخب شدہ سسٹم کے پاس درست ڈاؤن لوڈ لنک نہیں ہے۔</system:String>
+    <system:String x:Key="InvalidDownloadLink">غلط ڈاؤن لوڈ لنک</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">براہ کرم نکالنے کے لیے فولڈر منتخب کریں۔</system:String>
+    <system:String x:Key="ExtractionFolderRequired">نکالنے کے لیے فولڈر درکار ہے</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">نکالنے والا فولڈر بنانے یا رسائی حاصل کرنے میں ناکام</system:String>
+    <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
+    <system:String x:Key="unknownsize">نامعلوم سائز</system:String>
+    <system:String x:Key="Startingdownload">ڈاؤن لوڈ شروع ہو رہا ہے</system:String>
+    <system:String x:Key="Downloading">ڈاؤن لوڈ ہو رہا ہے</system:String>
+    <system:String x:Key="Downloadcomplete">ڈاؤن لوڈ مکمل</system:String>
+    <system:String x:Key="Downloadincomplete">ڈاؤن لوڈ نامکمل</system:String>
+    <system:String x:Key="Expected">متوقع</system:String>
+    <system:String x:Key="butreceived">لیکن موصول ہوا</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">خرابی: فائل سرور پر نہیں ملی</system:String>
+    <system:String x:Key="Networkerror">نیٹ ورک کی خرابی</system:String>
+    <system:String x:Key="Fileerror">فائل کی خرابی</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">صارف نے ڈاؤن لوڈ منسوخ کر دیا</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ڈاؤن لوڈ ٹائم آؤٹ ہو گیا یا غیر متوقع طور پر منسوخ ہو گیا</system:String>
+    <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
+
 </ResourceDictionary>

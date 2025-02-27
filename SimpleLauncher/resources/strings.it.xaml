@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Non hai spazio su disco sufficiente per scaricare questo file.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Preparazione al download da</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Download completato. Avvio estrazione in</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Pacchetto immagini scaricato ed estratto con successo.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Estrazione fallita. Vedi il messaggio di errore per i dettagli.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Il download non è stato completato con successo.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Seleziona un sistema dal menu a discesa.</system:String>
+    <system:String x:Key="SelectionRequired">Selezione Richiesta</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Impossibile trovare il sistema selezionato nella configurazione.</system:String>
+    <system:String x:Key="SystemNotFound">Sistema Non Trovato</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Il sistema selezionato non ha un link di download valido.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Link di Download Non Valido</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Seleziona una cartella di estrazione.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Cartella di Estrazione Richiesta</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Impossibile creare o accedere alla cartella di estrazione</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Cartella di Estrazione Non Valida</system:String>
+    <system:String x:Key="unknownsize">dimensione sconosciuta</system:String>
+    <system:String x:Key="Startingdownload">Avvio download</system:String>
+    <system:String x:Key="Downloading">Download in corso</system:String>
+    <system:String x:Key="Downloadcomplete">Download completato</system:String>
+    <system:String x:Key="Downloadincomplete">Download incompleto</system:String>
+    <system:String x:Key="Expected">Previsto</system:String>
+    <system:String x:Key="butreceived">ma ricevuto</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Errore: File non trovato sul server</system:String>
+    <system:String x:Key="Networkerror">Errore di rete</system:String>
+    <system:String x:Key="Fileerror">Errore file</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Download annullato dall'utente</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download scaduto o annullato inaspettatamente</system:String>
+    <system:String x:Key="Downloadcanceled">Download annullato</system:String>
+    
 </ResourceDictionary>

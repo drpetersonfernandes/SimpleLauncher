@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您應該更改模擬器的參數，使其不會以全螢幕模式啟動。</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">您沒有足夠的磁碟空間來下載此檔案。</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">正在準備從以下位置下載</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">下載完成。開始解壓到</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">圖像包已成功下載並解壓。</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">解壓失敗。請查看錯誤訊息了解詳情。</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">下載未成功完成。</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">請從下拉清單中選擇一個系統。</system:String>
+    <system:String x:Key="SelectionRequired">需要選擇</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">在配置中找不到所選系統。</system:String>
+    <system:String x:Key="SystemNotFound">未找到系統</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">所選系統沒有有效的下載連結。</system:String>
+    <system:String x:Key="InvalidDownloadLink">無效的下載連結</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">請選擇解壓資料夾。</system:String>
+    <system:String x:Key="ExtractionFolderRequired">需要解壓資料夾</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">無法建立或存取解壓資料夾</system:String>
+    <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
+    <system:String x:Key="unknownsize">未知大小</system:String>
+    <system:String x:Key="Startingdownload">開始下載</system:String>
+    <system:String x:Key="Downloading">正在下載</system:String>
+    <system:String x:Key="Downloadcomplete">下載完成</system:String>
+    <system:String x:Key="Downloadincomplete">下載未完成</system:String>
+    <system:String x:Key="Expected">預期</system:String>
+    <system:String x:Key="butreceived">但收到</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">錯誤：伺服器上未找到檔案</system:String>
+    <system:String x:Key="Networkerror">網路錯誤</system:String>
+    <system:String x:Key="Fileerror">檔案錯誤</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">使用者已取消下載</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">下載超時或意外取消</system:String>
+    <system:String x:Key="Downloadcanceled">下載已取消</system:String>
+
 </ResourceDictionary>

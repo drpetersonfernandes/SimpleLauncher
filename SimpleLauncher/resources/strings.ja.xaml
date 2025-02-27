@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">このファイルをダウンロードするための十分なディスク容量がありません。</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">ダウンロードの準備中：</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">ダウンロード完了。展開を開始：</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">画像パックのダウンロードと展開が正常に完了しました。</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">展開に失敗しました。詳細はエラーメッセージをご確認ください。</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">ダウンロードが正常に完了しませんでした。</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">ドロップダウンからシステムを選択してください。</system:String>
+    <system:String x:Key="SelectionRequired">選択が必要です</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">設定で選択されたシステムが見つかりませんでした。</system:String>
+    <system:String x:Key="SystemNotFound">システムが見つかりません</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">選択されたシステムに有効なダウンロードリンクがありません。</system:String>
+    <system:String x:Key="InvalidDownloadLink">無効なダウンロードリンク</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">展開フォルダを選択してください。</system:String>
+    <system:String x:Key="ExtractionFolderRequired">展開フォルダが必要です</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">展開フォルダを作成またはアクセスできません</system:String>
+    <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
+    <system:String x:Key="unknownsize">不明なサイズ</system:String>
+    <system:String x:Key="Startingdownload">ダウンロード開始</system:String>
+    <system:String x:Key="Downloading">ダウンロード中</system:String>
+    <system:String x:Key="Downloadcomplete">ダウンロード完了</system:String>
+    <system:String x:Key="Downloadincomplete">ダウンロード未完了</system:String>
+    <system:String x:Key="Expected">予期値</system:String>
+    <system:String x:Key="butreceived">実際の値</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">エラー：サーバー上にファイルが見つかりません</system:String>
+    <system:String x:Key="Networkerror">ネットワークエラー</system:String>
+    <system:String x:Key="Fileerror">ファイルエラー</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">ユーザーによりダウンロードがキャンセルされました</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ダウンロードがタイムアウトまたは予期せずキャンセルされました</system:String>
+    <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
+    
 </ResourceDictionary>

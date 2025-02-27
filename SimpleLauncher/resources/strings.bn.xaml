@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">এই ফাইলটি ডাউনলোড করার জন্য আপনার পর্যাপ্ত ডিস্ক স্পেস নেই।</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">ডাউনলোড করার জন্য প্রস্তুত হচ্ছে</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">ডাউনলোড সম্পন্ন। এখানে এক্সট্র্যাকশন শুরু হচ্ছে</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">ইমেজ প্যাক ডাউনলোড এবং এক্সট্র্যাক্ট সফলভাবে সম্পন্ন হয়েছে।</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">এক্সট্র্যাকশন ব্যর্থ হয়েছে। বিস্তারিত জানতে ত্রুটি বার্তা দেখুন।</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">ডাউনলোড সফলভাবে সম্পন্ন হয়নি।</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">ড্রপডাউন থেকে একটি সিস্টেম নির্বাচন করুন।</system:String>
+    <system:String x:Key="SelectionRequired">নির্বাচন প্রয়োজন</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">কনফিগারেশনে নির্বাচিত সিস্টেম খুঁজে পাওয়া যায়নি।</system:String>
+    <system:String x:Key="SystemNotFound">সিস্টেম পাওয়া যায়নি</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">নির্বাচিত সিস্টেমের কোনো বৈধ ডাউনলোড লিঙ্ক নেই।</system:String>
+    <system:String x:Key="InvalidDownloadLink">অবৈধ ডাউনলোড লিঙ্ক</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">একটি এক্সট্র্যাকশন ফোল্ডার নির্বাচন করুন।</system:String>
+    <system:String x:Key="ExtractionFolderRequired">এক্সট্র্যাকশন ফোল্ডার প্রয়োজন</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">এক্সট্র্যাকশন ফোল্ডার তৈরি বা অ্যাক্সেস করা যাচ্ছে না</system:String>
+    <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
+    <system:String x:Key="unknownsize">অজানা আকার</system:String>
+    <system:String x:Key="Startingdownload">ডাউনলোড শুরু হচ্ছে</system:String>
+    <system:String x:Key="Downloading">ডাউনলোড হচ্ছে</system:String>
+    <system:String x:Key="Downloadcomplete">ডাউনলোড সম্পন্ন</system:String>
+    <system:String x:Key="Downloadincomplete">ডাউনলোড অসম্পূর্ণ</system:String>
+    <system:String x:Key="Expected">প্রত্যাশিত</system:String>
+    <system:String x:Key="butreceived">কিন্তু পাওয়া গেল</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">ত্রুটি: সার্ভারে ফাইল পাওয়া যায়নি</system:String>
+    <system:String x:Key="Networkerror">নেটওয়ার্ক ত্রুটি</system:String>
+    <system:String x:Key="Fileerror">ফাইল ত্রুটি</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">ব্যবহারকারী দ্বারা ডাউনলোড বাতিল করা হয়েছে</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ডাউনলোড টাইম আউট হয়েছে বা অপ্রত্যাশিতভাবে বাতিল হয়েছে</system:String>
+    <system:String x:Key="Downloadcanceled">ডাউনলোড বাতিল করা হয়েছে</system:String>
+
 </ResourceDictionary>

@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
 
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">لا تملك مساحة كافية على القرص لتنزيل هذا الملف.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">جارٍ التحضير للتنزيل من</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">اكتمل التنزيل. بدء الاستخراج إلى</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">تم تنزيل حزمة الصور واستخراجها بنجاح.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">فشل الاستخراج. راجع رسالة الخطأ للتفاصيل.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">لم يكتمل التنزيل بنجاح.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">يرجى تحديد نظام من القائمة المنسدلة.</system:String>
+    <system:String x:Key="SelectionRequired">التحديد مطلوب</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">تعذر العثور على النظام المحدد في التكوين.</system:String>
+    <system:String x:Key="SystemNotFound">لم يتم العثور على النظام</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">النظام المحدد ليس لديه رابط تنزيل صالح.</system:String>
+    <system:String x:Key="InvalidDownloadLink">رابط التنزيل غير صالح</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">يرجى تحديد مجلد الاستخراج.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">مجلد الاستخراج مطلوب</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">لا يمكن إنشاء أو الوصول إلى مجلد الاستخراج</system:String>
+    <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
+    <system:String x:Key="unknownsize">حجم غير معروف</system:String>
+    <system:String x:Key="Startingdownload">بدء التنزيل</system:String>
+    <system:String x:Key="Downloading">جارٍ التنزيل</system:String>
+    <system:String x:Key="Downloadcomplete">اكتمل التنزيل</system:String>
+    <system:String x:Key="Downloadincomplete">التنزيل غير مكتمل</system:String>
+    <system:String x:Key="Expected">متوقع</system:String>
+    <system:String x:Key="butreceived">لكن تم استلام</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">خطأ: الملف غير موجود على الخادم</system:String>
+    <system:String x:Key="Networkerror">خطأ في الشبكة</system:String>
+    <system:String x:Key="Fileerror">خطأ في الملف</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">تم إلغاء التنزيل من قبل المستخدم</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">انتهت مهلة التنزيل أو تم إلغاؤه بشكل غير متوقع</system:String>
+    <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
+
 </ResourceDictionary>

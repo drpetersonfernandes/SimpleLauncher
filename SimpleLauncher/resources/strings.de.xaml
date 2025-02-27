@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">Sie können logische Operatoren UND / ODER verwenden.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Sie können die Cover-Bilder für dieses System in diesem Ordner ablegen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Sie sollten die Emulatorparameter ändern, um zu verhindern, dass der Emulator im Vollbild startet.</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Sie haben nicht genügend Speicherplatz, um diese Datei herunterzuladen.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Vorbereitung zum Herunterladen von</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Download abgeschlossen. Starte Extraktion nach</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Bildpaket erfolgreich heruntergeladen und extrahiert.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Extraktion fehlgeschlagen. Siehe Fehlermeldung für Details.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download wurde nicht erfolgreich abgeschlossen.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Bitte wählen Sie ein System aus dem Dropdown-Menü.</system:String>
+    <system:String x:Key="SelectionRequired">Auswahl erforderlich</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Das ausgewählte System wurde in der Konfiguration nicht gefunden.</system:String>
+    <system:String x:Key="SystemNotFound">System nicht gefunden</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Das ausgewählte System hat keinen gültigen Download-Link.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Ungültiger Download-Link</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Bitte wählen Sie einen Extraktionsordner.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Extraktionsordner erforderlich</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Extraktionsordner kann nicht erstellt oder zugegriffen werden</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Ungültiger Extraktionsordner</system:String>
+    <system:String x:Key="unknownsize">unbekannte Größe</system:String>
+    <system:String x:Key="Startingdownload">Download wird gestartet</system:String>
+    <system:String x:Key="Downloading">Wird heruntergeladen</system:String>
+    <system:String x:Key="Downloadcomplete">Download abgeschlossen</system:String>
+    <system:String x:Key="Downloadincomplete">Download unvollständig</system:String>
+    <system:String x:Key="Expected">Erwartet</system:String>
+    <system:String x:Key="butreceived">aber erhalten</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Fehler: Datei wurde auf dem Server nicht gefunden</system:String>
+    <system:String x:Key="Networkerror">Netzwerkfehler</system:String>
+    <system:String x:Key="Fileerror">Dateifehler</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Download vom Benutzer abgebrochen</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download wurde zeitüberschritten oder unerwartet abgebrochen</system:String>
+    <system:String x:Key="Downloadcanceled">Download abgebrochen</system:String>
+
 </ResourceDictionary>

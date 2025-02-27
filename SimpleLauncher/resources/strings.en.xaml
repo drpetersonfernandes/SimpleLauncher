@@ -508,5 +508,33 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
     
     <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">You do not have enough disk space to download this file.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Preparing to download from</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Download complete. Starting extraction to</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Image pack downloaded and extracted successfully.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Extraction failed. See error message for details.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download was not completed successfully.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Please select a system from the dropdown.</system:String>
+    <system:String x:Key="SelectionRequired">Selection Required</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Could not find the selected system in the configuration.</system:String>
+    <system:String x:Key="SystemNotFound">System Not Found</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">The selected system does not have a valid download link.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Please select an extraction folder.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Extraction Folder Required</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Cannot create or access the extraction folder</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
+    <system:String x:Key="unknownsize">unknown size</system:String>
+    <system:String x:Key="Startingdownload">Starting download</system:String>
+    <system:String x:Key="Downloading">Downloading</system:String>
+    <system:String x:Key="Downloadcomplete">Download complete</system:String>
+    <system:String x:Key="Downloadincomplete">Download incomplete</system:String>
+    <system:String x:Key="Expected">Expected</system:String>
+    <system:String x:Key="butreceived">but received</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Error: File not found on the server</system:String>
+    <system:String x:Key="Networkerror">Network error</system:String>
+    <system:String x:Key="Fileerror">File error</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Download canceled by user</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download timed out or was canceled unexpectedly</system:String>
+    <system:String x:Key="Downloadcanceled">Download canceled</system:String>
     
 </ResourceDictionary>

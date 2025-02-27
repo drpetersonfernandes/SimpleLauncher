@@ -507,4 +507,34 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Você pode colocar as imagens de capa deste sistema dentro desta pasta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
     
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Você não tem espaço em disco suficiente para baixar este arquivo.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Preparando para baixar de</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Download concluído. Iniciando extração para</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Pacote de imagens baixado e extraído com sucesso.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Falha na extração. Veja a mensagem de erro para detalhes.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">O download não foi concluído com sucesso.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Por favor, selecione um sistema no menu suspenso.</system:String>
+    <system:String x:Key="SelectionRequired">Seleção Necessária</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Não foi possível encontrar o sistema selecionado na configuração.</system:String>
+    <system:String x:Key="SystemNotFound">Sistema Não Encontrado</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">O sistema selecionado não possui um link de download válido.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Link de Download Inválido</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Por favor, selecione uma pasta de extração.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Pasta de Extração Necessária</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Não é possível criar ou acessar a pasta de extração</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Pasta de Extração Inválida</system:String>
+    <system:String x:Key="unknownsize">tamanho desconhecido</system:String>
+    <system:String x:Key="Startingdownload">Iniciando download</system:String>
+    <system:String x:Key="Downloading">Baixando</system:String>
+    <system:String x:Key="Downloadcomplete">Download concluído</system:String>
+    <system:String x:Key="Downloadincomplete">Download incompleto</system:String>
+    <system:String x:Key="Expected">Esperado</system:String>
+    <system:String x:Key="butreceived">mas recebido</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Erro: Arquivo não encontrado no servidor</system:String>
+    <system:String x:Key="Networkerror">Erro de rede</system:String>
+    <system:String x:Key="Fileerror">Erro de arquivo</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Download cancelado pelo usuário</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download expirou ou foi cancelado inesperadamente</system:String>
+    <system:String x:Key="Downloadcanceled">Download cancelado</system:String>
+    
 </ResourceDictionary>

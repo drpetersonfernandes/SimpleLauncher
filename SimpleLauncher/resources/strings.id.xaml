@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Anda tidak memiliki cukup ruang disk untuk mengunduh file ini.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Mempersiapkan unduhan dari</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Unduhan selesai. Memulai ekstraksi ke</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Paket gambar berhasil diunduh dan diekstrak.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ekstraksi gagal. Lihat pesan kesalahan untuk detail.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Unduhan tidak berhasil diselesaikan.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Silakan pilih sistem dari dropdown.</system:String>
+    <system:String x:Key="SelectionRequired">Pemilihan Diperlukan</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Tidak dapat menemukan sistem yang dipilih dalam konfigurasi.</system:String>
+    <system:String x:Key="SystemNotFound">Sistem Tidak Ditemukan</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Sistem yang dipilih tidak memiliki tautan unduhan yang valid.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Silakan pilih folder ekstraksi.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Folder Ekstraksi Diperlukan</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Tidak dapat membuat atau mengakses folder ekstraksi</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
+    <system:String x:Key="unknownsize">ukuran tidak diketahui</system:String>
+    <system:String x:Key="Startingdownload">Memulai unduhan</system:String>
+    <system:String x:Key="Downloading">Mengunduh</system:String>
+    <system:String x:Key="Downloadcomplete">Unduhan selesai</system:String>
+    <system:String x:Key="Downloadincomplete">Unduhan tidak lengkap</system:String>
+    <system:String x:Key="Expected">Diharapkan</system:String>
+    <system:String x:Key="butreceived">tetapi diterima</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Error: File tidak ditemukan di server</system:String>
+    <system:String x:Key="Networkerror">Kesalahan jaringan</system:String>
+    <system:String x:Key="Fileerror">Kesalahan file</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Unduhan dibatalkan oleh pengguna</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Unduhan kehabisan waktu atau dibatalkan secara tidak terduga</system:String>
+    <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
+
 </ResourceDictionary>

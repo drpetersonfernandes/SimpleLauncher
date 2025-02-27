@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Bu dosyayı indirmek için yeterli disk alanınız yok.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">İndirmeye hazırlanıyor</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">İndirme tamamlandı. Çıkartma işlemi başlıyor</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Görüntü paketi başarıyla indirildi ve çıkartıldı.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Çıkartma başarısız. Detaylar için hata mesajına bakın.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">İndirme başarıyla tamamlanamadı.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Lütfen açılır listeden bir sistem seçin.</system:String>
+    <system:String x:Key="SelectionRequired">Seçim Gerekli</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Seçilen sistem yapılandırmada bulunamadı.</system:String>
+    <system:String x:Key="SystemNotFound">Sistem Bulunamadı</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Seçilen sistemin geçerli bir indirme bağlantısı yok.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Lütfen bir çıkartma klasörü seçin.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Çıkartma Klasörü Gerekli</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Çıkartma klasörü oluşturulamıyor veya erişilemiyor</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
+    <system:String x:Key="unknownsize">bilinmeyen boyut</system:String>
+    <system:String x:Key="Startingdownload">İndirme başlıyor</system:String>
+    <system:String x:Key="Downloading">İndiriliyor</system:String>
+    <system:String x:Key="Downloadcomplete">İndirme tamamlandı</system:String>
+    <system:String x:Key="Downloadincomplete">İndirme tamamlanmadı</system:String>
+    <system:String x:Key="Expected">Beklenen</system:String>
+    <system:String x:Key="butreceived">alınan</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Hata: Dosya sunucuda bulunamadı</system:String>
+    <system:String x:Key="Networkerror">Ağ hatası</system:String>
+    <system:String x:Key="Fileerror">Dosya hatası</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">İndirme kullanıcı tarafından iptal edildi</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">İndirme zaman aşımına uğradı veya beklenmedik şekilde iptal edildi</system:String>
+    <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
+
 </ResourceDictionary>

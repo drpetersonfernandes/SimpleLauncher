@@ -506,5 +506,35 @@
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
-    
+
+    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Bạn không có đủ dung lượng ổ đĩa để tải tệp này.</system:String>
+    <system:String x:Key="Preparingtodownloadfrom">Đang chuẩn bị tải xuống từ</system:String>
+    <system:String x:Key="DownloadcompleteStartingextractionto">Tải xuống hoàn tất. Bắt đầu giải nén vào</system:String>
+    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Gói hình ảnh đã được tải xuống và giải nén thành công.</system:String>
+    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Giải nén thất bại. Xem thông báo lỗi để biết chi tiết.</system:String>
+    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Tải xuống không hoàn tất thành công.</system:String>
+    <system:String x:Key="Pleaseselectasystemfromthedropdown">Vui lòng chọn một hệ thống từ danh sách thả xuống.</system:String>
+    <system:String x:Key="SelectionRequired">Yêu Cầu Lựa Chọn</system:String>
+    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Không tìm thấy hệ thống đã chọn trong cấu hình.</system:String>
+    <system:String x:Key="SystemNotFound">Không Tìm Thấy Hệ Thống</system:String>
+    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Hệ thống đã chọn không có liên kết tải xuống hợp lệ.</system:String>
+    <system:String x:Key="InvalidDownloadLink">Liên Kết Tải Xuống Không Hợp Lệ</system:String>
+    <system:String x:Key="Pleaseselectanextractionfolder">Vui lòng chọn thư mục giải nén.</system:String>
+    <system:String x:Key="ExtractionFolderRequired">Yêu Cầu Thư Mục Giải Nén</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Không thể tạo hoặc truy cập thư mục giải nén</system:String>
+    <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
+    <system:String x:Key="unknownsize">kích thước không xác định</system:String>
+    <system:String x:Key="Startingdownload">Bắt đầu tải xuống</system:String>
+    <system:String x:Key="Downloading">Đang tải xuống</system:String>
+    <system:String x:Key="Downloadcomplete">Tải xuống hoàn tất</system:String>
+    <system:String x:Key="Downloadincomplete">Tải xuống chưa hoàn tất</system:String>
+    <system:String x:Key="Expected">Dự kiến</system:String>
+    <system:String x:Key="butreceived">nhưng nhận được</system:String>
+    <system:String x:Key="ErrorFilenotfoundontheserver">Lỗi: Không tìm thấy tệp trên máy chủ</system:String>
+    <system:String x:Key="Networkerror">Lỗi mạng</system:String>
+    <system:String x:Key="Fileerror">Lỗi tệp</system:String>
+    <system:String x:Key="Downloadcanceledbyuser">Người dùng đã hủy tải xuống</system:String>
+    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Tải xuống đã hết thời gian hoặc bị hủy bất ngờ</system:String>
+    <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
+
 </ResourceDictionary>
