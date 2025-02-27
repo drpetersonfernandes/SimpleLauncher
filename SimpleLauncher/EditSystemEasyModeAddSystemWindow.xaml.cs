@@ -32,7 +32,9 @@ public partial class EditSystemEasyModeAddSystemWindow
         // Load Config
         _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
+
         App.ApplyThemeToWindow(this);
+
         Closed += EditSystemEasyModeAddSystem_Closed;
     }
 
@@ -190,32 +192,6 @@ public partial class EditSystemEasyModeAddSystemWindow
             // Notify user
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
         }
-    }
-
-    private static string ChangeFileExtensionFunction(EasyModeSystemConfig selectedSystem, string downloadFilePath)
-    {
-        if (!selectedSystem.Emulators.Emulator.EmulatorDownloadRename) return downloadFilePath;
-
-        var newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
-        if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
-        {
-            try
-            {
-                File.Move(downloadFilePath, newFilePath);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-
-        if (!File.Exists(newFilePath))
-        {
-            // Update the downloadFilePath to the new file path
-            downloadFilePath = newFilePath;
-        }
-
-        return downloadFilePath;
     }
 
     private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
@@ -784,5 +760,31 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             // ignore
         }
+    }
+
+    private static string ChangeFileExtensionFunction(EasyModeSystemConfig selectedSystem, string downloadFilePath)
+    {
+        if (!selectedSystem.Emulators.Emulator.EmulatorDownloadRename) return downloadFilePath;
+
+        var newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
+        if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
+        {
+            try
+            {
+                File.Move(downloadFilePath, newFilePath);
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
+        }
+
+        if (!File.Exists(newFilePath))
+        {
+            // Update the downloadFilePath to the new file path
+            downloadFilePath = newFilePath;
+        }
+
+        return downloadFilePath;
     }
 }
