@@ -21,21 +21,27 @@ public partial class EditSystemEasyModeAddSystemWindow
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
     private CancellationTokenSource _cancellationTokenSource;
-    private readonly HttpClient _httpClient = new();
+    private readonly HttpClient _httpClient;
+    private const int HttpTimeoutSeconds = 60;
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     public EditSystemEasyModeAddSystemWindow()
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         // Load Config
         _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
 
-        App.ApplyThemeToWindow(this);
+        // Initialize HttpClient with a timeout
+        _httpClient = new HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
+        };
 
-        Closed += EditSystemEasyModeAddSystem_Closed;
+        Closed += CloseWindowRoutine;
     }
 
     private void PopulateSystemDropdown()
@@ -75,20 +81,18 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             _isDownloadCompleted = false;
             _isEmulatorDownloaded = false;
-            DownloadEmulatorButton.IsEnabled = true;
+            DownloadEmulatorButton.IsEnabled = false;
             UpdateAddSystemButtonState();
 
             var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
             if (selectedSystem != null)
             {
-                // string emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
                 var emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
                 var emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
                 Directory.CreateDirectory(emulatorsFolderPath);
                 var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get emulatorDownloadUrl"));
                 Directory.CreateDirectory(_tempFolder);
                 var destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                // string latestVersionString = selectedSystem.Emulators.Emulator.EmulatorLatestVersion;
 
                 try
                 {
@@ -708,7 +712,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
     }
 
-    private void EditSystemEasyModeAddSystem_Closed(object sender, EventArgs e)
+    private void CloseWindowRoutine(object sender, EventArgs e)
     {
         _config = null;
 

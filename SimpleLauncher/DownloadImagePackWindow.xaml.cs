@@ -18,10 +18,10 @@ public partial class DownloadImagePackWindow : IDisposable
     private EasyModeConfig _config;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient;
+    private const int HttpTimeoutSeconds = 60;
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private bool _disposed;
-    private const int HttpTimeoutSeconds = 60;
 
     public DownloadImagePackWindow()
     {
