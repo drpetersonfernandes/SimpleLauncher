@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">تم التنزيل والاستخراج بنجاح.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
     <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
-    <system:String x:Key="Downloadwascanceled">تم إلغاء التحميل.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">تم إلغاء التنزيل من قبل المستخدم</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">انتهت مهلة التنزيل أو تم إلغاؤه بشكل غير متوقع</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">خطأ: لا يوجد عنوان تحميل لـ</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">خطأ في إنشاء مسار التحميل لـ</system:String>
+    <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
+    <system:String x:Key="Extracting">جارٍ الاستخراج</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">تم التحميل والتثبيت بنجاح.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">خطأ: فشل الاستخراج</system:String>
+    <system:String x:Key="ErrorFailedtodownload">خطأ: فشل التحميل</system:String>
+    <system:String x:Key="Downloadof">تحميل لـ</system:String>
+    <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">خطأ: انتهاء مهلة التحميل.</system:String>
+    <system:String x:Key="Errorduring">خطأ أثناء</system:String>
+    <system:String x:Key="downloadprocess">عملية التحميل.</system:String>
+    <system:String x:Key="sizeunknown">الحجم غير معروف</system:String>
+    <system:String x:Key="Downloaded">تم التحميل</system:String>
+    <system:String x:Key="totalsizeunknown">الحجم الكلي غير معروف</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">التحميل غير مكتمل. البايتات المحملة لا تتطابق مع حجم الملف المتوقع.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">خطأ: الملف المطلوب غير موجود على الخادم.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">خطأ: خطأ في الشبكة أثناء تحميل الملف.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">خطأ: خطأ في قراءة/كتابة الملف أثناء التحميل.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">خطأ: انتهاء مهلة التحميل أو تم الإلغاء بشكل غير متوقع.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">خطأ: خطأ غير متوقع أثناء التحميل.</system:String>
+    <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
+    <system:String x:Key="Creatingsystemfolders">جارٍ إنشاء مجلدات النظام...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
+    
+    <system:String x:Key="Downloaderror2">خطأ في التحميل</system:String>
+    <system:String x:Key="Startingdownload2">بدء التحميل</system:String>
+    <system:String x:Key="Downloadcomplete2">اكتمل التحميل</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">تم إلغاء التحميل بواسطة المستخدم</system:String>
 
 </ResourceDictionary>

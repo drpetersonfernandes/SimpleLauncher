@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Downloaden en uitpakken was succesvol.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
-    <system:String x:Key="Downloadwascanceled">De download is geannuleerd.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Download geannuleerd door gebruiker</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download time-out of onverwacht geannuleerd</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Fout bij het maken van downloadpad voor</system:String>
+    <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
+    <system:String x:Key="Extracting">Extractie</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">is succesvol gedownload en geïnstalleerd.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Fout: Extractie mislukt</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Fout: Download mislukt</system:String>
+    <system:String x:Key="Downloadof">Download van</system:String>
+    <system:String x:Key="wascanceled">is geannuleerd.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Fout: Download time-out.</system:String>
+    <system:String x:Key="Errorduring">Fout tijdens</system:String>
+    <system:String x:Key="downloadprocess">downloadproces.</system:String>
+    <system:String x:Key="sizeunknown">grootte onbekend</system:String>
+    <system:String x:Key="Downloaded">Gedownload</system:String>
+    <system:String x:Key="totalsizeunknown">totale grootte onbekend</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download onvolledig. Gedownloade bytes komen niet overeen met de verwachte bestandsgrootte.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Fout: Het gevraagde bestand is niet gevonden op de server.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Fout: Netwerkfout tijdens het downloaden van het bestand.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Fout: Bestand lees-/schrijffout tijdens het downloaden.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Fout: Download time-out of onverwacht geannuleerd.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Fout: Onverwachte fout tijdens het downloaden.</system:String>
+    <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Systeemmappen worden aangemaakt...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Downloadfout</system:String>
+    <system:String x:Key="Startingdownload2">Download starten</system:String>
+    <system:String x:Key="Downloadcomplete2">Download voltooid</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Download door gebruiker geannuleerd</system:String>
     
 </ResourceDictionary>

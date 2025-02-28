@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">La descarga y la extracción se realizaron correctamente.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Fallo en la descarga o extracción</system:String>
     <system:String x:Key="DownloadProgress">Progreso de descarga</system:String>
-    <system:String x:Key="Downloadwascanceled">La descarga fue cancelada.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">¿Desea reinstalar automáticamente 'Simple Launcher' para resolver el problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">¿Desea reinstalar automáticamente 'Simple Launcher' para solucionarlo?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">¿Desea reinstalar automáticamente 'Simple Launcher' para solucionarlo?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Descarga cancelada por el usuario</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">La descarga expiró o fue cancelada inesperadamente</system:String>
     <system:String x:Key="Downloadcanceled">Descarga cancelada</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Error: No hay URL de descarga para</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Error al crear la ruta de descarga para</system:String>
+    <system:String x:Key="Preparingtodownload">Preparando para descargar</system:String>
+    <system:String x:Key="Extracting">Extrayendo</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">ha sido descargado e instalado exitosamente.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Error: Falló la extracción</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Error: Falló la descarga</system:String>
+    <system:String x:Key="Downloadof">Descarga de</system:String>
+    <system:String x:Key="wascanceled">fue cancelada.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Error: Tiempo de descarga agotado.</system:String>
+    <system:String x:Key="Errorduring">Error durante</system:String>
+    <system:String x:Key="downloadprocess">proceso de descarga.</system:String>
+    <system:String x:Key="sizeunknown">tamaño desconocido</system:String>
+    <system:String x:Key="Downloaded">Descargado</system:String>
+    <system:String x:Key="totalsizeunknown">tamaño total desconocido</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Descarga incompleta. Los bytes descargados no coinciden con el tamaño de archivo esperado.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Error: El archivo solicitado no se encontró en el servidor.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Error: Error de red durante la descarga del archivo.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Error: Error de lectura/escritura de archivos durante la descarga.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Error: El tiempo de descarga expiró o fue cancelada inesperadamente.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Error: Error inesperado durante la descarga.</system:String>
+    <system:String x:Key="Cancelingdownload">Cancelando descarga...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Agregando sistema a la configuración...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Creando carpetas del sistema...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">¡El sistema ha sido agregado exitosamente!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Error: Falló al agregar el sistema.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Error de descarga</system:String>
+    <system:String x:Key="Startingdownload2">Iniciando descarga</system:String>
+    <system:String x:Key="Downloadcomplete2">Descarga completa</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Descarga cancelada por el usuario</system:String>
 
 </ResourceDictionary>

@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Загрузка и распаковка успешно завершены.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
-    <system:String x:Key="Downloadwascanceled">Загрузка была отменена.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Загрузка отменена пользователем</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Время загрузки истекло или она была неожиданно отменена</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Ошибка: Нет URL для загрузки для</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Ошибка при создании пути загрузки для</system:String>
+    <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
+    <system:String x:Key="Extracting">Извлечение</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">был успешно загружен и установлен.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Ошибка: Не удалось извлечь</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Ошибка: Не удалось загрузить</system:String>
+    <system:String x:Key="Downloadof">Загрузка</system:String>
+    <system:String x:Key="wascanceled">была отменена.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Ошибка: Время загрузки истекло.</system:String>
+    <system:String x:Key="Errorduring">Ошибка во время</system:String>
+    <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
+    <system:String x:Key="sizeunknown">неизвестный размер</system:String>
+    <system:String x:Key="Downloaded">Загружено</system:String>
+    <system:String x:Key="totalsizeunknown">общий размер неизвестен</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Загрузка незавершена. Загруженные байты не соответствуют ожидаемому размеру файла.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Ошибка: Запрошенный файл не найден на сервере.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Ошибка: Ошибка сети во время загрузки файла.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Ошибка: Ошибка чтения/записи файла во время загрузки.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Ошибка: Время загрузки истекло или загрузка была неожиданно отменена.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Ошибка: Неожиданная ошибка во время загрузки.</system:String>
+    <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Создание папок системы...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Ошибка: Не удалось добавить систему.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Ошибка загрузки</system:String>
+    <system:String x:Key="Startingdownload2">Начало загрузки</system:String>
+    <system:String x:Key="Downloadcomplete2">Загрузка завершена</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Загрузка отменена пользователем</system:String>
     
 </ResourceDictionary>

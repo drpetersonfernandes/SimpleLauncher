@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Downloading and extraction were successful.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="DownloadProgress">Download Progress</system:String>
-    <system:String x:Key="Downloadwascanceled">Download was canceled.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Do you want to automatically reinstall 'Simple Launcher' to fix the problem?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Download canceled by user</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download timed out or was canceled unexpectedly</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
+
+    <system:String x:Key="ErrorNodownloadURLfor">Error: No download URL for</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Error creating download path for</system:String>
+    <system:String x:Key="Preparingtodownload">Preparing to download</system:String>
+    <system:String x:Key="Extracting">Extracting</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">has been successfully downloaded and installed.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Error: Failed to extract</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Error: Failed to download</system:String>
+    <system:String x:Key="Downloadof">Download of</system:String>
+    <system:String x:Key="wascanceled">was canceled.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Error: Download timed out.</system:String>
+    <system:String x:Key="Errorduring">Error during</system:String>
+    <system:String x:Key="downloadprocess">download process.</system:String>
+    <system:String x:Key="sizeunknown">size unknown</system:String>
+    <system:String x:Key="Downloaded">Downloaded</system:String>
+    <system:String x:Key="totalsizeunknown">total size unknown</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download incomplete. Downloaded bytes do not match expected file size.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Error: The requested file was not found on the server.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Error: Network error during file download.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Error: File read/write error during download.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Error: Download timed out or was canceled unexpectedly.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Error: Unexpected error during download.</system:String>
+    <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Creating system folders...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Error: Failed to add system.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Download error</system:String>
+    <system:String x:Key="Startingdownload2">Starting download</system:String>
+    <system:String x:Key="Downloadcomplete2">Download complete</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Download canceled by user</system:String>
     
 </ResourceDictionary>

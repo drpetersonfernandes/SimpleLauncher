@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">İndirme ve arşivden çıkarma işlemleri başarıyla tamamlandı.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
-    <system:String x:Key="Downloadwascanceled">İndirme iptal edildi.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">İndirme kullanıcı tarafından iptal edildi</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">İndirme zaman aşımına uğradı veya beklenmedik şekilde iptal edildi</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Hata: için indirme URL'si yok</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Hata: için indirme yolu oluşturulamadı</system:String>
+    <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
+    <system:String x:Key="Extracting">Çıkartılıyor</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">başarıyla indirildi ve kuruldu.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Hata: Çıkartma başarısız</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Hata: İndirme başarısız</system:String>
+    <system:String x:Key="Downloadof">in indirimi</system:String>
+    <system:String x:Key="wascanceled">iptal edildi.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Hata: İndirme süresi doldu.</system:String>
+    <system:String x:Key="Errorduring">sırasında hata</system:String>
+    <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
+    <system:String x:Key="sizeunknown">boyut bilinmiyor</system:String>
+    <system:String x:Key="Downloaded">İndirildi</system:String>
+    <system:String x:Key="totalsizeunknown">toplam boyut bilinmiyor</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">İndirme tamamlanmadı. İndirilen baytlar beklenen dosya boyutuyla eşleşmiyor.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Hata: İstenen dosya sunucuda bulunamadı.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Hata: Dosya indirimi sırasında ağ hatası.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Hata: İndirme sırasında dosya okuma/yazma hatası.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Hata: İndirme süresi doldu veya beklenmedik şekilde iptal edildi.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Hata: İndirme sırasında beklenmeyen hata.</system:String>
+    <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Sistem klasörleri oluşturuluyor...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistemin eklenememesi.</system:String>
+    
+    <system:String x:Key="Downloaderror2">İndirme hatası</system:String>
+    <system:String x:Key="Startingdownload2">İndirme başlatılıyor</system:String>
+    <system:String x:Key="Downloadcomplete2">İndirme tamamlandı</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">İndirme kullanıcı tarafından iptal edildi</system:String>
 
 </ResourceDictionary>

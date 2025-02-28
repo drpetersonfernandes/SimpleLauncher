@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">下載和解壓縮成功完成。</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
     <system:String x:Key="DownloadProgress">下載進度</system:String>
-    <system:String x:Key="Downloadwascanceled">下載已取消。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自動重新安裝 'Simple Launcher' 以解決問題？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">使用者已取消下載</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">下載超時或意外取消</system:String>
     <system:String x:Key="Downloadcanceled">下載已取消</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">錯誤：沒有下載URL為</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">錯誤：創建下載路徑為時出錯</system:String>
+    <system:String x:Key="Preparingtodownload">準備下載</system:String>
+    <system:String x:Key="Extracting">正在提取</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">已成功下載和安裝。</system:String>
+    <system:String x:Key="ErrorFailedtoextract">錯誤：提取失敗</system:String>
+    <system:String x:Key="ErrorFailedtodownload">錯誤：下載失敗</system:String>
+    <system:String x:Key="Downloadof">的下載</system:String>
+    <system:String x:Key="wascanceled">已取消。</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">錯誤：下載超時。</system:String>
+    <system:String x:Key="Errorduring">期間發生錯誤</system:String>
+    <system:String x:Key="downloadprocess">下載過程。</system:String>
+    <system:String x:Key="sizeunknown">大小未知</system:String>
+    <system:String x:Key="Downloaded">已下載</system:String>
+    <system:String x:Key="totalsizeunknown">總大小未知</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">下載不完整。下載的位元組數與預期的檔案大小不匹配。</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">錯誤：伺服器上未找到請求的檔案。</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">錯誤：檔案下載過程中發生網路錯誤。</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">錯誤：下載過程中發生檔案讀寫錯誤。</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">錯誤：下載超時或意外取消。</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">錯誤：下載過程中發生意外錯誤。</system:String>
+    <system:String x:Key="Cancelingdownload">正在取消下載...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">正在將系統添加到配置中...</system:String>
+    <system:String x:Key="Creatingsystemfolders">正在創建系統資料夾...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">系統已成功添加！</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">錯誤：添加系統失敗。</system:String>
+    
+    <system:String x:Key="Downloaderror2">下載錯誤</system:String>
+    <system:String x:Key="Startingdownload2">開始下載</system:String>
+    <system:String x:Key="Downloadcomplete2">下載完成</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">用戶取消下載</system:String>
 
 </ResourceDictionary>

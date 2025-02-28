@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">ダウンロードと展開が成功しました。</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
     <system:String x:Key="DownloadProgress">ダウンロード進行状況</system:String>
-    <system:String x:Key="Downloadwascanceled">ダウンロードがキャンセルされました。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">ユーザーによりダウンロードがキャンセルされました</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ダウンロードがタイムアウトまたは予期せずキャンセルされました</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">エラー: のダウンロードURLがありません</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">エラー: のダウンロードパスの作成に失敗しました</system:String>
+    <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
+    <system:String x:Key="Extracting">抽出中</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">が正常にダウンロードおよびインストールされました。</system:String>
+    <system:String x:Key="ErrorFailedtoextract">エラー: 抽出に失敗しました</system:String>
+    <system:String x:Key="ErrorFailedtodownload">エラー: ダウンロードに失敗しました</system:String>
+    <system:String x:Key="Downloadof">のダウンロード</system:String>
+    <system:String x:Key="wascanceled">がキャンセルされました。</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">エラー: ダウンロードがタイムアウトしました。</system:String>
+    <system:String x:Key="Errorduring">エラー中</system:String>
+    <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>
+    <system:String x:Key="sizeunknown">サイズ不明</system:String>
+    <system:String x:Key="Downloaded">ダウンロード済み</system:String>
+    <system:String x:Key="totalsizeunknown">総サイズ不明</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">ダウンロード未完了。ダウンロードされたバイトが期待されるファイルサイズと一致しません。</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">エラー: サーバー上に要求されたファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">エラー: ファイルダウンロード中のネットワークエラー。</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">エラー: ダウンロード中のファイル読み書きエラー。</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">エラー: ダウンロードがタイムアウトしたか、予期せずキャンセルされました。</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">エラー: ダウンロード中に予期しないエラーが発生しました。</system:String>
+    <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">システムを設定に追加しています...</system:String>
+    <system:String x:Key="Creatingsystemfolders">システムフォルダを作成しています...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">エラー: システムの追加に失敗しました。</system:String>
+    
+    <system:String x:Key="Downloaderror2">ダウンロードエラー</system:String>
+    <system:String x:Key="Startingdownload2">ダウンロードを開始しています</system:String>
+    <system:String x:Key="Downloadcomplete2">ダウンロード完了</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">ユーザーによってダウンロードがキャンセルされました</system:String>
     
 </ResourceDictionary>

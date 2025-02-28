@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Il download e l'estrazione sono stati completati con successo.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Scaricamento o estrazione fallito</system:String>
     <system:String x:Key="DownloadProgress">Avanzamento del download</system:String>
-    <system:String x:Key="Downloadwascanceled">Lo scaricamento è stato annullato.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Download annullato dall'utente</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download scaduto o annullato inaspettatamente</system:String>
     <system:String x:Key="Downloadcanceled">Download annullato</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Errore: Nessun URL di download per</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Errore nella creazione del percorso di download per</system:String>
+    <system:String x:Key="Preparingtodownload">Preparazione al download</system:String>
+    <system:String x:Key="Extracting">Estrazione</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">è stato scaricato e installato con successo.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Errore: Estrazione fallita</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Errore: Download fallito</system:String>
+    <system:String x:Key="Downloadof">Download di</system:String>
+    <system:String x:Key="wascanceled">è stato annullato.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Errore: Tempo di download scaduto.</system:String>
+    <system:String x:Key="Errorduring">Errore durante</system:String>
+    <system:String x:Key="downloadprocess">processo di download.</system:String>
+    <system:String x:Key="sizeunknown">dimensione sconosciuta</system:String>
+    <system:String x:Key="Downloaded">Scaricato</system:String>
+    <system:String x:Key="totalsizeunknown">dimensione totale sconosciuta</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download incompleto. I byte scaricati non corrispondono alla dimensione del file prevista.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Errore: Il file richiesto non è stato trovato sul server.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Errore: Errore di rete durante il download del file.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Errore: Errore di lettura/scrittura del file durante il download.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Errore: Tempo di download scaduto o è stato annullato inaspettatamente.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Errore: Errore imprevisto durante il download.</system:String>
+    <system:String x:Key="Cancelingdownload">Annullamento del download...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Aggiunta del sistema alla configurazione...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Creazione delle cartelle di sistema...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Il sistema è stato aggiunto con successo!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Errore: Impossibile aggiungere il sistema.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Errore di download</system:String>
+    <system:String x:Key="Startingdownload2">Inizio download</system:String>
+    <system:String x:Key="Downloadcomplete2">Download completato</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Download annullato dall'utente</system:String>
     
 </ResourceDictionary>

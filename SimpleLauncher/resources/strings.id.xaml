@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Pengunduhan dan ekstraksi berhasil.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
     <system:String x:Key="DownloadProgress">Progres Unduhan</system:String>
-    <system:String x:Key="Downloadwascanceled">Muat turun telah dibatalkan.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Unduhan dibatalkan oleh pengguna</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Unduhan kehabisan waktu atau dibatalkan secara tidak terduga</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Error: Tidak ada URL unduhan untuk</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Error membuat path unduhan untuk</system:String>
+    <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
+    <system:String x:Key="Extracting">Sedang mengekstrak</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">telah berhasil diunduh dan diinstal.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Error: Gagal mengekstrak</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Error: Gagal mengunduh</system:String>
+    <system:String x:Key="Downloadof">Unduhan dari</system:String>
+    <system:String x:Key="wascanceled">dibatalkan.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Error: Waktu unduhan habis.</system:String>
+    <system:String x:Key="Errorduring">Error selama</system:String>
+    <system:String x:Key="downloadprocess">proses unduhan.</system:String>
+    <system:String x:Key="sizeunknown">ukuran tidak diketahui</system:String>
+    <system:String x:Key="Downloaded">Diunduh</system:String>
+    <system:String x:Key="totalsizeunknown">ukuran total tidak diketahui</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Unduhan tidak lengkap. Byte yang diunduh tidak sesuai dengan ukuran file yang diharapkan.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Error: File yang diminta tidak ditemukan di server.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Error: Kesalahan jaringan selama pengunduhan file.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Error: Kesalahan baca/tulis file selama pengunduhan.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Error: Waktu unduhan habis atau dibatalkan secara tak terduga.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Error: Kesalahan tak terduga selama pengunduhan.</system:String>
+    <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Membuat folder sistem...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem telah berhasil ditambahkan!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Error: Gagal menambahkan sistem.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Kesalahan unduhan</system:String>
+    <system:String x:Key="Startingdownload2">Memulai unduhan</system:String>
+    <system:String x:Key="Downloadcomplete2">Unduhan selesai</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Unduhan dibatalkan oleh pengguna</system:String>
 
 </ResourceDictionary>

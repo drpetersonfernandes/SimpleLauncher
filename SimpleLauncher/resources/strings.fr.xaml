@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">Le téléchargement et l'extraction ont réussi.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Échec du téléchargement ou de l'extraction</system:String>
     <system:String x:Key="DownloadProgress">Progression du téléchargement</system:String>
-    <system:String x:Key="Downloadwascanceled">Le téléchargement a été annulé.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">Téléchargement annulé par l'utilisateur</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Le téléchargement a expiré ou a été annulé de manière inattendue</system:String>
     <system:String x:Key="Downloadcanceled">Téléchargement annulé</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">Erreur : Pas d'URL de téléchargement pour</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">Erreur lors de la création du chemin de téléchargement pour</system:String>
+    <system:String x:Key="Preparingtodownload">Préparation au téléchargement</system:String>
+    <system:String x:Key="Extracting">Extraction</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">a été téléchargé et installé avec succès.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">Erreur : Échec de l'extraction</system:String>
+    <system:String x:Key="ErrorFailedtodownload">Erreur : Échec du téléchargement</system:String>
+    <system:String x:Key="Downloadof">Téléchargement de</system:String>
+    <system:String x:Key="wascanceled">a été annulé.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">Erreur : Délai de téléchargement dépassé.</system:String>
+    <system:String x:Key="Errorduring">Erreur durant</system:String>
+    <system:String x:Key="downloadprocess">processus de téléchargement.</system:String>
+    <system:String x:Key="sizeunknown">taille inconnue</system:String>
+    <system:String x:Key="Downloaded">Téléchargé</system:String>
+    <system:String x:Key="totalsizeunknown">taille totale inconnue</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Téléchargement incomplet. Les octets téléchargés ne correspondent pas à la taille de fichier attendue.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Erreur : Le fichier demandé n'a pas été trouvé sur le serveur.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Erreur : Erreur réseau pendant le téléchargement du fichier.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Erreur : Erreur de lecture/écriture de fichier pendant le téléchargement.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Erreur : Le téléchargement a expiré ou a été annulé de manière inattendue.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">Erreur : Erreur inattendue pendant le téléchargement.</system:String>
+    <system:String x:Key="Cancelingdownload">Annulation du téléchargement...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">Ajout du système à la configuration...</system:String>
+    <system:String x:Key="Creatingsystemfolders">Création des dossiers système...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">Le système a été ajouté avec succès !</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Erreur : Échec de l'ajout du système.</system:String>
+    
+    <system:String x:Key="Downloaderror2">Erreur de téléchargement</system:String>
+    <system:String x:Key="Startingdownload2">Début du téléchargement</system:String>
+    <system:String x:Key="Downloadcomplete2">Téléchargement terminé</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">Téléchargement annulé par l'utilisateur</system:String>
 
 </ResourceDictionary>

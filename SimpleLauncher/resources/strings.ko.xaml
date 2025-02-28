@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">다운로드와 압축 해제가 성공적으로 완료되었습니다.</system:String>
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
-    <system:String x:Key="Downloadwascanceled">다운로드가 취소되었습니다.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">사용자가 다운로드를 취소했습니다</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">다운로드 시간 초과 또는 예기치 않게 취소되었습니다</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">오류: 의 다운로드 URL이 없습니다</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">오류: 의 다운로드 경로 생성 실패</system:String>
+    <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
+    <system:String x:Key="Extracting">추출 중</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">이(가) 성공적으로 다운로드되고 설치되었습니다.</system:String>
+    <system:String x:Key="ErrorFailedtoextract">오류: 추출 실패</system:String>
+    <system:String x:Key="ErrorFailedtodownload">오류: 다운로드 실패</system:String>
+    <system:String x:Key="Downloadof">의 다운로드</system:String>
+    <system:String x:Key="wascanceled">취소되었습니다.</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">오류: 다운로드 시간이 초과되었습니다.</system:String>
+    <system:String x:Key="Errorduring">동안 오류</system:String>
+    <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
+    <system:String x:Key="sizeunknown">크기 알 수 없음</system:String>
+    <system:String x:Key="Downloaded">다운로드됨</system:String>
+    <system:String x:Key="totalsizeunknown">전체 크기 알 수 없음</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">다운로드가 완료되지 않았습니다. 다운로드된 바이트가 예상 파일 크기와 일치하지 않습니다.</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">오류: 요청한 파일을 서버에서 찾을 수 없습니다.</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">오류: 파일 다운로드 중 네트워크 오류.</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">오류: 다운로드 중 파일 읽기/쓰기 오류.</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">오류: 다운로드 시간이 초과되었거나 예기치 않게 취소되었습니다.</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">오류: 다운로드 중 예기치 않은 오류.</system:String>
+    <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">구성에 시스템 추가 중...</system:String>
+    <system:String x:Key="Creatingsystemfolders">시스템 폴더 생성 중...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템 추가 실패.</system:String>
+    
+    <system:String x:Key="Downloaderror2">다운로드 오류</system:String>
+    <system:String x:Key="Startingdownload2">다운로드 시작 중</system:String>
+    <system:String x:Key="Downloadcomplete2">다운로드 완료</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">사용자가 다운로드를 취소했습니다</system:String>
     
 </ResourceDictionary>

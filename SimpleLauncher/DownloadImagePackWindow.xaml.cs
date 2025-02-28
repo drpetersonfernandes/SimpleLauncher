@@ -187,7 +187,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
 
-                var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error";
+                var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error";
                 UpdateStatus($"{downloaderror2}: {ex.Message}");
             }
             finally
@@ -330,7 +330,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 ? FormatFileSize(totalBytes.Value)
                 : unknownsize2;
 
-            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload") ?? "Starting download";
+            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload2") ?? "Starting download";
             progress.Report(new DownloadProgressInfo
             {
                 BytesReceived = 0,
@@ -382,7 +382,7 @@ public partial class DownloadImagePackWindow : IDisposable
             if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
             {
                 _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete";
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete2") ?? "Download complete";
                 progress.Report(new DownloadProgressInfo
                 {
                     BytesReceived = totalBytesRead,
@@ -410,7 +410,7 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 // If the server didn't provide a content length, we assume the download is complete
                 _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete";
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete2") ?? "Download complete";
                 progress.Report(new DownloadProgressInfo
                 {
                     BytesReceived = totalBytesRead,
@@ -485,7 +485,7 @@ public partial class DownloadImagePackWindow : IDisposable
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
-                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser") ?? "Download canceled by user";
+                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser2") ?? "Download canceled by user";
                 progress.Report(new DownloadProgressInfo
                 {
                     ProgressPercentage = 0,

@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
     <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
-    <system:String x:Key="Downloadwascanceled">डाउनलोड रद्द कर दिया गया।</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः इंस्टॉल करना चाहेंगे समस्या को ठीक करने हेतु?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">क्या आप इसे ठीक करने के लिए 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">उपयोगकर्ता द्वारा डाउनलोड रद्द किया गया</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">डाउनलोड का समय समाप्त हो गया या अप्रत्याशित रूप से रद्द हो गया</system:String>
     <system:String x:Key="Downloadcanceled">डाउनलोड रद्द किया गया</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">त्रुटि: के लिए कोई डाउनलोड URL नहीं है</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">त्रुटि: के लिए डाउनलोड पथ बनाने में</system:String>
+    <system:String x:Key="Preparingtodownload">डाउनलोड करने की तैयारी कर रहा है</system:String>
+    <system:String x:Key="Extracting">निकालना</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">सफलतापूर्वक डाउनलोड और इंस्टॉल किया गया है।</system:String>
+    <system:String x:Key="ErrorFailedtoextract">त्रुटि: निकालने में विफल</system:String>
+    <system:String x:Key="ErrorFailedtodownload">त्रुटि: डाउनलोड करने में विफल</system:String>
+    <system:String x:Key="Downloadof">का डाउनलोड</system:String>
+    <system:String x:Key="wascanceled">रद्द कर दिया गया था।</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">त्रुटि: डाउनलोड का समय समाप्त हो गया।</system:String>
+    <system:String x:Key="Errorduring">के दौरान त्रुटि</system:String>
+    <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>
+    <system:String x:Key="sizeunknown">आकार अज्ञात</system:String>
+    <system:String x:Key="Downloaded">डाउनलोड किया गया</system:String>
+    <system:String x:Key="totalsizeunknown">कुल आकार अज्ञात</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">डाउनलोड अधूरा। डाउनलोड किए गए बाइट्स अपेक्षित फ़ाइल आकार से मेल नहीं खाते।</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">त्रुटि: अनुरोधित फ़ाइल सर्वर पर नहीं मिली।</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">त्रुटि: फ़ाइल डाउनलोड के दौरान नेटवर्क त्रुटि।</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">त्रुटि: डाउनलोड के दौरान फ़ाइल पढ़ने/लिखने में त्रुटि।</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">त्रुटि: डाउनलोड का समय समाप्त हो गया या अप्रत्याशित रूप से रद्द कर दिया गया।</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">त्रुटि: डाउनलोड के दौरान अप्रत्याशित त्रुटि।</system:String>
+    <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
+    <system:String x:Key="Creatingsystemfolders">सिस्टम फ़ोल्डर बना रहा है...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">सिस्टम सफलतापूर्वक जोड़ा गया है!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">त्रुटि: सिस्टम जोड़ने में विफल रहा।</system:String>
+    
+    <system:String x:Key="Downloaderror2">डाउनलोड त्रुटि</system:String>
+    <system:String x:Key="Startingdownload2">डाउनलोड शुरू हो रहा है</system:String>
+    <system:String x:Key="Downloadcomplete2">डाउनलोड पूरा हुआ</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">उपयोगकर्ता द्वारा डाउनलोड रद्द किया गया</system:String>
 
 </ResourceDictionary>

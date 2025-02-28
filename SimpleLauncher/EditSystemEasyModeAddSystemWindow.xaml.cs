@@ -192,7 +192,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         // Ensure valid URL
         if (string.IsNullOrEmpty(downloadUrl))
         {
-            DownloadStatus = $"Error: No download URL for {componentName}";
+            var errorNodownloadUrLfor2 = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            DownloadStatus = $"{errorNodownloadUrLfor2} {componentName}";
             return false;
         }
 
@@ -204,7 +205,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
-            await LogErrors.LogErrorAsync(ex, $"Error creating download path for {componentName}");
+            var errorcreatingdownloadpathfor2 = (string)Application.Current.TryFindResource("Errorcreatingdownloadpathfor") ?? "Error creating download path for";
+            await LogErrors.LogErrorAsync(ex, $"{errorcreatingdownloadpathfor2} {componentName}");
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             return false;
         }
@@ -212,7 +214,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         try
         {
             // Reset status
-            DownloadStatus = $"Preparing to download {componentName}...";
+            var preparingtodownload2 = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+            DownloadStatus = $"{preparingtodownload2} {componentName}...";
 
             // Display progress bar
             DownloadProgressBar.Visibility = Visibility.Visible;
@@ -223,7 +226,8 @@ public partial class EditSystemEasyModeAddSystemWindow
             _cancellationTokenSource = new CancellationTokenSource();
 
             // Start download
-            DownloadStatus = $"Downloading {componentName}...";
+            var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            DownloadStatus = $"{downloading2} {componentName}...";
             await DownloadWithProgressAsync(downloadUrl, downloadFilePath, _cancellationTokenSource.Token);
 
             // Only proceed with extraction if the download completed successfully
@@ -236,7 +240,8 @@ public partial class EditSystemEasyModeAddSystemWindow
                 }
 
                 // Show the extraction window
-                DownloadStatus = $"Extracting {componentName}...";
+                var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                DownloadStatus = $"{extracting2} {componentName}...";
                 var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                 pleaseWaitWindow.Show();
 
@@ -248,7 +253,8 @@ public partial class EditSystemEasyModeAddSystemWindow
                 if (extractionSuccess)
                 {
                     // Notify user of success
-                    DownloadStatus = $"{componentName} has been successfully downloaded and installed.";
+                    var hasbeensuccessfullydownloadedandinstalled2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                    DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled2}";
                     MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                     // Clean up the downloaded file only if extraction is successful
@@ -258,20 +264,31 @@ public partial class EditSystemEasyModeAddSystemWindow
                 else
                 {
                     // Log extraction failure
-                    DownloadStatus = $"Error: Failed to extract {componentName}.";
-                    var formattedException = $"{componentName} extraction failed.\n\nFile: {downloadFilePath}";
+                    var errorFailedtoextract2 = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    DownloadStatus = $"{errorFailedtoextract2} {componentName}.";
+
+                    // Notify developer
+                    var formattedException = $"{componentName} extraction failed.\n\n" +
+                                             $"File: {downloadFilePath}";
                     var ex = new Exception(formattedException);
                     await LogErrors.LogErrorAsync(ex, formattedException);
+
+                    // Notify user
                     MessageBoxLibrary.ExtractionFailedMessageBox();
                 }
             }
             else if (!_isUserCancellation) // Only show error if not user-canceled
             {
                 // Log download failure
-                DownloadStatus = $"Error: Failed to download {componentName}.";
+                var errorFailedtodownload2 = (string)Application.Current.TryFindResource("ErrorFailedtodownload") ?? "Error: Failed to download";
+                DownloadStatus = $"{errorFailedtodownload2} {componentName}.";
+
+                // Notify developer
                 var formattedException = $"{componentName} download failed.";
                 var ex = new Exception(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
+
+                // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             }
         }
@@ -279,13 +296,20 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             if (_isUserCancellation)
             {
-                DownloadStatus = $"Download of {componentName} was canceled.";
+                var downloadof2 = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                var wascanceled2 = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                DownloadStatus = $"{downloadof2} {componentName} {wascanceled2}";
                 // Don't show an error message for user cancellation
             }
             else
             {
-                DownloadStatus = $"Error: Download timed out.";
+                var errorDownloadtimedout2 = (string)Application.Current.TryFindResource("ErrorDownloadtimedout") ?? "Error: Download timed out.";
+                DownloadStatus = errorDownloadtimedout2;
+
+                // Notify developer
                 await LogErrors.LogErrorAsync(new Exception("Download timed out"), "Download timed out");
+
+                // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
             }
 
@@ -293,14 +317,18 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
-            // Log and notify about error
-            DownloadStatus = $"Error during {componentName} download process.";
+            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
+            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+            DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
+
+            // Notify developer
             var formattedException = $"Error downloading {componentName}.\n\n" +
                                      $"File: {downloadFilePath}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
+            // Notify user
             // Show the appropriate error message based on the download type
             switch (downloadType)
             {
@@ -343,7 +371,10 @@ public partial class EditSystemEasyModeAddSystemWindow
 
             var totalBytes = response.Content.Headers.ContentLength;
             var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
-            DownloadStatus = $"Starting download: {(totalMb > 0 ? $"{totalMb} MB total" : "size unknown")}";
+            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload") ?? "Starting download:";
+            var total2 = (string)Application.Current.TryFindResource("total") ?? "total";
+            var sizeunknown2 = (string)Application.Current.TryFindResource("sizeunknown") ?? "size unknown";
+            DownloadStatus = $"{startingdownload2} {(totalMb > 0 ? $"{totalMb} MB {total2}" : sizeunknown2)}";
 
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
             await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
@@ -371,12 +402,15 @@ public partial class EditSystemEasyModeAddSystemWindow
                         var progress = (double)totalBytesRead / totalBytes.Value * 100;
                         DownloadProgressBar.Value = progress;
                         var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                        DownloadStatus = $"Downloaded {downloadedMb} MB of {totalMb} MB ({progress:F1}%)";
+                        var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
+                        DownloadStatus = $"{downloaded2} {downloadedMb} MB of {totalMb} MB ({progress:F1}%)";
                     }
                     else
                     {
                         var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                        DownloadStatus = $"Downloaded {downloadedMb} MB (total size unknown)";
+                        var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
+                        var totalsizeunknown2 = (string)Application.Current.TryFindResource("totalsizeunknown") ?? "total size unknown";
+                        DownloadStatus = $"{downloaded2} {downloadedMb} MB ({totalsizeunknown2})";
                     }
                 }
             }
@@ -385,24 +419,28 @@ public partial class EditSystemEasyModeAddSystemWindow
             if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
             {
                 _isDownloadCompleted = true;
-                DownloadStatus = $"Download complete: {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
+                DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
             }
             else if (totalBytes.HasValue)
             {
                 _isDownloadCompleted = false;
-                DownloadStatus = "Download incomplete. Downloaded bytes do not match expected file size.";
+                var downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2 = (string)Application.Current.TryFindResource("DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize") ?? "Download incomplete. Downloaded bytes do not match expected file size.";
+                DownloadStatus = downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2;
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
             else
             {
                 // If we don't know the total size, assume it's complete
                 _isDownloadCompleted = true;
-                DownloadStatus = $"Download complete: {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
+                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
+                DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
             }
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
-            DownloadStatus = "Error: The requested file was not found on the server.";
+            var errorTherequestedfilewasnotfoundontheserver2 = (string)Application.Current.TryFindResource("ErrorTherequestedfilewasnotfoundontheserver") ?? "Error: The requested file was not found on the server.";
+            DownloadStatus = errorTherequestedfilewasnotfoundontheserver2;
 
             // Notify developer
             var formattedException = $"The requested file was not available on the server.\n\n" +
@@ -416,7 +454,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (HttpRequestException ex)
         {
-            DownloadStatus = "Error: Network error during file download.";
+            var errorNetworkerrorduringfiledownload2 = (string)Application.Current.TryFindResource("ErrorNetworkerrorduringfiledownload") ?? "Error: Network error during file download.";
+            DownloadStatus = errorNetworkerrorduringfiledownload2;
 
             // Notify developer
             var formattedException = $"Network error during file download.\n\n" +
@@ -430,7 +469,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (IOException ex)
         {
-            DownloadStatus = "Error: File read/write error during download.";
+            var errorFilereadwriteerrorduringdownload2 = (string)Application.Current.TryFindResource("ErrorFilereadwriteerrorduringdownload") ?? "Error: File read/write error during download.";
+            DownloadStatus = errorFilereadwriteerrorduringdownload2;
 
             // Notify developer
             var formattedException = $"File read/write error after file download.\n\n" +
@@ -446,7 +486,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             if (cancellationToken.IsCancellationRequested && _isUserCancellation)
             {
-                DownloadStatus = "Download canceled by user.";
+                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser") ?? "Download canceled by user.";
+                DownloadStatus = downloadcanceledbyuser2;
 
                 // Notify the developer without showing the user message
                 var formattedException = $"Download was canceled by the user.\n\n" +
@@ -457,7 +498,8 @@ public partial class EditSystemEasyModeAddSystemWindow
             }
             else
             {
-                DownloadStatus = "Error: Download timed out or was canceled unexpectedly.";
+                var errorDownloadtimedoutorwascanceledunexpectedly2 = (string)Application.Current.TryFindResource("ErrorDownloadtimedoutorwascanceledunexpectedly") ?? "Error: Download timed out or was canceled unexpectedly.";
+                DownloadStatus = errorDownloadtimedoutorwascanceledunexpectedly2;
 
                 // Notify developer
                 var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
@@ -475,7 +517,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
-            DownloadStatus = "Error: Unexpected error during download.";
+            var errorUnexpectederrorduringdownload2 = (string)Application.Current.TryFindResource("ErrorUnexpectederrorduringdownload") ?? "Error: Unexpected error during download.";
+            DownloadStatus = errorUnexpectederrorduringdownload2;
 
             // Notify developer
             var formattedException = $"Generic download error.\n\n" +
@@ -496,7 +539,8 @@ public partial class EditSystemEasyModeAddSystemWindow
             // Set flag to indicate this is a user-initiated cancellation
             _isUserCancellation = true;
 
-            DownloadStatus = "Canceling download...";
+            var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
+            DownloadStatus = cancelingdownload2;
             _cancellationTokenSource.Cancel(); // Cancel the ongoing download
             StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
 
@@ -536,7 +580,8 @@ public partial class EditSystemEasyModeAddSystemWindow
 
         try
         {
-            DownloadStatus = "Adding system to configuration...";
+            var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+            DownloadStatus = addingsystemtoconfiguration2;
 
             // Load existing system configurations
             var xmlDoc = XDocument.Load(systemXmlPath);
@@ -599,12 +644,14 @@ public partial class EditSystemEasyModeAddSystemWindow
             // Save the updated XML document
             xmlDoc.Save(systemXmlPath);
 
-            DownloadStatus = "Creating system folders...";
+            var creatingsystemfolders2 = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+            DownloadStatus = creatingsystemfolders2;
 
             // Create the necessary folders for the system
             CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
 
-            DownloadStatus = "System has been successfully added!";
+            var systemhasbeensuccessfullyadded2 = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
+            DownloadStatus = systemhasbeensuccessfullyadded2;
 
             // Notify user
             MessageBoxLibrary.SystemAddedMessageBox(systemFolder, fullImageFolderPathForMessage, selectedSystem);
@@ -614,7 +661,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
-            DownloadStatus = "Error: Failed to add system.";
+            var errorFailedtoaddsystem2 = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+            DownloadStatus = errorFailedtoaddsystem2;
 
             // Notify developer
             var formattedException = $"Error adding system.\n\n" +

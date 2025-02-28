@@ -114,7 +114,6 @@
     <system:String x:Key="Downloadingandextractionweresuccessful">ڈاؤن لوڈ اور اخراج کامیابی کے ساتھ مکمل ہو گیا۔</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ڈاؤن لوڈ یا نکالنے میں ناکامی</system:String>
     <system:String x:Key="DownloadProgress">ڈاؤنلوڈ کی پیشرفت</system:String>
-    <system:String x:Key="Downloadwascanceled">ڈاؤن لوڈ منسوخ کر دیا گیا۔</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">کیا آپ 'Simple Launcher' کو خود بخود دوبارہ انسٹال کرنا چاہتے ہیں تاکہ مسئلہ حل ہو سکے؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
@@ -536,5 +535,37 @@
     <system:String x:Key="Downloadcanceledbyuser">صارف نے ڈاؤن لوڈ منسوخ کر دیا</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ڈاؤن لوڈ ٹائم آؤٹ ہو گیا یا غیر متوقع طور پر منسوخ ہو گیا</system:String>
     <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
+    
+    <system:String x:Key="ErrorNodownloadURLfor">خرابی: کے لیے کوئی ڈاؤن لوڈ یو آر ایل نہیں</system:String>
+    <system:String x:Key="Errorcreatingdownloadpathfor">خرابی: کے لیے ڈاؤن لوڈ راستہ بنانے میں ناکامی</system:String>
+    <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
+    <system:String x:Key="Extracting">استخراج کر رہا ہے</system:String>
+    <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">کو کامیابی کے ساتھ ڈاؤن لوڈ اور انسٹال کر دیا گیا ہے۔</system:String>
+    <system:String x:Key="ErrorFailedtoextract">خرابی: استخراج میں ناکامی</system:String>
+    <system:String x:Key="ErrorFailedtodownload">خرابی: ڈاؤن لوڈ میں ناکامی</system:String>
+    <system:String x:Key="Downloadof">کی ڈاؤن لوڈ</system:String>
+    <system:String x:Key="wascanceled">منسوخ کر دیا گیا تھا۔</system:String>
+    <system:String x:Key="ErrorDownloadtimedout">خرابی: ڈاؤن لوڈ وقت ختم ہو گیا۔</system:String>
+    <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
+    <system:String x:Key="downloadprocess">ڈاؤن لوڈ کا عمل۔</system:String>
+    <system:String x:Key="sizeunknown">سائز نامعلوم</system:String>
+    <system:String x:Key="Downloaded">ڈاؤن لوڈ ہو گیا</system:String>
+    <system:String x:Key="totalsizeunknown">کل سائز نامعلوم</system:String>
+    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">ڈاؤن لوڈ غیر مکمل۔ ڈاؤن لوڈ شدہ بائٹس متوقع فائل سائز سے مطابقت نہیں رکھتیں۔</system:String>
+    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">خرابی: درخواست کردہ فائل سرور پر نہیں ملی۔</system:String>
+    <system:String x:Key="ErrorNetworkerrorduringfiledownload">خرابی: فائل ڈاؤن لوڈ کے دوران نیٹ ورک کی خرابی۔</system:String>
+    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">خرابی: ڈاؤن لوڈ کے دوران فائل پڑھنے/لکھنے میں خرابی۔</system:String>
+    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">خرابی: ڈاؤن لوڈ کا وقت ختم ہو گیا یا غیر متوقع طور پر منسوخ کر دیا گیا۔</system:String>
+    <system:String x:Key="ErrorUnexpectederrorduringdownload">خرابی: ڈاؤن لوڈ کے دوران غیر متوقع خرابی۔</system:String>
+    <system:String x:Key="Cancelingdownload">ڈاؤن لوڈ منسوخ کر رہے ہیں...</system:String>
+    <system:String x:Key="Addingsystemtoconfiguration">سسٹم کو کنفیگریشن میں شامل کر رہے ہیں...</system:String>
+    <system:String x:Key="Creatingsystemfolders">سسٹم فولڈرز بنا رہے ہیں...</system:String>
+    <system:String x:Key="Systemhasbeensuccessfullyadded">سسٹم کامیابی کے ساتھ شامل کر لیا گیا ہے!</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکامی۔</system:String>
+    
+    <system:String x:Key="Downloaderror2">ڈاؤن لوڈ میں خرابی</system:String>
+    <system:String x:Key="Startingdownload2">ڈاؤن لوڈ شروع ہو رہا ہے</system:String>
+    <system:String x:Key="Downloadcomplete2">ڈاؤن لوڈ مکمل ہوا</system:String>
+    <system:String x:Key="Downloadcanceledbyuser2">ڈاؤن لوڈ صارف کے ذریعے منسوخ کیا گیا</system:String>
 
 </ResourceDictionary>
