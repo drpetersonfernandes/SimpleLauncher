@@ -1971,4 +1971,44 @@ public static class MessageBoxLibrary
         MessageBox.Show(error,
             invalidSystemConfiguration2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
+
+    internal static void ExtractionFolderCannotBeCreatedMessageBox(Exception ex)
+    {
+        var cannotcreateoraccesstheextractionfolder2 = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
+        var invalidExtractionFolder2 = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
+        MessageBox.Show($"{cannotcreateoraccesstheextractionfolder2}: {ex.Message}",
+            invalidExtractionFolder2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void ExtractionFolderIsNullMessageBox()
+    {
+        var pleaseselectanextractionfolder2 = (string)Application.Current.TryFindResource("Pleaseselectanextractionfolder") ?? "Please select an extraction folder.";
+        var extractionFolderRequired2 = (string)Application.Current.TryFindResource("ExtractionFolderRequired") ?? "Extraction Folder Required";
+        MessageBox.Show(pleaseselectanextractionfolder2,
+            extractionFolderRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    internal static void DownloadUrlIsNullMessageBox()
+    {
+        var theselectedsystemdoesnothaveavaliddownloadlink2 = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
+        var invalidDownloadLink2 = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
+        MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
+            invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    internal static void SelectedSystemIsNullMessageBox()
+    {
+        var couldnotfindtheselectedsystemintheconfiguration2 = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
+        var systemNotFound2 = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
+        MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration2,
+            systemNotFound2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void SystemNameIsNullMessageBox()
+    {
+        var pleaseselectasystemfromthedropdown2 = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
+        var selectionRequired2 = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
+        MessageBox.Show(pleaseselectasystemfromthedropdown2,
+            selectionRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
 }

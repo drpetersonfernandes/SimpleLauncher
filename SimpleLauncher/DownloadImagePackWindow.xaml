@@ -90,7 +90,7 @@
                     Text="{DynamicResource DownloadProgress}" />
             </Grid>
 
-            <TextBlock x:Name="StatusTextBlock" Grid.Row="7" 
+            <TextBlock x:Name="StatusTextBlock" Grid.Row="7"
                        Margin="10,10,10,10"
                        TextWrapping="Wrap" />
 
@@ -115,8 +115,9 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="10,0,10,10">
-                <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" 
-                           RequestNavigate="Hyperlink_RequestNavigate">https://github.com/libretro-thumbnails/libretro-thumbnails
+                <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    https://github.com/libretro-thumbnails/libretro-thumbnails
                 </Hyperlink>
             </TextBlock>
 

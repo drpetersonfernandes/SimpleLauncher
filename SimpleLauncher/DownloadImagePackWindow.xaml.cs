@@ -38,7 +38,7 @@ public partial class DownloadImagePackWindow : IDisposable
         _config = EasyModeConfig.Load();
         PopulateSystemDropdown();
 
-        Closed += EditSystemEasyModeAddSystem_Closed;
+        Closed += CloseWindowRoutine;
     }
 
     private void PopulateSystemDropdown()
@@ -74,6 +74,9 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
+        // Enable the Stop Button
+        StopDownloadButton.IsEnabled = true;
+
         // Input validation
         if (!ValidateInputs(out var selectedSystem)) return;
 
@@ -225,10 +228,7 @@ public partial class DownloadImagePackWindow : IDisposable
         // Check if a system is selected
         if (SystemNameDropdown.SelectedItem == null)
         {
-            var pleaseselectasystemfromthedropdown2 = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
-            var selectionRequired2 = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
-            MessageBox.Show(pleaseselectasystemfromthedropdown2,
-                selectionRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.SystemNameIsNullMessageBox();
             return false;
         }
 
@@ -238,10 +238,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
         if (selectedSystem == null)
         {
-            var couldnotfindtheselectedsystemintheconfiguration2 = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
-            var systemNotFound2 = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
-            MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration2,
-                systemNotFound2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.SelectedSystemIsNullMessageBox();
             return false;
         }
 
@@ -249,10 +246,7 @@ public partial class DownloadImagePackWindow : IDisposable
         var downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
         if (string.IsNullOrEmpty(downloadUrl))
         {
-            var theselectedsystemdoesnothaveavaliddownloadlink2 = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
-            var invalidDownloadLink2 = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
-            MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
-                invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.DownloadUrlIsNullMessageBox();
             return false;
         }
 
@@ -260,10 +254,7 @@ public partial class DownloadImagePackWindow : IDisposable
         if (string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text) &&
             string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
         {
-            var pleaseselectanextractionfolder2 = (string)Application.Current.TryFindResource("Pleaseselectanextractionfolder") ?? "Please select an extraction folder.";
-            var extractionFolderRequired2 = (string)Application.Current.TryFindResource("ExtractionFolderRequired") ?? "Extraction Folder Required";
-            MessageBox.Show(pleaseselectanextractionfolder2,
-                extractionFolderRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.ExtractionFolderIsNullMessageBox();
             return false;
         }
 
@@ -281,10 +272,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            var cannotcreateoraccesstheextractionfolder2 = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
-            var invalidExtractionFolder2 = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
-            MessageBox.Show($"{cannotcreateoraccesstheextractionfolder2}: {ex.Message}",
-                invalidExtractionFolder2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(ex);
             return false;
         }
 
@@ -318,15 +306,6 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // ignore
         }
-    }
-
-    // Progress information class
-    private class DownloadProgressInfo
-    {
-        public long BytesReceived { get; set; }
-        public long? TotalBytesToReceive { get; set; }
-        public double ProgressPercentage { get; set; }
-        public string StatusMessage { get; set; }
     }
 
     // Handle progress updates on UI thread
@@ -594,7 +573,7 @@ public partial class DownloadImagePackWindow : IDisposable
         DownloadExtrasButton.IsEnabled = true;
     }
 
-    private void EditSystemEasyModeAddSystem_Closed(object sender, EventArgs e)
+    private void CloseWindowRoutine(object sender, EventArgs e)
     {
         // Empty EasyMode Config
         _config = null;
@@ -643,5 +622,14 @@ public partial class DownloadImagePackWindow : IDisposable
     ~DownloadImagePackWindow()
     {
         Dispose(false);
+    }
+
+    // Progress information class
+    private class DownloadProgressInfo
+    {
+        public long BytesReceived { get; set; }
+        public long? TotalBytesToReceive { get; set; }
+        public double ProgressPercentage { get; set; }
+        public string StatusMessage { get; set; }
     }
 }
