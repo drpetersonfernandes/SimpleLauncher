@@ -1250,14 +1250,6 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void DownloadCanceledMessageBox()
-    {
-        var downloadwascanceled2 = (string)Application.Current.TryFindResource("Downloadwascanceled") ?? "Download was canceled.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(downloadwascanceled2,
-            info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
     internal static void DownloadAndExtrationWereSuccessfulMessageBox()
     {
         var downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";

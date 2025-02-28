@@ -25,6 +25,28 @@ public partial class EditSystemEasyModeAddSystemWindow
     private const int HttpTimeoutSeconds = 60;
     private bool _isDownloadCompleted;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+    private bool _isUserCancellation; // Flag to track user-initiated cancellations
+
+    // Download component types
+    private enum DownloadType
+    {
+        Emulator,
+        Core,
+        ImagePack
+    }
+
+    // Download status tracking
+    private string _downloadStatus = string.Empty;
+
+    private string DownloadStatus
+    {
+        get => _downloadStatus;
+        set
+        {
+            _downloadStatus = value;
+            DownloadStatusTextBlock.Text = value;
+        }
+    }
 
     public EditSystemEasyModeAddSystemWindow()
     {
@@ -40,6 +62,9 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
         };
+
+        // Initialize temp folder
+        Directory.CreateDirectory(_tempFolder);
 
         Closed += CloseWindowRoutine;
     }
@@ -77,345 +102,236 @@ public partial class EditSystemEasyModeAddSystemWindow
 
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
     {
-        try
+        DownloadEmulatorButton.IsEnabled = false;
+        _isEmulatorDownloaded = false;
+        UpdateAddSystemButtonState();
+
+        var success = await DownloadAndExtractAsync(DownloadType.Emulator);
+
+        if (success)
         {
-            _isDownloadCompleted = false;
-            _isEmulatorDownloaded = false;
-            DownloadEmulatorButton.IsEnabled = false;
-            UpdateAddSystemButtonState();
-
-            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-            if (selectedSystem != null)
-            {
-                var emulatorDownloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-                var emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
-                Directory.CreateDirectory(emulatorsFolderPath);
-                var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(emulatorDownloadUrl) ?? throw new InvalidOperationException("Simple Launcher could not get emulatorDownloadUrl"));
-                Directory.CreateDirectory(_tempFolder);
-                var destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-
-                try
-                {
-                    // Display progress bar
-                    DownloadProgressBar.Visibility = Visibility.Visible;
-                    DownloadProgressBar.Value = 0;
-                    StopDownloadButton.IsEnabled = true;
-
-                    // Initialize cancellation token source
-                    _cancellationTokenSource = new CancellationTokenSource();
-
-                    await DownloadWithProgressAsync(emulatorDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-
-                    if (_isDownloadCompleted)
-                    {
-                        // Rename the file to .7z if EmulatorDownloadRename is true
-                        downloadFilePath = ChangeFileExtensionFunction(selectedSystem, downloadFilePath);
-
-                        // Show the PleaseWaitExtraction window
-                        var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                        pleaseWaitWindow.Show();
-
-                        var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
-
-                        // Close the PleaseWaitExtraction window
-                        pleaseWaitWindow.Close();
-
-                        if (extractionSuccess)
-                        {
-                            // Notify user
-                            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                            // Clean up the downloaded file only if extraction is successful
-                            TryDeleteFile(downloadFilePath);
-
-                            // Mark as downloaded and disable button
-                            _isEmulatorDownloaded = true;
-                            DownloadEmulatorButton.IsEnabled = false;
-
-                            // Update AddSystemButton state
-                            UpdateAddSystemButtonState();
-                        }
-                        else // extraction fail
-                        {
-                            // Notify developer
-                            var formattedException = $"Emulator extraction failed.\n\n" +
-                                                     $"File: {downloadFilePath}";
-                            var ex = new Exception(formattedException);
-                            await LogErrors.LogErrorAsync(ex, formattedException);
-
-                            // Notify user
-                            MessageBoxLibrary.ExtractionFailedMessageBox();
-                        }
-                    }
-                    else // download fail
-                    {
-                        // Notify developer
-                        var formattedException = $"Emulator download failed.\n\n" +
-                                                 $"File: {downloadFilePath}";
-                        var ex = new Exception(formattedException);
-                        await LogErrors.LogErrorAsync(ex, formattedException);
-
-                        // Notify user
-                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                    }
-                }
-                catch (TaskCanceledException) // Download canceled
-                {
-                    TryDeleteFile(downloadFilePath);
-
-                    // Notify user
-                    MessageBoxLibrary.DownloadCanceledMessageBox();
-                }
-                catch (Exception ex) //Error downloading
-                {
-                    // Notify developer
-                    var formattedException = $"Error downloading emulator.\n\n" +
-                                             $"File: {downloadFilePath}" +
-                                             $"Exception type: {ex.GetType().Name}\n" +
-                                             $"Exception details: {ex.Message}";
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-
-                    // Notify user
-                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem, ex);
-                }
-                finally
-                {
-                    StopDownloadButton.IsEnabled = false;
-                    TryDeleteFile(downloadFilePath);
-                }
-            }
+            _isEmulatorDownloaded = true;
         }
-        catch (Exception ex)
+        else
         {
-            // Notify developer
-            var formattedException = $"General error downloading the emulator.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-
-            // Notify user
-            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            // Re-enable the button unless it was a successful download
+            DownloadEmulatorButton.IsEnabled = true;
         }
+
+        UpdateAddSystemButtonState();
     }
 
     private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
     {
-        try
+        DownloadCoreButton.IsEnabled = false;
+        _isCoreDownloaded = false;
+        UpdateAddSystemButtonState();
+
+        var success = await DownloadAndExtractAsync(DownloadType.Core);
+
+        if (success)
         {
-            _isDownloadCompleted = false;
             _isCoreDownloaded = true;
-            DownloadCoreButton.IsEnabled = false;
-            UpdateAddSystemButtonState();
-
-            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-            if (selectedSystem == null) return;
-
-            // string coreLocation = selectedSystem.Emulators.Emulator.CoreLocation;
-            var coreDownloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-            var emulatorsFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "emulators");
-            Directory.CreateDirectory(emulatorsFolderPath);
-            var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(coreDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get coreDownloadUrl"));
-            Directory.CreateDirectory(_tempFolder);
-            var destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-            // string latestVersionString = selectedSystem.Emulators.Emulator.CoreLatestVersion;
-
-            try
-            {
-                // Display progress bar
-                DownloadProgressBar.Visibility = Visibility.Visible;
-                DownloadProgressBar.Value = 0;
-                StopDownloadButton.IsEnabled = true;
-
-                // Initialize cancellation token source
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                await DownloadWithProgressAsync(coreDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-
-                // Only proceed with extraction if the download completed successfully
-                if (_isDownloadCompleted)
-                {
-                    // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                    pleaseWaitWindow.Show();
-
-                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
-
-                    // Close the PleaseWaitExtraction window
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                        // Clean up the downloaded file only if extraction is successful
-                        EditSystemEasyModeAddSystemWindow.TryDeleteFile(downloadFilePath);
-
-                        // Mark as downloaded and disable button
-                        _isCoreDownloaded = true;
-                        DownloadCoreButton.IsEnabled = false;
-
-                        // Update AddSystemButton state
-                        UpdateAddSystemButtonState();
-                    }
-                    else // extraction failed
-                    {
-                        // Notify developer
-                        var formattedException = $"Core extraction failed.\n\n" +
-                                                 $"File: {downloadFilePath}";
-                        var ex = new Exception(formattedException);
-                        await LogErrors.LogErrorAsync(ex, formattedException);
-
-                        // Notify user
-                        MessageBoxLibrary.ExtractionFailedMessageBox();
-                    }
-                }
-                else // download failed
-                {
-                    // Notify developer
-                    var formattedException = "Core download failed.";
-                    var ex = new Exception(formattedException);
-                    await LogErrors.LogErrorAsync(ex, formattedException);
-
-                    // Notify user
-                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                TryDeleteFile(downloadFilePath);
-
-                // Notify user
-                MessageBoxLibrary.DownloadCanceledMessageBox();
-            }
-            catch (Exception ex) //Error downloading
-            {
-                // Notify developer
-                var formattedException = $"Error downloading the core.\n\n" +
-                                         $"File: {downloadFilePath}" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
-
-                // Notify user
-                await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem, ex);
-            }
-            finally
-            {
-                StopDownloadButton.IsEnabled = false;
-                TryDeleteFile(downloadFilePath);
-            }
         }
-        catch (Exception ex)
+        else
         {
-            // Notify developer
-            var formattedException = $"General error downloading the core.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-
-            // Notify user
-            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            // Re-enable the button unless it was a successful download
+            DownloadCoreButton.IsEnabled = true;
         }
+
+        UpdateAddSystemButtonState();
     }
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
+        DownloadExtrasButton.IsEnabled = false;
+
+        var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
+
+        // Re-enable the button if not successful and not user-canceled
+        if (!success)
+        {
+            DownloadExtrasButton.IsEnabled = true;
+        }
+    }
+
+    private async Task<bool> DownloadAndExtractAsync(DownloadType downloadType)
+    {
+        _isDownloadCompleted = false;
+        _isUserCancellation = false; // Reset the cancellation flag
+        var selectedSystem = GetSelectedSystem();
+        if (selectedSystem == null) return false;
+
+        string downloadUrl;
+        string destinationPath;
+        string componentName;
+        string downloadFilePath;
+
+        // Configure based on the download type
+        switch (downloadType)
+        {
+            case DownloadType.Emulator:
+                downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
+                destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+                componentName = "Emulator";
+                break;
+            case DownloadType.Core:
+                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
+                destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+                componentName = "Core";
+                break;
+            case DownloadType.ImagePack:
+                downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+                destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+                componentName = "Image Pack";
+                break;
+            default:
+                return false;
+        }
+
+        // Ensure valid URL
+        if (string.IsNullOrEmpty(downloadUrl))
+        {
+            DownloadStatus = $"Error: No download URL for {componentName}";
+            return false;
+        }
+
+        // Setup download file path
         try
         {
-            // Reset the flag at the start of the download
-            _isDownloadCompleted = false;
-
-            var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-            if (selectedSystem == null) return;
-
-            var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-            var extrasFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images");
-            Directory.CreateDirectory(extrasFolderPath);
-            var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ?? throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
-            Directory.CreateDirectory(_tempFolder);
-            var destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-
-            try
-            {
-                // Display progress bar
-                DownloadProgressBar.Visibility = Visibility.Visible;
-                DownloadProgressBar.Value = 0;
-                StopDownloadButton.IsEnabled = true;
-
-                // Initialize cancellation token source
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                await DownloadWithProgressAsync(extrasDownloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-
-                // Only proceed with extraction if the download completed successfully
-                if (_isDownloadCompleted)
-                {
-                    // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                    pleaseWaitWindow.Show();
-
-                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
-
-                    // Close the PleaseWaitExtraction window
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                        // Clean up the downloaded file only if extraction is successful
-                        TryDeleteFile(downloadFilePath);
-
-                        // Mark as downloaded and disable button
-                        DownloadExtrasButton.IsEnabled = false;
-
-                        // Update AddSystemButton state
-                        UpdateAddSystemButtonState();
-                    }
-                    else // Extraction fail
-                    {
-                        // Notify developer
-                        var formattedException = $"Image Pack extraction failed.\n\n" +
-                                                 $"File: {extrasDownloadUrl}";
-                        var ex = new Exception(formattedException);
-                        await LogErrors.LogErrorAsync(ex, formattedException);
-
-                        // Notify user
-                        MessageBoxLibrary.ExtractionFailedMessageBox();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                var formattedException = $"Error downloading the Image Pack.\n\n" +
-                                         $"File: {downloadFilePath}" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
-
-                // Notify user
-                await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem, ex);
-            }
-            finally
-            {
-                StopDownloadButton.IsEnabled = false;
-                TryDeleteFile(downloadFilePath);
-            }
+            var fileName = Path.GetFileName(downloadUrl);
+            downloadFilePath = Path.Combine(_tempFolder, fileName);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            var formattedException = $"Generic error downloading the Image Pack.\n\n" +
+            await LogErrors.LogErrorAsync(ex, $"Error creating download path for {componentName}");
+            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            return false;
+        }
+
+        try
+        {
+            // Reset status
+            DownloadStatus = $"Preparing to download {componentName}...";
+
+            // Display progress bar
+            DownloadProgressBar.Visibility = Visibility.Visible;
+            DownloadProgressBar.Value = 0;
+            StopDownloadButton.IsEnabled = true;
+
+            // Initialize cancellation token source
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            // Start download
+            DownloadStatus = $"Downloading {componentName}...";
+            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, _cancellationTokenSource.Token);
+
+            // Only proceed with extraction if the download completed successfully
+            if (_isDownloadCompleted)
+            {
+                // Special handling for emulator download that might need extension change
+                if (downloadType == DownloadType.Emulator)
+                {
+                    downloadFilePath = ChangeFileExtensionFunction(selectedSystem, downloadFilePath);
+                }
+
+                // Show the extraction window
+                DownloadStatus = $"Extracting {componentName}...";
+                var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+                pleaseWaitWindow.Show();
+
+                var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+
+                // Close extraction window
+                pleaseWaitWindow.Close();
+
+                if (extractionSuccess)
+                {
+                    // Notify user of success
+                    DownloadStatus = $"{componentName} has been successfully downloaded and installed.";
+                    MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+
+                    // Clean up the downloaded file only if extraction is successful
+                    TryDeleteFile(downloadFilePath);
+                    return true;
+                }
+                else
+                {
+                    // Log extraction failure
+                    DownloadStatus = $"Error: Failed to extract {componentName}.";
+                    var formattedException = $"{componentName} extraction failed.\n\nFile: {downloadFilePath}";
+                    var ex = new Exception(formattedException);
+                    await LogErrors.LogErrorAsync(ex, formattedException);
+                    MessageBoxLibrary.ExtractionFailedMessageBox();
+                }
+            }
+            else if (!_isUserCancellation) // Only show error if not user-canceled
+            {
+                // Log download failure
+                DownloadStatus = $"Error: Failed to download {componentName}.";
+                var formattedException = $"{componentName} download failed.";
+                var ex = new Exception(formattedException);
+                await LogErrors.LogErrorAsync(ex, formattedException);
+                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            if (_isUserCancellation)
+            {
+                DownloadStatus = $"Download of {componentName} was canceled.";
+                // Don't show an error message for user cancellation
+            }
+            else
+            {
+                DownloadStatus = $"Error: Download timed out.";
+                await LogErrors.LogErrorAsync(new Exception("Download timed out"), "Download timed out");
+                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            }
+
+            TryDeleteFile(downloadFilePath);
+        }
+        catch (Exception ex)
+        {
+            // Log and notify about error
+            DownloadStatus = $"Error during {componentName} download process.";
+            var formattedException = $"Error downloading {componentName}.\n\n" +
+                                     $"File: {downloadFilePath}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
-            // Notify user
-            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+            // Show the appropriate error message based on the download type
+            switch (downloadType)
+            {
+                case DownloadType.Emulator:
+                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem, ex);
+                    break;
+                case DownloadType.Core:
+                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem, ex);
+                    break;
+                case DownloadType.ImagePack:
+                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem, ex);
+                    break;
+                default:
+                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                    break;
+            }
         }
+        finally
+        {
+            StopDownloadButton.IsEnabled = false;
+            TryDeleteFile(downloadFilePath);
+        }
+
+        return false;
+    }
+
+    private EasyModeSystemConfig GetSelectedSystem()
+    {
+        return SystemNameDropdown.SelectedItem != null
+            ? _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
+            : null;
     }
 
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
@@ -426,36 +342,68 @@ public partial class EditSystemEasyModeAddSystemWindow
             response.EnsureSuccessStatusCode();
 
             var totalBytes = response.Content.Headers.ContentLength;
+            var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
+            DownloadStatus = $"Starting download: {(totalMb > 0 ? $"{totalMb} MB total" : "size unknown")}";
+
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
             await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
             var buffer = new byte[8192];
             long totalBytesRead = 0;
             int bytesRead;
 
+            // For throttling UI updates
+            var lastUpdateTime = DateTime.Now;
+            const int updateIntervalMs = 100; // Update UI every 100 ms
+
             while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
             {
                 await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                 totalBytesRead += bytesRead;
 
-                if (totalBytes.HasValue)
+                // Only update UI if enough time has passed since the last update
+                var now = DateTime.Now;
+                if ((now - lastUpdateTime).TotalMilliseconds >= updateIntervalMs)
                 {
-                    DownloadProgressBar.Value = (double)totalBytesRead / totalBytes.Value * 100;
+                    lastUpdateTime = now;
+
+                    if (totalBytes.HasValue)
+                    {
+                        var progress = (double)totalBytesRead / totalBytes.Value * 100;
+                        DownloadProgressBar.Value = progress;
+                        var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
+                        DownloadStatus = $"Downloaded {downloadedMb} MB of {totalMb} MB ({progress:F1}%)";
+                    }
+                    else
+                    {
+                        var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
+                        DownloadStatus = $"Downloaded {downloadedMb} MB (total size unknown)";
+                    }
                 }
             }
 
             // Check if the file was fully downloaded
-            if (totalBytesRead == totalBytes)
+            if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
             {
                 _isDownloadCompleted = true;
+                DownloadStatus = $"Download complete: {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
+            }
+            else if (totalBytes.HasValue)
+            {
+                _isDownloadCompleted = false;
+                DownloadStatus = "Download incomplete. Downloaded bytes do not match expected file size.";
+                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
             else
             {
-                _isDownloadCompleted = false;
-                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
+                // If we don't know the total size, assume it's complete
+                _isDownloadCompleted = true;
+                DownloadStatus = $"Download complete: {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
             }
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
+            DownloadStatus = "Error: The requested file was not found on the server.";
+
             // Notify developer
             var formattedException = $"The requested file was not available on the server.\n\n" +
                                      $"URL: {downloadUrl}\n" +
@@ -468,6 +416,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (HttpRequestException ex)
         {
+            DownloadStatus = "Error: Network error during file download.";
+
             // Notify developer
             var formattedException = $"Network error during file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
@@ -480,6 +430,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (IOException ex)
         {
+            DownloadStatus = "Error: File read/write error during download.";
+
             // Notify developer
             var formattedException = $"File read/write error after file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
@@ -492,20 +444,21 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (TaskCanceledException ex)
         {
-            if (cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested && _isUserCancellation)
             {
-                // Notify developer
-                var formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
+                DownloadStatus = "Download canceled by user.";
+
+                // Notify the developer without showing the user message
+                var formattedException = $"Download was canceled by the user.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, formattedException);
-
-                // Notify user
-                // Ignore
             }
             else
             {
+                DownloadStatus = "Error: Download timed out or was canceled unexpectedly.";
+
                 // Notify developer
                 var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
                                          $"URL: {downloadUrl}\n" +
@@ -522,6 +475,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
+            DownloadStatus = "Error: Unexpected error during download.";
+
             // Notify developer
             var formattedException = $"Generic download error.\n\n" +
                                      $"URL: {downloadUrl}\n" +
@@ -538,6 +493,10 @@ public partial class EditSystemEasyModeAddSystemWindow
     {
         if (_cancellationTokenSource != null)
         {
+            // Set flag to indicate this is a user-initiated cancellation
+            _isUserCancellation = true;
+
+            DownloadStatus = "Canceling download...";
             _cancellationTokenSource.Cancel(); // Cancel the ongoing download
             StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
 
@@ -547,12 +506,15 @@ public partial class EditSystemEasyModeAddSystemWindow
 
             // Reinitialize the cancellation token source for the next download
             _cancellationTokenSource = new CancellationTokenSource();
+
+            // The relevant download button will be re-enabled in the finally block
+            // of the download method when it catches the TaskCanceledException
         }
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return;
 
         // Determine the system folder to use
@@ -574,6 +536,8 @@ public partial class EditSystemEasyModeAddSystemWindow
 
         try
         {
+            DownloadStatus = "Adding system to configuration...";
+
             // Load existing system configurations
             var xmlDoc = XDocument.Load(systemXmlPath);
             var systemConfigs = xmlDoc.Descendants("SystemConfig").ToList();
@@ -635,8 +599,12 @@ public partial class EditSystemEasyModeAddSystemWindow
             // Save the updated XML document
             xmlDoc.Save(systemXmlPath);
 
+            DownloadStatus = "Creating system folders...";
+
             // Create the necessary folders for the system
             CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
+
+            DownloadStatus = "System has been successfully added!";
 
             // Notify user
             MessageBoxLibrary.SystemAddedMessageBox(systemFolder, fullImageFolderPathForMessage, selectedSystem);
@@ -646,6 +614,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
         catch (Exception ex)
         {
+            DownloadStatus = "Error: Failed to add system.";
+
             // Notify developer
             var formattedException = $"Error adding system.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
@@ -667,7 +637,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         // Paths for the primary system folder and image folder
-        var systemFolderPath = Path.Combine(baseDirectory, systemFolder);
+        var systemFolderPath = Path.GetFullPath(systemFolder);
         var imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
 
         // List of additional folders to create
@@ -755,7 +725,7 @@ public partial class EditSystemEasyModeAddSystemWindow
 
     private static void TryDeleteFile(string file)
     {
-        if (!File.Exists(file)) return;
+        if (string.IsNullOrEmpty(file) || !File.Exists(file)) return;
         try
         {
             File.Delete(file);
@@ -776,17 +746,12 @@ public partial class EditSystemEasyModeAddSystemWindow
             try
             {
                 File.Move(downloadFilePath, newFilePath);
+                return newFilePath;
             }
             catch (Exception)
             {
                 // ignore
             }
-        }
-
-        if (!File.Exists(newFilePath))
-        {
-            // Update the downloadFilePath to the new file path
-            downloadFilePath = newFilePath;
         }
 
         return downloadFilePath;
