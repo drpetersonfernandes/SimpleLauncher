@@ -485,7 +485,7 @@
         <SystemName>Casio PV-1000</SystemName>
         <SystemFolder>.\roms\Casio PV-1000</SystemFolder>
         <SystemImageFolder>.\images\Casio PV-1000</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
+        <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7z</FormatToSearch>

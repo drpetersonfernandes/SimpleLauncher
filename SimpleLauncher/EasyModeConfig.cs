@@ -85,7 +85,7 @@ public class EasyModeSystemConfig
     public string SystemFolder { get; set; }
     public string SystemImageFolder { get; set; }
 
-    [XmlElement("SystemIsMame")]
+    [XmlElement("SystemIsMAME")]
     public bool? SystemIsMameNullable { get; set; }
 
     [XmlIgnore]

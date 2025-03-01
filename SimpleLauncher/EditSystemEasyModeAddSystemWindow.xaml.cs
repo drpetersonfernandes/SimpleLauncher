@@ -598,10 +598,10 @@ public partial class EditSystemEasyModeAddSystemWindow
                 existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
                 existingSystem.SetElementValue("SystemFolder", systemFolder);
                 existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
-                existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame);
+                existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
                 existingSystem.Element("FileFormatsToSearch")?.Remove();
                 existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))));
-                existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch);
+                existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
                 existingSystem.Element("FileFormatsToLaunch")?.Remove();
                 existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(format => new XElement("FormatToLaunch", format))));
                 existingSystem.Element("Emulators")?.Remove();
@@ -620,9 +620,9 @@ public partial class EditSystemEasyModeAddSystemWindow
                     new XElement("SystemName", selectedSystem.SystemName),
                     new XElement("SystemFolder", systemFolder),
                     new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
-                    new XElement("SystemIsMAME", selectedSystem.SystemIsMame),
+                    new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
                     new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))),
-                    new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch),
+                    new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
                     new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(format => new XElement("FormatToLaunch", format))),
                     new XElement("Emulators",
                         new XElement("Emulator",
