@@ -245,7 +245,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                 var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                 pleaseWaitWindow.Show();
 
-                var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, destinationPath);
+                var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
 
                 // Close extraction window
                 pleaseWaitWindow.Close();

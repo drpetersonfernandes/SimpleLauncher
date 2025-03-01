@@ -136,7 +136,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync2(downloadFilePath, extractionFolder);
+                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync(downloadFilePath, extractionFolder);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
