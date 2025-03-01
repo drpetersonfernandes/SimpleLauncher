@@ -8,8 +8,8 @@ namespace CreateBatchFilesForPS3Games2.Interfaces
     public interface IBatchFileService
     {
         Task<int> CreateBatchFilesAsync(
-            BatchCreationOptions options, 
-            IProgress<BatchCreationProgress>? progress = null, 
+            BatchCreationOptions options,
+            IProgress<BatchCreationProgress>? progress = null,
             CancellationToken cancellationToken = default);
     }
 }

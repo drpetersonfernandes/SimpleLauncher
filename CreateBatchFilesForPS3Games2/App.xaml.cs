@@ -24,10 +24,10 @@ namespace CreateBatchFilesForPS3Games2
             services.AddSingleton<ILogger, Logger>();
             services.AddSingleton<ISfoParser, SfoParser>();
             services.AddSingleton<IBatchFileService, BatchFileService>();
-            
+
             // Register ViewModels
             services.AddSingleton<MainViewModel>();
-            
+
             // Register Views
             services.AddSingleton<MainWindow>();
         }
