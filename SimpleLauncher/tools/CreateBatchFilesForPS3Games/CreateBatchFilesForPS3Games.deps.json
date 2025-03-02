@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "CreateBatchFilesForScummVMGames/1.0.0": {
+      "CreateBatchFilesForPS3Games/1.0.0": {
         "runtime": {
-          "CreateBatchFilesForScummVMGames.dll": {}
+          "CreateBatchFilesForPS3Games.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "CreateBatchFilesForScummVMGames/1.0.0": {
+    "CreateBatchFilesForPS3Games/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

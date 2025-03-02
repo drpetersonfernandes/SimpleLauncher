@@ -1,0 +1,52 @@
+<Window x:Class="CreateBatchFilesForScummVMGames.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Batch File Creator for ScummVM Games"
+        Height="500" Width="800"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- ScummVM Path Selection -->
+        <Grid Grid.Row="0" Margin="10,10,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="ScummVM Path:" VerticalAlignment="Center"/>
+            <TextBox x:Name="ScummVmPathTextBox" Grid.Column="1" Margin="5,0,5,0" Padding="5" IsReadOnly="True"/>
+            <Button x:Name="BrowseScummVmButton" Grid.Column="2" Content="Browse" Click="BrowseScummVMButton_Click" Padding="10,5"/>
+        </Grid>
+        
+        <!-- Game Folder Selection -->
+        <Grid Grid.Row="1" Margin="10,5,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Games Folder:" VerticalAlignment="Center"/>
+            <TextBox x:Name="GameFolderTextBox" Grid.Column="1" Margin="5,0,5,0" Padding="5" IsReadOnly="True"/>
+            <Button x:Name="BrowseFolderButton" Grid.Column="2" Content="Browse" Click="BrowseFolderButton_Click" Padding="10,5"/>
+        </Grid>
+        
+        <!-- Create Batch Files Button -->
+        <Button x:Name="CreateBatchFilesButton" Grid.Row="2" Content="Create Batch Files" Click="CreateBatchFilesButton_Click" 
+                Margin="10,10,10,15" Padding="15,8" HorizontalAlignment="Center" FontWeight="Bold"/>
+        
+        <!-- Log TextBox -->
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="3"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Visible"
+                 IsReadOnly="True"
+                 Margin="10"
+                 FontFamily="Consolas"/>
+    </Grid>
+</Window>
