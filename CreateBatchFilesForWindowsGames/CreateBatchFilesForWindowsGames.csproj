@@ -5,28 +5,19 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>CreateBatchFilesForWindowsGames.Program</StartupObject>
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
-    <RepositoryType>git</RepositoryType>
-    <UseWindowsForms>True</UseWindowsForms>
+    <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <IsPackable>false</IsPackable>
     <RootNamespace>CreateBatchFilesForWindowsGames</RootNamespace>
     <IsPackable>false</IsPackable>
     <LangVersion>13</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon\icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="LogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Resource Include="icon\icon.ico" />
+    <Resource Include="icon\icon.png" />
   </ItemGroup>
 
 </Project>
