@@ -3,10 +3,10 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using CreateBatchFilesForPS3Games2.Interfaces;
-using CreateBatchFilesForPS3Games2.Models;
+using CreateBatchFilesForPS3Games.Interfaces;
+using CreateBatchFilesForPS3Games.Models;
 
-namespace CreateBatchFilesForPS3Games2.Services
+namespace CreateBatchFilesForPS3Games.Services
 {
     public class BatchFileService : IBatchFileService
     {

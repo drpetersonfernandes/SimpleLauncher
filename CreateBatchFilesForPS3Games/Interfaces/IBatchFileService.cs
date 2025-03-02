@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CreateBatchFilesForPS3Games2.Models;
+using CreateBatchFilesForPS3Games.Models;
 
-namespace CreateBatchFilesForPS3Games2.Interfaces
+namespace CreateBatchFilesForPS3Games.Interfaces
 {
     public interface IBatchFileService
     {

@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CreateBatchFilesForPS3Games2.ViewModels
+namespace CreateBatchFilesForPS3Games.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

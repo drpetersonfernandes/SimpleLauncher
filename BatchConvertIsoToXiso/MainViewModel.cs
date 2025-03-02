@@ -404,10 +404,12 @@ namespace BatchConvertIsoToXiso
                 var token = _cancellationTokenSource.Token;
                 await using (token.Register(() =>
                              {
+                                 // ReSharper disable once AccessToDisposedClosure
                                  if (!process.HasExited)
                                  {
                                      try
                                      {
+                                         // ReSharper disable once AccessToDisposedClosure
                                          process.Kill();
                                      }
                                      catch

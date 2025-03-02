@@ -1,4 +1,4 @@
-namespace CreateBatchFilesForPS3Games2.Models
+namespace CreateBatchFilesForPS3Games.Models
 {
     public class BatchCreationOptions
     {

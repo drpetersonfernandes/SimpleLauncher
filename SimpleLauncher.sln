@@ -36,8 +36,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToZip", "BatchC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertIsoToXiso", "BatchConvertIsoToXiso\BatchConvertIsoToXiso.csproj", "{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForPS3Games2", "CreateBatchFilesForPS3Games2\CreateBatchFilesForPS3Games2.csproj", "{68986BB5-267B-4A97-91AD-635E007CA5F9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,10 +86,6 @@ Global
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68986BB5-267B-4A97-91AD-635E007CA5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68986BB5-267B-4A97-91AD-635E007CA5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68986BB5-267B-4A97-91AD-635E007CA5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68986BB5-267B-4A97-91AD-635E007CA5F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

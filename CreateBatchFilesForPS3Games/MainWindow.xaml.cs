@@ -1,6 +1,6 @@
-﻿using CreateBatchFilesForPS3Games2.ViewModels;
+﻿using CreateBatchFilesForPS3Games.ViewModels;
 
-namespace CreateBatchFilesForPS3Games2
+namespace CreateBatchFilesForPS3Games
 {
     public partial class MainWindow
     {

@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using CreateBatchFilesForPS3Games2.Interfaces;
-using CreateBatchFilesForPS3Games2.Services;
-using CreateBatchFilesForPS3Games2.ViewModels;
+using CreateBatchFilesForPS3Games.Interfaces;
+using CreateBatchFilesForPS3Games.Services;
+using CreateBatchFilesForPS3Games.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CreateBatchFilesForPS3Games2
+namespace CreateBatchFilesForPS3Games
 {
     public partial class App
     {

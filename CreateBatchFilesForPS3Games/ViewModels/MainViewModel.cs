@@ -2,10 +2,10 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using CreateBatchFilesForPS3Games2.Interfaces;
-using CreateBatchFilesForPS3Games2.Models;
+using CreateBatchFilesForPS3Games.Interfaces;
+using CreateBatchFilesForPS3Games.Models;
 
-namespace CreateBatchFilesForPS3Games2.ViewModels
+namespace CreateBatchFilesForPS3Games.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
@@ -22,13 +22,13 @@ namespace CreateBatchFilesForPS3Games2.ViewModels
         private int _progressValue;
         private bool _isProcessing;
 
-        public string GameFolderPath
+        private string GameFolderPath
         {
             get => _gameFolderPath;
             set => SetProperty(ref _gameFolderPath, value);
         }
 
-        public string Rpcs3Path
+        private string Rpcs3Path
         {
             get => _rpcs3Path;
             set => SetProperty(ref _rpcs3Path, value);
@@ -46,7 +46,7 @@ namespace CreateBatchFilesForPS3Games2.ViewModels
             set => SetProperty(ref _overwriteExistingFiles, value);
         }
 
-        public string LogContent
+        private string LogContent
         {
             get => _logContent;
             set => SetProperty(ref _logContent, value);
@@ -64,7 +64,7 @@ namespace CreateBatchFilesForPS3Games2.ViewModels
             set => SetProperty(ref _progressValue, value);
         }
 
-        public bool IsProcessing
+        private bool IsProcessing
         {
             get => _isProcessing;
             set

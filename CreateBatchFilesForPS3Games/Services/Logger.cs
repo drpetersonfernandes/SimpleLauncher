@@ -1,7 +1,7 @@
 using System;
-using CreateBatchFilesForPS3Games2.Interfaces;
+using CreateBatchFilesForPS3Games.Interfaces;
 
-namespace CreateBatchFilesForPS3Games2.Services
+namespace CreateBatchFilesForPS3Games.Services
 {
     public class Logger : ILogger
     {

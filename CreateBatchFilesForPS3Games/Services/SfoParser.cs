@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using CreateBatchFilesForPS3Games2.Interfaces;
+using CreateBatchFilesForPS3Games.Interfaces;
 
-namespace CreateBatchFilesForPS3Games2.Services
+namespace CreateBatchFilesForPS3Games.Services
 {
     public class SfoParser : ISfoParser
     {

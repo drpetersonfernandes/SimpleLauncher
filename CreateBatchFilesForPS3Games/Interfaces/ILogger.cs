@@ -1,6 +1,6 @@
 using System;
 
-namespace CreateBatchFilesForPS3Games2.Interfaces
+namespace CreateBatchFilesForPS3Games.Interfaces
 {
     public interface ILogger
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CreateBatchFilesForPS3Games2.Interfaces
+namespace CreateBatchFilesForPS3Games.Interfaces
 {
     public interface ISfoParser
     {
