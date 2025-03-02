@@ -178,7 +178,7 @@ namespace BatchConvertIsoToXiso
 
                 AppendLog($"Output folder selected: {outputFolder}");
 
-                // Confirm deletion option
+                // Confirm the deletion option
                 StatusText = "Confirming options...";
                 var deleteFiles = await Application.Current.Dispatcher.InvokeAsync(() =>
                     MessageBox.Show("Delete original ISO files after successful conversion?",
@@ -423,10 +423,16 @@ namespace BatchConvertIsoToXiso
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
 
-                    // Wait for the process to complete with a timeout
-                    if (!await Task.Run(() => process.WaitForExit(60000), token))
+                    // Wait for the process to complete
+                    var exited = await Task.Run(() =>
                     {
-                        progress.Report("Process timeout: Conversion took too long");
+                        process.WaitForExit();
+                        return !process.HasExited;
+                    }, token);
+
+                    if (exited)
+                    {
+                        progress.Report("Process cancelled");
                         try
                         {
                             process.Kill();
