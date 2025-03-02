@@ -1,37 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>CreateBatchFilesForXbox360XBLAGames.Program</StartupObject>
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
-    <RepositoryType>git</RepositoryType>
-    <UseWindowsForms>True</UseWindowsForms>
+    <AssemblyVersion>1.2</AssemblyVersion>
+    <FileVersion>1.2</FileVersion>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <IsPackable>false</IsPackable>
     <LangVersion>13</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <Content Include="icon\icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="icon\icon.ico" />
     <Resource Include="icon\icon.ico" />
-    <None Remove="icon\icon.png" />
     <Resource Include="icon\icon.png" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="LogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-
 </Project>
