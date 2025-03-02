@@ -741,7 +741,7 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        var formattedException = "systemConfig is null for the selected favorite";
+        const string formattedException = "systemConfig is null for the selected favorite";
         Exception ex = new(formattedException);
         LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
@@ -756,7 +756,7 @@ public partial class FavoritesWindow
         if (selectedFavorite.FileName != null) return false;
 
         // Notify developer
-        var formattedException = "Favorite filename is null";
+        const string formattedException = "Favorite filename is null";
         Exception ex = new(formattedException);
         LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
@@ -795,7 +795,7 @@ public partial class FavoritesWindow
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        var formattedException = $"emulatorConfig is null.";
+        const string formattedException = $"emulatorConfig is null.";
         Exception ex = new(formattedException);
         await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -810,7 +810,7 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        var formattedException = $"systemConfig is null.";
+        const string formattedException = $"systemConfig is null.";
         Exception ex = new(formattedException);
         await LogErrors.LogErrorAsync(ex, formattedException);
 

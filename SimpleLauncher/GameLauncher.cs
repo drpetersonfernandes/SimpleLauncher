@@ -620,7 +620,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            var formattedException = "Invalid Operation Exception";
+            const string formattedException = "Invalid Operation Exception";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
@@ -748,7 +748,7 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            var formattedException = $"Invalid Operation Exception.";
+            const string formattedException = $"Invalid Operation Exception.";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user
@@ -831,7 +831,7 @@ public static class GameLauncher
             if (systemConfig.FileFormatsToLaunch == null)
             {
                 // Notify developer
-                var formattedException = "FileFormatsToLaunch is null.";
+                const string formattedException = "FileFormatsToLaunch is null.";
                 Exception ex = new(formattedException);
                 await LogErrors.LogErrorAsync(ex, formattedException);
 
@@ -951,7 +951,7 @@ public static class GameLauncher
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        var errorMessage = $"emulatorConfig is null.";
+        const string errorMessage = $"emulatorConfig is null.";
         Exception exception = new(errorMessage);
         await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -966,7 +966,7 @@ public static class GameLauncher
         if (systemConfig != null) return false;
 
         // Notify developer
-        var errorMessage = "systemConfig is null.";
+        const string errorMessage = "systemConfig is null.";
         Exception exception = new(errorMessage);
         await LogErrors.LogErrorAsync(exception, errorMessage);
 
@@ -1050,7 +1050,7 @@ public static class GameLauncher
         if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath)) return false;
 
         // Notify developer
-        var errorMessage = "Invalid filePath.";
+        const string errorMessage = "Invalid filePath.";
         Exception ex = new();
         LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
 
@@ -1065,7 +1065,7 @@ public static class GameLauncher
         if (systemComboBox.SelectedItem != null) return false;
 
         // Notify developer
-        var errorMessage = "Invalid system.";
+        const string errorMessage = "Invalid system.";
         Exception ex = new();
         LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
 
@@ -1080,7 +1080,7 @@ public static class GameLauncher
         if (emulatorComboBox.SelectedItem != null) return false;
 
         // Notify developer
-        var errorMessage = "Invalid emulator.";
+        const string errorMessage = "Invalid emulator.";
         Exception ex = new();
         LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
 

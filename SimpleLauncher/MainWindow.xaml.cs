@@ -1331,7 +1331,7 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                var formattedException = "'BatchConvertToZip.exe' was not found.";
+                const string formattedException = "'BatchConvertToZip.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 
@@ -1369,7 +1369,7 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                var formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
+                const string formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
                 var ex = new Exception(formattedException);
                 LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
 

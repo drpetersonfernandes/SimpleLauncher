@@ -176,7 +176,7 @@ public partial class UpdateForm : Form
         var result = MessageBox.Show(message, "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
         if (result == DialogResult.Yes)
         {
-            var downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+            const string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
             Process.Start(new ProcessStartInfo
             {
                 FileName = downloadPageUrl,
