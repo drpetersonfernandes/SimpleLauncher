@@ -1,0 +1,52 @@
+<Window x:Class="CreateBatchFilesForPS3Games.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Batch File Creator for PS3 Games"
+        Height="500" Width="800"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- RPCS3 Path Selection -->
+        <Grid Grid.Row="0" Margin="10,10,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="RPCS3 Path:" VerticalAlignment="Center"/>
+            <TextBox x:Name="Rpcs3PathTextBox" Grid.Column="1" Margin="5,0,5,0" Padding="5" IsReadOnly="True"/>
+            <Button x:Name="BrowseRpcs3Button" Grid.Column="2" Content="Browse" Click="BrowseRPCS3Button_Click" Padding="10,5"/>
+        </Grid>
+        
+        <!-- Game Folder Selection -->
+        <Grid Grid.Row="1" Margin="10,5,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Games Folder:" VerticalAlignment="Center"/>
+            <TextBox x:Name="GameFolderTextBox" Grid.Column="1" Margin="5,0,5,0" Padding="5" IsReadOnly="True"/>
+            <Button x:Name="BrowseFolderButton" Grid.Column="2" Content="Browse" Click="BrowseFolderButton_Click" Padding="10,5"/>
+        </Grid>
+        
+        <!-- Create Batch Files Button -->
+        <Button x:Name="CreateBatchFilesButton" Grid.Row="2" Content="Create Batch Files" Click="CreateBatchFilesButton_Click" 
+                Margin="10,10,10,15" Padding="15,8" HorizontalAlignment="Center" FontWeight="Bold"/>
+        
+        <!-- Log TextBox -->
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="3"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Visible"
+                 IsReadOnly="True"
+                 Margin="10"
+                 FontFamily="Consolas"/>
+    </Grid>
+</Window>

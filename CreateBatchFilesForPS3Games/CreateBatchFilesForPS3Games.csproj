@@ -5,12 +5,8 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>CreateBatchFilesForPS3Games.Program</StartupObject>
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
-    <PackageIcon></PackageIcon>
-    <RepositoryType>git</RepositoryType>
-    <UseWindowsForms>True</UseWindowsForms>
+    <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AssemblyVersion>1.1</AssemblyVersion>
     <FileVersion>1.1</FileVersion>
@@ -21,14 +17,7 @@
 
   <ItemGroup>
     <Resource Include="icon\icon.ico" />
-    <None Remove="icon\icon.png" />
     <Resource Include="icon\icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="LogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>
