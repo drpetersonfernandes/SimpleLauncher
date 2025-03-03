@@ -1,3 +1,10 @@
+release3.10.1
+-------------
+
+03/02/2025
+- Fixed some bugs.
+- Enhanced methods and functions to improve efficiency and reduce errors.
+
 release3.10
 ------------
 
