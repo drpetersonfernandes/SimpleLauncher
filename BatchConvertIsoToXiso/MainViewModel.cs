@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using Application = System.Windows.Application;
@@ -220,15 +219,16 @@ public class MainViewModel : INotifyPropertyChanged
     {
         return await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            using var dialog = new FolderBrowserDialog();
-            dialog.Description = description;
-            dialog.UseDescriptionForTitle = true;
-            dialog.ShowNewFolderButton = true;
+            var dialog = new Microsoft.Win32.OpenFolderDialog
+            {
+                Title = description,
+                Multiselect = false
+            };
 
             AppendLog($"Opening folder dialog: {description}");
 
-            return dialog.ShowDialog() == DialogResult.OK
-                ? dialog.SelectedPath
+            return dialog.ShowDialog() == true
+                ? dialog.FolderName
                 : string.Empty;
         });
     }
