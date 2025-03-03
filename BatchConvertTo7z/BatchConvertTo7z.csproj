@@ -10,10 +10,6 @@
     </PropertyGroup>
 
 <ItemGroup>
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
-</ItemGroup>
-
-<ItemGroup>
   <None Update="7z.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>

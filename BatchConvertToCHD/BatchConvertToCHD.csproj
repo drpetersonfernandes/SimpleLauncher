@@ -13,10 +13,6 @@
     </PropertyGroup>
 
 <ItemGroup>
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
-</ItemGroup>
-
-<ItemGroup>
   <None Update="chdman.exe">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
