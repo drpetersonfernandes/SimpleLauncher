@@ -172,7 +172,7 @@ public partial class MainWindow
                 }
 
                 var inputFile = files[i];
-                var fileName = Path.GetFileName(inputFile);
+                var fileName = Path.GetFileNameWithoutExtension(inputFile);
                 var outputFile = Path.Combine(outputFolder, fileName + ".zip");
 
                 if (File.Exists(outputFile))
