@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">다운로드 완료</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">사용자가 다운로드를 취소했습니다</system:String>
     
+    <system:String x:Key="RetryingDownload">SSL 연결 오류, 재시도 중...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS 연결 문제. 대체 연결 방법을 시도 중...</system:String>
+    <system:String x:Key="FallbackDownload">대체 연결을 사용 중:</system:String>
+    
 </ResourceDictionary>

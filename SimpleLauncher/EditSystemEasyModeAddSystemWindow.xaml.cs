@@ -183,8 +183,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                     throw; // Re-throw if max retries reached
 
                 // Log retry attempt
-                var retryAttempt = (string)Application.Current.TryFindResource("RetryingDownload") ??
-                                   $"SSL connection error, retrying ({currentRetry}/{maxRetries})...";
+                var retryAttempt = (string)Application.Current.TryFindResource("RetryingDownload") ?? $"SSL connection error, retrying ({currentRetry}/{maxRetries})...";
                 DownloadStatus = retryAttempt;
 
                 // Wait before retrying
@@ -561,8 +560,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                                                ioEx.Message.Contains("decryption operation failed")))
         {
             // Handle SSL/TLS errors with fallback method
-            var errorSslConnection = (string)Application.Current.TryFindResource("ErrorSSLConnection") ??
-                                     "SSL/TLS connection issue. Trying alternate connection method...";
+            var errorSslConnection = (string)Application.Current.TryFindResource("ErrorSSLConnection") ?? "SSL/TLS connection issue. Trying alternate connection method...";
             DownloadStatus = errorSslConnection;
 
             // Notify developer

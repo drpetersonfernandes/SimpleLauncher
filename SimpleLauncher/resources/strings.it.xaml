@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">Download completato</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download annullato dall'utente</system:String>
     
+    <system:String x:Key="RetryingDownload">Errore di connessione SSL, riprovando...</system:String>
+    <system:String x:Key="ErrorSSLConnection">Problema di connessione SSL/TLS. Tentativo di metodo di connessione alternativo...</system:String>
+    <system:String x:Key="FallbackDownload">Utilizzo del metodo di connessione di riserva:</system:String>
+    
 </ResourceDictionary>

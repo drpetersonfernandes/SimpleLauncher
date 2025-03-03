@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">بدء التحميل</system:String>
     <system:String x:Key="Downloadcomplete2">اكتمل التحميل</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">تم إلغاء التحميل بواسطة المستخدم</system:String>
+    
+    <system:String x:Key="RetryingDownload">خطأ في اتصال SSL، إعادة المحاولة...</system:String>
+    <system:String x:Key="ErrorSSLConnection">مشكلة في اتصال SSL/TLS. محاولة طريقة اتصال بديلة...</system:String>
+    <system:String x:Key="FallbackDownload">استخدام طريقة اتصال احتياطية:</system:String>
 
 </ResourceDictionary>

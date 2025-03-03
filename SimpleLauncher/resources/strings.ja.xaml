@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">ダウンロード完了</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">ユーザーによってダウンロードがキャンセルされました</system:String>
     
+    <system:String x:Key="RetryingDownload">SSL接続エラー、再試行中...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS接続の問題。代替接続方法を試しています...</system:String>
+    <system:String x:Key="FallbackDownload">フォールバック接続を使用しています：</system:String>
+    
 </ResourceDictionary>

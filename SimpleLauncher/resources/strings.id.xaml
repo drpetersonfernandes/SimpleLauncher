@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">Memulai unduhan</system:String>
     <system:String x:Key="Downloadcomplete2">Unduhan selesai</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Unduhan dibatalkan oleh pengguna</system:String>
+    
+    <system:String x:Key="RetryingDownload">Kesalahan koneksi SSL, mencoba kembali...</system:String>
+    <system:String x:Key="ErrorSSLConnection">Masalah koneksi SSL/TLS. Mencoba metode koneksi alternatif...</system:String>
+    <system:String x:Key="FallbackDownload">Menggunakan metode koneksi cadangan:</system:String>
 
 </ResourceDictionary>

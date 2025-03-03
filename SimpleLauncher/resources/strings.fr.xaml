@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">Début du téléchargement</system:String>
     <system:String x:Key="Downloadcomplete2">Téléchargement terminé</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Téléchargement annulé par l'utilisateur</system:String>
+    
+    <system:String x:Key="RetryingDownload">Erreur de connexion SSL, nouvelle tentative...</system:String>
+    <system:String x:Key="ErrorSSLConnection">Problème de connexion SSL/TLS. Tentative d'une méthode de connexion alternative...</system:String>
+    <system:String x:Key="FallbackDownload">Utilisation de la méthode de connexion de secours :</system:String>
 
 </ResourceDictionary>

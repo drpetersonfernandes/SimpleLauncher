@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">ডাউনলোড শুরু হচ্ছে</system:String>
     <system:String x:Key="Downloadcomplete2">ডাউনলোড সম্পন্ন হয়েছে</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">ব্যবহারকারী দ্বারা ডাউনলোড বাতিল করা হয়েছে</system:String>
+    
+    <system:String x:Key="RetryingDownload">SSL সংযোগ ত্রুটি, পুনরায় চেষ্টা করা হচ্ছে...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS সংযোগ সমস্যার কারণে বিকল্প সংযোগ পদ্ধতি চেষ্টা করা হচ্ছে...</system:String>
+    <system:String x:Key="FallbackDownload">বিকল্প সংযোগ ব্যবহার করা হচ্ছে:</system:String>
 
 </ResourceDictionary>

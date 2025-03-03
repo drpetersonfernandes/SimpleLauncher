@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">Download voltooid</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download door gebruiker geannuleerd</system:String>
     
+    <system:String x:Key="RetryingDownload">SSL-verbinding fouten, opnieuw proberen...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS-verbinding probleem. Proberen alternatieve verbindingsmethode...</system:String>
+    <system:String x:Key="FallbackDownload">Gebruik van alternatieve verbinding:</system:String>
+    
 </ResourceDictionary>

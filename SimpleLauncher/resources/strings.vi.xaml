@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">Đang bắt đầu tải xuống</system:String>
     <system:String x:Key="Downloadcomplete2">Tải xuống hoàn tất</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Tải xuống bị người dùng hủy bỏ</system:String>
+    
+    <system:String x:Key="RetryingDownload">Lỗi kết nối SSL, đang thử lại...</system:String>
+    <system:String x:Key="ErrorSSLConnection">Vấn đề kết nối SSL/TLS. Đang thử phương thức kết nối thay thế...</system:String>
+    <system:String x:Key="FallbackDownload">Sử dụng phương thức kết nối dự phòng:</system:String>
 
 </ResourceDictionary>

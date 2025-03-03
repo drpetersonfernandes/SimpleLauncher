@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">ڈاؤن لوڈ شروع ہو رہا ہے</system:String>
     <system:String x:Key="Downloadcomplete2">ڈاؤن لوڈ مکمل ہوا</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">ڈاؤن لوڈ صارف کے ذریعے منسوخ کیا گیا</system:String>
+    
+    <system:String x:Key="RetryingDownload">SSL کنکشن کی خرابی، دوبارہ کوشش کی جا رہی ہے...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS کنکشن میں مسئلہ۔ متبادل کنکشن طریقہ کار آزما رہا ہے...</system:String>
+    <system:String x:Key="FallbackDownload">متبادل کنکشن استعمال کیا جا رہا ہے:</system:String>
 
 </ResourceDictionary>

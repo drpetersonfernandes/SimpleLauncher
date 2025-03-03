@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">Download complete</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download canceled by user</system:String>
     
+    <system:String x:Key="RetryingDownload">SSL connection error, retrying...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS connection issue. Trying alternate connection method...</system:String>
+    <system:String x:Key="FallbackDownload">Using fallback connection:</system:String>
+    
 </ResourceDictionary>

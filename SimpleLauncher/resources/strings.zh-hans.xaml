@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">开始下载</system:String>
     <system:String x:Key="Downloadcomplete2">下载完成</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">用户取消下载</system:String>
+    
+    <system:String x:Key="RetryingDownload">SSL连接错误，正在重试...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS连接问题。正在尝试替代连接方法...</system:String>
+    <system:String x:Key="FallbackDownload">使用备用连接：</system:String>
 
 </ResourceDictionary>

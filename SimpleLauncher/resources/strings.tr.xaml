@@ -567,5 +567,9 @@
     <system:String x:Key="Startingdownload2">İndirme başlatılıyor</system:String>
     <system:String x:Key="Downloadcomplete2">İndirme tamamlandı</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">İndirme kullanıcı tarafından iptal edildi</system:String>
+    
+    <system:String x:Key="RetryingDownload">SSL bağlantı hatası, yeniden deniyor...</system:String>
+    <system:String x:Key="ErrorSSLConnection">SSL/TLS bağlantı sorunu. Alternatif bağlantı yöntemini deniyor...</system:String>
+    <system:String x:Key="FallbackDownload">Alternatif bağlantı kullanılıyor:</system:String>
 
 </ResourceDictionary>

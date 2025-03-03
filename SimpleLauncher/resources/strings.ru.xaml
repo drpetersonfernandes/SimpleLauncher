@@ -568,4 +568,8 @@
     <system:String x:Key="Downloadcomplete2">Загрузка завершена</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Загрузка отменена пользователем</system:String>
     
+    <system:String x:Key="RetryingDownload">Ошибка подключения SSL, повторная попытка...</system:String>
+    <system:String x:Key="ErrorSSLConnection">Проблема подключения SSL/TLS. Попытка альтернативного метода соединения...</system:String>
+    <system:String x:Key="FallbackDownload">Используется резервный метод соединения:</system:String>
+    
 </ResourceDictionary>
