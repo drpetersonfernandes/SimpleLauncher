@@ -1,3 +1,9 @@
+release3.10.2
+-------------
+
+03/03/2025
+- Fixed an issue in List View mode where preview images failed to load.
+
 release3.10.1
 -------------
 

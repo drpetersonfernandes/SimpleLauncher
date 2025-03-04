@@ -523,43 +523,38 @@ public class GameListFactory(
                     return;
                 }
 
-                var memoryStream = new MemoryStream();
+                // Ensure the path is normalized to avoid caching issues
+                previewImagePath = Path.GetFullPath(previewImagePath);
 
-                // Copy file to memory stream to avoid file locks
+                // Load the image data into a byte array first
+                byte[] imageData;
                 using (var fileStream = new FileStream(previewImagePath, FileMode.Open, FileAccess.Read))
                 {
-                    fileStream.CopyTo(memoryStream);
-                    memoryStream.Position = 0;
-                }
-
-                // Validate stream has content
-                if (memoryStream.Length == 0)
-                {
-                    return;
+                    imageData = new byte[fileStream.Length];
+                    fileStream.ReadExactly(imageData, 0, (int)fileStream.Length);
                 }
 
                 mainWindow.Dispatcher.Invoke(() =>
                 {
                     try
                     {
-                        var bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.StreamSource = memoryStream;
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                        bitmap.DecodePixelWidth = 0; // Auto-size
-                        bitmap.EndInit();
+                        using var memoryStream = new MemoryStream(imageData);
+                        var bitmapFrame = BitmapFrame.Create(
+                            memoryStream,
+                            BitmapCreateOptions.None,
+                            BitmapCacheOption.OnLoad
+                        );
 
-                        // Check if bitmap was initialized properly
-                        if (bitmap.IsDownloading || bitmap.Width > 0)
-                        {
-                            bitmap.Freeze(); // Make it thread-safe
-                            mainWindow.PreviewImage.Source = bitmap;
-                        }
+                        // Freeze the bitmap to make it thread-safe
+                        bitmapFrame.Freeze();
+
+                        // Set as the image source
+                        mainWindow.PreviewImage.Source = bitmapFrame;
+                        // MemoryStream is disposed automatically by the using block
                     }
                     catch (Exception ex)
                     {
-                        // Notify developer
+                        // Notify the developer
                         LogErrors.LogErrorAsync(ex, $"Error loading image '{previewImagePath}': {ex.Message}").Wait(TimeSpan.FromSeconds(2));
                     }
                 });
@@ -591,15 +586,20 @@ public class GameListFactory(
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         var imageFolder = systemConfig.SystemImageFolder;
 
-        // Be sure that SystemImageFolder path is absolute
-        if (!Path.IsPathRooted(imageFolder))
+        // Make sure the SystemImageFolder path is absolute
+        if (!string.IsNullOrEmpty(imageFolder))
         {
-            if (imageFolder != null) imageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageFolder);
+            if (!Path.IsPathRooted(imageFolder))
+            {
+                // Convert to an absolute path
+                imageFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageFolder));
+            }
         }
-
-        imageFolder = !string.IsNullOrEmpty(imageFolder)
-            ? imageFolder
-            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName);
+        else
+        {
+            // Create the default image folder path
+            imageFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName));
+        }
 
         string[] extensions = [".png", ".jpg", ".jpeg"];
 
@@ -622,7 +622,7 @@ public class GameListFactory(
         }
 
         // If user-defined default image isn't found, fallback to the global default image
-        var globalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
+        var globalDefaultImagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png"));
 
         // Return empty if no image is found (not even a default image)
         return File.Exists(globalDefaultImagePath) ? globalDefaultImagePath : string.Empty;
@@ -643,7 +643,6 @@ public class GameListFactory(
 
         if (systemConfig != null)
         {
-            // Launch the game using the full file path stored in the selected item
             await GameLauncher.HandleButtonClick(selectedItem.FilePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
         }
     }
