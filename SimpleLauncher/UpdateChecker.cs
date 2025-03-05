@@ -44,7 +44,9 @@ public static partial class UpdateChecker
     {
         try
         {
-            using var client = new HttpClient();
+            var handler = new HttpClientHandler();
+            handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+            using var client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
             var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
@@ -78,7 +80,9 @@ public static partial class UpdateChecker
     {
         try
         {
-            using var client = new HttpClient();
+            var handler = new HttpClientHandler();
+            handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+            using var client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
             var response = await client.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
@@ -227,7 +231,9 @@ public static partial class UpdateChecker
 
     private static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
     {
-        using var client = new HttpClient();
+        var handler = new HttpClientHandler();
+        handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+        using var client = new HttpClient(handler);
         using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
         response.EnsureSuccessStatusCode();
 

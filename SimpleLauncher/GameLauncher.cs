@@ -690,85 +690,87 @@ public static class GameLauncher
 
         // Check workingDirectory
         if (await CheckForWorkingDirectory(workingDirectory)) return;
-        Debug.Assert(workingDirectory != null, nameof(workingDirectory) + " != null");
 
-        var psi = new ProcessStartInfo
+        if (workingDirectory != null)
         {
-            FileName = programLocation,
-            Arguments = arguments,
-            WorkingDirectory = workingDirectory,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
-        };
-
-        var process = new Process { StartInfo = psi };
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data))
+            var psi = new ProcessStartInfo
             {
-                output.AppendLine(args.Data);
-            }
-        };
+                FileName = programLocation,
+                Arguments = arguments,
+                WorkingDirectory = workingDirectory,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
 
-        process.ErrorDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data))
+            var process = new Process { StartInfo = psi };
+            StringBuilder output = new();
+            StringBuilder error = new();
+
+            process.OutputDataReceived += (_, args) =>
             {
-                error.AppendLine(args.Data);
-            }
-        };
+                if (!string.IsNullOrEmpty(args.Data))
+                {
+                    output.AppendLine(args.Data);
+                }
+            };
 
-        try
-        {
-            var processStarted = process.Start();
-
-            if (!processStarted)
+            process.ErrorDataReceived += (_, args) =>
             {
-                throw new InvalidOperationException("Failed to start the process.");
-            }
+                if (!string.IsNullOrEmpty(args.Data))
+                {
+                    error.AppendLine(args.Data);
+                }
+            };
 
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            await process.WaitForExitAsync();
-
-            if (!process.HasExited)
+            try
             {
-                throw new InvalidOperationException("Process has not exited as expected.");
+                var processStarted = process.Start();
+
+                if (!processStarted)
+                {
+                    throw new InvalidOperationException("Failed to start the process.");
+                }
+
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                await process.WaitForExitAsync();
+
+                if (!process.HasExited)
+                {
+                    throw new InvalidOperationException("Process has not exited as expected.");
+                }
+
+                if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
+
+                await CheckForExitCodeWithErrorAny(process, psi, output, error);
             }
 
-            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
+            catch (InvalidOperationException ex)
+            {
+                // Notify developer
+                const string formattedException = $"Invalid Operation Exception.";
+                await LogErrors.LogErrorAsync(ex, formattedException);
 
-            await CheckForExitCodeWithErrorAny(process, psi, output, error);
-        }
+                // Notify user
+                MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+                                         $"Exit code: {process.ExitCode}\n" +
+                                         $"Emulator: {psi.FileName}\n" +
+                                         $"Emulator output: {output}\n" +
+                                         $"Emulator error: {error}\n" +
+                                         $"Calling parameters: {psi.Arguments}\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
+                await LogErrors.LogErrorAsync(ex, formattedException);
 
-        catch (InvalidOperationException ex)
-        {
-            // Notify developer
-            const string formattedException = $"Invalid Operation Exception.";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-
-            // Notify user
-            MessageBoxLibrary.InvalidOperationExceptionMessageBox();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            var formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                     $"Exit code: {process.ExitCode}\n" +
-                                     $"Emulator: {psi.FileName}\n" +
-                                     $"Emulator output: {output}\n" +
-                                     $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            }
         }
     }
 
