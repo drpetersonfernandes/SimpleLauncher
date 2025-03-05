@@ -76,7 +76,7 @@ public static partial class UpdateChecker
     }
 
     // Check for update from within About Window
-    public static async Task CheckForUpdatesAsync2(Window mainWindow)
+    public static async Task CheckForUpdatesVariantAsync(Window mainWindow)
     {
         try
         {

@@ -14,7 +14,6 @@ public partial class AboutWindow
         App.ApplyThemeToWindow(this);
         DataContext = this;
 
-        // Set the AppVersionTextBlock
         AppVersionTextBlock.Text = ApplicationVersion;
     }
 
@@ -25,27 +24,51 @@ public partial class AboutWindow
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = e.Uri.AbsoluteUri,
-            UseShellExecute = true
-        });
-        e.Handled = true;
-    }
-
-    private async void CheckForUpdate_Click(object sender, RoutedEventArgs e)
-    {
         try
         {
-            await UpdateChecker.CheckForUpdatesAsync2(this);
+            var process = Process.Start(new ProcessStartInfo
+            {
+                FileName = e.Uri.AbsoluteUri,
+                UseShellExecute = true
+            });
+        
+            // Dispose the Process object if non-null
+            process?.Dispose();
         }
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the CheckForUpdate_Click method.\n\n" +
+            var formattedException = $"Error in the Hyperlink_RequestNavigate method.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            MessageBoxLibrary.UnableTgoOpenLinkMessageBox();
+        }
+        finally
+        {
+            // Mark the event as handled, regardless of success or failure
+            e.Handled = true;
+        }
+    }
+
+    private async void CheckForUpdateAsync_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await UpdateChecker.CheckForUpdatesVariantAsync(this);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Error in the CheckForUpdateAsync_Click method.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
+            
+            // Notify user
+            MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
         }
     }
 
@@ -62,7 +85,22 @@ public partial class AboutWindow
 
     private void UpdateHistory_Click(object sender, RoutedEventArgs e)
     {
-        var updateHistoryWindow = new UpdateHistoryWindow();
-        updateHistoryWindow.ShowDialog();
+        try
+        {
+            var updateHistoryWindow = new UpdateHistoryWindow();
+            updateHistoryWindow.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var formattedException = $"Error in the UpdateHistory_Click method.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            
+            // Notify user
+            MessageBoxLibrary.ErrorOpeningTheUpdateHistoryWindowMessageBox();
+        }
     }
+    
 }

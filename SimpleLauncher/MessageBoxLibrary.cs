@@ -60,20 +60,22 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    // internal static void FileIsNotInFavoritesMessageBox(string fileNameWithExtension)
-    // {
-    //     var isnotinfavorites2 = (string)Application.Current.TryFindResource("isnotinfavorites") ?? "is not in favorites.";
-    //     var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-    //     MessageBox.Show($"{fileNameWithExtension} {isnotinfavorites2}",
-    //         info2, MessageBoxButton.OK, MessageBoxImage.Information);
-    // }
-
     internal static void ErrorWhileRemovingGameFromFavoriteMessageBox()
     {
         var anerroroccurredwhileremoving2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileremoving") ?? "An error occurred while removing this game from favorites.";
         var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{anerroroccurredwhileremoving2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void ErrorOpeningTheUpdateHistoryWindowMessageBox()
+    {
+        var erroropeningtheUpdateHistorywindow2 = (string)Application.Current.TryFindResource("ErroropeningtheUpdateHistorywindow") ?? "Error opening the Update History window.";
+        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{erroropeningtheUpdateHistorywindow2}\n\n" +
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
@@ -765,6 +767,16 @@ public static class MessageBoxLibrary
             Application.Current.Shutdown();
             Environment.Exit(0);
         }
+    }
+    
+    internal static void ErrorCheckingForUpdatesMessageBox()
+    {
+        var anerroroccurredwhilecheckingforupdates2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecheckingforupdates") ?? "An error occurred while checking for updates.";
+        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{anerroroccurredwhilecheckingforupdates2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     internal static void UpdaterNotFoundMessageBox()
@@ -1986,6 +1998,16 @@ public static class MessageBoxLibrary
         var invalidDownloadLink2 = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
         MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
             invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    
+    internal static void UnableTgoOpenLinkMessageBox()
+    {
+        var unabletoopenthelink2 = (string)Application.Current.TryFindResource("Unabletoopenthelink") ?? "Unable to open the link.";
+        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{unabletoopenthelink2}\n\n" +
+                        $"{theerrorwasreportedtothedeveloper2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     internal static void SelectedSystemIsNullMessageBox()
