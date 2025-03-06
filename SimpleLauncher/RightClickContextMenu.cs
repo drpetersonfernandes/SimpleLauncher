@@ -84,10 +84,10 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while adding a game to the favorites.\n\n" +
+            var contextMessage = $"An error occurred while adding a game to the favorites.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -160,10 +160,10 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while removing a game from favorites.\n\n" +
+            var contextMessage = $"An error occurred while removing a game from favorites.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();

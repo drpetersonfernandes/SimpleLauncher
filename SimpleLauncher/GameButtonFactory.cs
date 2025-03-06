@@ -597,10 +597,10 @@ internal class GameButtonFactory(
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"Error deleting the file.\n\n" +
+                var contextMessage = $"Error deleting the file.\n\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -711,10 +711,10 @@ internal class GameButtonFactory(
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"Fail to load the fallback image in the method LoadFallbackImage.\n\n" +
+                var contextMessage = $"Fail to load the fallback image in the method LoadFallbackImage.\n\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
         else

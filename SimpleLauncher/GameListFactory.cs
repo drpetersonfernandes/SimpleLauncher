@@ -482,10 +482,10 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var formattedException = $"Error deleting the file.\n\n" +
+                    var contextMessage = $"Error deleting the file.\n\n" +
                                              $"Exception type: {ex.GetType().Name}\n" +
                                              $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -555,7 +555,8 @@ public class GameListFactory(
                     catch (Exception ex)
                     {
                         // Notify the developer
-                        LogErrors.LogErrorAsync(ex, $"Error loading image '{previewImagePath}': {ex.Message}").Wait(TimeSpan.FromSeconds(2));
+                        var contextMessage = $"Error loading image '{previewImagePath}': {ex.Message}";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
                     }
                 });
             }
@@ -564,11 +565,11 @@ public class GameListFactory(
                 mainWindow.PreviewImage.Source = null;
 
                 // Notify developer
-                var errorMessage = $"An error occurred while loading the preview image.\n\n" +
-                                   $"Image path: {previewImagePath}\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+                var contextMessage = $"An error occurred while loading the preview image.\n\n" +
+                                         $"Image path: {previewImagePath}\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
         else

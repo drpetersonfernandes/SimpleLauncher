@@ -22,10 +22,10 @@ public partial class UpdateHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = "'whatsnew.txt' not found or could not be loaded.\n\n" +
+            var contextMessage = "'whatsnew.txt' not found or could not be loaded.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
         }
     }
 }

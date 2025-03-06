@@ -482,10 +482,10 @@ public partial class FavoritesWindow
                         catch (Exception ex)
                         {
                             // Notify developer
-                            var formattedException = $"Error deleting the file.\n\n" +
+                            var contextMessage = $"Error deleting the file.\n\n" +
                                                      $"Exception type: {ex.GetType().Name}\n" +
                                                      $"Exception details: {ex.Message}";
-                            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                             // Notify user
                             MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -518,10 +518,10 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"There was an error in the right-click context menu.\n\n" +
+            var contextMessage = $"There was an error in the right-click context menu.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -561,10 +561,10 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the LaunchGame_Click method.\n\n" +
+            var contextMessage = $"Error in the LaunchGame_Click method.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -603,12 +603,12 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"There was an error launching the game from Favorites.\n\n" +
+            var contextMessage = $"There was an error launching the game from Favorites.\n\n" +
                                      $"File Path: {fileName}\n" +
                                      $"System Name: {systemName}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -635,10 +635,10 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the method MouseDoubleClick.\n\n" +
+            var contextMessage = $"Error in the method MouseDoubleClick.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -726,9 +726,9 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string formattedException = "systemConfig is null.";
-        Exception exception = new(formattedException);
-        LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
+        const string contextMessage = "systemConfig is null.";
+        Exception exception = new(contextMessage);
+        LogErrors.LogErrorAsync(exception, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
         // Notify user
         MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
@@ -741,9 +741,9 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string formattedException = "systemConfig is null for the selected favorite";
-        Exception ex = new(formattedException);
-        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+        const string contextMessage = "systemConfig is null for the selected favorite";
+        Exception ex = new(contextMessage);
+        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
         // Notify user
         MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -756,9 +756,9 @@ public partial class FavoritesWindow
         if (selectedFavorite.FileName != null) return false;
 
         // Notify developer
-        const string formattedException = "Favorite filename is null";
-        Exception ex = new(formattedException);
-        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+        const string contextMessage = "Favorite filename is null";
+        Exception ex = new(contextMessage);
+        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
         // Notify user
         MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -780,9 +780,9 @@ public partial class FavoritesWindow
         }
 
         // Notify developer
-        var formattedException = $"Favorite file does not exist: {fullPath}";
-        Exception exception = new(formattedException);
-        await LogErrors.LogErrorAsync(exception, formattedException);
+        var contextMessage = $"Favorite file does not exist: {fullPath}";
+        Exception exception = new(contextMessage);
+        await LogErrors.LogErrorAsync(exception, contextMessage);
 
         // Notify user
         MessageBoxLibrary.GameFileDoesNotExistMessageBox();
@@ -795,9 +795,9 @@ public partial class FavoritesWindow
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        const string formattedException = $"emulatorConfig is null.";
-        Exception ex = new(formattedException);
-        await LogErrors.LogErrorAsync(ex, formattedException);
+        const string contextMessage = $"emulatorConfig is null.";
+        Exception ex = new(contextMessage);
+        await LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
         MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -810,9 +810,9 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string formattedException = $"systemConfig is null.";
-        Exception ex = new(formattedException);
-        await LogErrors.LogErrorAsync(ex, formattedException);
+        const string contextMessage = $"systemConfig is null.";
+        Exception ex = new(contextMessage);
+        await LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
         MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);

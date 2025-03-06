@@ -124,9 +124,9 @@ public class SettingsConfig
 
             // Notify developer
             var contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
@@ -242,8 +242,8 @@ public class SettingsConfig
         {
             // Notify developer
             const string contextMessage = "The systemName is null or empty.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            Exception ex = new(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return;
         }

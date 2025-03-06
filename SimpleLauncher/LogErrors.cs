@@ -49,9 +49,9 @@ public static class LogErrors
             $"Architecture: {architecture}\n" +
             $"Bitness: {is64Bit}\n" +
             $"Windows Version: {windowsVersion}\n\n" +
-            $"{contextMessage}\n\n" +
             $"Exception type: {ex.GetType().Name}\n" +
-            $"Exception details: {ex.Message}\n\n\n";
+            $"Exception details: {ex.Message}\n" +
+            $"{contextMessage}";
 
         try
         {

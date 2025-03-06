@@ -131,8 +131,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Initialize the GamePadController
-        GamePadController.Instance2.ErrorLogger = (ex, msg) =>
-            LogErrors.LogErrorAsync(ex, msg).Wait(TimeSpan.FromSeconds(2));
+        GamePadController.Instance2.ErrorLogger = (ex, msg) => _ = LogErrors.LogErrorAsync(ex, msg);
         if (_settings.EnableGamePadNavigation)
         {
             GamePadController.Instance2.Start();
@@ -392,10 +391,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
@@ -980,10 +979,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Failed to toggle gamepad.\n\n" +
+            var contextMessage = $"Failed to toggle gamepad.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ToggleGamepadFailureMessageBox();
@@ -1130,9 +1129,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "The file 'FindRomCover.exe' is missing.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "The file 'FindRomCover.exe' is missing.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.FindRomCoverMissingMessageBox();
@@ -1141,10 +1140,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
             // Notify developer
-            var formattedException = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
+            var contextMessage = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
@@ -1152,10 +1151,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasBlockedMessageBox(_logPath);
@@ -1179,9 +1178,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'CreateBatchFilesForPS3Games.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'CreateBatchFilesForPS3Games.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1190,10 +1189,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1217,9 +1216,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'BatchConvertIsoToXiso.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'BatchConvertIsoToXiso.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1228,10 +1227,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1255,9 +1254,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'BatchConvertToCHD.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'BatchConvertToCHD.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1266,10 +1265,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1293,9 +1292,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'BatchConvertTo7z.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'BatchConvertTo7z.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1304,10 +1303,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1331,9 +1330,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'BatchConvertToZip.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'BatchConvertToZip.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1342,10 +1341,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1369,9 +1368,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'CreateBatchFilesForScummVMGames.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'CreateBatchFilesForScummVMGames.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1380,10 +1379,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1407,9 +1406,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1418,10 +1417,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1445,9 +1444,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'CreateBatchFilesForWindowsGames.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'CreateBatchFilesForWindowsGames.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1456,10 +1455,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1483,9 +1482,9 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string formattedException = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
-                var ex = new Exception(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1494,10 +1493,10 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
+            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);

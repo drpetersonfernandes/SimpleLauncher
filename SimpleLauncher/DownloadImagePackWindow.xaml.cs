@@ -157,10 +157,10 @@ public partial class DownloadImagePackWindow : IDisposable
                     else // Extraction fail
                     {
                         // Notify developer
-                        var formattedException = $"Image Pack extraction failed.\n\n" +
+                        var contextMessage = $"Image Pack extraction failed.\n\n" +
                                                  $"File: {extrasDownloadUrl}";
-                        var ex = new Exception(formattedException);
-                        await LogErrors.LogErrorAsync(ex, formattedException);
+                        var ex = new Exception(contextMessage);
+                        await LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -178,11 +178,11 @@ public partial class DownloadImagePackWindow : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"Error downloading the Image Pack.\n\n" +
+                var contextMessage = $"Error downloading the Image Pack.\n\n" +
                                          $"File: {extrasDownloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
@@ -207,10 +207,10 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error downloading the Image Pack.\n\n" +
+            var contextMessage = $"Error downloading the Image Pack.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
@@ -423,11 +423,11 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             // Notify developer
-            var formattedException = $"The requested file was not available on the server.\n\n" +
+            var contextMessage = $"The requested file was not available on the server.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
@@ -441,11 +441,11 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (HttpRequestException ex)
         {
             // Notify developer
-            var formattedException = $"Network error during file download.\n\n" +
+            var contextMessage = $"Network error during file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
@@ -459,11 +459,11 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (IOException ex)
         {
             // Notify developer
-            var formattedException = $"File read/write error after file download.\n\n" +
+            var contextMessage = $"File read/write error after file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.IoExceptionMessageBox(_tempFolder);
@@ -479,11 +479,11 @@ public partial class DownloadImagePackWindow : IDisposable
             if (cancellationToken.IsCancellationRequested)
             {
                 // Notify developer
-                var formattedException = $"Download was canceled by the user. User was not notified.\n\n" +
+                var contextMessage = $"Download was canceled by the user. User was not notified.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser2") ?? "Download canceled by user";
                 progress.Report(new DownloadProgressInfo
@@ -495,11 +495,11 @@ public partial class DownloadImagePackWindow : IDisposable
             else
             {
                 // Notify developer
-                var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
+                var contextMessage = $"Download timed out or was canceled unexpectedly.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.DownloadErrorMessageBox();
@@ -516,11 +516,11 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Generic download error.\n\n" +
+            var contextMessage = $"Generic download error.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();

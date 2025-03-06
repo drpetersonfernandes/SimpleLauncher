@@ -1136,10 +1136,10 @@ public static class MessageBoxLibrary
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error opening the Browser.\n\n" +
+            var contextMessage = $"Error opening the Browser.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             var simpleLaunchercouldnotopentheImage2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
@@ -1291,10 +1291,10 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var formattedException2 = $"Error opening the download link.\n\n" +
+                var contextMessage2 = $"Error opening the download link.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1327,10 +1327,10 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var formattedException2 = $"Error opening the download link.\n\n" +
+                var contextMessage2 = $"Error opening the download link.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1363,10 +1363,10 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var formattedException2 = $"Error opening the download link.\n\n" +
+                var contextMessage2 = $"Error opening the download link.\n\n" +
                                           $"Exception type: {ex.GetType().Name}\n" +
                                           $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, formattedException2);
+                await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";

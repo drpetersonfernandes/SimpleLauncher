@@ -22,10 +22,10 @@ public static partial class HelpUser
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Failed to load helpuser.xml.\n\n" +
+            var contextMessage = $"Failed to load helpuser.xml.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 

@@ -82,13 +82,13 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(ex,
-                $"Generic error in the GameLauncher class.\n\n" +
-                $"Exception type: {ex.GetType().Name}\n" +
-                $"Exception details: {ex.Message}\n" +
-                $"FilePath: {filePath}\n" +
-                $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
-                $"SelectedEmulator: {emulatorComboBox.SelectedItem}");
+            var contextMessage = $"Generic error in the GameLauncher class.\n\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}\n" +
+                                     $"FilePath: {filePath}\n" +
+                                     $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
+                                     $"SelectedEmulator: {emulatorComboBox.SelectedItem}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -171,13 +171,13 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var errorMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
-                                   $"Batch file: {psi.FileName}\n" +
-                                   $"Exit code {process.ExitCode}\n" +
-                                   $"Output: {output}\n" +
-                                   $"Error: {error}";
-                Exception exception = new(errorMessage);
-                await LogErrors.LogErrorAsync(exception, errorMessage);
+                var contextMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
+                                         $"Batch file: {psi.FileName}\n" +
+                                         $"Exit code {process.ExitCode}\n" +
+                                         $"Output: {output}\n" +
+                                         $"Error: {error}";
+                Exception ex = new(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 // Ignore
@@ -186,14 +186,14 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
-                               $"Batch file: {psi.FileName}\n" +
-                               $"Exit code {process.ExitCode}\n" +
-                               $"Output: {output}\n" +
-                               $"Error: {error}\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
+                                     $"Batch file: {psi.FileName}\n" +
+                                     $"Exit code {process.ExitCode}\n" +
+                                     $"Output: {output}\n" +
+                                     $"Error: {error}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -383,8 +383,8 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            const string formattedException = "Invalid Operation Exception";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            const string contextMessage = "Invalid Operation Exception";
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -392,13 +392,13 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Emulator output: {output}\n" +
                                      $"Emulator error: {error}\n" +
                                      $"Calling parameters: {psi.Arguments}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -492,8 +492,8 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            const string formattedException = "Invalid Operation Exception";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            const string contextMessage = "Invalid Operation Exception";
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -501,7 +501,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"The emulator could not open the game with the provided parameters. User was not notified.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters. User was not notified.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Emulator output: {output}\n" +
@@ -509,7 +509,7 @@ public static class GameLauncher
                                      $"Calling parameters: {psi.Arguments}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -618,8 +618,8 @@ public static class GameLauncher
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            const string formattedException = "Invalid Operation Exception";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            const string contextMessage = "Invalid Operation Exception";
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -627,7 +627,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Emulator output: {output}\n" +
@@ -635,7 +635,7 @@ public static class GameLauncher
                                      $"Calling parameters: {psi.Arguments}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
@@ -747,8 +747,8 @@ public static class GameLauncher
             catch (InvalidOperationException ex)
             {
                 // Notify developer
-                const string formattedException = $"Invalid Operation Exception.";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                const string contextMessage = $"Invalid Operation Exception.";
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -756,7 +756,7 @@ public static class GameLauncher
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"The emulator could not open the game with the provided parameters.\n\n" +
+                var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
                                          $"Exit code: {process.ExitCode}\n" +
                                          $"Emulator: {psi.FileName}\n" +
                                          $"Emulator output: {output}\n" +
@@ -764,7 +764,7 @@ public static class GameLauncher
                                          $"Calling parameters: {psi.Arguments}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -801,9 +801,9 @@ public static class GameLauncher
         else
         {
             // Notify developer
-            var formattedException = $"Can not extract file: {filePath}";
-            Exception ex = new(formattedException);
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            var contextMessage = $"Can not extract file: {filePath}";
+            Exception ex = new(contextMessage);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CannotExtractThisFileMessageBox(filePath);
@@ -818,9 +818,9 @@ public static class GameLauncher
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
                 // Notify developer
-                var formattedException = $"gameFile path is invalid: {tempExtractLocation}";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                var contextMessage = $"gameFile path is invalid: {tempExtractLocation}";
+                Exception ex = new(contextMessage);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -831,9 +831,9 @@ public static class GameLauncher
             if (systemConfig.FileFormatsToLaunch == null)
             {
                 // Notify developer
-                const string formattedException = "FileFormatsToLaunch is null.";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                const string contextMessage = "FileFormatsToLaunch is null.";
+                Exception ex = new(contextMessage);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
@@ -853,9 +853,9 @@ public static class GameLauncher
             if (string.IsNullOrEmpty(gamePathToLaunch))
             {
                 // Notify developer
-                var formattedException = $"gamePath is null or empty: {gamePathToLaunch}";
-                Exception ex = new(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                var contextMessage = $"gamePath is null or empty: {gamePathToLaunch}";
+                Exception ex = new(contextMessage);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotFindAFileMessageBox();

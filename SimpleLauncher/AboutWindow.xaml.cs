@@ -38,10 +38,8 @@ public partial class AboutWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the Hyperlink_RequestNavigate method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Error in the Hyperlink_RequestNavigate method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.UnableTgoOpenLinkMessageBox();
@@ -62,10 +60,8 @@ public partial class AboutWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the CheckForUpdateAsync_Click method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            const string contextMessage = "Error in the CheckForUpdateAsync_Click method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
@@ -93,10 +89,8 @@ public partial class AboutWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the UpdateHistory_Click method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Error in the UpdateHistory_Click method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningTheUpdateHistoryWindowMessageBox();

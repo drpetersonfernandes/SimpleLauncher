@@ -12,13 +12,13 @@ public abstract class FileManager
 
     public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
-        return await Task.Run(async () =>
+        return await Task.Run(() =>
         {
             try
             {
                 if (!Directory.Exists(directoryPath))
                 {
-                    return new List<string>(); // Return an empty list
+                    return Task.FromResult(new List<string>()); // Return an empty list
                 }
 
                 var foundFiles = new List<string>();
@@ -32,29 +32,30 @@ public abstract class FileManager
                     catch (Exception innerEx)
                     {
                         // Log the specific extension that caused the problem
-                        var errorMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.\n" +
-                                           $"Exception type: {innerEx.GetType().Name}\n" +
-                                           $"Exception details: {innerEx.Message}";
-                        await LogErrors.LogErrorAsync(innerEx, errorMessage);
+                        var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.\n" +
+                                                 $"Exception type: {innerEx.GetType().Name}\n" +
+                                                 $"Exception details: {innerEx.Message}";
+                        _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                        
                         // Continue with the next extension rather than failing the entire operation
                     }
                 }
 
-                return foundFiles;
+                return Task.FromResult(foundFiles);
             }
             catch (Exception ex)
             {
                 // Notify developer
-                var errorMessage = $"There was an error using the method GetFilesAsync.\n\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}\n" +
-                                   $"Directory path: {directoryPath}";
-                await LogErrors.LogErrorAsync(ex, errorMessage);
+                var contextMessage = $"There was an error using the method GetFilesAsync.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}\n" +
+                                         $"Directory path: {directoryPath}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);
 
-                return new List<string>(); // Return an empty list
+                return Task.FromResult(new List<string>()); // Return an empty list
             }
         });
     }

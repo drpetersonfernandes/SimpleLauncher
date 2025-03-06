@@ -844,10 +844,10 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var formattedException = $"'Failed to create the default systemImageFolder.\n\n" +
+                    var contextMessage = $"'Failed to create the default systemImageFolder.\n\n" +
                                              $"Exception type: {ex.GetType().Name}\n" +
                                              $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
@@ -881,10 +881,10 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var formattedException = $"'Failed to create the default systemFolder.\n\n" +
+                    var contextMessage = $"'Failed to create the default systemFolder.\n\n" +
                                              $"Exception type: {ex.GetType().Name}\n" +
                                              $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 }
             }
         }
@@ -960,10 +960,10 @@ public partial class EditSystemWindow
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
+                var contextMessage = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.FolderCreationFailedMessageBox();

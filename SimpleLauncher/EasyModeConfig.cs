@@ -69,10 +69,10 @@ public class EasyModeConfig
         Systems = Systems?.Where(system => system.IsValid()).ToList() ?? [];
     }
 
-    private static void LogAndNotify(Exception ex, string errorMessage)
+    private static void LogAndNotify(Exception ex, string contextMessage)
     {
         // Notify developer
-        LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify the user.
         MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();

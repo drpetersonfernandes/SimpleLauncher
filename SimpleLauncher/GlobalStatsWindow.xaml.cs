@@ -54,10 +54,10 @@ public partial class GlobalStatsWindow
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"An error occurred while calculating Global Statistics.\n\n" +
+                var contextMessage = $"An error occurred while calculating Global Statistics.\n\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -71,10 +71,10 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the GlobalStats_Loaded method.\n\n" +
+            var contextMessage = $"Error in the GlobalStats_Loaded method.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         void DoYouWantToSaveTheReportMessageBox()
@@ -214,10 +214,10 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Failed to save the report in the Global Stats window.\n\n" +
+            var contextMessage = $"Failed to save the report in the Global Stats window.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FailedSaveReportMessageBox();
@@ -283,10 +283,10 @@ public partial class GlobalStatsWindow
             catch (Exception ex)
             {
                 // Notify developer
-                var formattedException = $"Error renaming image file: {imageFile}\n" +
+                var contextMessage = $"Error renaming image file: {imageFile}\n" +
                                          $"New file name: {newImagePath}\n" +
                                          $"Exception: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
     }

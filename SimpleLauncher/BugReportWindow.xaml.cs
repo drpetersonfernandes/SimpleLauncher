@@ -34,9 +34,9 @@ public partial class BugReportWindow
         else
         {
             // Notify developer
-            const string formattedException = "File 'appsettings.json' is missing.";
-            Exception exception = new(formattedException);
-            LogErrors.LogErrorAsync(exception, formattedException).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "File 'appsettings.json' is missing.";
+            Exception ex = new();
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RequiredFileMissingMessageBox();
@@ -79,10 +79,9 @@ public partial class BugReportWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"Error in the SendBugReport_Click method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            const string contextMessage = "Error in the SendBugReport_Click method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            
         }
     }
 
@@ -107,9 +106,9 @@ public partial class BugReportWindow
         else
         {
             // Notify developer
-            const string formattedException = "API Key is not properly loaded from 'appsettings.json'.";
-            Exception exception = new(formattedException);
-            await LogErrors.LogErrorAsync(exception, formattedException);
+            const string contextMessage = "API Key is not properly loaded from 'appsettings.json'.";
+            Exception ex = new();
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
@@ -133,9 +132,9 @@ public partial class BugReportWindow
             else
             {
                 // Notify developer
-                const string errorMessage = "An error occurred while sending the bug report.";
-                var exception = new Exception(errorMessage);
-                await LogErrors.LogErrorAsync(exception, errorMessage);
+                const string contextMessage = "An error occurred while sending the bug report.";
+                Exception ex = new ();
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.BugReportSendErrorMessageBox();
@@ -144,9 +143,8 @@ public partial class BugReportWindow
         catch (Exception ex)
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(ex, $"Error sending the bug report.\n\n" +
-                                              $"Exception type: {ex.GetType().Name}\n" +
-                                              $"Exception details: {ex.Message}");
+            const string contextMessage = "Error sending the bug report.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.BugReportSendErrorMessageBox();

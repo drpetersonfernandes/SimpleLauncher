@@ -66,10 +66,10 @@ public static partial class UpdateChecker
         {
             // Notify user
             var contextMessage = $"Error checking for updates.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            
             // Notify user
             // Ignore
         }
@@ -107,9 +107,9 @@ public static partial class UpdateChecker
         {
             // Notify developer
             var contextMessage = $"Error checking for updates.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             ErrorCheckingForUpdatesMessageBox();

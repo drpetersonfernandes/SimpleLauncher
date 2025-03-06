@@ -21,7 +21,7 @@ public class HelpUserConfig
                 // Notify developer
                 const string contextMessage = "The file 'helpuser.xml' is missing.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 if (MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox()) return;

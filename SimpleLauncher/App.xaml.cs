@@ -57,10 +57,8 @@ public partial class App
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Failed to load language resources for {cultureCode}\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            var contextMessage = $"Failed to load language resources for {cultureCode}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -83,10 +81,8 @@ public partial class App
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Failed to Apply Theme\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Failed to Apply Theme.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 

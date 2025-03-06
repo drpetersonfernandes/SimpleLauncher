@@ -385,10 +385,10 @@ public partial class EditSystemEasyModeAddSystemWindow
                     DownloadStatus = $"{errorFailedtoextract2} {componentName}.";
 
                     // Notify developer
-                    var formattedException = $"{componentName} extraction failed.\n\n" +
+                    var contextMessage = $"{componentName} extraction failed.\n\n" +
                                              $"File: {downloadFilePath}";
-                    var ex = new Exception(formattedException);
-                    await LogErrors.LogErrorAsync(ex, formattedException);
+                    var ex = new Exception(contextMessage);
+                    await LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -401,9 +401,9 @@ public partial class EditSystemEasyModeAddSystemWindow
                 DownloadStatus = $"{errorFailedtodownload2} {componentName} after {maxRetries} attempts.";
 
                 // Notify developer
-                var formattedException = $"{componentName} download failed after {maxRetries} attempts.";
-                var ex = new Exception(formattedException);
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                var contextMessage = $"{componentName} download failed after {maxRetries} attempts.";
+                var ex = new Exception(contextMessage);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -439,11 +439,11 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
             // Notify developer
-            var formattedException = $"Error downloading {componentName}.\n\n" +
+            var contextMessage = $"Error downloading {componentName}.\n\n" +
                                      $"File: {downloadFilePath}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Show the appropriate error message based on the download type
@@ -671,11 +671,11 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorTherequestedfilewasnotfoundontheserver2;
 
             // Notify developer
-            var formattedException = $"The requested file was not available on the server.\n\n" +
+            var contextMessage = $"The requested file was not available on the server.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Rethrow to let caller handle it
             throw;
@@ -686,11 +686,11 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorNetworkerrorduringfiledownload2;
 
             // Notify developer
-            var formattedException = $"Network error during file download.\n\n" +
+            var contextMessage = $"Network error during file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Rethrow to let caller handle it
             throw;
@@ -701,11 +701,11 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorFilereadwriteerrorduringdownload2;
 
             // Notify developer
-            var formattedException = $"File read/write error during file download.\n\n" +
+            var contextMessage = $"File read/write error during file download.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Rethrow to let caller handle it
             throw;
@@ -718,11 +718,11 @@ public partial class EditSystemEasyModeAddSystemWindow
                 DownloadStatus = downloadcanceledbyuser2;
 
                 // Notify the developer without showing the user message
-                var formattedException = $"Download was canceled by the user.\n\n" +
+                var contextMessage = $"Download was canceled by the user.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
             }
             else
             {
@@ -730,11 +730,11 @@ public partial class EditSystemEasyModeAddSystemWindow
                 DownloadStatus = errorDownloadtimedoutorwascanceledunexpectedly2;
 
                 // Notify developer
-                var formattedException = $"Download timed out or was canceled unexpectedly.\n\n" +
+                var contextMessage = $"Download timed out or was canceled unexpectedly.\n\n" +
                                          $"URL: {downloadUrl}\n" +
                                          $"Exception type: {ex.GetType().Name}\n" +
                                          $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, formattedException);
+                await LogErrors.LogErrorAsync(ex, contextMessage);
             }
 
             // Rethrow to let caller handle it
@@ -746,11 +746,11 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorUnexpectederrorduringdownload2;
 
             // Notify developer
-            var formattedException = $"Generic download error.\n\n" +
+            var contextMessage = $"Generic download error.\n\n" +
                                      $"URL: {downloadUrl}\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Rethrow to let caller handle it
             throw;
@@ -905,10 +905,10 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorFailedtoaddsystem2;
 
             // Notify developer
-            var formattedException = $"Error adding system.\n\n" +
+            var contextMessage = $"Error adding system.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.AddSystemFailedMessageBox();
@@ -958,10 +958,10 @@ public partial class EditSystemEasyModeAddSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"The application failed to create the necessary folders for the newly added system.\n\n" +
+            var contextMessage = $"The application failed to create the necessary folders for the newly added system.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

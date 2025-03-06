@@ -27,10 +27,8 @@ public class CacheManager
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error creating cache directory. User was not notified.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Error creating cache directory. User was not notified.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // ignore
@@ -91,10 +89,8 @@ public class CacheManager
             catch (Exception ex)
             {
                 // Notify developer
-                var errorMessage = $"Error caching files for {systemName}.\n\n" +
-                                   $"Exception type: {ex.GetType().Name}\n" +
-                                   $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+                var contextMessage = $"Error caching files for {systemName}.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 // ignore

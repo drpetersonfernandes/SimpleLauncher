@@ -80,10 +80,10 @@ public static class Stats
             return; // Success.
         }
 
-        // Notify the developer if the API request failed.
-        const string finalErrorMessage = "API request failed.";
-        Exception ex = new HttpRequestException(finalErrorMessage);
-        await LogErrors.LogErrorAsync(ex, finalErrorMessage);
+        // Notify the developer
+        const string contextMessage = "API request failed.";
+        Exception ex = new HttpRequestException(contextMessage);
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
     }
 
     /// <summary>
@@ -110,30 +110,32 @@ public static class Stats
 
             if (response.IsSuccessStatusCode) return true; // Success.
 
-            // Notify the developer if the API responds with an error.
-            var errorMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
-                               $"CallType: {callType}" +
-                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            await LogErrors.LogErrorAsync(new HttpRequestException(errorMessage), errorMessage);
+            // Notify the developer
+            var contextMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
+                                     $"CallType: {callType}" +
+                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+            Exception ex = new HttpRequestException(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            
             return false;
         }
         catch (HttpRequestException ex)
         {
             // Notify developer.
-            var errorMessage = $"Error communicating with the API at '{apiUrl}'. " +
-                               $"CallType: {callType}" +
-                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                               $" Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"Error communicating with the API at '{apiUrl}'. " +
+                                     $"CallType: {callType}" +
+                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                     $" Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         catch (Exception ex)
         {
             // Notify developer.
-            var errorMessage = $"Unexpected error while using '{apiUrl}'. " +
-                               $"CallType: {callType}" +
-                               (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                               $" Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"Unexpected error while using '{apiUrl}'. " +
+                                     $"CallType: {callType}" +
+                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                     $" Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         return false; // Failed after exception.

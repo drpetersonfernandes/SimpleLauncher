@@ -71,7 +71,7 @@ public class SystemConfig
                                 // Notify developer
                                 const string contextMessage = "'system_model.xml' was not found in the application folder.";
                                 var ex = new Exception(contextMessage);
-                                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                                 // Notify user
                                 MessageBoxLibrary.SystemModelXmlIsMissingMessageBox();
@@ -83,9 +83,9 @@ public class SystemConfig
                 {
                     // Notify developer
                     var contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
@@ -103,10 +103,10 @@ public class SystemConfig
             catch (XmlException ex)
             {
                 // Notify developer
-                var errorDetailsDeveloper = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, errorDetailsDeveloper).Wait(TimeSpan.FromSeconds(2));
+                var contextMessage = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox(LogPath);

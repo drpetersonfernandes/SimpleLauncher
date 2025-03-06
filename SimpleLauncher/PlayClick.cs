@@ -40,7 +40,7 @@ public static class PlayClick
                 $"Error playing '{soundFileName}' sound.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 }

@@ -44,7 +44,7 @@ public partial class RomHistoryWindow
                 // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
@@ -93,9 +93,9 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             var contextMessage = $"An error occurred while loading ROM history.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -146,9 +146,9 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             var contextMessage = $"An error occurred while opening the browser.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();

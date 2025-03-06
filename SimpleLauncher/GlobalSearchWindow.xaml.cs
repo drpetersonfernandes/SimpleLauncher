@@ -70,10 +70,10 @@ public partial class GlobalSearchWindow
             if (args.Error != null)
             {
                 // Notify developer
-                var formattedException = $"That was an error using the SearchButton_Click.\n\n" +
+                var contextMessage = $"That was an error using the SearchButton_Click.\n\n" +
                                          $"Error details: {args.Error.Message}";
-                Exception ex = new(formattedException);
-                LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                Exception ex = new(contextMessage);
+                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
@@ -314,12 +314,12 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"There was an error launching the game.\n\n" +
+            var contextMessage = $"There was an error launching the game.\n\n" +
                                      $"File Path: {filePath}\n" +
                                      $"System Name: {systemName}\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, formattedException);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -344,10 +344,10 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"That was an error launching a game.\n\n" +
+            var contextMessage = $"That was an error launching a game.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -712,10 +712,10 @@ public partial class GlobalSearchWindow
                     catch (Exception ex)
                     {
                         // Notify developer
-                        var formattedException = $"Error deleting the file.\n\n" +
+                        var contextMessage = $"Error deleting the file.\n\n" +
                                                  $"Exception type: {ex.GetType().Name}\n" +
                                                  $"Exception details: {ex.Message}";
-                        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+                        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
@@ -747,11 +747,11 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException =
+            var contextMessage =
                 $"There was an error in the right-click context menu.\n\n" +
                 $"Exception type: {ex.GetType().Name}\n" +
                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
@@ -769,10 +769,10 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            var formattedException = $"There was an error while using the method MouseDoubleClick.\n\n" +
+            var contextMessage = $"There was an error while using the method MouseDoubleClick.\n\n" +
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -829,10 +829,10 @@ public partial class GlobalSearchWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+        const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
                                           "systemConfig is null.";
-        Exception exception = new(formattedException);
-        await LogErrors.LogErrorAsync(exception, formattedException);
+        Exception exception = new(contextMessage);
+        await LogErrors.LogErrorAsync(exception, contextMessage);
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -845,9 +845,9 @@ public partial class GlobalSearchWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string formattedException = "systemConfig is null.";
-        Exception ex = new(formattedException);
-        LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
+        const string contextMessage = "systemConfig is null.";
+        Exception ex = new(contextMessage);
+        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
         // Notify user
         MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
@@ -860,10 +860,10 @@ public partial class GlobalSearchWindow
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+        const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
                                           "emulatorConfig is null.";
-        Exception ex = new(formattedException);
-        await LogErrors.LogErrorAsync(ex, formattedException);
+        Exception ex = new(contextMessage);
+        await LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -876,10 +876,10 @@ public partial class GlobalSearchWindow
         if (!string.IsNullOrEmpty(systemName)) return false;
 
         // Notify developer
-        const string formattedException = "That was an error trying to launch a game from the search result.\n\n" +
+        const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
                                           "systemName is null or empty.";
-        Exception ex = new(formattedException);
-        await LogErrors.LogErrorAsync(ex, formattedException);
+        Exception ex = new(contextMessage);
+        await LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
         MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
