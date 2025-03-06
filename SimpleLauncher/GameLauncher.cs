@@ -397,9 +397,7 @@ public static class GameLauncher
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Emulator output: {output}\n" +
                                      $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                     $"Calling parameters: {psi.Arguments}";
             await LogErrors.LogErrorAsync(ex, formattedException);
 
             // Notify user

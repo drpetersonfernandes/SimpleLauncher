@@ -31,7 +31,7 @@ public partial class AboutWindow
                 FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true
             });
-        
+
             // Dispose the Process object if non-null
             process?.Dispose();
         }
@@ -42,7 +42,7 @@ public partial class AboutWindow
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.UnableTgoOpenLinkMessageBox();
         }
@@ -66,7 +66,7 @@ public partial class AboutWindow
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, formattedException);
-            
+
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
         }
@@ -97,10 +97,9 @@ public partial class AboutWindow
                                      $"Exception type: {ex.GetType().Name}\n" +
                                      $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, formattedException).Wait(TimeSpan.FromSeconds(2));
-            
+
             // Notify user
             MessageBoxLibrary.ErrorOpeningTheUpdateHistoryWindowMessageBox();
         }
     }
-    
 }

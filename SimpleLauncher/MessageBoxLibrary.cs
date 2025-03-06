@@ -69,7 +69,7 @@ public static class MessageBoxLibrary
                         $"{theerrorwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-    
+
     internal static void ErrorOpeningTheUpdateHistoryWindowMessageBox()
     {
         var erroropeningtheUpdateHistorywindow2 = (string)Application.Current.TryFindResource("ErroropeningtheUpdateHistorywindow") ?? "Error opening the Update History window.";
@@ -768,7 +768,7 @@ public static class MessageBoxLibrary
             Environment.Exit(0);
         }
     }
-    
+
     internal static void ErrorCheckingForUpdatesMessageBox()
     {
         var anerroroccurredwhilecheckingforupdates2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecheckingforupdates") ?? "An error occurred while checking for updates.";
@@ -1999,7 +1999,7 @@ public static class MessageBoxLibrary
         MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
             invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
-    
+
     internal static void UnableTgoOpenLinkMessageBox()
     {
         var unabletoopenthelink2 = (string)Application.Current.TryFindResource("Unabletoopenthelink") ?? "Unable to open the link.";
