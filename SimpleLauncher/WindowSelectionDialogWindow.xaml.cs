@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace SimpleLauncher;
 
@@ -22,7 +23,7 @@ public partial class WindowSelectionDialogWindow
         Closed += (_, _) => { DialogResult ??= false; };
     }
 
-    private void WindowsListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    private void WindowsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (WindowsListBox.SelectedItem is not WindowItem selectedItem) return;
         SelectedWindowHandle = selectedItem.Handle;

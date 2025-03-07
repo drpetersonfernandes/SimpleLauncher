@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CreateBatchFilesForSegaModel3Games;
 
@@ -78,7 +79,7 @@ public partial class MainWindow
 
     private static string? SelectFolder()
     {
-        var dialog = new Microsoft.Win32.OpenFolderDialog
+        var dialog = new OpenFolderDialog
         {
             Title = "Please select the folder where your Sega Model 3 ROM zip files are located."
         };
@@ -88,7 +89,7 @@ public partial class MainWindow
 
     private string? SelectFile()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Title = "Please select the Supermodel executable file (Supermodel.exe)",
             Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",

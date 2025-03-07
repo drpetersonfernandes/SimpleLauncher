@@ -1,8 +1,9 @@
-﻿using SharpDX.DirectInput;
-using SharpDX.XInput;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
+using SharpDX;
+using SharpDX.DirectInput;
+using SharpDX.XInput;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 
@@ -187,7 +188,7 @@ public class GamePadController : IDisposable
                 HandleDirectInputScroll(state);
             }
         }
-        catch (SharpDX.SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
+        catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
         {
             // Ignore this specific error (DIERR_INPUTLOST)
             // No need to log or notify the developer
@@ -199,7 +200,7 @@ public class GamePadController : IDisposable
             // No need to log or notify the developer
             CheckAndReconnectControllers(); // Attempt to reconnect the controller
         }
-        catch (SharpDX.SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
+        catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
         {
             // Ignore this specific error (DIERR_NOTACQUIRED)
             // No need to log or notify the developer

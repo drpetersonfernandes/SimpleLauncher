@@ -1137,8 +1137,8 @@ public static class MessageBoxLibrary
         {
             // Notify developer
             var contextMessage = $"Error opening the Browser.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -1292,8 +1292,8 @@ public static class MessageBoxLibrary
             {
                 // Notify developer
                 var contextMessage2 = $"Error opening the download link.\n\n" +
-                                          $"Exception type: {ex.GetType().Name}\n" +
-                                          $"Exception details: {ex.Message}";
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
@@ -1328,8 +1328,8 @@ public static class MessageBoxLibrary
             {
                 // Notify developer
                 var contextMessage2 = $"Error opening the download link.\n\n" +
-                                          $"Exception type: {ex.GetType().Name}\n" +
-                                          $"Exception details: {ex.Message}";
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
@@ -1364,8 +1364,8 @@ public static class MessageBoxLibrary
             {
                 // Notify developer
                 var contextMessage2 = $"Error opening the download link.\n\n" +
-                                          $"Exception type: {ex.GetType().Name}\n" +
-                                          $"Exception details: {ex.Message}";
+                                      $"Exception type: {ex.GetType().Name}\n" +
+                                      $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user

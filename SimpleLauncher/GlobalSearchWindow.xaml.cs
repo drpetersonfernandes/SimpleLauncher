@@ -71,7 +71,7 @@ public partial class GlobalSearchWindow
             {
                 // Notify developer
                 var contextMessage = $"That was an error using the SearchButton_Click.\n\n" +
-                                         $"Error details: {args.Error.Message}";
+                                     $"Error details: {args.Error.Message}";
                 Exception ex = new(contextMessage);
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
@@ -315,10 +315,10 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             var contextMessage = $"There was an error launching the game.\n\n" +
-                                     $"File Path: {filePath}\n" +
-                                     $"System Name: {systemName}\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"File Path: {filePath}\n" +
+                                 $"System Name: {systemName}\n\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -345,8 +345,8 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             var contextMessage = $"That was an error launching a game.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -713,8 +713,8 @@ public partial class GlobalSearchWindow
                     {
                         // Notify developer
                         var contextMessage = $"Error deleting the file.\n\n" +
-                                                 $"Exception type: {ex.GetType().Name}\n" +
-                                                 $"Exception details: {ex.Message}";
+                                             $"Exception type: {ex.GetType().Name}\n" +
+                                             $"Exception details: {ex.Message}";
                         LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                         // Notify user
@@ -770,8 +770,8 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             var contextMessage = $"There was an error while using the method MouseDoubleClick.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -830,7 +830,7 @@ public partial class GlobalSearchWindow
 
         // Notify developer
         const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
-                                          "systemConfig is null.";
+                                      "systemConfig is null.";
         Exception exception = new(contextMessage);
         await LogErrors.LogErrorAsync(exception, contextMessage);
 
@@ -861,7 +861,7 @@ public partial class GlobalSearchWindow
 
         // Notify developer
         const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
-                                          "emulatorConfig is null.";
+                                      "emulatorConfig is null.";
         Exception ex = new(contextMessage);
         await LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -877,7 +877,7 @@ public partial class GlobalSearchWindow
 
         // Notify developer
         const string contextMessage = "That was an error trying to launch a game from the search result.\n\n" +
-                                          "systemName is null or empty.";
+                                      "systemName is null or empty.";
         Exception ex = new(contextMessage);
         await LogErrors.LogErrorAsync(ex, contextMessage);
 

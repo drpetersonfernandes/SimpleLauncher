@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Xml.Linq;
-using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace SimpleLauncher;
 
@@ -83,8 +83,8 @@ public class SystemConfig
                 {
                     // Notify developer
                     var contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
-                                             $"Exception type: {ex.GetType().Name}\n" +
-                                             $"Exception details: {ex.Message}";
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
@@ -104,8 +104,8 @@ public class SystemConfig
             {
                 // Notify developer
                 var contextMessage = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user

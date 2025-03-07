@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace SimpleLauncher;
 
@@ -55,8 +56,8 @@ public partial class GlobalStatsWindow
             {
                 // Notify developer
                 var contextMessage = $"An error occurred while calculating Global Statistics.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -72,8 +73,8 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             var contextMessage = $"Error in the GlobalStats_Loaded method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
@@ -189,7 +190,7 @@ public partial class GlobalStatsWindow
     private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
     {
         // Create a SaveFileDialog to allow the user to select the location
-        var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+        var saveFileDialog = new SaveFileDialog
         {
             FileName = "GlobalStatsReport", // Default file name
             DefaultExt = ".txt", // Default file extension
@@ -215,8 +216,8 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             var contextMessage = $"Failed to save the report in the Global Stats window.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -284,8 +285,8 @@ public partial class GlobalStatsWindow
             {
                 // Notify developer
                 var contextMessage = $"Error renaming image file: {imageFile}\n" +
-                                         $"New file name: {newImagePath}\n" +
-                                         $"Exception: {ex.Message}";
+                                     $"New file name: {newImagePath}\n" +
+                                     $"Exception: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }

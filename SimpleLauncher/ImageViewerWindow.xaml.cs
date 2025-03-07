@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher;
@@ -15,8 +16,8 @@ public partial class ImageViewerWindow
     {
         try
         {
-            var imageData = System.IO.File.ReadAllBytes(imagePath);
-            using var ms = new System.IO.MemoryStream(imageData);
+            var imageData = File.ReadAllBytes(imagePath);
+            using var ms = new MemoryStream(imageData);
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
@@ -30,8 +31,8 @@ public partial class ImageViewerWindow
         {
             // Notify developer
             var contextMessage = $"Failed to load the image in the Image Viewer window.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

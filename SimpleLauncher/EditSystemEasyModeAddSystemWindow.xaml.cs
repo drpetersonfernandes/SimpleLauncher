@@ -386,7 +386,7 @@ public partial class EditSystemEasyModeAddSystemWindow
 
                     // Notify developer
                     var contextMessage = $"{componentName} extraction failed.\n\n" +
-                                             $"File: {downloadFilePath}";
+                                         $"File: {downloadFilePath}";
                     var ex = new Exception(contextMessage);
                     await LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -440,9 +440,9 @@ public partial class EditSystemEasyModeAddSystemWindow
 
             // Notify developer
             var contextMessage = $"Error downloading {componentName}.\n\n" +
-                                     $"File: {downloadFilePath}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"File: {downloadFilePath}\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -478,92 +478,15 @@ public partial class EditSystemEasyModeAddSystemWindow
 
         try
         {
-            // Use the main HttpClient first
-            using var response = await _httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
-
-            var totalBytes = response.Content.Headers.ContentLength;
-            var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
-            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload") ?? "Starting download:";
-            var total2 = (string)Application.Current.TryFindResource("total") ?? "total";
-            var sizeunknown2 = (string)Application.Current.TryFindResource("sizeunknown") ?? "size unknown";
-            DownloadStatus = $"{startingdownload2} {(totalMb > 0 ? $"{totalMb} MB {total2}" : sizeunknown2)}";
-
-            await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
-            var buffer = new byte[8192];
-            long totalBytesRead = 0;
-            int bytesRead;
-
-            // For throttling UI updates
-            var lastUpdateTime = DateTime.Now;
-            const int updateIntervalMs = 100; // Update UI every 100 ms
-            var lastProgressReported = 0.0;
-
-            while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
-            {
-                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
-                totalBytesRead += bytesRead;
-
-                // Only update UI if enough time has passed since the last update
-                // or if progress has changed significantly
-                var now = DateTime.Now;
-                var progress = totalBytes.HasValue ? (double)totalBytesRead / totalBytes.Value * 100 : 0;
-                var significantChange = Math.Abs(progress - lastProgressReported) >= 1.0; // 1% change threshold
-
-                if ((now - lastUpdateTime).TotalMilliseconds >= updateIntervalMs || significantChange)
-                {
-                    lastUpdateTime = now;
-                    lastProgressReported = progress;
-
-                    if (totalBytes.HasValue)
-                    {
-                        DownloadProgressBar.Value = progress;
-                        var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                        var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
-                        DownloadStatus = $"{downloaded2} {downloadedMb} MB of {totalMb} MB ({progress:F1}%)";
-                    }
-                    else
-                    {
-                        var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                        var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
-                        var totalsizeunknown2 = (string)Application.Current.TryFindResource("totalsizeunknown") ?? "total size unknown";
-                        DownloadStatus = $"{downloaded2} {downloadedMb} MB ({totalsizeunknown2})";
-                    }
-                }
-            }
-
-            // Check if the file was fully downloaded
-            if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
-            {
-                _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
-                DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
-            }
-            else if (totalBytes.HasValue)
-            {
-                _isDownloadCompleted = false;
-                var downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2 = (string)Application.Current.TryFindResource("DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize") ?? "Download incomplete. Downloaded bytes do not match expected file size.";
-                DownloadStatus = downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2;
-                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
-            }
-            else
-            {
-                // If we don't know the total size, assume it's complete
-                _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
-                DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB";
-            }
+            // First try with the main HTTP client
+            await PerformDownloadAsync(_httpClient, downloadUrl, destinationPath, false, cancellationToken);
         }
         catch (HttpRequestException ex) when (ex.InnerException is AuthenticationException ||
                                               (ex.InnerException is IOException ioEx &&
                                                ioEx.Message.Contains("decryption operation failed")))
         {
             // Handle SSL/TLS errors with fallback method
-            var errorSslConnection = (string)Application.Current.TryFindResource("ErrorSSLConnection") ?? "SSL/TLS connection issue. Trying alternate connection method...";
-            DownloadStatus = errorSslConnection;
-
-            // Notify developer
+            DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue. Trying alternate connection method...");
             await LogErrors.LogErrorAsync(ex, $"SSL/TLS error: {ex.Message}. Inner exception: {ex.InnerException?.Message}");
 
             try
@@ -571,7 +494,6 @@ public partial class EditSystemEasyModeAddSystemWindow
                 // Create a fallback handler with relaxed SSL validation
                 var fallbackHandler = new HttpClientHandler
                 {
-                    // Temporarily bypass certificate validation for this specific download
                     ServerCertificateCustomValidationCallback = (sender, certificate, chain, errors) => true,
                     SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13
                 };
@@ -582,186 +504,190 @@ public partial class EditSystemEasyModeAddSystemWindow
                     Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
                 };
 
-                // Try download with a fallback client
-                var fallbackResponse = await localClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-                fallbackResponse.EnsureSuccessStatusCode();
-
-                var totalBytes = fallbackResponse.Content.Headers.ContentLength;
-                var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
-                var fallbackdownload = (string)Application.Current.TryFindResource("FallbackDownload") ?? "Using fallback connection:";
-                DownloadStatus = $"{fallbackdownload} {(totalMb > 0 ? $"{totalMb} MB total" : "size unknown")}";
-
-                await using var contentStream = await fallbackResponse.Content.ReadAsStreamAsync(cancellationToken);
-                await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
-                var buffer = new byte[8192];
-                long totalBytesRead = 0;
-                int bytesRead;
-
-                // For throttling UI updates
-                var lastUpdateTime = DateTime.Now;
-                const int updateIntervalMs = 100; // Update UI every 100 ms
-
-                while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
-                {
-                    await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
-                    totalBytesRead += bytesRead;
-
-                    // Only update UI if enough time has passed since the last update
-                    var now = DateTime.Now;
-                    if ((now - lastUpdateTime).TotalMilliseconds >= updateIntervalMs)
-                    {
-                        lastUpdateTime = now;
-
-                        if (totalBytes.HasValue)
-                        {
-                            var progress = (double)totalBytesRead / totalBytes.Value * 100;
-                            DownloadProgressBar.Value = progress;
-                            var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                            var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
-                            DownloadStatus = $"{downloaded2} {downloadedMb} MB of {totalMb} MB ({progress:F1}%) [fallback]";
-                        }
-                        else
-                        {
-                            var downloadedMb = Math.Round((double)totalBytesRead / (1024 * 1024), 2);
-                            var downloaded2 = (string)Application.Current.TryFindResource("Downloaded") ?? "Downloaded";
-                            var totalsizeunknown2 = (string)Application.Current.TryFindResource("totalsizeunknown") ?? "total size unknown";
-                            DownloadStatus = $"{downloaded2} {downloadedMb} MB ({totalsizeunknown2}) [fallback]";
-                        }
-                    }
-                }
-
-                // Check if the file was fully downloaded
-                if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
-                {
-                    _isDownloadCompleted = true;
-                    var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
-                    DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB [fallback]";
-                }
-                else if (totalBytes.HasValue)
-                {
-                    _isDownloadCompleted = false;
-                    var downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2 = (string)Application.Current.TryFindResource("DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize") ?? "Download incomplete. Downloaded bytes do not match expected file size.";
-                    DownloadStatus = downloadincompleteDownloadedbytesdonotmatchexpectedfilesize2;
-                    throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
-                }
-                else
-                {
-                    // If we don't know the total size, assume it's complete
-                    _isDownloadCompleted = true;
-                    var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete") ?? "Download complete:";
-                    DownloadStatus = $"{downloadcomplete2} {Math.Round((double)totalBytesRead / (1024 * 1024), 2)} MB [fallback]";
-                }
+                // Try download with the fallback client
+                await PerformDownloadAsync(localClient, downloadUrl, destinationPath, true, cancellationToken);
             }
             catch (Exception fallbackEx)
             {
-                // Notify developer
                 // If fallback also fails, log and rethrow
                 await LogErrors.LogErrorAsync(fallbackEx, "Fallback download method also failed: " + fallbackEx.Message);
                 throw;
             }
-            finally
-            {
-                // Dispose of the local client if we created one
-                localClient?.Dispose();
-            }
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
-            var errorTherequestedfilewasnotfoundontheserver2 = (string)Application.Current.TryFindResource("ErrorTherequestedfilewasnotfoundontheserver") ?? "Error: The requested file was not found on the server.";
-            DownloadStatus = errorTherequestedfilewasnotfoundontheserver2;
-
-            // Notify developer
-            var contextMessage = $"The requested file was not available on the server.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Rethrow to let caller handle it
+            HandleDownloadError(ex,
+                "ErrorTherequestedfilewasnotfoundontheserver",
+                "Error: The requested file was not found on the server.",
+                $"The requested file was not available on the server.\n\nURL: {downloadUrl}",
+                downloadUrl);
             throw;
         }
         catch (HttpRequestException ex)
         {
-            var errorNetworkerrorduringfiledownload2 = (string)Application.Current.TryFindResource("ErrorNetworkerrorduringfiledownload") ?? "Error: Network error during file download.";
-            DownloadStatus = errorNetworkerrorduringfiledownload2;
-
-            // Notify developer
-            var contextMessage = $"Network error during file download.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Rethrow to let caller handle it
+            HandleDownloadError(ex,
+                "ErrorNetworkerrorduringfiledownload",
+                "Error: Network error during file download.",
+                $"Network error during file download.\n\nURL: {downloadUrl}",
+                downloadUrl);
             throw;
         }
         catch (IOException ex)
         {
-            var errorFilereadwriteerrorduringdownload2 = (string)Application.Current.TryFindResource("ErrorFilereadwriteerrorduringdownload") ?? "Error: File read/write error during download.";
-            DownloadStatus = errorFilereadwriteerrorduringdownload2;
-
-            // Notify developer
-            var contextMessage = $"File read/write error during file download.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Rethrow to let caller handle it
+            HandleDownloadError(ex,
+                "ErrorFilereadwriteerrorduringdownload",
+                "Error: File read/write error during download.",
+                $"File read/write error during file download.\n\nURL: {downloadUrl}",
+                downloadUrl);
             throw;
         }
         catch (TaskCanceledException ex)
         {
             if (cancellationToken.IsCancellationRequested && _isUserCancellation)
             {
-                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser") ?? "Download canceled by user.";
-                DownloadStatus = downloadcanceledbyuser2;
-
-                // Notify the developer without showing the user message
-                var contextMessage = $"Download was canceled by the user.\n\n" +
-                                         $"URL: {downloadUrl}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                HandleDownloadError(ex,
+                    "Downloadcanceledbyuser",
+                    "Download canceled by user.",
+                    $"Download was canceled by the user.\n\nURL: {downloadUrl}",
+                    downloadUrl);
             }
             else
             {
-                var errorDownloadtimedoutorwascanceledunexpectedly2 = (string)Application.Current.TryFindResource("ErrorDownloadtimedoutorwascanceledunexpectedly") ?? "Error: Download timed out or was canceled unexpectedly.";
-                DownloadStatus = errorDownloadtimedoutorwascanceledunexpectedly2;
-
-                // Notify developer
-                var contextMessage = $"Download timed out or was canceled unexpectedly.\n\n" +
-                                         $"URL: {downloadUrl}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                HandleDownloadError(ex,
+                    "ErrorDownloadtimedoutorwascanceledunexpectedly",
+                    "Error: Download timed out or was canceled unexpectedly.",
+                    $"Download timed out or was canceled unexpectedly.\n\nURL: {downloadUrl}",
+                    downloadUrl);
             }
 
-            // Rethrow to let caller handle it
             throw;
         }
         catch (Exception ex)
         {
-            var errorUnexpectederrorduringdownload2 = (string)Application.Current.TryFindResource("ErrorUnexpectederrorduringdownload") ?? "Error: Unexpected error during download.";
-            DownloadStatus = errorUnexpectederrorduringdownload2;
-
-            // Notify developer
-            var contextMessage = $"Generic download error.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Rethrow to let caller handle it
+            HandleDownloadError(ex,
+                "ErrorUnexpectederrorduringdownload",
+                "Error: Unexpected error during download.",
+                $"Generic download error.\n\nURL: {downloadUrl}",
+                downloadUrl);
             throw;
         }
         finally
         {
-            // Dispose of the local client if we created one
-            if (localClient != null)
+            localClient?.Dispose();
+        }
+
+        // Private methods defined as local functions
+        async Task PerformDownloadAsync(HttpClient client, string url, string filePath, bool isFallback, CancellationToken token)
+        {
+            using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
+            response.EnsureSuccessStatusCode();
+
+            var totalBytes = response.Content.Headers.ContentLength;
+            var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
+
+            // Set initial download status
+            var statusKey = isFallback ? "FallbackDownload" : "Startingdownload";
+            var defaultMsg = isFallback ? "Using fallback connection:" : "Starting download:";
+            var fallbackSuffix = isFallback ? " [fallback]" : "";
+
+            DownloadStatus = $"{GetLocalizedString(statusKey, defaultMsg)} {(totalMb > 0
+                ? $"{totalMb} MB {GetLocalizedString("total", "total")}"
+                : GetLocalizedString("sizeunknown", "size unknown"))}{fallbackSuffix}";
+
+            await using var contentStream = await response.Content.ReadAsStreamAsync(token);
+            await using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
+
+            var buffer = new byte[8192];
+            long totalBytesRead = 0;
+            int bytesRead;
+
+            // For throttling UI updates
+            var lastUpdateTime = DateTime.Now;
+            const int updateIntervalMs = 100; // Update UI every 100 ms
+            var lastProgressReported = 0.0;
+
+            while ((bytesRead = await contentStream.ReadAsync(buffer, token)) > 0)
             {
-                localClient.Dispose();
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), token);
+                totalBytesRead += bytesRead;
+
+                // Update UI with throttling
+                var now = DateTime.Now;
+                var progress = totalBytes.HasValue ? (double)totalBytesRead / totalBytes.Value * 100 : 0;
+                var significantChange = Math.Abs(progress - lastProgressReported) >= 1.0; // 1% change threshold
+
+                if ((now - lastUpdateTime).TotalMilliseconds >= updateIntervalMs || significantChange)
+                {
+                    lastUpdateTime = now;
+                    lastProgressReported = progress;
+                    UpdateDownloadProgress(totalBytes, totalBytesRead, totalMb, progress, isFallback);
+                }
             }
+
+            // Check if the file was fully downloaded
+            VerifyDownloadCompletion(totalBytes, totalBytesRead, isFallback);
+        }
+
+        void UpdateDownloadProgress(long? totalBytes, long bytesRead, double totalMb, double progress, bool isFallback)
+        {
+            var downloadedMb = Math.Round((double)bytesRead / (1024 * 1024), 2);
+            var downloadedText = GetLocalizedString("Downloaded", "Downloaded");
+            var fallbackSuffix = isFallback ? " [fallback]" : "";
+
+            if (totalBytes.HasValue)
+            {
+                DownloadProgressBar.Value = progress;
+                DownloadStatus = $"{downloadedText} {downloadedMb} MB of {totalMb} MB ({progress:F1}%){fallbackSuffix}";
+            }
+            else
+            {
+                var sizeUnknownText = GetLocalizedString("totalsizeunknown", "total size unknown");
+                DownloadStatus = $"{downloadedText} {downloadedMb} MB ({sizeUnknownText}){fallbackSuffix}";
+            }
+        }
+
+        void VerifyDownloadCompletion(long? totalBytes, long bytesRead, bool isFallback)
+        {
+            var fallbackSuffix = isFallback ? " [fallback]" : "";
+            var downloadedMb = Math.Round((double)bytesRead / (1024 * 1024), 2);
+
+            if (totalBytes.HasValue && bytesRead == totalBytes.Value)
+            {
+                _isDownloadCompleted = true;
+                var completeText = GetLocalizedString("Downloadcomplete", "Download complete:");
+                DownloadStatus = $"{completeText} {downloadedMb} MB{fallbackSuffix}";
+            }
+            else if (totalBytes.HasValue)
+            {
+                _isDownloadCompleted = false;
+                var incompleteText = GetLocalizedString("DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize",
+                    "Download incomplete. Downloaded bytes do not match expected file size.");
+                DownloadStatus = incompleteText;
+                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
+            }
+            else
+            {
+                // If we don't know the total size, assume it's complete
+                _isDownloadCompleted = true;
+                var completeText = GetLocalizedString("Downloadcomplete", "Download complete:");
+                DownloadStatus = $"{completeText} {downloadedMb} MB{fallbackSuffix}";
+            }
+        }
+
+        async void HandleDownloadError(Exception ex, string resourceKey, string defaultMessage, string logContext, string url)
+        {
+            DownloadStatus = GetLocalizedString(resourceKey, defaultMessage);
+
+            var contextMessage = $"{logContext}\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
+
+            await LogErrors.LogErrorAsync(ex, contextMessage);
+        }
+
+        string GetLocalizedString(string resourceKey, string defaultValue)
+        {
+            return (string)Application.Current.TryFindResource(resourceKey) ?? defaultValue;
         }
     }
 
@@ -906,8 +832,8 @@ public partial class EditSystemEasyModeAddSystemWindow
 
             // Notify developer
             var contextMessage = $"Error adding system.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -959,8 +885,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             // Notify developer
             var contextMessage = $"The application failed to create the necessary folders for the newly added system.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user

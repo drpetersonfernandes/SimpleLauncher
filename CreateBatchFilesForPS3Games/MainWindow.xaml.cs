@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CreateBatchFilesForPS3Games;
 
@@ -91,7 +92,7 @@ public partial class MainWindow
 
     private static string? SelectFolder()
     {
-        var dialog = new Microsoft.Win32.OpenFolderDialog
+        var dialog = new OpenFolderDialog
         {
             Title = "Please select the root folder where your PS3 Game folders are located."
         };
@@ -101,7 +102,7 @@ public partial class MainWindow
 
     private static string? SelectFile()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Title = "Please select the RPCS3 emulator executable file (rpcs3.exe)",
             Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",

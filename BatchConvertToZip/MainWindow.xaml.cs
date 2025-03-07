@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace BatchConvertToZip;
 
@@ -135,7 +136,7 @@ public partial class MainWindow
 
     private static string? SelectFolder(string description)
     {
-        var dialog = new Microsoft.Win32.OpenFolderDialog
+        var dialog = new OpenFolderDialog
         {
             Title = description
         };

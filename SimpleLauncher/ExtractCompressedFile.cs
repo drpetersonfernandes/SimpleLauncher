@@ -2,11 +2,11 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 using System.IO.Compression;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SimpleLauncher;
@@ -151,7 +151,7 @@ public class ExtractCompressedFile
 
             // Notify developer
             const string contextMessage = $"Extraction of the compressed file failed.\n\n" +
-                                              $"The file may be corrupted.\n";
+                                          $"The file may be corrupted.\n";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -261,8 +261,8 @@ public class ExtractCompressedFile
 
             // Notify developer
             var contextMessage = $"Extraction of the compressed file failed.\n" +
-                                     $"The file may be corrupted.\n" +
-                                     $"File: {archivePath}";
+                                 $"The file may be corrupted.\n" +
+                                 $"File: {archivePath}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

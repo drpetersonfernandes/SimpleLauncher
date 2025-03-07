@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows;
 using System.Diagnostics;
-using System.Windows.Navigation;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace SimpleLauncher;
 

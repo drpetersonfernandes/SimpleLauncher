@@ -33,10 +33,10 @@ public abstract class FileManager
                     {
                         // Log the specific extension that caused the problem
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.\n" +
-                                                 $"Exception type: {innerEx.GetType().Name}\n" +
-                                                 $"Exception details: {innerEx.Message}";
+                                             $"Exception type: {innerEx.GetType().Name}\n" +
+                                             $"Exception details: {innerEx.Message}";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
-                        
+
                         // Continue with the next extension rather than failing the entire operation
                     }
                 }
@@ -47,9 +47,9 @@ public abstract class FileManager
             {
                 // Notify developer
                 var contextMessage = $"There was an error using the method GetFilesAsync.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}\n" +
-                                         $"Directory path: {directoryPath}";
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}\n" +
+                                     $"Directory path: {directoryPath}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CreateBatchFilesForXbox360XBLAGames;
 
@@ -78,7 +79,7 @@ public partial class MainWindow
 
     private static string? SelectFolder()
     {
-        var fbd = new Microsoft.Win32.OpenFolderDialog
+        var fbd = new OpenFolderDialog
         {
             Title = "Please select the root folder where your Xbox 360 XBLA game folders are located."
         };
@@ -88,7 +89,7 @@ public partial class MainWindow
 
     private string? SelectFile()
     {
-        var ofd = new Microsoft.Win32.OpenFileDialog
+        var ofd = new OpenFileDialog
         {
             Title = "Please select the Xenia executable file (xenia.exe)",
             Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",

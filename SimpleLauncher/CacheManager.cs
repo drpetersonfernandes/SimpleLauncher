@@ -128,10 +128,8 @@ public class CacheManager
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error saving cache for {systemName}.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var errorMessage = $"Error saving cache for {systemName}.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             // ignore
@@ -151,10 +149,8 @@ public class CacheManager
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error loading cache file {cacheFilePath}.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var errorMessage = $"Error loading cache file {cacheFilePath}.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             // ignore

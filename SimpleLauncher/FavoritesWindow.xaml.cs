@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -41,7 +42,7 @@ public partial class FavoritesWindow
         Closing += Favorites_Closing;
     }
 
-    private static void Favorites_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void Favorites_Closing(object sender, CancelEventArgs e)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
@@ -483,8 +484,8 @@ public partial class FavoritesWindow
                         {
                             // Notify developer
                             var contextMessage = $"Error deleting the file.\n\n" +
-                                                     $"Exception type: {ex.GetType().Name}\n" +
-                                                     $"Exception details: {ex.Message}";
+                                                 $"Exception type: {ex.GetType().Name}\n" +
+                                                 $"Exception details: {ex.Message}";
                             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                             // Notify user
@@ -519,8 +520,8 @@ public partial class FavoritesWindow
         {
             // Notify developer
             var contextMessage = $"There was an error in the right-click context menu.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -562,8 +563,8 @@ public partial class FavoritesWindow
         {
             // Notify developer
             var contextMessage = $"Error in the LaunchGame_Click method.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -604,10 +605,10 @@ public partial class FavoritesWindow
         {
             // Notify developer
             var contextMessage = $"There was an error launching the game from Favorites.\n\n" +
-                                     $"File Path: {fileName}\n" +
-                                     $"System Name: {systemName}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"File Path: {fileName}\n" +
+                                 $"System Name: {systemName}\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -636,8 +637,8 @@ public partial class FavoritesWindow
         {
             // Notify developer
             var contextMessage = $"Error in the method MouseDoubleClick.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -795,7 +796,7 @@ public partial class FavoritesWindow
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        const string contextMessage = $"emulatorConfig is null.";
+        const string contextMessage = "emulatorConfig is null.";
         Exception ex = new(contextMessage);
         await LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -810,7 +811,7 @@ public partial class FavoritesWindow
         if (systemConfig != null) return false;
 
         // Notify developer
-        const string contextMessage = $"systemConfig is null.";
+        const string contextMessage = "systemConfig is null.";
         Exception ex = new(contextMessage);
         await LogErrors.LogErrorAsync(ex, contextMessage);
 

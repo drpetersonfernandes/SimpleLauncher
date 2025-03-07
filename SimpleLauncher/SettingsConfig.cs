@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Xml.Linq;
-using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace SimpleLauncher;
 
@@ -124,8 +124,8 @@ public class SettingsConfig
 
             // Notify developer
             var contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

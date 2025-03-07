@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CreateBatchFilesForWindowsGames;
 
@@ -147,7 +148,7 @@ public partial class MainWindow
 
     private string? SelectGameExecutable()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Title = "Please select the game executable file (e.g., game.exe)",
             Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",
@@ -159,7 +160,7 @@ public partial class MainWindow
 
     private string? SaveBatchFile(string suggestedName)
     {
-        var dialog = new Microsoft.Win32.SaveFileDialog
+        var dialog = new SaveFileDialog
         {
             Title = "Save Batch File",
             Filter = "Batch files (*.bat)|*.bat",

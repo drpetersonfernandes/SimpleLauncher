@@ -85,8 +85,8 @@ public static class RightClickContextMenu
         {
             // Notify developer
             var contextMessage = $"An error occurred while adding a game to the favorites.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -161,8 +161,8 @@ public static class RightClickContextMenu
         {
             // Notify developer
             var contextMessage = $"An error occurred while removing a game from favorites.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user

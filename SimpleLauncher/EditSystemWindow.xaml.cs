@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Application = System.Windows.Application;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using TextBox = System.Windows.Controls.TextBox;
 
 namespace SimpleLauncher;
@@ -240,7 +243,7 @@ public partial class EditSystemWindow
         }
         else
         {
-            textBox.Foreground = System.Windows.Media.Brushes.Red; // Invalid state
+            textBox.Foreground = Brushes.Red; // Invalid state
         }
     }
 
@@ -254,11 +257,11 @@ public partial class EditSystemWindow
         var baseTheme = _settings.BaseTheme;
         if (baseTheme == "Dark")
         {
-            textBox.Foreground = isValid ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Red;
+            textBox.Foreground = isValid ? Brushes.White : Brushes.Red;
         }
         else
         {
-            textBox.Foreground = isValid ? System.Windows.Media.Brushes.Black : System.Windows.Media.Brushes.Red;
+            textBox.Foreground = isValid ? Brushes.Black : Brushes.Red;
         }
     }
 
@@ -294,7 +297,7 @@ public partial class EditSystemWindow
     private void ChooseEmulator1Location(object sender, RoutedEventArgs e)
     {
         var selectEmulator12 = (string)Application.Current.TryFindResource("SelectEmulator1") ?? "Select Emulator 1";
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "Exe File (.exe)|*.exe",
@@ -316,7 +319,7 @@ public partial class EditSystemWindow
     private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
     {
         var selectEmulator22 = (string)Application.Current.TryFindResource("SelectEmulator2") ?? "Select Emulator 2";
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "EXE File (.exe)|*.exe",
@@ -339,7 +342,7 @@ public partial class EditSystemWindow
     private void ChooseEmulator3Location(object sender, RoutedEventArgs e)
     {
         var selectEmulator32 = (string)Application.Current.TryFindResource("SelectEmulator3") ?? "Select Emulator 3";
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "EXE File (.exe)|*.exe",
@@ -362,7 +365,7 @@ public partial class EditSystemWindow
     private void ChooseEmulator4Location(object sender, RoutedEventArgs e)
     {
         var selectEmulator42 = (string)Application.Current.TryFindResource("SelectEmulator4") ?? "Select Emulator 4";
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "EXE File (.exe)|*.exe",
@@ -385,7 +388,7 @@ public partial class EditSystemWindow
     private void ChooseEmulator5Location(object sender, RoutedEventArgs e)
     {
         var selectEmulator52 = (string)Application.Current.TryFindResource("SelectEmulator5") ?? "Select Emulator 5";
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "EXE File (.exe)|*.exe",
@@ -845,8 +848,8 @@ public partial class EditSystemWindow
                 {
                     // Notify developer
                     var contextMessage = $"'Failed to create the default systemImageFolder.\n\n" +
-                                             $"Exception type: {ex.GetType().Name}\n" +
-                                             $"Exception details: {ex.Message}";
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 }
             }
@@ -882,8 +885,8 @@ public partial class EditSystemWindow
                 {
                     // Notify developer
                     var contextMessage = $"'Failed to create the default systemFolder.\n\n" +
-                                             $"Exception type: {ex.GetType().Name}\n" +
-                                             $"Exception details: {ex.Message}";
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                     LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
                 }
             }
@@ -961,8 +964,8 @@ public partial class EditSystemWindow
             {
                 // Notify developer
                 var contextMessage = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
                 // Notify user
@@ -1025,7 +1028,7 @@ public partial class EditSystemWindow
         }
     }
 
-    private static void EditSystem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void EditSystem_Closing(object sender, CancelEventArgs e)
     {
         // Create a backup file
         var appFolderPath = AppDomain.CurrentDomain.BaseDirectory;

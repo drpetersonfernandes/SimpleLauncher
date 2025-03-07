@@ -83,11 +83,11 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Generic error in the GameLauncher class.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}\n" +
-                                     $"FilePath: {filePath}\n" +
-                                     $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
-                                     $"SelectedEmulator: {emulatorComboBox.SelectedItem}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}\n" +
+                                 $"FilePath: {filePath}\n" +
+                                 $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
+                                 $"SelectedEmulator: {emulatorComboBox.SelectedItem}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -172,10 +172,10 @@ public static class GameLauncher
             {
                 // Notify developer
                 var contextMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
-                                         $"Batch file: {psi.FileName}\n" +
-                                         $"Exit code {process.ExitCode}\n" +
-                                         $"Output: {output}\n" +
-                                         $"Error: {error}";
+                                     $"Batch file: {psi.FileName}\n" +
+                                     $"Exit code {process.ExitCode}\n" +
+                                     $"Output: {output}\n" +
+                                     $"Error: {error}";
                 Exception ex = new(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -187,12 +187,12 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
-                                     $"Batch file: {psi.FileName}\n" +
-                                     $"Exit code {process.ExitCode}\n" +
-                                     $"Output: {output}\n" +
-                                     $"Error: {error}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Batch file: {psi.FileName}\n" +
+                                 $"Exit code {process.ExitCode}\n" +
+                                 $"Output: {output}\n" +
+                                 $"Error: {error}\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -384,7 +384,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "Invalid Operation Exception";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -393,12 +393,12 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                     $"Exit code: {process.ExitCode}\n" +
-                                     $"Emulator: {psi.FileName}\n" +
-                                     $"Emulator output: {output}\n" +
-                                     $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -493,7 +493,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "Invalid Operation Exception";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -502,14 +502,12 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters. User was not notified.\n\n" +
-                                     $"Exit code: {process.ExitCode}\n" +
-                                     $"Emulator: {psi.FileName}\n" +
-                                     $"Emulator output: {output}\n" +
-                                     $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -628,13 +626,13 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                     $"Exit code: {process.ExitCode}\n" +
-                                     $"Emulator: {psi.FileName}\n" +
-                                     $"Emulator output: {output}\n" +
-                                     $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}\n" +
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -747,7 +745,7 @@ public static class GameLauncher
             catch (InvalidOperationException ex)
             {
                 // Notify developer
-                const string contextMessage = $"Invalid Operation Exception.";
+                const string contextMessage = "Invalid Operation Exception.";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -757,13 +755,13 @@ public static class GameLauncher
             {
                 // Notify developer
                 var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
-                                         $"Exit code: {process.ExitCode}\n" +
-                                         $"Emulator: {psi.FileName}\n" +
-                                         $"Emulator output: {output}\n" +
-                                         $"Emulator error: {error}\n" +
-                                         $"Calling parameters: {psi.Arguments}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                                     $"Exit code: {process.ExitCode}\n" +
+                                     $"Emulator: {psi.FileName}\n" +
+                                     $"Emulator output: {output}\n" +
+                                     $"Emulator error: {error}\n" +
+                                     $"Calling parameters: {psi.Arguments}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 await LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -951,7 +949,7 @@ public static class GameLauncher
         if (emulatorConfig != null) return false;
 
         // Notify developer
-        const string errorMessage = $"emulatorConfig is null.";
+        const string errorMessage = "emulatorConfig is null.";
         Exception exception = new(errorMessage);
         await LogErrors.LogErrorAsync(exception, errorMessage);
 

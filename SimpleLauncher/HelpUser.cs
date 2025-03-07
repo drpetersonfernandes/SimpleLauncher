@@ -23,8 +23,8 @@ public static partial class HelpUser
         {
             // Notify developer
             var contextMessage = $"Failed to load helpuser.xml.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }

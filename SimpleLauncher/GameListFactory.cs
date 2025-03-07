@@ -483,8 +483,8 @@ public class GameListFactory(
                 {
                     // Notify developer
                     var contextMessage = $"Error deleting the file.\n\n" +
-                                             $"Exception type: {ex.GetType().Name}\n" +
-                                             $"Exception details: {ex.Message}";
+                                         $"Exception type: {ex.GetType().Name}\n" +
+                                         $"Exception details: {ex.Message}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
@@ -566,9 +566,9 @@ public class GameListFactory(
 
                 // Notify developer
                 var contextMessage = $"An error occurred while loading the preview image.\n\n" +
-                                         $"Image path: {previewImagePath}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                                     $"Image path: {previewImagePath}\n" +
+                                     $"Exception type: {ex.GetType().Name}\n" +
+                                     $"Exception details: {ex.Message}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }

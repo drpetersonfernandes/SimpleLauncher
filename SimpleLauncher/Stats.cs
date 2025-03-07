@@ -2,6 +2,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -42,13 +44,13 @@ public static class Stats
     private static void InitializeHttpClient()
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+        handler.SslProtocols = SslProtocols.Tls12;
         _httpClient = new HttpClient(handler);
 
         if (!string.IsNullOrEmpty(_apiKey))
         {
             _httpClient.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+                new AuthenticationHeaderValue("Bearer", _apiKey);
         }
     }
 
@@ -112,29 +114,29 @@ public static class Stats
 
             // Notify the developer
             var contextMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
-                                     $"CallType: {callType}" +
-                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                                 $"CallType: {callType}" +
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             Exception ex = new HttpRequestException(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            
+
             return false;
         }
         catch (HttpRequestException ex)
         {
             // Notify developer.
             var contextMessage = $"Error communicating with the API at '{apiUrl}'. " +
-                                     $"CallType: {callType}" +
-                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                     $" Exception details: {ex.Message}";
+                                 $"CallType: {callType}" +
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                 $" Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         catch (Exception ex)
         {
             // Notify developer.
             var contextMessage = $"Unexpected error while using '{apiUrl}'. " +
-                                     $"CallType: {callType}" +
-                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                     $" Exception details: {ex.Message}";
+                                 $"CallType: {callType}" +
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
+                                 $" Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 

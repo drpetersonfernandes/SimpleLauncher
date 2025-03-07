@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
@@ -50,8 +50,7 @@ public static class LogErrors
             $"Bitness: {is64Bit}\n" +
             $"Windows Version: {windowsVersion}\n\n" +
             $"Exception type: {ex.GetType().Name}\n" +
-            $"Exception details: {ex.Message}\n" +
-            $"{contextMessage}";
+            $"Exception details: {ex.Message}\n\n";
 
         try
         {

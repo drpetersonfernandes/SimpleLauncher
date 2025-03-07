@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Navigation;
 using Application = System.Windows.Application;
 
@@ -157,10 +158,10 @@ public partial class DownloadImagePackWindow : IDisposable
                     else // Extraction fail
                     {
                         // Notify developer
-                        var contextMessage = $"Image Pack extraction failed.\n\n" +
-                                                 $"File: {extrasDownloadUrl}";
+                        var contextMessage = $"Image Pack extraction failed.\n" +
+                                             $"File: {extrasDownloadUrl}";
                         var ex = new Exception(contextMessage);
-                        await LogErrors.LogErrorAsync(ex, contextMessage);
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -178,11 +179,9 @@ public partial class DownloadImagePackWindow : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"Error downloading the Image Pack.\n\n" +
-                                         $"File: {extrasDownloadUrl}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                var contextMessage = $"Error downloading the Image Pack.\n" +
+                                     $"File: {extrasDownloadUrl}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
@@ -207,10 +206,8 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error downloading the Image Pack.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            const string contextMessage = "Error downloading the Image Pack.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
@@ -423,11 +420,9 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             // Notify developer
-            var contextMessage = $"The requested file was not available on the server.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            var contextMessage = $"The requested file was not available on the server.\n" +
+                                 $"URL: {downloadUrl}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
@@ -441,11 +436,9 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (HttpRequestException ex)
         {
             // Notify developer
-            var contextMessage = $"Network error during file download.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            var contextMessage = $"Network error during file download.\n" +
+                                 $"URL: {downloadUrl}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
@@ -459,11 +452,9 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (IOException ex)
         {
             // Notify developer
-            var contextMessage = $"File read/write error after file download.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            var contextMessage = $"File read/write error after file download.\n" +
+                                 $"URL: {downloadUrl}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.IoExceptionMessageBox(_tempFolder);
@@ -479,11 +470,9 @@ public partial class DownloadImagePackWindow : IDisposable
             if (cancellationToken.IsCancellationRequested)
             {
                 // Notify developer
-                var contextMessage = $"Download was canceled by the user. User was not notified.\n\n" +
-                                         $"URL: {downloadUrl}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                var contextMessage = $"Download was canceled by the user. User was not notified.\n" +
+                                     $"URL: {downloadUrl}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser2") ?? "Download canceled by user";
                 progress.Report(new DownloadProgressInfo
@@ -495,11 +484,9 @@ public partial class DownloadImagePackWindow : IDisposable
             else
             {
                 // Notify developer
-                var contextMessage = $"Download timed out or was canceled unexpectedly.\n\n" +
-                                         $"URL: {downloadUrl}\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                var contextMessage = $"Download timed out or was canceled unexpectedly.\n" +
+                                     $"URL: {downloadUrl}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.DownloadErrorMessageBox();
@@ -517,10 +504,8 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // Notify developer
             var contextMessage = $"Generic download error.\n\n" +
-                                     $"URL: {downloadUrl}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+                                 $"URL: {downloadUrl}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadErrorMessageBox();
@@ -589,7 +574,7 @@ public partial class DownloadImagePackWindow : IDisposable
     private void ChooseExtractionFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var selectafoldertoextracttheImagePack2 = (string)Application.Current.TryFindResource("SelectafoldertoextracttheImagePack") ?? "Select a folder to extract the Image Pack";
-        using var dialog = new System.Windows.Forms.FolderBrowserDialog();
+        using var dialog = new FolderBrowserDialog();
         dialog.Description = selectafoldertoextracttheImagePack2;
         dialog.UseDescriptionForTitle = true;
 

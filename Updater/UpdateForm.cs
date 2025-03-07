@@ -1,8 +1,8 @@
 using System.Diagnostics;
+using System.IO.Compression;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Reflection;
-using System.IO.Compression;
 
 namespace Updater;
 

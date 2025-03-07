@@ -21,8 +21,12 @@ public class EasyModeConfig
         if (!File.Exists(xmlFilePath))
         {
             // Notify developer
-            LogAndNotify(new FileNotFoundException($"File not found: {xmlFilePath}"),
-                "The file 'easymode.xml' was not found.");
+            var ex = new FileNotFoundException($"File not found: {xmlFilePath}");
+            const string contextMessage = "The file 'easymode.xml' was not found in the application folder.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify the user.
+            MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
 
             // Return an empty config to avoid further null reference issues
             return new EasyModeConfig { Systems = [] };
@@ -46,18 +50,14 @@ public class EasyModeConfig
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            var errorMessage = "The file 'easymode.xml' is corrupted or invalid.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Error Details: {ex.Message}";
-            LogAndNotify(ex, errorMessage);
+            const string contextMessage = "The file 'easymode.xml' is corrupted or invalid.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = "An unexpected error occurred while loading the file 'easymode.xml'.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Error Details: {ex.Message}";
-            LogAndNotify(ex, errorMessage);
+            const string contextMessage = "An unexpected error occurred while loading the file 'easymode.xml'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         // Return an empty config to avoid further null reference issues
@@ -67,15 +67,6 @@ public class EasyModeConfig
     public void Validate()
     {
         Systems = Systems?.Where(system => system.IsValid()).ToList() ?? [];
-    }
-
-    private static void LogAndNotify(Exception ex, string contextMessage)
-    {
-        // Notify developer
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify the user.
-        MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
     }
 }
 

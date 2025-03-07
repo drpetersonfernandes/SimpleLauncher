@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
@@ -52,7 +53,7 @@ public partial class SetGamepadDeadZoneWindow
         _settingsConfig.Save();
     }
 
-    private static void SetGamePadDeadZone_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void SetGamePadDeadZone_Closing(object sender, CancelEventArgs e)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule != null)

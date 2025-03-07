@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CreateBatchFilesForScummVMGames;
 
@@ -78,7 +79,7 @@ public partial class MainWindow
 
     private static string? SelectFolder()
     {
-        var dialog = new Microsoft.Win32.OpenFolderDialog
+        var dialog = new OpenFolderDialog
         {
             Title = "Please select the root folder where your ScummVM game folders are located."
         };
@@ -88,7 +89,7 @@ public partial class MainWindow
 
     private string? SelectFile()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Title = "Please select the ScummVM executable file (scummvm.exe)",
             Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",

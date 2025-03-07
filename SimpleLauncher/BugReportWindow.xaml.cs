@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using System.Reflection;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System;
+﻿using System;
 using System.IO;
+using System.Net.Http;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
@@ -35,7 +35,7 @@ public partial class BugReportWindow
         {
             // Notify developer
             const string contextMessage = "File 'appsettings.json' is missing.";
-            Exception ex = new();
+            var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -81,7 +81,6 @@ public partial class BugReportWindow
             // Notify developer
             const string contextMessage = "Error in the SendBugReport_Click method.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            
         }
     }
 
@@ -107,7 +106,7 @@ public partial class BugReportWindow
         {
             // Notify developer
             const string contextMessage = "API Key is not properly loaded from 'appsettings.json'.";
-            Exception ex = new();
+            var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -133,7 +132,7 @@ public partial class BugReportWindow
             {
                 // Notify developer
                 const string contextMessage = "An error occurred while sending the bug report.";
-                Exception ex = new ();
+                var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user

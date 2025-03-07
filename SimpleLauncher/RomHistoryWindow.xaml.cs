@@ -2,10 +2,10 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Documents;
+using System.Xml.Linq;
 
 namespace SimpleLauncher;
 
@@ -93,8 +93,8 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             var contextMessage = $"An error occurred while loading ROM history.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -146,8 +146,8 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             var contextMessage = $"An error occurred while opening the browser.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

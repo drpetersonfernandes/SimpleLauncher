@@ -392,8 +392,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -980,8 +980,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"Failed to toggle gamepad.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1141,8 +1141,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1152,8 +1152,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1190,8 +1190,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1228,8 +1228,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1266,8 +1266,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1304,8 +1304,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1342,8 +1342,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1380,8 +1380,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1418,8 +1418,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1456,8 +1456,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
@@ -1494,8 +1494,8 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             var contextMessage = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                                 $"Exception type: {ex.GetType().Name}\n" +
+                                 $"Exception details: {ex.Message}";
             LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
 
             // Notify user
