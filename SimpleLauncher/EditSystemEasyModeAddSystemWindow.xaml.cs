@@ -245,8 +245,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            var errorcreatingdownloadpathfor2 = (string)Application.Current.TryFindResource("Errorcreatingdownloadpathfor") ?? "Error creating download path for";
-            await LogErrors.LogErrorAsync(ex, $"{errorcreatingdownloadpathfor2} {componentName}");
+            var contextMessage = $"Error creating download path for {componentName}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -315,7 +315,8 @@ public partial class EditSystemEasyModeAddSystemWindow
                 catch (HttpRequestException ex)
                 {
                     // Notify developer
-                    await LogErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
+                    var contextMessage = $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     currentRetry++;
                     if (currentRetry < maxRetries && !_isUserCancellation)
@@ -331,7 +332,8 @@ public partial class EditSystemEasyModeAddSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    await LogErrors.LogErrorAsync(ex, $"Unexpected error during download attempt {currentRetry + 1}: {ex.Message}");
+                    var contextMessage = $"Unexpected error during download attempt {currentRetry + 1}: {ex.Message}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     currentRetry++;
                     if (currentRetry < maxRetries && !_isUserCancellation)
@@ -388,7 +390,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                     var contextMessage = $"{componentName} extraction failed.\n\n" +
                                          $"File: {downloadFilePath}";
                     var ex = new Exception(contextMessage);
-                    await LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -403,7 +405,7 @@ public partial class EditSystemEasyModeAddSystemWindow
                 // Notify developer
                 var contextMessage = $"{componentName} download failed after {maxRetries} attempts.";
                 var ex = new Exception(contextMessage);
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -424,7 +426,9 @@ public partial class EditSystemEasyModeAddSystemWindow
                 DownloadStatus = errorDownloadtimedout2;
 
                 // Notify developer
-                await LogErrors.LogErrorAsync(new Exception("Download timed out"), "Download timed out");
+                const string contextMessage = "Download timed out";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -439,11 +443,9 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
             // Notify developer
-            var contextMessage = $"Error downloading {componentName}.\n\n" +
-                                 $"File: {downloadFilePath}\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            var contextMessage = $"Error downloading {componentName}.\n" +
+                                 $"File: {downloadFilePath}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Show the appropriate error message based on the download type
@@ -487,7 +489,10 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             // Handle SSL/TLS errors with fallback method
             DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue. Trying alternate connection method...");
-            await LogErrors.LogErrorAsync(ex, $"SSL/TLS error: {ex.Message}. Inner exception: {ex.InnerException?.Message}");
+
+            // Notify developer
+            const string contextMessage = "SSL/TLS error.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             try
             {
@@ -509,8 +514,10 @@ public partial class EditSystemEasyModeAddSystemWindow
             }
             catch (Exception fallbackEx)
             {
-                // If fallback also fails, log and rethrow
-                await LogErrors.LogErrorAsync(fallbackEx, "Fallback download method also failed: " + fallbackEx.Message);
+                // Notify developer
+                const string contextMessage2 = "Fallback download method failed";
+                _ = LogErrors.LogErrorAsync(fallbackEx, contextMessage2);
+
                 throw;
             }
         }
@@ -674,15 +681,14 @@ public partial class EditSystemEasyModeAddSystemWindow
             }
         }
 
-        async void HandleDownloadError(Exception ex, string resourceKey, string defaultMessage, string logContext, string url)
+        void HandleDownloadError(Exception ex, string resourceKey, string defaultMessage, string logContext, string url)
         {
             DownloadStatus = GetLocalizedString(resourceKey, defaultMessage);
 
-            var contextMessage = $"{logContext}\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            // Notify developer
+            var contextMessage = $"{logContext}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            await LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         string GetLocalizedString(string resourceKey, string defaultValue)
@@ -831,10 +837,8 @@ public partial class EditSystemEasyModeAddSystemWindow
             DownloadStatus = errorFailedtoaddsystem2;
 
             // Notify developer
-            var contextMessage = $"Error adding system.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Error adding system.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.AddSystemFailedMessageBox();
@@ -884,10 +888,8 @@ public partial class EditSystemEasyModeAddSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The application failed to create the necessary folders for the newly added system.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

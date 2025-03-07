@@ -123,9 +123,7 @@ public class SettingsConfig
             SetDefaultsAndSave();
 
             // Notify developer
-            var contextMessage = $"Error loading or parsing 'setting.xml'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Error loading or parsing 'setting.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -242,7 +240,7 @@ public class SettingsConfig
         {
             // Notify developer
             const string contextMessage = "The systemName is null or empty.";
-            Exception ex = new(contextMessage);
+            var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return;
@@ -252,8 +250,8 @@ public class SettingsConfig
         {
             // Notify developer
             const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
-            Exception ex = new();
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return;
         }

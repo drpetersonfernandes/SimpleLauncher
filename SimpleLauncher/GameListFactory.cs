@@ -482,9 +482,7 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"Error deleting the file.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                    const string contextMessage = $"Error deleting the file.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
@@ -555,7 +553,7 @@ public class GameListFactory(
                     catch (Exception ex)
                     {
                         // Notify the developer
-                        var contextMessage = $"Error loading image '{previewImagePath}': {ex.Message}";
+                        var contextMessage = $"Error loading image '{previewImagePath}'.";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
                     }
                 });
@@ -565,10 +563,8 @@ public class GameListFactory(
                 mainWindow.PreviewImage.Source = null;
 
                 // Notify developer
-                var contextMessage = $"An error occurred while loading the preview image.\n\n" +
-                                     $"Image path: {previewImagePath}\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                var contextMessage = $"An error occurred while loading the preview image.\n" +
+                                     $"Image path: {previewImagePath}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }

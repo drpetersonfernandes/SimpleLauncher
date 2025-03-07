@@ -391,9 +391,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error while using the method GameListDoubleClickOnSelectedItem.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItem.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -475,10 +473,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in the method SystemComboBox_SelectionChanged.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+            _ =  LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 
@@ -746,30 +742,27 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in the method LoadGameFilesAsync.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string contextMessage = "Error in the method LoadGameFilesAsync.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
     }
 
-    private static async Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
+    private static Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
     {
-        if (selectedConfig != null) return false;
+        if (selectedConfig != null) return Task.FromResult(false);
 
         // Notify developer
-        const string errorMessage = "Invalid system configuration.\n\n" +
-                                    "Method: LoadGameFilesAsync";
-        var ex = new Exception(errorMessage);
-        await LogErrors.LogErrorAsync(ex, errorMessage);
+        const string contextMessage = "Invalid system configuration.";
+        var ex = new Exception(contextMessage);
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
         MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-        return true;
+        return Task.FromResult(true);
     }
 
     private bool CheckIfSystemComboBoxIsNotNull()
@@ -877,10 +870,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Unable to open the Donation Link from the menu.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = $"Unable to open the Donation Link from the menu.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
@@ -979,10 +970,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Failed to toggle gamepad.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Failed to toggle gamepad.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ToggleGamepadFailureMessageBox();
@@ -1010,10 +999,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in method ButtonSize_Click.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = "Error in method ButtonSize_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
@@ -1038,10 +1025,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in method ButtonAspectRatio_Click.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string contextMessage = "Error in method ButtonAspectRatio_Click";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
@@ -1131,7 +1116,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "The file 'FindRomCover.exe' is missing.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FindRomCoverMissingMessageBox();
@@ -1140,10 +1125,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
             // Notify developer
-            var contextMessage = $"The operation was canceled by the user while trying to launch 'FindRomCover.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
@@ -1151,10 +1134,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'FindRomCover.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'FindRomCover.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasBlockedMessageBox(_logPath);
@@ -1180,7 +1161,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'CreateBatchFilesForPS3Games.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1189,10 +1170,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1218,7 +1197,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'BatchConvertIsoToXiso.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1227,10 +1206,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'BatchConvertIsoToXiso.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'BatchConvertIsoToXiso.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1256,7 +1233,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'BatchConvertToCHD.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1265,10 +1242,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'BatchConvertToCHD.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'BatchConvertToCHD.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1294,7 +1269,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'BatchConvertTo7z.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1303,10 +1278,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'BatchConvertTo7z.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'BatchConvertTo7z.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1332,7 +1305,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'BatchConvertToZip.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1341,10 +1314,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'BatchConvertToZip.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'BatchConvertToZip.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1370,7 +1341,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'CreateBatchFilesForScummVMGames.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1379,10 +1350,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1408,7 +1377,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1417,10 +1386,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1446,7 +1413,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'CreateBatchFilesForWindowsGames.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1455,10 +1422,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1484,7 +1449,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Notify developer
                 const string contextMessage = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -1493,10 +1458,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -1614,10 +1577,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error while using the method ChangeViewMode_Click.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = "Error while using the method ChangeViewMode_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorChangingViewModeMessageBox();
@@ -1935,10 +1896,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Previous page button error.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = "Previous page button error.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
@@ -1967,10 +1926,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Next page button error.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = $"Next page button error.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
@@ -1996,10 +1953,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in the method SearchButton_Click.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string errorMessage = $"Error in the method SearchButton_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
@@ -2018,10 +1973,8 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Error in the method SearchTextBox_KeyDown.\n\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            const string contextMessage = "Error in the method SearchTextBox_KeyDown.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();

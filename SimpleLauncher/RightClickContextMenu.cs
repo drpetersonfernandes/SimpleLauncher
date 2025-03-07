@@ -84,9 +84,7 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while adding a game to the favorites.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "An error occurred while adding a game to the favorites.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -160,10 +158,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while removing a game from favorites.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "An error occurred while removing a game from favorites.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
@@ -194,10 +190,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was a problem opening the Video Link.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "There was a problem opening the Video Link.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
@@ -228,10 +222,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was a problem opening the Info Link.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "There was a problem opening the Info Link.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
@@ -259,10 +251,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was a problem opening the History window.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "There was a problem opening the History window.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
@@ -430,10 +420,8 @@ public static class RightClickContextMenu
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"There was a problem opening the manual.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "There was a problem opening the manual.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotOpenManualMessageBox();
@@ -471,10 +459,8 @@ public static class RightClickContextMenu
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"There was a problem opening the walkthrough.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "There was a problem opening the walkthrough.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
@@ -668,10 +654,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was a problem saving the screenshot.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "There was a problem saving the screenshot.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
@@ -717,10 +701,8 @@ public static class RightClickContextMenu
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'." +
-                                       $"Exception type: {ex.GetType().Name}\n" +
-                                       $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+                    var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'.";
+                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
                     // Notify user
                     MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
@@ -729,9 +711,9 @@ public static class RightClickContextMenu
             else
             {
                 // Notify developer
-                var errorMessage = $"The file '{fileNameWithExtension}' could not be found.";
-                Exception ex = new FileNotFoundException(errorMessage);
-                LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+                var contextMessage = $"The file '{fileNameWithExtension}' could not be found.";
+                var ex = new FileNotFoundException(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
@@ -740,10 +722,8 @@ public static class RightClickContextMenu
         catch (Exception ex)
         {
             // Notify developer
-            var errorMessage = $"Generic error while trying to delete the file '{fileNameWithExtension}'." +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, errorMessage).Wait(TimeSpan.FromSeconds(2));
+            var errorMessage = $"Generic error while trying to delete the file '{fileNameWithExtension}'.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 }

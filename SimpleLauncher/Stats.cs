@@ -84,7 +84,7 @@ public static class Stats
 
         // Notify the developer
         const string contextMessage = "API request failed.";
-        Exception ex = new HttpRequestException(contextMessage);
+        var ex = new HttpRequestException(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
     }
 
@@ -116,7 +116,7 @@ public static class Stats
             var contextMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            Exception ex = new HttpRequestException(contextMessage);
+            var ex = new HttpRequestException(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return false;

@@ -92,9 +92,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while loading ROM history.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "An error occurred while loading ROM history.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -145,9 +143,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"An error occurred while opening the browser.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "An error occurred while opening the browser.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

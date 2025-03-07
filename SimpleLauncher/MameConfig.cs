@@ -44,9 +44,7 @@ public class MameConfig
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The file mame.xml could not be loaded or is corrupted.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "The file mame.xml could not be loaded or is corrupted.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

@@ -36,10 +36,7 @@ public static class PlayClick
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage =
-                $"Error playing '{soundFileName}' sound.\n\n" +
-                $"Exception type: {ex.GetType().Name}\n" +
-                $"Exception details: {ex.Message}";
+            var contextMessage = $"Error playing '{soundFileName}' sound.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }

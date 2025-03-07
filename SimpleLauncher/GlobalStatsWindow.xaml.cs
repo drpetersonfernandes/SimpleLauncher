@@ -55,10 +55,8 @@ public partial class GlobalStatsWindow
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"An error occurred while calculating Global Statistics.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                const string contextMessage = $"An error occurred while calculating Global Statistics.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -72,10 +70,8 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error in the GlobalStats_Loaded method.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            const string contextMessage = $"Error in the GlobalStats_Loaded method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         void DoYouWantToSaveTheReportMessageBox()
@@ -215,10 +211,8 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Failed to save the report in the Global Stats window.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = $"Failed to save the report in the Global Stats window.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedSaveReportMessageBox();
@@ -257,10 +251,10 @@ public partial class GlobalStatsWindow
         }
     }
 
-    private static async Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
+    private static Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
     {
         if (!Directory.Exists(systemImagePath))
-            return;
+            return Task.CompletedTask;
 
         var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
             .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
@@ -285,10 +279,11 @@ public partial class GlobalStatsWindow
             {
                 // Notify developer
                 var contextMessage = $"Error renaming image file: {imageFile}\n" +
-                                     $"New file name: {newImagePath}\n" +
-                                     $"Exception: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                                     $"New file name: {newImagePath}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
+
+        return Task.CompletedTask;
     }
 }

@@ -30,9 +30,7 @@ public partial class ImageViewerWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Failed to load the image in the Image Viewer window.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Failed to load the image in the Image Viewer window.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

@@ -29,7 +29,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null or empty";
-            Exception ex = new ArgumentNullException(nameof(archivePath));
+            var ex = new ArgumentNullException(nameof(archivePath));
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -43,7 +43,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             var contextMessage = $"Archive file not found: {archivePath}";
-            Exception ex = new FileNotFoundException("Archive file not found", archivePath);
+            var ex = new FileNotFoundException("Archive file not found", archivePath);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -67,8 +67,8 @@ public class ExtractCompressedFile
         if (string.IsNullOrEmpty(sevenZipPath) || !File.Exists(sevenZipPath))
         {
             // Notify developer
-            const string contextMessage = "7-Zip executable not found or inaccessible.";
-            Exception ex = new FileNotFoundException(contextMessage, sevenZipPath);
+            const string contextMessage = "7-Zip executable not found or is inaccessible.";
+            var ex = new FileNotFoundException(contextMessage, sevenZipPath);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -150,8 +150,8 @@ public class ExtractCompressedFile
             CleanupTempDirectory(tempDirectory);
 
             // Notify developer
-            const string contextMessage = $"Extraction of the compressed file failed.\n\n" +
-                                          $"The file may be corrupted.\n";
+            const string contextMessage = $"Extraction of the compressed file failed.\n" +
+                                          $"The file may be corrupted.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -187,7 +187,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null or empty";
-            Exception ex = new ArgumentNullException(nameof(archivePath));
+            var ex = new ArgumentNullException(nameof(archivePath));
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -201,7 +201,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             var contextMessage = $"The specified archive file does not exist: {archivePath}";
-            Exception ex = new FileNotFoundException("Archive file not found", archivePath);
+            var ex = new FileNotFoundException("Archive file not found", archivePath);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -299,7 +299,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "File path cannot be null or empty";
-            Exception ex = new ArgumentNullException(nameof(filePath));
+            var ex = new ArgumentNullException(nameof(filePath));
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -311,8 +311,9 @@ public class ExtractCompressedFile
         if (string.IsNullOrEmpty(destinationFolder))
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(new ArgumentNullException(nameof(destinationFolder)),
-                "Destination folder cannot be null or empty");
+            const string contextMessage = "Destination folder cannot be null or empty";
+            var ex = new ArgumentNullException(nameof(destinationFolder));
+            _ = LogErrors.LogErrorAsync(ex,contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -324,9 +325,10 @@ public class ExtractCompressedFile
         if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
             // Notify developer
-            var errorMessage = $"The filepath is invalid or file is empty.\n" +
-                               $"Filepath: {filePath}";
-            await LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage, filePath), errorMessage);
+            var contextMessage = $"The filepath is invalid or file is empty.\n" +
+                                 $"Filepath: {filePath}";
+            var ex = new FileNotFoundException(contextMessage, filePath);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
@@ -344,9 +346,10 @@ public class ExtractCompressedFile
             if (!fullDestPath.StartsWith(appBasePath, StringComparison.OrdinalIgnoreCase))
             {
                 // Notify developer
-                var errorMessage = $"Destination folder must be within the application directory.\n" +
-                                   $"Requested path: {fullDestPath}";
-                await LogErrors.LogErrorAsync(new UnauthorizedAccessException(errorMessage), errorMessage);
+                var contextMessage = $"Destination folder must be within the application directory.\n" +
+                                     $"Requested path: {fullDestPath}";
+                var ex = new UnauthorizedAccessException(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -357,7 +360,8 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(ex, $"Invalid destination path: {destinationFolder}");
+            var contextMessage = $"Invalid destination path: {destinationFolder}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -369,8 +373,9 @@ public class ExtractCompressedFile
         if (IsFileLocked(filePath))
         {
             // Notify developer
-            var errorMessage = $"The downloaded file appears to be locked: {filePath}";
-            await LogErrors.LogErrorAsync(new IOException(errorMessage), errorMessage);
+            var contextMessage = $"The downloaded file appears to be locked: {filePath}";
+            var ex = new IOException(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileIsLockedMessageBox();
@@ -385,9 +390,10 @@ public class ExtractCompressedFile
         if (extension != ".zip")
         {
             // Notify developer
-            var errorMessage = $"Only ZIP files are supported by this extraction method.\n" +
-                               $"File type: {extension}";
-            await LogErrors.LogErrorAsync(new NotSupportedException(errorMessage), errorMessage);
+            var contextMessage = $"Only ZIP files are supported by this extraction method.\n" +
+                                 $"File type: {extension}";
+            var ex = new NotSupportedException(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
@@ -511,11 +517,9 @@ public class ExtractCompressedFile
             var exceptionDetails = GetDetailedExceptionInfo(ex);
 
             // Notify developer
-            var errorMessage = $"Error extracting the file: {filePath}\n" +
-                               $"Exception type: {ex.GetType().Name}\n" +
-                               $"Exception details: {ex.Message}\n" +
-                               $"Technical details: {exceptionDetails}";
-            await LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"Error extracting the file: {filePath}\n" +
+                                 $"{exceptionDetails}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -540,7 +544,8 @@ public class ExtractCompressedFile
                 catch (Exception cleanupEx)
                 {
                     // Notify developer
-                    await LogErrors.LogErrorAsync(cleanupEx, $"Failed to clean up partial extraction in: {destinationFolder}");
+                    var contextMessage = $"Failed to clean up partial extraction in: {destinationFolder}";
+                    _ = LogErrors.LogErrorAsync(cleanupEx, contextMessage);
                 }
             }
         }
@@ -637,7 +642,8 @@ public class ExtractCompressedFile
             {
                 // Log error but don't throw - this is cleanup code
                 // Notify developer
-                LogErrors.LogErrorAsync(ex, $"Failed to clean up temporary directory: {directoryPath}").ConfigureAwait(false);
+                var contextMessage = $"Failed to clean up temporary directory: {directoryPath}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
     }
@@ -677,7 +683,9 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             // Log but don't throw - this is cleanup code
-            LogErrors.LogErrorAsync(ex, $"Error cleaning up partial extraction: {directoryPath}").ConfigureAwait(false);
+            // Notify developer
+            var contextMessage = $"Error cleaning up partial extraction: {directoryPath}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 }

@@ -67,9 +67,7 @@ public static partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify user
-            var contextMessage = $"Error checking for updates.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Error checking for updates.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -108,9 +106,7 @@ public static partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error checking for updates.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Error checking for updates.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -202,10 +198,8 @@ public static partial class UpdateChecker
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"There was an error updating the application.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex, contextMessage);
+                const string contextMessage = "There was an error updating the application.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -221,10 +215,8 @@ public static partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was an error updating the application.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            await LogErrors.LogErrorAsync(ex, contextMessage);
+            const string contextMessage = "There was an error updating the application.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             // Ignore
@@ -345,11 +337,17 @@ public static partial class UpdateChecker
                 return (NormalizeVersion(versionMatch.Value), assetUrl);
             }
 
-            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.");
+            // Notify developer
+            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         else
         {
-            LogErrorAsync("There was an error parsing the application version from the UpdateChecker class. Version information not found in the response.");
+            // Notify developer
+            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class. Version information not found in the response.";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         return (null, null);
@@ -370,12 +368,6 @@ public static partial class UpdateChecker
 
         // Remove any trailing dots (if any)
         return version.TrimEnd('.');
-    }
-
-    private static void LogErrorAsync(string message)
-    {
-        Exception exception = new(message);
-        _ = LogErrors.LogErrorAsync(exception, message);
     }
 
     [GeneratedRegex(@"[^\d\.]")]

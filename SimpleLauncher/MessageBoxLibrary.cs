@@ -1136,9 +1136,7 @@ public static class MessageBoxLibrary
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error opening the Browser.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
+            const string contextMessage = "Error opening the Browser.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -1270,7 +1268,7 @@ public static class MessageBoxLibrary
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    internal static async Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -1291,10 +1289,8 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var contextMessage2 = $"Error opening the download link.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, contextMessage2);
+                const string contextMessage2 = "Error opening the download link.";
+                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1304,9 +1300,11 @@ public static class MessageBoxLibrary
                     error2, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        return Task.CompletedTask;
     }
 
-    internal static async Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -1327,10 +1325,8 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var contextMessage2 = $"Error opening the download link.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, contextMessage2);
+                const string contextMessage2 = "Error opening the download link.";
+                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1340,9 +1336,11 @@ public static class MessageBoxLibrary
                     error2, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        return Task.CompletedTask;
     }
 
-    internal static async Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -1363,10 +1361,8 @@ public static class MessageBoxLibrary
             catch (Exception ex2)
             {
                 // Notify developer
-                var contextMessage2 = $"Error opening the download link.\n\n" +
-                                      $"Exception type: {ex.GetType().Name}\n" +
-                                      $"Exception details: {ex.Message}";
-                await LogErrors.LogErrorAsync(ex2, contextMessage2);
+                const string contextMessage2 = "Error opening the download link.";
+                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
 
                 // Notify user
                 var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1376,6 +1372,8 @@ public static class MessageBoxLibrary
                     error2, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        return Task.CompletedTask;
     }
 
     internal static bool OverwriteSystemMessageBox(EasyModeSystemConfig selectedSystem)

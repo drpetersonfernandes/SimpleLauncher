@@ -32,9 +32,7 @@ public abstract class FileManager
                     catch (Exception innerEx)
                     {
                         // Log the specific extension that caused the problem
-                        var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.\n" +
-                                             $"Exception type: {innerEx.GetType().Name}\n" +
-                                             $"Exception details: {innerEx.Message}";
+                        var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
 
                         // Continue with the next extension rather than failing the entire operation
@@ -46,9 +44,7 @@ public abstract class FileManager
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"There was an error using the method GetFilesAsync.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}\n" +
+                var contextMessage = $"There was an error using the method GetFilesAsync." +
                                      $"Directory path: {directoryPath}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -99,10 +95,9 @@ public abstract class FileManager
                 catch (Exception innerEx)
                 {
                     // Log the specific extension that caused the problem but continue counting
-                    var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.\n" +
-                                         $"Exception type: {innerEx.GetType().Name}\n" +
-                                         $"Exception details: {innerEx.Message}";
-                    LogErrors.LogErrorAsync(innerEx, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                    // Notify developer
+                    var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
+                    _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
                 }
             }
 
@@ -111,11 +106,9 @@ public abstract class FileManager
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = "An error occurred while counting files.\n\n" +
-                                 $"Folder path: {folderPath}\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            var contextMessage = "An error occurred while counting files.\n" +
+                                 $"Folder path: {folderPath}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);

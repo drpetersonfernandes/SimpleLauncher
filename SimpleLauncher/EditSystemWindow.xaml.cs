@@ -847,10 +847,8 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"'Failed to create the default systemImageFolder.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                    const string contextMessage = "'Failed to create the default systemImageFolder.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
             }
         }
@@ -884,10 +882,8 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"'Failed to create the default systemFolder.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
-                    LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                    const string contextMessage = "Failed to create the default systemFolder.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
             }
         }
@@ -963,10 +959,8 @@ public partial class EditSystemWindow
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"'Simple Launcher' failed to create the necessary folders for this system.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'Simple Launcher' failed to create the necessary folders for this system.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FolderCreationFailedMessageBox();

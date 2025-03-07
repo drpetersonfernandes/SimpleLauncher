@@ -39,7 +39,7 @@ public class HelpUserConfig
             {
                 // Notify developer
                 const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 if (MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox()) return;
@@ -62,7 +62,7 @@ public class HelpUserConfig
                     {
                         // Notify developer
                         const string contextMessage = "Failed to parse the file 'helpuser.xml'.";
-                        LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user
                         if (MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox()) return null;
@@ -78,7 +78,7 @@ public class HelpUserConfig
                 // Notify developer
                 const string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
                 var ex = new Exception(contextMessage);
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
@@ -88,7 +88,7 @@ public class HelpUserConfig
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();

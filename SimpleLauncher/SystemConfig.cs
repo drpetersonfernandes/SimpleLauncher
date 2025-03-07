@@ -82,9 +82,7 @@ public class SystemConfig
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"The file 'system.xml' is corrupted or could not be open.\n\n" +
-                                         $"Exception type: {ex.GetType().Name}\n" +
-                                         $"Exception details: {ex.Message}";
+                    const string contextMessage = "The file 'system.xml' is corrupted or could not be open.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
@@ -103,9 +101,7 @@ public class SystemConfig
             catch (XmlException ex)
             {
                 // Notify developer
-                var contextMessage = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
+                var contextMessage = $"The file 'system.xml' is badly corrupted at line {ex.LineNumber}, position {ex.LinePosition}.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -231,10 +227,8 @@ public class SystemConfig
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error loading system configurations from 'system.xml'.\n\n" +
-                                 $"Exception type: {ex.GetType().Name}\n" +
-                                 $"Exception details: {ex.Message}";
-            LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+            const string contextMessage = "Error loading system configurations from 'system.xml'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
@@ -256,10 +250,8 @@ public class SystemConfig
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"'Simple Launcher' was unable to restore the last backup.\n\n" +
-                                     $"Exception type: {ex.GetType().Name}\n" +
-                                     $"Exception details: {ex.Message}";
-                LogErrors.LogErrorAsync(ex, contextMessage).Wait(TimeSpan.FromSeconds(2));
+                const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
