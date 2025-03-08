@@ -313,7 +313,7 @@ public class ExtractCompressedFile
             // Notify developer
             const string contextMessage = "Destination folder cannot be null or empty";
             var ex = new ArgumentNullException(nameof(destinationFolder));
-            _ = LogErrors.LogErrorAsync(ex,contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();

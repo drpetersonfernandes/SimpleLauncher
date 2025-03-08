@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,6 @@ using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 using Application = System.Windows.Application;
-using System.Security.Authentication;
 
 namespace SimpleLauncher;
 
@@ -688,7 +688,6 @@ public partial class EditSystemEasyModeAddSystemWindow
             // Notify developer
             var contextMessage = $"{logContext}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
         }
 
         string GetLocalizedString(string resourceKey, string defaultValue)

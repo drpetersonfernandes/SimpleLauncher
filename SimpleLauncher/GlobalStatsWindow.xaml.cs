@@ -55,7 +55,7 @@ public partial class GlobalStatsWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = $"An error occurred while calculating Global Statistics.";
+                const string contextMessage = "An error occurred while calculating Global Statistics.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -70,7 +70,7 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = $"Error in the GlobalStats_Loaded method.";
+            const string contextMessage = "Error in the GlobalStats_Loaded method.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
@@ -211,7 +211,7 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = $"Failed to save the report in the Global Stats window.";
+            const string contextMessage = "Failed to save the report in the Global Stats window.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

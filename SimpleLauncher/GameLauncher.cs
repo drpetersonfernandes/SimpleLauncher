@@ -221,8 +221,8 @@ public static class GameLauncher
             {
                 // Notify developer
                 var contextMessage = $"Error launching the shortcut file. User was not notified.\n\n" +
-                                   $"Shortcut file: {psi.FileName}\n" +
-                                   $"Exit code {process.ExitCode}";
+                                     $"Shortcut file: {psi.FileName}\n" +
+                                     $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

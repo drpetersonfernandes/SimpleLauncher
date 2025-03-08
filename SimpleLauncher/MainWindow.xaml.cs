@@ -474,7 +474,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             // Notify developer
             const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-            _ =  LogErrors.LogErrorAsync(ex, errorMessage);
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
         }
     }
 
@@ -870,7 +870,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = $"Unable to open the Donation Link from the menu.";
+            const string contextMessage = "Unable to open the Donation Link from the menu.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -1926,7 +1926,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = $"Next page button error.";
+            const string errorMessage = "Next page button error.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -1953,7 +1953,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = $"Error in the method SearchButton_Click.";
+            const string errorMessage = "Error in the method SearchButton_Click.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user

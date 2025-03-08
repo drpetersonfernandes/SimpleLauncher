@@ -22,7 +22,7 @@ public static partial class HelpUser
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = $"Failed to load helpuser.xml.";
+            const string contextMessage = "Failed to load helpuser.xml.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }

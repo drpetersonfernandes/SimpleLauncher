@@ -339,7 +339,7 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = $"That was an error launching a game.";
+            const string contextMessage = "That was an error launching a game.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -705,7 +705,7 @@ public partial class GlobalSearchWindow
                     catch (Exception ex)
                     {
                         // Notify developer
-                        const string contextMessage = $"Error deleting the file.";
+                        const string contextMessage = "Error deleting the file.";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user

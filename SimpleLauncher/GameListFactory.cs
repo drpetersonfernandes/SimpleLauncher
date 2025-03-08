@@ -482,7 +482,7 @@ public class GameListFactory(
                 catch (Exception ex)
                 {
                     // Notify developer
-                    const string contextMessage = $"Error deleting the file.";
+                    const string contextMessage = "Error deleting the file.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
