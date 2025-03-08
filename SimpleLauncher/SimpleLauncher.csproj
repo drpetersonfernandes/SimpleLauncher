@@ -30,7 +30,7 @@
     <Version>$(VersionPrefix)</Version>
     <NoWin32Manifest>true</NoWin32Manifest>
     <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
-    <UseWindowsForms>True</UseWindowsForms>
+    <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <IsPublishable>False</IsPublishable>
@@ -600,6 +600,7 @@
     <Resource Include="images\info.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MessagePack" Version="3.1.3" />

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ControlzEx.Theming;
@@ -64,8 +62,7 @@ public partial class MainWindow : INotifyPropertyChanged
     }
 
     // Define Tray Icon
-    private NotifyIcon _trayIcon;
-    private ContextMenuStrip _trayMenu;
+    private TrayIconManager _trayIconManager;
 
     // Define Pagination Related Variables
     private int _currentPage = 1;
@@ -302,6 +299,9 @@ public partial class MainWindow : INotifyPropertyChanged
         // Dispose gamepad resources
         GamePadController.Instance2.Stop();
         GamePadController.Instance2.Dispose();
+
+        // Dispose tray icon resources
+        _trayIconManager?.Dispose();
     }
 
     // Used in cases that need to reload system.xml or update the pagination settings
@@ -1788,74 +1788,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void InitializeTrayIcon()
     {
-        // Create a context menu for the tray icon
-        _trayMenu = new ContextMenuStrip();
-
-        var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
-        var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
-        _trayMenu.Items.Add(open, null, OnOpen);
-        _trayMenu.Items.Add(exit, null, OnExit);
-
-        // Load the embedded icon from resources
-        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico"))?.Stream;
-
-        // Create the tray icon using the embedded icon
-        if (iconStream == null) return;
-        _trayIcon = new NotifyIcon
-        {
-            Icon = new Icon(iconStream),
-            ContextMenuStrip = _trayMenu,
-            Text = @"Simple Launcher",
-            Visible = true
-        };
-
-        // Handle tray icon events
-        _trayIcon.DoubleClick += OnOpen;
-    }
-
-    // Handle "Open" context menu item or tray icon double-click
-    private void OnOpen(object sender, EventArgs e)
-    {
-        Show();
-        WindowState = WindowState.Normal;
-        Activate();
-    }
-
-    // Handle "Exit" context menu item
-    private void OnExit(object sender, EventArgs e)
-    {
-        _trayIcon.Visible = false;
-        Application.Current.Shutdown();
-    }
-
-    // Override the OnStateChanged method to hide the window when minimized
-    protected override void OnStateChanged(EventArgs e)
-    {
-        if (WindowState == WindowState.Minimized)
-        {
-            Hide();
-            // Retrieve the dynamic resource string
-            var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
-            ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
-        }
-
-        base.OnStateChanged(e);
-    }
-
-    // Display a balloon message
-    private void ShowTrayMessage(string message)
-    {
-        _trayIcon.BalloonTipTitle = @"Simple Launcher";
-        _trayIcon.BalloonTipText = message;
-        _trayIcon.ShowBalloonTip(3000); // Display for 3 seconds
-    }
-
-    // Clean up resources when closing the application
-    protected override void OnClosing(CancelEventArgs e)
-    {
-        _trayIcon.Visible = false;
-        _trayIcon.Dispose();
-        base.OnClosing(e);
+        _trayIconManager = new TrayIconManager(this);
     }
 
     #endregion
