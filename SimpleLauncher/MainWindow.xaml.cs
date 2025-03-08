@@ -239,7 +239,9 @@ public partial class MainWindow : INotifyPropertyChanged
         GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
 
         InitializeControllerDetection();
-        InitializeTrayIcon();
+
+        // Initialize TrayIconManager
+        _trayIconManager = new TrayIconManager(this);
     }
 
     private void InitializeControllerDetection()
@@ -1780,15 +1782,6 @@ public partial class MainWindow : INotifyPropertyChanged
                 Sienna.IsChecked = true;
                 break;
         }
-    }
-
-    #endregion
-
-    #region TrayIcon
-
-    private void InitializeTrayIcon()
-    {
-        _trayIconManager = new TrayIconManager(this);
     }
 
     #endregion
