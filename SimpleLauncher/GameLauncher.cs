@@ -169,7 +169,7 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"There was an issue running the batch process. User was not notified.\n\n" +
+                var contextMessage = $"There was an issue running the batch process. User was not notified.\n" +
                                      $"Batch file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}\n" +
                                      $"Output: {output}\n" +
@@ -220,7 +220,7 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"Error launching the shortcut file. User was not notified.\n\n" +
+                var contextMessage = $"Error launching the shortcut file. User was not notified.\n" +
                                      $"Shortcut file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
@@ -233,7 +233,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error launching the shortcut file. User was not notified.\n\n" +
+            var contextMessage = $"Error launching the shortcut file. User was not notified.\n" +
                                  $"Shortcut file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -267,7 +267,7 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"Error launching the executable file. User was not notified.\n\n" +
+                var contextMessage = $"Error launching the executable file. User was not notified.\n" +
                                      $"Executable file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
@@ -280,7 +280,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error launching the executable file. User was not notified.\n\n" +
+            var contextMessage = $"Error launching the executable file. User was not notified.\n" +
                                  $"Executable file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -384,7 +384,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
                                  $"Emulator output: {output}\n" +
@@ -493,7 +493,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters. User was not notified.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters. User was not notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
                                  $"Emulator output: {output}\n" +
@@ -617,7 +617,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
                                  $"Emulator output: {output}\n" +
@@ -744,7 +744,7 @@ public static class GameLauncher
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+                var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                      $"Exit code: {process.ExitCode}\n" +
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Emulator output: {output}\n" +
@@ -868,7 +868,7 @@ public static class GameLauncher
         if (process.ExitCode != 0)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n\n" +
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
                                  $"Emulator output: {output}\n" +
@@ -889,7 +889,7 @@ public static class GameLauncher
         if (process.ExitCode != -1073741819) return Task.FromResult(false);
 
         // Notify developer
-        var contextMessage = $"There was an access violation error running the emulator. User was not notified.\n\n" +
+        var contextMessage = $"There was an access violation error running the emulator. User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Emulator output: {output}\n" +
@@ -969,7 +969,7 @@ public static class GameLauncher
         if (process.ExitCode != 0)
         {
             // Notify developer
-            var contextMessage = $"Emulator error. User was not notified.\n\n" +
+            var contextMessage = $"Emulator error. User was not notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
                                  $"Emulator output: {output}\n" +
@@ -990,7 +990,7 @@ public static class GameLauncher
         if (process.ExitCode != 1) return Task.FromResult(false);
 
         // Notify developer
-        var contextMessage = $"Generic error in the emulator. User was not notified.\n\n" +
+        var contextMessage = $"Generic error in the emulator. User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Emulator output: {output}\n" +

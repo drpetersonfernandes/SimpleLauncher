@@ -338,14 +338,16 @@ public static partial class UpdateChecker
             }
 
             // Notify developer
-            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class. Version number was not found in the tag.";
+            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class.\n" +
+                                          "Version number was not found in the tag.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         else
         {
             // Notify developer
-            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class. Version information not found in the response.";
+            const string contextMessage = "There was an error parsing the application version from the UpdateChecker class.\n" +
+                                          "Version information not found in the response.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }

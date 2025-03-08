@@ -44,7 +44,7 @@ public abstract class FileManager
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"There was an error using the method GetFilesAsync." +
+                var contextMessage = $"There was an error using the method GetFilesAsync.\n" +
                                      $"Directory path: {directoryPath}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

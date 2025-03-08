@@ -113,7 +113,8 @@ public static class Stats
             if (response.IsSuccessStatusCode) return true; // Success.
 
             // Notify the developer
-            var contextMessage = $"API responded with an error. Status Code: '{response.StatusCode}'. " +
+            var contextMessage = $"API responded with an error.\n" +
+                                 $"Status Code: '{response.StatusCode}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             var ex = new HttpRequestException(contextMessage);
@@ -124,19 +125,17 @@ public static class Stats
         catch (HttpRequestException ex)
         {
             // Notify developer.
-            var contextMessage = $"Error communicating with the API at '{apiUrl}'. " +
+            var contextMessage = $"Error communicating with the API at '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                 $" Exception details: {ex.Message}";
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         catch (Exception ex)
         {
             // Notify developer.
-            var contextMessage = $"Unexpected error while using '{apiUrl}'. " +
+            var contextMessage = $"Unexpected error while using '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty) +
-                                 $" Exception details: {ex.Message}";
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 

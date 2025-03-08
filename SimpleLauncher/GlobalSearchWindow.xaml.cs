@@ -90,10 +90,8 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"That was an error using the SearchButton_Click.\n\n" +
-                                 $"Error details: {ex.Message}";
-            var exception = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(exception, contextMessage);
+            const string contextMessage = "That was an error using the SearchButton_Click.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.GlobalSearchErrorMessageBox();

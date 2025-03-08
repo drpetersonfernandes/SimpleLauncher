@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Navigation;
 using Application = System.Windows.Application;
 
@@ -503,7 +502,7 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Generic download error.\n\n" +
+            var contextMessage = $"Generic download error.\n" +
                                  $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -574,13 +573,17 @@ public partial class DownloadImagePackWindow : IDisposable
     private void ChooseExtractionFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var selectafoldertoextracttheImagePack2 = (string)Application.Current.TryFindResource("SelectafoldertoextracttheImagePack") ?? "Select a folder to extract the Image Pack";
-        using var dialog = new FolderBrowserDialog();
-        dialog.Description = selectafoldertoextracttheImagePack2;
-        dialog.UseDescriptionForTitle = true;
 
-        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        // Create a new StorageFolder picker
+        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
         {
-            ExtractionFolderTextBox.Text = dialog.SelectedPath;
+            Title = selectafoldertoextracttheImagePack2
+        };
+
+        // Show the dialog and handle the result
+        if (openFolderDialog.ShowDialog() == true)
+        {
+            ExtractionFolderTextBox.Text = openFolderDialog.FolderName;
         }
     }
 

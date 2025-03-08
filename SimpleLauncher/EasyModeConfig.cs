@@ -21,8 +21,8 @@ public class EasyModeConfig
         if (!File.Exists(xmlFilePath))
         {
             // Notify developer
-            var ex = new FileNotFoundException($"File not found: {xmlFilePath}");
             const string contextMessage = "The file 'easymode.xml' was not found in the application folder.";
+            var ex = new FileNotFoundException($"File not found: {xmlFilePath}");
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify the user.

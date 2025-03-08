@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 using Application = System.Windows.Application;
@@ -922,13 +921,17 @@ public partial class EditSystemEasyModeAddSystemWindow
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
-        using var dialog = new FolderBrowserDialog();
-        dialog.Description = chooseaFolderwithRoMsorIsOs2;
-        dialog.ShowNewFolderButton = true;
 
-        if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        // Create a new OpenFolderDialog
+        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
         {
-            SystemFolderTextBox.Text = dialog.SelectedPath;
+            Title = chooseaFolderwithRoMsorIsOs2
+        };
+
+        // Show the dialog and handle the result
+        if (openFolderDialog.ShowDialog() == true)
+        {
+            SystemFolderTextBox.Text = openFolderDialog.FolderName;
         }
     }
 

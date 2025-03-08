@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -268,12 +267,17 @@ public partial class EditSystemWindow
     private void ChooseSystemFolder(object sender, RoutedEventArgs e)
     {
         var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
-        var dialog = new FolderBrowserDialog();
-        dialog.Description = pleaseselecttheSystemFolder2;
-        var result = dialog.ShowDialog();
-        if (result == System.Windows.Forms.DialogResult.OK)
+
+        // Create new OpenFolderDialog
+        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
         {
-            var foldername = dialog.SelectedPath;
+            Title = pleaseselecttheSystemFolder2
+        };
+
+        // Show dialog and handle result
+        if (openFolderDialog.ShowDialog() == true)
+        {
+            var foldername = openFolderDialog.FolderName;
             SystemFolderTextBox.Text = foldername;
 
             MarkValid(SystemFolderTextBox);
@@ -283,13 +287,19 @@ public partial class EditSystemWindow
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
     {
         var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
-        var dialog = new FolderBrowserDialog();
-        dialog.Description = pleaseselecttheSystemImage2;
-        var result = dialog.ShowDialog();
 
-        if (result != System.Windows.Forms.DialogResult.OK) return;
+        // Create new OpenFolderDialog
+        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
+        {
+            Title = pleaseselecttheSystemImage2
+        };
 
-        var foldername = dialog.SelectedPath.Trim();
+        // Show dialog and handle result
+        var result = openFolderDialog.ShowDialog();
+
+        if (result != true) return;
+
+        var foldername = openFolderDialog.FolderName.Trim();
         SystemImageFolderTextBox.Text = foldername;
         MarkValid(SystemImageFolderTextBox);
     }
