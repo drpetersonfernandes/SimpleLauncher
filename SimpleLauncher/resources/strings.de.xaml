@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Ungültige Systemkonfiguration</system:String>
     <system:String x:Key="isalreadyinfavorites">ist bereits in den Favoriten.</system:String>
     <system:String x:Key="isminimizedtothetray">wird in die Taskleiste minimiert.</system:String>
-    <system:String x:Key="isnotinfavorites">ist nicht in den Favoriten.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Ist das System MAME-basiert?</system:String>
     <system:String x:Key="isusedmultipletimes">wird mehrmals verwendet. Jeder Emulatorname muss einzigartig sein.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Es wurden außerdem Ordner für</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Extraktionsordner kann nicht erstellt oder zugegriffen werden</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ungültiger Extraktionsordner</system:String>
     <system:String x:Key="unknownsize">unbekannte Größe</system:String>
-    <system:String x:Key="Startingdownload">Download wird gestartet</system:String>
     <system:String x:Key="Downloading">Wird heruntergeladen</system:String>
-    <system:String x:Key="Downloadcomplete">Download abgeschlossen</system:String>
     <system:String x:Key="Downloadincomplete">Download unvollständig</system:String>
     <system:String x:Key="Expected">Erwartet</system:String>
     <system:String x:Key="butreceived">aber erhalten</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Fehler: Datei wurde auf dem Server nicht gefunden</system:String>
     <system:String x:Key="Networkerror">Netzwerkfehler</system:String>
     <system:String x:Key="Fileerror">Dateifehler</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Download vom Benutzer abgebrochen</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download wurde zeitüberschritten oder unerwartet abgebrochen</system:String>
     <system:String x:Key="Downloadcanceled">Download abgebrochen</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Fehler: Keine Download-URL für</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Fehler beim Erstellen des Download-Pfads für</system:String>
     <system:String x:Key="Preparingtodownload">Vorbereiten des Downloads</system:String>
     <system:String x:Key="Extracting">Extrahieren</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">wurde erfolgreich heruntergeladen und installiert.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Fehler: Download hat zeitlich begrenzt.</system:String>
     <system:String x:Key="Errorduring">Fehler während</system:String>
     <system:String x:Key="downloadprocess">Downloadprozess.</system:String>
-    <system:String x:Key="sizeunknown">Größe unbekannt</system:String>
-    <system:String x:Key="Downloaded">Heruntergeladen</system:String>
-    <system:String x:Key="totalsizeunknown">Gesamtgröße unbekannt</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download unvollständig. Heruntergeladene Bytes stimmen nicht mit der erwarteten Dateigröße überein.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Fehler: Die angeforderte Datei wurde auf dem Server nicht gefunden.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Fehler: Netzwerkfehler während des Dateidownloads.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Fehler: Datei-Lese-/Schreibfehler während des Downloads.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Fehler: Download hat zeitlich begrenzt oder wurde unerwartet abgebrochen.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Fehler: Unerwarteter Fehler während des Downloads.</system:String>
     <system:String x:Key="Cancelingdownload">Download wird abgebrochen...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">System wird zur Konfiguration hinzugefügt...</system:String>
     <system:String x:Key="Creatingsystemfolders">Erstellen von Systemordnern...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System wurde erfolgreich hinzugefügt!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Fehler: System konnte nicht hinzugefügt werden.</system:String>
-
     <system:String x:Key="Downloaderror2">Downloadfehler</system:String>
     <system:String x:Key="Startingdownload2">Download startet</system:String>
     <system:String x:Key="Downloadcomplete2">Download abgeschlossen</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download vom Benutzer abgebrochen</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL-Verbindungsfehler, erneuter Versuch...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS-Verbindungsproblem. Versuch einer alternativen Verbindungsmethode...</system:String>
-    <system:String x:Key="FallbackDownload">Verwende alternative Verbindung:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fehler beim Öffnen des Update-Historienfensters.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Beim Überprüfen auf Updates ist ein Fehler aufgetreten.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Der Link kann nicht geöffnet werden.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Keine Spiele zum zufälligen Auswählen gefunden. Bitte überprüfen Sie Ihre Systemauswahl.</system:String>
+    <system:String x:Key="FeelingLucky">Viel Glück</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Bitte wählen Sie ein System aus, bevor Sie die Glücks-Funktion verwenden.</system:String>
     
 </ResourceDictionary>

@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Cấu hình hệ thống không hợp lệ</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
-    <system:String x:Key="isnotinfavorites">không có trong mục yêu thích.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Hệ thống có dựa trên MAME không?</system:String>
     <system:String x:Key="isusedmultipletimes">được sử dụng nhiều lần. Mỗi tên trình giả lập phải là duy nhất.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Nó cũng đã tạo các thư mục cho:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Không thể tạo hoặc truy cập thư mục giải nén</system:String>
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="unknownsize">kích thước không xác định</system:String>
-    <system:String x:Key="Startingdownload">Bắt đầu tải xuống</system:String>
     <system:String x:Key="Downloading">Đang tải xuống</system:String>
-    <system:String x:Key="Downloadcomplete">Tải xuống hoàn tất</system:String>
     <system:String x:Key="Downloadincomplete">Tải xuống chưa hoàn tất</system:String>
     <system:String x:Key="Expected">Dự kiến</system:String>
     <system:String x:Key="butreceived">nhưng nhận được</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Lỗi: Không tìm thấy tệp trên máy chủ</system:String>
     <system:String x:Key="Networkerror">Lỗi mạng</system:String>
     <system:String x:Key="Fileerror">Lỗi tệp</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Người dùng đã hủy tải xuống</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Tải xuống đã hết thời gian hoặc bị hủy bất ngờ</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Lỗi: Không có URL tải xuống cho</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Lỗi: Tạo đường dẫn tải xuống cho</system:String>
     <system:String x:Key="Preparingtodownload">Đang chuẩn bị tải xuống</system:String>
     <system:String x:Key="Extracting">Đang giải nén</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">đã được tải xuống và cài đặt thành công.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Lỗi: Hết thời gian tải xuống.</system:String>
     <system:String x:Key="Errorduring">Lỗi trong khi</system:String>
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>
-    <system:String x:Key="sizeunknown">kích thước không xác định</system:String>
-    <system:String x:Key="Downloaded">Đã tải xuống</system:String>
-    <system:String x:Key="totalsizeunknown">tổng kích thước không xác định</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Tải xuống chưa hoàn thành. Số byte đã tải không khớp với kích thước tệp dự kiến.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Lỗi: Không tìm thấy tệp yêu cầu trên máy chủ.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Lỗi: Lỗi mạng trong quá trình tải xuống tệp.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Lỗi: Lỗi đọc/ghi tệp trong quá trình tải xuống.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Lỗi: Tải xuống hết thời gian hoặc bị hủy bất ngờ.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Lỗi: Lỗi bất ngờ trong quá trình tải xuống.</system:String>
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Đang thêm hệ thống vào cấu hình...</system:String>
     <system:String x:Key="Creatingsystemfolders">Đang tạo thư mục hệ thống...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Hệ thống đã được thêm thành công!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Lỗi: Thêm hệ thống thất bại.</system:String>
-    
     <system:String x:Key="Downloaderror2">Lỗi tải xuống</system:String>
     <system:String x:Key="Startingdownload2">Đang bắt đầu tải xuống</system:String>
     <system:String x:Key="Downloadcomplete2">Tải xuống hoàn tất</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Tải xuống bị người dùng hủy bỏ</system:String>
-    
     <system:String x:Key="RetryingDownload">Lỗi kết nối SSL, đang thử lại...</system:String>
-    <system:String x:Key="ErrorSSLConnection">Vấn đề kết nối SSL/TLS. Đang thử phương thức kết nối thay thế...</system:String>
-    <system:String x:Key="FallbackDownload">Sử dụng phương thức kết nối dự phòng:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Lỗi khi mở cửa sổ Lịch sử Cập nhật.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Đã xảy ra lỗi khi kiểm tra cập nhật.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Không thể mở liên kết.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Không tìm thấy trò chơi để chọn ngẫu nhiên. Vui lòng kiểm tra lựa chọn hệ thống của bạn.</system:String>
+    <system:String x:Key="FeelingLucky">Cảm thấy May Mắn</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Vui lòng chọn một hệ thống trước khi sử dụng tính năng Cảm thấy May Mắn.</system:String>
 
 </ResourceDictionary>

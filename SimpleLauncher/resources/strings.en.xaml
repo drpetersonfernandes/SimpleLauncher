@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
-    <system:String x:Key="isnotinfavorites">is not in favorites.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">It also created folders for</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Cannot create or access the extraction folder</system:String>
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="unknownsize">unknown size</system:String>
-    <system:String x:Key="Startingdownload">Starting download</system:String>
     <system:String x:Key="Downloading">Downloading</system:String>
-    <system:String x:Key="Downloadcomplete">Download complete</system:String>
     <system:String x:Key="Downloadincomplete">Download incomplete</system:String>
     <system:String x:Key="Expected">Expected</system:String>
     <system:String x:Key="butreceived">but received</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Error: File not found on the server</system:String>
     <system:String x:Key="Networkerror">Network error</system:String>
     <system:String x:Key="Fileerror">File error</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Download canceled by user</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download timed out or was canceled unexpectedly</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
 
     <system:String x:Key="ErrorNodownloadURLfor">Error: No download URL for</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Error creating download path for</system:String>
     <system:String x:Key="Preparingtodownload">Preparing to download</system:String>
     <system:String x:Key="Extracting">Extracting</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">has been successfully downloaded and installed.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Error: Download timed out.</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
     <system:String x:Key="downloadprocess">download process.</system:String>
-    <system:String x:Key="sizeunknown">size unknown</system:String>
-    <system:String x:Key="Downloaded">Downloaded</system:String>
-    <system:String x:Key="totalsizeunknown">total size unknown</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download incomplete. Downloaded bytes do not match expected file size.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Error: The requested file was not found on the server.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Error: Network error during file download.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Error: File read/write error during download.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Error: Download timed out or was canceled unexpectedly.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Error: Unexpected error during download.</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
     <system:String x:Key="Creatingsystemfolders">Creating system folders...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: Failed to add system.</system:String>
-    
     <system:String x:Key="Downloaderror2">Download error</system:String>
     <system:String x:Key="Startingdownload2">Starting download</system:String>
     <system:String x:Key="Downloadcomplete2">Download complete</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download canceled by user</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL connection error, retrying...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS connection issue. Trying alternate connection method...</system:String>
-    <system:String x:Key="FallbackDownload">Using fallback connection:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error opening the Update History window.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">An error occurred while checking for updates.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Unable to open the link.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">No games found to randomly select from. Please check your system selection.</system:String>
+    <system:String x:Key="FeelingLucky">Feeling Lucky</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Please select a system before using the Feeling Lucky feature.</system:String>
     
 </ResourceDictionary>

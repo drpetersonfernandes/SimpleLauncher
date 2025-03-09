@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
-    <system:String x:Key="isnotinfavorites">favorilerde değil.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
     <system:String x:Key="isusedmultipletimes">birden fazla kez kullanılıyor. Her emülatör adı benzersiz olmalıdır.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Ayrıca şu klasörler de oluşturuldu:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Çıkartma klasörü oluşturulamıyor veya erişilemiyor</system:String>
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="unknownsize">bilinmeyen boyut</system:String>
-    <system:String x:Key="Startingdownload">İndirme başlıyor</system:String>
     <system:String x:Key="Downloading">İndiriliyor</system:String>
-    <system:String x:Key="Downloadcomplete">İndirme tamamlandı</system:String>
     <system:String x:Key="Downloadincomplete">İndirme tamamlanmadı</system:String>
     <system:String x:Key="Expected">Beklenen</system:String>
     <system:String x:Key="butreceived">alınan</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Hata: Dosya sunucuda bulunamadı</system:String>
     <system:String x:Key="Networkerror">Ağ hatası</system:String>
     <system:String x:Key="Fileerror">Dosya hatası</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">İndirme kullanıcı tarafından iptal edildi</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">İndirme zaman aşımına uğradı veya beklenmedik şekilde iptal edildi</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Hata: için indirme URL'si yok</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Hata: için indirme yolu oluşturulamadı</system:String>
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
     <system:String x:Key="Extracting">Çıkartılıyor</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">başarıyla indirildi ve kuruldu.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Hata: İndirme süresi doldu.</system:String>
     <system:String x:Key="Errorduring">sırasında hata</system:String>
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
-    <system:String x:Key="sizeunknown">boyut bilinmiyor</system:String>
-    <system:String x:Key="Downloaded">İndirildi</system:String>
-    <system:String x:Key="totalsizeunknown">toplam boyut bilinmiyor</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">İndirme tamamlanmadı. İndirilen baytlar beklenen dosya boyutuyla eşleşmiyor.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Hata: İstenen dosya sunucuda bulunamadı.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Hata: Dosya indirimi sırasında ağ hatası.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Hata: İndirme sırasında dosya okuma/yazma hatası.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Hata: İndirme süresi doldu veya beklenmedik şekilde iptal edildi.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Hata: İndirme sırasında beklenmeyen hata.</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
     <system:String x:Key="Creatingsystemfolders">Sistem klasörleri oluşturuluyor...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistemin eklenememesi.</system:String>
-    
     <system:String x:Key="Downloaderror2">İndirme hatası</system:String>
     <system:String x:Key="Startingdownload2">İndirme başlatılıyor</system:String>
     <system:String x:Key="Downloadcomplete2">İndirme tamamlandı</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">İndirme kullanıcı tarafından iptal edildi</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL bağlantı hatası, yeniden deniyor...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS bağlantı sorunu. Alternatif bağlantı yöntemini deniyor...</system:String>
-    <system:String x:Key="FallbackDownload">Alternatif bağlantı kullanılıyor:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Güncelleme Geçmişi penceresi açılırken hata oluştu.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Güncellemeler kontrol edilirken bir hata oluştu.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Bağlantı açılamıyor.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Rastgele seçim yapmak için oyun bulunamadı. Lütfen sistem seçiminizi kontrol edin.</system:String>
+    <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Şansımı Deneme özelliğini kullanmadan önce lütfen bir sistem seçin.</system:String>
 
 </ResourceDictionary>

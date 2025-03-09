@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
-    <system:String x:Key="isnotinfavorites">не находится в избранном.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">используется несколько раз. Имя каждого эмулятора должно быть уникальным.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Также были созданы папки для:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Невозможно создать или получить доступ к папке распаковки</system:String>
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="unknownsize">неизвестный размер</system:String>
-    <system:String x:Key="Startingdownload">Начало загрузки</system:String>
     <system:String x:Key="Downloading">Загрузка</system:String>
-    <system:String x:Key="Downloadcomplete">Загрузка завершена</system:String>
     <system:String x:Key="Downloadincomplete">Загрузка не завершена</system:String>
     <system:String x:Key="Expected">Ожидалось</system:String>
     <system:String x:Key="butreceived">но получено</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Ошибка: Файл не найден на сервере</system:String>
     <system:String x:Key="Networkerror">Ошибка сети</system:String>
     <system:String x:Key="Fileerror">Ошибка файла</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Загрузка отменена пользователем</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Время загрузки истекло или она была неожиданно отменена</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Ошибка: Нет URL для загрузки для</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Ошибка при создании пути загрузки для</system:String>
     <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
     <system:String x:Key="Extracting">Извлечение</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">был успешно загружен и установлен.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Ошибка: Время загрузки истекло.</system:String>
     <system:String x:Key="Errorduring">Ошибка во время</system:String>
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
-    <system:String x:Key="sizeunknown">неизвестный размер</system:String>
-    <system:String x:Key="Downloaded">Загружено</system:String>
-    <system:String x:Key="totalsizeunknown">общий размер неизвестен</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Загрузка незавершена. Загруженные байты не соответствуют ожидаемому размеру файла.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Ошибка: Запрошенный файл не найден на сервере.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Ошибка: Ошибка сети во время загрузки файла.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Ошибка: Ошибка чтения/записи файла во время загрузки.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Ошибка: Время загрузки истекло или загрузка была неожиданно отменена.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Ошибка: Неожиданная ошибка во время загрузки.</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
     <system:String x:Key="Creatingsystemfolders">Создание папок системы...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Ошибка: Не удалось добавить систему.</system:String>
-    
     <system:String x:Key="Downloaderror2">Ошибка загрузки</system:String>
     <system:String x:Key="Startingdownload2">Начало загрузки</system:String>
     <system:String x:Key="Downloadcomplete2">Загрузка завершена</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Загрузка отменена пользователем</system:String>
-    
     <system:String x:Key="RetryingDownload">Ошибка подключения SSL, повторная попытка...</system:String>
-    <system:String x:Key="ErrorSSLConnection">Проблема подключения SSL/TLS. Попытка альтернативного метода соединения...</system:String>
-    <system:String x:Key="FallbackDownload">Используется резервный метод соединения:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Ошибка при открытии окна истории обновлений.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Произошла ошибка при проверке обновлений.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Невозможно открыть ссылку.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Игры для случайного выбора не найдены. Пожалуйста, проверьте выбор системы.</system:String>
+    <system:String x:Key="FeelingLucky">Чувствую Удачу</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Пожалуйста, выберите систему перед использованием функции Чувствую Удачу.</system:String>
     
 </ResourceDictionary>

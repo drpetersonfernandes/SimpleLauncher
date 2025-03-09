@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
-    <system:String x:Key="isnotinfavorites">پسندیدہ میں موجود نہیں ہے۔</system:String>
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">یہ فولڈر بھی بنائے گئے ہیں:۔</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">نکالنے والا فولڈر بنانے یا رسائی حاصل کرنے میں ناکام</system:String>
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
     <system:String x:Key="unknownsize">نامعلوم سائز</system:String>
-    <system:String x:Key="Startingdownload">ڈاؤن لوڈ شروع ہو رہا ہے</system:String>
     <system:String x:Key="Downloading">ڈاؤن لوڈ ہو رہا ہے</system:String>
-    <system:String x:Key="Downloadcomplete">ڈاؤن لوڈ مکمل</system:String>
     <system:String x:Key="Downloadincomplete">ڈاؤن لوڈ نامکمل</system:String>
     <system:String x:Key="Expected">متوقع</system:String>
     <system:String x:Key="butreceived">لیکن موصول ہوا</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">خرابی: فائل سرور پر نہیں ملی</system:String>
     <system:String x:Key="Networkerror">نیٹ ورک کی خرابی</system:String>
     <system:String x:Key="Fileerror">فائل کی خرابی</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">صارف نے ڈاؤن لوڈ منسوخ کر دیا</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ڈاؤن لوڈ ٹائم آؤٹ ہو گیا یا غیر متوقع طور پر منسوخ ہو گیا</system:String>
     <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">خرابی: کے لیے کوئی ڈاؤن لوڈ یو آر ایل نہیں</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">خرابی: کے لیے ڈاؤن لوڈ راستہ بنانے میں ناکامی</system:String>
     <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
     <system:String x:Key="Extracting">استخراج کر رہا ہے</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">کو کامیابی کے ساتھ ڈاؤن لوڈ اور انسٹال کر دیا گیا ہے۔</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">خرابی: ڈاؤن لوڈ وقت ختم ہو گیا۔</system:String>
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
     <system:String x:Key="downloadprocess">ڈاؤن لوڈ کا عمل۔</system:String>
-    <system:String x:Key="sizeunknown">سائز نامعلوم</system:String>
-    <system:String x:Key="Downloaded">ڈاؤن لوڈ ہو گیا</system:String>
-    <system:String x:Key="totalsizeunknown">کل سائز نامعلوم</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">ڈاؤن لوڈ غیر مکمل۔ ڈاؤن لوڈ شدہ بائٹس متوقع فائل سائز سے مطابقت نہیں رکھتیں۔</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">خرابی: درخواست کردہ فائل سرور پر نہیں ملی۔</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">خرابی: فائل ڈاؤن لوڈ کے دوران نیٹ ورک کی خرابی۔</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">خرابی: ڈاؤن لوڈ کے دوران فائل پڑھنے/لکھنے میں خرابی۔</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">خرابی: ڈاؤن لوڈ کا وقت ختم ہو گیا یا غیر متوقع طور پر منسوخ کر دیا گیا۔</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">خرابی: ڈاؤن لوڈ کے دوران غیر متوقع خرابی۔</system:String>
     <system:String x:Key="Cancelingdownload">ڈاؤن لوڈ منسوخ کر رہے ہیں...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">سسٹم کو کنفیگریشن میں شامل کر رہے ہیں...</system:String>
     <system:String x:Key="Creatingsystemfolders">سسٹم فولڈرز بنا رہے ہیں...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">سسٹم کامیابی کے ساتھ شامل کر لیا گیا ہے!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکامی۔</system:String>
-    
     <system:String x:Key="Downloaderror2">ڈاؤن لوڈ میں خرابی</system:String>
     <system:String x:Key="Startingdownload2">ڈاؤن لوڈ شروع ہو رہا ہے</system:String>
     <system:String x:Key="Downloadcomplete2">ڈاؤن لوڈ مکمل ہوا</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">ڈاؤن لوڈ صارف کے ذریعے منسوخ کیا گیا</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL کنکشن کی خرابی، دوبارہ کوشش کی جا رہی ہے...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS کنکشن میں مسئلہ۔ متبادل کنکشن طریقہ کار آزما رہا ہے...</system:String>
-    <system:String x:Key="FallbackDownload">متبادل کنکشن استعمال کیا جا رہا ہے:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">اپ ڈیٹ ہسٹری ونڈو کھولنے میں خرابی۔</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">اپ ڈیٹس کی جانچ کرتے وقت ایک خرابی ہوئی۔</system:String>
+    <system:String x:Key="Unabletoopenthelink">رابطہ کھولنے میں ناکام۔</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">تصادفی انتخاب کے لیے کوئی کھیل نہیں ملا۔ براہ کرم اپنے نظام کے انتخاب کی جانچ کریں۔</system:String>
+    <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">خوش قسمت خصوصیت استعمال کرنے سے پہلے براہ کرم ایک نظام منتخب کریں۔</system:String>
 
 </ResourceDictionary>

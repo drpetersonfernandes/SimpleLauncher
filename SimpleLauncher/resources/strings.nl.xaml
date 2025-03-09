@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
-    <system:String x:Key="isnotinfavorites">staat niet in de favorieten.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Kan de uitpakmap niet maken of benaderen</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="unknownsize">onbekende grootte</system:String>
-    <system:String x:Key="Startingdownload">Download starten</system:String>
     <system:String x:Key="Downloading">Downloaden</system:String>
-    <system:String x:Key="Downloadcomplete">Download voltooid</system:String>
     <system:String x:Key="Downloadincomplete">Download onvolledig</system:String>
     <system:String x:Key="Expected">Verwacht</system:String>
     <system:String x:Key="butreceived">maar ontvangen</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Fout: Bestand niet gevonden op de server</system:String>
     <system:String x:Key="Networkerror">Netwerkfout</system:String>
     <system:String x:Key="Fileerror">Bestandsfout</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Download geannuleerd door gebruiker</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download time-out of onverwacht geannuleerd</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Fout bij het maken van downloadpad voor</system:String>
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
     <system:String x:Key="Extracting">Extractie</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">is succesvol gedownload en geïnstalleerd.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Fout: Download time-out.</system:String>
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
     <system:String x:Key="downloadprocess">downloadproces.</system:String>
-    <system:String x:Key="sizeunknown">grootte onbekend</system:String>
-    <system:String x:Key="Downloaded">Gedownload</system:String>
-    <system:String x:Key="totalsizeunknown">totale grootte onbekend</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Download onvolledig. Gedownloade bytes komen niet overeen met de verwachte bestandsgrootte.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Fout: Het gevraagde bestand is niet gevonden op de server.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Fout: Netwerkfout tijdens het downloaden van het bestand.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Fout: Bestand lees-/schrijffout tijdens het downloaden.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Fout: Download time-out of onverwacht geannuleerd.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Fout: Onverwachte fout tijdens het downloaden.</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
     <system:String x:Key="Creatingsystemfolders">Systeemmappen worden aangemaakt...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
-    
     <system:String x:Key="Downloaderror2">Downloadfout</system:String>
     <system:String x:Key="Startingdownload2">Download starten</system:String>
     <system:String x:Key="Downloadcomplete2">Download voltooid</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Download door gebruiker geannuleerd</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL-verbinding fouten, opnieuw proberen...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS-verbinding probleem. Proberen alternatieve verbindingsmethode...</system:String>
-    <system:String x:Key="FallbackDownload">Gebruik van alternatieve verbinding:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fout bij het openen van het updategeschiedenisvenster.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Er is een fout opgetreden bij het controleren op updates.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Kan de link niet openen.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Geen games gevonden om willekeurig uit te selecteren. Controleer uw systeemkeuze.</system:String>
+    <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Selecteer een systeem voordat u de Gelukkig Gevoel-functie gebruikt.</system:String>
     
 </ResourceDictionary>

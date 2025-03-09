@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
-    <system:String x:Key="isnotinfavorites">はお気に入りに登録されていません。</system:String>
     <system:String x:Key="IsthesystemMAMEbased">システムはMAMEベースですか？</system:String>
     <system:String x:Key="isusedmultipletimes">は複数回使用されています。エミュレーター名は一意である必要があります。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">さらに次のフォルダーも作成されました:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">展開フォルダを作成またはアクセスできません</system:String>
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="unknownsize">不明なサイズ</system:String>
-    <system:String x:Key="Startingdownload">ダウンロード開始</system:String>
     <system:String x:Key="Downloading">ダウンロード中</system:String>
-    <system:String x:Key="Downloadcomplete">ダウンロード完了</system:String>
     <system:String x:Key="Downloadincomplete">ダウンロード未完了</system:String>
     <system:String x:Key="Expected">予期値</system:String>
     <system:String x:Key="butreceived">実際の値</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">エラー：サーバー上にファイルが見つかりません</system:String>
     <system:String x:Key="Networkerror">ネットワークエラー</system:String>
     <system:String x:Key="Fileerror">ファイルエラー</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">ユーザーによりダウンロードがキャンセルされました</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ダウンロードがタイムアウトまたは予期せずキャンセルされました</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">エラー: のダウンロードURLがありません</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">エラー: のダウンロードパスの作成に失敗しました</system:String>
     <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
     <system:String x:Key="Extracting">抽出中</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">が正常にダウンロードおよびインストールされました。</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">エラー: ダウンロードがタイムアウトしました。</system:String>
     <system:String x:Key="Errorduring">エラー中</system:String>
     <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>
-    <system:String x:Key="sizeunknown">サイズ不明</system:String>
-    <system:String x:Key="Downloaded">ダウンロード済み</system:String>
-    <system:String x:Key="totalsizeunknown">総サイズ不明</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">ダウンロード未完了。ダウンロードされたバイトが期待されるファイルサイズと一致しません。</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">エラー: サーバー上に要求されたファイルが見つかりませんでした。</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">エラー: ファイルダウンロード中のネットワークエラー。</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">エラー: ダウンロード中のファイル読み書きエラー。</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">エラー: ダウンロードがタイムアウトしたか、予期せずキャンセルされました。</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">エラー: ダウンロード中に予期しないエラーが発生しました。</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">システムを設定に追加しています...</system:String>
     <system:String x:Key="Creatingsystemfolders">システムフォルダを作成しています...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">エラー: システムの追加に失敗しました。</system:String>
-    
     <system:String x:Key="Downloaderror2">ダウンロードエラー</system:String>
     <system:String x:Key="Startingdownload2">ダウンロードを開始しています</system:String>
     <system:String x:Key="Downloadcomplete2">ダウンロード完了</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">ユーザーによってダウンロードがキャンセルされました</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL接続エラー、再試行中...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS接続の問題。代替接続方法を試しています...</system:String>
-    <system:String x:Key="FallbackDownload">フォールバック接続を使用しています：</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">アップデート履歴ウィンドウを開く際にエラーが発生しました。</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">アップデートの確認中にエラーが発生しました。</system:String>
+    <system:String x:Key="Unabletoopenthelink">リンクを開くことができません。</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">ランダムに選択するゲームが見つかりません。システムの選択を確認してください。</system:String>
+    <system:String x:Key="FeelingLucky">フェイリングラッキー</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">フェイリングラッキー機能を使用する前に、システムを選択してください。</system:String>
     
 </ResourceDictionary>

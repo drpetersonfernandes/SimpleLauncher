@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">系統配置無效</system:String>
     <system:String x:Key="isalreadyinfavorites">已經在收藏中。</system:String>
     <system:String x:Key="isminimizedtothetray">已縮小至系統匣。</system:String>
-    <system:String x:Key="isnotinfavorites">不在收藏中。</system:String>
     <system:String x:Key="IsthesystemMAMEbased">系統是基於MAME的嗎？</system:String>
     <system:String x:Key="isusedmultipletimes">已多次使用。每個模擬器名稱必須是唯一的。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">同時也建立了以下資料夾：</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">無法建立或存取解壓資料夾</system:String>
     <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
     <system:String x:Key="unknownsize">未知大小</system:String>
-    <system:String x:Key="Startingdownload">開始下載</system:String>
     <system:String x:Key="Downloading">正在下載</system:String>
-    <system:String x:Key="Downloadcomplete">下載完成</system:String>
     <system:String x:Key="Downloadincomplete">下載未完成</system:String>
     <system:String x:Key="Expected">預期</system:String>
     <system:String x:Key="butreceived">但收到</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">錯誤：伺服器上未找到檔案</system:String>
     <system:String x:Key="Networkerror">網路錯誤</system:String>
     <system:String x:Key="Fileerror">檔案錯誤</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">使用者已取消下載</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">下載超時或意外取消</system:String>
     <system:String x:Key="Downloadcanceled">下載已取消</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">錯誤：沒有下載URL為</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">錯誤：創建下載路徑為時出錯</system:String>
     <system:String x:Key="Preparingtodownload">準備下載</system:String>
     <system:String x:Key="Extracting">正在提取</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">已成功下載和安裝。</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">錯誤：下載超時。</system:String>
     <system:String x:Key="Errorduring">期間發生錯誤</system:String>
     <system:String x:Key="downloadprocess">下載過程。</system:String>
-    <system:String x:Key="sizeunknown">大小未知</system:String>
-    <system:String x:Key="Downloaded">已下載</system:String>
-    <system:String x:Key="totalsizeunknown">總大小未知</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">下載不完整。下載的位元組數與預期的檔案大小不匹配。</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">錯誤：伺服器上未找到請求的檔案。</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">錯誤：檔案下載過程中發生網路錯誤。</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">錯誤：下載過程中發生檔案讀寫錯誤。</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">錯誤：下載超時或意外取消。</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">錯誤：下載過程中發生意外錯誤。</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下載...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">正在將系統添加到配置中...</system:String>
     <system:String x:Key="Creatingsystemfolders">正在創建系統資料夾...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">系統已成功添加！</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">錯誤：添加系統失敗。</system:String>
-    
     <system:String x:Key="Downloaderror2">下載錯誤</system:String>
     <system:String x:Key="Startingdownload2">開始下載</system:String>
     <system:String x:Key="Downloadcomplete2">下載完成</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">用戶取消下載</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL連接錯誤，正在重試...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS連接問題。正在嘗試替代連接方法...</system:String>
-    <system:String x:Key="FallbackDownload">使用備用連接：</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">打開更新歷史窗口時出錯。</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">檢查更新時發生錯誤。</system:String>
+    <system:String x:Key="Unabletoopenthelink">無法打開鏈接。</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">未找到可隨機選擇的遊戲。請檢查您的系統選擇。</system:String>
+    <system:String x:Key="FeelingLucky">感覺幸運</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">使用“感覺幸運”功能前，請先選擇一個系統。</system:String>
 
 </ResourceDictionary>

@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
-    <system:String x:Key="isnotinfavorites">tidak ada di favorit.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">digunakan beberapa kali. Setiap nama emulator harus unik.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Folder juga telah dibuat untuk</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Tidak dapat membuat atau mengakses folder ekstraksi</system:String>
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="unknownsize">ukuran tidak diketahui</system:String>
-    <system:String x:Key="Startingdownload">Memulai unduhan</system:String>
     <system:String x:Key="Downloading">Mengunduh</system:String>
-    <system:String x:Key="Downloadcomplete">Unduhan selesai</system:String>
     <system:String x:Key="Downloadincomplete">Unduhan tidak lengkap</system:String>
     <system:String x:Key="Expected">Diharapkan</system:String>
     <system:String x:Key="butreceived">tetapi diterima</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">Error: File tidak ditemukan di server</system:String>
     <system:String x:Key="Networkerror">Kesalahan jaringan</system:String>
     <system:String x:Key="Fileerror">Kesalahan file</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">Unduhan dibatalkan oleh pengguna</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Unduhan kehabisan waktu atau dibatalkan secara tidak terduga</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">Error: Tidak ada URL unduhan untuk</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">Error membuat path unduhan untuk</system:String>
     <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
     <system:String x:Key="Extracting">Sedang mengekstrak</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">telah berhasil diunduh dan diinstal.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">Error: Waktu unduhan habis.</system:String>
     <system:String x:Key="Errorduring">Error selama</system:String>
     <system:String x:Key="downloadprocess">proses unduhan.</system:String>
-    <system:String x:Key="sizeunknown">ukuran tidak diketahui</system:String>
-    <system:String x:Key="Downloaded">Diunduh</system:String>
-    <system:String x:Key="totalsizeunknown">ukuran total tidak diketahui</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">Unduhan tidak lengkap. Byte yang diunduh tidak sesuai dengan ukuran file yang diharapkan.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">Error: File yang diminta tidak ditemukan di server.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">Error: Kesalahan jaringan selama pengunduhan file.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">Error: Kesalahan baca/tulis file selama pengunduhan.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">Error: Waktu unduhan habis atau dibatalkan secara tak terduga.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">Error: Kesalahan tak terduga selama pengunduhan.</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
     <system:String x:Key="Creatingsystemfolders">Membuat folder sistem...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem telah berhasil ditambahkan!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: Gagal menambahkan sistem.</system:String>
-    
     <system:String x:Key="Downloaderror2">Kesalahan unduhan</system:String>
     <system:String x:Key="Startingdownload2">Memulai unduhan</system:String>
     <system:String x:Key="Downloadcomplete2">Unduhan selesai</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">Unduhan dibatalkan oleh pengguna</system:String>
-    
     <system:String x:Key="RetryingDownload">Kesalahan koneksi SSL, mencoba kembali...</system:String>
-    <system:String x:Key="ErrorSSLConnection">Masalah koneksi SSL/TLS. Mencoba metode koneksi alternatif...</system:String>
-    <system:String x:Key="FallbackDownload">Menggunakan metode koneksi cadangan:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">Kesalahan saat membuka jendela Riwayat Pembaruan.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Terjadi kesalahan saat memeriksa pembaruan.</system:String>
+    <system:String x:Key="Unabletoopenthelink">Tidak dapat membuka tautan.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Tidak ada game yang ditemukan untuk dipilih secara acak. Silakan periksa pilihan sistem Anda.</system:String>
+    <system:String x:Key="FeelingLucky">Merasa Beruntung</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Silakan pilih sistem sebelum menggunakan fitur Merasa Beruntung.</system:String>
 
 </ResourceDictionary>

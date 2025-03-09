@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
     <system:String x:Key="isminimizedtothetray">ट्रे में न्यूनतम कर दिया गया है।</system:String>
-    <system:String x:Key="isnotinfavorites">पसंदीदा में नहीं है।</system:String>
     <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
     <system:String x:Key="isusedmultipletimes">कई बार उपयोग किया गया है। प्रत्येक एमुलेटर का नाम अद्वितीय होना चाहिए।</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">इसने अतिरिक्त फ़ोल्डर भी बनाए</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">निकालने का फ़ोल्डर नहीं बना सकते या उस तक पहुंच नहीं सकते</system:String>
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
     <system:String x:Key="unknownsize">अज्ञात आकार</system:String>
-    <system:String x:Key="Startingdownload">डाउनलोड शुरू हो रहा है</system:String>
     <system:String x:Key="Downloading">डाउनलोड हो रहा है</system:String>
-    <system:String x:Key="Downloadcomplete">डाउनलोड पूरा हुआ</system:String>
     <system:String x:Key="Downloadincomplete">डाउनलोड अधूरा</system:String>
     <system:String x:Key="Expected">अपेक्षित</system:String>
     <system:String x:Key="butreceived">लेकिन प्राप्त हुआ</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">त्रुटि: सर्वर पर फ़ाइल नहीं मिली</system:String>
     <system:String x:Key="Networkerror">नेटवर्क त्रुटि</system:String>
     <system:String x:Key="Fileerror">फ़ाइल त्रुटि</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">उपयोगकर्ता द्वारा डाउनलोड रद्द किया गया</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">डाउनलोड का समय समाप्त हो गया या अप्रत्याशित रूप से रद्द हो गया</system:String>
     <system:String x:Key="Downloadcanceled">डाउनलोड रद्द किया गया</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">त्रुटि: के लिए कोई डाउनलोड URL नहीं है</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">त्रुटि: के लिए डाउनलोड पथ बनाने में</system:String>
     <system:String x:Key="Preparingtodownload">डाउनलोड करने की तैयारी कर रहा है</system:String>
     <system:String x:Key="Extracting">निकालना</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">सफलतापूर्वक डाउनलोड और इंस्टॉल किया गया है।</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">त्रुटि: डाउनलोड का समय समाप्त हो गया।</system:String>
     <system:String x:Key="Errorduring">के दौरान त्रुटि</system:String>
     <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>
-    <system:String x:Key="sizeunknown">आकार अज्ञात</system:String>
-    <system:String x:Key="Downloaded">डाउनलोड किया गया</system:String>
-    <system:String x:Key="totalsizeunknown">कुल आकार अज्ञात</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">डाउनलोड अधूरा। डाउनलोड किए गए बाइट्स अपेक्षित फ़ाइल आकार से मेल नहीं खाते।</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">त्रुटि: अनुरोधित फ़ाइल सर्वर पर नहीं मिली।</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">त्रुटि: फ़ाइल डाउनलोड के दौरान नेटवर्क त्रुटि।</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">त्रुटि: डाउनलोड के दौरान फ़ाइल पढ़ने/लिखने में त्रुटि।</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">त्रुटि: डाउनलोड का समय समाप्त हो गया या अप्रत्याशित रूप से रद्द कर दिया गया।</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">त्रुटि: डाउनलोड के दौरान अप्रत्याशित त्रुटि।</system:String>
     <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
     <system:String x:Key="Creatingsystemfolders">सिस्टम फ़ोल्डर बना रहा है...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">सिस्टम सफलतापूर्वक जोड़ा गया है!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">त्रुटि: सिस्टम जोड़ने में विफल रहा।</system:String>
-    
     <system:String x:Key="Downloaderror2">डाउनलोड त्रुटि</system:String>
     <system:String x:Key="Startingdownload2">डाउनलोड शुरू हो रहा है</system:String>
     <system:String x:Key="Downloadcomplete2">डाउनलोड पूरा हुआ</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">उपयोगकर्ता द्वारा डाउनलोड रद्द किया गया</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL कनेक्शन त्रुटि, पुनः प्रयास कर रहे हैं...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS कनेक्शन में समस्या। वैकल्पिक कनेक्शन विधि आजमा रहे हैं...</system:String>
-    <system:String x:Key="FallbackDownload">वैकल्पिक कनेक्शन का उपयोग कर रहे हैं:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">अपडेट इतिहास विंडो खोलने में त्रुटि।</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">अपडेट की जांच करते समय एक त्रुटि हुई।</system:String>
+    <system:String x:Key="Unabletoopenthelink">लिंक खोलने में असमर्थ।</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">कोई गेम नहीं मिला जिसे यादृच्छिक रूप से चुना जा सके। कृपया अपनी सिस्टम चयन की जाँच करें।</system:String>
+    <system:String x:Key="FeelingLucky">भाग्यशाली महसूस हो रहा है</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">भाग्यशाली फीचर का उपयोग करने से पहले कृपया एक सिस्टम चुनें।</system:String>
 
 </ResourceDictionary>

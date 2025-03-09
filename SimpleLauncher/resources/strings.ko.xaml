@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
-    <system:String x:Key="isnotinfavorites">즐겨찾기에 추가되지 않았습니다.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
     <system:String x:Key="isusedmultipletimes">이 여러 번 사용되고 있습니다. 각 에뮬레이터 이름은 고유해야 합니다.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">또한 다음을 위한 폴더도 생성되었습니다:</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">압축 해제 폴더를 생성하거나 접근할 수 없습니다</system:String>
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="unknownsize">알 수 없는 크기</system:String>
-    <system:String x:Key="Startingdownload">다운로드 시작</system:String>
     <system:String x:Key="Downloading">다운로드 중</system:String>
-    <system:String x:Key="Downloadcomplete">다운로드 완료</system:String>
     <system:String x:Key="Downloadincomplete">다운로드 미완료</system:String>
     <system:String x:Key="Expected">예상</system:String>
     <system:String x:Key="butreceived">수신됨</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">오류: 서버에서 파일을 찾을 수 없습니다</system:String>
     <system:String x:Key="Networkerror">네트워크 오류</system:String>
     <system:String x:Key="Fileerror">파일 오류</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">사용자가 다운로드를 취소했습니다</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">다운로드 시간 초과 또는 예기치 않게 취소되었습니다</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">오류: 의 다운로드 URL이 없습니다</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">오류: 의 다운로드 경로 생성 실패</system:String>
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
     <system:String x:Key="Extracting">추출 중</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">이(가) 성공적으로 다운로드되고 설치되었습니다.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">오류: 다운로드 시간이 초과되었습니다.</system:String>
     <system:String x:Key="Errorduring">동안 오류</system:String>
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
-    <system:String x:Key="sizeunknown">크기 알 수 없음</system:String>
-    <system:String x:Key="Downloaded">다운로드됨</system:String>
-    <system:String x:Key="totalsizeunknown">전체 크기 알 수 없음</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">다운로드가 완료되지 않았습니다. 다운로드된 바이트가 예상 파일 크기와 일치하지 않습니다.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">오류: 요청한 파일을 서버에서 찾을 수 없습니다.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">오류: 파일 다운로드 중 네트워크 오류.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">오류: 다운로드 중 파일 읽기/쓰기 오류.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">오류: 다운로드 시간이 초과되었거나 예기치 않게 취소되었습니다.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">오류: 다운로드 중 예기치 않은 오류.</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">구성에 시스템 추가 중...</system:String>
     <system:String x:Key="Creatingsystemfolders">시스템 폴더 생성 중...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템 추가 실패.</system:String>
-    
     <system:String x:Key="Downloaderror2">다운로드 오류</system:String>
     <system:String x:Key="Startingdownload2">다운로드 시작 중</system:String>
     <system:String x:Key="Downloadcomplete2">다운로드 완료</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">사용자가 다운로드를 취소했습니다</system:String>
-    
     <system:String x:Key="RetryingDownload">SSL 연결 오류, 재시도 중...</system:String>
-    <system:String x:Key="ErrorSSLConnection">SSL/TLS 연결 문제. 대체 연결 방법을 시도 중...</system:String>
-    <system:String x:Key="FallbackDownload">대체 연결을 사용 중:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">업데이트 기록 창을 여는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">업데이트를 확인하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Unabletoopenthelink">링크를 열 수 없습니다.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">무작위로 선택할 게임을 찾을 수 없습니다. 시스템 선택을 확인하십시오.</system:String>
+    <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">행운 기능을 사용하기 전에 시스템을 선택하십시오.</system:String>
     
 </ResourceDictionary>

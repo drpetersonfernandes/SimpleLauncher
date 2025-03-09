@@ -220,7 +220,6 @@
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
-    <system:String x:Key="isnotinfavorites">غير موجود في المفضلة.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">كما قام بإنشاء مجلدات لـ</system:String>
@@ -523,21 +522,17 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">لا يمكن إنشاء أو الوصول إلى مجلد الاستخراج</system:String>
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="unknownsize">حجم غير معروف</system:String>
-    <system:String x:Key="Startingdownload">بدء التنزيل</system:String>
     <system:String x:Key="Downloading">جارٍ التنزيل</system:String>
-    <system:String x:Key="Downloadcomplete">اكتمل التنزيل</system:String>
     <system:String x:Key="Downloadincomplete">التنزيل غير مكتمل</system:String>
     <system:String x:Key="Expected">متوقع</system:String>
     <system:String x:Key="butreceived">لكن تم استلام</system:String>
     <system:String x:Key="ErrorFilenotfoundontheserver">خطأ: الملف غير موجود على الخادم</system:String>
     <system:String x:Key="Networkerror">خطأ في الشبكة</system:String>
     <system:String x:Key="Fileerror">خطأ في الملف</system:String>
-    <system:String x:Key="Downloadcanceledbyuser">تم إلغاء التنزيل من قبل المستخدم</system:String>
     <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">انتهت مهلة التنزيل أو تم إلغاؤه بشكل غير متوقع</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
     
     <system:String x:Key="ErrorNodownloadURLfor">خطأ: لا يوجد عنوان تحميل لـ</system:String>
-    <system:String x:Key="Errorcreatingdownloadpathfor">خطأ في إنشاء مسار التحميل لـ</system:String>
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
     <system:String x:Key="Extracting">جارٍ الاستخراج</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">تم التحميل والتثبيت بنجاح.</system:String>
@@ -548,28 +543,22 @@
     <system:String x:Key="ErrorDownloadtimedout">خطأ: انتهاء مهلة التحميل.</system:String>
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
     <system:String x:Key="downloadprocess">عملية التحميل.</system:String>
-    <system:String x:Key="sizeunknown">الحجم غير معروف</system:String>
-    <system:String x:Key="Downloaded">تم التحميل</system:String>
-    <system:String x:Key="totalsizeunknown">الحجم الكلي غير معروف</system:String>
-    <system:String x:Key="DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize">التحميل غير مكتمل. البايتات المحملة لا تتطابق مع حجم الملف المتوقع.</system:String>
-    <system:String x:Key="ErrorTherequestedfilewasnotfoundontheserver">خطأ: الملف المطلوب غير موجود على الخادم.</system:String>
-    <system:String x:Key="ErrorNetworkerrorduringfiledownload">خطأ: خطأ في الشبكة أثناء تحميل الملف.</system:String>
-    <system:String x:Key="ErrorFilereadwriteerrorduringdownload">خطأ: خطأ في قراءة/كتابة الملف أثناء التحميل.</system:String>
-    <system:String x:Key="ErrorDownloadtimedoutorwascanceledunexpectedly">خطأ: انتهاء مهلة التحميل أو تم الإلغاء بشكل غير متوقع.</system:String>
-    <system:String x:Key="ErrorUnexpectederrorduringdownload">خطأ: خطأ غير متوقع أثناء التحميل.</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
     <system:String x:Key="Creatingsystemfolders">جارٍ إنشاء مجلدات النظام...</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
-    
     <system:String x:Key="Downloaderror2">خطأ في التحميل</system:String>
     <system:String x:Key="Startingdownload2">بدء التحميل</system:String>
     <system:String x:Key="Downloadcomplete2">اكتمل التحميل</system:String>
     <system:String x:Key="Downloadcanceledbyuser2">تم إلغاء التحميل بواسطة المستخدم</system:String>
-    
     <system:String x:Key="RetryingDownload">خطأ في اتصال SSL، إعادة المحاولة...</system:String>
-    <system:String x:Key="ErrorSSLConnection">مشكلة في اتصال SSL/TLS. محاولة طريقة اتصال بديلة...</system:String>
-    <system:String x:Key="FallbackDownload">استخدام طريقة اتصال احتياطية:</system:String>
+    
+    <system:String x:Key="ErroropeningtheUpdateHistorywindow">خطأ في فتح نافذة سجل التحديث.</system:String>
+    <system:String x:Key="Anerroroccurredwhilecheckingforupdates">حدث خطأ أثناء التحقق من التحديثات.</system:String>
+    <system:String x:Key="Unabletoopenthelink">غير قادر على فتح الرابط.</system:String>
+    <system:String x:Key="Nogamesfoundtorandomlyselectfrom">لم يتم العثور على ألعاب للاختيار العشوائي منها. يرجى التحقق من اختيار النظام.</system:String>
+    <system:String x:Key="FeelingLucky">محظوظ</system:String>
+    <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">يرجى اختيار نظام قبل استخدام خاصية المحظوظ.</system:String>
 
 </ResourceDictionary>
