@@ -579,6 +579,8 @@
     <Resource Include="images\buttonsize.png" />
     <None Remove="images\setdeadzone.png" />
     <Resource Include="images\setdeadzone.png" />
+    <None Remove="images\dice.png" />
+    <Resource Include="images\dice.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

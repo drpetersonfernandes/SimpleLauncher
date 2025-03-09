@@ -42,7 +42,7 @@ public partial class AboutWindow
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.UnableTgoOpenLinkMessageBox();
+            MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
         finally
         {

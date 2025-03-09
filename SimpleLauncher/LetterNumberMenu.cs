@@ -14,6 +14,7 @@ public class LetterNumberMenu
 
     public event Action<string> OnLetterSelected;
     public event Action OnFavoritesSelected;
+    public event Action OnFeelingLuckySelected;
 
     public LetterNumberMenu()
     {
@@ -21,11 +22,12 @@ public class LetterNumberMenu
         InitializeNumberButton();
         InitializeLetterButtons();
         InitializeFavoritesButton();
+        InitializeDiceButton();
     }
 
     private void InitializeNumberButton()
     {
-        Button numButton = new() { Content = "#", Width = 30, Height = 30 };
+        Button numButton = new() { Content = "#", Width = 32, Height = 32 };
         numButton.Click += (_, _) =>
         {
             UpdateSelectedButton(numButton);
@@ -38,7 +40,7 @@ public class LetterNumberMenu
     {
         foreach (var c in Enumerable.Range('A', 26).Select(x => (char)x))
         {
-            Button button = new() { Content = c.ToString(), Width = 30, Height = 30 };
+            Button button = new() { Content = c.ToString(), Width = 32, Height = 32 };
 
             button.Click += (_, _) =>
             {
@@ -51,7 +53,7 @@ public class LetterNumberMenu
 
     private void InitializeAllButton()
     {
-        var allButton = new Button { Content = "All", Width = 50, Height = 30 };
+        var allButton = new Button { Content = "All", Width = 50, Height = 32 };
         allButton.Click += (_, _) =>
         {
             UpdateSelectedButton(allButton);
@@ -64,16 +66,16 @@ public class LetterNumberMenu
     {
         var favoritesButton = new Button
         {
-            Width = 30,
-            Height = 30,
+            Width = 32,
+            Height = 32,
             ToolTip = "Favorites"
         };
 
         var starImage = new Image
         {
             Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
-            Width = 16,
-            Height = 16
+            Width = 18,
+            Height = 18
         };
         favoritesButton.Content = starImage;
 
@@ -85,6 +87,33 @@ public class LetterNumberMenu
         };
 
         LetterPanel.Children.Add(favoritesButton);
+    }
+
+    private void InitializeDiceButton()
+    {
+        var diceButton = new Button
+        {
+            Width = 32,
+            Height = 32,
+            ToolTip = "Feeling Lucky"
+        };
+
+        var diceImage = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/dice.png")),
+            Width = 18,
+            Height = 18
+        };
+        diceButton.Content = diceImage;
+
+        // Attach event for Dice button
+        diceButton.Click += (_, _) =>
+        {
+            UpdateSelectedButton(diceButton);
+            OnFeelingLuckySelected?.Invoke(); // Trigger feeling lucky event
+        };
+
+        LetterPanel.Children.Add(diceButton);
     }
 
     private void UpdateSelectedButton(Button button)

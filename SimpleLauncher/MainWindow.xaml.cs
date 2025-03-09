@@ -141,32 +141,19 @@ public partial class MainWindow : INotifyPropertyChanged
         // Add _letterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
         LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel);
+
         // Create and integrate LetterNumberMenu
         _letterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
-            ResetPaginationButtons(); // Ensure pagination is reset at the beginning
-            SearchTextBox.Text = ""; // Clear SearchTextBox
-            _currentFilter = selectedLetter; // Update current filter
-            await LoadGameFilesAsync(selectedLetter); // Load games
+            await Letter_Click(selectedLetter);
         };
         _letterNumberMenu.OnFavoritesSelected += async () =>
         {
-            ResetPaginationButtons();
-            SearchTextBox.Text = ""; // Clear search field
-            _currentFilter = null; // Clear any active filter
-
-            // Filter favorites for the selected system and store them in _currentSearchResults
-            var favoriteGames = GetFavoriteGamesForSelectedSystem();
-            if (favoriteGames.Count != 0)
-            {
-                _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
-                await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
-            }
-            else
-            {
-                AddNoFilesMessage();
-                MessageBoxLibrary.NoFavoriteFoundMessageBox();
-            }
+            await Favorites_Click();
+        };
+        _letterNumberMenu.OnFeelingLuckySelected += () =>
+        {
+            FeelingLucky_Click(null, null);
         };
 
         // Initialize _favoritesManager
@@ -242,6 +229,125 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Initialize TrayIconManager
         _trayIconManager = new TrayIconManager(this);
+    }
+
+    private async Task Letter_Click(string selectedLetter)
+    {
+        ResetPaginationButtons(); // Ensure pagination is reset at the beginning
+        SearchTextBox.Text = ""; // Clear SearchTextBox
+        _currentFilter = selectedLetter; // Update current filter
+        await LoadGameFilesAsync(selectedLetter); // Load games
+    }
+
+    private async Task Favorites_Click()
+    {
+        // Change filter to ShowAll
+        _settings.ShowGames = "ShowAll";
+        _settings.Save();
+        ApplyShowGamesSetting();
+
+        ResetPaginationButtons();
+        SearchTextBox.Text = ""; // Clear search field
+        _currentFilter = null; // Clear any active filter
+
+        // Filter favorites for the selected system and store them in _currentSearchResults
+        var favoriteGames = GetFavoriteGamesForSelectedSystem();
+        if (favoriteGames.Count != 0)
+        {
+            _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+            await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
+        }
+        else
+        {
+            AddNoFilesMessage();
+            MessageBoxLibrary.NoFavoriteFoundMessageBox();
+        }
+    }
+
+    private async void FeelingLucky_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Change filter to ShowAll
+            _settings.ShowGames = "ShowAll";
+            _settings.Save();
+            ApplyShowGamesSetting();
+
+            // Check if a system is selected
+            if (SystemComboBox.SelectedItem == null)
+            {
+                MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
+                return;
+            }
+
+            var selectedSystem = SystemComboBox.SelectedItem.ToString();
+            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+            if (selectedConfig == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Determine which game list to use
+                List<string> gameFiles;
+
+                // Otherwise, use the cached files for the selected system
+                if (_cachedFiles != null && _cachedFiles.Count > 0)
+                {
+                    gameFiles = _cachedFiles;
+                }
+                // If needed, rescan the system folder
+                else
+                {
+                    var systemFolderPath = selectedConfig.SystemFolder;
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                    gameFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
+                }
+
+                // Check if we have any games after filtering
+                if (gameFiles.Count == 0)
+                {
+                    MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
+                    return;
+                }
+
+                // Randomly select a game
+                var random = new Random();
+                var randomIndex = random.Next(0, gameFiles.Count);
+                var selectedGame = gameFiles[randomIndex];
+
+                // Reset letter selection in the UI and current search
+                _letterNumberMenu.DeselectLetter();
+                SearchTextBox.Text = "";
+                _currentSearchResults = new List<string> { selectedGame };
+
+                // Load just this game to display it
+                await LoadGameFilesAsync(null, "RANDOM_SELECTION");
+
+                // If in list view, select the game in the DataGrid
+                if (_settings.ViewMode == "ListView" && GameDataGrid.Items.Count > 0)
+                {
+                    GameDataGrid.SelectedIndex = 0;
+                    GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
+                    GameDataGrid.Focus();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in the Feeling Lucky feature.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMessageBox();
+        }
     }
 
     private void InitializeControllerDetection()

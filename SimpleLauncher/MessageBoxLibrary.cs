@@ -1998,7 +1998,7 @@ public static class MessageBoxLibrary
             invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
-    internal static void UnableTgoOpenLinkMessageBox()
+    internal static void UnableToOpenLinkMessageBox()
     {
         var unabletoopenthelink2 = (string)Application.Current.TryFindResource("Unabletoopenthelink") ?? "Unable to open the link.";
         var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
@@ -2022,5 +2022,21 @@ public static class MessageBoxLibrary
         var selectionRequired2 = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
         MessageBox.Show(pleaseselectasystemfromthedropdown2,
             selectionRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    internal static void NoGameFoundInTheRandomSelectionMessageBox()
+    {
+        var nogamesfoundtorandomlyselectfrom2 = (string)Application.Current.TryFindResource("Nogamesfoundtorandomlyselectfrom") ?? "No games found to randomly select from. Please check your system selection.";
+        var feelingLucky2 = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
+        MessageBox.Show(nogamesfoundtorandomlyselectfrom2,
+            feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void PleaseSelectASystemBeforeMessageBox()
+    {
+        var pleaseselectasystembeforeusingtheFeeling2 = (string)Application.Current.TryFindResource("PleaseselectasystembeforeusingtheFeeling") ?? "Please select a system before using the Feeling Lucky feature.";
+        var feelingLucky2 = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
+        MessageBox.Show(pleaseselectasystembeforeusingtheFeeling2,
+            feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }
