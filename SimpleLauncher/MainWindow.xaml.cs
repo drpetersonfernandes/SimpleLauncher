@@ -1177,6 +1177,15 @@ public partial class MainWindow : INotifyPropertyChanged
         favoritesWindow.Show();
     }
 
+    private void PlayHistory_Click(object sender, RoutedEventArgs e)
+    {
+        SaveApplicationSettings();
+
+        var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+        var playHistoryWindow = new PlayHistoryWindow(_settings, _systemConfigs, _machines, playHistoryManager, this);
+        playHistoryWindow.Show();
+    }
+
     private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)
     {
         try

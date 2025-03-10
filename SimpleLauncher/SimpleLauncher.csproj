@@ -581,6 +581,8 @@
     <Resource Include="images\setdeadzone.png" />
     <None Remove="images\dice.png" />
     <Resource Include="images\dice.png" />
+    <None Remove="images\playhistory.png" />
+    <Resource Include="images\playhistory.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

@@ -303,6 +303,13 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="{DynamicResource PlayHistory}">
+                <MenuItem Click="PlayHistory_Click" Header="{DynamicResource PlayHistory}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="{DynamicResource GlobalStats}">
                 <MenuItem Click="GlobalStats_Click" Header="{DynamicResource GlobalStats}">
                     <MenuItem.Icon>

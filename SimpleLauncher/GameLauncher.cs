@@ -104,8 +104,26 @@ public static class GameLauncher
             // Get System Name
             var selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
 
+            // Get file name
+            var fileName = Path.GetFileName(filePath);
+
+            // Update system playtime
             settings.UpdateSystemPlayTime(selectedSystem, playTime); // Update the system playtime in settings
             settings.Save(); // Save the updated settings
+
+            // Update play history
+            try
+            {
+                // Load and update play history
+                var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, selectedSystem, playTime);
+            }
+            catch (Exception ex)
+            {
+                // Notify the developer
+                const string contextMessage = "Error updating play history";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
 
             // Update the PlayTime property in the MainWindow to refresh the UI
             var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
