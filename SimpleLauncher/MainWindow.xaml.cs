@@ -1182,7 +1182,7 @@ public partial class MainWindow : INotifyPropertyChanged
         SaveApplicationSettings();
 
         var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-        var playHistoryWindow = new PlayHistoryWindow(_settings, _systemConfigs, _machines, playHistoryManager, this);
+        var playHistoryWindow = new PlayHistoryWindow(_settings, _systemConfigs, _machines, playHistoryManager, _favoritesManager, this);
         playHistoryWindow.Show();
     }
 

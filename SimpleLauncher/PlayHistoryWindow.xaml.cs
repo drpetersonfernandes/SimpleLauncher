@@ -23,11 +23,13 @@ public partial class PlayHistoryWindow
     private readonly List<SystemConfig> _systemConfigs;
     private readonly List<MameConfig> _machines;
     private readonly MainWindow _mainWindow;
+    private readonly FavoritesManager _favoritesManager;
 
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public PlayHistoryWindow(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayHistoryWindow(SettingsConfig settings, List<SystemConfig> systemConfigs, List<MameConfig> machines,
+        PlayHistoryManager playHistoryManager, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
 
@@ -36,6 +38,7 @@ public partial class PlayHistoryWindow
         _machines = machines;
         _mainWindow = mainWindow;
         _playHistoryManager = playHistoryManager;
+        _favoritesManager = favoritesManager;
 
         App.ApplyThemeToWindow(this);
         LoadPlayHistory();
@@ -150,28 +153,8 @@ public partial class PlayHistoryWindow
                     _ = LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
                 };
 
-                // "Remove from History" MenuItem
-                var removeIcon = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/images/brokenheart.png", UriKind.RelativeOrAbsolute)),
-                    Width = 16,
-                    Height = 16
-                };
-                var removeFromHistory = (string)Application.Current.TryFindResource("RemovefromHistory") ?? "Remove From History";
-                var removeMenuItem = new MenuItem
-                {
-                    Header = removeFromHistory,
-                    Icon = removeIcon
-                };
-                removeMenuItem.Click += (_, _) =>
-                {
-                    PlayClick.PlayClickSound();
-                    RemoveHistoryItemFromXmlAndEmptyPreviewImage(selectedItem);
-                };
-
                 // Add all menu items to the context menu
                 contextMenu.Items.Add(launchMenuItem);
-                contextMenu.Items.Add(removeMenuItem);
 
                 // Add the same menu items as in the FavoritesWindow for consistency
                 AddAdditionalMenuItems(contextMenu, selectedItem, fileNameWithoutExtension, filePath, systemConfig);
@@ -192,6 +175,45 @@ public partial class PlayHistoryWindow
 
     private void AddAdditionalMenuItems(ContextMenu contextMenu, PlayHistoryItem selectedItem, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
     {
+        // Add To Favorites Context Menu
+        var addToFavoritesIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+            Width = 16,
+            Height = 16
+        };
+        var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
+        var addToFavorites = new MenuItem
+        {
+            Header = addToFavorites2,
+            Icon = addToFavoritesIcon
+        };
+        addToFavorites.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
+        };
+
+        // "Remove from Favorites" MenuItem
+        var removeIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/brokenheart.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
+        var removeMenuItem = new MenuItem
+        {
+            Header = removeFromFavorites2,
+            Icon = removeIcon
+        };
+        removeMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+
+            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
+        };
+
         // "Open Video Link" MenuItem
         var videoLinkIcon = new Image
         {
@@ -230,15 +252,7 @@ public partial class PlayHistoryWindow
             RightClickContextMenu.OpenInfoLink(selectedItem.SystemName, fileNameWithoutExtension, _machines, _settings);
         };
 
-        // Add other menu items like in FavoritesWindow (history, cover, snapshots, etc.)
-        // These are just a few examples, you'd add all the relevant ones
-        contextMenu.Items.Add(videoLinkMenuItem);
-        contextMenu.Items.Add(infoLinkMenuItem);
-
-        // Add ROM History, Cover, Title Snapshot, etc. like in FavoritesWindow
-        // For brevity, I'm not including all of them, but you would add them here
-
-        // For example, adding the ROM History menu item:
+        // Open ROM History Context Menu
         var openHistoryIcon = new Image
         {
             Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png", UriKind.RelativeOrAbsolute)),
@@ -257,7 +271,284 @@ public partial class PlayHistoryWindow
             RightClickContextMenu.OpenHistoryWindow(selectedItem.SystemName, fileNameWithoutExtension, systemConfig, _machines);
         };
 
+        // Open Cover Context Menu
+        var coverIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
+        var coverMenuItem = new MenuItem
+        {
+            Header = cover2,
+            Icon = coverIcon
+        };
+        coverMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+
+            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+            RightClickContextMenu.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig1);
+        };
+
+        // Open Title Snapshot Context Menu
+        var titleSnapshotIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
+        var titleSnapshotMenuItem = new MenuItem
+        {
+            Header = titleSnapshot2,
+            Icon = titleSnapshotIcon
+        };
+        titleSnapshotMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenTitleSnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Gameplay Snapshot Context Menu
+        var gameplaySnapshotIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
+        var gameplaySnapshotMenuItem = new MenuItem
+        {
+            Header = gameplaySnapshot2,
+            Icon = gameplaySnapshotIcon
+        };
+        gameplaySnapshotMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenGameplaySnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Cart Context Menu
+        var cartIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
+        var cartMenuItem = new MenuItem
+        {
+            Header = cart2,
+            Icon = cartIcon
+        };
+        cartMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenCart(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Video Context Menu
+        var videoIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
+        var videoMenuItem = new MenuItem
+        {
+            Header = video2,
+            Icon = videoIcon
+        };
+        videoMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.PlayVideo(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Manual Context Menu
+        var manualIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
+        var manualMenuItem = new MenuItem
+        {
+            Header = manual2,
+            Icon = manualIcon
+        };
+        manualMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenManual(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Walkthrough Context Menu
+        var walkthroughIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
+        var walkthroughMenuItem = new MenuItem
+        {
+            Header = walkthrough2,
+            Icon = walkthroughIcon
+        };
+        walkthroughMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenWalkthrough(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Cabinet Context Menu
+        var cabinetIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
+        var cabinetMenuItem = new MenuItem
+        {
+            Header = cabinet2,
+            Icon = cabinetIcon
+        };
+        cabinetMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenCabinet(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open Flyer Context Menu
+        var flyerIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
+        var flyerMenuItem = new MenuItem
+        {
+            Header = flyer2,
+            Icon = flyerIcon
+        };
+        flyerMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenFlyer(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Open PCB Context Menu
+        var pcbIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png", UriKind.RelativeOrAbsolute)),
+            Width = 16,
+            Height = 16
+        };
+        var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
+        var pcbMenuItem = new MenuItem
+        {
+            Header = pCb2,
+            Icon = pcbIcon
+        };
+        pcbMenuItem.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+            RightClickContextMenu.OpenPcb(selectedFavorite.SystemName, fileNameWithoutExtension);
+        };
+
+        // Take Screenshot Context Menu
+        var takeScreenshotIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+            Width = 16,
+            Height = 16
+        };
+        var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
+        var takeScreenshot = new MenuItem
+        {
+            Header = takeScreenshot2,
+            Icon = takeScreenshotIcon
+        };
+
+        takeScreenshot.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+
+            // Notify user
+            MessageBoxLibrary.TakeScreenShotMessageBox();
+
+            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig1, _fakebutton, _mainWindow);
+
+            _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
+        };
+
+        // Delete Game Context Menu
+        var deleteGameIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+            Width = 16,
+            Height = 16
+        };
+        var deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
+        var deleteGame = new MenuItem
+        {
+            Header = deleteGame2,
+            Icon = deleteGameIcon
+        };
+        deleteGame.Click += (_, _) =>
+        {
+            PlayClick.PlayClickSound();
+
+            DoYouWanToDeleteMessageBox();
+
+            void DoYouWanToDeleteMessageBox()
+            {
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
+
+                if (result != MessageBoxResult.Yes) return;
+                try
+                {
+                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakebutton, _fakeGameFileGrid, _mainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error deleting the file.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+                }
+
+                RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
+            }
+        };
+
+        contextMenu.Items.Add(addToFavorites);
+        contextMenu.Items.Add(removeFromFavorites);
+        contextMenu.Items.Add(videoLinkMenuItem);
+        contextMenu.Items.Add(infoLinkMenuItem);
         contextMenu.Items.Add(openHistoryMenuItem);
+        contextMenu.Items.Add(coverMenuItem);
+        contextMenu.Items.Add(titleSnapshotMenuItem);
+        contextMenu.Items.Add(gameplaySnapshotMenuItem);
+        contextMenu.Items.Add(cartMenuItem);
+        contextMenu.Items.Add(videoMenuItem);
+        contextMenu.Items.Add(manualMenuItem);
+        contextMenu.Items.Add(walkthroughMenuItem);
+        contextMenu.Items.Add(cabinetMenuItem);
+        contextMenu.Items.Add(flyerMenuItem);
+        contextMenu.Items.Add(pcbMenuItem);
+        contextMenu.Items.Add(takeScreenshot);
+        contextMenu.Items.Add(deleteGame);
     }
 
     private static string GetFullPath(string path)
@@ -573,5 +864,32 @@ public partial class PlayHistoryWindow
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+    }
+
+    private void RemoveFavoriteFromXmlAndEmptyPreviewImage(Favorite selectedFavorite)
+    {
+        _favoriteList.Remove(selectedFavorite);
+        _favoritesManager.FavoriteList = _favoriteList;
+        _favoritesManager.SaveFavorites();
+
+        PreviewImage.Source = null;
+    }
+
+    private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemConfig systemConfig)
+    {
+        systemConfig = _systemConfigs?.FirstOrDefault(config =>
+            config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+
+        if (systemConfig != null) return false;
+
+        // Notify developer
+        const string contextMessage = "systemConfig is null.";
+        var ex = new Exception(contextMessage);
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+        // Notify user
+        MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
+
+        return true;
     }
 }

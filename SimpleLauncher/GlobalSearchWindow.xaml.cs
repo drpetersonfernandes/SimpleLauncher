@@ -235,7 +235,7 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
+    private static List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
     {
         foreach (var result in results)
         {
