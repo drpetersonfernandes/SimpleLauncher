@@ -153,29 +153,7 @@ public partial class PlayHistoryWindow
                     _ = LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
                 };
 
-                // Add all menu items to the context menu
-                contextMenu.Items.Add(launchMenuItem);
-
-                // Add the same menu items as in the FavoritesWindow for consistency
-                AddAdditionalMenuItems(contextMenu, selectedItem, fileNameWithoutExtension, filePath, systemConfig);
-
-                contextMenu.IsOpen = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "There was an error in the right-click context menu.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-        }
-    }
-
-    private void AddAdditionalMenuItems(ContextMenu contextMenu, PlayHistoryItem selectedItem, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
-    {
-        // Add To Favorites Context Menu
+                // Add To Favorites Context Menu
         var addToFavoritesIcon = new Image
         {
             Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
@@ -183,15 +161,15 @@ public partial class PlayHistoryWindow
             Height = 16
         };
         var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
-        var addToFavorites = new MenuItem
+        var addToFavoritesMenuItem = new MenuItem
         {
             Header = addToFavorites2,
             Icon = addToFavoritesIcon
         };
-        addToFavorites.Click += (_, _) =>
+        addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
+            RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
         };
 
         // "Remove from Favorites" MenuItem
@@ -532,6 +510,7 @@ public partial class PlayHistoryWindow
             }
         };
 
+        contextMenu.Items.Add(launchMenuItem);
         contextMenu.Items.Add(addToFavorites);
         contextMenu.Items.Add(removeFromFavorites);
         contextMenu.Items.Add(videoLinkMenuItem);
@@ -549,6 +528,24 @@ public partial class PlayHistoryWindow
         contextMenu.Items.Add(pcbMenuItem);
         contextMenu.Items.Add(takeScreenshot);
         contextMenu.Items.Add(deleteGame);
+
+                contextMenu.IsOpen = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "There was an error in the right-click context menu.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+        }
+    }
+
+    private void AddAdditionalMenuItems(ContextMenu contextMenu, PlayHistoryItem selectedItem, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
+    {
+        
     }
 
     private static string GetFullPath(string path)
