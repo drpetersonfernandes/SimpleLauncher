@@ -231,7 +231,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 

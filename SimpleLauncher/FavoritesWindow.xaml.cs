@@ -230,7 +230,7 @@ public partial class FavoritesWindow
                 openHistoryMenuItem.Click += (_, _) =>
                 {
                     PlayClick.PlayClickSound();
-                    RightClickContextMenu.OpenHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig, _machines);
+                    RightClickContextMenu.OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig, _machines);
                 };
 
                 // "Cover" MenuItem

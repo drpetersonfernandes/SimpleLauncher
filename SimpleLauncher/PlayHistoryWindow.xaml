@@ -30,6 +30,9 @@
             <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
                     Padding="5"
                     Margin="0,0,10,0" />
+            <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
+                    Padding="5"
+                    Margin="0,0,10,0" />
             <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click"
                     Padding="5"
                     Margin="0,0,10,0" />
@@ -53,7 +56,7 @@
                   Grid.Row="2"
                   Grid.Column="0"
                   Margin="10"
-                  MouseRightButtonUp="PlayHistoryWindowRightClickContextMenu"
+                  MouseRightButtonUp="PlayHistoryRightClickContextMenu"
                   MouseDoubleClick="LaunchGameWithDoubleClick"
                   SelectionChanged="SetPreviewImageOnSelectionChanged"
                   KeyDown="DeleteHistoryItemWithDelButton" d:DataContext="{d:DesignInstance }">

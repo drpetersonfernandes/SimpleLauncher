@@ -85,14 +85,14 @@ public class GameListFactory(
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = filePath,
-            ContextMenu = CreateContextMenu(filePath, systemName, systemConfig),
+            ContextMenu = GameListFactoryRightClickContextMenu(filePath, systemName, systemConfig),
             IsFavorite = isFavorite
         };
 
         return Task.FromResult(gameListViewItem);
     }
 
-    private ContextMenu CreateContextMenu(string filePath, string systemName, SystemConfig systemConfig)
+    private ContextMenu GameListFactoryRightClickContextMenu(string filePath, string systemName, SystemConfig systemConfig)
     {
         var fileNameWithExtension = Path.GetFileName(filePath);
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -210,7 +210,7 @@ public class GameListFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
         };
 
         // Open Cover Context Menu

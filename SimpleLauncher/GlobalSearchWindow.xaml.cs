@@ -345,7 +345,7 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private void CreateRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private void GlobalSearchRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -454,7 +454,7 @@ public partial class GlobalSearchWindow
             openHistoryMenuItem.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                RightClickContextMenu.OpenHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
+                RightClickContextMenu.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
             };
 
             // "Cover" MenuItem

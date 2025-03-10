@@ -210,9 +210,9 @@ internal class GameButtonFactory(
         };
 
         // Right click context menu
-        return AddRightClickContextMenu();
+        return GameButtonFactoryRightClickContextMenu();
 
-        Button AddRightClickContextMenu()
+        Button GameButtonFactoryRightClickContextMenu()
         {
             var contextMenu = new ContextMenu();
 
@@ -327,7 +327,7 @@ internal class GameButtonFactory(
             openHistoryWindow.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                RightClickContextMenu.OpenHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
+                RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
             };
 
             // Open Cover Context Menu

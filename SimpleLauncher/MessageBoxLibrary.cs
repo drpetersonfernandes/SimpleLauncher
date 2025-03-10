@@ -1339,6 +1339,26 @@ public static class MessageBoxLibrary
 
         return Task.CompletedTask;
     }
+    
+    internal static void SelectAHistoryItemToRemoveMessageBox()
+    {
+        var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
+        MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void SelectAHistoryItemMessageBox()
+    {
+        var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
+        MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static MessageBoxResult ReallyWantToRemoveAllPlayHistoryMessageBox()
+    {
+        var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ??
+                      "Are you sure you want to remove all play history?";
+        var result = MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        return result;
+    }
 
     internal static Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
     {

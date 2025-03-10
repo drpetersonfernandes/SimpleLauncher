@@ -47,7 +47,7 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   ScrollViewer.CanContentScroll="True"
-                  MouseRightButtonUp="CreateRightClickContextMenu"
+                  MouseRightButtonUp="GlobalSearchRightClickContextMenu"
                   MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
                   SelectionChanged="ActionsWhenUserSelectAResultItem" d:DataContext="{d:DesignInstance }">
             <DataGrid.Columns>
