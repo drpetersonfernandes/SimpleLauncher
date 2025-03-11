@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Rastgele seçim yapmak için oyun bulunamadı. Lütfen sistem seçiminizi kontrol edin.</system:String>
     <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Şansımı Deneme özelliğini kullanmadan önce lütfen bir sistem seçin.</system:String>
+    
+    <system:String x:Key="PlayHistory">Oynatma Geçmişi</system:String>
+    <system:String x:Key="PlayHistoryList">Oynatma geçmişi listesi</system:String>
+    <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
+    <system:String x:Key="SortByDate">Tarihe Göre Sırala</system:String>
+    <system:String x:Key="SortByPlayTime">Oynatma Süresine Göre Sırala</system:String>
+    <system:String x:Key="SortByTimesPlayed">Oynatma Sayısına Göre Sırala</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Lütfen kaldırmak için bir geçmiş öğesi seçin.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Tüm oynatma geçmişini silmek istediğinize emin misiniz?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Hepsini geçmişten kaldır</system:String>
 
 </ResourceDictionary>

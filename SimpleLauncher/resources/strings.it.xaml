@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">Sentirsi Fortunato</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Si prega di selezionare un sistema prima di utilizzare la funzione Sentirsi Fortunato.</system:String>
     
+    <system:String x:Key="PlayHistory">Cronologia Riproduzione</system:String>
+    <system:String x:Key="PlayHistoryList">Elenco Cronologia Riproduzione</system:String>
+    <system:String x:Key="RemovefromHistory">Rimuovi dalla cronologia</system:String>
+    <system:String x:Key="SortByDate">Ordina per Data</system:String>
+    <system:String x:Key="SortByPlayTime">Ordina per Tempo di Riproduzione</system:String>
+    <system:String x:Key="SortByTimesPlayed">Ordina per Numero di Riproduzioni</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Seleziona un elemento della cronologia da rimuovere.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Sei sicuro di voler rimuovere tutta la cronologia di riproduzione?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Rimuovi tutto dalla cronologia</system:String>
+    
 </ResourceDictionary>

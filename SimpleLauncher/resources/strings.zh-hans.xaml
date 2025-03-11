@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">未找到可随机选择的游戏。请检查您的系统选择。</system:String>
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">使用“感觉幸运”功能前，请先选择一个系统。</system:String>
+    
+    <system:String x:Key="PlayHistory">播放历史</system:String>
+    <system:String x:Key="PlayHistoryList">播放历史列表</system:String>
+    <system:String x:Key="RemovefromHistory">从历史中移除</system:String>
+    <system:String x:Key="SortByDate">按日期排序</system:String>
+    <system:String x:Key="SortByPlayTime">按播放时间排序</system:String>
+    <system:String x:Key="SortByTimesPlayed">按播放次数排序</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">请选择要移除的历史项目。</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">您确定要删除所有播放历史吗？</system:String>
+    <system:String x:Key="RemoveAllfromHistory">从历史中全部移除</system:String>
 
 </ResourceDictionary>

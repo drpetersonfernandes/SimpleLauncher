@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">Чувствую Удачу</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Пожалуйста, выберите систему перед использованием функции Чувствую Удачу.</system:String>
     
+    <system:String x:Key="PlayHistory">История воспроизведения</system:String>
+    <system:String x:Key="PlayHistoryList">Список истории воспроизведения</system:String>
+    <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
+    <system:String x:Key="SortByDate">Сортировать по дате</system:String>
+    <system:String x:Key="SortByPlayTime">Сортировать по времени воспроизведения</system:String>
+    <system:String x:Key="SortByTimesPlayed">Сортировать по количеству воспроизведений</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Пожалуйста, выберите элемент истории для удаления.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Вы уверены, что хотите удалить всю историю воспроизведения?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Удалить все из истории</system:String>
+    
 </ResourceDictionary>

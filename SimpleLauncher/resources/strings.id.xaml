@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Tidak ada game yang ditemukan untuk dipilih secara acak. Silakan periksa pilihan sistem Anda.</system:String>
     <system:String x:Key="FeelingLucky">Merasa Beruntung</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Silakan pilih sistem sebelum menggunakan fitur Merasa Beruntung.</system:String>
+    
+    <system:String x:Key="PlayHistory">Riwayat Pemutaran</system:String>
+    <system:String x:Key="PlayHistoryList">Daftar Riwayat Pemutaran</system:String>
+    <system:String x:Key="RemovefromHistory">Hapus dari riwayat</system:String>
+    <system:String x:Key="SortByDate">Urutkan Berdasarkan Tanggal</system:String>
+    <system:String x:Key="SortByPlayTime">Urutkan Berdasarkan Waktu Pemutaran</system:String>
+    <system:String x:Key="SortByTimesPlayed">Urutkan Berdasarkan Jumlah Pemutaran</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Silakan pilih item riwayat untuk dihapus.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Apakah Anda yakin ingin menghapus semua riwayat pemutaran?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Hapus semua dari riwayat</system:String>
 
 </ResourceDictionary>

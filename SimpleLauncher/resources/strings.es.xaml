@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">No se encontraron juegos para seleccionar al azar. Por favor, verifica la selección del sistema.</system:String>
     <system:String x:Key="FeelingLucky">SintiéndomeAfortunado</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Por favor, selecciona un sistema antes de usar la función de suerte.</system:String>
+    
+    <system:String x:Key="PlayHistory">Historial de Reproducción</system:String>
+    <system:String x:Key="PlayHistoryList">Lista de historial de reproducción</system:String>
+    <system:String x:Key="RemovefromHistory">Eliminar del historial</system:String>
+    <system:String x:Key="SortByDate">Ordenar por fecha</system:String>
+    <system:String x:Key="SortByPlayTime">Ordenar por tiempo de reproducción</system:String>
+    <system:String x:Key="SortByTimesPlayed">Ordenar por veces reproducidas</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Por favor, selecciona un elemento del historial para eliminarlo.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">¿Estás seguro de que deseas eliminar todo el historial de reproducción?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Eliminar todo del historial</system:String>
 
 </ResourceDictionary>

@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Không tìm thấy trò chơi để chọn ngẫu nhiên. Vui lòng kiểm tra lựa chọn hệ thống của bạn.</system:String>
     <system:String x:Key="FeelingLucky">Cảm thấy May Mắn</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Vui lòng chọn một hệ thống trước khi sử dụng tính năng Cảm thấy May Mắn.</system:String>
+    
+    <system:String x:Key="PlayHistory">Lịch sử Phát</system:String>
+    <system:String x:Key="PlayHistoryList">Danh sách Lịch sử Phát</system:String>
+    <system:String x:Key="RemovefromHistory">Xóa khỏi lịch sử</system:String>
+    <system:String x:Key="SortByDate">Sắp xếp theo ngày</system:String>
+    <system:String x:Key="SortByPlayTime">Sắp xếp theo thời gian phát</system:String>
+    <system:String x:Key="SortByTimesPlayed">Sắp xếp theo số lần phát</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Vui lòng chọn một mục lịch sử để xóa.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Bạn có chắc chắn muốn xóa toàn bộ lịch sử phát không?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Xóa tất cả khỏi lịch sử</system:String>
 
 </ResourceDictionary>

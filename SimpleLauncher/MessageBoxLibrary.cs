@@ -1354,8 +1354,7 @@ public static class MessageBoxLibrary
     
     internal static MessageBoxResult ReallyWantToRemoveAllPlayHistoryMessageBox()
     {
-        var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ??
-                      "Are you sure you want to remove all play history?";
+        var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
         var result = MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
         return result;
     }

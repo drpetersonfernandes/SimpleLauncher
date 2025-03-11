@@ -562,11 +562,13 @@
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Please select a system before using the Feeling Lucky feature.</system:String>
 
     <system:String x:Key="PlayHistory">Play History</system:String>
-    <system:String x:Key="PlayHistoryList">Play History List</system:String>
-    <system:String x:Key="RemovefromHistory">Remove from History</system:String>
+    <system:String x:Key="PlayHistoryList">Play history List</system:String>
+    <system:String x:Key="RemovefromHistory">Remove from history</system:String>
     <system:String x:Key="SortByDate">Sort By Date</system:String>
     <system:String x:Key="SortByPlayTime">Sort By PlayTime</system:String>
     <system:String x:Key="SortByTimesPlayed">Sort By Times Played</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Please select a history item to remove.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Are you sure you want to remove all play history?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
     
 </ResourceDictionary>

@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Aucun jeu trouvé pour une sélection aléatoire. Veuillez vérifier votre sélection de système.</system:String>
     <system:String x:Key="FeelingLucky">Chanceux</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Veuillez sélectionner un système avant d'utiliser la fonction Chanceux.</system:String>
+    
+    <system:String x:Key="PlayHistory">Historique de Lecture</system:String>
+    <system:String x:Key="PlayHistoryList">Liste de l'historique de lecture</system:String>
+    <system:String x:Key="RemovefromHistory">Supprimer de l'historique</system:String>
+    <system:String x:Key="SortByDate">Trier par date</system:String>
+    <system:String x:Key="SortByPlayTime">Trier par durée de lecture</system:String>
+    <system:String x:Key="SortByTimesPlayed">Trier par nombre de lectures</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Veuillez sélectionner un élément de l'historique à supprimer.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Êtes-vous sûr de vouloir supprimer tout l'historique de lecture ?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Tout supprimer de l'historique</system:String>
 
 </ResourceDictionary>

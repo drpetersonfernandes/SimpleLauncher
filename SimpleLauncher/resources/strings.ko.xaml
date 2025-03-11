@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">행운 기능을 사용하기 전에 시스템을 선택하십시오.</system:String>
     
+    <system:String x:Key="PlayHistory">재생 기록</system:String>
+    <system:String x:Key="PlayHistoryList">재생 기록 목록</system:String>
+    <system:String x:Key="RemovefromHistory">기록에서 제거</system:String>
+    <system:String x:Key="SortByDate">날짜별 정렬</system:String>
+    <system:String x:Key="SortByPlayTime">재생 시간별 정렬</system:String>
+    <system:String x:Key="SortByTimesPlayed">재생 횟수별 정렬</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">제거할 기록 항목을 선택하십시오.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">모든 재생 기록을 제거하시겠습니까?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">모두 기록에서 제거</system:String>
+    
 </ResourceDictionary>

@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Selecteer een systeem voordat u de Gelukkig Gevoel-functie gebruikt.</system:String>
     
+    <system:String x:Key="PlayHistory">Afspeelgeschiedenis</system:String>
+    <system:String x:Key="PlayHistoryList">Lijst van afspeelgeschiedenis</system:String>
+    <system:String x:Key="RemovefromHistory">Verwijderen uit geschiedenis</system:String>
+    <system:String x:Key="SortByDate">Sorteren op datum</system:String>
+    <system:String x:Key="SortByPlayTime">Sorteren op afspeeltijd</system:String>
+    <system:String x:Key="SortByTimesPlayed">Sorteren op aantal keer afgespeeld</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Selecteer een geschiedenisitem om te verwijderen.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Weet je zeker dat je alle afspeelgeschiedenis wilt verwijderen?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Alles uit geschiedenis verwijderen</system:String>
+    
 </ResourceDictionary>

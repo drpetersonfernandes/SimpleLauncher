@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">कोई गेम नहीं मिला जिसे यादृच्छिक रूप से चुना जा सके। कृपया अपनी सिस्टम चयन की जाँच करें।</system:String>
     <system:String x:Key="FeelingLucky">भाग्यशाली महसूस हो रहा है</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">भाग्यशाली फीचर का उपयोग करने से पहले कृपया एक सिस्टम चुनें।</system:String>
+    
+    <system:String x:Key="PlayHistory">प्ले इतिहास</system:String>
+    <system:String x:Key="PlayHistoryList">प्ले इतिहास सूची</system:String>
+    <system:String x:Key="RemovefromHistory">इतिहास से हटाएं</system:String>
+    <system:String x:Key="SortByDate">तारीख के अनुसार क्रमबद्ध करें</system:String>
+    <system:String x:Key="SortByPlayTime">प्ले समय के अनुसार क्रमबद्ध करें</system:String>
+    <system:String x:Key="SortByTimesPlayed">खेलने की बार गिनती के अनुसार क्रमबद्ध करें</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">कृपया हटाने के लिए एक इतिहास आइटम का चयन करें।</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">क्या आप वाकई सभी प्ले इतिहास को हटाना चाहते हैं?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">इतिहास से सभी हटाएं</system:String>
 
 </ResourceDictionary>

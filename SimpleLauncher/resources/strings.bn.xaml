@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">কোনো গেম পাওয়া যায়নি যেগুলোর মধ্য থেকে এলোমেলোভাবে নির্বাচন করা যায়। অনুগ্রহ করে আপনার সিস্টেম নির্বাচন পরীক্ষা করুন।</system:String>
     <system:String x:Key="FeelingLucky">লাকি</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">লাকি ফিচার ব্যবহার করার আগে দয়া করে একটি সিস্টেম নির্বাচন করুন।</system:String>
+    
+    <system:String x:Key="PlayHistory">প্লে ইতিহাস</system:String>
+    <system:String x:Key="PlayHistoryList">প্লে ইতিহাসের তালিকা</system:String>
+    <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
+    <system:String x:Key="SortByDate">তারিখ অনুযায়ী সাজান</system:String>
+    <system:String x:Key="SortByPlayTime">প্লের সময় অনুযায়ী সাজান</system:String>
+    <system:String x:Key="SortByTimesPlayed">খেলেছে বলে সংখ্যার ভিত্তিতে সাজান</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">মুছে ফেলার জন্য একটি ইতিহাস আইটেম নির্বাচন করুন।</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">আপনি কি নিশ্চিত যে আপনি সব প্লে ইতিহাস মুছে ফেলতে চান?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">ইতিহাস থেকে সব সরান</system:String>
 
 </ResourceDictionary>

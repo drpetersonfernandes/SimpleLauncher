@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">Sentindo-se Sortudo</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Por favor, selecione um sistema antes de usar o recurso Sentindo-se Sortudo.</system:String>
     
+    <system:String x:Key="PlayHistory">Histórico de Reprodução</system:String>
+    <system:String x:Key="PlayHistoryList">Lista de Histórico de Reprodução</system:String>
+    <system:String x:Key="RemovefromHistory">Remover do histórico</system:String>
+    <system:String x:Key="SortByDate">Ordenar por data</system:String>
+    <system:String x:Key="SortByPlayTime">Ordenar por tempo de reprodução</system:String>
+    <system:String x:Key="SortByTimesPlayed">Ordenar por número de reproduções</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Por favor, selecione um item do histórico para remover.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Tem certeza de que deseja remover todo o histórico de reprodução?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Remover tudo do histórico</system:String>
+    
 </ResourceDictionary>

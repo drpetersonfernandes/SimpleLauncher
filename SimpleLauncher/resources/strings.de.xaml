@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">Viel Glück</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Bitte wählen Sie ein System aus, bevor Sie die Glücks-Funktion verwenden.</system:String>
     
+    <system:String x:Key="PlayHistory">Wiedergabeverlauf</system:String>
+    <system:String x:Key="PlayHistoryList">Liste des Wiedergabeverlaufs</system:String>
+    <system:String x:Key="RemovefromHistory">Aus Verlauf entfernen</system:String>
+    <system:String x:Key="SortByDate">Nach Datum sortieren</system:String>
+    <system:String x:Key="SortByPlayTime">Nach Wiedergabezeit sortieren</system:String>
+    <system:String x:Key="SortByTimesPlayed">Nach Wiedergabeanzahl sortieren</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">Bitte wählen Sie einen Verlaufseintrag zum Entfernen aus.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Sind Sie sicher, dass Sie den gesamten Wiedergabeverlauf entfernen möchten?</system:String>
+    <system:String x:Key="RemoveAllfromHistory">Alles aus Verlauf entfernen</system:String>
+    
 </ResourceDictionary>

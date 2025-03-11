@@ -561,4 +561,14 @@
     <system:String x:Key="FeelingLucky">フェイリングラッキー</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">フェイリングラッキー機能を使用する前に、システムを選択してください。</system:String>
     
+    <system:String x:Key="PlayHistory">再生履歴</system:String>
+    <system:String x:Key="PlayHistoryList">再生履歴リスト</system:String>
+    <system:String x:Key="RemovefromHistory">履歴から削除</system:String>
+    <system:String x:Key="SortByDate">日付で並べ替え</system:String>
+    <system:String x:Key="SortByPlayTime">再生時間で並べ替え</system:String>
+    <system:String x:Key="SortByTimesPlayed">再生回数で並べ替え</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">削除する履歴項目を選択してください。</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">すべての再生履歴を削除してもよろしいですか？</system:String>
+    <system:String x:Key="RemoveAllfromHistory">履歴からすべて削除</system:String>
+    
 </ResourceDictionary>

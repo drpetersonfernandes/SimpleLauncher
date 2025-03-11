@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">تصادفی انتخاب کے لیے کوئی کھیل نہیں ملا۔ براہ کرم اپنے نظام کے انتخاب کی جانچ کریں۔</system:String>
     <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">خوش قسمت خصوصیت استعمال کرنے سے پہلے براہ کرم ایک نظام منتخب کریں۔</system:String>
+    
+    <system:String x:Key="PlayHistory">پلے کی تاریخ</system:String>
+    <system:String x:Key="PlayHistoryList">پلے ہسٹری کی فہرست</system:String>
+    <system:String x:Key="RemovefromHistory">تاریخ سے ہٹائیں</system:String>
+    <system:String x:Key="SortByDate">تاریخ کے مطابق ترتیب دیں</system:String>
+    <system:String x:Key="SortByPlayTime">پلے وقت کے مطابق ترتیب دیں</system:String>
+    <system:String x:Key="SortByTimesPlayed">کھیلے جانے کے اوقات کے مطابق ترتیب دیں</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">برائے مہربانی ہٹانے کے لیے ایک تاریخ کا آئٹم منتخب کریں۔</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">کیا آپ واقعی تمام پلے ہسٹری کو ہٹانا چاہتے ہیں؟</system:String>
+    <system:String x:Key="RemoveAllfromHistory">تمام کو تاریخ سے ہٹائیں</system:String>
 
 </ResourceDictionary>

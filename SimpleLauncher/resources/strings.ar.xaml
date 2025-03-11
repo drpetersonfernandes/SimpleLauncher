@@ -560,5 +560,15 @@
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">لم يتم العثور على ألعاب للاختيار العشوائي منها. يرجى التحقق من اختيار النظام.</system:String>
     <system:String x:Key="FeelingLucky">محظوظ</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">يرجى اختيار نظام قبل استخدام خاصية المحظوظ.</system:String>
+    
+    <system:String x:Key="PlayHistory">سجل التشغيل</system:String>
+    <system:String x:Key="PlayHistoryList">قائمة سجل التشغيل</system:String>
+    <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
+    <system:String x:Key="SortByDate">ترتيب حسب التاريخ</system:String>
+    <system:String x:Key="SortByPlayTime">ترتيب حسب وقت التشغيل</system:String>
+    <system:String x:Key="SortByTimesPlayed">ترتيب حسب عدد مرات التشغيل</system:String>
+    <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
+    <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">هل أنت متأكد أنك تريد إزالة كل سجل التشغيل؟</system:String>
+    <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
 
 </ResourceDictionary>
