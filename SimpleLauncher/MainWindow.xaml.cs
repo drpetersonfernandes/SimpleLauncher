@@ -120,7 +120,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _paginationThreshold = _settings.GamesPerPage;
 
         // Load _machines and _mameLookup
-        _machines = MameConfig.LoadFromXml();
+        _machines = MameConfig.LoadFromDat();
         _mameLookup = _machines
             .GroupBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
