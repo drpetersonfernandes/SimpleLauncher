@@ -117,6 +117,9 @@ public static class GameLauncher
                 // Load and update play history
                 var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
                 playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, selectedSystem, playTime);
+
+                // Refresh the game list to update playtime in ListView mode
+                mainWindow.RefreshGameListAfterPlay(fileName, selectedSystem);
             }
             catch (Exception ex)
             {

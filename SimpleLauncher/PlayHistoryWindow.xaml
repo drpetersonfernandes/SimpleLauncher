@@ -61,7 +61,7 @@
                   SelectionChanged="SetPreviewImageOnSelectionChanged"
                   KeyDown="DeleteHistoryItemWithDelButton" d:DataContext="{d:DesignInstance }">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="230" />
+                <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
                 <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
                 <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="140" />
                 <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />

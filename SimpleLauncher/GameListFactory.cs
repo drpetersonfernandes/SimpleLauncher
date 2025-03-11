@@ -18,6 +18,7 @@ public class GameListFactory(
     List<MameConfig> machines,
     SettingsConfig settings,
     FavoritesManager favoritesManager,
+    PlayHistoryManager playHistoryManager,
     MainWindow mainWindow)
 {
     private readonly WrapPanel _fakeFileGrid = new();
@@ -27,6 +28,7 @@ public class GameListFactory(
     {
         private readonly string _fileName;
         private string _machineDescription;
+        private string _playTime = "0h 0m 0s";
         public string FilePath { get; init; }
         public ContextMenu ContextMenu { get; set; }
         private bool _isFavorite;
@@ -61,6 +63,16 @@ public class GameListFactory(
             }
         }
 
+        public string PlayTime
+        {
+            get => _playTime;
+            set
+            {
+                _playTime = value;
+                OnPropertyChanged(nameof(PlayTime));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string name)
@@ -79,6 +91,20 @@ public class GameListFactory(
             .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                       f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
+        // Get playtime from playHistoryManager
+        var playHistoryItem = playHistoryManager.PlayHistoryList
+            .FirstOrDefault(h => h.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
+                                 h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+        var playTime = "0h 0m 0s"; // Default
+        if (playHistoryItem != null)
+        {
+            var timeSpan = TimeSpan.FromSeconds(playHistoryItem.TotalPlayTime);
+            playTime = timeSpan.TotalHours >= 1
+                ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
+                : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
+        }
+
         // Create the GameListViewItem with file details
         var gameListViewItem = new GameListViewItem
         {
@@ -86,7 +112,8 @@ public class GameListFactory(
             MachineDescription = machineDescription,
             FilePath = filePath,
             ContextMenu = GameListFactoryRightClickContextMenu(filePath, systemName, systemConfig),
-            IsFavorite = isFavorite
+            IsFavorite = isFavorite,
+            PlayTime = playTime
         };
 
         return Task.FromResult(gameListViewItem);

@@ -64,6 +64,9 @@ public partial class MainWindow : INotifyPropertyChanged
     // Define Tray Icon
     private TrayIconManager _trayIconManager;
 
+    // Define PlayHistory
+    private PlayHistoryManager _playHistoryManager;
+
     // Define Pagination Related Variables
     private int _currentPage = 1;
     private int _filesPerPage;
@@ -166,7 +169,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
         // Check for Updates
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
@@ -229,6 +232,9 @@ public partial class MainWindow : INotifyPropertyChanged
 
         // Initialize TrayIconManager
         _trayIconManager = new TrayIconManager(this);
+
+        // Initialize PlayHistory
+        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
     private async Task Letter_Click(string selectedLetter)
@@ -347,6 +353,58 @@ public partial class MainWindow : INotifyPropertyChanged
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
+        }
+    }
+
+    public void RefreshGameListAfterPlay(string fileName, string systemName)
+    {
+        try
+        {
+            // Only update if in ListView mode
+            if (_settings.ViewMode != "ListView" || GameListItems.Count == 0)
+                return;
+
+            // Re-load the latest play history data
+            _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+            // Get the current playtime from history
+            var historyItem = _playHistoryManager.PlayHistoryList
+                .FirstOrDefault(h => h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) &&
+                                     h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+            if (historyItem == null)
+                return;
+
+            // Find and update the specific item
+            var gameItem = GameListItems.FirstOrDefault(item =>
+                // ReSharper disable once PossibleNullReferenceException
+                Path.GetFileName(item.FilePath).Equals(fileName, StringComparison.OrdinalIgnoreCase));
+
+            if (gameItem != null)
+            {
+                // Update in the UI thread to ensure UI refreshes
+                Dispatcher.Invoke(() =>
+                {
+                    var timeSpan = TimeSpan.FromSeconds(historyItem.TotalPlayTime);
+                    gameItem.PlayTime = timeSpan.TotalHours >= 1
+                        ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
+                        : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
+
+                    // Force refresh of DataGrid
+                    var index = GameListItems.IndexOf(gameItem);
+                    if (index >= 0)
+                    {
+                        // Notify the DataGrid that this item has changed
+                        GameDataGrid.Items.Refresh();
+                    }
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error refreshing game list play time";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -481,7 +539,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
@@ -824,7 +882,7 @@ public partial class MainWindow : INotifyPropertyChanged
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
 
             // Initialize GameListFactory with updated FavoritesConfig
-            var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, this);
+            var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
             // Display files based on ViewMode
             foreach (var filePath in allFiles)
@@ -1181,8 +1239,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-        var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, playHistoryManager, this);
+        var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         playHistoryWindow.Show();
     }
 
