@@ -3,38 +3,37 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Reflection;
 
-namespace MAMEUtility
+namespace MAMEUtility;
+
+public partial class AboutWindow
 {
-    public partial class AboutWindow
+    public AboutWindow()
     {
-        public AboutWindow()
-        {
-            InitializeComponent();
-            DataContext = this; // Set the data context for data binding
-        }
+        InitializeComponent();
+        DataContext = this; // Set the data context for data binding
+    }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
+    }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = e.Uri.AbsoluteUri,
-                UseShellExecute = true
-            });
-            e.Handled = true;
-        }
+            FileName = e.Uri.AbsoluteUri,
+            UseShellExecute = true
+        });
+        e.Handled = true;
+    }
 
-        public static string ApplicationVersion
+    public static string ApplicationVersion
+    {
+        get
         {
-            get
-            {
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return "Version: " + (version?.ToString() ?? "Unknown");
-            }
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            return "Version: " + (version?.ToString() ?? "Unknown");
         }
     }
 }

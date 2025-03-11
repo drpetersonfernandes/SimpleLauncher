@@ -1,49 +1,48 @@
 ﻿using System.ComponentModel;
 using System.Xml.Linq;
 
-namespace MAMEUtility
+namespace MAMEUtility;
+
+public static class MameFull
 {
-    public static class MameFull
+    public static async Task CreateAndSaveMameFullAsync(XDocument inputDoc, string outputFilePathMameFull, BackgroundWorker worker)
     {
-        public static async Task CreateAndSaveMameFullAsync(XDocument inputDoc, string outputFilePathMameFull, BackgroundWorker worker)
+        Console.WriteLine($"Output folder for MAME Full: {outputFilePathMameFull}");
+
+        await Task.Run(() =>
         {
-            Console.WriteLine($"Output folder for MAME Full: {outputFilePathMameFull}");
+            var totalMachines = inputDoc.Descendants("machine").Count();
+            var machinesProcessed = 0;
 
-            await Task.Run(() =>
+            Console.WriteLine($"Total machines: {totalMachines}");
+
+            foreach (var machine in inputDoc.Descendants("machine"))
             {
-                var totalMachines = inputDoc.Descendants("machine").Count();
-                var machinesProcessed = 0;
+                var machineName = machine.Attribute("name")?.Value;
 
-                Console.WriteLine($"Total machines: {totalMachines}");
+                Console.WriteLine($"Processing machine: {machineName}");
 
-                foreach (var machine in inputDoc.Descendants("machine"))
-                {
-                    var machineName = machine.Attribute("name")?.Value;
+                machinesProcessed++;
+                var progressPercentage = (int)((double)machinesProcessed / totalMachines * 100);
+                worker.ReportProgress(progressPercentage);
 
-                    Console.WriteLine($"Processing machine: {machineName}");
+                Console.WriteLine($"Progress: {machinesProcessed}/{totalMachines}");
+            }
 
-                    machinesProcessed++;
-                    var progressPercentage = (int)((double)machinesProcessed / totalMachines * 100);
-                    worker.ReportProgress(progressPercentage);
+            Console.WriteLine("Saving to file...");
 
-                    Console.WriteLine($"Progress: {machinesProcessed}/{totalMachines}");
-                }
-
-                Console.WriteLine("Saving to file...");
-
-                XDocument allMachineDetailsDoc = new(
-                    new XElement("Machines",
-                        from machine in inputDoc.Descendants("machine")
-                        select new XElement("Machine",
-                            new XElement("MachineName", machine.Attribute("name")?.Value),
-                            new XElement("Description", machine.Element("description")?.Value)
-                        )
+            XDocument allMachineDetailsDoc = new(
+                new XElement("Machines",
+                    from machine in inputDoc.Descendants("machine")
+                    select new XElement("Machine",
+                        new XElement("MachineName", machine.Attribute("name")?.Value),
+                        new XElement("Description", machine.Element("description")?.Value)
                     )
-                );
+                )
+            );
 
-                allMachineDetailsDoc.Save(outputFilePathMameFull);
-                worker.ReportProgress(100);
-            });
-        }
+            allMachineDetailsDoc.Save(outputFilePathMameFull);
+            worker.ReportProgress(100);
+        });
     }
 }
