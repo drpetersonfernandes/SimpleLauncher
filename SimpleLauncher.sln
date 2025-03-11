@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToZip", "BatchC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertIsoToXiso", "BatchConvertIsoToXiso\BatchConvertIsoToXiso.csproj", "{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAMEUtility", "MAMEUtility\MAMEUtility.csproj", "{62F2DEF4-6279-49D5-8565-EAE067AB343A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

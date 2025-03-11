@@ -1,0 +1,8 @@
+﻿<Window x:Class="MAMEUtility.LogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Log Window" Height="400" Width="600">
+    <Grid>
+        <TextBox Name="LogTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="5"/>
+    </Grid>
+</Window>

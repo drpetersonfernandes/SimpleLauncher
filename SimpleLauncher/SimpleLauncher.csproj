@@ -412,14 +412,15 @@
     <None Update="tools\CreateBatchFilesForPS3Games\Microsoft.Extensions.DependencyInjection.Abstractions.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
-    <None Include="mame.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="mame.xml" />
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
     <None Remove="images\wait.gif" />
