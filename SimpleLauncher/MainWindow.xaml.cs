@@ -385,18 +385,17 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Update in the UI thread to ensure UI refreshes
                 Dispatcher.Invoke(() =>
                 {
+                    // Update playtime
                     var timeSpan = TimeSpan.FromSeconds(historyItem.TotalPlayTime);
                     gameItem.PlayTime = timeSpan.TotalHours >= 1
                         ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
                         : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
 
+                    // Update times played
+                    gameItem.TimesPlayed = historyItem.TimesPlayed.ToString();
+
                     // Force refresh of DataGrid
-                    var index = GameListItems.IndexOf(gameItem);
-                    if (index >= 0)
-                    {
-                        // Notify the DataGrid that this item has changed
-                        GameDataGrid.Items.Refresh();
-                    }
+                    GameDataGrid.Items.Refresh();
                 });
             }
         }

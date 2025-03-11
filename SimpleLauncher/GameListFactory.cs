@@ -28,7 +28,8 @@ public class GameListFactory(
     {
         private readonly string _fileName;
         private string _machineDescription;
-        private string _playTime = "0h 0m 0s";
+        private string _timesPlayed = "0";
+        private string _playTime = "0m 0s";
         public string FilePath { get; init; }
         public ContextMenu ContextMenu { get; set; }
         private bool _isFavorite;
@@ -60,6 +61,16 @@ public class GameListFactory(
             {
                 _machineDescription = value;
                 OnPropertyChanged(nameof(MachineDescription));
+            }
+        }
+
+        public string TimesPlayed
+        {
+            get => _timesPlayed;
+            set
+            {
+                _timesPlayed = value;
+                OnPropertyChanged(nameof(TimesPlayed));
             }
         }
 
@@ -96,13 +107,18 @@ public class GameListFactory(
             .FirstOrDefault(h => h.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                                  h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-        var playTime = "0h 0m 0s"; // Default
+        var timesPlayed = "0"; // Default
+        var playTime = "0m 0s"; // Default
+
         if (playHistoryItem != null)
         {
             var timeSpan = TimeSpan.FromSeconds(playHistoryItem.TotalPlayTime);
             playTime = timeSpan.TotalHours >= 1
                 ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
                 : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
+
+            // Get times played
+            timesPlayed = playHistoryItem.TimesPlayed.ToString();
         }
 
         // Create the GameListViewItem with file details
@@ -113,6 +129,7 @@ public class GameListFactory(
             FilePath = filePath,
             ContextMenu = GameListFactoryRightClickContextMenu(filePath, systemName, systemConfig),
             IsFavorite = isFavorite,
+            TimesPlayed = timesPlayed,
             PlayTime = playTime
         };
 
