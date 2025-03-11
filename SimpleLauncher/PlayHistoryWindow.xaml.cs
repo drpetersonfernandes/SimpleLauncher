@@ -43,7 +43,7 @@ public partial class PlayHistoryWindow
         LoadPlayHistory();
         Closing += PlayHistory_Closing;
     }
-    
+
     private void PlayHistory_Closing(object sender, CancelEventArgs e)
     {
         _playHistoryManager = null;
@@ -140,6 +140,7 @@ public partial class PlayHistoryWindow
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
                 # region Variables
+
                 if (CheckFilenameOfSelectedHistoryItem(selectedItem)) return;
                 Debug.Assert(selectedItem.FileName != null);
 
@@ -151,8 +152,9 @@ public partial class PlayHistoryWindow
                 Debug.Assert(systemConfig?.SystemFolder != null);
 
                 var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedItem.FileName));
+
                 # endregion
-                
+
                 var contextMenu = new ContextMenu();
 
                 // "Launch Selected Game" MenuItem
@@ -542,7 +544,6 @@ public partial class PlayHistoryWindow
 
     private static void AddAdditionalMenuItems(ContextMenu contextMenu, PlayHistoryItem selectedItem, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
     {
-        
     }
 
     private static string GetFullPath(string path)
@@ -876,5 +877,4 @@ public partial class PlayHistoryWindow
 
         return true;
     }
-
 }

@@ -2,22 +2,22 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
+using MessagePack;
 
 namespace SimpleLauncher;
 
-[XmlRoot("PlayHistory")]
+[MessagePackObject]
 public class PlayHistoryManager
 {
     // This collection will be serialized.
-    [XmlElement("PlayHistoryItem")]
+    [Key(0)]
     public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
-    // The XML file path.
-    public static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.xml");
+    // The data file path.
+    private static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.dat");
 
     /// <summary>
-    /// Loads play history from the XML file. If the file doesn't exist, creates and saves a new instance.
+    /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
     public static PlayHistoryManager LoadPlayHistory()
     {
@@ -28,19 +28,17 @@ public class PlayHistoryManager
             return defaultManager;
         }
 
-        var serializer = new XmlSerializer(typeof(PlayHistoryManager));
-        using var reader = new StreamReader(FilePath);
-        return (PlayHistoryManager)serializer.Deserialize(reader);
+        var bytes = File.ReadAllBytes(FilePath);
+        return MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
     }
 
     /// <summary>
-    /// Saves the provided play history to the XML file.
+    /// Saves the provided play history to the MessagePack file.
     /// </summary>
     public void SavePlayHistory()
     {
-        var serializer = new XmlSerializer(typeof(PlayHistoryManager));
-        using var writer = new StreamWriter(FilePath);
-        serializer.Serialize(writer, this);
+        var bytes = MessagePackSerializer.Serialize(this);
+        File.WriteAllBytes(FilePath, bytes);
     }
 
     /// <summary>
@@ -93,25 +91,37 @@ public class PlayHistoryManager
     }
 }
 
+[MessagePackObject]
 public class PlayHistoryItem
 {
+    [Key(0)]
     public string FileName { get; set; }
+
+    [Key(1)]
     public string SystemName { get; set; }
+
+    [Key(2)]
     public long TotalPlayTime { get; set; } // In seconds
+
+    [Key(3)]
     public int TimesPlayed { get; set; }
+
+    [Key(4)]
     public string LastPlayDate { get; set; }
+
+    [Key(5)]
     public string LastPlayTime { get; set; }
 
-    [XmlIgnore]
+    [IgnoreMember]
     public string MachineDescription { get; set; }
 
-    [XmlIgnore]
+    [IgnoreMember]
     public string CoverImage { get; set; }
 
-    [XmlIgnore]
+    [IgnoreMember]
     public string DefaultEmulator { get; set; }
 
-    [XmlIgnore]
+    [IgnoreMember]
     public string FormattedPlayTime
     {
         get
