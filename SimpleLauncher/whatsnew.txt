@@ -1,3 +1,16 @@
+release3.11
+-----------
+
+03/11/2025
+- Added Play History Window and all the logic to implement it. Users can now see which games have been played and for how long.
+- Implemented the Feeling Luck Button in the Main Window UI. This button will pick a random game for the selected system.
+- Updated the MAME database to the latest version (v0.275).
+- Changed the logic to load the MAME database into Simple Launcher. Instead of using a large XML file, it will now use a binary DAT file. This improves the database loading time and reduces the database size.
+- Updated emulators to the latest version.
+- Fixed some bugs.
+- Improved the LogError logic to prevent UI freezing.
+- Update the logic behind the tray icon to a more modern approach.
+
 release3.10.2
 -------------
 

@@ -719,10 +719,10 @@ public static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileCorruptedMessageBox()
     {
-        var simpleLaunchercouldnotloadthefilemamexml2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamexml") ?? "'Simple Launcher' could not load the file 'mame.xml' or it is corrupted.";
+        var simpleLaunchercouldnotloadthefilemamedat2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamedat") ?? "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.";
         var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamexml2}\n\n" +
+        var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamedat2}\n\n" +
                                      $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result == MessageBoxResult.Yes)
@@ -745,10 +745,10 @@ public static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
-        var thefilemamexmlcouldnotbefound2 = (string)Application.Current.TryFindResource("Thefilemamexmlcouldnotbefound") ?? "The file 'mame.xml' could not be found in the application folder.";
+        var thefilemamedatcouldnotbefound2 = (string)Application.Current.TryFindResource("Thefilemamedatcouldnotbefound") ?? "The file 'mame.dat' could not be found in the application folder.";
         var doyouwanttoautomaticreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show($"{thefilemamexmlcouldnotbefound2}\n\n" +
+        var result = MessageBox.Show($"{thefilemamedatcouldnotbefound2}\n\n" +
                                      $"{doyouwanttoautomaticreinstall2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result == MessageBoxResult.Yes)
@@ -914,7 +914,7 @@ public static class MessageBoxLibrary
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
                                      $"{wouldyouliketoopentheerroruserlog}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Question);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
         try
         {
@@ -1734,7 +1734,7 @@ public static class MessageBoxLibrary
                                      $"{grantSimpleLauncheradministrative2}\n\n" +
                                      $"{temporarilydisableyourantivirus2}\n\n" +
                                      $"{doyouwanttoopenthefile2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Question);
+            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
         try
         {
