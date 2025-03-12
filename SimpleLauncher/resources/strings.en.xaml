@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' could not load the file 'mame.xml' or it is corrupted.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">The file 'mame.xml' could not be found in the application folder.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Please select a history item to remove.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Are you sure you want to remove all play history?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
     
 </ResourceDictionary>

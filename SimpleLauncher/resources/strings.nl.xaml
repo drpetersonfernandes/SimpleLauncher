@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' kon 'helpuser.xml' niet laden.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' kon het bestand 'mame.xml' niet laden of het bestand is beschadigd.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">Het bestand 'error_user.log' is niet gevonden!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Het bestand 'error_user.log' is niet gevonden!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Het bestand 'helpuser.xml' ontbreekt.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">Het bestand 'mame.xml' is niet gevonden in de applicatiemap.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Het spelbestand bestaat niet!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Het spel wordt nu gestart.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Selecteer een geschiedenisitem om te verwijderen.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Weet je zeker dat je alle afspeelgeschiedenis wilt verwijderen?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles uit geschiedenis verwijderen</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
     
 </ResourceDictionary>

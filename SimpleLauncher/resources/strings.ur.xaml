@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' منتخب کردہ گیم لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'سمپل لانچر' اس گیم کو لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' فائل کو لوڈ نہیں کر سکا۔</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' 'mame.xml' فائل کو لوڈ نہیں کر سکا یا فائل خراب ہے۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' امیج پیکج کے ڈاؤن لوڈ لنک کو کھول نہیں سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' نے اس نظام کے لیے تصاویر کا ایک فولڈر بنایا ہے:۔</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' اس نظام کے لیے ضروری فولڈر بنانے میں ناکام رہا۔</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' فائل موجود نہیں ہے۔</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">'mame.xml' فائل ایپلیکیشن فولڈر میں نہیں ملی۔</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' فائل بری طرح خراب ہو چکی ہے۔</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">گیم فائل موجود نہیں ہے!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">گیم اب شروع ہوگی۔</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">برائے مہربانی ہٹانے کے لیے ایک تاریخ کا آئٹم منتخب کریں۔</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">کیا آپ واقعی تمام پلے ہسٹری کو ہٹانا چاہتے ہیں؟</system:String>
     <system:String x:Key="RemoveAllfromHistory">تمام کو تاریخ سے ہٹائیں</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' فائل 'mame.dat' کو لوڈ نہیں کر سکا یا یہ خراب ہے۔</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
 
 </ResourceDictionary>

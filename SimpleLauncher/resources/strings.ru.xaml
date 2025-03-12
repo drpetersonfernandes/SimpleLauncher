@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не удалось запустить эту игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' не удалось загрузить файл 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' не удалось загрузить файл 'mame.xml' или файл поврежден.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">Файл 'error_user.log' не найден!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Файл 'error_user.log' не найден!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Файл 'helpuser.xml' отсутствует.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">Файл 'mame.xml' не найден в папке приложения.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Файл 'system.xml' серьезно поврежден.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Файл игры не существует!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Игра будет запущена сейчас.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Пожалуйста, выберите элемент истории для удаления.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Вы уверены, что хотите удалить всю историю воспроизведения?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Удалить все из истории</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">Файл 'mame.dat' не найден в папке приложения.</system:String>
     
 </ResourceDictionary>

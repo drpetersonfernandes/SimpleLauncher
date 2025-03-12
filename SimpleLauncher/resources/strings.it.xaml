@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' non è riuscito ad avviare il gioco selezionato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' non è riuscito a lanciare questo gioco.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' non è riuscito a caricare 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' non è riuscito a caricare il file 'mame.xml' o il file è corrotto.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' non è riuscito ad aprire il collegamento per il download del pacchetto di immagini.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ha creato una cartella immagini per questo sistema in</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' non è riuscito a creare le cartelle necessarie per questo sistema.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">Il file 'error_user.log' non è stato trovato!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Il file 'error_user.log' non è stato trovato!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Il file 'helpuser.xml' è mancante.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">Il file 'mame.xml' non è stato trovato nella cartella dell'applicazione.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Il file 'system.xml' è gravemente corrotto.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Il file del gioco non esiste!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Il gioco si avvierà ora.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Seleziona un elemento della cronologia da rimuovere.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Sei sicuro di voler rimuovere tutta la cronologia di riproduzione?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Rimuovi tutto dalla cronologia</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' non è riuscito a caricare il file 'mame.dat' o il file è danneggiato.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">Il file 'mame.dat' non è stato trovato nella cartella dell'applicazione.</system:String>
     
 </ResourceDictionary>

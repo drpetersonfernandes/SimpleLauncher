@@ -671,10 +671,10 @@ public partial class PlayHistoryWindow
     {
         if (e.Key != Key.Delete) return;
 
-        PlayClick.PlayTrashSound();
-
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
+            PlayClick.PlayTrashSound();
+            
             _playHistoryList.Remove(selectedItem);
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();

@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">لم يتمكن 'Simple Launcher' من تحميل ملف 'mame.xml' أو أنه تالف.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">لم يتم العثور على الملف 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">لم يتم العثور على الملف 'error_user.log'!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">لم يتم العثور على ملف 'mame.xml' في مجلد التطبيق.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">سيتم تشغيل اللعبة الآن.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">هل أنت متأكد أنك تريد إزالة كل سجل التشغيل؟</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
 
 </ResourceDictionary>

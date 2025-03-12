@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' không thể tải tệp 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' không thể tải tệp 'mame.xml' hoặc tệp đang bị hỏng.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' không thể mở liên kết tải xuống gói hình ảnh.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' đã tạo một thư mục ảnh cho hệ thống này tại:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">Không tìm thấy tệp 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Không tìm thấy tệp 'error_user.log'!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Tệp 'helpuser.xml' bị thiếu.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">Không tìm thấy tệp 'mame.xml' trong thư mục ứng dụng.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Tệp 'system.xml' bị hỏng nghiêm trọng.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Tệp trò chơi không tồn tại!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Trò chơi sẽ được khởi động ngay bây giờ.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Vui lòng chọn một mục lịch sử để xóa.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Bạn có chắc chắn muốn xóa toàn bộ lịch sử phát không?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Xóa tất cả khỏi lịch sử</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' không thể tải tệp 'mame.dat' hoặc tệp đã bị hỏng.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">Không tìm thấy tệp 'mame.dat' trong thư mục ứng dụng.</system:String>
 
 </ResourceDictionary>

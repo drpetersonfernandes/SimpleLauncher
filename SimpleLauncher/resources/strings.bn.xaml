@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' এই গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' লোড করতে পারেনি।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' 'mame.xml' ফাইল লোড করতে পারেনি বা এটি ক্ষতিগ্রস্থ।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' চিত্র প্যাক ডাউনলোড লিঙ্কটি খুলতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' এই সিস্টেমটির জন্য একটি ছবি ফোল্ডার তৈরি করেছে</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' এই সিস্টেমটির জন্য প্রয়োজনীয় ফোল্ডার তৈরি করতে ব্যর্থ হয়েছে।</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ফাইল অনুপস্থিত।</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">অ্যাপ্লিকেশন ফোল্ডারে 'mame.xml' ফাইলটি পাওয়া যায়নি।</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ফাইলটি মারাত্মকভাবে ক্ষতিগ্রস্ত।</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">গেম ফাইল বিদ্যমান নেই!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">গেমটি এখন শুরু হবে</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">মুছে ফেলার জন্য একটি ইতিহাস আইটেম নির্বাচন করুন।</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">আপনি কি নিশ্চিত যে আপনি সব প্লে ইতিহাস মুছে ফেলতে চান?</system:String>
     <system:String x:Key="RemoveAllfromHistory">ইতিহাস থেকে সব সরান</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' ফাইলটি লোড করতে পারেনি অথবা এটি নষ্ট হয়ে গেছে।</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">অ্যাপ্লিকেশন ফোল্ডারে 'mame.dat' ফাইলটি পাওয়া যায়নি।</system:String>
 
 </ResourceDictionary>

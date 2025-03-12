@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' は選択したゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">「Simple Launcher」はこのゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' は 'helpuser.xml' を読み込めませんでした。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' は 'mame.xml' ファイルを読み込むことができないか、ファイルが破損しています。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' は画像パックのダウンロードリンクを開けませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">ファイル 'error_user.log' が見つかりませんでした！</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">ファイル 'error_user.log' が見つかりませんでした！</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ファイルが存在しません。</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">'mame.xml' ファイルがアプリケーションフォルダ内に見つかりませんでした。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ファイルが深刻な破損をしています。</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ゲームファイルが存在しません！</system:String>
     <system:String x:Key="Thegamewilllaunchnow">ゲームが今から起動します。</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">削除する履歴項目を選択してください。</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">すべての再生履歴を削除してもよろしいですか？</system:String>
     <system:String x:Key="RemoveAllfromHistory">履歴からすべて削除</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">アプリケーションフォルダーで'mame.dat'ファイルが見つかりませんでした。</system:String>
     
 </ResourceDictionary>

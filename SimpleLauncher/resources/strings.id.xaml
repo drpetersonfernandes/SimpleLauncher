@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' tidak dapat memuat 'helpuser.xml'.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher' tidak dapat memuat file 'mame.xml' atau file tersebut rusak.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">File 'error_user.log' tidak ditemukan!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">File 'error_user.log' tidak ditemukan!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">File 'helpuser.xml' hilang.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">File 'mame.xml' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">File 'system.xml' sangat rusak.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">File game tidak ada!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Game akan diluncurkan sekarang.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Silakan pilih item riwayat untuk dihapus.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Apakah Anda yakin ingin menghapus semua riwayat pemutaran?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hapus semua dari riwayat</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
 
 </ResourceDictionary>

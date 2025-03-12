@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher', 'helpuser.xml' dosyasını yükleyemedi.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher', 'mame.xml' dosyasını yükleyemedi ya da dosya bozulmuş.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">'error_user.log' dosyası bulunamadı!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">'error_user.log' dosyası bulunamadı!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' dosyası eksik.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">'mame.xml' dosyası uygulama klasöründe bulunamadı.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' dosyası ciddi şekilde bozuk.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Oyun şimdi başlatılacak.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">Lütfen kaldırmak için bir geçmiş öğesi seçin.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Tüm oynatma geçmişini silmek istediğinize emin misiniz?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hepsini geçmişten kaldır</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
 
 </ResourceDictionary>

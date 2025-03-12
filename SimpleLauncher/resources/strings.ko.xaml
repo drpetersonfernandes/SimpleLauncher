@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher'는 선택한 게임을 실행할 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher'에서 'helpuser.xml'을 로드할 수 없습니다.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">'Simple Launcher'에서 'mame.xml' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher'에서 이미지 팩 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' 파일이 없습니다.</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">'mame.xml' 파일이 애플리케이션 폴더에 없습니다.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' 파일이 심각하게 손상되었습니다.</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">게임이 지금 시작됩니다.</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">제거할 기록 항목을 선택하십시오.</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">모든 재생 기록을 제거하시겠습니까?</system:String>
     <system:String x:Key="RemoveAllfromHistory">모두 기록에서 제거</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">애플리케이션 폴더에서 'mame.dat' 파일을 찾을 수 없습니다.</system:String>
     
 </ResourceDictionary>

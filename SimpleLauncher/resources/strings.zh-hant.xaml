@@ -349,7 +349,6 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunch">「Simple Launcher」無法啟動所選遊戲。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'無法啟動此遊戲。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">「Simple Launcher」無法載入檔案「helpuser.xml」。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamexml">「Simple Launcher」無法載入檔案「mame.xml」，或檔案已損壞。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">「Simple Launcher」無法開啟圖片包的下載鏈接。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 為此系統創建了一個圖片資料夾：</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 未能為此系統創建所需資料夾。</system:String>
@@ -399,7 +398,6 @@
     <system:String x:Key="Thefileerroruserlogwas">找不到檔案 'error_user.log'！</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">找不到檔案 'error_user.log'！</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">檔案「helpuser.xml」遺失。</system:String>
-    <system:String x:Key="Thefilemamexmlcouldnotbefound">在應用程式資料夾中找不到檔案「mame.xml」。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">檔案「system.xml」嚴重損壞。</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">遊戲檔案不存在！</system:String>
     <system:String x:Key="Thegamewilllaunchnow">遊戲即將啟動。</system:String>
@@ -570,5 +568,8 @@
     <system:String x:Key="SelectAHistoryItemToRemove">請選擇要移除的歷史項目。</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">您確定要刪除所有播放歷史嗎？</system:String>
     <system:String x:Key="RemoveAllfromHistory">從歷史中全部移除</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 無法載入檔案 'mame.dat' 或檔案已損壞。</system:String>
+    <system:String x:Key="Thefilemamedatcouldnotbefound">在應用程式資料夾中找不到 'mame.dat' 檔案。</system:String>
 
 </ResourceDictionary>
