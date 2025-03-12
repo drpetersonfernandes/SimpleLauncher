@@ -85,9 +85,9 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
-    private readonly SettingsConfig _settings = new();
+    private readonly SettingsManager _settings = new();
     private FavoritesManager _favoritesManager;
-    private readonly List<MameConfig> _machines;
+    private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup; // Used for faster lookup of MAME machine names
     private string _selectedImageFolder;
     private string _selectedRomFolder;
@@ -120,7 +120,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _paginationThreshold = _settings.GamesPerPage;
 
         // Load _machines and _mameLookup
-        _machines = MameConfig.LoadFromDat();
+        _machines = MameManager.LoadFromDat();
         _mameLookup = _machines
             .GroupBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
@@ -224,7 +224,7 @@ public partial class MainWindow : INotifyPropertyChanged
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
 
-        // Update the GamePadController dead zone settings from SettingsConfig
+        // Update the GamePadController dead zone settings from SettingsManager
         GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
         GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
 

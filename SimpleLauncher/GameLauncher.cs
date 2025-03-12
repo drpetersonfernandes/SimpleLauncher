@@ -13,7 +13,7 @@ public static class GameLauncher
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsConfig settings, MainWindow mainWindow)
+    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
         if (CheckFilepath(filePath)) return;
         if (CheckSystemComboBox(systemComboBox)) return;

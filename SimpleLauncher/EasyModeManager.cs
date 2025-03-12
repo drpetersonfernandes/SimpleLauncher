@@ -7,12 +7,12 @@ using System.Xml.Serialization;
 namespace SimpleLauncher;
 
 [XmlRoot("EasyMode")]
-public class EasyModeConfig
+public class EasyModeManager
 {
     [XmlElement("EasyModeSystemConfig")]
     public List<EasyModeSystemConfig> Systems { get; set; }
 
-    public static EasyModeConfig Load()
+    public static EasyModeManager Load()
     {
         const string xmlFile = "easymode.xml";
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
@@ -29,16 +29,16 @@ public class EasyModeConfig
             MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
 
             // Return an empty config to avoid further null reference issues
-            return new EasyModeConfig { Systems = [] };
+            return new EasyModeManager { Systems = [] };
         }
 
         try
         {
-            var serializer = new XmlSerializer(typeof(EasyModeConfig));
+            var serializer = new XmlSerializer(typeof(EasyModeManager));
 
             // Open the file
             using var fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-            var config = (EasyModeConfig)serializer.Deserialize(fileStream);
+            var config = (EasyModeManager)serializer.Deserialize(fileStream);
 
             // Validate configuration if not null.
             if (config != null)
@@ -61,7 +61,7 @@ public class EasyModeConfig
         }
 
         // Return an empty config to avoid further null reference issues
-        return new EasyModeConfig { Systems = [] };
+        return new EasyModeManager { Systems = [] };
     }
 
     public void Validate()

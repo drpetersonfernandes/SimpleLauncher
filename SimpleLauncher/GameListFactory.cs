@@ -15,8 +15,8 @@ public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemConfig> systemConfigs,
-    List<MameConfig> machines,
-    SettingsConfig settings,
+    List<MameManager> machines,
+    SettingsManager settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow)

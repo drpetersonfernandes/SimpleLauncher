@@ -18,7 +18,7 @@ namespace SimpleLauncher;
 
 public partial class EditSystemEasyModeAddSystemWindow
 {
-    private EasyModeConfig _config;
+    private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
     private CancellationTokenSource _cancellationTokenSource;
@@ -55,7 +55,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         App.ApplyThemeToWindow(this);
 
         // Load Config
-        _config = EasyModeConfig.Load();
+        _manager = EasyModeManager.Load();
         PopulateSystemDropdown();
 
         // Initialize HttpClient with custom handler to configure TLS
@@ -78,8 +78,8 @@ public partial class EditSystemEasyModeAddSystemWindow
 
     private void PopulateSystemDropdown()
     {
-        if (_config?.Systems == null) return;
-        var sortedSystemNames = _config.Systems
+        if (_manager?.Systems == null) return;
+        var sortedSystemNames = _manager.Systems
             .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink)) // only if EmulatorDownloadLink is not null
             .Select(system => system.SystemName)
             .OrderBy(name => name) // order by name
@@ -92,7 +92,7 @@ public partial class EditSystemEasyModeAddSystemWindow
     {
         if (SystemNameDropdown.SelectedItem == null) return;
 
-        var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem != null)
         {
             DownloadEmulatorButton.IsEnabled = true;
@@ -698,7 +698,7 @@ public partial class EditSystemEasyModeAddSystemWindow
     private EasyModeSystemConfig GetSelectedSystem()
     {
         return SystemNameDropdown.SelectedItem != null
-            ? _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
+            ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
             : null;
     }
 
@@ -898,7 +898,7 @@ public partial class EditSystemEasyModeAddSystemWindow
 
     private void CloseWindowRoutine(object sender, EventArgs e)
     {
-        _config = null;
+        _manager = null;
 
         // Prepare the process start info
         var processModule = Process.GetCurrentProcess().MainModule;

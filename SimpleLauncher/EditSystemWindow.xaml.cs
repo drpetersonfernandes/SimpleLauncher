@@ -20,9 +20,9 @@ public partial class EditSystemWindow
     private XDocument _xmlDoc;
     private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
-    private readonly SettingsConfig _settings;
+    private readonly SettingsManager _settings;
 
-    public EditSystemWindow(SettingsConfig settings)
+    public EditSystemWindow(SettingsManager settings)
     {
         InitializeComponent();
 

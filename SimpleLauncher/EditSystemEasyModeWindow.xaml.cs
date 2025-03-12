@@ -4,9 +4,9 @@ namespace SimpleLauncher;
 
 public partial class EditSystemEasyModeWindow
 {
-    private readonly SettingsConfig _settings;
+    private readonly SettingsManager _settings;
 
-    public EditSystemEasyModeWindow(SettingsConfig settings)
+    public EditSystemEasyModeWindow(SettingsManager settings)
     {
         InitializeComponent();
 

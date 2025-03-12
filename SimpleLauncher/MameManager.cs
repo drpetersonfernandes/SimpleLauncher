@@ -6,7 +6,7 @@ using MessagePack;
 namespace SimpleLauncher;
 
 [MessagePackObject]
-public class MameConfig
+public class MameManager
 {
     [Key(0)]
     public string MachineName { get; set; } = string.Empty;
@@ -16,7 +16,7 @@ public class MameConfig
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameConfig> LoadFromDat(string datPath = null)
+    public static List<MameManager> LoadFromDat(string datPath = null)
     {
         datPath ??= DefaultDatPath;
 
@@ -39,8 +39,8 @@ public class MameConfig
             // Read the binary data from the DAT file
             var binaryData = File.ReadAllBytes(datPath);
 
-            // Deserialize the binary data to a list of MameConfig objects
-            return MessagePackSerializer.Deserialize<List<MameConfig>>(binaryData);
+            // Deserialize the binary data to a list of MameManager objects
+            return MessagePackSerializer.Deserialize<List<MameManager>>(binaryData);
         }
         catch (Exception ex)
         {

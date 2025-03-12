@@ -7,14 +7,14 @@ namespace SimpleLauncher;
 
 public partial class EditLinksWindow
 {
-    private readonly SettingsConfig _settingsConfig;
+    private readonly SettingsManager _settingsManager;
 
-    public EditLinksWindow(SettingsConfig settingsConfig)
+    public EditLinksWindow(SettingsManager settingsManager)
     {
         InitializeComponent();
 
         // Load Config
-        _settingsConfig = settingsConfig;
+        _settingsManager = settingsManager;
         LoadLinks();
 
         Closing += EditLinks_Closing;
@@ -22,21 +22,21 @@ public partial class EditLinksWindow
 
     private void LoadLinks()
     {
-        VideoLinkTextBox.Text = _settingsConfig.VideoUrl;
-        InfoLinkTextBox.Text = _settingsConfig.InfoUrl;
+        VideoLinkTextBox.Text = _settingsManager.VideoUrl;
+        InfoLinkTextBox.Text = _settingsManager.InfoUrl;
     }
 
     private void SaveLinksButton_Click(object sender, RoutedEventArgs e)
     {
-        _settingsConfig.VideoUrl = string.IsNullOrWhiteSpace(VideoLinkTextBox.Text)
+        _settingsManager.VideoUrl = string.IsNullOrWhiteSpace(VideoLinkTextBox.Text)
             ? "https://www.youtube.com/results?search_query="
             : EncodeForXml(VideoLinkTextBox.Text);
 
-        _settingsConfig.InfoUrl = string.IsNullOrWhiteSpace(InfoLinkTextBox.Text)
+        _settingsManager.InfoUrl = string.IsNullOrWhiteSpace(InfoLinkTextBox.Text)
             ? "https://www.igdb.com/search?q="
             : EncodeForXml(InfoLinkTextBox.Text);
 
-        _settingsConfig.Save();
+        _settingsManager.Save();
 
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
@@ -44,13 +44,13 @@ public partial class EditLinksWindow
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
     {
-        _settingsConfig.VideoUrl = "https://www.youtube.com/results?search_query=";
-        _settingsConfig.InfoUrl = "https://www.igdb.com/search?q=";
+        _settingsManager.VideoUrl = "https://www.youtube.com/results?search_query=";
+        _settingsManager.InfoUrl = "https://www.igdb.com/search?q=";
 
-        VideoLinkTextBox.Text = _settingsConfig.VideoUrl;
-        InfoLinkTextBox.Text = _settingsConfig.InfoUrl;
+        VideoLinkTextBox.Text = _settingsManager.VideoUrl;
+        InfoLinkTextBox.Text = _settingsManager.InfoUrl;
 
-        _settingsConfig.Save();
+        _settingsManager.Save();
 
         // Notify user
         MessageBoxLibrary.LinksRevertedMessageBox();

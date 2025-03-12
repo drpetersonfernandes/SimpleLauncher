@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher;
 
-public class HelpUserConfig
+public class HelpUserManager
 {
     private const string FilePath = "helpuser.xml";
 

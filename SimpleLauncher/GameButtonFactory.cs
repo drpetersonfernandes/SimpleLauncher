@@ -17,8 +17,8 @@ internal class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemConfig> systemConfigs,
-    List<MameConfig> machines,
-    SettingsConfig settings,
+    List<MameManager> machines,
+    SettingsManager settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow)

@@ -19,16 +19,16 @@ public partial class PlayHistoryWindow
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
-    private readonly SettingsConfig _settings;
+    private readonly SettingsManager _settings;
     private readonly List<SystemConfig> _systemConfigs;
-    private readonly List<MameConfig> _machines;
+    private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
 
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public PlayHistoryWindow(List<SystemConfig> systemConfigs, List<MameConfig> machines, SettingsConfig settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayHistoryWindow(List<SystemConfig> systemConfigs, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
     {
         InitializeComponent();
 

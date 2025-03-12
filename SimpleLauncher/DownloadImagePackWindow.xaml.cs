@@ -15,7 +15,7 @@ namespace SimpleLauncher;
 
 public partial class DownloadImagePackWindow : IDisposable
 {
-    private EasyModeConfig _config;
+    private EasyModeManager _manager;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly HttpClient _httpClient;
     private const int HttpTimeoutSeconds = 60;
@@ -35,7 +35,7 @@ public partial class DownloadImagePackWindow : IDisposable
         };
 
         // Load Config
-        _config = EasyModeConfig.Load();
+        _manager = EasyModeManager.Load();
         PopulateSystemDropdown();
 
         Closed += CloseWindowRoutine;
@@ -43,10 +43,10 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void PopulateSystemDropdown()
     {
-        if (_config?.Systems == null) return;
+        if (_manager?.Systems == null) return;
 
         // Filter systems that have a valid ExtrasDownloadLink
-        var systemsWithImagePacks = _config.Systems
+        var systemsWithImagePacks = _manager.Systems
             .Where(system => !string.IsNullOrEmpty(system.Emulators.Emulator.ExtrasDownloadLink))
             .Select(system => system.SystemName)
             .OrderBy(name => name) // Order by system name
@@ -59,7 +59,7 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         if (SystemNameDropdown.SelectedItem == null) return;
 
-        var selectedSystem = _config.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem != null)
         {
             DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
@@ -229,7 +229,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Get the selected system
-        selectedSystem = _config.Systems.FirstOrDefault(
+        selectedSystem = _manager.Systems.FirstOrDefault(
             system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
 
         if (selectedSystem == null)
@@ -560,7 +560,7 @@ public partial class DownloadImagePackWindow : IDisposable
     private void CloseWindowRoutine(object sender, EventArgs e)
     {
         // Empty EasyMode Config
-        _config = null;
+        _manager = null;
         Dispose();
     }
 

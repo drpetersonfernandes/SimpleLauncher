@@ -7,13 +7,13 @@ namespace SimpleLauncher;
 
 public partial class SetGamepadDeadZoneWindow
 {
-    private readonly SettingsConfig _settingsConfig;
+    private readonly SettingsManager _settingsManager;
 
-    public SetGamepadDeadZoneWindow(SettingsConfig settings)
+    public SetGamepadDeadZoneWindow(SettingsManager settings)
     {
         InitializeComponent();
 
-        _settingsConfig = settings;
+        _settingsManager = settings;
         LoadDeadZones();
 
         Closing += SetGamePadDeadZone_Closing;
@@ -22,16 +22,16 @@ public partial class SetGamepadDeadZoneWindow
     private void LoadDeadZones()
     {
         // Load the dead zone values from settings and update the sliders.
-        DeadZoneXSlider.Value = _settingsConfig.DeadZoneX;
-        DeadZoneYSlider.Value = _settingsConfig.DeadZoneY;
+        DeadZoneXSlider.Value = _settingsManager.DeadZoneX;
+        DeadZoneYSlider.Value = _settingsManager.DeadZoneY;
     }
 
     private void SaveDeadZoneButton_Click(object sender, RoutedEventArgs e)
     {
         // Use the slider values; they are already validated by the slider's range.
-        _settingsConfig.DeadZoneX = (float)DeadZoneXSlider.Value;
-        _settingsConfig.DeadZoneY = (float)DeadZoneYSlider.Value;
-        _settingsConfig.Save();
+        _settingsManager.DeadZoneX = (float)DeadZoneXSlider.Value;
+        _settingsManager.DeadZoneY = (float)DeadZoneYSlider.Value;
+        _settingsManager.Save();
 
         MessageBoxLibrary.DeadZonesSavedMessageBox();
     }
@@ -43,14 +43,14 @@ public partial class SetGamepadDeadZoneWindow
         const float defaultDeadZoneY = 0.02f;
 
         // Revert settings to the defaults.
-        _settingsConfig.DeadZoneX = defaultDeadZoneX;
-        _settingsConfig.DeadZoneY = defaultDeadZoneY;
+        _settingsManager.DeadZoneX = defaultDeadZoneX;
+        _settingsManager.DeadZoneY = defaultDeadZoneY;
 
         // Update the sliders to show the default values.
         DeadZoneXSlider.Value = defaultDeadZoneX;
         DeadZoneYSlider.Value = defaultDeadZoneY;
 
-        _settingsConfig.Save();
+        _settingsManager.Save();
     }
 
     private static void SetGamePadDeadZone_Closing(object sender, CancelEventArgs e)

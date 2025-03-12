@@ -18,11 +18,11 @@ public partial class GlobalSearchWindow
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private readonly List<SystemConfig> _systemConfigs;
-    private readonly SettingsConfig _settings;
+    private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearchWindow _pleaseWaitWindow;
     private readonly MainWindow _mainWindow;
-    private readonly List<MameConfig> _machines;
+    private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
 
@@ -31,7 +31,7 @@ public partial class GlobalSearchWindow
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
 
-    public GlobalSearchWindow(List<SystemConfig> systemConfigs, List<MameConfig> machines, Dictionary<string, string> mameLookup, SettingsConfig settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearchWindow(List<SystemConfig> systemConfigs, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

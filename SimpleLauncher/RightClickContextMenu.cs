@@ -167,7 +167,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
+    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -199,7 +199,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameConfig> machines, SettingsConfig settings)
+    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -231,7 +231,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameConfig> machines)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameManager> machines)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 

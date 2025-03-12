@@ -11,13 +11,13 @@ namespace SimpleLauncher;
 
 public static partial class HelpUser
 {
-    private static readonly HelpUserConfig Config = new();
+    private static readonly HelpUserManager Manager = new();
 
     static HelpUser()
     {
         try
         {
-            Config.Load(); // Load helpuser.xml
+            Manager.Load(); // Load helpuser.xml
         }
         catch (Exception ex)
         {
@@ -219,7 +219,7 @@ public static partial class HelpUser
     private static string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
-        var system = Config.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var system = Manager.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
         var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";

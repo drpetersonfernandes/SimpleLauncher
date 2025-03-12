@@ -10,12 +10,12 @@ namespace SimpleLauncher;
 
 public partial class App
 {
-    private static SettingsConfig _settings;
+    private static SettingsManager _settings;
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        _settings = new SettingsConfig();
+        _settings = new SettingsManager();
         ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
         ApplyLanguage(_settings.Language);
     }

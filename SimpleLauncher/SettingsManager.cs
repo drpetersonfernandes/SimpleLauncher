@@ -13,7 +13,7 @@ public class SystemPlayTime
     public string PlayTime { get; set; }
 }
 
-public class SettingsConfig
+public class SettingsManager
 {
     private readonly string _filePath;
     private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
@@ -46,11 +46,11 @@ public class SettingsConfig
 
     private const string DefaultSettingsFilePath = "settings.xml";
 
-    public SettingsConfig() : this(DefaultSettingsFilePath)
+    public SettingsManager() : this(DefaultSettingsFilePath)
     {
     }
 
-    private SettingsConfig(string filePath)
+    private SettingsManager(string filePath)
     {
         _filePath = filePath;
         SystemPlayTimes = [];
