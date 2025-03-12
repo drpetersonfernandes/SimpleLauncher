@@ -99,7 +99,7 @@ public partial class FavoritesWindow
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
-        
+
         if (systemConfig == null)
         {
             return defaultImagePath;

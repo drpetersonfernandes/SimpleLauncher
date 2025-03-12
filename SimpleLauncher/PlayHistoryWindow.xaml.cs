@@ -90,15 +90,15 @@ public partial class PlayHistoryWindow
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png"); 
-        
+        var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
+
         if (systemConfig == null)
         {
             return defaultCoverImagePath;
         }
         else
         {
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);            
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);
         }
     }
 
@@ -684,7 +684,7 @@ public partial class PlayHistoryWindow
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
             PlayClick.PlayTrashSound();
-            
+
             _playHistoryList.Remove(selectedItem);
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
@@ -694,7 +694,7 @@ public partial class PlayHistoryWindow
             MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
         }
     }
-    
+
     private bool GetSystemConfigOfSelectedHistoryItem(PlayHistoryItem selectedItem, out SystemConfig systemConfig)
     {
         systemConfig = _systemConfigs?.FirstOrDefault(config =>
