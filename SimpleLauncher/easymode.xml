@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--220225-->
+<!--110325-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -57,8 +57,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -500,8 +500,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Casio PV-1000" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -691,8 +691,8 @@
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.274</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0274b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
@@ -1467,8 +1467,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1661,8 +1661,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -1732,8 +1732,8 @@
                 <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2412</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2412-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
@@ -2457,7 +2457,7 @@
                 <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250220</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20250304</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
@@ -2535,8 +2535,8 @@
                 <EmulatorLocation/>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.0.34</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.34-17090-d2d76bb5_win64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.0.35</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.35-17639-ec5b2bc8_win64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadRename>false</EmulatorDownloadRename>
                 <EmulatorDownloadExtractPath>.\emulators\RPCS3\</EmulatorDownloadExtractPath>
 
