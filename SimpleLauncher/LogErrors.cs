@@ -50,7 +50,8 @@ public static class LogErrors
             $"Bitness: {is64Bit}\n" +
             $"Windows Version: {windowsVersion}\n\n" +
             $"Exception type: {ex.GetType().Name}\n" +
-            $"Exception details: {ex.Message}\n\n";
+            $"Exception details: {ex.Message}\n\n" +
+            $"{contextMessage}";
 
         try
         {
