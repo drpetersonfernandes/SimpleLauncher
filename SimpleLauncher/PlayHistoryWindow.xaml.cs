@@ -17,7 +17,7 @@ namespace SimpleLauncher;
 public partial class PlayHistoryWindow
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-    private PlayHistoryManager _playHistoryManager;
+    private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
     private readonly SettingsManager _settings;
     private readonly List<SystemConfig> _systemConfigs;
@@ -46,7 +46,6 @@ public partial class PlayHistoryWindow
 
     private void PlayHistory_Closing(object sender, CancelEventArgs e)
     {
-        _playHistoryManager = null;
         _playHistoryList = null;
     }
 
@@ -58,15 +57,14 @@ public partial class PlayHistoryWindow
         {
             // Find machine description if available
             var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName),
-                    StringComparison.OrdinalIgnoreCase));
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName), StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
 
             // Retrieve the system configuration for the history item
             var systemConfig = _systemConfigs.FirstOrDefault(config =>
                 config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
-            // Get the default emulator, e.g., the first one in the list
+            // Get the default emulator. The first one in the list
             var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
 
             var playHistoryItem = new PlayHistoryItem

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SimpleLauncher;
@@ -6,54 +7,68 @@ namespace SimpleLauncher;
 public static class CleanSimpleLauncherFolder
 {
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string TempFolder = Path.Combine(AppDirectory, "temp");
-    private static readonly string TempFolder2 = Path.Combine(AppDirectory, "temp2");
-    private static readonly string TempFolder3 = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private static readonly string UpdateFile = Path.Combine(AppDirectory, "update.zip");
+
+    // Arrays of directories and files to clean up
+    private static readonly string[] DirectoriesToClean =
+    {
+        Path.Combine(AppDirectory, "temp"),
+        Path.Combine(AppDirectory, "temp2"),
+        Path.Combine(Path.GetTempPath(), "SimpleLauncher")
+    };
+
+    private static readonly string[] FilesToClean =
+    {
+        Path.Combine(AppDirectory, "update.zip"),
+        Path.Combine(AppDirectory, "mame.xml")
+    };
+
+    // Files to be excluded from cleanup
+    private static readonly HashSet<string> ExcludedFiles = new()
+    {
+        // Add any files you want to exclude from cleanup
+        // Example: Path.Combine(AppDirectory, "important.txt")
+    };
 
     public static void CleanupTrash()
     {
-        if (Directory.Exists(TempFolder))
+        // Clean directories
+        foreach (var directory in DirectoriesToClean)
+        {
+            DeleteDirectorySafely(directory);
+        }
+
+        // Clean files
+        foreach (var file in FilesToClean)
+        {
+            if (!ExcludedFiles.Contains(file))
+            {
+                DeleteFileSafely(file);
+            }
+        }
+    }
+
+    private static void DeleteDirectorySafely(string path)
+    {
+        if (Directory.Exists(path))
         {
             try
             {
-                Directory.Delete(TempFolder, true);
+                Directory.Delete(path, true);
             }
             catch (Exception)
             {
                 // ignore
             }
         }
+    }
 
-        if (Directory.Exists(TempFolder2))
+    private static void DeleteFileSafely(string path)
+    {
+        if (File.Exists(path))
         {
             try
             {
-                Directory.Delete(TempFolder2, true);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-
-        if (Directory.Exists(TempFolder3))
-        {
-            try
-            {
-                Directory.Delete(TempFolder2, true);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-
-        if (File.Exists(UpdateFile))
-        {
-            try
-            {
-                File.Delete(UpdateFile);
+                File.Delete(path);
             }
             catch (Exception)
             {

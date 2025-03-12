@@ -20,7 +20,7 @@ public class FavoritesManager
 
     /// <summary>
     /// Loads favorites from the DAT file. If the DAT file doesn't exist,
-    /// attempts to convert from XML if it exists, or creates a new instance.
+    /// attempts to convert from XML if it exists, or create a new instance.
     /// Also handles deletion of old XML files if marked for deletion.
     /// </summary>
     public static FavoritesManager LoadFavorites()
@@ -38,8 +38,9 @@ public class FavoritesManager
             }
             catch (Exception ex)
             {
-                // Log error but continue to fallback methods
-                LogErrors.LogErrorAsync(ex, "Error loading favorites.dat").Wait();
+                // Notify developer
+                const string contextMessage = "Error loading favorites.dat";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
 
@@ -76,8 +77,9 @@ public class FavoritesManager
             }
             catch (Exception ex)
             {
-                // Log but continue - we'll try again next time
-                LogErrors.LogErrorAsync(ex, "Error deleting marked favorites.xml").Wait();
+                // Notify developer
+                const string contextMessage = "Error deleting marked favorites.xml";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
     }
@@ -103,7 +105,8 @@ public class FavoritesManager
         catch (Exception ex)
         {
             // Log error during XML read
-            LogErrors.LogErrorAsync(ex, "Error reading favorites.xml for conversion").Wait();
+            const string contextMessage = "Error reading favorites.xml for conversion";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
         // Process the data if read was successful
@@ -136,8 +139,9 @@ public class FavoritesManager
                 }
                 catch (Exception ex)
                 {
-                    // Log the error but continue
-                    LogErrors.LogErrorAsync(ex, "Error creating marker for favorites.xml deletion").Wait();
+                    // Notify developer
+                    const string contextMessage = "Error creating marker for favorites.xml deletion";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
 
                 return manager;
@@ -145,7 +149,8 @@ public class FavoritesManager
             catch (Exception ex)
             {
                 // Log error during the conversion process
-                LogErrors.LogErrorAsync(ex, "Error during favorites XML to DAT conversion").Wait();
+                const string contextMessage = "Error during favorites XML to DAT conversion";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
 
@@ -175,7 +180,10 @@ public class FavoritesManager
         }
         catch (Exception ex)
         {
-            LogErrors.LogErrorAsync(ex, "Error saving favorites.dat").Wait();
+            // Notify developer
+            const string contextMessage = "Error saving favorites.dat";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             throw; // Re-throw to notify caller
         }
     }
