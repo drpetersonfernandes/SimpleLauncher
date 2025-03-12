@@ -47,7 +47,6 @@ public static class MameSourcefile
                 var progressPercentage = (double)sourceFilesProcessed / totalSourceFiles * 100;
                 progress.Report((int)progressPercentage);
             }
-
         }
         catch (Exception ex)
         {
@@ -92,6 +91,7 @@ public static class MameSourcefile
         {
             fileName = fileName.Replace(invalidChar, '_');
         }
+
         return fileName;
     }
 }

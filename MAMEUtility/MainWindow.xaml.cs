@@ -318,7 +318,7 @@ public partial class MainWindow : INotifyPropertyChanged
             if (saveFileDialog.ShowDialog() == true)
             {
                 var outputXmlPath = saveFileDialog.FileName;
-            
+
                 // Create DAT filename based on XML filename (replace extension)
                 var outputDatPath = Path.ChangeExtension(outputXmlPath, ".dat");
 
@@ -499,7 +499,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private void CreateMAMESoftwareList_Click(object sender, RoutedEventArgs e)
     {
         OverallProgress = 0;
-            
+
         Log("Select the folder containing XML files to process.");
         using var folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.Description = "Select the folder containing XML files to process";

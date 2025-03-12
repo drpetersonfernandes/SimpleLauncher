@@ -19,7 +19,7 @@ public class FavoritesManager
     private static string XmlFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.xml");
 
     /// <summary>
-    /// Loads favorites from the DAT file. If the DAT file doesn't exist, 
+    /// Loads favorites from the DAT file. If the DAT file doesn't exist,
     /// attempts to convert from XML if it exists, or creates a new instance.
     /// Also handles deletion of old XML files if marked for deletion.
     /// </summary>
@@ -27,7 +27,7 @@ public class FavoritesManager
     {
         // Check for and handle any XML file marked for deletion from previous session
         CheckForXmlDeletionMarker();
-        
+
         // First, try to load from the new MessagePack format
         if (File.Exists(DatFilePath))
         {
@@ -54,7 +54,7 @@ public class FavoritesManager
         defaultManager.SaveFavorites(); // Use instance method
         return defaultManager;
     }
-    
+
     /// <summary>
     /// Checks for any XML files marked for deletion from previous runs and deletes them.
     /// </summary>
@@ -67,7 +67,7 @@ public class FavoritesManager
             {
                 // Delete the marker first
                 File.Delete(markerPath);
-                
+
                 // Then try to delete the XML file
                 if (File.Exists(XmlFilePath))
                 {
@@ -89,7 +89,7 @@ public class FavoritesManager
     private static FavoritesManager ConvertXmlToDat()
     {
         XmlFavoritesManager xmlManager = null;
-        
+
         // Read the XML file in a separate block to ensure it's fully closed
         try
         {
@@ -105,7 +105,7 @@ public class FavoritesManager
             // Log error during XML read
             LogErrors.LogErrorAsync(ex, "Error reading favorites.xml for conversion").Wait();
         }
-        
+
         // Process the data if read was successful
         if (xmlManager != null)
         {
@@ -123,10 +123,10 @@ public class FavoritesManager
                         })
                     )
                 };
-                
+
                 // Save to DAT
                 manager.SaveFavorites();
-                
+
                 // Mark the old XML file for deletion on next start
                 // Instead of deleting immediately, we'll create a marker file
                 try
@@ -139,7 +139,7 @@ public class FavoritesManager
                     // Log the error but continue
                     LogErrors.LogErrorAsync(ex, "Error creating marker for favorites.xml deletion").Wait();
                 }
-                
+
                 return manager;
             }
             catch (Exception ex)
@@ -148,7 +148,7 @@ public class FavoritesManager
                 LogErrors.LogErrorAsync(ex, "Error during favorites XML to DAT conversion").Wait();
             }
         }
-        
+
         // Fallback to new instance
         var defaultManager = new FavoritesManager();
         defaultManager.SaveFavorites();
@@ -194,7 +194,7 @@ public class XmlFavorite
 {
     [XmlElement]
     public string FileName { get; set; }
-    
+
     [XmlElement]
     public string SystemName { get; set; }
 }
@@ -205,7 +205,7 @@ public class Favorite
 {
     [Key(0)]
     public string FileName { get; init; }
-    
+
     [Key(1)]
     public string SystemName { get; init; }
 

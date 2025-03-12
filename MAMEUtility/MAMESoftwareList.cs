@@ -54,5 +54,4 @@ public static class MameSoftwareList
         outputDoc.Save(outputFilePath);
         logWindow.AppendLog($"Consolidated XML file saved to: {outputFilePath}");
     }
-
 }

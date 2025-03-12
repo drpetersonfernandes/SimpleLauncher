@@ -37,7 +37,7 @@ public partial class MameManufacturer
                             .Replace("*", "")
                             .Replace("unknown", "UnknownManufacturer")
                             .Trim())
-                        .Replace("&amp;", "&");  // Replace &amp; with & in the filename.
+                        .Replace("&amp;", "&"); // Replace &amp; with & in the filename.
 
                     var outputFilePath = System.IO.Path.Combine(outputFolderMameManufacturer, $"{safeManufacturerName}.xml");
                     Console.WriteLine($"Attempting to create file for: {safeManufacturerName}.xml");
@@ -49,7 +49,6 @@ public partial class MameManufacturer
                     progress.Report((int)progressPercentage);
                 }
             }
-
         }
         catch (Exception ex)
         {

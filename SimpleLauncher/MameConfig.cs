@@ -10,7 +10,7 @@ public class MameConfig
 {
     [Key(0)]
     public string MachineName { get; set; } = string.Empty;
-    
+
     [Key(1)]
     public string Description { get; set; } = string.Empty;
 
@@ -38,7 +38,7 @@ public class MameConfig
         {
             // Read the binary data from the DAT file
             var binaryData = File.ReadAllBytes(datPath);
-            
+
             // Deserialize the binary data to a list of MameConfig objects
             return MessagePackSerializer.Deserialize<List<MameConfig>>(binaryData);
         }

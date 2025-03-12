@@ -95,5 +95,4 @@ public static class CopyImages
 
         return isValid;
     }
-
 }

@@ -134,7 +134,7 @@ public static class MergeList
         {
             // Serialize the machines' list to a MessagePack binary array
             var binary = MessagePackSerializer.Serialize(machines);
-            
+
             // Write the binary data to the output file
             File.WriteAllBytes(outputFilePath, binary);
         }
@@ -151,7 +151,7 @@ public class MachineInfo
 {
     [Key(0)]
     public string MachineName { get; set; } = string.Empty;
-    
+
     [Key(1)]
     public string Description { get; set; } = string.Empty;
 }
