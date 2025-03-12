@@ -23,9 +23,7 @@ internal class GameButtonFactory(
     WrapPanel gameFileGrid,
     MainWindow mainWindow)
 {
-    private const string DefaultImagePath = "default.png";
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
-    private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
     {
@@ -33,9 +31,9 @@ internal class GameButtonFactory(
         var fileNameWithExtension = Path.GetFileName(filePath);
         fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
 
-        var imagePath = DetermineImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
         // Determine if it's a default image (isDefaultImage is a bool)
-        var isDefaultImage = imagePath.EndsWith(DefaultImagePath);
+        var isDefaultImage = imagePath.EndsWith("default.png");
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel
@@ -610,38 +608,6 @@ internal class GameButtonFactory(
         }
     }
 
-    private string DetermineImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
-    {
-        string baseImageDirectory;
-        if (string.IsNullOrEmpty(systemConfig?.SystemImageFolder))
-        {
-            baseImageDirectory = Path.Combine(_baseDirectory, "images", systemName);
-        }
-        else
-        {
-            baseImageDirectory = Path.IsPathRooted(systemConfig.SystemImageFolder)
-                ? systemConfig.SystemImageFolder // If already absolute
-                : Path.Combine(_baseDirectory, systemConfig.SystemImageFolder); // Make it absolute
-        }
-
-        // Extensions to check
-        string[] extensions = [".png", ".jpg", ".jpeg"];
-
-        // Check each extension for a valid image file
-        foreach (var ext in extensions)
-        {
-            var imagePath = Path.Combine(baseImageDirectory, $"{fileNameWithoutExtension}{ext}");
-            if (File.Exists(imagePath))
-                return imagePath;
-        }
-
-        // Try to find default.png in the SystemImageFolder if specified, otherwise use the global default
-        var defaultImagePath = Path.Combine(baseImageDirectory, "default.png");
-
-        // Fall back to the global default image path if no specific or system default image exists
-        return File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(_baseDirectory, "images", DefaultImagePath);
-    }
-
     public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
     {
         var imageFileName = Path.GetFileName(imagePath);
@@ -676,7 +642,7 @@ internal class GameButtonFactory(
         {
             // If an exception occurs (e.g., the image is corrupt), will load the default image
             // This uses the dispatcher to ensure UI elements are accessed on the UI thread
-            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, DefaultImagePath));
+            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, "default.png"));
 
             // Notify user
             MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
@@ -690,7 +656,7 @@ internal class GameButtonFactory(
         // If the specific default image doesn't exist, try the global default image
         if (!File.Exists(fallbackImagePath))
         {
-            fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", DefaultImagePath);
+            fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
         }
 
         if (File.Exists(fallbackImagePath))

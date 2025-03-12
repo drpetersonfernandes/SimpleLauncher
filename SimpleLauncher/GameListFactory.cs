@@ -543,12 +543,13 @@ public class GameListFactory(
         if (selectedItem == null) return;
 
         var filePath = selectedItem.FilePath;
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         var selectedSystem = systemComboBox.SelectedItem as string;
         var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
         if (systemConfig == null) return;
 
         // Get the preview image path
-        var previewImagePath = GetPreviewImagePath(filePath, systemConfig);
+        var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
 
         // Clear previous image first to avoid memory leaks
         mainWindow.PreviewImage.Source = null;
@@ -620,53 +621,6 @@ public class GameListFactory(
             // Notify user
             MessageBoxLibrary.DefaultImageNotFoundMessageBox();
         }
-    }
-
-    private static string GetPreviewImagePath(string filePath, SystemConfig systemConfig)
-    {
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var imageFolder = systemConfig.SystemImageFolder;
-
-        // Make sure the SystemImageFolder path is absolute
-        if (!string.IsNullOrEmpty(imageFolder))
-        {
-            if (!Path.IsPathRooted(imageFolder))
-            {
-                // Convert to an absolute path
-                imageFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageFolder));
-            }
-        }
-        else
-        {
-            // Create the default image folder path
-            imageFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemConfig.SystemName));
-        }
-
-        string[] extensions = [".png", ".jpg", ".jpeg"];
-
-        // Function to get the imagePath
-        foreach (var extension in extensions)
-        {
-            var imagePath = Path.Combine(imageFolder, $"{fileNameWithoutExtension}{extension}");
-            if (File.Exists(imagePath))
-            {
-                return imagePath;
-            }
-        }
-
-        // load default image
-        // If no specific image found, try the user-defined default image in SystemImageFolder
-        var userDefinedDefaultImagePath = Path.Combine(imageFolder, "default.png");
-        if (File.Exists(userDefinedDefaultImagePath))
-        {
-            return userDefinedDefaultImagePath;
-        }
-
-        // If user-defined default image isn't found, fallback to the global default image
-        var globalDefaultImagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png"));
-
-        // Return empty if no image is found (not even a default image)
-        return File.Exists(globalDefaultImagePath) ? globalDefaultImagePath : string.Empty;
     }
 
     private string GetMachineDescription(string fileName)

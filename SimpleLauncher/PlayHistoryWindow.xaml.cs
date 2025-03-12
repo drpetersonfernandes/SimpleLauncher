@@ -89,7 +89,19 @@ public partial class PlayHistoryWindow
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        return systemConfig == null ? Path.Combine(baseDirectory, "images", "default.png") : FindCoverImagePath(systemName, fileName, baseDirectory, systemConfig.SystemImageFolder);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+        var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png"); 
+        
+        if (systemConfig == null)
+        {
+            return defaultCoverImagePath;
+        }
+        else
+        {
+            FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);            
+        }
+
+        return null;
     }
 
     private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
@@ -684,50 +696,7 @@ public partial class PlayHistoryWindow
             MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
         }
     }
-
-    private static string FindCoverImagePath(string systemName, string fileName, string baseDirectory, string systemImageFolder)
-    {
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-
-        // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-        }
-
-        var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // First try to find the image in the specific directory
-        if (TryFindImage(systemImageFolder, out var foundImagePath))
-        {
-            return foundImagePath;
-        }
-
-        // If not found, try the global directory
-        return TryFindImage(globalDirectory, out foundImagePath)
-            ? foundImagePath
-            :
-
-            // If not found, use default image
-            Path.Combine(baseDirectory, "images", "default.png");
-
-        // Search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
-            {
-                var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (!File.Exists(imagePath)) continue;
-                foundPath = imagePath;
-                return true;
-            }
-
-            foundPath = null;
-            return false;
-        }
-    }
-
+    
     private bool GetSystemConfigOfSelectedHistoryItem(PlayHistoryItem selectedItem, out SystemConfig systemConfig)
     {
         systemConfig = _systemConfigs?.FirstOrDefault(config =>

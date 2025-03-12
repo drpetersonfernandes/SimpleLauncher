@@ -156,7 +156,7 @@ public partial class GlobalSearchWindow
                 MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
                 SystemName = systemConfig.SystemName,
                 EmulatorConfig = systemConfig.Emulators.FirstOrDefault(),
-                CoverImage = GetCoverImagePath(systemConfig.SystemName, Path.GetFileName(file))
+                CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(file), systemConfig.SystemName, systemConfig)
             }).ToList();
 
             results.AddRange(fileResults);
@@ -180,58 +180,6 @@ public partial class GlobalSearchWindow
             }
 
             return Path.IsPathRooted(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-        }
-    }
-
-    private string GetCoverImagePath(string systemName, string fileName)
-    {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        if (systemConfig == null)
-        {
-            return Path.Combine(baseDirectory, "images", "default.png");
-        }
-
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemImageFolder = systemConfig.SystemImageFolder;
-
-        // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-        }
-
-        var globalDirectory = Path.Combine(baseDirectory, "images", systemName);
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
-
-        // First try to find the image in the systemImageFolder
-        if (TryFindImage(systemImageFolder, out var foundImagePath))
-        {
-            return foundImagePath;
-        }
-
-        // If not found, try the globalImageDirectory
-        if (TryFindImage(globalDirectory, out foundImagePath))
-        {
-            return foundImagePath;
-        }
-
-        // otherwise, use default.png
-        return Path.Combine(baseDirectory, "images", "default.png");
-
-        // Search for the image file
-        bool TryFindImage(string directory, out string foundPath)
-        {
-            foreach (var extension in imageExtensions)
-            {
-                var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (!File.Exists(imagePath)) continue;
-                foundPath = imagePath;
-                return true;
-            }
-
-            foundPath = null;
-            return false;
         }
     }
 
