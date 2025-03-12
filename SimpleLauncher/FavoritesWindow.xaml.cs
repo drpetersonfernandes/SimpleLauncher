@@ -108,7 +108,7 @@ public partial class FavoritesWindow
             _favoritesManager.FavoriteList = _favoriteList; // Keep the instance in sync
             _favoritesManager.SaveFavorites(); // Save using the existing instance
 
-            PlayClick.PlayClickSound();
+            PlayClick.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else
@@ -172,7 +172,7 @@ public partial class FavoritesWindow
                 };
                 removeMenuItem.Click += (_, _) =>
                 {
-                    PlayClick.PlayClickSound();
+                    PlayClick.PlayTrashSound();
                     RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
                 };
 
@@ -470,6 +470,7 @@ public partial class FavoritesWindow
                     PlayClick.PlayClickSound();
 
                     DoYouWanToDeleteMessageBox();
+                    return;
 
                     void DoYouWanToDeleteMessageBox()
                     {
@@ -652,7 +653,7 @@ public partial class FavoritesWindow
     {
         if (e.Key != Key.Delete) return;
 
-        PlayClick.PlayClickSound();
+        PlayClick.PlayTrashSound();
 
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {

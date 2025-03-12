@@ -376,8 +376,7 @@ public partial class GlobalSearchWindow
             launchMenuItem.Click += (_, _) =>
             {
                 PlayClick.PlayClickSound();
-                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
-                    selectedResult.EmulatorConfig);
+                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
             };
 
             // "Add To Favorites" MenuItem
@@ -690,6 +689,7 @@ public partial class GlobalSearchWindow
 
                 // Notify user
                 DoYouWanToDeleteMessageBox();
+                return;
 
                 void DoYouWanToDeleteMessageBox()
                 {

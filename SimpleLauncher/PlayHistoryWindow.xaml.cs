@@ -100,7 +100,7 @@ public partial class PlayHistoryWindow
             _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
             _playHistoryManager.SavePlayHistory(); // Save using the existing instance
 
-            PlayClick.PlayClickSound();
+            PlayClick.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else

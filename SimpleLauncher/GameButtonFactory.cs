@@ -269,7 +269,7 @@ internal class GameButtonFactory(
             };
             removeFromFavorites.Click += (_, _) =>
             {
-                PlayClick.PlayClickSound();
+                PlayClick.PlayTrashSound();
                 RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
             };
 
