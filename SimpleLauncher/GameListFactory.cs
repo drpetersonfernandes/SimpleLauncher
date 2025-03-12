@@ -127,7 +127,7 @@ public class GameListFactory(
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = filePath,
-            ContextMenu = GameListFactoryRightClickContextMenu(filePath, systemName, systemConfig),
+            ContextMenu = AddRightClickContextMenuGameListFactory(filePath, systemName, systemConfig),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime
@@ -136,7 +136,7 @@ public class GameListFactory(
         return Task.FromResult(gameListViewItem);
     }
 
-    private ContextMenu GameListFactoryRightClickContextMenu(string filePath, string systemName, SystemConfig systemConfig)
+    private ContextMenu AddRightClickContextMenuGameListFactory(string filePath, string systemName, SystemConfig systemConfig)
     {
         var fileNameWithExtension = Path.GetFileName(filePath);
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);

@@ -98,10 +98,8 @@ public partial class PlayHistoryWindow
         }
         else
         {
-            FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);            
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);            
         }
-
-        return null;
     }
 
     private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
@@ -143,7 +141,7 @@ public partial class PlayHistoryWindow
         PreviewImage.Source = null;
     }
 
-    private void PlayHistoryRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private void AddRightClickContextMenuPlayHistoryWindow(object sender, MouseButtonEventArgs e)
     {
         try
         {
