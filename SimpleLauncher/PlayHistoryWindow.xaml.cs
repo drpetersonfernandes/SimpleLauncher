@@ -52,7 +52,7 @@ public partial class PlayHistoryWindow
     private void LoadPlayHistory()
     {
         var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
-        _playHistoryList = [];
+        _playHistoryList = new ObservableCollection<PlayHistoryItem>();
         foreach (var historyItem in playHistoryConfig.PlayHistoryList)
         {
             // Find machine description if available
@@ -82,6 +82,14 @@ public partial class PlayHistoryWindow
             _playHistoryList.Add(playHistoryItem);
         }
 
+        // Sort the list by date and time
+        var sorted = new ObservableCollection<PlayHistoryItem>(
+            _playHistoryList.OrderByDescending(item =>
+                DateTime.Parse($"{item.LastPlayDate} {item.LastPlayTime}"))
+        );
+        _playHistoryList = sorted;
+
+        // Add to the DataGrid
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
@@ -621,8 +629,29 @@ public partial class PlayHistoryWindow
             Debug.Assert(emulatorConfig != null, nameof(emulatorConfig) + " != null");
             mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
+            // Store currently selected item to restore selection after refresh
+            var selectedItem = PlayHistoryDataGrid.SelectedItem as PlayHistoryItem;
+
             // Launch Game
             await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
+
+            // Refresh play history data in UI after game ends
+            RefreshPlayHistoryData();
+
+            // Try to restore the selection if the item still exists
+            if (selectedItem != null)
+            {
+                // Find the same item in the refreshed list
+                var updatedItem = _playHistoryList.FirstOrDefault(item =>
+                    item.FileName == selectedItem.FileName &&
+                    item.SystemName == selectedItem.SystemName);
+
+                if (updatedItem != null)
+                {
+                    PlayHistoryDataGrid.SelectedItem = updatedItem;
+                    PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -634,6 +663,71 @@ public partial class PlayHistoryWindow
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+        }
+    }
+
+    private void RefreshPlayHistoryData()
+    {
+        try
+        {
+            // Store current selected index if any
+            var selectedIndex = PlayHistoryDataGrid.SelectedIndex;
+
+            // Get updated play history data
+            var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
+            _playHistoryList = new ObservableCollection<PlayHistoryItem>();
+
+            foreach (var historyItem in playHistoryConfig.PlayHistoryList)
+            {
+                // Find machine description if available
+                var machine = _machines.FirstOrDefault(m =>
+                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName), StringComparison.OrdinalIgnoreCase));
+                var machineDescription = machine?.Description ?? string.Empty;
+
+                // Retrieve the system configuration for the history item
+                var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                    config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                // Get the default emulator. The first one in the list
+                var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+
+                var playHistoryItem = new PlayHistoryItem
+                {
+                    FileName = historyItem.FileName,
+                    SystemName = historyItem.SystemName,
+                    TotalPlayTime = historyItem.TotalPlayTime,
+                    TimesPlayed = historyItem.TimesPlayed,
+                    LastPlayDate = historyItem.LastPlayDate,
+                    LastPlayTime = historyItem.LastPlayTime,
+                    MachineDescription = machineDescription,
+                    DefaultEmulator = defaultEmulator,
+                    CoverImage = GetCoverImagePath(historyItem.SystemName, historyItem.FileName)
+                };
+                _playHistoryList.Add(playHistoryItem);
+            }
+
+            // Sort the list by date and time
+            var sorted = new ObservableCollection<PlayHistoryItem>(
+                _playHistoryList.OrderByDescending(item =>
+                    DateTime.Parse($"{item.LastPlayDate} {item.LastPlayTime}"))
+            );
+            _playHistoryList = sorted;
+
+            // Update the DataGrid
+            PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+            // Try to restore selection if possible
+            if (selectedIndex >= 0 && selectedIndex < _playHistoryList.Count)
+            {
+                PlayHistoryDataGrid.SelectedIndex = selectedIndex;
+                PlayHistoryDataGrid.ScrollIntoView(PlayHistoryDataGrid.SelectedItem);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error refreshing play history data.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -807,7 +901,7 @@ public partial class PlayHistoryWindow
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
-    private void SortByPlayTime_Click(object sender, RoutedEventArgs e)
+    private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
             _playHistoryList.OrderByDescending(item => item.TotalPlayTime)

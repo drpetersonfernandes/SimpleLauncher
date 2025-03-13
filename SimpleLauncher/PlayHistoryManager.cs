@@ -62,7 +62,7 @@ public class PlayHistoryManager
                 existingItem.TotalPlayTime += (long)playTime.TotalSeconds;
                 existingItem.TimesPlayed += 1;
                 existingItem.LastPlayDate = DateTime.Now.ToShortDateString();
-                existingItem.LastPlayTime = DateTime.Now.ToShortTimeString();
+                existingItem.LastPlayTime = DateTime.Now.ToString("HH:mm:ss");
             }
             else
             {
@@ -74,7 +74,7 @@ public class PlayHistoryManager
                     TotalPlayTime = (long)playTime.TotalSeconds,
                     TimesPlayed = 1,
                     LastPlayDate = DateTime.Now.ToShortDateString(),
-                    LastPlayTime = DateTime.Now.ToShortTimeString()
+                    LastPlayTime = DateTime.Now.ToString("HH:mm:ss")
                 };
                 PlayHistoryList.Add(newItem);
             }
