@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -48,9 +49,22 @@ public partial class PlayHistoryWindow
         Closing += PlayHistory_Closing;
     }
 
-    private void PlayHistory_Closing(object sender, CancelEventArgs e)
+    private static void PlayHistory_Closing(object sender, CancelEventArgs e)
     {
-        _playHistoryList = null;
+        var processModule = Process.GetCurrentProcess().MainModule;
+        if (processModule == null) return;
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = processModule.FileName,
+            UseShellExecute = true
+        };
+
+        // Start the new application instance
+        Process.Start(startInfo);
+
+        // Shutdown the current application instance
+        Application.Current.Shutdown();
+        Environment.Exit(0);
     }
 
     private void LoadPlayHistory()
@@ -97,7 +111,7 @@ public partial class PlayHistoryWindow
     {
         try
         {
-            // First try to parse using current culture (most likely to succeed)
+            // First, try to parse using current culture (most likely to succeed)
             if (DateTime.TryParse($"{dateStr} {timeStr}", out var result))
             {
                 return result;

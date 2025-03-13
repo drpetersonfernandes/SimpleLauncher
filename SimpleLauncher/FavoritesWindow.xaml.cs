@@ -134,16 +134,35 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                if (CheckFilenameOfSelectedFavorite(selectedFavorite)) return;
-                Debug.Assert(selectedFavorite.FileName != null);
+                if (selectedFavorite.FileName == null)
+                {
+                    // Notify developer
+                    const string contextMessage = "Favorite filename is null";
+                    var ex = new Exception(contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                    return;
+                }
+
+                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (systemConfig == null)
+                {
+                    // Notify developer
+                    const string contextMessage = "systemConfig is null for the selected favorite";
+                    var ex = new Exception(contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                    return;
+                }
 
                 var fileNameWithExtension = selectedFavorite.FileName;
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-
-                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (CheckForSystemConfig(systemConfig)) return;
-                Debug.Assert(systemConfig?.SystemFolder != null);
-
                 var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
 
                 AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
@@ -588,25 +607,61 @@ public partial class FavoritesWindow
         try
         {
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (await CheckSystemConfig(systemConfig)) return;
+            if (systemConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "systemConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            var emulatorConfig = systemConfig?.Emulators.FirstOrDefault();
-            if (await CheckEmulatorConfig(emulatorConfig)) return;
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
-            Debug.Assert(systemConfig?.SystemFolder != null);
+                return;
+            }
+
+            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
+            if (emulatorConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+                return;
+            }
+
             var fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+            if (!File.Exists(fullPath))
+            {
+                // Auto remove the favorite from the list since the file no longer exists
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
+                if (favoriteToRemove != null)
+                {
+                    _favoriteList.Remove(favoriteToRemove);
+                    _favoritesManager.FavoriteList = _favoriteList;
+                    _favoritesManager.SaveFavorites();
+                }
 
-            // Check if the favorite file exists
-            if (await CheckFilePathDeleteFavoriteIfInvalid(fileName, systemName, fullPath)) return;
+                // Notify developer
+                var contextMessage = $"Favorite file does not exist: {fullPath}";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+
+                return;
+            }
 
             var mockSystemComboBox = new ComboBox();
             var mockEmulatorComboBox = new ComboBox();
-
             mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
             mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-
             mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
-            Debug.Assert(emulatorConfig != null, nameof(emulatorConfig) + " != null");
             mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
             // Launch Game
@@ -699,89 +754,5 @@ public partial class FavoritesWindow
         MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
 
         return true;
-    }
-
-    private static bool CheckForSystemConfig(SystemConfig systemConfig)
-    {
-        if (systemConfig != null) return false;
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null for the selected favorite";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-        return true;
-    }
-
-    private static bool CheckFilenameOfSelectedFavorite(Favorite selectedFavorite)
-    {
-        if (selectedFavorite.FileName != null) return false;
-
-        // Notify developer
-        const string contextMessage = "Favorite filename is null";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-        return true;
-    }
-
-    private Task<bool> CheckFilePathDeleteFavoriteIfInvalid(string fileName, string systemName, string fullPath)
-    {
-        if (File.Exists(fullPath)) return Task.FromResult(false);
-
-        // Auto remove the favorite from the list since the file no longer exists
-        var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
-        if (favoriteToRemove != null)
-        {
-            _favoriteList.Remove(favoriteToRemove);
-            _favoritesManager.FavoriteList = _favoriteList;
-            _favoritesManager.SaveFavorites();
-        }
-
-        // Notify developer
-        var contextMessage = $"Favorite file does not exist: {fullPath}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.GameFileDoesNotExistMessageBox();
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
-    {
-        if (emulatorConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "emulatorConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckSystemConfig(SystemConfig systemConfig)
-    {
-        if (systemConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
     }
 }
