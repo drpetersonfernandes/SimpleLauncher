@@ -206,17 +206,9 @@ public class GamePadController : IDisposable
             // No need to log or notify the developer
             CheckAndReconnectControllers(); // Attempt to reconnect the controller
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error in GamePadController Update method.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
-
             CheckAndReconnectControllers();
-
-            // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
         }
     }
 
