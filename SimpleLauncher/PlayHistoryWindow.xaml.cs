@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +16,10 @@ namespace SimpleLauncher;
 
 public partial class PlayHistoryWindow
 {
+    private const string DateFormat = "d"; // Short date pattern
+    private const string TimeFormat = "HH:mm:ss";
+    private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
+
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
@@ -83,14 +87,57 @@ public partial class PlayHistoryWindow
         }
 
         // Sort the list by date and time
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(item =>
-                DateTime.Parse($"{item.LastPlayDate} {item.LastPlayTime}"))
-        );
-        _playHistoryList = sorted;
+        SortByDateSafely();
 
         // Add to the DataGrid
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+    }
+
+    private DateTime TryParseDateTime(string dateStr, string timeStr)
+    {
+        try
+        {
+            // First try to parse using current culture (most likely to succeed)
+            if (DateTime.TryParse($"{dateStr} {timeStr}", out var result))
+            {
+                return result;
+            }
+
+            // If that fails, try with invariant culture
+            if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+
+            // As a fallback, try common formats
+            string[] dateFormats = { "MM/dd/yyyy", "dd/MM/yyyy", "yyyy-MM-dd", "dd-MM-yyyy", "d", "D" };
+            foreach (var df in dateFormats)
+            {
+                if (DateTime.TryParseExact($"{dateStr} {timeStr}",
+                        $"{df} {TimeFormat}", InvariantCulture, DateTimeStyles.None, out result))
+                {
+                    return result;
+                }
+            }
+
+            // If all parsing attempts fail, return DateTime.MinValue
+            // This will put unparseable dates at the end of the sorted list
+            return DateTime.MinValue;
+        }
+        catch
+        {
+            // In case of any exception, return a reasonable default
+            return DateTime.MinValue;
+        }
+    }
+
+    private void SortByDateSafely()
+    {
+        var sorted = new ObservableCollection<PlayHistoryItem>(
+            _playHistoryList.OrderByDescending(item =>
+                TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
+        );
+        _playHistoryList = sorted;
     }
 
     private string GetCoverImagePath(string systemName, string fileName)
@@ -155,21 +202,38 @@ public partial class PlayHistoryWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
-                # region Variables
+                // Check filename
+                if (selectedItem.FileName == null)
+                {
+                    // Notify developer
+                    const string contextMessage = "History item filename is null";
+                    var ex = new Exception(contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                if (CheckFilenameOfSelectedHistoryItem(selectedItem)) return;
-                Debug.Assert(selectedItem.FileName != null);
+                    // Notify user
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                    return;
+                }
+
+                // Check systemConfig
+                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (systemConfig == null)
+                {
+                    // Notify developer
+                    const string contextMessage = "systemConfig is null";
+                    var ex = new Exception(contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                    return;
+                }
 
                 var fileNameWithExtension = selectedItem.FileName;
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-
-                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (CheckForSystemConfig(systemConfig)) return;
-                Debug.Assert(systemConfig?.SystemFolder != null);
-
                 var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedItem.FileName));
-
-                # endregion
 
                 var contextMenu = new ContextMenu();
 
@@ -607,49 +671,90 @@ public partial class PlayHistoryWindow
     {
         try
         {
+            // Check systemConfig
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (await CheckSystemConfig(systemConfig)) return;
-
-            var emulatorConfig = systemConfig?.Emulators.FirstOrDefault();
-            if (await CheckEmulatorConfig(emulatorConfig)) return;
-
-            Debug.Assert(systemConfig?.SystemFolder != null);
-            var fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
-
-            // Check if the file exists
-            if (await CheckFilePathDeleteHistoryItemIfInvalid(fileName, systemName, fullPath)) return;
-
-            var mockSystemComboBox = new ComboBox();
-            var mockEmulatorComboBox = new ComboBox();
-
-            mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
-            mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-
-            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
-            Debug.Assert(emulatorConfig != null, nameof(emulatorConfig) + " != null");
-            mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
-
-            // Store currently selected item to restore selection after refresh
-            var selectedItem = PlayHistoryDataGrid.SelectedItem as PlayHistoryItem;
-
-            // Launch Game
-            await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
-
-            // Refresh play history data in UI after game ends
-            RefreshPlayHistoryData();
-
-            // Try to restore the selection if the item still exists
-            if (selectedItem != null)
+            if (systemConfig == null)
             {
-                // Find the same item in the refreshed list
-                var updatedItem = _playHistoryList.FirstOrDefault(item =>
-                    item.FileName == selectedItem.FileName &&
-                    item.SystemName == selectedItem.SystemName);
+                // Notify developer
+                const string contextMessage = "systemConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                if (updatedItem != null)
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+                return;
+            }
+
+            // Check emulatorConfig
+            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
+            if (emulatorConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+                return;
+            }
+
+            var fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+            // Check if the file exists
+            if (!File.Exists(fullPath))
+            {
+                // Auto remove the history item from the list since the file no longer exists
+                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == systemName);
+                if (itemToRemove != null)
                 {
-                    PlayHistoryDataGrid.SelectedItem = updatedItem;
-                    PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+                    _playHistoryList.Remove(itemToRemove);
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+                }
+
+                // Notify developer
+                var contextMessage = $"History item file does not exist: {fullPath}";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+            }
+            else // File exists
+            {
+                var mockSystemComboBox = new ComboBox();
+                var mockEmulatorComboBox = new ComboBox();
+
+                mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+                mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+
+                mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
+
+                // Store currently selected item to restore selection after refresh
+                var selectedItem = PlayHistoryDataGrid.SelectedItem as PlayHistoryItem;
+
+                // Launch Game
+                await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
+
+                // Refresh play history data in UI after game ends
+                RefreshPlayHistoryData();
+
+                // Try to restore the selection if the item still exists
+                if (selectedItem != null)
+                {
+                    // Find the same item in the refreshed list
+                    var updatedItem = _playHistoryList.FirstOrDefault(item =>
+                        item.FileName == selectedItem.FileName &&
+                        item.SystemName == selectedItem.SystemName);
+
+                    if (updatedItem != null)
+                    {
+                        PlayHistoryDataGrid.SelectedItem = updatedItem;
+                        PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+                    }
                 }
             }
         }
@@ -706,12 +811,8 @@ public partial class PlayHistoryWindow
                 _playHistoryList.Add(playHistoryItem);
             }
 
-            // Sort the list by date and time
-            var sorted = new ObservableCollection<PlayHistoryItem>(
-                _playHistoryList.OrderByDescending(item =>
-                    DateTime.Parse($"{item.LastPlayDate} {item.LastPlayTime}"))
-            );
-            _playHistoryList = sorted;
+            // Sort the list by date and time using the safe parsing method
+            SortByDateSafely();
 
             // Update the DataGrid
             PlayHistoryDataGrid.ItemsSource = _playHistoryList;
@@ -807,97 +908,9 @@ public partial class PlayHistoryWindow
         return true;
     }
 
-    private static bool CheckForSystemConfig(SystemConfig systemConfig)
-    {
-        if (systemConfig != null) return false;
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-        return true;
-    }
-
-    private static bool CheckFilenameOfSelectedHistoryItem(PlayHistoryItem selectedItem)
-    {
-        if (selectedItem.FileName != null) return false;
-
-        // Notify developer
-        const string contextMessage = "History item filename is null";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-        return true;
-    }
-
-    private Task<bool> CheckFilePathDeleteHistoryItemIfInvalid(string fileName, string systemName, string fullPath)
-    {
-        if (File.Exists(fullPath)) return Task.FromResult(false);
-
-        // Auto remove the history item from the list since the file no longer exists
-        var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == systemName);
-        if (itemToRemove != null)
-        {
-            _playHistoryList.Remove(itemToRemove);
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistory();
-        }
-
-        // Notify developer
-        var contextMessage = $"History item file does not exist: {fullPath}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.GameFileDoesNotExistMessageBox();
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
-    {
-        if (emulatorConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "emulatorConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckSystemConfig(SystemConfig systemConfig)
-    {
-        if (systemConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(item =>
-                DateTime.Parse($"{item.LastPlayDate} {item.LastPlayTime}"))
-        );
-        _playHistoryList = sorted;
+        SortByDateSafely();
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 

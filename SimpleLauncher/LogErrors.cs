@@ -51,7 +51,7 @@ public static class LogErrors
             $"Windows Version: {windowsVersion}\n\n" +
             $"Exception type: {ex.GetType().Name}\n" +
             $"Exception details: {ex.Message}\n\n" +
-            $"{contextMessage}";
+            $"{contextMessage}\n\n";
 
         try
         {
