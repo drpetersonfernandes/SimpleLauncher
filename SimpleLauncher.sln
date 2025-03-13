@@ -7,11 +7,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CEFA333-2272-44CD-A2AB-1DBF5F753AF5}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		screenshot.png = screenshot.png
-		screenshot2.png = screenshot2.png
-		screenshot3.png = screenshot3.png
 		parameters.md = parameters.md
 		home.md = home.md
+		screenshot.jpg = screenshot.jpg
+		screenshot2.png = screenshot2.png
+		screenshot3.png = screenshot3.png
 		screenshot4.png = screenshot4.png
 		screenshot5.png = screenshot5.png
 	EndProjectSection
