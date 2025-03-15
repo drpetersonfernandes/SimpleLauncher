@@ -6,17 +6,6 @@ namespace MameUtility;
 
 public static class MergeList
 {
-    // Traditional method to merge and save as XML only (kept for backward compatibility)
-    public static void MergeAndSave(string[] inputFilePaths, string outputFilePath)
-    {
-        var mergedDoc = MergeDocumentsFromPaths(inputFilePaths);
-        if (mergedDoc != null)
-        {
-            mergedDoc.Save(outputFilePath);
-            Console.WriteLine($"Merged XML saved successfully to: {outputFilePath}");
-        }
-    }
-
     // New method to merge and save as both XML and DAT files
     public static void MergeAndSaveBoth(string[] inputFilePaths, string xmlOutputPath, string datOutputPath)
     {
