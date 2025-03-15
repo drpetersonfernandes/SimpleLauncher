@@ -81,7 +81,7 @@ public class CacheManager
                 foreach (var extension in fileExtensions)
                 {
                     // Ensure the extension is in search pattern format.
-                    var searchPattern = extension.StartsWith("*") ? extension : "*." + extension;
+                    var searchPattern = extension.StartsWith("*", StringComparison.Ordinal) ? extension : "*." + extension;
                     var foundFiles = Directory.EnumerateFiles(systemFolderPath, searchPattern, SearchOption.TopDirectoryOnly);
                     fileList.AddRange(foundFiles);
                 }

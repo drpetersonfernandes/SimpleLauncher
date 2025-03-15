@@ -563,7 +563,7 @@ public partial class FavoritesWindow
 
     private static string GetFullPath(string path)
     {
-        if (path.StartsWith(@".\"))
+        if (path.StartsWith(@".\", StringComparison.Ordinal))
         {
             path = path.Substring(2);
         }

@@ -17,7 +17,6 @@ namespace SimpleLauncher;
 
 public partial class PlayHistoryWindow
 {
-    private const string DateFormat = "d"; // Short date pattern
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
@@ -636,13 +635,9 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private static void AddAdditionalMenuItems(ContextMenu contextMenu, PlayHistoryItem selectedItem, string fileNameWithoutExtension, string filePath, SystemConfig systemConfig)
-    {
-    }
-
     private static string GetFullPath(string path)
     {
-        if (path.StartsWith(@".\"))
+        if (path.StartsWith(@".\", StringComparison.Ordinal))
         {
             path = path.Substring(2);
         }
@@ -844,15 +839,6 @@ public partial class PlayHistoryWindow
             const string contextMessage = "Error refreshing play history data.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
-    }
-
-    private void RemoveHistoryItemFromXmlAndEmptyPreviewImage(PlayHistoryItem selectedItem)
-    {
-        _playHistoryList.Remove(selectedItem);
-        _playHistoryManager.PlayHistoryList = _playHistoryList;
-        _playHistoryManager.SavePlayHistory();
-
-        PreviewImage.Source = null;
     }
 
     private async void LaunchGameWithDoubleClick(object sender, MouseButtonEventArgs e)

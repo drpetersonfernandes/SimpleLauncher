@@ -132,7 +132,9 @@ public partial class MainWindow
 
                 // Use TITLE if available, otherwise use TITLE_ID, and if neither, use the folder name
                 if (!string.IsNullOrEmpty(title))
+                {
                     batchFileName = title;
+                }
                 else
                 {
                     var titleId = GetId(subdirectory); // Fallback to TITLE_ID if TITLE is not available
@@ -195,7 +197,9 @@ public partial class MainWindow
 
                 // Use TITLE if available, otherwise use TITLE_ID, and if neither, use the folder name
                 if (!string.IsNullOrEmpty(title))
+                {
                     batchFileName = title;
+                }
                 else
                 {
                     var titleId = GetId2(subdirectory); // Fallback to TITLE_ID if TITLE is not available

@@ -33,7 +33,7 @@ internal class GameButtonFactory(
 
         var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
         // Determine if it's a default image (isDefaultImage is a bool)
-        var isDefaultImage = imagePath.EndsWith("default.png");
+        var isDefaultImage = imagePath.EndsWith("default.png", StringComparison.Ordinal);
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel

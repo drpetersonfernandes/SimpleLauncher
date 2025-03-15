@@ -8,11 +8,12 @@
     <ApplicationIcon>icon\icon.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <AssemblyVersion>1.1</AssemblyVersion>
-    <FileVersion>1.1</FileVersion>
+    <AssemblyVersion>1.2</AssemblyVersion>
+    <FileVersion>1.2</FileVersion>
     <RootNamespace>CreateBatchFilesForPS3Games</RootNamespace>
     <IsPackable>false</IsPackable>
     <LangVersion>13</LangVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

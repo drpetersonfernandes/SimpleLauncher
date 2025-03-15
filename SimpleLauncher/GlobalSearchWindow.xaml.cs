@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -174,7 +173,7 @@ public partial class GlobalSearchWindow
 
         string GetFullPath(string path)
         {
-            if (path.StartsWith(@".\"))
+            if (path.StartsWith(@".\", StringComparison.Ordinal))
             {
                 path = path.Substring(2);
             }
@@ -236,15 +235,60 @@ public partial class GlobalSearchWindow
     {
         try
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                // Notify developer
+                const string contextMessage = "filePath is null or empty.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(systemName))
+            {
+                // Notify developer
+                const string contextMessage = "systemName is null or empty.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (emulatorConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
             var systemConfig = _systemConfigs.FirstOrDefault(config =>
                 config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            if (await CheckSystemName(systemName)) return;
+            if (systemConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "systemConfig is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (await CheckEmulatorConfig(emulatorConfig)) return;
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
 
-            if (await CheckSystemConfig2(systemConfig)) return;
-            Debug.Assert(systemConfig != null, nameof(systemConfig) + " != null");
+                return;
+            }
 
             _mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
             _mockSystemComboBox.SelectedItem = systemConfig.SystemName;
@@ -762,21 +806,6 @@ public partial class GlobalSearchWindow
         public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
     }
 
-    private static Task<bool> CheckSystemConfig2(SystemConfig systemConfig)
-    {
-        if (systemConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
     private static bool CheckSystemConfig(SystemConfig systemConfig)
     {
         if (systemConfig != null) return false;
@@ -790,36 +819,6 @@ public partial class GlobalSearchWindow
         MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
 
         return true;
-    }
-
-    private static Task<bool> CheckEmulatorConfig(SystemConfig.Emulator emulatorConfig)
-    {
-        if (emulatorConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "emulatorConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckSystemName(string systemName)
-    {
-        if (!string.IsNullOrEmpty(systemName)) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "systemName is null or empty.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
     }
 
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)

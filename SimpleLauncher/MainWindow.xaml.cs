@@ -735,8 +735,18 @@ public partial class MainWindow : INotifyPropertyChanged
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
-            if (await CheckIfSelectConfigIsNull(selectedConfig)) return;
-            Debug.Assert(selectedConfig != null, nameof(selectedConfig) + " != null");
+            if (selectedConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "Invalid system configuration.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
+                return;
+            }
 
             // Create allFiles list
             List<string> allFiles;
@@ -913,21 +923,6 @@ public partial class MainWindow : INotifyPropertyChanged
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
-    }
-
-    private static Task<bool> CheckIfSelectConfigIsNull(SystemConfig selectedConfig)
-    {
-        if (selectedConfig != null) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "Invalid system configuration.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-        return Task.FromResult(true);
     }
 
     private bool CheckIfSystemComboBoxIsNotNull()
