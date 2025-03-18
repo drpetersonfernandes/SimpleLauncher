@@ -226,27 +226,41 @@ public partial class MainWindow
                     {
                         try
                         {
-                            // Delete the original input file
-                            File.Delete(inputFile);
-                            LogMessage($"Deleted original file: {fileName}");
+                            // For .cue files, get all referenced files first
+                            var filesToDelete = new List<string>();
 
-                            // Check for .bin file (common with .cue files)
                             if (Path.GetExtension(inputFile).ToLower() == ".cue")
                             {
-                                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(inputFile);
-                                var binFileName = $"{fileNameWithoutExtension}.bin";
-                                var binFileNameWithPath = Path.Combine(Path.GetDirectoryName(inputFile) ?? string.Empty, binFileName);
+                                // Get all files referenced in the .cue file
+                                var referencedFiles = GetReferencedFilesFromCue(inputFile);
 
-                                if (File.Exists(binFileNameWithPath))
+                                if (referencedFiles.Any())
                                 {
-                                    File.Delete(binFileNameWithPath);
-                                    LogMessage($"Deleted associated .bin file: {binFileName}");
+                                    LogMessage($"Found {referencedFiles.Count} referenced file(s) in CUE file.");
+                                    filesToDelete.AddRange(referencedFiles);
+                                }
+                            }
+
+                            // Always add the original file to be deleted
+                            filesToDelete.Add(inputFile);
+
+                            // Delete all files
+                            foreach (var fileToDelete in filesToDelete)
+                            {
+                                if (File.Exists(fileToDelete))
+                                {
+                                    File.Delete(fileToDelete);
+                                    LogMessage($"Deleted file: {Path.GetFileName(fileToDelete)}");
+                                }
+                                else
+                                {
+                                    LogMessage($"Warning: Referenced file not found: {Path.GetFileName(fileToDelete)}");
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            LogMessage($"Failed to delete original file: {fileName} - {ex.Message}");
+                            LogMessage($"Failed to delete original file(s): {ex.Message}");
                         }
                     }
                 }
@@ -278,6 +292,43 @@ public partial class MainWindow
             LogMessage($"Error during batch conversion: {ex.Message}");
             ShowError($"Error during batch conversion: {ex.Message}");
         }
+    }
+
+    private List<string> GetReferencedFilesFromCue(string cuePath)
+    {
+        var referencedFiles = new List<string>();
+        var cueDir = Path.GetDirectoryName(cuePath) ?? string.Empty;
+
+        try
+        {
+            LogMessage($"Parsing CUE file to find referenced files: {Path.GetFileName(cuePath)}");
+            var lines = File.ReadAllLines(cuePath);
+
+            foreach (var line in lines)
+            {
+                var trimmedLine = line.Trim();
+                if (trimmedLine.StartsWith("FILE ", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Extract filename from the FILE line
+                    // Format: FILE "filename.ext" FILETYPE
+                    var parts = trimmedLine.Split('"');
+                    if (parts.Length >= 2)
+                    {
+                        var fileName = parts[1];
+                        var filePath = Path.Combine(cueDir, fileName);
+
+                        LogMessage($"Found referenced file in CUE: {fileName}");
+                        referencedFiles.Add(filePath);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error parsing CUE file: {ex.Message}");
+        }
+
+        return referencedFiles;
     }
 
     private Task<bool> ConvertToChdAsync(string chdmanPath, string inputFile, string outputFile)
