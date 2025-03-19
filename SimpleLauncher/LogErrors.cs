@@ -3,6 +3,8 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -12,6 +14,7 @@ public static class LogErrors
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
+    private const string ApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
 
     static LogErrors()
     {
@@ -93,23 +96,27 @@ public static class LogErrors
             return false;
         }
 
-        // Prepare the content to be sent via HTTP POST.
-        var formData = new MultipartFormDataContent
-        {
-            { new StringContent("contact@purelogiccode.com"), "recipient" },
-            { new StringContent("Error Log from SimpleLauncher"), "subject" },
-            { new StringContent("SimpleLauncher User"), "name" },
-            { new StringContent(logContent), "message" }
-        };
-
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://www.purelogiccode.com/simplelauncher/send_email.php")
-        {
-            Content = formData
-        };
-        request.Headers.Add("X-API-KEY", ApiKey);
-
         try
         {
+            // Create the content for the new API format
+            var payload = new
+            {
+                message = logContent,
+                applicationName = "SimpleLauncher"
+            };
+
+            // Serialize to JSON
+            var jsonContent = JsonSerializer.Serialize(payload);
+            var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            // Setup the request with headers
+            var request = new HttpRequestMessage(HttpMethod.Post, ApiUrl)
+            {
+                Content = stringContent
+            };
+            request.Headers.Add("X-API-KEY", ApiKey);
+
+            // Send the request
             var response = await HttpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
         }

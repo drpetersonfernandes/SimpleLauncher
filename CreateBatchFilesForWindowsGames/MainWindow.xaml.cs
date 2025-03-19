@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -7,9 +8,20 @@ namespace CreateBatchFilesForWindowsGames;
 
 public partial class MainWindow
 {
+    private readonly BugReportService _bugReportService;
+
+    // Bug Report API configuration
+    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+    private const string ApplicationName = "CreateBatchFilesForWindowsGames";
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Initialize the bug report service
+        _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
+
         LogMessage("Welcome to the Batch File Creator for Microsoft Windows Games.");
         LogMessage("");
         LogMessage("This program creates batch files to launch your Microsoft Windows games.");
@@ -38,7 +50,7 @@ public partial class MainWindow
         });
     }
 
-    private void BrowseGameExeButton_Click(object sender, RoutedEventArgs e)
+    private async void BrowseGameExeButton_Click(object sender, RoutedEventArgs e)
     {
         var gameExePath = SelectGameExecutable();
         if (!string.IsNullOrEmpty(gameExePath))
@@ -46,12 +58,24 @@ public partial class MainWindow
             GameExePathTextBox.Text = gameExePath;
             LogMessage($"Game executable selected: {gameExePath}");
 
+            // Verify the file exists and is an executable
+            if (!File.Exists(gameExePath))
+            {
+                LogMessage("Warning: The selected file does not exist.");
+                await ReportBugAsync("User selected a game executable that doesn't exist: " + gameExePath);
+            }
+            else if (!gameExePath.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+            {
+                LogMessage("Warning: The selected file does not appear to be an executable (.exe) file.");
+                await ReportBugAsync("User selected a file that doesn't appear to be an executable: " + gameExePath);
+            }
+
             // Update the Save As button status
             UpdateCreateButtonStatus();
         }
     }
 
-    private void SaveBatchFileButton_Click(object sender, RoutedEventArgs e)
+    private async void SaveBatchFileButton_Click(object sender, RoutedEventArgs e)
     {
         var gameExePath = GameExePathTextBox.Text;
         if (string.IsNullOrEmpty(gameExePath))
@@ -60,21 +84,53 @@ public partial class MainWindow
             return;
         }
 
-        var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
-        var folderName = Path.GetFileName(gameFolderPath.TrimEnd(Path.DirectorySeparatorChar));
-
-        var batchFilePath = SaveBatchFile(folderName);
-        if (!string.IsNullOrEmpty(batchFilePath))
+        try
         {
-            BatchFilePathTextBox.Text = batchFilePath;
-            LogMessage($"Batch file location selected: {batchFilePath}");
+            var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
+            var folderName = Path.GetFileName(gameFolderPath.TrimEnd(Path.DirectorySeparatorChar));
 
-            // Update the Create button status
-            UpdateCreateButtonStatus();
+            var batchFilePath = SaveBatchFile(folderName);
+            if (!string.IsNullOrEmpty(batchFilePath))
+            {
+                BatchFilePathTextBox.Text = batchFilePath;
+                LogMessage($"Batch file location selected: {batchFilePath}");
+
+                // Check if the directory exists and is writable
+                var batchFileDirectory = Path.GetDirectoryName(batchFilePath);
+                if (!Directory.Exists(batchFileDirectory))
+                {
+                    LogMessage($"Warning: The selected directory does not exist: {batchFileDirectory}");
+                    await ReportBugAsync($"User selected a non-existent batch file directory: {batchFileDirectory}");
+                }
+                else
+                {
+                    try
+                    {
+                        // Test if we can write to the directory
+                        var testFilePath = Path.Combine(batchFileDirectory, ".write_test_" + Guid.NewGuid().ToString());
+                        await File.WriteAllTextAsync(testFilePath, "test");
+                        File.Delete(testFilePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogMessage($"Warning: The selected directory may not be writable: {ex.Message}");
+                        await ReportBugAsync($"Selected batch file directory may not be writable: {batchFileDirectory}", ex);
+                    }
+                }
+
+                // Update the Create button status
+                UpdateCreateButtonStatus();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error selecting batch file location: {ex.Message}");
+            ShowError($"Error selecting batch file location: {ex.Message}");
+            await ReportBugAsync("Error selecting batch file location", ex);
         }
     }
 
-    private void CreateBatchFileButton_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFileButton_Click(object sender, RoutedEventArgs e)
     {
         var gameExePath = GameExePathTextBox.Text;
         var batchFilePath = BatchFilePathTextBox.Text;
@@ -83,6 +139,14 @@ public partial class MainWindow
         {
             LogMessage("Error: No game executable selected.");
             ShowError("Please select a game executable file.");
+            return;
+        }
+
+        if (!File.Exists(gameExePath))
+        {
+            LogMessage($"Error: Game executable not found at path: {gameExePath}");
+            ShowError("The selected game executable file does not exist.");
+            await ReportBugAsync("Game executable not found", new FileNotFoundException("The game executable was not found", gameExePath));
             return;
         }
 
@@ -99,11 +163,11 @@ public partial class MainWindow
             var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
             var gameFileName = Path.GetFileName(gameExePath);
 
-            using (StreamWriter sw = new(batchFilePath))
+            await using (StreamWriter sw = new(batchFilePath))
             {
-                sw.WriteLine("@echo off");
-                sw.WriteLine($"cd /d \"{gameFolderPath}\"");
-                sw.WriteLine($"start {gameFileName}");
+                await sw.WriteLineAsync("@echo off");
+                await sw.WriteLineAsync($"cd /d \"{gameFolderPath}\"");
+                await sw.WriteLineAsync($"start {gameFileName}");
             }
 
             LogMessage("");
@@ -120,6 +184,7 @@ public partial class MainWindow
         {
             LogMessage($"Error creating batch file: {ex.Message}");
             ShowError($"Error creating batch file: {ex.Message}");
+            await ReportBugAsync("Error creating batch file", ex);
         }
     }
 
@@ -181,5 +246,95 @@ public partial class MainWindow
     private void ShowError(string message)
     {
         ShowMessageBox(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    /// <summary>
+    /// Silently reports bugs/errors to the API
+    /// </summary>
+    private async Task ReportBugAsync(string message, Exception? exception = null)
+    {
+        try
+        {
+            var fullReport = new StringBuilder();
+
+            // Add system information
+            fullReport.AppendLine("=== Bug Report ===");
+            fullReport.AppendLine($"Application: {ApplicationName}");
+            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine($"OS: {Environment.OSVersion}");
+            fullReport.AppendLine($".NET Version: {Environment.Version}");
+            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine();
+
+            // Add a message
+            fullReport.AppendLine("=== Error Message ===");
+            fullReport.AppendLine(message);
+            fullReport.AppendLine();
+
+            // Add exception details if available
+            if (exception != null)
+            {
+                fullReport.AppendLine("=== Exception Details ===");
+                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine($"Message: {exception.Message}");
+                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine("Stack Trace:");
+                fullReport.AppendLine(exception.StackTrace);
+
+                // Add inner exception if available
+                if (exception.InnerException != null)
+                {
+                    fullReport.AppendLine("Inner Exception:");
+                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine(exception.InnerException.StackTrace);
+                }
+            }
+
+            // Add log contents if available
+            if (LogTextBox != null)
+            {
+                var logContent = string.Empty;
+
+                // Safely get log content from UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    logContent = LogTextBox.Text;
+                });
+
+                if (!string.IsNullOrEmpty(logContent))
+                {
+                    fullReport.AppendLine();
+                    fullReport.AppendLine("=== Application Log ===");
+                    fullReport.Append(logContent);
+                }
+            }
+
+            // Add paths' information if available
+            if (GameExePathTextBox != null && BatchFilePathTextBox != null)
+            {
+                var gameExePath = string.Empty;
+                var batchFilePath = string.Empty;
+
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    gameExePath = GameExePathTextBox.Text;
+                    batchFilePath = BatchFilePathTextBox.Text;
+                });
+
+                fullReport.AppendLine();
+                fullReport.AppendLine("=== Paths ===");
+                fullReport.AppendLine($"Game Executable Path: {gameExePath}");
+                fullReport.AppendLine($"Batch File Path: {batchFilePath}");
+            }
+
+            // Silently send the report
+            await _bugReportService.SendBugReportAsync(fullReport.ToString());
+        }
+        catch
+        {
+            // Silently fail if error reporting itself fails
+        }
     }
 }

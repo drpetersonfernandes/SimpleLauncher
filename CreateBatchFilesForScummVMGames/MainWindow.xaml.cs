@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -7,9 +8,20 @@ namespace CreateBatchFilesForScummVMGames;
 
 public partial class MainWindow
 {
+    private readonly BugReportService _bugReportService;
+
+    // Bug Report API configuration
+    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+    private const string ApplicationName = "CreateBatchFilesForScummVMGames";
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Initialize the bug report service
+        _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
+
         LogMessage("Welcome to the Batch File Creator for ScummVM Games.");
         LogMessage("");
         LogMessage("This program creates batch files to launch your ScummVM games.");
@@ -42,6 +54,12 @@ public partial class MainWindow
         {
             ScummVmPathTextBox.Text = scummvmExePath;
             LogMessage($"ScummVM executable selected: {scummvmExePath}");
+
+            if (!scummvmExePath.EndsWith("scummvm.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                LogMessage("Warning: The selected file does not appear to be scummvm.exe.");
+                _ = ReportBugAsync("User selected a file that doesn't appear to be scummvm.exe: " + scummvmExePath);
+            }
         }
     }
 
@@ -55,7 +73,7 @@ public partial class MainWindow
         }
     }
 
-    private void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
     {
         var scummvmExePath = ScummVmPathTextBox.Text;
         var rootFolder = GameFolderTextBox.Text;
@@ -67,6 +85,14 @@ public partial class MainWindow
             return;
         }
 
+        if (!File.Exists(scummvmExePath))
+        {
+            LogMessage($"Error: ScummVM executable not found at path: {scummvmExePath}");
+            ShowError("The selected ScummVM executable file does not exist.");
+            await ReportBugAsync("ScummVM executable not found", new FileNotFoundException("The ScummVM executable was not found", scummvmExePath));
+            return;
+        }
+
         if (string.IsNullOrEmpty(rootFolder))
         {
             LogMessage("Error: No game folder selected.");
@@ -74,7 +100,24 @@ public partial class MainWindow
             return;
         }
 
-        CreateBatchFilesForScummVmGames(rootFolder, scummvmExePath);
+        if (!Directory.Exists(rootFolder))
+        {
+            LogMessage($"Error: Game folder not found at path: {rootFolder}");
+            ShowError("The selected game folder does not exist.");
+            await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
+            return;
+        }
+
+        try
+        {
+            CreateBatchFilesForScummVmGames(rootFolder, scummvmExePath);
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error creating batch files: {ex.Message}");
+            ShowError($"An error occurred while creating batch files: {ex.Message}");
+            await ReportBugAsync("Error creating batch files", ex);
+        }
     }
 
     private static string? SelectFolder()
@@ -101,41 +144,60 @@ public partial class MainWindow
 
     private void CreateBatchFilesForScummVmGames(string rootFolder, string scummvmExePath)
     {
-        var gameDirectories = Directory.GetDirectories(rootFolder);
-        var filesCreated = 0;
-
-        LogMessage("");
-        LogMessage("Starting batch file creation process...");
-        LogMessage("");
-
-        foreach (var gameDirectory in gameDirectories)
+        try
         {
-            var gameFolderName = Path.GetFileName(gameDirectory);
-            var batchFilePath = Path.Combine(rootFolder, gameFolderName + ".bat");
+            var gameDirectories = Directory.GetDirectories(rootFolder);
+            var filesCreated = 0;
 
-            using (StreamWriter sw = new(batchFilePath))
+            LogMessage("");
+            LogMessage("Starting batch file creation process...");
+            LogMessage("");
+
+            foreach (var gameDirectory in gameDirectories)
             {
-                sw.WriteLine($"\"{scummvmExePath}\" -p \"{gameDirectory}\" --auto-detect --fullscreen");
-                LogMessage($"Batch file created: {batchFilePath}");
+                try
+                {
+                    var gameFolderName = Path.GetFileName(gameDirectory);
+                    var batchFilePath = Path.Combine(rootFolder, gameFolderName + ".bat");
+
+                    using (StreamWriter sw = new(batchFilePath))
+                    {
+                        sw.WriteLine($"\"{scummvmExePath}\" -p \"{gameDirectory}\" --auto-detect --fullscreen");
+                        LogMessage($"Batch file created: {batchFilePath}");
+                    }
+
+                    filesCreated++;
+                }
+                catch (Exception ex)
+                {
+                    LogMessage($"Error creating batch file for {gameDirectory}: {ex.Message}");
+                    _ = ReportBugAsync($"Error creating batch file for {Path.GetFileName(gameDirectory)}", ex);
+                }
             }
 
-            filesCreated++;
-        }
+            if (filesCreated > 0)
+            {
+                LogMessage("");
+                LogMessage($"{filesCreated} batch files have been successfully created.");
+                LogMessage("They are located in the root folder of your ScummVM games.");
 
-        if (filesCreated > 0)
-        {
-            LogMessage("");
-            LogMessage($"{filesCreated} batch files have been successfully created.");
-            LogMessage("They are located in the root folder of your ScummVM games.");
-
-            ShowMessageBox($"{filesCreated} batch files have been successfully created.\n\n" +
-                           "They are located in the root folder of your ScummVM games.",
-                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ShowMessageBox($"{filesCreated} batch files have been successfully created.\n\n" +
+                               "They are located in the root folder of your ScummVM games.",
+                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                LogMessage("No game folders found. No batch files were created.");
+                ShowError("No game folders found. No batch files were created.");
+                _ = ReportBugAsync("No game folders found",
+                    new DirectoryNotFoundException("No subdirectories found in the game folder"));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            LogMessage("No game folders found. No batch files were created.");
-            ShowError("No game folders found. No batch files were created.");
+            LogMessage($"Error accessing folder structure: {ex.Message}");
+            _ = ReportBugAsync("Error accessing folder structure during batch file creation", ex);
+            throw;
         }
     }
 
@@ -148,5 +210,95 @@ public partial class MainWindow
     private void ShowError(string message)
     {
         ShowMessageBox(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    /// <summary>
+    /// Silently reports bugs/errors to the API
+    /// </summary>
+    private async Task ReportBugAsync(string message, Exception? exception = null)
+    {
+        try
+        {
+            var fullReport = new StringBuilder();
+
+            // Add system information
+            fullReport.AppendLine("=== Bug Report ===");
+            fullReport.AppendLine($"Application: {ApplicationName}");
+            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine($"OS: {Environment.OSVersion}");
+            fullReport.AppendLine($".NET Version: {Environment.Version}");
+            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine();
+
+            // Add a message
+            fullReport.AppendLine("=== Error Message ===");
+            fullReport.AppendLine(message);
+            fullReport.AppendLine();
+
+            // Add exception details if available
+            if (exception != null)
+            {
+                fullReport.AppendLine("=== Exception Details ===");
+                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine($"Message: {exception.Message}");
+                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine("Stack Trace:");
+                fullReport.AppendLine(exception.StackTrace);
+
+                // Add inner exception if available
+                if (exception.InnerException != null)
+                {
+                    fullReport.AppendLine("Inner Exception:");
+                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine(exception.InnerException.StackTrace);
+                }
+            }
+
+            // Add log contents if available
+            if (LogTextBox != null)
+            {
+                var logContent = string.Empty;
+
+                // Safely get log content from UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    logContent = LogTextBox.Text;
+                });
+
+                if (!string.IsNullOrEmpty(logContent))
+                {
+                    fullReport.AppendLine();
+                    fullReport.AppendLine("=== Application Log ===");
+                    fullReport.Append(logContent);
+                }
+            }
+
+            // Add ScummVM and games folder paths if available
+            if (ScummVmPathTextBox != null && GameFolderTextBox != null)
+            {
+                var scummvmPath = string.Empty;
+                var gameFolderPath = string.Empty;
+
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    scummvmPath = ScummVmPathTextBox.Text;
+                    gameFolderPath = GameFolderTextBox.Text;
+                });
+
+                fullReport.AppendLine();
+                fullReport.AppendLine("=== Configuration ===");
+                fullReport.AppendLine($"ScummVM Path: {scummvmPath}");
+                fullReport.AppendLine($"Games Folder: {gameFolderPath}");
+            }
+
+            // Silently send the report
+            await _bugReportService.SendBugReportAsync(fullReport.ToString());
+        }
+        catch
+        {
+            // Silently fail if error reporting itself fails
+        }
     }
 }

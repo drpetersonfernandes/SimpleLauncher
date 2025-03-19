@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -9,11 +10,20 @@ namespace BatchConvertToZip;
 public partial class MainWindow
 {
     private CancellationTokenSource _cts;
+    private readonly BugReportService _bugReportService;
+
+    // Bug Report API configuration
+    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+    private const string ApplicationName = "BatchConvertToZip";
 
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
+
+        // Initialize the bug report service
+        _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
         LogMessage("Welcome to the Batch Convert to Zip.");
         LogMessage("");
@@ -77,10 +87,35 @@ public partial class MainWindow
             return;
         }
 
+        if (!Directory.Exists(inputFolder))
+        {
+            LogMessage($"Error: Input folder does not exist: {inputFolder}");
+            ShowError("The selected input folder does not exist.");
+            await ReportBugAsync($"Input folder does not exist: {inputFolder}");
+            return;
+        }
+
         if (string.IsNullOrEmpty(outputFolder))
         {
             LogMessage("Error: No output folder selected.");
             ShowError("Please select the output folder where zip files will be saved.");
+            return;
+        }
+
+        try
+        {
+            // Ensure output directory exists
+            if (!Directory.Exists(outputFolder))
+            {
+                LogMessage($"Creating output directory: {outputFolder}");
+                Directory.CreateDirectory(outputFolder);
+            }
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error creating output directory: {ex.Message}");
+            ShowError($"Failed to create output directory: {ex.Message}");
+            await ReportBugAsync("Failed to create output directory", ex);
             return;
         }
 
@@ -103,9 +138,16 @@ public partial class MainWindow
         {
             await PerformBatchCompressionAsync(inputFolder, outputFolder, deleteFiles);
         }
+        catch (OperationCanceledException)
+        {
+            LogMessage("Operation was canceled by user.");
+        }
         catch (Exception ex)
         {
             LogMessage($"Error: {ex.Message}");
+
+            // Report the exception to our bug reporting service
+            await ReportBugAsync("Error during batch compression process", ex);
         }
         finally
         {
@@ -149,7 +191,20 @@ public partial class MainWindow
         try
         {
             LogMessage("Preparing for batch compression...");
-            var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly).ToArray();
+
+            // Get all files in the input folder
+            string[] files;
+            try
+            {
+                files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly).ToArray();
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error accessing input folder: {ex.Message}");
+                await ReportBugAsync("Error accessing input folder for file listing", ex);
+                return;
+            }
+
             LogMessage($"Found {files.Length} files to compress.");
 
             if (files.Length == 0)
@@ -179,7 +234,17 @@ public partial class MainWindow
                 if (File.Exists(outputFile))
                 {
                     LogMessage($"Output file already exists, deleting: {outputFile}");
-                    File.Delete(outputFile);
+                    try
+                    {
+                        File.Delete(outputFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogMessage($"Failed to delete existing output file: {ex.Message}");
+                        await ReportBugAsync($"Failed to delete existing output file: {outputFile}", ex);
+                        failureCount++;
+                        continue;
+                    }
                 }
 
                 LogMessage($"[{i + 1}/{files.Length}] Compressing: {fileName}");
@@ -200,6 +265,7 @@ public partial class MainWindow
                         catch (Exception ex)
                         {
                             LogMessage($"Failed to delete original file: {fileName} - {ex.Message}");
+                            await ReportBugAsync($"Failed to delete original file after compression: {fileName}", ex);
                         }
                     }
                 }
@@ -207,6 +273,9 @@ public partial class MainWindow
                 {
                     LogMessage($"Compression failed: {fileName}");
                     failureCount++;
+
+                    // Report compression failure
+                    await ReportBugAsync($"Failed to compress file: {fileName}");
                 }
 
                 ProgressBar.Value = i + 1;
@@ -230,25 +299,32 @@ public partial class MainWindow
         {
             LogMessage($"Error during batch compression: {ex.Message}");
             ShowError($"Error during batch compression: {ex.Message}");
+
+            // Report the exception
+            await ReportBugAsync("Error during batch compression operation", ex);
         }
     }
 
-    private Task<bool> CompressFileToZipAsync(string inputFile, string outputFile)
+    private async Task<bool> CompressFileToZipAsync(string inputFile, string outputFile)
     {
-        return Task.Run(() =>
+        try
         {
-            try
+            await Task.Run(() =>
             {
                 using var zipArchive = ZipFile.Open(outputFile, ZipArchiveMode.Create);
                 zipArchive.CreateEntryFromFile(inputFile, Path.GetFileName(inputFile), CompressionLevel.Optimal);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"Error compressing file: {ex.Message}");
-                return false;
-            }
-        }, _cts.Token);
+            }, _cts.Token);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error compressing file: {ex.Message}");
+
+            // Report this specific file compression error
+            await ReportBugAsync($"Error compressing file: {Path.GetFileName(inputFile)}", ex);
+            return false;
+        }
     }
 
     private void ShowMessageBox(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
@@ -260,5 +336,77 @@ public partial class MainWindow
     private void ShowError(string message)
     {
         ShowMessageBox(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    /// <summary>
+    /// Silently reports bugs/errors to the API
+    /// </summary>
+    private async Task ReportBugAsync(string message, Exception? exception = null)
+    {
+        try
+        {
+            var fullReport = new StringBuilder();
+
+            // Add system information
+            fullReport.AppendLine("=== Bug Report ===");
+            fullReport.AppendLine($"Application: {ApplicationName}");
+            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine($"OS: {Environment.OSVersion}");
+            fullReport.AppendLine($".NET Version: {Environment.Version}");
+            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine();
+
+            // Add a message
+            fullReport.AppendLine("=== Error Message ===");
+            fullReport.AppendLine(message);
+            fullReport.AppendLine();
+
+            // Add exception details if available
+            if (exception != null)
+            {
+                fullReport.AppendLine("=== Exception Details ===");
+                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine($"Message: {exception.Message}");
+                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine("Stack Trace:");
+                fullReport.AppendLine(exception.StackTrace);
+
+                // Add inner exception if available
+                if (exception.InnerException != null)
+                {
+                    fullReport.AppendLine("Inner Exception:");
+                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine(exception.InnerException.StackTrace);
+                }
+            }
+
+            // Add log contents if available
+            if (LogViewer != null)
+            {
+                var logContent = string.Empty;
+
+                // Safely get log content from UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    logContent = LogViewer.Text;
+                });
+
+                if (!string.IsNullOrEmpty(logContent))
+                {
+                    fullReport.AppendLine();
+                    fullReport.AppendLine("=== Application Log ===");
+                    fullReport.Append(logContent);
+                }
+            }
+
+            // Silently send the report
+            await _bugReportService.SendBugReportAsync(fullReport.ToString());
+        }
+        catch
+        {
+            // Silently fail if error reporting itself fails
+        }
     }
 }

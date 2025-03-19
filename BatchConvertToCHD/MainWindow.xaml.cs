@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -9,11 +10,20 @@ namespace BatchConvertToCHD;
 public partial class MainWindow
 {
     private CancellationTokenSource _cts;
+    private readonly BugReportService _bugReportService;
+
+    // Bug Report API configuration
+    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+    private const string ApplicationName = "BatchConvertToCHD";
 
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
+
+        // Initialize the bug report service
+        _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
         LogMessage("Welcome to the Batch Convert to CHD.");
         LogMessage("");
@@ -37,6 +47,9 @@ public partial class MainWindow
         {
             LogMessage("WARNING: chdman.exe not found in the application directory!");
             LogMessage("Please ensure chdman.exe is in the same folder as this application.");
+
+            // Report this as a potential issue
+            Task.Run(async () => await ReportBugAsync("chdman.exe not found in the application directory. This will prevent the application from functioning correctly."));
         }
     }
 
@@ -87,6 +100,10 @@ public partial class MainWindow
         {
             LogMessage("Error: chdman.exe not found in the application folder.");
             ShowError("chdman.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+            // Report this issue
+            await ReportBugAsync("chdman.exe not found when trying to start conversion",
+                new FileNotFoundException("The required chdman.exe file was not found.", chdmanPath));
             return;
         }
 
@@ -128,9 +145,16 @@ public partial class MainWindow
         {
             await PerformBatchConversionAsync(chdmanPath, inputFolder, outputFolder, deleteFiles);
         }
+        catch (OperationCanceledException)
+        {
+            LogMessage("Operation was canceled by user.");
+        }
         catch (Exception ex)
         {
             LogMessage($"Error: {ex.Message}");
+
+            // Report the exception to our bug reporting service
+            await ReportBugAsync("Error during batch conversion process", ex);
         }
         finally
         {
@@ -255,12 +279,18 @@ public partial class MainWindow
                                 else
                                 {
                                     LogMessage($"Warning: Referenced file not found: {Path.GetFileName(fileToDelete)}");
+
+                                    // Report missing referenced file
+                                    await ReportBugAsync($"Referenced file not found during deletion: {Path.GetFileName(fileToDelete)}");
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
                             LogMessage($"Failed to delete original file(s): {ex.Message}");
+
+                            // Report file deletion error
+                            await ReportBugAsync($"Failed to delete original file(s) after conversion: {fileName}", ex);
                         }
                     }
                 }
@@ -268,6 +298,9 @@ public partial class MainWindow
                 {
                     LogMessage($"Conversion failed: {fileName}");
                     failureCount++;
+
+                    // Report conversion failure
+                    await ReportBugAsync($"Failed to convert file: {fileName}");
                 }
 
                 ProgressBar.Value = i + 1;
@@ -291,6 +324,9 @@ public partial class MainWindow
         {
             LogMessage($"Error during batch conversion: {ex.Message}");
             ShowError($"Error during batch conversion: {ex.Message}");
+
+            // Report the exception
+            await ReportBugAsync("Error during batch conversion operation", ex);
         }
     }
 
@@ -326,46 +362,49 @@ public partial class MainWindow
         catch (Exception ex)
         {
             LogMessage($"Error parsing CUE file: {ex.Message}");
+
+            // Report CUE parsing error
+            Task.Run(async () => await ReportBugAsync($"Error parsing CUE file: {Path.GetFileName(cuePath)}", ex));
         }
 
         return referencedFiles;
     }
 
-    private Task<bool> ConvertToChdAsync(string chdmanPath, string inputFile, string outputFile)
+    private async Task<bool> ConvertToChdAsync(string chdmanPath, string inputFile, string outputFile)
     {
-        return Task.Run(() =>
+        try
         {
-            try
+            var process = new Process
             {
-                var process = new Process
+                StartInfo = new ProcessStartInfo
                 {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = chdmanPath,
-                        Arguments = $"createcd -i \"{inputFile}\" -o \"{outputFile}\"",
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    }
-                };
+                    FileName = chdmanPath,
+                    Arguments = $"createcd -i \"{inputFile}\" -o \"{outputFile}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
 
-                process.Start();
+            process.Start();
 
-                // Read output to prevent the process from blocking
-                process.StandardOutput.ReadToEnd();
-                process.StandardError.ReadToEnd();
+            // Read output to prevent the process from blocking
+            await process.StandardOutput.ReadToEndAsync();
+            await process.StandardError.ReadToEndAsync();
 
-                process.WaitForExit();
+            await Task.Run(() => process.WaitForExit(), _cts.Token);
 
-                return process.ExitCode == 0;
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"Error converting file: {ex.Message}");
-                return false;
-            }
-        }, _cts.Token);
+            return process.ExitCode == 0;
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error converting file: {ex.Message}");
+
+            // Report this specific file conversion error
+            await ReportBugAsync($"Error converting file: {Path.GetFileName(inputFile)}", ex);
+            return false;
+        }
     }
 
     private void ShowMessageBox(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
@@ -377,5 +416,77 @@ public partial class MainWindow
     private void ShowError(string message)
     {
         ShowMessageBox(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    /// <summary>
+    /// Silently reports bugs/errors to the API
+    /// </summary>
+    private async Task ReportBugAsync(string message, Exception? exception = null)
+    {
+        try
+        {
+            var fullReport = new StringBuilder();
+
+            // Add system information
+            fullReport.AppendLine("=== Bug Report ===");
+            fullReport.AppendLine($"Application: {ApplicationName}");
+            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine($"OS: {Environment.OSVersion}");
+            fullReport.AppendLine($".NET Version: {Environment.Version}");
+            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine();
+
+            // Add a message
+            fullReport.AppendLine("=== Error Message ===");
+            fullReport.AppendLine(message);
+            fullReport.AppendLine();
+
+            // Add exception details if available
+            if (exception != null)
+            {
+                fullReport.AppendLine("=== Exception Details ===");
+                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine($"Message: {exception.Message}");
+                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine("Stack Trace:");
+                fullReport.AppendLine(exception.StackTrace);
+
+                // Add inner exception if available
+                if (exception.InnerException != null)
+                {
+                    fullReport.AppendLine("Inner Exception:");
+                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine(exception.InnerException.StackTrace);
+                }
+            }
+
+            // Add log contents if available
+            if (LogViewer != null)
+            {
+                var logContent = string.Empty;
+
+                // Safely get log content from UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    logContent = LogViewer.Text;
+                });
+
+                if (!string.IsNullOrEmpty(logContent))
+                {
+                    fullReport.AppendLine();
+                    fullReport.AppendLine("=== Application Log ===");
+                    fullReport.Append(logContent);
+                }
+            }
+
+            // Silently send the report
+            await _bugReportService.SendBugReportAsync(fullReport.ToString());
+        }
+        catch
+        {
+            // Silently fail if error reporting itself fails
+        }
     }
 }

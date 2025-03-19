@@ -3,17 +3,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
+using System.Text;
 
 namespace BatchConvertIsoToXiso;
 
 public partial class MainWindow
 {
     private CancellationTokenSource _cts;
+    private readonly BugReportService _bugReportService;
+
+    // Bug Report API configuration
+    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+    private const string ApplicationName = "BatchConvertIsoToXiso";
 
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
+
+        // Initialize the bug report service
+        _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
         LogMessage("Welcome to the Batch Convert ISO to XISO.");
         LogMessage("");
@@ -37,6 +47,9 @@ public partial class MainWindow
         {
             LogMessage("WARNING: extract-xiso.exe not found in the application directory!");
             LogMessage("Please ensure extract-xiso.exe is in the same folder as this application.");
+
+            // Report this as a potential issue
+            Task.Run(async () => await ReportBugAsync("extract-xiso.exe not found in the application directory. This will prevent the application from functioning correctly."));
         }
     }
 
@@ -87,6 +100,10 @@ public partial class MainWindow
         {
             LogMessage("Error: extract-xiso.exe not found in the application folder.");
             ShowError("extract-xiso.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+            // Report this issue
+            await ReportBugAsync("extract-xiso.exe not found when trying to start conversion",
+                new FileNotFoundException("The required extract-xiso.exe file was not found.", extractXisoPath));
             return;
         }
 
@@ -135,6 +152,9 @@ public partial class MainWindow
         catch (Exception ex)
         {
             LogMessage($"Error: {ex.Message}");
+
+            // Report the exception to our bug reporting service
+            await ReportBugAsync("Error during batch conversion process", ex);
         }
         finally
         {
@@ -220,6 +240,9 @@ public partial class MainWindow
                 {
                     LogMessage($"Conversion failed: {fileName}");
                     failureCount++;
+
+                    // Report conversion failure
+                    await ReportBugAsync($"Failed to convert file: {fileName}");
                 }
 
                 ProgressBar.Value = i + 1;
@@ -243,6 +266,9 @@ public partial class MainWindow
         {
             LogMessage($"Error during batch conversion: {ex.Message}");
             ShowError($"Error during batch conversion: {ex.Message}");
+
+            // Report the exception
+            await ReportBugAsync("Error during batch conversion operation", ex);
         }
     }
 
@@ -302,6 +328,9 @@ public partial class MainWindow
         catch (Exception ex)
         {
             LogMessage($"Error processing file: {ex.Message}");
+
+            // Report this specific file processing error
+            await ReportBugAsync($"Error processing file: {Path.GetFileName(inputFile)}", ex);
             return false;
         }
     }
@@ -374,6 +403,9 @@ public partial class MainWindow
         catch (Exception ex)
         {
             LogMessage($"Error during conversion: {ex.Message}");
+
+            // Report this error
+            await ReportBugAsync($"Error running extract-xiso on file: {Path.GetFileName(inputFile)}", ex);
             return false;
         }
     }
@@ -412,5 +444,77 @@ public partial class MainWindow
     private void ShowError(string message)
     {
         ShowMessageBox(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    /// <summary>
+    /// Silently reports bugs/errors to the API
+    /// </summary>
+    private async Task ReportBugAsync(string message, Exception? exception = null)
+    {
+        try
+        {
+            var fullReport = new StringBuilder();
+
+            // Add system information
+            fullReport.AppendLine("=== Bug Report ===");
+            fullReport.AppendLine($"Application: {ApplicationName}");
+            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine($"OS: {Environment.OSVersion}");
+            fullReport.AppendLine($".NET Version: {Environment.Version}");
+            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine();
+
+            // Add a message
+            fullReport.AppendLine("=== Error Message ===");
+            fullReport.AppendLine(message);
+            fullReport.AppendLine();
+
+            // Add exception details if available
+            if (exception != null)
+            {
+                fullReport.AppendLine("=== Exception Details ===");
+                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine($"Message: {exception.Message}");
+                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine("Stack Trace:");
+                fullReport.AppendLine(exception.StackTrace);
+
+                // Add inner exception if available
+                if (exception.InnerException != null)
+                {
+                    fullReport.AppendLine("Inner Exception:");
+                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine(exception.InnerException.StackTrace);
+                }
+            }
+
+            // Add log contents if available
+            if (LogViewer != null)
+            {
+                var logContent = string.Empty;
+
+                // Safely get log content from UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    logContent = LogViewer.Text;
+                });
+
+                if (!string.IsNullOrEmpty(logContent))
+                {
+                    fullReport.AppendLine();
+                    fullReport.AppendLine("=== Application Log ===");
+                    fullReport.Append(logContent);
+                }
+            }
+
+            // Silently send the report
+            await _bugReportService.SendBugReportAsync(fullReport.ToString());
+        }
+        catch
+        {
+            // Silently fail if error reporting itself fails
+        }
     }
 }
