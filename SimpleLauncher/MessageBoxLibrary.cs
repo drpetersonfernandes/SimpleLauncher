@@ -1840,16 +1840,6 @@ public static class MessageBoxLibrary
             warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
-    internal static void InvalidProgramLocationMessageBox(string programLocation)
-    {
-        var invalidemulatorexecutablepath3 = (string)Application.Current.TryFindResource("Invalidemulatorexecutablepath3") ?? "Invalid emulator executable path:";
-        var pleasechecktheconfigurationforthissystem2 = (string)Application.Current.TryFindResource("Pleasechecktheconfigurationforthissystem") ?? "Please check the configuration for this system.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{invalidemulatorexecutablepath3} {programLocation}\n\n" +
-                        $"{pleasechecktheconfigurationforthissystem2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
     internal static void EmulatorCouldNotOpenXboxXblaSimpleMessageBox(string logPath)
     {
         var theemulatorcouldnotopenthegame2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
@@ -2061,7 +2051,7 @@ public static class MessageBoxLibrary
             feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    public static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
+    internal static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
     {
         var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ??
                              "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
@@ -2084,5 +2074,35 @@ public static class MessageBoxLibrary
         warningMessage += "\n\nYou can still save, but these paths may cause issues when launching games.";
 
         MessageBox.Show(warningMessage, "Parameter Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    internal static bool AskUserToProceedWithInvalidPath(string programLocation, List<string> invalidPaths = null)
+    {
+        var message = "There are issues with the emulator configuration:";
+
+        if (!string.IsNullOrEmpty(programLocation))
+        {
+            message += $"\n\n• Program location may be invalid or inaccessible: \"{programLocation}\"";
+        }
+
+        if (invalidPaths != null && invalidPaths.Count > 0)
+        {
+            message += "\n\n• The following paths in parameters may be invalid:";
+            foreach (var path in invalidPaths)
+            {
+                message += $"\n  - \"{path}\"";
+            }
+        }
+
+        message += "\n\nDo you want to proceed with launching anyway?\n";
+        message += "\nYou can edit this system configuration later to fix these issues.";
+
+        var result = MessageBox.Show(
+            message,
+            "Path Validation Warning",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
+
+        return result == MessageBoxResult.Yes;
     }
 }
