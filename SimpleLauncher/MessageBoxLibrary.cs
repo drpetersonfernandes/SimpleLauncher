@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -1268,7 +1270,7 @@ public static class MessageBoxLibrary
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    internal static Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -1304,7 +1306,7 @@ public static class MessageBoxLibrary
         return Task.CompletedTask;
     }
 
-    internal static Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -1359,7 +1361,7 @@ public static class MessageBoxLibrary
         return result;
     }
 
-    internal static Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem, Exception ex)
+    internal static Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
         var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
         var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
@@ -2057,5 +2059,30 @@ public static class MessageBoxLibrary
         var feelingLucky2 = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
         MessageBox.Show(pleaseselectasystembeforeusingtheFeeling2,
             feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
+    {
+        var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ??
+                             "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
+
+        // Add details about which paths are invalid
+        if (invalidPaths.Count > 0)
+        {
+            warningMessage += "\n\nPotentially invalid paths:";
+            foreach (var path in invalidPaths.Take(5)) // Show at most 5 invalid paths
+            {
+                warningMessage += $"\n• {path}";
+            }
+
+            if (invalidPaths.Count > 5)
+            {
+                warningMessage += $"\n• ...and {invalidPaths.Count - 5} more";
+            }
+        }
+
+        warningMessage += "\n\nYou can still save, but these paths may cause issues when launching games.";
+
+        MessageBox.Show(warningMessage, "Parameter Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 }

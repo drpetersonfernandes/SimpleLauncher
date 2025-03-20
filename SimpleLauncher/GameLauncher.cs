@@ -910,7 +910,7 @@ public static class GameLauncher
         if (process.ExitCode != -1073741819) return Task.FromResult(false);
 
         // Notify developer
-        var contextMessage = $"There was an access violation error running the emulator. User was not notified.\n" +
+        var contextMessage = $"There was an memory access violation error running the emulator. User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Emulator output: {output}\n" +

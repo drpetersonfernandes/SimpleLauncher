@@ -452,13 +452,13 @@ public partial class EditSystemEasyModeAddSystemWindow
             switch (downloadType)
             {
                 case DownloadType.Emulator:
-                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
                     break;
                 case DownloadType.Core:
-                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
                     break;
                 case DownloadType.ImagePack:
-                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem, ex);
+                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
                     break;
                 default:
                     MessageBoxLibrary.DownloadExtractionFailedMessageBox();
