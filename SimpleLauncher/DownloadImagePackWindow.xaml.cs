@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Microsoft.Win32;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -575,7 +576,7 @@ public partial class DownloadImagePackWindow : IDisposable
         var selectafoldertoextracttheImagePack2 = (string)Application.Current.TryFindResource("SelectafoldertoextracttheImagePack") ?? "Select a folder to extract the Image Pack";
 
         // Create a new StorageFolder picker
-        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
+        var openFolderDialog = new OpenFolderDialog
         {
             Title = selectafoldertoextracttheImagePack2
         };

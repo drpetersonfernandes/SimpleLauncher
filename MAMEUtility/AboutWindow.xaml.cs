@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Diagnostics;
-using System.Windows.Navigation;
+﻿using System.Diagnostics;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace MAMEUtility;
 
@@ -15,7 +15,7 @@ public partial class AboutWindow
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

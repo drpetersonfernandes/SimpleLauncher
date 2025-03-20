@@ -1,4 +1,5 @@
-﻿using System.Windows.Threading;
+﻿using System.Text;
+using System.Windows.Threading;
 
 namespace BatchConvertToZip;
 
@@ -8,7 +9,7 @@ namespace BatchConvertToZip;
 public partial class App
 {
     // Bug Report API configuration
-    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchConvertToZip";
 
@@ -65,7 +66,7 @@ public partial class App
 
     private string BuildExceptionReport(Exception exception, string source)
     {
-        var sb = new System.Text.StringBuilder();
+        var sb = new StringBuilder();
         sb.AppendLine($"Error Source: {source}");
         sb.AppendLine($"Date and Time: {DateTime.Now}");
         sb.AppendLine($"OS Version: {Environment.OSVersion}");
@@ -79,7 +80,7 @@ public partial class App
         return sb.ToString();
     }
 
-    private void AppendExceptionDetails(System.Text.StringBuilder sb, Exception exception, int level = 0)
+    private void AppendExceptionDetails(StringBuilder sb, Exception exception, int level = 0)
     {
         var indent = new string(' ', level * 2);
 

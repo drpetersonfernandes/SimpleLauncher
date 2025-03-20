@@ -5,7 +5,7 @@ namespace MAMEUtility;
 
 public class AppConfig
 {
-    public string BugReportApiUrl { get; set; } = "http://localhost:5116/api/send-bug-report";
+    public string BugReportApiUrl { get; set; } = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     public string BugReportApiKey { get; set; } = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
     private static readonly Lazy<AppConfig> Instance2 = new(LoadConfig);

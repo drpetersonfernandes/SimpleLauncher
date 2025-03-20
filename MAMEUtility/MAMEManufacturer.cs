@@ -1,4 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace MAMEUtility;
 
@@ -39,7 +41,7 @@ public partial class MameManufacturer
                             .Trim())
                         .Replace("&amp;", "&"); // Replace &amp; with & in the filename.
 
-                    var outputFilePath = System.IO.Path.Combine(outputFolderMameManufacturer, $"{safeManufacturerName}.xml");
+                    var outputFilePath = Path.Combine(outputFolderMameManufacturer, $"{safeManufacturerName}.xml");
                     Console.WriteLine($"Attempting to create file for: {safeManufacturerName}.xml");
 
                     await CreateAndSaveFilteredDocumentAsync(inputDoc, outputFilePath, manufacturer, safeManufacturerName);
@@ -108,6 +110,6 @@ public partial class MameManufacturer
         return MyRegex().Replace(input, " ");
     }
 
-    [System.Text.RegularExpressions.GeneratedRegex(@"\s+")]
-    private static partial System.Text.RegularExpressions.Regex MyRegex();
+    [GeneratedRegex(@"\s+")]
+    private static partial Regex MyRegex();
 }

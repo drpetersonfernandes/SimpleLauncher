@@ -1,8 +1,13 @@
-﻿using MAMEUtility;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Xml.Linq;
+using MAMEUtility;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace MameUtility;
 
@@ -59,16 +64,16 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            var psi = new System.Diagnostics.ProcessStartInfo
+            var psi = new ProcessStartInfo
             {
                 FileName = "https://www.buymeacoffee.com/purelogiccode",
                 UseShellExecute = true
             };
-            System.Diagnostics.Process.Start(psi);
+            Process.Start(psi);
         }
         catch (Exception ex)
         {
-            System.Windows.MessageBox.Show("Unable to open the link: " + ex.Message);
+            MessageBox.Show("Unable to open the link: " + ex.Message);
         }
     }
 
@@ -80,7 +85,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
-        System.Windows.Application.Current.Shutdown();
+        Application.Current.Shutdown();
     }
 
     private async void CreateMAMEFull_Click(object sender, RoutedEventArgs e)
@@ -88,7 +93,7 @@ public partial class MainWindow : INotifyPropertyChanged
         OverallProgress = 0;
 
         Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
-        Microsoft.Win32.OpenFileDialog openFileDialog = new()
+        OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
             Filter = "XML files (*.xml)|*.xml"
@@ -99,7 +104,7 @@ public partial class MainWindow : INotifyPropertyChanged
             var inputFilePath = openFileDialog.FileName;
 
             Log("Put a name to your output file.");
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new()
+            SaveFileDialog saveFileDialog = new()
             {
                 Title = "Save MAMEFull",
                 Filter = "XML files (*.xml)|*.xml",
@@ -137,7 +142,7 @@ public partial class MainWindow : INotifyPropertyChanged
         OverallProgress = 0;
 
         Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
-        Microsoft.Win32.OpenFileDialog openFileDialog = new()
+        OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
             Filter = "XML files (*.xml)|*.xml"
@@ -190,7 +195,7 @@ public partial class MainWindow : INotifyPropertyChanged
         OverallProgress = 0;
 
         Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
-        Microsoft.Win32.OpenFileDialog openFileDialog = new()
+        OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
             Filter = "XML files (*.xml)|*.xml"
@@ -243,7 +248,7 @@ public partial class MainWindow : INotifyPropertyChanged
         OverallProgress = 0;
 
         Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
-        Microsoft.Win32.OpenFileDialog openFileDialog = new()
+        OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
             Filter = "XML files (*.xml)|*.xml"
@@ -296,7 +301,7 @@ public partial class MainWindow : INotifyPropertyChanged
         OverallProgress = 0;
 
         Log("Select XML files to merge. You can select multiple XML files.");
-        Microsoft.Win32.OpenFileDialog openFileDialog = new()
+        OpenFileDialog openFileDialog = new()
         {
             Title = "Select XML files to merge",
             Filter = "XML files (*.xml)|*.xml",
@@ -308,7 +313,7 @@ public partial class MainWindow : INotifyPropertyChanged
             string[] inputFilePaths = openFileDialog.FileNames; // Get all selected file paths
 
             Log("Select where to save the merged XML file.");
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new()
+            SaveFileDialog saveFileDialog = new()
             {
                 Title = "Save Merged XML",
                 Filter = "XML files (*.xml)|*.xml",
@@ -371,7 +376,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 var destinationDirectory = destinationFolderBrowserDialog.SelectedPath;
 
                 Log("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
-                Microsoft.Win32.OpenFileDialog openFileDialog = new()
+                OpenFileDialog openFileDialog = new()
                 {
                     Title = "Please select the XML file(s) containing ROM information",
                     Filter = "XML Files (*.xml)|*.xml",
@@ -438,7 +443,7 @@ public partial class MainWindow : INotifyPropertyChanged
                 var destinationDirectory = destinationFolderBrowserDialog.SelectedPath;
 
                 Log("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
-                Microsoft.Win32.OpenFileDialog openFileDialog = new()
+                OpenFileDialog openFileDialog = new()
                 {
                     Title = "Please select the XML file(s) containing ROM information",
                     Filter = "XML Files (*.xml)|*.xml",
@@ -509,7 +514,7 @@ public partial class MainWindow : INotifyPropertyChanged
             var inputFolderPath = folderBrowserDialog.SelectedPath;
 
             Log("Choose a location to save the consolidated output XML file.");
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new()
+            SaveFileDialog saveFileDialog = new()
             {
                 Title = "Save Consolidated XML File",
                 Filter = "XML Files (*.xml)|*.xml",

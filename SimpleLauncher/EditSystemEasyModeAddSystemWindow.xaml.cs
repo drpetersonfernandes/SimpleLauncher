@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Xml.Linq;
+using Microsoft.Win32;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -923,7 +924,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
 
         // Create a new OpenFolderDialog
-        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
+        var openFolderDialog = new OpenFolderDialog
         {
             Title = chooseaFolderwithRoMsorIsOs2
         };

@@ -11,7 +11,7 @@ public partial class MainWindow
     private readonly BugReportService _bugReportService;
 
     // Bug Report API configuration
-    private const string BugReportApiUrl = "http://localhost:5116/api/send-bug-report";
+    private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "CreateBatchFilesForSegaModel3Games";
 
@@ -262,7 +262,7 @@ public partial class MainWindow
                     fullReport.AppendLine("Inner Exception:");
                     fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
                     fullReport.AppendLine($"Message: {exception.InnerException.Message}");
-                    fullReport.AppendLine($"Stack Trace:");
+                    fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }
             }

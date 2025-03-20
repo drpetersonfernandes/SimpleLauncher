@@ -58,7 +58,7 @@ public class BugReportService
         }
     }
 
-    private string FormatExceptionMessage(Exception exception)
+    private static string FormatExceptionMessage(Exception exception)
     {
         var sb = new StringBuilder();
         sb.AppendLine($"Exception: {exception.GetType().Name}");

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Microsoft.Win32;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using TextBox = System.Windows.Controls.TextBox;
@@ -218,7 +219,7 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
-    private bool IsValidPath(string path)
+    private static bool IsValidPath(string path)
     {
         if (string.IsNullOrWhiteSpace(path)) return false;
 
@@ -269,7 +270,7 @@ public partial class EditSystemWindow
         var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
 
         // Create new OpenFolderDialog
-        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
+        var openFolderDialog = new OpenFolderDialog
         {
             Title = pleaseselecttheSystemFolder2
         };
@@ -289,7 +290,7 @@ public partial class EditSystemWindow
         var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
 
         // Create new OpenFolderDialog
-        var openFolderDialog = new Microsoft.Win32.OpenFolderDialog
+        var openFolderDialog = new OpenFolderDialog
         {
             Title = pleaseselecttheSystemImage2
         };

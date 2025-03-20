@@ -98,7 +98,7 @@ public static class LogErrors
 
         try
         {
-            // Create the content for the new API format
+            // Create the content
             var payload = new
             {
                 message = logContent,
@@ -109,7 +109,7 @@ public static class LogErrors
             var jsonContent = JsonSerializer.Serialize(payload);
             var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            // Setup the request with headers
+            // Set up the request with headers
             var request = new HttpRequestMessage(HttpMethod.Post, ApiUrl)
             {
                 Content = stringContent

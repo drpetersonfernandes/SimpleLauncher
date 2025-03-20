@@ -1,12 +1,12 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Xml.Linq;
 using MessagePack;
-using System.IO;
 
 namespace MameUtility;
 
 public static class MergeList
 {
-    // New method to merge and save as both XML and DAT files
+    // Save as both XML and DAT files
     public static void MergeAndSaveBoth(string[] inputFilePaths, string xmlOutputPath, string datOutputPath)
     {
         var mergedDoc = MergeDocumentsFromPaths(inputFilePaths);
