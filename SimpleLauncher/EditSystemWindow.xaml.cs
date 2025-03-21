@@ -22,6 +22,7 @@ public partial class EditSystemWindow
     private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
+    private string _originalSystemName;
 
     public EditSystemWindow(SettingsManager settings)
     {
@@ -67,6 +68,9 @@ public partial class EditSystemWindow
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        // Store the original system name for later use
+        _originalSystemName = SystemNameDropdown.SelectedItem?.ToString();
+
         EnableFields();
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
@@ -407,6 +411,8 @@ public partial class EditSystemWindow
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
+        _originalSystemName = null;
+
         EnableFields();
         ClearFields();
         HelpUserTextBlock.Text = string.Empty;
@@ -633,18 +639,32 @@ public partial class EditSystemWindow
             }
         }
 
+        // Check if we're updating an existing system
+        var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null;
+
         ////////////////
         // XML factory//
         ////////////////
         _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-        var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemNameText}']");
+
+        // Use the original name to find the system if we're updating, otherwise use the current name
+        var systemIdentifier = isUpdate ? _originalSystemName : systemNameText;
+        var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemIdentifier}']");
 
         if (existingSystem != null)
         {
+            // If we're changing the name, update that first
+            if (systemIdentifier != systemNameText)
+            {
+                existingSystem.Element("SystemName").Value = systemNameText;
+            }
+
+            // Then update all other fields
             UpdateXml(existingSystem, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
         }
         else
         {
+            // Create a new system
             var newSystem = AddToXml(systemNameText, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
             _xmlDoc.Element("SystemConfigs")?.Add(newSystem);
         }
@@ -668,6 +688,9 @@ public partial class EditSystemWindow
         MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
 
         CreateFolders(systemNameText);
+
+        // Update the original system name to match the current name after save
+        _originalSystemName = systemNameText;
     }
 
     private void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText, string emulator1LocationText,

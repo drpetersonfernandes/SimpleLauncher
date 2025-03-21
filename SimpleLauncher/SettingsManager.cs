@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace SimpleLauncher;
@@ -21,6 +22,9 @@ public class SettingsManager
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "Taller"];
+
+    // Add file access semaphore to prevent concurrent access
+    private static readonly SemaphoreSlim FileSemaphore = new SemaphoreSlim(1, 1);
 
     public int ThumbnailSize { get; set; }
     public int GamesPerPage { get; set; }
@@ -59,75 +63,93 @@ public class SettingsManager
 
     private void Load()
     {
-        if (!File.Exists(_filePath))
-        {
-            SetDefaultsAndSave();
-            return;
-        }
+        // Wait to acquire access to the file
+        FileSemaphore.Wait();
 
         try
         {
-            var settings = XElement.Load(_filePath);
-
-            ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
-            GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
-            ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
-            ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
-            EnableGamePadNavigation = ParseBoolSetting(settings, "ActivateGamepad");
-            VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
-            InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
-            MainWindowWidth = (int)ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
-            MainWindowHeight = (int)ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
-            MainWindowTop = (int)ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
-            MainWindowLeft = (int)ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
-            MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
-            BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
-            AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
-            Language = settings.Element("Language")?.Value ?? "en";
-            ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
-            // Parse DeadZoneX value from string to float
-            if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
+            if (!File.Exists(_filePath))
             {
-                deadZoneX = 0.05f; // default value
+                SetDefaultsAndSave();
+                return;
             }
 
-            DeadZoneX = deadZoneX;
-            // Parse DeadZoneY value from string to float
-            if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
+            try
             {
-                deadZoneY = 0.02f; // default value
-            }
-
-            DeadZoneY = deadZoneY;
-
-            // Load multiple SystemPlayTime elements
-            var systemPlayTimesElement = settings.Element("SystemPlayTimes");
-            if (systemPlayTimesElement != null)
-            {
-                foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                // Use proper file handling with 'using' statement
+                using (var fileStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    var systemPlayTime = new SystemPlayTime
+                    var settings = XElement.Load(fileStream);
+
+                    ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
+                    GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
+                    ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
+                    ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
+                    EnableGamePadNavigation = ParseBoolSetting(settings, "ActivateGamepad");
+                    VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
+                    InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
+                    MainWindowWidth = (int)ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
+                    MainWindowHeight = (int)ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
+                    MainWindowTop = (int)ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
+                    MainWindowLeft = (int)ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
+                    MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
+                    BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
+                    AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
+                    Language = settings.Element("Language")?.Value ?? "en";
+                    ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
+
+                    // Parse DeadZoneX value from string to float
+                    if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
                     {
-                        SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
-                        PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
-                    };
-                    SystemPlayTimes.Add(systemPlayTime);
+                        deadZoneX = 0.05f; // default value
+                    }
+
+                    DeadZoneX = deadZoneX;
+
+                    // Parse DeadZoneY value from string to float
+                    if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
+                    {
+                        deadZoneY = 0.02f; // default value
+                    }
+
+                    DeadZoneY = deadZoneY;
+
+                    // Load multiple SystemPlayTime elements
+                    var systemPlayTimesElement = settings.Element("SystemPlayTimes");
+                    if (systemPlayTimesElement != null)
+                    {
+                        SystemPlayTimes.Clear(); // Clear existing entries to prevent duplicates
+                        foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                        {
+                            var systemPlayTime = new SystemPlayTime
+                            {
+                                SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
+                                PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
+                            };
+                            SystemPlayTimes.Add(systemPlayTime);
+                        }
+                    }
                 }
+
+                // Ensure all values are saved if they were missing
+                Save();
             }
+            catch (Exception ex)
+            {
+                SetDefaultsAndSave();
 
-            // Ensure all values are saved if they were missing
-            Save();
+                // Notify developer
+                const string contextMessage = "Error loading or parsing 'setting.xml'.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+            }
         }
-        catch (Exception ex)
+        finally
         {
-            SetDefaultsAndSave();
-
-            // Notify developer
-            const string contextMessage = "Error loading or parsing 'setting.xml'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+            // Always release the semaphore to prevent deadlocks
+            FileSemaphore.Release();
         }
     }
 
@@ -202,36 +224,67 @@ public class SettingsManager
 
     public void Save()
     {
-        var systemPlayTimesElement = new XElement("SystemPlayTimes");
-        foreach (var systemPlayTime in SystemPlayTimes)
-        {
-            systemPlayTimesElement.Add(new XElement("SystemPlayTime",
-                new XElement("SystemName", systemPlayTime.SystemName),
-                new XElement("PlayTime", systemPlayTime.PlayTime)
-            ));
-        }
+        // Wait to acquire access to the file
+        FileSemaphore.Wait();
 
-        new XElement("Settings",
-            new XElement("ThumbnailSize", ThumbnailSize),
-            new XElement("GamesPerPage", GamesPerPage),
-            new XElement("ShowGames", ShowGames),
-            new XElement("ViewMode", ViewMode),
-            new XElement("ActivateGamepad", EnableGamePadNavigation),
-            new XElement("VideoUrl", VideoUrl),
-            new XElement("InfoUrl", InfoUrl),
-            new XElement("MainWindowWidth", MainWindowWidth),
-            new XElement("MainWindowHeight", MainWindowHeight),
-            new XElement("MainWindowTop", MainWindowTop),
-            new XElement("MainWindowLeft", MainWindowLeft),
-            new XElement("MainWindowState", MainWindowState),
-            new XElement("BaseTheme", BaseTheme),
-            new XElement("AccentColor", AccentColor),
-            new XElement("Language", Language),
-            new XElement("DeadZoneX", DeadZoneX),
-            new XElement("DeadZoneY", DeadZoneY),
-            new XElement("ButtonAspectRatio", ButtonAspectRatio),
-            systemPlayTimesElement
-        ).Save(_filePath);
+        try
+        {
+            var systemPlayTimesElement = new XElement("SystemPlayTimes");
+            foreach (var systemPlayTime in SystemPlayTimes)
+            {
+                systemPlayTimesElement.Add(new XElement("SystemPlayTime",
+                    new XElement("SystemName", systemPlayTime.SystemName),
+                    new XElement("PlayTime", systemPlayTime.PlayTime)
+                ));
+            }
+
+            var settingsElement = new XElement("Settings",
+                new XElement("ThumbnailSize", ThumbnailSize),
+                new XElement("GamesPerPage", GamesPerPage),
+                new XElement("ShowGames", ShowGames),
+                new XElement("ViewMode", ViewMode),
+                new XElement("ActivateGamepad", EnableGamePadNavigation),
+                new XElement("VideoUrl", VideoUrl),
+                new XElement("InfoUrl", InfoUrl),
+                new XElement("MainWindowWidth", MainWindowWidth),
+                new XElement("MainWindowHeight", MainWindowHeight),
+                new XElement("MainWindowTop", MainWindowTop),
+                new XElement("MainWindowLeft", MainWindowLeft),
+                new XElement("MainWindowState", MainWindowState),
+                new XElement("BaseTheme", BaseTheme),
+                new XElement("AccentColor", AccentColor),
+                new XElement("Language", Language),
+                new XElement("DeadZoneX", DeadZoneX),
+                new XElement("DeadZoneY", DeadZoneY),
+                new XElement("ButtonAspectRatio", ButtonAspectRatio),
+                systemPlayTimesElement
+            );
+
+            // Add retry logic with short delays
+            const int maxRetries = 3;
+            for (var attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    // Use proper file handling with 'using' statement and explicit FileShare.None
+                    using var fileStream = new FileStream(_filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                    settingsElement.Save(fileStream);
+
+                    // Successfully saved, exit the retry loop
+                    break;
+                }
+                catch (IOException) when (attempt < maxRetries)
+                {
+                    // Wait a short time before retrying
+                    Thread.Sleep(100 * attempt); // Progressively longer delays
+                }
+            }
+        }
+        finally
+        {
+            // Always release the semaphore to prevent deadlocks
+            FileSemaphore.Release();
+        }
     }
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
@@ -271,10 +324,17 @@ public class SettingsManager
         }
 
         // Parse the existing playtime and add the new time
-        var existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
+        if (!TimeSpan.TryParse(systemPlayTime.PlayTime, out var existingPlayTime))
+        {
+            existingPlayTime = TimeSpan.Zero;
+        }
+
         var updatedPlayTime = existingPlayTime + playTime;
 
         // Update the playtime in the correct format
         systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss");
+
+        // Save the updated play times
+        Save();
     }
 }
