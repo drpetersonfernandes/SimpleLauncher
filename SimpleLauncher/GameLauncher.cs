@@ -435,6 +435,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
+            if (await CheckForDEPViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
@@ -535,8 +536,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-
-            if (await CheckForExitCodeWithError1WithoutUserNotification(process, psi, output, error)) return;
+            if (await CheckForDEPViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAnyWithoutUserNotification(process, psi, output, error);
         }
@@ -658,6 +658,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
+            if (await CheckForDEPViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
@@ -781,6 +782,7 @@ public static class GameLauncher
                 }
 
                 if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
+                if (await CheckForDEPViolation(process, psi, output, error)) return;
 
                 await CheckForExitCodeWithErrorAny(process, psi, output, error);
             }
@@ -983,6 +985,26 @@ public static class GameLauncher
         return Task.FromResult(true);
     }
 
+    private static Task<bool> CheckForDEPViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    {
+        if (process.ExitCode != -1073740791) return Task.FromResult(false);
+
+        // Notify developer
+        var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n" +
+                             $"Calling parameters: {psi.Arguments}";
+        var ex = new Exception(contextMessage);
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+        // Notify user
+        MessageBoxLibrary.DEPViolationMessageBox();
+
+        return Task.FromResult(true);
+    }
+
     private static Task<bool> CheckGamePathToLaunch(string gamePathToLaunch)
     {
         if (!string.IsNullOrEmpty(gamePathToLaunch) && File.Exists(gamePathToLaunch)) return Task.FromResult(false);
@@ -994,26 +1016,6 @@ public static class GameLauncher
 
         // Notify user
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckForExitCodeWithError1WithoutUserNotification(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
-    {
-        if (process.ExitCode != 1) return Task.FromResult(false);
-
-        // Notify developer
-        var contextMessage = $"Generic error in the emulator. User was not notified.\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        // Ignore
 
         return Task.FromResult(true);
     }

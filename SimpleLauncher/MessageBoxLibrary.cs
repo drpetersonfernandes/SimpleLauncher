@@ -845,6 +845,34 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
+    internal static void DEPViolationMessageBox()
+    {
+        var depViolationError = (string)Application.Current.TryFindResource("DEPViolationError") ??
+                                "A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.";
+        var whatIsDEP = (string)Application.Current.TryFindResource("WhatIsDEP") ??
+                        "DEP is a security feature that helps prevent damage from viruses and other security threats.";
+        var howToFixDEP = (string)Application.Current.TryFindResource("HowToFixDEP") ??
+                          "You can try the following solutions:";
+        var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ??
+                        "1. Run Simple Launcher with administrator privileges.";
+        var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ??
+                        "2. Add the emulator to DEP exceptions in Windows Security settings.";
+        var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ??
+                        "3. Try using a different emulator compatible with your system.";
+        var solution4 = (string)Application.Current.TryFindResource("DEPSolution4") ??
+                        "4. Update your emulator to the latest version.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        MessageBox.Show($"{depViolationError}\n\n" +
+                        $"{whatIsDEP}\n\n" +
+                        $"{howToFixDEP}\n" +
+                        $"{solution1}\n" +
+                        $"{solution2}\n" +
+                        $"{solution3}\n" +
+                        $"{solution4}",
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
     internal static void SystemXmlIsCorruptedMessageBox(string logPath)
     {
         var systemxmliscorrupted2 = (string)Application.Current.TryFindResource("systemxmliscorrupted") ?? "'system.xml' is corrupted or could not be opened.";
