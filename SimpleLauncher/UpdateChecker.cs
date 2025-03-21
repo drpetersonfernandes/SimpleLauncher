@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Reflection;
-using System.Security.Authentication;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -47,7 +46,6 @@ public static partial class UpdateChecker
         try
         {
             var handler = new HttpClientHandler();
-            handler.SslProtocols = SslProtocols.Tls12;
             using var client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -81,7 +79,6 @@ public static partial class UpdateChecker
         try
         {
             var handler = new HttpClientHandler();
-            handler.SslProtocols = SslProtocols.Tls12;
             using var client = new HttpClient(handler);
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -226,7 +223,6 @@ public static partial class UpdateChecker
     private static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = SslProtocols.Tls12;
         using var client = new HttpClient(handler);
         using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
         response.EnsureSuccessStatusCode();
