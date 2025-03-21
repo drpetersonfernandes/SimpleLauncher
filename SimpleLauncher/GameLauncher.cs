@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -54,9 +53,13 @@ public static class GameLauncher
         var programLocation = emulatorConfig.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
 
+        // Check if this is a MAME system
+        var isMameSystem = systemConfig.SystemIsMame;
+        var systemFolder = systemConfig.SystemFolder;
+
         // Validate program location and parameters but collect results rather than returning immediately
-        var (programLocationValid, invalidProgramLocation) = ValidateProgramLocation(programLocation);
-        var (parametersValid, invalidPaths) = ValidateEmulatorParameters(parameters);
+        var (programLocationValid, invalidProgramLocation) = ParameterValidator.ValidateProgramLocation(programLocation);
+        var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(parameters, systemFolder, isMameSystem);
 
         // If either validation failed, ask the user if they want to proceed
         if (!programLocationValid || !parametersValid)
@@ -1088,230 +1091,5 @@ public static class GameLauncher
         MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
 
         return true;
-    }
-
-    private static (bool success, string errorMessage) ValidateProgramLocation(string programLocation)
-    {
-        if (string.IsNullOrWhiteSpace(programLocation))
-        {
-            // Notify developer
-            const string contextMessage = "Program location is empty or null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            return (false, programLocation);
-        }
-
-        if (!IsValidPath(programLocation))
-        {
-            // Notify developer
-            var contextMessage = $"Program location is invalid: '{programLocation}'";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            return (false, programLocation);
-        }
-
-        return (true, null); // No error
-    }
-
-    private static (bool success, List<string> invalidPaths) ValidateEmulatorParameters(string parameters)
-    {
-        if (string.IsNullOrWhiteSpace(parameters))
-        {
-            return (true, null); // No parameters are valid
-        }
-
-        var pathsValid = ValidateParameterPaths(parameters, out var invalidPaths);
-
-        if (!pathsValid && invalidPaths.Count > 0)
-        {
-            // Notify developer
-            var contextMessage = $"Invalid paths found in emulator parameters: {string.Join(", ", invalidPaths)}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            return (false, invalidPaths);
-        }
-
-        return (true, null); // No error
-    }
-
-    private static bool IsValidPath(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) return false;
-
-        // Directly check if the path exists (for absolute paths)
-        if (Directory.Exists(path) || File.Exists(path)) return true;
-
-        // Allow relative paths
-        // Combine with the base directory to check for relative paths
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        // Ensure we correctly handle relative paths that go up from the base directory
-        var fullPath = Path.GetFullPath(new Uri(Path.Combine(basePath, path)).LocalPath);
-
-        return Directory.Exists(fullPath) || File.Exists(fullPath);
-    }
-
-    private static bool ValidateParameterPaths(string parameters, out List<string> invalidPaths)
-    {
-        invalidPaths = new List<string>();
-        if (string.IsNullOrWhiteSpace(parameters)) return true;
-
-        var allPathsValid = true;
-        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-
-        // We'll use specific regex patterns for different path formats below
-
-        // Known parameter placeholders and flags that shouldn't be validated as actual paths
-        var knownPlaceholders = new[]
-        {
-            "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
-            "{rom}", "{game}", "{romname}", "{romfile}"
-        };
-
-        var knownParameterFlags = new[]
-        {
-            "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
-            "-L", "-g", "-rompath"
-        };
-
-        // Special handling for MAME rompath parameter
-        var rompathMatch = Regex.Match(parameters, @"-rompath\s+(?:""([^""]+)""|'([^']+)'|(\S+))");
-        if (rompathMatch.Success)
-        {
-            // Get the rompath value from whichever group matched (quoted or unquoted)
-            var rompathValue = rompathMatch.Groups[1].Success ? rompathMatch.Groups[1].Value :
-                rompathMatch.Groups[2].Success ? rompathMatch.Groups[2].Value :
-                rompathMatch.Groups[3].Value;
-
-            // Split by semicolons to get individual paths
-            var romPaths = rompathValue.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var path in romPaths)
-            {
-                var trimmedPath = path.Trim();
-                if (!string.IsNullOrWhiteSpace(trimmedPath) && !ContainsPlaceholder(trimmedPath))
-                {
-                    // For rompath folders, we want to strictly check existence
-                    var pathValid = Directory.Exists(trimmedPath);
-                    if (!pathValid)
-                    {
-                        invalidPaths.Add(trimmedPath);
-                        allPathsValid = false;
-                    }
-                }
-            }
-        }
-
-        // Remove the rompath part to avoid double processing
-        var parametersWithoutRompath = rompathMatch.Success
-            ? parameters.Replace(rompathMatch.Value, " ")
-            : parameters;
-
-        // Process other quoted paths (DLLs, EXEs, etc.)
-        var quotedMatches = Regex.Matches(parametersWithoutRompath, @"(?:""([^""]+)""|'([^']+)')");
-        foreach (Match match in quotedMatches)
-        {
-            // Get the value from whichever group matched
-            var quotedPath = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
-
-            // Skip if it's not a path-like string
-            if (!LooksLikePath(quotedPath) || ContainsPlaceholder(quotedPath)) continue;
-
-            // Validate this path using our regular validation approach
-            if (!ValidateSinglePath(quotedPath, baseDir))
-            {
-                invalidPaths.Add(quotedPath);
-                allPathsValid = false;
-            }
-        }
-
-        // Process remaining unquoted paths
-        var remainingParams = Regex.Replace(parametersWithoutRompath, @"(?:""[^""]*""|'[^']*')", " ");
-
-        // Split by whitespace and check each token
-        var words = remainingParams.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var word in words)
-        {
-            // Skip known parameter flags
-            if (IsKnownFlag(word, knownParameterFlags) || ContainsPlaceholder(word, knownPlaceholders)) continue;
-
-            // If it looks like a path, validate it
-            if (LooksLikePath(word) && !ValidateSinglePath(word, baseDir))
-            {
-                invalidPaths.Add(word);
-                allPathsValid = false;
-            }
-        }
-
-        return allPathsValid;
-    }
-
-    private static bool LooksLikePath(string text)
-    {
-        // Skip empty strings
-        if (string.IsNullOrWhiteSpace(text)) return false;
-
-        // Check if it contains any of these characters that suggest it's a path
-        return text.Contains('\\') || text.Contains('/') ||
-               (text.Length >= 2 && text[1] == ':') || // drive letter
-               text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsKnownFlag(string text, string[] knownParameterFlags)
-    {
-        return knownParameterFlags.Any(flag =>
-            string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
-    }
-
-    // Helper method to check if a path contains a known placeholder
-    private static bool ContainsPlaceholder(string path, string[] knownPlaceholders = null)
-    {
-        if (knownPlaceholders == null)
-        {
-            knownPlaceholders = new[]
-            {
-                "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
-                "{rom}", "{game}", "{romname}", "{romfile}"
-            };
-        }
-
-        return knownPlaceholders.Any(placeholder =>
-            path.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
-    }
-
-    // Validate a single path checking multiple possible resolutions
-    private static bool ValidateSinglePath(string path, string baseDir)
-    {
-        // Skip ROM placeholders
-        if (ContainsPlaceholder(path)) return true;
-
-        // Expand environment variables
-        if (path.Contains('%'))
-        {
-            path = Environment.ExpandEnvironmentVariables(path);
-        }
-
-        // Try different path resolutions
-        try
-        {
-            // Try as an absolute path
-            if (File.Exists(path) || Directory.Exists(path))
-                return true;
-
-            // Try as relative to app directory
-            var appRelativePath = Path.GetFullPath(Path.Combine(baseDir, path));
-            if (File.Exists(appRelativePath) || Directory.Exists(appRelativePath))
-                return true;
-
-            return false;
-        }
-        catch (Exception)
-        {
-            // If there's any exception parsing the path, consider it invalid
-            return false;
-        }
     }
 }

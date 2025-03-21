@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -23,24 +22,6 @@ public partial class EditSystemWindow
     private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
-
-    // Regular expression to detect potential paths in parameter strings
-    private static readonly Regex PathRegex = new(
-        @"(?:""|')([^""']+)(?:""|')|(?:(?:^|\s)(?:-\w+\s+)?(?:[A-Za-z]:)?[\\\/](?:[^""\s\\\/;]+[\\\/])+[^""\s\\\/;]*)",
-        RegexOptions.Compiled);
-
-    // Known parameter placeholders and flags that shouldn't be validated as actual paths
-    private static readonly string[] KnownPlaceholders =
-    {
-        "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
-        "{rom}", "{game}", "{romname}", "{romfile}"
-    };
-
-    private static readonly string[] KnownParameterFlags =
-    {
-        "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
-        "-L", "-g", "-rompath"
-    };
 
     public EditSystemWindow(SettingsManager settings)
     {
@@ -223,15 +204,15 @@ public partial class EditSystemWindow
         }
 
         // Validate System Folder and System Image Folder
-        MarkInvalid(SystemFolderTextBox, IsValidPath(SystemFolderTextBox.Text));
-        MarkInvalid(SystemImageFolderTextBox, IsValidPath(SystemImageFolderTextBox.Text));
+        MarkInvalid(SystemFolderTextBox, ParameterValidator.IsValidPath(SystemFolderTextBox.Text));
+        MarkInvalid(SystemImageFolderTextBox, ParameterValidator.IsValidPath(SystemImageFolderTextBox.Text));
 
         // Validate Emulator Location Text Boxes (considered valid if empty)
-        MarkInvalid(Emulator1LocationTextBox, string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || IsValidPath(Emulator1LocationTextBox.Text));
-        MarkInvalid(Emulator2LocationTextBox, string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || IsValidPath(Emulator2LocationTextBox.Text));
-        MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || IsValidPath(Emulator3LocationTextBox.Text));
-        MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || IsValidPath(Emulator4LocationTextBox.Text));
-        MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || IsValidPath(Emulator5LocationTextBox.Text));
+        MarkInvalid(Emulator1LocationTextBox, string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator1LocationTextBox.Text));
+        MarkInvalid(Emulator2LocationTextBox, string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator2LocationTextBox.Text));
+        MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator3LocationTextBox.Text));
+        MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator4LocationTextBox.Text));
+        MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator5LocationTextBox.Text));
 
         // Validate Parameter fields
         ValidateParameterFields();
@@ -239,22 +220,6 @@ public partial class EditSystemWindow
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
-    }
-
-    private static bool IsValidPath(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) return false;
-
-        // Directly check if the path exists (for absolute paths)
-        if (Directory.Exists(path) || File.Exists(path)) return true;
-
-        // Allow relative paths
-        // to Combine with the base directory to check for relative paths
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        // Ensure we correctly handle relative paths that go up from the base directory
-        var fullPath = Path.GetFullPath(new Uri(Path.Combine(basePath, path)).LocalPath);
-
-        return Directory.Exists(fullPath) || File.Exists(fullPath);
     }
 
     private void MarkInvalid(TextBox textBox, bool isValid)
@@ -716,13 +681,13 @@ public partial class EditSystemWindow
         var validSystemImageFolderPattern = $".\\images\\{systemNameText}";
 
         // Perform validation
-        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
-        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
-        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || IsValidPath(emulator1LocationText);
-        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || IsValidPath(emulator2LocationText);
-        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || IsValidPath(emulator3LocationText);
-        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || IsValidPath(emulator4LocationText);
-        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || IsValidPath(emulator5LocationText);
+        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || ParameterValidator.IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
+        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || ParameterValidator.IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
+        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || ParameterValidator.IsValidPath(emulator1LocationText);
+        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || ParameterValidator.IsValidPath(emulator2LocationText);
+        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || ParameterValidator.IsValidPath(emulator3LocationText);
+        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || ParameterValidator.IsValidPath(emulator4LocationText);
+        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || ParameterValidator.IsValidPath(emulator5LocationText);
     }
 
     private void TrimInputValues(out string systemNameText, out string systemFolderText, out string systemImageFolderText,
@@ -1101,176 +1066,6 @@ public partial class EditSystemWindow
         });
     }
 
-    // Validate parameter paths, considering both absolute and relative paths
-    private bool ValidateParameterPaths(string parameters, out List<string> invalidPaths)
-    {
-        invalidPaths = new List<string>();
-        if (string.IsNullOrWhiteSpace(parameters)) return true;
-
-        var allPathsValid = true;
-        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var systemFolder = SystemFolderTextBox.Text;
-
-        // Special handling for MAME rompath parameter
-        var rompathMatch = Regex.Match(parameters, @"-rompath\s+(?:""([^""]+)""|'([^']+)'|(\S+))");
-        if (rompathMatch.Success)
-        {
-            // Get the rompath value from whichever group matched (quoted or unquoted)
-            var rompathValue = rompathMatch.Groups[1].Success ? rompathMatch.Groups[1].Value :
-                rompathMatch.Groups[2].Success ? rompathMatch.Groups[2].Value :
-                rompathMatch.Groups[3].Value;
-
-            // Split by semicolons to get individual paths
-            var romPaths = rompathValue.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var path in romPaths)
-            {
-                var trimmedPath = path.Trim();
-                if (!string.IsNullOrWhiteSpace(trimmedPath))
-                {
-                    // IMPORTANT: For rompath folders, we want to strictly check existence
-                    var pathValid = ValidateExactPath(trimmedPath);
-                    if (!pathValid)
-                    {
-                        invalidPaths.Add(trimmedPath);
-                        allPathsValid = false;
-                    }
-                }
-            }
-        }
-
-        // Remove the rompath part to avoid double processing
-        var parametersWithoutRompath = rompathMatch.Success
-            ? parameters.Replace(rompathMatch.Value, " ")
-            : parameters;
-
-        // Process other quoted paths (DLLs, EXEs, etc.)
-        var quotedMatches = Regex.Matches(parametersWithoutRompath, @"(?:""([^""]+)""|'([^']+)')");
-        foreach (Match match in quotedMatches)
-        {
-            // Get the value from whichever group matched
-            var quotedPath = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
-
-            // Skip if it's not a path-like string
-            if (!LooksLikePath(quotedPath)) continue;
-
-            // Validate this path using our regular validation approach
-            if (!ValidateSinglePath(quotedPath, baseDir, systemFolder))
-            {
-                invalidPaths.Add(quotedPath);
-                allPathsValid = false;
-            }
-        }
-
-        // Process remaining unquoted paths
-        var remainingParams = Regex.Replace(parametersWithoutRompath, @"(?:""[^""]*""|'[^']*')", " ");
-
-        // Split by whitespace and check each token
-        var words = remainingParams.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var word in words)
-        {
-            // Skip known parameter flags
-            if (IsKnownFlag(word) || ContainsPlaceholder(word)) continue;
-
-            // If it looks like a path, validate it
-            if (LooksLikePath(word) && !ValidateSinglePath(word, baseDir, systemFolder))
-            {
-                invalidPaths.Add(word);
-                allPathsValid = false;
-            }
-        }
-
-        return allPathsValid;
-    }
-
-    private bool ValidateExactPath(string path)
-    {
-        try
-        {
-            // For rompath folders, we strictly require the folder to exist
-            return Directory.Exists(path);
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
-
-    private static bool LooksLikePath(string text)
-    {
-        // Skip empty strings
-        if (string.IsNullOrWhiteSpace(text)) return false;
-
-        // Check if it contains any of these characters that suggest it's a path
-        return text.Contains('\\') || text.Contains('/') ||
-               (text.Length >= 2 && text[1] == ':') || // drive letter
-               text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsKnownFlag(string text)
-    {
-        return KnownParameterFlags.Any(flag =>
-            string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
-    }
-
-    // Helper method to check if a path contains a known placeholder
-    private static bool ContainsPlaceholder(string path)
-    {
-        return KnownPlaceholders.Any(placeholder =>
-            path.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
-    }
-
-    // Validate a single path checking multiple possible resolutions
-    private bool ValidateSinglePath(string path, string baseDir, string systemFolder)
-    {
-        // Skip ROM placeholders
-        if (ContainsPlaceholder(path)) return true;
-
-        // Expand environment variables
-        if (path.Contains('%'))
-        {
-            path = Environment.ExpandEnvironmentVariables(path);
-        }
-
-        // Try different path resolutions
-        try
-        {
-            // Try as an absolute path
-            if (File.Exists(path) || Directory.Exists(path))
-                return true;
-
-            // Try as relative to app directory
-            var appRelativePath = Path.GetFullPath(Path.Combine(baseDir, path));
-            if (File.Exists(appRelativePath) || Directory.Exists(appRelativePath))
-                return true;
-
-            // Try as relative to system folder
-            if (!string.IsNullOrEmpty(systemFolder))
-            {
-                var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));
-                if (File.Exists(systemRelativePath) || Directory.Exists(systemRelativePath))
-                    return true;
-            }
-
-            // For MAME-style parameters, we used to be lenient,
-            // But now we'll be stricter with the -rompath parameter
-            var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
-                               ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-
-            // For non-rompath paths in MAME systems, we can still be lenient
-            if (isMameSystem)
-                return true;
-
-            return false;
-        }
-        catch (Exception)
-        {
-            // If there's any exception parsing the path, consider it invalid
-            return false;
-        }
-    }
-
     // Validate parameter fields in the UI
     private void ValidateParameterFields()
     {
@@ -1286,8 +1081,13 @@ public partial class EditSystemWindow
         {
             if (string.IsNullOrWhiteSpace(textBox.Text)) continue;
 
+            // Check if this is a MAME emulator
+            var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
+                               ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
+
             // We only care about the boolean result here, not the specific paths
-            var areParametersValid = ValidateParameterPaths(textBox.Text, out _);
+            var systemFolder = SystemFolderTextBox.Text;
+            var areParametersValid = ParameterValidator.ValidateParameterPaths(textBox.Text, out _, systemFolder, isMameSystem);
             MarkInvalid(textBox, areParametersValid);
         }
     }
@@ -1311,11 +1111,16 @@ public partial class EditSystemWindow
             Emulator5ParametersTextBox
         };
 
+        // Check if this is a MAME emulator
+        var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
+                           ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
+
         for (var i = 0; i < parameterTextBoxes.Length; i++)
         {
             if (string.IsNullOrEmpty(parameterTexts[i]) || string.IsNullOrEmpty(emulatorNames[i])) continue;
 
-            var areParametersValid = ValidateParameterPaths(parameterTexts[i], out var invalidPaths);
+            var systemFolder = SystemFolderTextBox.Text;
+            var areParametersValid = ParameterValidator.ValidateParameterPaths(parameterTexts[i], out var invalidPaths, systemFolder, isMameSystem);
 
             MarkInvalid(parameterTextBoxes[i], areParametersValid);
             if (!areParametersValid)
