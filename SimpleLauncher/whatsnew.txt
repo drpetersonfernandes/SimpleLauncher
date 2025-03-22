@@ -1,3 +1,13 @@
+release3.11.1
+-------------
+
+03/21/2025
+- Added logic to check file and folder paths in the parameter field. Users will be notified if the check returns invalid.
+- Updated the `LogError` class to use a new, more flexible API.
+- Added a bug report feature for all the tools bundled with **Simple Launcher**.
+- Improved the `BatchConvertToCHD` tool to better handle the deletion of original files after conversion to CHD.
+- Fixed some bugs.
+
 release3.11
 -----------
 

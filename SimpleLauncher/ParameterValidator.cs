@@ -209,42 +209,51 @@ public static class ParameterValidator
         // Validate each parameter path based on its flag
         foreach (var (flag, path) in parameterPaths)
         {
-            // Handle specific flag types differently
-            if (flag == "-rompath")
+            switch (flag)
             {
-                // For rompath, split by semicolons and validate each directory
-                var romPaths = path.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var romPath in romPaths)
+                // Handle specific flag types differently
+                case "-rompath":
                 {
-                    var trimmedPath = romPath.Trim();
-                    if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
-
-                    if (!Directory.Exists(trimmedPath))
+                    // For rompath, split by semicolons and validate each directory
+                    var romPaths = path.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var romPath in romPaths)
                     {
-                        invalidPaths.Add(trimmedPath);
+                        var trimmedPath = romPath.Trim();
+                        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
+
+                        if (!Directory.Exists(trimmedPath))
+                        {
+                            invalidPaths.Add(trimmedPath);
+                            allPathsValid = false;
+                        }
+                    }
+
+                    break;
+                }
+                case "-L":
+                {
+                    // For library paths (-L), check for file existence
+                    if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !File.Exists(path))
+                    {
+                        invalidPaths.Add(path);
                         allPathsValid = false;
                     }
+
+                    break;
                 }
-            }
-            else if (flag == "-L")
-            {
-                // For library paths (-L), check for file existence
-                if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !File.Exists(path))
+                default:
                 {
-                    invalidPaths.Add(path);
-                    allPathsValid = false;
-                }
-            }
-            else
-            {
-                // For other parameters, check using standard path validation
-                if (!string.IsNullOrWhiteSpace(path) &&
-                    !ContainsPlaceholder(path) &&
-                    LooksLikePath(path) &&
-                    !ValidateSinglePath(path, baseDir, systemFolder))
-                {
-                    invalidPaths.Add(path);
-                    allPathsValid = false;
+                    // For other parameters, check using standard path validation
+                    if (!string.IsNullOrWhiteSpace(path) &&
+                        !ContainsPlaceholder(path) &&
+                        LooksLikePath(path) &&
+                        !ValidateSinglePath(path, baseDir, systemFolder))
+                    {
+                        invalidPaths.Add(path);
+                        allPathsValid = false;
+                    }
+
+                    break;
                 }
             }
         }

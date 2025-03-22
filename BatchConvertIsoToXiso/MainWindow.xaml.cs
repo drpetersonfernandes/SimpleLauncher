@@ -104,6 +104,7 @@ public partial class MainWindow
             // Report this issue
             await ReportBugAsync("extract-xiso.exe not found when trying to start conversion",
                 new FileNotFoundException("The required extract-xiso.exe file was not found.", extractXisoPath));
+
             return;
         }
 
@@ -115,6 +116,7 @@ public partial class MainWindow
         {
             LogMessage("Error: No input folder selected.");
             ShowError("Please select the input folder containing ISO files to convert.");
+
             return;
         }
 
@@ -122,6 +124,7 @@ public partial class MainWindow
         {
             LogMessage("Error: No output folder selected.");
             ShowError("Please select the output folder where converted XISO files will be saved.");
+
             return;
         }
 

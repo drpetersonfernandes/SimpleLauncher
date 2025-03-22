@@ -273,8 +273,18 @@ public partial class MainWindow
                             {
                                 if (File.Exists(fileToDelete))
                                 {
-                                    File.Delete(fileToDelete);
-                                    LogMessage($"Deleted file: {Path.GetFileName(fileToDelete)}");
+                                    try
+                                    {
+                                        File.Delete(fileToDelete);
+                                        LogMessage($"Deleted file: {Path.GetFileName(fileToDelete)}");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogMessage($"Deletion of file '{Path.GetFileName(fileToDelete)}' failed");
+
+                                        // Report deletion failure
+                                        await ReportBugAsync($"Deletion of file '{Path.GetFileName(fileToDelete)}' failed.", ex);
+                                    }
                                 }
                                 else
                                 {
