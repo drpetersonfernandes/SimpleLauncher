@@ -43,7 +43,7 @@ The provided values will be checked for valid paths before being added to the fr
 We do NOT provide ROMs or ISOs.
 
 ## Where to Find Game Cover Images
-We provide an Image Pack for some systems.<br>
+We provide Image Pack for some systems.<br>
 If the Image Pack is not provided, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## List of Parameters for Emulators
@@ -106,6 +106,12 @@ PDF files will be opened by the user's default PDF viewer.
 This search engine will look for filenames in the System Folder of every system configured in 'Simple Launcher'.<br>
 From within the search results, users can launch the game.
 
+## Favorites
+'Simple Launcher' allows users to save favorite games.
+
+## Play History
+Track system playtime and per game playtime.
+
 ## Global Stats
 This window will generate a summary report of every system configured in the frontend. It will report:
 
@@ -115,49 +121,6 @@ This window will generate a summary report of every system configured in the fro
 * Total Number of Cover Images
 * Application Folder
 * Disk Size of all Games
-
-## How the Frontend Works:
-- **Configuration:** The program first looks for a file named "system.xml" in its folder, which contains all the settings for the system and emulators.
-- **Game Selection:** When you select a system, the application opens the system directory and lists the emulators configured for that specific system. It then displays a grid of games located in the system folder. Each cell in the grid is clickable, and the application will launch the selected emulator with the chosen game.
-- **Game Info:** Each grid cell displays a game cover, its name, a link to a video about the game, and a link to an info page about the game.
-- **Game Covers:** The cover images should have the same filename as the game. They are loaded from a folder inside the 'images' folder, which should have the same name as the system. The images must be in PNG, JPG, or JPEG format. If a cover is missing, a default image is used.
-
-## Explaining "system.xml":
-This file contains information about various systems and their settings. You can add as many systems and emulators as you desire.
-- **SystemName**: The name of the system.
-- **SystemFolder**: The folder where the ROMs or games are housed.
-- **SystemImageFolder**: The folder containing the cover images related to the System. This is optional. If you leave it empty or null, the application will load the images from a folder within the "images" folder, which should share the same name as the system.
-- **SystemIsMAME**: This indicates to the program whether the system is based on MAME. If true, the application will load the ROM descriptions in conjunction with the ROM filenames.
-- **FormatToSearch**: A list of file extensions to be loaded from the SystemFolder. You can include as many as you want.
-- **ExtractFileBeforeLaunch**: This should be true or false. If true, the launcher will extract the ZIP or 7Z file into a temporary folder before loading the extracted file.
-- **FormatToLaunch**: If you extract the file to a temporary folder, you should specify here which extensions will be launched from the extracted folder.
-- **EmulatorName**: The name of the emulator. You can accommodate as many emulators as you want for each system.
-- **EmulatorLocation**: The location of the emulator.
-- **EmulatorParameters**: The parameters used for each emulator. Not all emulators require parameters.
-
-```xml
-<SystemConfig>
-    <SystemName>Atari 2600</SystemName>
-    <SystemFolder>G:\Atari 2600</SystemFolder>
-    <SystemImageFolder>G:\Images\Atari 2600</SystemImageFolder>
-    <SystemIsMAME>false</SystemIsMAME>
-    <FileFormatsToSearch>
-        <FormatToSearch>zip</FormatToSearch>
-        <FormatToSearch>7z</FormatToSearch>
-    </FileFormatsToSearch>
-    <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-    <FileFormatsToLaunch>
-        <FormatToLaunch/>
-    </FileFormatsToLaunch>
-    <Emulators>
-        <Emulator>
-            <EmulatorName>Retroarch</EmulatorName>
-            <EmulatorLocation>G:\Emulators\RetroArch\retroarch.exe</EmulatorLocation>
-            <EmulatorParameters>-L "G:\Emulators\Retroarch\cores\stella_libretro.dll" -c "G:\Emulators\Retroarch\Config.cfg" -f</EmulatorParameters>
-        </Emulator>
-    </Emulators>
-</SystemConfig>
-```
 
 ## Additional Features:
 - **Edit Systems Menu:** Easily edit, add, or delete a system.
