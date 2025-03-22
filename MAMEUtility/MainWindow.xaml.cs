@@ -66,7 +66,7 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "https://www.buymeacoffee.com/purelogiccode",
+                FileName = "https://www.purelogiccode.com/donate",
                 UseShellExecute = true
             };
             Process.Start(psi);
