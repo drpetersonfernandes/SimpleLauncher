@@ -216,7 +216,6 @@
     <system:String x:Key="Info">資訊</system:String>
     <system:String x:Key="InfoLinkButton">信息連結按鈕</system:String>
     <system:String x:Key="Inthiswindow">在此視窗中，您可以輕鬆下載和安裝不需要 BIOS 或系統檔案即可運行的模擬器。</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">無效的模擬器可執行路徑:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系統配置無效</system:String>
     <system:String x:Key="isalreadyinfavorites">已經在收藏中。</system:String>
     <system:String x:Key="isminimizedtothetray">已縮小至系統匣。</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">找不到電路板（PCB）</system:String>
     <system:String x:Key="Pink">粉紅色</system:String>
     <system:String x:Key="Playtime">遊玩時間：</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">請檢查此系統的配置。</system:String>
     <system:String x:Key="Pleasechooseasystem">請選擇一個系統進行新增</system:String>
     <system:String x:Key="Pleaseeditthissystemto">請編輯此系統以修復問題。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">請輸入搜尋查詢。</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 無法載入檔案 'mame.dat' 或檔案已損壞。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在應用程式資料夾中找不到 'mame.dat' 檔案。</system:String>
+    
+    <system:String x:Key="DEPViolationError">在運行模擬器時發生了資料執行防護（DEP）違規，這是Windows的一個安全功能，防止應用程式從不可執行的記憶體區域執行代碼。這通常發生在較舊的模擬器或使用特定記憶體存取技術的模擬器中，現代安全系統將其標記為潛在危險。</system:String>
+    <system:String x:Key="WhatIsDEP">DEP是一項安全功能，有助於防止病毒和其他安全威脅造成的損害。</system:String>
+    <system:String x:Key="HowToFixDEP">您可以嘗試以下解決方案：</system:String>
+    <system:String x:Key="DEPSolution1">1. 以管理員權限運行“Simple Launcher”。</system:String>
+    <system:String x:Key="DEPSolution2">2. 在Windows安全設置中將模擬器添加到DEP例外列表。</system:String>
+    <system:String x:Key="DEPSolution3">3. 嘗試使用與您的系統兼容的不同模擬器。</system:String>
+    <system:String x:Key="DEPSolution4">4. 將您的模擬器更新到最新版本。</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">模擬器參數中的某些路徑似乎無效或缺失。請重新檢查這些欄位。</system:String>
 
 </ResourceDictionary>

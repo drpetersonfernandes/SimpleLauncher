@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
     <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Invalid emulator executable path:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
     <system:String x:Key="Pink">Pink</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Please check the configuration for this system.</system:String>
     <system:String x:Key="Pleasechooseasystem">Please choose a system to Add</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Please edit this system to fix that.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Please enter a search query.</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
     
+    <system:String x:Key="DEPViolationError">A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP is a security feature that helps prevent damage from viruses and other security threats.</system:String>
+    <system:String x:Key="HowToFixDEP">You can try the following solutions:</system:String>
+    <system:String x:Key="DEPSolution1">1. Run 'Simple Launcher' with administrator privileges.</system:String>
+    <system:String x:Key="DEPSolution2">2. Add the emulator to DEP exceptions in Windows Security settings.</system:String>
+    <system:String x:Key="DEPSolution3">3. Try using a different emulator compatible with your system.</system:String>
+    <system:String x:Key="DEPSolution4">4. Update your emulator to the latest version.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
+
 </ResourceDictionary>

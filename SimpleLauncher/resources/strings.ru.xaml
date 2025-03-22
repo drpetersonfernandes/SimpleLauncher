@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Информация</system:String>
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
     <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Неверный путь исполняемого файла эмулятора:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
     <system:String x:Key="Pink">Розовый</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Пожалуйста, проверьте конфигурацию этой системы.</system:String>
     <system:String x:Key="Pleasechooseasystem">Выберите систему для добавления</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Отредактируйте данную систему, чтобы устранить проблему.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Файл 'mame.dat' не найден в папке приложения.</system:String>
+    
+    <system:String x:Key="DEPViolationError">Во время запуска эмулятора произошло нарушение Защиты от выполнения данных (DEP), являющейся функцией безопасности Windows, предотвращающей выполнение приложениями кода из неисполняемых областей памяти. Это часто происходит с более старыми эмуляторами или с теми, которые используют специфические методы доступа к памяти, которые современные системы безопасности помечают как потенциально опасные.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP — это функция безопасности, которая помогает предотвратить ущерб от вирусов и других угроз безопасности.</system:String>
+    <system:String x:Key="HowToFixDEP">Вы можете попробовать следующие решения:</system:String>
+    <system:String x:Key="DEPSolution1">1. Запустите 'Simple Launcher' с правами администратора.</system:String>
+    <system:String x:Key="DEPSolution2">2. Добавьте эмулятор в исключения DEP в настройках безопасности Windows.</system:String>
+    <system:String x:Key="DEPSolution3">3. Попробуйте использовать другой эмулятор, совместимый с вашей системой.</system:String>
+    <system:String x:Key="DEPSolution4">4. Обновите ваш эмулятор до последней версии.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Некоторые пути в параметрах эмулятора кажутся неверными или отсутствуют. Пожалуйста, проверьте эти поля ещё раз.</system:String>
     
 </ResourceDictionary>

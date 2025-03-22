@@ -854,7 +854,7 @@ public static class MessageBoxLibrary
         var howToFixDEP = (string)Application.Current.TryFindResource("HowToFixDEP") ??
                           "You can try the following solutions:";
         var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ??
-                        "1. Run Simple Launcher with administrator privileges.";
+                        "1. Run 'Simple Launcher' with administrator privileges.";
         var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ??
                         "2. Add the emulator to DEP exceptions in Windows Security settings.";
         var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ??

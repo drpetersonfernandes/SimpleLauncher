@@ -216,7 +216,6 @@
     <system:String x:Key="Info">তথ্য</system:String>
     <system:String x:Key="InfoLinkButton">তথ্য লিংক বোতাম</system:String>
     <system:String x:Key="Inthiswindow">এই উইন্ডোতে, আপনি সহজেই এমুলেটর ডাউনলোড এবং ইনস্টল করতে পারবেন যা BIOS বা সিস্টেম ফাইল ছাড়া সম্পূর্ণ কাজ করে।</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">অবৈধ এমুলেটর এক্সিকিউটেবল পাথ:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">অবৈধ সিস্টেম কনফিগারেশন</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
     <system:String x:Key="Pink">গোলাপি</system:String>
     <system:String x:Key="Playtime">খেলার সময়কাল:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">অনুগ্রহ করে এই সিস্টেমের কনফিগারেশন পরীক্ষা করুন।</system:String>
     <system:String x:Key="Pleasechooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="Pleaseeditthissystemto">অনুগ্রহ করে এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">অনুগ্রহ করে একটি অনুসন্ধান শব্দ দিন</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' ফাইলটি লোড করতে পারেনি অথবা এটি নষ্ট হয়ে গেছে।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">অ্যাপ্লিকেশন ফোল্ডারে 'mame.dat' ফাইলটি পাওয়া যায়নি।</system:String>
+    
+    <system:String x:Key="DEPViolationError">এমুলেটর চালানোর সময় একটি ডেটা এক্সিকিউশন প্রিভেনশন (DEP) লঙ্ঘন ঘটেছে, যা একটি উইন্ডোজ সিকিউরিটি ফিচার যা অ্যাপ্লিকেশনগুলিকে অ-নির্বাহযোগ্য মেমোরি অঞ্চল থেকে কোড এক্সিকিউট করার থেকে রোধ করে। এটি সাধারণত পুরানো এমুলেটরগুলিতে বা এমনগুলিতে ঘটে যা নির্দিষ্ট মেমোরি অ্যাক্সেস কৌশল ব্যবহার করে যা আধুনিক সিকিউরিটি সিস্টেমগুলিকে সম্ভাব্য বিপজ্জনক হিসেবে চিহ্নিত করে।</system:String>
+    <system:String x:Key="WhatIsDEP">DEP হল একটি সিকিউরিটি ফিচার যা ভাইরাস এবং অন্যান্য সিকিউরিটি হুমকির থেকে ক্ষতি প্রতিরোধে সাহায্য করে।</system:String>
+    <system:String x:Key="HowToFixDEP">আপনি নিম্নলিখিত সমাধানগুলি চেষ্টা করতে পারেন:</system:String>
+    <system:String x:Key="DEPSolution1">1. প্রশাসক অধিকার সহ 'Simple Launcher' চালান।</system:String>
+    <system:String x:Key="DEPSolution2">2. উইন্ডোজ সিকিউরিটি সেটিংসে DEP ব্যতিক্রমে এমুলেটরটি যোগ করুন।</system:String>
+    <system:String x:Key="DEPSolution3">3. আপনার সিস্টেমের সাথে সামঞ্জস্যপূর্ণ অন্য একটি এমুলেটর ব্যবহার করার চেষ্টা করুন।</system:String>
+    <system:String x:Key="DEPSolution4">4. আপনার এমুলেটরটি সর্বশেষ সংস্করণে আপডেট করুন।</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">এমুলেটরের প্যারামিটারে কিছু পথে অবৈধ বা অনুপস্থিত বলে মনে হচ্ছে। অনুগ্রহ করে এই ক্ষেত্রগুলিকে ডবল চেক করুন।</system:String>
 
 </ResourceDictionary>

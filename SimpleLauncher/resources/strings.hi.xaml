@@ -216,7 +216,6 @@
     <system:String x:Key="Info">जानकारी</system:String>
     <system:String x:Key="InfoLinkButton">जानकारी लिंक बटन</system:String>
     <system:String x:Key="Inthiswindow">इस विंडो में, आप आसानी से उन एमुलेटर को डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें काम करने के लिए BIOS या सिस्टम फ़ाइलों की आवश्यकता नहीं होती है।</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">अमान्य एमुलेटर निष्पादन योग्य पथ:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
     <system:String x:Key="isminimizedtothetray">ट्रे में न्यूनतम कर दिया गया है।</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB नहीं मिला</system:String>
     <system:String x:Key="Pink">गुलाबी</system:String>
     <system:String x:Key="Playtime">खेलने का समय:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">कृपया इस सिस्टम के कॉन्फ़िगरेशन की जाँच करें।</system:String>
     <system:String x:Key="Pleasechooseasystem">कृपया जोड़ने के लिए एक सिस्टम चुनें</system:String>
     <system:String x:Key="Pleaseeditthissystemto">इसे ठीक करने के लिए कृपया इस सिस्टम को संपादित करें।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">कृपया एक खोज क्वेरी दर्ज करें।</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' फ़ाइल को लोड नहीं कर सका या यह खराब है।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">एप्लिकेशन फ़ोल्डर में 'mame.dat' फ़ाइल नहीं मिली।</system:String>
 
+    <system:String x:Key="DEPViolationError">एमुलेटर चलाते समय डेटा निष्पादन रोकथाम (DEP) का उल्लंघन हुआ, जो विंडोज की एक सुरक्षा सुविधा है जो अनुप्रयोगों को गैर-निष्पादन योग्य मेमोरी क्षेत्रों से कोड निष्पादित करने से रोकती है। यह आमतौर पर पुराने एमुलेटर या उन एमुलेटरों के साथ होता है जो विशिष्ट मेमोरी एक्सेस तकनीकों का उपयोग करते हैं जिन्हें आधुनिक सुरक्षा प्रणाली संभावित खतरनाक के रूप में चिह्नित करती हैं।</system:String>
+    <system:String x:Key="WhatIsDEP">DEP एक सुरक्षा सुविधा है जो वायरस और अन्य सुरक्षा खतरों से होने वाले नुकसान को रोकने में मदद करती है।</system:String>
+    <system:String x:Key="HowToFixDEP">आप निम्नलिखित समाधान आजमा सकते हैं:</system:String>
+    <system:String x:Key="DEPSolution1">1. 'Simple Launcher' को व्यवस्थापक विशेषाधिकारों के साथ चलाएं।</system:String>
+    <system:String x:Key="DEPSolution2">2. विंडोज सुरक्षा सेटिंग्स में DEP अपवादों में एमुलेटर जोड़ें।</system:String>
+    <system:String x:Key="DEPSolution3">3. अपने सिस्टम के साथ संगत किसी अन्य एमुलेटर का उपयोग करने का प्रयास करें।</system:String>
+    <system:String x:Key="DEPSolution4">4. अपने एमुलेटर को नवीनतम संस्करण में अपडेट करें।</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">एमुलेटर पैरामीटर में कुछ पथ अमान्य या गायब प्रतीत होते हैं। कृपया इन फ़ील्ड्स की दोबारा जांच करें।</system:String>
+    
 </ResourceDictionary>

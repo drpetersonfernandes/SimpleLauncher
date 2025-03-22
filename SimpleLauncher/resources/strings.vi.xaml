@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Thông tin</system:String>
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
     <system:String x:Key="Inthiswindow">Trong cửa sổ này, bạn có thể dễ dàng tải xuống và cài đặt các trình giả lập không yêu cầu tệp BIOS hoặc tệp hệ thống để hoạt động.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Đường dẫn thực thi trình giả lập không hợp lệ:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Cấu hình hệ thống không hợp lệ</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
     <system:String x:Key="Pink">Hồng</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Vui lòng kiểm tra cấu hình cho hệ thống này.</system:String>
     <system:String x:Key="Pleasechooseasystem">Vui lòng chọn một hệ thống để thêm</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Chỉnh sửa hệ thống này để khắc phục vấn đề.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Vui lòng nhập từ khóa tìm kiếm.</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' không thể tải tệp 'mame.dat' hoặc tệp đã bị hỏng.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Không tìm thấy tệp 'mame.dat' trong thư mục ứng dụng.</system:String>
 
+    <system:String x:Key="DEPViolationError">Đã xảy ra vi phạm Ngăn Chặn Thực Thi Dữ Liệu (DEP) trong khi chạy trình giả lập, đây là một tính năng bảo mật của Windows ngăn các ứng dụng thực thi mã từ các vùng bộ nhớ không có thể thực thi. Điều này thường xảy ra với các trình giả lập cũ hơn hoặc các trình giả lập sử dụng các kỹ thuật truy cập bộ nhớ cụ thể mà các hệ thống bảo mật hiện đại đánh dấu là tiềm ẩn nguy hiểm.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP là một tính năng bảo mật giúp ngăn chặn thiệt hại từ virus và các mối đe dọa bảo mật khác.</system:String>
+    <system:String x:Key="HowToFixDEP">Bạn có thể thử các giải pháp sau:</system:String>
+    <system:String x:Key="DEPSolution1">1. Chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
+    <system:String x:Key="DEPSolution2">2. Thêm trình giả lập vào các ngoại lệ DEP trong cài đặt Bảo mật Windows.</system:String>
+    <system:String x:Key="DEPSolution3">3. Thử sử dụng một trình giả lập khác tương thích với hệ thống của bạn.</system:String>
+    <system:String x:Key="DEPSolution4">4. Cập nhật trình giả lập của bạn lên phiên bản mới nhất.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Một số đường dẫn trong các tham số của trình giả lập dường như không hợp lệ hoặc thiếu. Vui lòng kiểm tra lại các trường này.</system:String>
+    
 </ResourceDictionary>

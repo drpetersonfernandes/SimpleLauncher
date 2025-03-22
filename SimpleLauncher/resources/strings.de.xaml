@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info-Link-Schaltfläche</system:String>
     <system:String x:Key="Inthiswindow">In diesem Fenster können Sie ganz einfach Emulatoren herunterladen und installieren, die keine BIOS- oder Systemdateien benötigen.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Ungültiger Emulator-Ausführungspfad:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ungültige Systemkonfiguration</system:String>
     <system:String x:Key="isalreadyinfavorites">ist bereits in den Favoriten.</system:String>
     <system:String x:Key="isminimizedtothetray">wird in die Taskleiste minimiert.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">Leiterplatte nicht gefunden</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
     <system:String x:Key="Playtime">Spielzeit:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Bitte überprüfen Sie die Konfiguration für dieses System.</system:String>
     <system:String x:Key="Pleasechooseasystem">Bitte wählen Sie ein System aus, das hinzugefügt werden soll</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Bitte bearbeiten Sie dieses System, um das Problem zu beheben.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Bitte geben Sie eine Suchanfrage ein.</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' konnte die Datei 'mame.dat' nicht laden oder sie ist beschädigt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Die Datei 'mame.dat' wurde im Anwendungsordner nicht gefunden.</system:String>
+    
+    <system:String x:Key="DEPViolationError">Während des Ausführens des Emulators ist ein Verstoß gegen die Data Execution Prevention (DEP) aufgetreten, eine Sicherheitsfunktion von Windows, die verhindert, dass Anwendungen Code aus nicht ausführbaren Speicherbereichen ausführen. Dies tritt häufig bei älteren Emulatoren oder solchen auf, die spezifische Speicherzugriffstechniken verwenden, die moderne Sicherheitssysteme als potenziell gefährlich einstufen.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP ist eine Sicherheitsfunktion, die hilft, Schäden durch Viren und andere Sicherheitsbedrohungen zu verhindern.</system:String>
+    <system:String x:Key="HowToFixDEP">Sie können die folgenden Lösungen versuchen:</system:String>
+    <system:String x:Key="DEPSolution1">1. Führen Sie 'Simple Launcher' mit Administratorrechten aus.</system:String>
+    <system:String x:Key="DEPSolution2">2. Fügen Sie den Emulator in den DEP-Ausnahmen in den Windows-Sicherheitseinstellungen hinzu.</system:String>
+    <system:String x:Key="DEPSolution3">3. Versuchen Sie, einen anderen Emulator zu verwenden, der mit Ihrem System kompatibel ist.</system:String>
+    <system:String x:Key="DEPSolution4">4. Aktualisieren Sie Ihren Emulator auf die neueste Version.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Einige Pfade in den Emulatorparametern scheinen ungültig oder fehlen. Bitte überprüfen Sie diese Felder erneut.</system:String>
     
 </ResourceDictionary>

@@ -216,7 +216,6 @@
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
     <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">مسار قابل تشغيل المحاكي غير صالح:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
     <system:String x:Key="Pink">وردي</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">يرجى التحقق من تكوين هذا النظام.</system:String>
     <system:String x:Key="Pleasechooseasystem">يرجى اختيار نظام لإضافته</system:String>
     <system:String x:Key="Pleaseeditthissystemto">يرجى تحرير هذا النظام لإصلاح ذلك.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
+    
+    <system:String x:Key="DEPViolationError">حدث انتهاك لمنع تنفيذ البيانات (DEP) أثناء تشغيل المحاكي، وهي ميزة أمان في ويندوز تمنع التطبيقات من تنفيذ الكود من مناطق الذاكرة غير القابلة للتنفيذ. يحدث هذا عادة مع المحاكيات الأقدم أو تلك التي تستخدم تقنيات وصول إلى الذاكرة محددة والتي تقوم أنظمة الأمان الحديثة بالإشارة إليها على أنها خطيرة محتملة.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP هي ميزة أمان تساعد في منع الضرر الناتج من الفيروسات والتهديدات الأمنية الأخرى.</system:String>
+    <system:String x:Key="HowToFixDEP">يمكنك تجربة الحلول التالية:</system:String>
+    <system:String x:Key="DEPSolution1">1. تشغيل 'Simple Launcher' بصلاحيات المسؤول.</system:String>
+    <system:String x:Key="DEPSolution2">2. إضافة المحاكي إلى استثناءات DEP في إعدادات أمان ويندوز.</system:String>
+    <system:String x:Key="DEPSolution3">3. حاول استخدام محاكي مختلف متوافق مع نظامك.</system:String>
+    <system:String x:Key="DEPSolution4">4. قم بتحديث المحاكي إلى أحدث إصدار.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
 
 </ResourceDictionary>

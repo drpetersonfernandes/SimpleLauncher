@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
     <system:String x:Key="Inthiswindow">Di jendela ini, Anda dapat dengan mudah mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau berkas sistem untuk bekerja.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Jalur eksekusi emulator tidak valid:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
     <system:String x:Key="Pink">Merah Muda</system:String>
     <system:String x:Key="Playtime">Waktu Bermain:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Silakan periksa konfigurasi untuk sistem ini.</system:String>
     <system:String x:Key="Pleasechooseasystem">Silakan pilih sistem untuk Ditambahkan</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Silakan edit sistem ini untuk memperbaikinya.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Silakan masukkan kueri pencarian.</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
 
+    <system:String x:Key="DEPViolationError">Terjadi pelanggaran Pencegahan Eksekusi Data (DEP) saat menjalankan emulator, yang merupakan fitur keamanan Windows yang mencegah aplikasi menjalankan kode dari wilayah memori yang tidak dapat dieksekusi. Ini sering terjadi dengan emulator yang lebih lama atau yang menggunakan teknik akses memori tertentu yang ditandai oleh sistem keamanan modern sebagai berpotensi berbahaya.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP adalah fitur keamanan yang membantu mencegah kerusakan dari virus dan ancaman keamanan lainnya.</system:String>
+    <system:String x:Key="HowToFixDEP">Anda dapat mencoba solusi berikut:</system:String>
+    <system:String x:Key="DEPSolution1">1. Jalankan 'Simple Launcher' dengan hak istimewa administrator.</system:String>
+    <system:String x:Key="DEPSolution2">2. Tambahkan emulator ke pengecualian DEP di pengaturan Keamanan Windows.</system:String>
+    <system:String x:Key="DEPSolution3">3. Cobalah menggunakan emulator lain yang kompatibel dengan sistem Anda.</system:String>
+    <system:String x:Key="DEPSolution4">4. Perbarui emulator Anda ke versi terbaru.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Beberapa jalur dalam parameter emulator tampaknya tidak valid atau hilang. Silakan periksa kembali bidang-bidang ini.</system:String>
+    
 </ResourceDictionary>

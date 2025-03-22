@@ -216,7 +216,6 @@
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">معلومات لنک بٹن</system:String>
     <system:String x:Key="Inthiswindow">اس ونڈو میں، آپ آسانی سے ان ایمولیٹرز کو ڈاؤنلوڈ اور انسٹال کر سکتے ہیں جنہیں BIOS یا سسٹم فائلز کی ضرورت نہیں ہوتی۔</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">غیر موزوں ایمولیٹر قابلِ عمل راستہ:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
     <system:String x:Key="Pink">گلابی</system:String>
     <system:String x:Key="Playtime">کھیل کا وقت:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">براہ کرم اس نظام کی تشکیل چیک کریں۔</system:String>
     <system:String x:Key="Pleasechooseasystem">براہ کرم ایک نظام منتخب کریں</system:String>
     <system:String x:Key="Pleaseeditthissystemto">مسئلہ ٹھیک کرنے کے لئے اس سسٹم کو ایڈٹ کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchquery">براہ کرم تلاش کا سوال درج کریں۔</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' فائل 'mame.dat' کو لوڈ نہیں کر سکا یا یہ خراب ہے۔</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
+    
+    <system:String x:Key="DEPViolationError">ایمولیٹر چلانے کے دوران ڈیٹا ایکزیکیوشن پریوینشن (DEP) کی خلاف ورزی ہوئی، جو ونڈوز کی ایک سیکیورٹی فیچر ہے جو ایپلیکیشنز کو غیر قابلِ عمل میموری کے علاقوں سے کوڈ چلانے سے روکتی ہے۔ یہ عموماً پرانے ایمولیٹرز میں یا ان میں ہوتا ہے جو مخصوص میموری ایکسیس تکنیکیں استعمال کرتے ہیں جنہیں جدید سیکیورٹی سسٹمز ممکنہ طور پر خطرناک سمجھتے ہیں۔</system:String>
+    <system:String x:Key="WhatIsDEP">DEP ایک سیکیورٹی فیچر ہے جو وائرسز اور دیگر سیکیورٹی خطرات سے نقصان کو روکنے میں مدد کرتا ہے۔</system:String>
+    <system:String x:Key="HowToFixDEP">آپ مندرجہ ذیل حل آزما سکتے ہیں:</system:String>
+    <system:String x:Key="DEPSolution1">1. 'سمپل لانچر' کو ایڈمنسٹریٹر پرائویلیجز کے ساتھ چلائیں۔</system:String>
+    <system:String x:Key="DEPSolution2">2. ونڈوز سیکیورٹی سیٹنگز میں DEP استثنیات میں ایمولیٹر کو شامل کریں۔</system:String>
+    <system:String x:Key="DEPSolution3">3. اپنے سسٹم کے ساتھ مطابقت رکھنے والا کوئی دوسرا ایمولیٹر استعمال کرنے کی کوشش کریں۔</system:String>
+    <system:String x:Key="DEPSolution4">4. اپنے ایمولیٹر کو تازہ ترین ورژن میں اپڈیٹ کریں۔</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">ایمولیٹر پیرامیٹرز میں کچھ راستے غیر درست یا غائب ظاہر ہوتے ہیں۔ براہ کرم ان فیلڈز کو دوبارہ چیک کریں۔</system:String>
 
 </ResourceDictionary>

@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Bouton de lien d'informations</system:String>
     <system:String x:Key="Inthiswindow">Dans cette fenêtre, vous pouvez facilement télécharger et installer des émulateurs qui ne nécessitent pas de fichiers BIOS ou système pour fonctionner.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Chemin exécutable de l'émulateur non valide :</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuration système invalide</system:String>
     <system:String x:Key="isalreadyinfavorites">est déjà dans les favoris.</system:String>
     <system:String x:Key="isminimizedtothetray">est réduit dans la barre des tâches.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB introuvable</system:String>
     <system:String x:Key="Pink">Rose</system:String>
     <system:String x:Key="Playtime">Temps de jeu :</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Veuillez vérifier la configuration de ce système.</system:String>
     <system:String x:Key="Pleasechooseasystem">Veuillez choisir un système à ajouter</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Veuillez modifier ce système pour corriger cela.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Veuillez entrer une requête de recherche.</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' n'a pas pu charger le fichier 'mame.dat' ou il est corrompu.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Le fichier 'mame.dat' n'a pas été trouvé dans le dossier de l'application.</system:String>
 
+    <system:String x:Key="DEPViolationError">Une violation de la Prévention d'Exécution de Données (DEP) s'est produite lors de l'exécution de l'émulateur, qui est une fonctionnalité de sécurité de Windows empêchant les applications d'exécuter du code à partir de régions mémoire non exécutables. Cela se produit couramment avec les anciens émulateurs ou ceux qui utilisent des techniques d'accès mémoire spécifiques que les systèmes de sécurité modernes considèrent comme potentiellement dangereuses.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP est une fonctionnalité de sécurité qui aide à prévenir les dommages causés par les virus et autres menaces de sécurité.</system:String>
+    <system:String x:Key="HowToFixDEP">Vous pouvez essayer les solutions suivantes :</system:String>
+    <system:String x:Key="DEPSolution1">1. Exécutez 'Simple Launcher' avec les privilèges administrateur.</system:String>
+    <system:String x:Key="DEPSolution2">2. Ajoutez l'émulateur aux exceptions DEP dans les paramètres de sécurité de Windows.</system:String>
+    <system:String x:Key="DEPSolution3">3. Essayez d'utiliser un autre émulateur compatible avec votre système.</system:String>
+    <system:String x:Key="DEPSolution4">4. Mettez à jour votre émulateur vers la dernière version.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Certaines chemins dans les paramètres de l'émulateur semblent être invalides ou manquants. Veuillez vérifier ces champs à nouveau.</system:String>
+    
 </ResourceDictionary>

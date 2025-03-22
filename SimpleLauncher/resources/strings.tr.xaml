@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Bilgi</system:String>
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
     <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Geçersiz emülatör çalıştırılabilir yolu:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
     <system:String x:Key="Pink">Pembe</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Lütfen bu sistem için yapılandırmayı kontrol edin.</system:String>
     <system:String x:Key="Pleasechooseasystem">Eklemek istediğiniz sistemi seçin</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Sorunu düzeltmek için bu sistemi düzenleyin.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
@@ -572,4 +570,13 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
 
+    <system:String x:Key="DEPViolationError">Emülatörü çalıştırırken Veri Yürütme Önleme (DEP) ihlali meydana geldi. DEP, uygulamaların yürütülemez bellek bölgelerinden kod çalıştırmasını engelleyen bir Windows güvenlik özelliğidir. Bu genellikle eski emülatörlerde veya modern güvenlik sistemlerinin potansiyel olarak tehlikeli olarak işaretlediği belirli bellek erişim tekniklerini kullanan emülatörlerde meydana gelir.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP, virüsler ve diğer güvenlik tehditlerinden kaynaklanan zararları önlemeye yardımcı olan bir güvenlik özelliğidir.</system:String>
+    <system:String x:Key="HowToFixDEP">Aşağıdaki çözümleri deneyebilirsiniz:</system:String>
+    <system:String x:Key="DEPSolution1">1. 'Simple Launcher'ı yönetici ayrıcalıklarıyla çalıştırın.</system:String>
+    <system:String x:Key="DEPSolution2">2. Emülatörü Windows Güvenlik ayarlarında DEP istisnalarına ekleyin.</system:String>
+    <system:String x:Key="DEPSolution3">3. Sisteminizle uyumlu farklı bir emülatör kullanmayı deneyin.</system:String>
+    <system:String x:Key="DEPSolution4">4. Emülatörünüzü en son sürüme güncelleyin.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Emülatör parametrelerindeki bazı yollar geçersiz görünüyor veya eksik. Bu alanları lütfen tekrar kontrol edin.</system:String>
+    
 </ResourceDictionary>

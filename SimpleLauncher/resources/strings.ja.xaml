@@ -216,7 +216,6 @@
     <system:String x:Key="Info">情報</system:String>
     <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
     <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">無効なエミュレータ実行可能パス:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
     <system:String x:Key="Pink">ピンク</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">このシステムの設定を確認してください。</system:String>
     <system:String x:Key="Pleasechooseasystem">追加するシステムを選択してください</system:String>
     <system:String x:Key="Pleaseeditthissystemto">これを修正するには、このシステムを編集してください。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">アプリケーションフォルダーで'mame.dat'ファイルが見つかりませんでした。</system:String>
+    
+    <system:String x:Key="DEPViolationError">エミュレータを実行中にデータ実行防止（DEP）の違反が発生しました。DEPは、アプリケーションが実行不可能なメモリ領域からコードを実行するのを防ぐWindowsのセキュリティ機能です。これは、古いエミュレータや特定のメモリアクセス技術を使用するエミュレータでよく発生し、最新のセキュリティシステムでは潜在的に危険と見なされます。</system:String>
+    <system:String x:Key="WhatIsDEP">DEPは、ウイルスやその他のセキュリティ脅威からの損害を防ぐのに役立つセキュリティ機能です。</system:String>
+    <system:String x:Key="HowToFixDEP">次の解決策を試すことができます：</system:String>
+    <system:String x:Key="DEPSolution1">1. 管理者権限で「Simple Launcher」を実行します。</system:String>
+    <system:String x:Key="DEPSolution2">2. Windowsセキュリティ設定でエミュレータをDEPの例外に追加します。</system:String>
+    <system:String x:Key="DEPSolution3">3. システムと互換性のある別のエミュレータを使用してみてください。</system:String>
+    <system:String x:Key="DEPSolution4">4. エミュレータを最新バージョンに更新します。</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">エミュレータのパラメータ内のいくつかのパスが無効または欠落しているようです。これらのフィールドを再度確認してください。</system:String>
     
 </ResourceDictionary>

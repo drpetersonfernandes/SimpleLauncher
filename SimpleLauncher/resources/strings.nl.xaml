@@ -216,7 +216,6 @@
     <system:String x:Key="Info">Informatie</system:String>
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
     <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
-    <system:String x:Key="Invalidemulatorexecutablepath3">Ongeldig uitvoerbaar pad van emulator:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
@@ -274,7 +273,6 @@
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
     <system:String x:Key="Pink">Roze</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
-    <system:String x:Key="Pleasechecktheconfigurationforthissystem">Controleer de configuratie voor dit systeem.</system:String>
     <system:String x:Key="Pleasechooseasystem">Kies een systeem om toe te voegen</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Bewerk dit systeem om het probleem op te lossen.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
@@ -571,5 +569,14 @@
     
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
+    
+    <system:String x:Key="DEPViolationError">Er is een overtreding van Data Execution Prevention (DEP) opgetreden tijdens het uitvoeren van de emulator, een beveiligingsfunctie van Windows die voorkomt dat applicaties code uitvoeren vanuit niet-uitvoerbare geheugengebieden. Dit gebeurt vaak bij oudere emulators of emulators die specifieke geheugentoegangstechnieken gebruiken die moderne beveiligingssystemen als potentieel gevaarlijk beschouwen.</system:String>
+    <system:String x:Key="WhatIsDEP">DEP is een beveiligingsfunctie die helpt schade door virussen en andere beveiligingsbedreigingen te voorkomen.</system:String>
+    <system:String x:Key="HowToFixDEP">Je kunt de volgende oplossingen proberen:</system:String>
+    <system:String x:Key="DEPSolution1">1. Voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
+    <system:String x:Key="DEPSolution2">2. Voeg de emulator toe aan DEP-uitzonderingen in de Windows-beveiligingsinstellingen.</system:String>
+    <system:String x:Key="DEPSolution3">3. Probeer een andere emulator te gebruiken die compatibel is met je systeem.</system:String>
+    <system:String x:Key="DEPSolution4">4. Werk je emulator bij naar de nieuwste versie.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
     
 </ResourceDictionary>
