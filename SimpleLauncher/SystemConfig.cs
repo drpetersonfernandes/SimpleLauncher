@@ -26,6 +26,7 @@ public class SystemConfig
         public string EmulatorName { get; init; }
         public string EmulatorLocation { get; init; }
         public string EmulatorParameters { get; init; }
+        public bool ReceiveANotificationOnEmulatorError { get; init; }
     }
 
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
@@ -164,14 +165,24 @@ public class SystemConfig
                             {
                                 if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
                                     throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
+                                
+                                // Parse the ReceiveANotificationOnEmulatorError value with default = true
+                                var receiveNotification = true; // Default to true
+                                if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
+                                {
+                                    // Only set to false if explicitly "false", otherwise keep default (true)
+                                    if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
+                                    {
+                                        receiveNotification = true; // Reset to default if parsing fails
+                                    }
+                                }
 
                                 return new Emulator
                                 {
                                     EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
                                     EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                    EmulatorParameters =
-                                        emulatorElement.Element("EmulatorParameters")
-                                            ?.Value // It's okay if this is null or empty
+                                    EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
+                                    ReceiveANotificationOnEmulatorError = receiveNotification
                                 };
                             }).ToList();
 

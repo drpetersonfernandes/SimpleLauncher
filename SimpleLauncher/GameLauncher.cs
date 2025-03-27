@@ -17,7 +17,19 @@ public static class GameLauncher
     {
         if (CheckFilepath(filePath)) return;
         if (CheckSystemComboBox(systemComboBox)) return;
-        if (CheckEmulatorComboBox(emulatorComboBox)) return;
+        
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            // Notify developer
+            const string contextMessage = "Invalid emulator.";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            
+            return;
+        }
 
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
@@ -107,23 +119,20 @@ public static class GameLauncher
                     {
                         await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
-                    // ReSharper disable once PossibleNullReferenceException
-                    else if (selectedSystem.Contains("aquarius", StringComparison.InvariantCultureIgnoreCase) && emulatorComboBox.SelectedItem.ToString().Contains("mame", StringComparison.InvariantCultureIgnoreCase))
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    else if (selectedSystem.Contains("aquarius", StringComparison.InvariantCultureIgnoreCase) && emulatorComboBox.SelectedItem.ToString()!.Contains("mame", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
-                    // ReSharper disable once PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().Contains("fusion", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
-                    }
-                    // ReSharper disable once PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().Contains("mastergear", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
-                    }
-                    // ReSharper disable twice PossibleNullReferenceException
-                    else if (emulatorComboBox.SelectedItem.ToString().Contains("project64", StringComparison.InvariantCultureIgnoreCase) || emulatorComboBox.SelectedItem.ToString().Contains("project 64", StringComparison.InvariantCultureIgnoreCase))
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    else if (emulatorComboBox.SelectedItem.ToString()!.Contains("fusion", StringComparison.InvariantCultureIgnoreCase) ||
+                             // ReSharper disable once NullableWarningSuppressionIsUsed
+                             emulatorComboBox.SelectedItem.ToString()!.Contains("mastergear", StringComparison.InvariantCultureIgnoreCase) ||
+                             // ReSharper disable once NullableWarningSuppressionIsUsed
+                             emulatorComboBox.SelectedItem.ToString()!.Contains("project64", StringComparison.InvariantCultureIgnoreCase) ||
+                             // ReSharper disable once NullableWarningSuppressionIsUsed
+                             emulatorComboBox.SelectedItem.ToString()!.Contains("project 64", StringComparison.InvariantCultureIgnoreCase))
+
                     {
                         await LaunchRegularEmulatorWithoutWarnings(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
@@ -369,7 +378,8 @@ public static class GameLauncher
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var emulatorConfig = systemConfig!.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
 
         var gamePathToLaunch = filePath;
 
@@ -383,7 +393,8 @@ public static class GameLauncher
         if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
-        var programLocation = emulatorConfig.EmulatorLocation;
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var programLocation = emulatorConfig!.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
         var arguments = $"{parameters} \"{gamePathToLaunch}\"";
 
@@ -434,10 +445,10 @@ public static class GameLauncher
                 throw new InvalidOperationException("Process has not exited as expected.");
             }
 
-            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDepViolation(process, psi, output, error)) return;
+            if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+            if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
 
-            await CheckForExitCodeWithErrorAny(process, psi, output, error);
+            await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
         }
 
         catch (InvalidOperationException ex)
@@ -446,8 +457,11 @@ public static class GameLauncher
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+            // Notify user only if he wants
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            {
+                MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+            }
         }
         catch (Exception ex)
         {
@@ -460,8 +474,11 @@ public static class GameLauncher
                                  $"Calling parameters: {psi.Arguments}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            // Notify user only if he wants
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            {
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);                
+            }
         }
     }
 
@@ -470,7 +487,8 @@ public static class GameLauncher
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var emulatorConfig = systemConfig!.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
 
         var gamePathToLaunch = filePath;
 
@@ -484,7 +502,8 @@ public static class GameLauncher
         if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
-        var programLocation = emulatorConfig.EmulatorLocation;
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var programLocation = emulatorConfig!.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
         var arguments = $"{parameters} \"{gamePathToLaunch}\"";
 
@@ -535,8 +554,8 @@ public static class GameLauncher
                 throw new InvalidOperationException("The process has not exited as expected.");
             }
 
-            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDepViolation(process, psi, output, error)) return;
+            if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+            if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
 
             await CheckForExitCodeWithErrorAnyWithoutUserNotification(process, psi, output, error);
         }
@@ -571,7 +590,8 @@ public static class GameLauncher
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var emulatorConfig = systemConfig!.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
 
         string gamePathToLaunch = null;
 
@@ -605,7 +625,8 @@ public static class GameLauncher
         if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
-        var programLocation = emulatorConfig.EmulatorLocation;
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var programLocation = emulatorConfig!.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
         var arguments = $"{parameters} \"{gamePathToLaunch}\"";
 
@@ -657,10 +678,10 @@ public static class GameLauncher
                 throw new InvalidOperationException("Process has not exited as expected.");
             }
 
-            if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDepViolation(process, psi, output, error)) return;
+            if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+            if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
 
-            await CheckForExitCodeWithErrorAny(process, psi, output, error);
+            await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
         }
         catch (InvalidOperationException ex)
         {
@@ -668,8 +689,11 @@ public static class GameLauncher
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+            // Notify user only if he wants
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            {
+                MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+            }
         }
         catch (Exception ex)
         {
@@ -682,8 +706,11 @@ public static class GameLauncher
                                  $"Calling parameters: {psi.Arguments}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
+            // Notify user only if he wants
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            {
+                MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
+            }
         }
 
         return;
@@ -709,7 +736,8 @@ public static class GameLauncher
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var emulatorConfig = systemConfig!.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
 
         var gamePathToLaunch = filePath;
 
@@ -722,7 +750,8 @@ public static class GameLauncher
         if (await CheckGamePathToLaunch(gamePathToLaunch)) return;
 
         // Construct the PSI
-        var programLocation = emulatorConfig.EmulatorLocation;
+        // ReSharper disable once NullableWarningSuppressionIsUsed
+        var programLocation = emulatorConfig!.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
         var workingDirectory = Path.GetDirectoryName(programLocation);
         var gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
@@ -781,10 +810,10 @@ public static class GameLauncher
                     throw new InvalidOperationException("Process has not exited as expected.");
                 }
 
-                if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-                if (await CheckForDepViolation(process, psi, output, error)) return;
+                if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+                if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
 
-                await CheckForExitCodeWithErrorAny(process, psi, output, error);
+                await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
             }
 
             catch (InvalidOperationException ex)
@@ -793,8 +822,11 @@ public static class GameLauncher
                 const string contextMessage = "Invalid Operation Exception.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+                // Notify user only if he wants
+                if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                {
+                    MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+                }
             }
             catch (Exception ex)
             {
@@ -807,8 +839,11 @@ public static class GameLauncher
                                      $"Calling parameters: {psi.Arguments}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                // Notify user only if he wants
+                if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                {
+                    MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                }
             }
         }
     }
@@ -923,7 +958,7 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
     {
         if (process.ExitCode != 0)
         {
@@ -937,8 +972,11 @@ public static class GameLauncher
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            // Notify user only if he wants
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            {
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            }
         }
 
         return Task.CompletedTask;
@@ -965,7 +1003,7 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
     {
         if (process.ExitCode != -1073741819) return Task.FromResult(false);
 
@@ -979,13 +1017,16 @@ public static class GameLauncher
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user
-        // Ignore
+        // Notify user only if he wants
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        {
+            MessageBoxLibrary.CheckForMemoryAccessViolation();
+        }
 
         return Task.FromResult(true);
     }
 
-    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
     {
         if (process.ExitCode != -1073740791) return Task.FromResult(false);
 
@@ -999,8 +1040,11 @@ public static class GameLauncher
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user
-        MessageBoxLibrary.DepViolationMessageBox();
+        // Notify user only if he wants
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        {
+            MessageBoxLibrary.DepViolationMessageBox();
+        }
 
         return Task.FromResult(true);
     }
@@ -1071,21 +1115,6 @@ public static class GameLauncher
 
         // Notify developer
         const string contextMessage = "Invalid system.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-        return true;
-    }
-
-    private static bool CheckEmulatorComboBox(ComboBox emulatorComboBox)
-    {
-        if (emulatorComboBox.SelectedItem != null) return false;
-
-        // Notify developer
-        const string contextMessage = "Invalid emulator.";
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

@@ -578,5 +578,9 @@
     <system:String x:Key="DEPSolution3">3. Try using a different emulator compatible with your system.</system:String>
     <system:String x:Key="DEPSolution4">4. Update your emulator to the latest version.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
-
+    
+    <system:String x:Key="ReceiveANotificationOnEmulatorError">Receive a Notification on Emulator Error</system:String>
+    <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>    
+    <system:String x:Key="GrantSimpleLauncheradministrative2">Grant 'Simple Launcher' administrative access and try again.</system:String>    
+    
 </ResourceDictionary>

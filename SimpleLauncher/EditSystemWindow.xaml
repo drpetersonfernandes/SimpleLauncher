@@ -297,6 +297,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -364,6 +365,23 @@
                                 <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
                                        VerticalAlignment="Top" />
                             </Button>
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                            <ComboBox
+                                Margin="0,0,10,10"
+                                x:Name="ReceiveANotificationOnEmulatorError1"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
+                            
                         </Grid>
                     </Border>
 
@@ -372,6 +390,7 @@
                             CornerRadius="5" Margin="10">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -442,6 +461,22 @@
                                 <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
                                        VerticalAlignment="Top" />
                             </Button>
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                            <ComboBox
+                                Margin="0,0,10,10"
+                                x:Name="ReceiveANotificationOnEmulatorError2"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
                         </Grid>
                     </Border>
 
@@ -450,6 +485,7 @@
                             CornerRadius="5" Margin="10">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -520,6 +556,22 @@
                                 <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
                                        VerticalAlignment="Top" />
                             </Button>
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                            <ComboBox
+                                Margin="0,0,10,10"
+                                x:Name="ReceiveANotificationOnEmulatorError3"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
                         </Grid>
                     </Border>
 
@@ -528,6 +580,7 @@
                             CornerRadius="5" Margin="10">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -598,6 +651,22 @@
                                 <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
                                        VerticalAlignment="Top" />
                             </Button>
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                            <ComboBox
+                                Margin="0,0,10,10"
+                                x:Name="ReceiveANotificationOnEmulatorError4"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
                         </Grid>
                     </Border>
 
@@ -606,6 +675,7 @@
                             CornerRadius="5" Margin="10">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -676,6 +746,22 @@
                                 <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
                                        VerticalAlignment="Top" />
                             </Button>
+                            <Label
+                                Margin="10,0,10,10"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                            <ComboBox
+                                Margin="0,0,10,10"
+                                x:Name="ReceiveANotificationOnEmulatorError5"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                IsReadOnly="True"
+                                IsEnabled="False">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
                         </Grid>
                     </Border>
 

@@ -835,7 +835,7 @@ public static class MessageBoxLibrary
     {
         var simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
         var areyourunningasecondinstance2 = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative2") ?? "Also grant 'Simple Launcher' administrative access and try again.";
+        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative2") ?? "Grant 'Simple Launcher' administrative access and try again.";
         var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
@@ -868,6 +868,34 @@ public static class MessageBoxLibrary
         MessageBox.Show($"{depViolationError}\n\n" +
                         $"{whatIsDep}\n\n" +
                         $"{howToFixDep}\n" +
+                        $"{solution1}\n" +
+                        $"{solution2}\n" +
+                        $"{solution3}\n" +
+                        $"{solution4}",
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    
+    internal static void CheckForMemoryAccessViolation()
+    {
+        var memoryViolationError = (string)Application.Current.TryFindResource("MemoryAccessViolationError") ??
+                                   "A Memory Access Violation occurred while running the emulator. This happens when a program attempts to access memory that it either doesn't have permission to access or memory that has been freed/doesn't exist. This is common in emulators that manipulate memory directly to achieve accurate emulation of other systems.";
+        var whatIsMemoryAccess = (string)Application.Current.TryFindResource("WhatIsMemoryAccess") ??
+                                 "Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.";
+        var howToFixMemoryAccess = (string)Application.Current.TryFindResource("HowToFixMemoryAccess") ??
+                                   "You can try the following solutions:";
+        var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ??
+                        "1. Run the application with administrator privileges.";
+        var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ??
+                        "2. Check if your antivirus is blocking the emulator's memory operations.";
+        var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ??
+                        "3. Update your emulator to the latest version which may have fixed memory handling issues.";
+        var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ??
+                        "4. Try adjusting memory allocation settings in the emulator configuration if available.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        MessageBox.Show($"{memoryViolationError}\n\n" +
+                        $"{whatIsMemoryAccess}\n\n" +
+                        $"{howToFixMemoryAccess}\n" +
                         $"{solution1}\n" +
                         $"{solution2}\n" +
                         $"{solution3}\n" +
