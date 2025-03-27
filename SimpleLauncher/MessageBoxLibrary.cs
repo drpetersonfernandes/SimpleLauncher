@@ -834,24 +834,26 @@ public static class MessageBoxLibrary
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
         var simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var areyourunningasecondinstance2 = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
+        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative2") ?? "Also grant 'Simple Launcher' administrative access and try again.";
         var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite2}\n\n" +
+                        $"{areyourunningasecondinstance2}\n\n" +
                         $"{grantSimpleLauncheradministrative2}\n\n" +
                         $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}\n\n" +
                         $"{temporarilydisableyourantivirus2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void DEPViolationMessageBox()
+    internal static void DepViolationMessageBox()
     {
         var depViolationError = (string)Application.Current.TryFindResource("DEPViolationError") ??
                                 "A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.";
-        var whatIsDEP = (string)Application.Current.TryFindResource("WhatIsDEP") ??
+        var whatIsDep = (string)Application.Current.TryFindResource("WhatIsDEP") ??
                         "DEP is a security feature that helps prevent damage from viruses and other security threats.";
-        var howToFixDEP = (string)Application.Current.TryFindResource("HowToFixDEP") ??
+        var howToFixDep = (string)Application.Current.TryFindResource("HowToFixDEP") ??
                           "You can try the following solutions:";
         var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ??
                         "1. Run 'Simple Launcher' with administrator privileges.";
@@ -864,8 +866,8 @@ public static class MessageBoxLibrary
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         MessageBox.Show($"{depViolationError}\n\n" +
-                        $"{whatIsDEP}\n\n" +
-                        $"{howToFixDEP}\n" +
+                        $"{whatIsDep}\n\n" +
+                        $"{howToFixDep}\n" +
                         $"{solution1}\n" +
                         $"{solution2}\n" +
                         $"{solution3}\n" +
@@ -2113,7 +2115,7 @@ public static class MessageBoxLibrary
             message += $"\n\n• Program location may be invalid or inaccessible: \"{programLocation}\"";
         }
 
-        if (invalidPaths != null && invalidPaths.Count > 0)
+        if (invalidPaths is { Count: > 0 })
         {
             message += "\n\n• The following paths in parameters may be invalid:";
             foreach (var path in invalidPaths)

@@ -133,81 +133,46 @@ public static partial class UpdateChecker
 
     private static async void ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
     {
+        // Notify user
+        var result = DoYouWantToUpdateMessageBox();
+
+        if (result != MessageBoxResult.Yes) return;
+
+        var logWindow = new UpdateLogWindow();
+        logWindow.Show();
+        logWindow.Log("Starting update process...");
+
+        // Close the main window
+        owner.Close();
+
         try
         {
-            // Notify user
-            var result = DoYouWantToUpdateMessageBox();
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            MessageBoxResult DoYouWantToUpdateMessageBox()
+            logWindow.Log("Downloading update file...");
+
+            await Task.Run(async () =>
             {
-                var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
-                var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-                var theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
-                var doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
-                var updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
-                var message = $"{thereisasoftwareupdateavailable2}\n" +
-                              $"{thecurrentversionis2} {currentVersion}\n" +
-                              $"{theupdateversionis2} {latestVersion}\n\n" +
-                              $"{doyouwanttodownloadandinstall2}";
-                var messageBoxResult1 = MessageBox.Show(owner, message,
-                    updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
-                return messageBoxResult1;
-            }
+                using var memoryStream = new MemoryStream();
 
-            if (result != MessageBoxResult.Yes) return;
+                // Download the update file to memory
+                await DownloadUpdateFileToMemory(assetUrl, memoryStream);
 
-            var logWindow = new UpdateLogWindow();
-            logWindow.Show();
-            logWindow.Log("Starting update process...");
+                logWindow.Log("Extracting update file...");
 
-            // Close the main window
-            owner.Close();
+                // Files to be updated
+                var updaterFiles = Function;
 
-            try
-            {
-                var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                // Extract directly from memory to the destination
+                ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
 
-                logWindow.Log("Downloading update file...");
+                logWindow.Log("Update completed successfully.");
 
-                await Task.Run(async () =>
-                {
-                    using var memoryStream = new MemoryStream();
+                await Task.Delay(2000);
 
-                    // Download the update file to memory
-                    await DownloadUpdateFileToMemory(assetUrl, memoryStream);
-
-                    logWindow.Log("Extracting update file...");
-
-                    // Files to be updated
-                    var updaterFiles = Function;
-
-                    // Extract directly from memory to the destination
-                    ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
-
-                    logWindow.Log("Update completed successfully.");
-
-                    await Task.Delay(2000);
-
-                    // Execute Updater
-                    await ExecuteUpdater(logWindow);
-                });
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "There was an error updating the application.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    // Notify user
-                    MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
-
-                    logWindow.Log("There was an error updating the application.");
-                    logWindow.Log("Please update it manually.");
-                    logWindow.Close();
-                });
-            }
+                // Execute Updater
+                await ExecuteUpdater(logWindow);
+            });
         }
         catch (Exception ex)
         {
@@ -215,8 +180,33 @@ public static partial class UpdateChecker
             const string contextMessage = "There was an error updating the application.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            // Ignore
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // Notify user
+                MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+
+                logWindow.Log("There was an error updating the application.");
+                logWindow.Log("Please update it manually.");
+                logWindow.Close();
+            });
+        }
+
+        return;
+
+        MessageBoxResult DoYouWantToUpdateMessageBox()
+        {
+            var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+            var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+            var theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+            var doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+            var updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+            var message = $"{thereisasoftwareupdateavailable2}\n" +
+                          $"{thecurrentversionis2} {currentVersion}\n" +
+                          $"{theupdateversionis2} {latestVersion}\n\n" +
+                          $"{doyouwanttodownloadandinstall2}";
+            var messageBoxResult1 = MessageBox.Show(owner, message,
+                updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
+            return messageBoxResult1;
         }
     }
 

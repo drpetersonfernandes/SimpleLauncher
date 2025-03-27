@@ -435,7 +435,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDEPViolation(process, psi, output, error)) return;
+            if (await CheckForDepViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
@@ -536,7 +536,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDEPViolation(process, psi, output, error)) return;
+            if (await CheckForDepViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAnyWithoutUserNotification(process, psi, output, error);
         }
@@ -658,7 +658,7 @@ public static class GameLauncher
             }
 
             if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-            if (await CheckForDEPViolation(process, psi, output, error)) return;
+            if (await CheckForDepViolation(process, psi, output, error)) return;
 
             await CheckForExitCodeWithErrorAny(process, psi, output, error);
         }
@@ -782,7 +782,7 @@ public static class GameLauncher
                 }
 
                 if (await CheckForMemoryAccessViolation(process, psi, output, error)) return;
-                if (await CheckForDEPViolation(process, psi, output, error)) return;
+                if (await CheckForDepViolation(process, psi, output, error)) return;
 
                 await CheckForExitCodeWithErrorAny(process, psi, output, error);
             }
@@ -985,7 +985,7 @@ public static class GameLauncher
         return Task.FromResult(true);
     }
 
-    private static Task<bool> CheckForDEPViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (process.ExitCode != -1073740791) return Task.FromResult(false);
 
@@ -1000,7 +1000,7 @@ public static class GameLauncher
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user
-        MessageBoxLibrary.DEPViolationMessageBox();
+        MessageBoxLibrary.DepViolationMessageBox();
 
         return Task.FromResult(true);
     }
