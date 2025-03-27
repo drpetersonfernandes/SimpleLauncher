@@ -17,7 +17,7 @@ public static class GameLauncher
     {
         if (CheckFilepath(filePath)) return;
         if (CheckSystemComboBox(systemComboBox)) return;
-        
+
         if (emulatorComboBox.SelectedItem == null)
         {
             // Notify developer
@@ -27,7 +27,7 @@ public static class GameLauncher
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-            
+
             return;
         }
 
@@ -477,7 +477,7 @@ public static class GameLauncher
             // Notify user only if he wants
             if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
             {
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);                
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
             }
         }
     }

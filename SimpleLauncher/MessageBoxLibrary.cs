@@ -874,7 +874,7 @@ public static class MessageBoxLibrary
                         $"{solution4}",
             error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
-    
+
     internal static void CheckForMemoryAccessViolation()
     {
         var memoryViolationError = (string)Application.Current.TryFindResource("MemoryAccessViolationError") ??
