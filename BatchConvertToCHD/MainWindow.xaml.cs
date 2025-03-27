@@ -27,7 +27,7 @@ public partial class MainWindow
 
         LogMessage("Welcome to the Batch Convert to CHD.");
         LogMessage("");
-        LogMessage("This program will convert all [CUE], [ISO], and [IMG] files in the input folder to [CHD] files in the output folder.");
+        LogMessage("This program will convert all [CUE + BIN], [ISO], [GDI] and [IMG] files in the input folder to [CHD] files in the output folder.");
         LogMessage("Please follow these steps:");
         LogMessage("1. Select the input folder containing files to convert");
         LogMessage("2. Select the output folder where CHD files will be saved");
@@ -199,8 +199,8 @@ public partial class MainWindow
         {
             LogMessage("Preparing for batch conversion...");
 
-            // Restrict to .cue, .iso, and .img files only
-            var supportedExtensions = new[] { ".cue", ".iso", ".img" };
+            // Restrict to .cue, .iso, .gdi, and .img files only
+            var supportedExtensions = new[] { ".cue", ".iso", ".img", ".gdi" };
             var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
                 .ToArray();
@@ -209,7 +209,7 @@ public partial class MainWindow
 
             if (files.Length == 0)
             {
-                LogMessage("No [CUE], [ISO], or [IMG] files found in the input folder.");
+                LogMessage("No [CUE + BIN], [ISO], [GDI] or [IMG] files found in the input folder.");
                 return;
             }
 
