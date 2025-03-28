@@ -583,4 +583,14 @@
     <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>    
     <system:String x:Key="GrantSimpleLauncheradministrative2">Grant 'Simple Launcher' administrative access and try again.</system:String>
     
+    BatchVerifyCHDFiles
+    MemoryAccessViolationError
+    WhatIsMemoryAccess
+    HowToFixMemoryAccess
+    MemorySolution1
+    MemorySolution2
+    MemorySolution3
+    MemorySolution4
+    receiveNotificationEmulatorError
+    
 </ResourceDictionary>
