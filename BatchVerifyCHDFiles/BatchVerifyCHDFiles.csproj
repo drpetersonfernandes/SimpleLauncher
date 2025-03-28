@@ -16,6 +16,9 @@
   <ItemGroup>
     <Resource Include="icon\icon.ico" />
     <Resource Include="icon\icon.png" />
+    <Resource Include="images\about.png" />
+    <Resource Include="images\exit.png" />
+    <Resource Include="images\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
