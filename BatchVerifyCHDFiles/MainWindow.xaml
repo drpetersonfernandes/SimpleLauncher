@@ -9,13 +9,31 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit" Click="ExitMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="AboutMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
         <!-- Input Folder Selection -->
-        <Grid Grid.Row="0" Margin="10,10,10,5">
+        <Grid Grid.Row="1" Margin="10,10,10,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -29,14 +47,14 @@
 
         <!-- Include Subfolders Checkbox -->
         <CheckBox x:Name="IncludeSubfoldersCheckBox"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Content="Include subfolders"
                   Margin="10,5,10,5"
                   HorizontalAlignment="Left" />
 
         <!-- Start Verification Button -->
         <Button x:Name="StartButton"
-                Grid.Row="2"
+                Grid.Row="3"
                 Content="Start Verification"
                 Click="StartButton_Click"
                 Margin="10,10,10,10"
@@ -45,7 +63,7 @@
                 FontWeight="Bold" />
 
         <!-- Log TextBox -->
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="Auto" />
@@ -74,7 +92,7 @@
         </Grid>
 
         <!-- Summary Stats -->
-        <Grid Grid.Row="4" Margin="10,5,10,5">
+        <Grid Grid.Row="5" Margin="10,5,10,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -112,7 +130,7 @@
         </Grid>
 
         <!-- Progress Bar -->
-        <Grid Grid.Row="5" Margin="10,5,10,10">
+        <Grid Grid.Row="6" Margin="10,5,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

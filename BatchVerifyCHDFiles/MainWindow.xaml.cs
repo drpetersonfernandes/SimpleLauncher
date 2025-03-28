@@ -20,12 +20,12 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCHDFiles";
-
+    
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
-
+        
         // Initialize the bug report service
         _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
@@ -575,6 +575,27 @@ public partial class MainWindow
         catch
         {
             // Silently fail if error reporting itself fails
+        }
+    }
+
+    private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var aboutWindow = new AboutWindow
+            {
+                Owner = this // Set the owner to center the About window relative to MainWindow
+            };
+            aboutWindow.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            _ = ReportBugAsync("Error opening About window", ex);
         }
     }
 }

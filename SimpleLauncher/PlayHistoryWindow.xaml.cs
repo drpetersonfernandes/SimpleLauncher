@@ -890,24 +890,6 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private bool GetSystemConfigOfSelectedHistoryItem(PlayHistoryItem selectedItem, out SystemConfig systemConfig)
-    {
-        systemConfig = _systemConfigs?.FirstOrDefault(config =>
-            config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
-
-        if (systemConfig != null) return false;
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
-
-        return true;
-    }
-
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
         SortByDateSafely();
@@ -930,23 +912,5 @@ public partial class PlayHistoryWindow
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-    }
-
-    private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemConfig systemConfig)
-    {
-        systemConfig = _systemConfigs?.FirstOrDefault(config =>
-            config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-
-        if (systemConfig != null) return false;
-
-        // Notify developer
-        const string contextMessage = "systemConfig is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
-
-        return true;
     }
 }

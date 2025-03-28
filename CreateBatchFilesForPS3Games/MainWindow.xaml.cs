@@ -472,7 +472,7 @@ public partial class MainWindow
             try
             {
                 var handle = GCHandle.Alloc(sfo, GCHandleType.Pinned);
-                sfoHeader = (SfoHeader)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoHeader))!;
+                sfoHeader = (SfoHeader)(Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoHeader)) ?? throw new InvalidOperationException());
                 handle.Free();
             }
             catch (Exception ex)
@@ -494,7 +494,7 @@ public partial class MainWindow
                 try
                 {
                     var handle = GCHandle.Alloc(sfoEntry, GCHandleType.Pinned);
-                    sfoTableEntry = (SfoTableEntry)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoTableEntry))!;
+                    sfoTableEntry = (SfoTableEntry)(Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoTableEntry)) ?? throw new InvalidOperationException());
                     handle.Free();
                 }
                 catch (Exception ex)

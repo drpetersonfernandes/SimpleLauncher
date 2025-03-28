@@ -47,7 +47,7 @@ public static class CopyRoms
 
         foreach (var machineName in machineNames)
         {
-            await CopyRomAsync(sourceDirectory, destinationDirectory, machineName!);
+            await CopyRomAsync(sourceDirectory, destinationDirectory, machineName);
 
             romsProcessed++;
             var progressPercentage = (double)romsProcessed / totalRoms * 100;
@@ -55,7 +55,7 @@ public static class CopyRoms
         }
     }
 
-    private static Task CopyRomAsync(string sourceDirectory, string destinationDirectory, string machineName)
+    private static Task CopyRomAsync(string sourceDirectory, string destinationDirectory, string? machineName)
     {
         return Task.Run(() =>
         {

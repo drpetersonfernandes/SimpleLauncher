@@ -12,9 +12,9 @@ namespace SimpleLauncher;
 public static class ParameterValidator
 {
     // Regular expression to detect potential paths in parameter strings
-    private static readonly Regex PathRegex = new(
-        @"(?:""|')([^""']+)(?:""|')|(?:(?:^|\s)(?:-\w+\s+)?(?:[A-Za-z]:)?[\\\/](?:[^""\s\\\/;]+[\\\/])+[^""\s\\\/;]*)",
-        RegexOptions.Compiled);
+    // private static readonly Regex PathRegex = new(
+    //     @"(?:""|')([^""']+)(?:""|')|(?:(?:^|\s)(?:-\w+\s+)?(?:[A-Za-z]:)?[\\\/](?:[^""\s\\\/;]+[\\\/])+[^""\s\\\/;]*)",
+    //     RegexOptions.Compiled);
 
     // Known parameter placeholders that shouldn't be validated as actual paths
     private static readonly string[] KnownPlaceholders =

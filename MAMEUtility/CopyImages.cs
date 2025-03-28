@@ -48,9 +48,9 @@ public static class CopyImages
         foreach (var machineName in machineNames)
         {
             // Here, 'machineName' is enforced to be non-null by the previous checks, so the null-forgiving operator '!' is used.
-            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName!, "png");
-            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName!, "jpg");
-            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName!, "jpeg");
+            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName, "png");
+            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName, "jpg");
+            await CopyImageFileAsync(sourceDirectory, destinationDirectory, machineName, "jpeg");
 
             imagesCopied++;
             var progressPercentage = (double)imagesCopied / totalImages * 100;
