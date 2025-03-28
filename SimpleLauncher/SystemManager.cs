@@ -83,6 +83,7 @@ public static class SystemManager
         var emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
         var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorLocation") ?? "Emulator Location";
         var emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
+        var receiveNotificationEmulatorError2 = (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ?? "Receive a Notification on Emulator Error?";
 
         // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
         foreach (var emulator in selectedConfig.Emulators)
@@ -94,6 +95,8 @@ public static class SystemManager
             emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorLocation2}: {emulator.EmulatorLocation}"));
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
             emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorParameters2}: {emulator.EmulatorParameters}"));
+            emulatorInfoTextBlock.Inlines.Add(new LineBreak());
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{receiveNotificationEmulatorError2}: {emulator.ReceiveANotificationOnEmulatorError}"));
             verticalStackPanel.Children.Add(emulatorInfoTextBlock);
         }
 

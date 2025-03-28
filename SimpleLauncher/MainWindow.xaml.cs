@@ -1489,6 +1489,42 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
+    
+    private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var batchVerifyChdFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");
+
+            if (File.Exists(batchVerifyChdFilesPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = batchVerifyChdFilesPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                // Notify developer
+                const string contextMessage = "'BatchVerifyCHDFiles.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "An error occurred while launching 'BatchVerifyCHDFiles.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
+        }
+    }
 
     private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
     {
