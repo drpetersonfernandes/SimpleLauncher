@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using Microsoft.Win32;
 
 namespace BatchConvertToCHD;
@@ -142,6 +141,9 @@ public partial class MainWindow
             _cts = new CancellationTokenSource();
         }
 
+        // Clear any previous progress display
+        ClearProgressDisplay();
+
         // Disable input controls during conversion
         SetControlsState(false);
 
@@ -191,6 +193,13 @@ public partial class MainWindow
         // Show/hide progress controls
         ProgressBar.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
         CancelButton.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
+        ProgressText.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
+    
+        // When re-enabling the controls, make sure to clear any progress display
+        if (enabled)
+        {
+            ClearProgressDisplay();
+        }
     }
 
     private static string? SelectFolder(string description)
@@ -291,32 +300,30 @@ public partial class MainWindow
         var percentage = (double)current / total * 100;
 
         // Update UI elements on the UI thread
-        Application.Current.Dispatcher.Invoke((Action)(() =>
+        Application.Current.Dispatcher.Invoke(() =>
         {
-            // Update the progress text
-            var progressText = $"Processing file {current} of {total} ({percentage:F1}%)";
-
-            // Add a TextBlock for progress text if you don't already have one
-            var existingProgressText = FindName("ProgressText") as TextBlock;
-            if (existingProgressText == null)
-            {
-                var progressTextBlock = new TextBlock
-                {
-                    Name = "ProgressText",
-                    Margin = new Thickness(10, 0, 10, 5)
-                };
-                Grid.SetRow(progressTextBlock, 5); // Adjust based on your grid layout
-                Grid.SetColumn(progressTextBlock, 0);
-                ((Grid)ProgressBar.Parent).Children.Add(progressTextBlock);
-                existingProgressText = progressTextBlock;
-            }
-
-            existingProgressText.Text = progressText;
-
             // Update progress bar
             ProgressBar.Value = current;
+            ProgressBar.Maximum = total;
             ProgressBar.Visibility = Visibility.Visible;
-        }));
+        
+            // Update the progress text
+            ProgressText.Text = $"Processing file {current} of {total}: {Path.GetFileName(currentFile)} ({percentage:F1}%)";
+            ProgressText.Visibility = Visibility.Visible;
+        });
+    }
+    
+    private void ClearProgressDisplay()
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            // Hide the progress bar
+            ProgressBar.Visibility = Visibility.Collapsed;
+        
+            // Clear and hide the progress text
+            ProgressText.Text = string.Empty;
+            ProgressText.Visibility = Visibility.Collapsed;
+        });
     }
 
     private List<string> GetReferencedFilesFromCue(string cuePath)
@@ -419,7 +426,26 @@ public partial class MainWindow
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     errorBuilder.AppendLine(args.Data);
-                    LogMessage($"[ERROR] {args.Data}");
+        
+                    // Check if this is a progress update or completion message rather than an actual error
+                    if (args.Data.Contains("Compressing") && args.Data.Contains("%") ||
+                        args.Data.Contains("Compression complete"))
+                    {
+                        // This is a progress update or completion message, not an error
+                        if (args.Data.Contains("Compression complete"))
+                        {
+                            LogMessage($"Compression completed with {args.Data.Substring(args.Data.IndexOf("ratio =", StringComparison.Ordinal) + 8)}");
+                        }
+                        else
+                        {
+                            UpdateConversionProgress(args.Data);
+                        }
+                    }
+                    else
+                    {
+                        // This is likely an actual error
+                        LogMessage($"[ERROR] {args.Data}");
+                    }
                 }
             };
 
@@ -531,60 +557,36 @@ public partial class MainWindow
         try
         {
             // Extract percentage from a line like "Compressing, 45.6% complete... (ratio=40.5%)"
-            var match = System.Text.RegularExpressions.Regex.Match(progressLine, @"(\d+\.\d+)%");
-            if (match.Success && double.TryParse(match.Groups[1].Value, out var percentage))
+            var match = System.Text.RegularExpressions.Regex.Match(progressLine, @"(\d+[\.,]\d+)%");
+            if (match.Success)
             {
-                // Get the ratio if available
-                var ratio = "unknown";
-                var ratioMatch = System.Text.RegularExpressions.Regex.Match(progressLine, @"ratio=(\d+\.\d+)%");
-                if (ratioMatch.Success)
+                // Get the percentage string, handling both decimal point and comma formats
+                string percentageStr = match.Groups[1].Value;
+            
+                // Replace comma with period to ensure proper parsing regardless of culture
+                percentageStr = percentageStr.Replace(',', '.');
+            
+                if (double.TryParse(percentageStr, System.Globalization.NumberStyles.Any, 
+                        System.Globalization.CultureInfo.InvariantCulture, out var percentage))
                 {
-                    ratio = ratioMatch.Groups[1].Value + "%";
+                    // Ensure percentage is within the expected range (0-100)
+                    // If it's consistently 10x too high, divide by 10
+                    if (percentage > 100)
+                    {
+                        percentage = percentage / 10;
+                    }
+
+                    // Get the ratio if available
+                    var ratio = "unknown";
+                    var ratioMatch = System.Text.RegularExpressions.Regex.Match(progressLine, @"ratio=(\d+[\.,]\d+)%");
+                    if (ratioMatch.Success)
+                    {
+                        ratio = ratioMatch.Groups[1].Value.Replace(',', '.') + "%";
+                    }
+
+                    // Just log the progress without adding file-specific progress bars
+                    LogMessage($"Converting: {percentage:F1}% complete (compression ratio: {ratio})");
                 }
-
-                // Update UI on the dispatcher thread
-                Application.Current.Dispatcher.Invoke((Action)(() =>
-                {
-                    // If you want a secondary progress bar for individual file progress
-                    var existingFileProgressBar = FindName("FileProgressBar") as ProgressBar;
-                    if (existingFileProgressBar == null)
-                    {
-                        var newFileProgressBar = new ProgressBar
-                        {
-                            Name = "FileProgressBar",
-                            Height = 15,
-                            Margin = new Thickness(10, 5, 10, 5)
-                        };
-                        Grid.SetRow(newFileProgressBar, 6); // Adjust based on your grid layout
-                        Grid.SetColumn(newFileProgressBar, 0);
-                        ((Grid)ProgressBar.Parent).Children.Add(newFileProgressBar);
-                        existingFileProgressBar = newFileProgressBar;
-                    }
-
-                    existingFileProgressBar.Value = percentage;
-                    existingFileProgressBar.Maximum = 100;
-                    existingFileProgressBar.Visibility = Visibility.Visible;
-
-                    // Update status text
-                    var existingFileProgressText = FindName("FileProgressText") as TextBlock;
-                    if (existingFileProgressText == null)
-                    {
-                        var newFileProgressText = new TextBlock
-                        {
-                            Name = "FileProgressText",
-                            Margin = new Thickness(10, 0, 10, 5)
-                        };
-                        Grid.SetRow(newFileProgressText, 7); // Adjust based on your grid layout
-                        Grid.SetColumn(newFileProgressText, 0);
-                        ((Grid)ProgressBar.Parent).Children.Add(newFileProgressText);
-                        existingFileProgressText = newFileProgressText;
-                    }
-
-                    existingFileProgressText.Text = $"Current file: {percentage:F1}% complete (compression ratio: {ratio})";
-                }));
-
-                // Optionally log the progress
-                LogMessage($"Converting: {percentage:F1}% complete (compression ratio: {ratio})");
             }
         }
         catch (Exception ex)
@@ -602,7 +604,7 @@ public partial class MainWindow
             var isZipFile = false;
             var tempDir = string.Empty;
 
-            // Check if file is a ZIP
+            // Check if the file is a ZIP
             if (Path.GetExtension(inputFile).ToLower() == ".zip")
             {
                 LogMessage($"Processing ZIP file: {Path.GetFileName(inputFile)}");
@@ -624,7 +626,7 @@ public partial class MainWindow
 
             try
             {
-                // Determine output file path
+                // Determine the output file path
                 var outputFile = Path.Combine(outputFolder, Path.GetFileNameWithoutExtension(fileToProcess) + ".chd");
 
                 // Perform the conversion
@@ -807,5 +809,30 @@ public partial class MainWindow
         }
 
         return referencedFiles;
+    }
+    
+    private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        // This will close the application
+        Close();
+    }
+
+    private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var aboutWindow = new AboutWindow
+            {
+                Owner = this // Set the owner to center the About window relative to MainWindow
+            };
+            aboutWindow.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            LogMessage($"Error opening About window: {ex.Message}");
+        
+            // Report the exception to our bug reporting service
+            Task.Run(async () => await ReportBugAsync("Error opening About window", ex));
+        }
     }
 }

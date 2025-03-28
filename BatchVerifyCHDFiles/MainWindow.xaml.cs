@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using Microsoft.Win32;
 
 namespace BatchVerifyCHDFiles;
@@ -189,6 +188,7 @@ public partial class MainWindow
 
         // Show/hide progress controls
         ProgressBar.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
+        BatchProgressText.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
         CancelButton.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
     }
 
@@ -293,35 +293,18 @@ public partial class MainWindow
 
     private void UpdateProgressStatus(int current, int total, string currentFile)
     {
-        // Calculate percentage
+        // Calculate percentage for the overall batch
         var percentage = (double)current / total * 100;
 
         // Update UI elements on the UI thread
         Application.Current.Dispatcher.Invoke((Action)(() =>
         {
-            // Update the progress text
-            var progressText = $"Verifying file {current} of {total} ({percentage:F1}%)";
-
-            // Add a TextBlock for progress text if you don't already have one
-            var existingProgressText = FindName("ProgressText") as TextBlock;
-            if (existingProgressText == null)
-            {
-                var progressTextBlock = new TextBlock
-                {
-                    Name = "ProgressText",
-                    Margin = new Thickness(10, 0, 10, 5)
-                };
-                Grid.SetRow(progressTextBlock, 5); // Adjust based on your grid layout
-                Grid.SetColumn(progressTextBlock, 0);
-                ((Grid)ProgressBar.Parent).Children.Add(progressTextBlock);
-                existingProgressText = progressTextBlock;
-            }
-
-            existingProgressText.Text = progressText;
-
-            // Update progress bar
+            // Update progress bar values
             ProgressBar.Value = current;
-            ProgressBar.Visibility = Visibility.Visible;
+            ProgressBar.Maximum = total;
+        
+            // Update batch progress text
+            BatchProgressText.Text = $"Overall Progress: {current} of {total} files ({percentage:F1}%)";
         }));
     }
 
@@ -359,8 +342,19 @@ public partial class MainWindow
             {
                 if (!string.IsNullOrEmpty(args.Data))
                 {
-                    errorBuilder.AppendLine(args.Data);
-                    LogMessage($"[ERROR] {args.Data}");
+                    // Check if this is a progress update rather than an actual error
+                    if (args.Data.Contains("Verifying,") && args.Data.Contains("% complete"))
+                    {
+                        // This is a progress update, not an error
+                        // Log it with a better prefix
+                        LogMessage($"{args.Data}");
+                    }
+                    else
+                    {
+                        // This is an actual error
+                        errorBuilder.AppendLine(args.Data);
+                        LogMessage($"[ERROR] {args.Data}");
+                    }
                 }
             };
 
