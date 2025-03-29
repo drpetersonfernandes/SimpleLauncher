@@ -33,7 +33,7 @@ public partial class SupportWindow
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
             ApiKey = config[nameof(ApiKey)]?.ToString();
-            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "http://localhost:5116"; // Default if not specified
+            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "https://www.purelogiccode.com/customeremailservice"; // Default if not specified
         }
         else
         {
@@ -79,7 +79,7 @@ public partial class SupportWindow
             var fullMessage = $"\n\n{applicationVersion}\n" +
                               $"Name: {nameText}\n" +
                               $"Email: {emailText}\n" +
-                              $"Bug Report:\n\n{supportRequestText}";
+                              $"Support Request:\n\n{supportRequestText}";
             await SendSupportRequestToApiAsync(fullMessage);
         }
         catch (Exception ex)
